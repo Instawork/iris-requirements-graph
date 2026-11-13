@@ -37,13 +37,12 @@ requirement_rules:
   - D-86
 - rule_id: R4
   rule_statement: >-
-    Each row is checked and saved by the rules of REQ-ORG-0002, so a ZIP code in no Market or a name
-    another Unit already has is a row problem.
+    Each row is checked and saved by the rules of REQ-ORG-0002, so a ZIP code in no Market is a row
+    problem.
   rule_sources:
   - PRD §6 Uploads
   rule_decisions:
   - D-21
-  - D-54
 - rule_id: R5
   rule_statement: >-
     A row that repeats an earlier row's Unit and Department is reported as a duplicate, and rows for one
@@ -59,6 +58,24 @@ requirement_rules:
   rule_sources:
   - SESSIONS Shift Creation
   rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    The rows of one file that name the same Unit share one group_key and are saved in one call, as that
+    Unit and one Department for each row that names one.
+  rule_sources:
+  - SESSIONS Shift Creation
+  - SHEET PLT-2
+  rule_decisions:
+  - D-153
+- rule_id: R8
+  rule_statement: >-
+    A row whose unit is already a Unit in Iris is a row problem whose fix drops the row, because a UNITS
+    file adds Units and never changes one.
+  rule_sources:
+  - PRD §6 Uploads
+  rule_decisions:
+  - D-54
+  - D-153
 requirement_sources:
 - SESSIONS Shift Creation
 - SHEET PLT-2
@@ -67,6 +84,7 @@ requirement_decisions:
 - D-53
 - D-54
 - D-86
+- D-153
 requirement_features:
 - PLT-2
 edges:

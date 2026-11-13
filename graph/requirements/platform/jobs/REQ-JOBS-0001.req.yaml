@@ -11,20 +11,22 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    A requirement registers a job with a name and either a five-minute interval or a daily local time and
-    the timezone the caller supplies.
+    A requirement registers a job with a name and either a five-minute interval, or a daily local time
+    with one timezone or with a step that lists the timezones to run in.
   rule_sources:
   - GRAPH seven MVP requirements act when a time passes, and none provides the clock
   rule_decisions:
   - D-68
+  - D-157
 - rule_id: R2
   rule_statement: >-
-    An interval job runs every five minutes, and a daily job runs at its local time each day, including on
-    days a daylight-saving change skips or repeats that time.
+    An interval job runs every five minutes, and a daily job runs once for each of its timezones and
+    local dates, at the first run at or after its local time on that date.
   rule_sources:
   - GRAPH the factory needs one precision for timed work
   rule_decisions:
   - D-68
+  - D-157
 - rule_id: R3
   rule_statement: >-
     A timed rule takes effect at the first run at or after its time, so it is at most five minutes late;
@@ -40,7 +42,7 @@ requirement_rules:
   rule_sources:
   - GRAPH the factory needs one precision for timed work
   rule_decisions:
-  - D-68
+  - D-157
 - rule_id: R5
   rule_statement: >-
     A rule that refuses an action once a time has passed checks the clock when the action is made; a job
@@ -57,18 +59,45 @@ requirement_rules:
   - GRAPH Credentials and Rate Reviews belong to no Unit
   rule_decisions:
   - D-68
+- rule_id: R7
+  rule_statement: >-
+    On a day the clocks skip a daily job's local time the job runs at the first run after the skip, and
+    on a day they repeat it, at the first occurrence only.
+  rule_sources:
+  - GRAPH a local time can be missing or occur twice on a day the clocks change
+  rule_decisions:
+  - D-157
+- rule_id: R8
+  rule_statement: >-
+    Each daily run saves a JobRun for its job, timezone, and local date together with the run's changes,
+    and a run whose JobRun already exists is not made.
+  rule_sources:
+  - GRAPH a restart must not repeat or lose the day's run
+  rule_decisions:
+  - D-157
+- rule_id: R9
+  rule_statement: >-
+    A job's timezone step is called at every run, so a timezone that Units newly have is covered from
+    then on without registering the job again.
+  rule_sources:
+  - GRAPH platform reads no product records, so the caller supplies them
+  rule_decisions:
+  - D-107
+  - D-157
 requirement_sources:
 - GRAPH seven MVP requirements act when a time passes, and none provides the clock
-requirement_decisions: [D-68]
+requirement_decisions: [D-68, D-107, D-157]
 requirement_features: []
 edges: []
 data_model:
-  status: not_applicable
-  reads: []
-  writes: []
+  status: covered
+  reads:
+  - JobRun.*
+  writes:
+  - JobRun.*
   detail: >-
-    Keeps no records of its own. Each job's requirement reads and writes its own records, and the job
-    registry is code.
+    The job registry is code, and JobRun is the only record kept here. Each job's requirement reads and
+    writes its own records, and is passed the timezone and local date of a daily run.
 requirement_starting_flow: true
 requirement_review: {status: draft, by: null, at: null, notes: null}
 requirement_delivery: {status: not_started, pull_requests: []}

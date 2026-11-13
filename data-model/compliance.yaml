@@ -63,12 +63,13 @@ entities:
   - {name: status_reason, type: text, nullable: true}
   - {name: verification_reference, type: text, nullable: true, note: From the issuer or registry}
   - {name: checked_at, type: timestamp, nullable: true}
+  - {name: check_attempts, type: int, note: 'Runs in which the document model returned a failure; 0 on a new Credential'}
   - {name: reviewed_by, type: ref:User, nullable: true}
   - {name: reviewed_at, type: timestamp, nullable: true}
   - {name: review_note, type: text, nullable: true}
   - {name: uploaded_by, type: ref:User}
   - {name: replaces_id, type: ref:Credential, nullable: true, note: The credential this renewal replaces}
-  - {name: expiry_warned_at, type: timestamp, nullable: true, note: When CREDENTIAL_EXPIRING was sent for it; empty until then (D-87)}
+  - {name: expiry_warned_at, type: timestamp, nullable: true, note: When CREDENTIAL_EXPIRING was sent for it; empty until then (D-156)}
 - entity: Attestation
   phase: MVP
   description: An Agency's statement that a Worker meets a Credential Type. Append-only; the latest wins.

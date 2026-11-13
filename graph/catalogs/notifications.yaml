@@ -74,7 +74,7 @@ notifications:
   channels: [EMAIL, IN_APP]
   owner: REQ-COMPLIANCE-0002
   sources: [SHEET WA-14]
-  decisions: [D-16, D-87]
+  decisions: [D-16, D-156]
 - type: CREDENTIAL_DECIDED
   trigger: A credential is verified or rejected.
   recipients: The User who uploaded it.

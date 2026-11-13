@@ -29,7 +29,7 @@ inputs:
 - input_id: I-6
   origin: graph
   ask: Which providers Compass relies on for background checks and certificates.
-  sources: [DEMO run-of-show]
+  sources: [SESSIONS Worker Assignment & Compliance]
 - input_id: I-7
   origin: graph
   ask: >-

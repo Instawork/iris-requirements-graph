@@ -4,16 +4,17 @@ requirement_target_module: AGENCIES
 requirement_phase: MVP
 requirement_title: Add an Agency
 requirement_statement: >-
-  A Program User adds each Agency that staffs Compass Shifts, by form or in bulk from an AGENCIES file.
-  Adding an Agency also invites its first Agency User.
+  A Program User adds each Agency that staffs Compass Shifts. Adding an Agency also invites its first
+  Agency User.
 requirement_actors:
 - PROGRAM_USER
 requirement_rules:
 - rule_id: R1
-  rule_statement: Only a Program User adds an Agency, by form or from an AGENCIES file.
+  rule_statement: Only a Program User adds an Agency.
   rule_sources:
   - FEEDBACK Creating an agency in bulk
-  rule_decisions: []
+  rule_decisions:
+  - D-53
 - rule_id: R2
   rule_statement: >-
     An Agency needs a name that no other Agency has, and a duplicate name is refused.
@@ -29,29 +30,12 @@ requirement_rules:
   - D-25
 - rule_id: R4
   rule_statement: >-
-    The contact is invited through REQ-IDENTITY-0002 and granted AGENCY_USER for the new Agency through
-    REQ-ORG-0005.
+    Adding an Agency invites its contact once through REQ-IDENTITY-0002 and then grants that User AGENCY_USER
+    for the new Agency through REQ-ORG-0005.
   rule_sources:
   - SHEET PLT-4
   rule_decisions:
   - D-25
-- rule_id: R5
-  rule_statement: >-
-    An AGENCIES file has one row per Agency: agency, contact_first_name, contact_last_name, and contact_email
-    are required, and contact_phone and approved_for are optional.
-  rule_sources:
-  - FEEDBACK Creating an agency in bulk
-  - DEMO lib/types.ts
-  rule_decisions: []
-- rule_id: R6
-  rule_statement: >-
-    File rows pass the same checks as the form, so a row naming an existing Agency is a row problem; each
-    row is one Proposal item whose Agency, invite, and grant save together.
-  rule_sources:
-  - PRD §6 Uploads
-  - FEEDBACK Creating an agency in bulk
-  rule_decisions:
-  - D-54
 - rule_id: R7
   rule_statement: >-
     A Program User renames, deactivates, or reactivates an Agency; an inactive Agency keeps its records and receives
@@ -61,7 +45,6 @@ requirement_rules:
   - D-53
 requirement_sources:
 - FEEDBACK Creating an agency in bulk
-- PRD §6 Uploads
 requirement_decisions:
 - D-25
 - D-53
@@ -74,10 +57,6 @@ edges:
   requirement_id: REQ-ORG-0005
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0009
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-INTAKE-0002
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-AGENT-0002
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AUDIT-0001
 data_model:

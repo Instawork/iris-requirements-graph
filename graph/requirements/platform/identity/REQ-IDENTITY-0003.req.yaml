@@ -41,7 +41,7 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-4
   rule_decisions:
-  - D-39
+  - D-155
 - rule_id: R5
   rule_statement: >-
     Each change is recorded in the Audit Trail as an UPDATE made by that User.
@@ -53,7 +53,7 @@ requirement_sources:
 requirement_decisions:
 - D-34
 - D-37
-- D-39
+- D-155
 requirement_features:
 - PLT-4
 edges:
@@ -72,7 +72,7 @@ data_model:
   - User.first_name
   - User.last_name
   - User.phone
-  detail: Split from REQ-IDENTITY-0001, where it was R9.
+  detail: null
 requirement_starting_flow: false
 requirement_review:
   status: draft

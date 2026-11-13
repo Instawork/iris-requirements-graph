@@ -34,7 +34,7 @@ requirement_rules:
     +1 or 1 are removed; any other value is refused.
   rule_sources: []
   rule_decisions:
-  - D-39
+  - D-155
 - rule_id: R4
   rule_statement: A password has at least 12 characters, and only its hash is stored.
   rule_sources:
@@ -75,8 +75,8 @@ requirement_rules:
   - D-99
 - rule_id: R10
   rule_statement: >-
-    At each start, when no User exists, Iris creates the first Instawork Admin as an active User from the
-    deployment configuration's email, first name, last name, and password, with no inviter.
+    At each start, when no User holds the deployment configuration's email, Iris creates the first Instawork
+    Admin as an active User from the configured email, first name, last name, and password, with no inviter.
   rule_sources:
   - GRAPH the first User has nobody to invite them
   rule_decisions:
@@ -100,13 +100,19 @@ requirement_rules:
   - D-99
 - rule_id: R13
   rule_statement: >-
-    REQ-ORG-0005 grants the seeded User INSTAWORK_ADMIN in the same step, a later start changes nothing,
-    and every other User is created by an invite through REQ-IDENTITY-0002.
+    A start never changes or reactivates a User who already holds the configured email, and REQ-ORG-0005
+    adds that User's INSTAWORK_ADMIN grant when it holds none.
   rule_sources:
   - GRAPH the first User has nobody to invite them
   rule_decisions:
   - D-26
   - D-98
+- rule_id: R14
+  rule_statement: Every other User is created by an invite through REQ-IDENTITY-0002.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-26
 requirement_sources:
 - SHEET PLT-4
 - SHEET PLT-1
@@ -114,9 +120,9 @@ requirement_decisions:
 - D-26
 - D-34
 - D-37
-- D-39
 - D-98
 - D-99
+- D-155
 requirement_features:
 - PLT-4
 edges:
@@ -135,9 +141,7 @@ data_model:
   - User.last_signed_in_at
   - User.active
   - Session.*
-  detail: >-
-    R9 moved to REQ-IDENTITY-0003 (a User's own profile), and deactivating a User moved from R8 to REQ-IDENTITY-0004.
-    The session token reaches the browser in whatever way Instawork engineering chooses.
+  detail: The session token reaches the browser in whatever way Instawork engineering chooses.
 requirement_starting_flow: true
 requirement_review:
   status: draft

@@ -29,6 +29,7 @@ entities:
   - {name: subject_id, type: uuid}
   - {name: title, type: text, note: 'The email''s subject line and the inbox heading; not sent in a text'}
   - {name: body, type: text, note: Never holds an invite or reset link}
+  - {name: provider_message_id, type: text, nullable: true, note: 'The id the email provider gave a sent email, so a reply can be matched to it; empty otherwise'}
   - {name: secret, type: text, nullable: true, note: 'A link the message needs, held only while QUEUED and erased when SENT or FAILED; never shown in the app'}
   - {name: status, type: enum:NotificationStatus}
   - {name: attempts, type: int, note: How many times an EMAIL or SMS was tried; 0 for IN_APP}
@@ -44,8 +45,9 @@ entities:
   - {name: channel, type: enum:Channel, note: 'EMAIL, SMS, or PHONE'}
   - {name: sender, type: text, note: 'The email address or phone number it came from, in the stored form when it has one'}
   - {name: user_id, type: ref:User, nullable: true, note: The User the sender matched}
+  - {name: provider_message_id, type: text, nullable: true, note: 'The id the email provider gave a received email; empty for a text or a call'}
   - {name: thread_key, type: text, note: The same for every message of one conversation}
-  - {name: body, type: text, note: The transcript for a call}
+  - {name: body, type: text, note: 'For a call, empty until it ends and then the transcript of both sides'}
   - {name: attachment_upload_ids, type: 'list:ref:Upload', nullable: true}
   - {name: received_at, type: timestamp, note: 'For a call, the time it began'}
   - {name: proposal_id, type: ref:Proposal, nullable: true, note: 'The Proposal made from the message''s words; the Proposal of an attached file is on its Upload'}

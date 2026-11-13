@@ -1,0 +1,12 @@
+module: JOBS
+entities:
+- entity: JobRun
+  phase: MVP
+  description: One daily run of one job in one timezone, kept so that the run is made once.
+  fields:
+  - {name: job_name, type: text}
+  - {name: timezone, type: text, note: An IANA zone}
+  - {name: local_date, type: date, note: The day of the run in that timezone}
+  - {name: ran_at, type: timestamp}
+  unique:
+  - [job_name, timezone, local_date]
