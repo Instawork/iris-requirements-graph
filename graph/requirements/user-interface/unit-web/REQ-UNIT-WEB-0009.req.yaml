@@ -36,8 +36,8 @@ requirement_rules:
   - D-17
 - rule_id: R4
   rule_statement: >-
-    The User may type another regular Bill Rate, and must type one when there is no contracted rate; either
-    way the step requires a reason.
+    The User may type another regular Bill Rate, and must type one when there is no contracted rate;
+    either way the step requires a reason, saved as bill_rate_reason.
   rule_sources:
   - SHEET SC-1
   - SHEET RC-11
@@ -86,8 +86,8 @@ requirement_rules:
   - D-17
 - rule_id: R10
   rule_statement: >-
-    For a series or a block, one step sends every chosen Shift of the Request to the Agency and then lists
-    any Shift whose send was refused.
+    For a series, one step sends every chosen Shift of the Request to the Agency and then lists any Shift
+    whose send was refused.
   rule_sources:
   - SHEET SC-4
   rule_decisions:
@@ -100,6 +100,14 @@ requirement_rules:
   rule_decisions:
   - D-17
   - D-18
+- rule_id: R12
+  rule_statement: >-
+    When the picked Agency is non-contracted and REQ-RATES-0007 answers SOFT, the step takes a second
+    reason, saved as non_contracted_reason under REQ-DISPATCH-0001.R9.
+  rule_sources:
+  - SHEET RC-11
+  rule_decisions:
+  - D-9
 requirement_sources:
 - SHEET SC-1
 - SHEET SC-7

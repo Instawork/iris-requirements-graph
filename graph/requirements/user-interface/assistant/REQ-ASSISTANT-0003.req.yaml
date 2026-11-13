@@ -36,13 +36,15 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R4
   rule_statement: >-
-    A Unit User's request to enter a Tip Pool goes to REQ-TIPS-0001, and an Agency User's request to add
-    Expenses goes to REQ-TIPS-0002.
+    A Unit User's request to enter a Tip Pool, or an Agency User's to enter a Worker's tip, goes to
+    REQ-TIPS-0001, and an Agency User's request to add Expenses goes to REQ-TIPS-0002.
   rule_sources:
   - SHEET TS-11
   - SHEET TS-12
   - SESSIONS Timesheets, Tips & Expenses
-  rule_decisions: []
+  - PRD §7 Opening screen
+  rule_decisions:
+  - D-28
 - rule_id: R5
   rule_statement: >-
     An Agency User's request that names Workers for a Shift goes to REQ-WORKFORCE-0003, which proposes
@@ -111,6 +113,7 @@ requirement_sources:
 requirement_decisions:
 - D-45
 - D-64
+- D-28
 requirement_features:
 - SC-9
 - TS-6

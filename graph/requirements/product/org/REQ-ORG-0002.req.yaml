@@ -111,6 +111,13 @@ requirement_rules:
   - PRD §3 Supplier Rates
   rule_decisions:
   - D-88
+- rule_id: R13
+  rule_statement: >-
+    Changing a Unit's time zone moves no stored instant, so the local times and work dates of that Unit's
+    Shifts and Timesheets are read in the new zone from then on.
+  rule_sources: []
+  rule_decisions:
+  - D-88
 requirement_sources:
 - SESSIONS Shift Creation
 - SHEET PLT-2

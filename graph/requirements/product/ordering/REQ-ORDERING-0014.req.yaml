@@ -21,14 +21,14 @@ requirement_rules:
 - rule_id: R2
   rule_statement: >-
     A Unit User's row with no shift_id creates a Shift at a Unit in their scope through REQ-ORDERING-0001,
-    with created_via FILE_UPLOAD.
+    with created_via set to the Proposal's channel.
   rule_sources:
   - PRD §6 Templates
   - SHEET SC-2
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    The rows of one file that create Shifts at the same Unit form one Request.
+    The rows of one file that create Shifts at the same Unit share one group_key and form one Request.
   rule_sources:
   - SHEET SC-2
   rule_decisions:

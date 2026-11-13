@@ -20,28 +20,30 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    While the Timesheet is DRAFT or REJECTED, the Agency User can change clock_in, clock_out, break_minutes,
-    and regular_bill_rate through REQ-TIME-0001; in any other status every field is read-only.
+    While the Timesheet is DRAFT or REJECTED and no_show is false, the Agency User can change clock_in,
+    clock_out, and break_minutes through REQ-TIME-0001; otherwise those fields are read-only.
   rule_sources:
   - PRD §2 Shifts
   rule_decisions:
   - D-33
+  - D-70
 - rule_id: R3
   rule_statement: >-
-    When regular_bill_rate differs from the Release's rate, the page shows both and says the Unit will
-    see a rate variance.
+    The three Bill Rates are read-only in every status, as REQ-TIME-0001.R10 requires.
   rule_sources:
-  - SHEET RC-10
+  - PRD §7 What the agent accepts
+  - SESSIONS Timesheets, Tips & Expenses
   rule_decisions:
-  - D-22
+  - D-69
 - rule_id: R4
   rule_statement: >-
-    Mark no-show calls REQ-TIME-0009 and clears the hours, and Clear no-show undoes it, both only while
-    the Timesheet is DRAFT or REJECTED.
+    While the Timesheet is DRAFT or REJECTED, Mark no-show calls REQ-TIME-0009; Clear no-show is offered
+    only on a mark an Agency User set, and a mark a Unit User set says so.
   rule_sources:
   - PRD §2 Shifts
   rule_decisions:
   - D-33
+  - D-70
 - rule_id: R5
   rule_statement: >-
     Split by role asks for a switch time and a new Position, a new Department of the Unit, or both, calls
@@ -119,12 +121,13 @@ requirement_sources:
 - SESSIONS Timesheets, Tips & Expenses
 requirement_decisions:
 - D-18
-- D-22
 - D-28
 - D-33
 - D-59
 - D-60
 - D-110
+- D-70
+- D-69
 requirement_features:
 - TS-10
 - TS-11
@@ -171,7 +174,6 @@ data_model:
   - Worker.first_name
   - Worker.last_name
   - Release.shift_id
-  - Release.regular_bill_rate
   - Shift.request_id
   - Shift.position_id
   - Shift.starts_at

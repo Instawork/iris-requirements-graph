@@ -14,13 +14,14 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    A User acts in one context at a time: UNIT_USER across all their UNIT_USER grants, AGENCY_USER for
-    one Agency, PROGRAM_USER, or INSTAWORK_ADMIN.
+    A User acts in one context at a time, as REQ-ORG-0009.R9 defines it, so all their UNIT_USER grants
+    make one context and each Agency makes its own.
   rule_sources:
   - SHEET PLT-1
   rule_decisions:
   - D-25
   - D-61
+  - D-84
 - rule_id: R2
   rule_statement: >-
     Only unrevoked Role Grants give a context, and a User with none sees a page that says they have no
@@ -70,6 +71,7 @@ requirement_sources:
 requirement_decisions:
 - D-25
 - D-61
+- D-84
 requirement_features:
 - PLT-1
 edges:
@@ -92,6 +94,7 @@ data_model:
   - OrgNode.name
   - OrgNode.level
   - Agency.name
+  - Session.context
   writes: []
   detail: null
 requirement_starting_flow: true

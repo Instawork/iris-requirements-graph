@@ -19,8 +19,8 @@ requirement_rules:
   - D-63
 - rule_id: R2
   rule_statement: >-
-    Actual cost shows its APPROVED_SPEND and PENDING_SPEND parts, so a cost shows as soon as the Event's
-    Shifts end.
+    Actual cost shows its APPROVED_SPEND and PENDING_SPEND parts, with the estimated part of PENDING_SPEND
+    apart and labelled as an estimate, as REQ-REPORTING-0004.R4 requires.
   rule_sources:
   - SHEET REP-2
   rule_decisions:

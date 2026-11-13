@@ -122,6 +122,7 @@ requirement_rules:
   - SHEET SC-10
   rule_decisions:
   - D-108
+  - D-96
 - rule_id: R14
   rule_statement: >-
     A Proposal still OPEN when a call ends or a thread goes quiet stays OPEN, and its User decides it in
@@ -152,6 +153,7 @@ requirement_decisions:
 - D-39
 - D-108
 - D-109
+- D-96
 requirement_features:
 - SC-10
 edges:

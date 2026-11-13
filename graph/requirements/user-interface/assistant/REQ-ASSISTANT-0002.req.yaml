@@ -20,11 +20,12 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    Each item that needs review shows its row number when it came from a file, the field, the problem,
-    and the suggested fix when there is one.
+    Each item that needs review shows its row number when it came from a file and, for each problem, the
+    field, the message, and the fix or the candidates to pick from.
   rule_sources:
   - PRD §6 Uploads
-  rule_decisions: []
+  rule_decisions:
+  - D-105
 - rule_id: R3
   rule_statement: >-
     On each such item the User accepts the fix, edits the values, or rejects the item, and one action
@@ -87,17 +88,19 @@ requirement_rules:
   - D-36
 - rule_id: R11
   rule_statement: >-
-    Where the owner offers several possible matches, such as Workers with the same name, the item lists
-    them and the User picks one or none.
+    Where a problem carries candidates, such as Workers with the same name, the item lists them and the
+    User picks at most one, as REQ-AGENT-0002.R20 provides.
   rule_sources:
   - PRD §4 How the system matches a professional
-  rule_decisions: []
+  rule_decisions:
+  - D-105
 requirement_sources:
 - PRD §7 Agent Chat
 - PRD §6 Uploads
 requirement_decisions:
 - D-36
 - D-110
+- D-105
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON
@@ -120,11 +123,10 @@ data_model:
   - ProposalItem.record_type
   - ProposalItem.record_id
   - ProposalItem.values
-  - ProposalItem.problem
-  - ProposalItem.suggested_fix
   - ProposalItem.decision
   - ProposalItem.result
   - ProposalItem.result_message
+  - ProposalItem.problems
   writes: []
   detail: null
 requirement_starting_flow: true

@@ -36,10 +36,12 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R5
   rule_statement: >-
-    When several Workers share that name, the person approving picks one of them or none.
+    The candidates offered are each Worker of the Agency with that name and, where the caller may create
+    one, a new Worker; the person approving picks one under REQ-AGENT-0002.R20.
   rule_sources:
   - PRD §4 How the system matches a professional
-  rule_decisions: []
+  rule_decisions:
+  - D-105
 - rule_id: R6
   rule_statement: >-
     With no match, the caller proposes a new Worker from the named person's details, and none is created
@@ -49,7 +51,8 @@ requirement_rules:
   rule_decisions: []
 requirement_sources:
 - PRD §4 How the system matches a professional
-requirement_decisions: []
+requirement_decisions:
+- D-105
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

@@ -36,12 +36,13 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R4
   rule_statement: >-
-    Each exception reason is shown in words with what caused it, such as the minutes outside tolerance
-    or the Release's rate beside the billed rate.
+    Each exception reason, including SHORT_BREAK, LATE_SUBMISSION, and ADDED_AFTER_SHIFT, is shown in
+    words with what caused it, such as the minutes outside tolerance or the planned break beside the
+    billed one.
   rule_sources:
   - SHEET TS-7
-  - SHEET RC-10
-  rule_decisions: []
+  rule_decisions:
+  - D-22
 - rule_id: R5
   rule_statement: >-
     A Timesheet whose Bill Rates differ from the contracted Rate Line shows the flag of REQ-RATES-0006

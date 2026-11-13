@@ -75,10 +75,11 @@ requirement_rules:
 - rule_id: R9
   rule_statement: >-
     An Instawork Admin sees only the invite form with the role fixed to PROGRAM_USER, and REQ-ORG-0005
-    refuses it once an unrevoked PROGRAM_USER grant exists.
+    refuses it once an active User holds an unrevoked PROGRAM_USER grant.
   rule_sources: []
   rule_decisions:
   - D-26
+  - D-85
 requirement_sources:
 - SHEET PLT-1
 - SHEET PLT-4
@@ -87,6 +88,7 @@ requirement_decisions:
 - D-26
 - D-34
 - D-63
+- D-85
 requirement_features:
 - PLT-1
 - PLT-4

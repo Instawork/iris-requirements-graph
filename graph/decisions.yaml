@@ -128,7 +128,7 @@ decisions:
   answer: null
   sources:
   - SESSIONS Rate Cards & Supplier Sourcing
-  - FEEDBACK
+  - FEEDBACK Just do % only
 - decision_id: D-12
   origin: graph
   question: Is the Peer Rate a simple average, or weighted by volume or rating?
@@ -333,7 +333,7 @@ decisions:
   sources:
   - SHEET PLT-1
   - SHEET PLT-4
-  - FAQ
+  - FAQ Who uses Iris day to day?
 - decision_id: D-26
   origin: graph
   question: >-
@@ -728,7 +728,7 @@ decisions:
   - SHEET PLT-1
   - SHEET PLT-2
   - SESSIONS Shift Creation
-  - FEEDBACK
+  - FEEDBACK Creating an agency in bulk
 - decision_id: D-54
   origin: graph
   question: Which names identify a record when a file or a form refers to it?
@@ -880,11 +880,10 @@ decisions:
     the smallest phone width, what a refused sign-in says, and what the inbox shows?
   status: open
   assumption: >-
-    A User acts in one context at a time: Unit User across all their Unit User grants, Agency User for one
-    Agency, Program User, or Instawork Admin. A User with several contexts chooses one at each sign-in and
-    can switch without signing out; the choice is kept on the session, so every request carries it, and
-    switching changes the menu and no record. A User with no unrevoked
-    grant can only sign out. Every page works at a width of 360 px. A refused sign-in does not say which
+    A User acts in one acting context at a time, as D-84 defines it. A User with several contexts chooses
+    one at each sign-in and can switch without signing out; the choice is kept on the session, so every
+    request carries it, and switching changes the menu and no record. A User with no unrevoked grant can
+    only sign out. Every page works at a width of 360 px. A refused sign-in does not say which
     part was wrong. The inbox shows an unread count, holds the notifications of every context, and opening
     one opens its record. A refused action shows its reason and keeps what was typed, Shift times show in
     the Unit's timezone, and to-dos are computed, never stored.
@@ -1278,6 +1277,8 @@ decisions:
     User, one Agency. A Unit User context covers all the User's Unit User grants. Iris allows an action
     only when the acting role may take it and the User still holds an unrevoked grant for that role and
     Agency; their other grants count for nothing until they switch. The context is kept on the session.
+    An email, text, or call has no session, so its sender acts as a Unit User across their Unit User
+    grants (D-108).
   blocking: false
   answer: null
   sources:
@@ -1330,13 +1331,16 @@ decisions:
 - decision_id: D-88
   origin: graph
   question: >-
-    Where does a Unit's time zone come from, and does a Unit's Market follow later changes to a Market's
-    ZIP codes?
+    Where does a Unit's time zone come from, what does changing it do, and does a Unit's Market follow
+    later changes to a Market's ZIP codes?
   status: open
   assumption: >-
     A Program User may enter the time zone. When it is left empty, Iris fills it from the Unit's ZIP code
     using a ZIP code table shipped with the build, and refuses the Unit when the table lacks that ZIP
-    code. A Unit's Market is set from its ZIP code when the Unit is saved. When a ZIP code is later added
+    code. Changing a Unit's time zone moves no stored instant: the local times and work dates of the
+    Unit's Shifts and Timesheets, past and future, are read in the new zone from then on, so the change
+    is for correcting a wrong zone. A Unit's Market is set from its ZIP code when the Unit is saved. When
+    a ZIP code is later added
     to a Market, the Units with that ZIP code move to that Market; removing a ZIP code from a Market
     changes no Unit.
   blocking: false
@@ -1639,19 +1643,3 @@ decisions:
   sources:
   - GRAPH the starting flow must be usable before every screen is built
   - PRD Pages
-- decision_id: D-111
-  origin: graph
-  question: >-
-    May an Agency User enter tips by chat or by file? The PRD gives Agencies a "Submit hours and tips"
-    starter in the assistant, and the sheet keeps tips as their own upload (C-17).
-  status: open
-  assumption: >-
-    No. In MVP an Agency User enters a Worker's own tip only on that Worker's Timesheet page (D-28).
-    Tips by file and by chat are a Unit User's Tip Pools and cashier PIN tips. So the Agency starter in
-    the assistant reads "submit hours", and it submits Timesheets.
-  blocking: false
-  answer: null
-  sources:
-  - PRD §7 Opening screen
-  - SHEET TS-11
-  - PRD §2 Shifts

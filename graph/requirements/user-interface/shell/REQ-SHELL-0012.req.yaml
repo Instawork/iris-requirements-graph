@@ -28,12 +28,13 @@ requirement_rules:
   - D-45
 - rule_id: R3
   rule_statement: >-
-    A report with a relative period shows the dates it covers today, and one with fixed dates shows those
-    dates.
+    A report with a relative period, one of the RelativePeriod values, shows that period in words and the
+    dates it covers today, and one with fixed dates shows those dates.
   rule_sources:
-  - 'GRAPH data model: SavedReport holds fixed dates or a relative period'
+  - SHEET REP-1
   rule_decisions:
   - D-14
+  - D-75
 - rule_id: R4
   rule_statement: >-
     The list is embedded in the Reports screens of REQ-UNIT-WEB-0006 and REQ-PROGRAM-WEB-0005, and a User
@@ -56,6 +57,7 @@ requirement_decisions:
 - D-45
 - D-61
 - D-63
+- D-75
 requirement_features:
 - REP-1
 edges:

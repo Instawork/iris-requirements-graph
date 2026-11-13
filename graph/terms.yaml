@@ -40,7 +40,7 @@ terms:
 - term: Department
   definition: Part of a Unit charged to its own Cost Center, such as suites or concessions.
   avoid: []
-  sources: [FEEDBACK, SHEET PLT-2]
+  sources: [FEEDBACK Departments within venues, SHEET PLT-2]
 - term: Cost Center
   definition: The accounting code a Unit or Department charges spend to.
   avoid: []
@@ -94,7 +94,7 @@ terms:
 - term: Markup
   definition: The Bill Rate minus the Pay Rate, as a percentage of the Pay Rate.
   avoid: []
-  sources: [FEEDBACK, PRD Key Terms]
+  sources: [FEEDBACK Just do % only, PRD Key Terms]
 - term: Contracted rate
   definition: The Bill Rate on the approved Rate Line in effect for the Agency, Position, Unit, and work date.
   avoid: []

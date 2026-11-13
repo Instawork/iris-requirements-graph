@@ -35,14 +35,6 @@ requirement_rules:
   rule_sources:
   - SHEET RC-11
   rule_decisions: []
-- rule_id: R5
-  rule_statement: >-
-    For a Timesheet, the caller also passes the Bill Rates its Shift was sent at, and a billed rate that
-    differs from those is reported as a variance from the Release.
-  rule_sources:
-  - SHEET RC-10
-  rule_decisions:
-  - D-22
 - rule_id: R6
   rule_statement: >-
     The check uses the work date both when a Shift is sent and on its Timesheets, and a variance stays
@@ -67,7 +59,8 @@ requirement_rules:
   - D-2
 requirement_sources:
 - SHEET RC-10
-requirement_decisions: [D-2, D-22]
+requirement_decisions:
+- D-2
 requirement_features:
 - RC-10
 edges:
@@ -82,7 +75,8 @@ data_model:
   writes: []
   detail: >-
     Reads only and returns its result to the caller. The rates and reasons it compares are passed in by
-    the caller and kept on Release and Timesheet by the requirements that own them.
+    the caller and kept on Release and Timesheet by the requirements that own them. R5 is gone and its id
+    is not reused: a Timesheet never bills a rate other than its Release's (D-69).
 requirement_starting_flow: true
 requirement_review:
   status: draft

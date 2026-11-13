@@ -1,5 +1,6 @@
 # Every upload type Iris accepts, who may send it, the requirement that saves its rows, and its template columns.
-# CSV or Excel for every type; TIMESHEETS, TIPS, EXPENSES, and CREDENTIALS also accept PDF and image files.
+# CSV or Excel for every type except CREDENTIALS; TIMESHEETS, TIPS, and EXPENSES also accept PDF and image
+# files, and CREDENTIALS accepts only those (REQ-INTAKE-0001.R3).
 # Dates are YYYY-MM-DD, times like 4:00 PM, money without a dollar sign (PRD §6).
 # maps_to: the field a column fills. lookup: how a name in the file is resolved to a record.
 # required: yes | no | a condition, written as a short phrase.

@@ -47,12 +47,13 @@ requirement_rules:
   - D-33
 - rule_id: R5
   rule_statement: >-
-    No-show sets or clears the mark on a SUBMITTED or APPROVED Timesheet that is not locked, with a reason,
-    through REQ-TIME-0009.
+    No-show sets or clears the mark on any Timesheet that is not locked, including a DRAFT or REJECTED
+    one, with a reason, through REQ-TIME-0009.
   rule_sources:
   - PRD §2 Shifts
   rule_decisions:
   - D-33
+  - D-70
 - rule_id: R6
   rule_statement: >-
     Upload corrections opens the Uploads send step of REQ-SHELL-0008 with TIMESHEETS picked; REQ-TIME-0003
@@ -70,6 +71,7 @@ requirement_decisions:
 - D-5
 - D-33
 - D-59
+- D-70
 requirement_features:
 - TS-10
 edges:

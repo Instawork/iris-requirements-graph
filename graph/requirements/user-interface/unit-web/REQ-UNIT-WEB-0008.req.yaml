@@ -20,8 +20,9 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    It lists each Release with its Agency, headcount, status, the three Bill Rates sent, any bill_rate_reason,
-    any decline_reason, and whether it was off-contract or non-contracted.
+    It lists each Release with its Agency, headcount, status, the three Bill Rates sent, any
+    bill_rate_reason, non_contracted_reason, or decline_reason, and whether it was off-contract or
+    non-contracted.
   rule_sources:
   - SHEET SC-8
   - SHEET RC-10
@@ -59,11 +60,13 @@ requirement_rules:
   - D-27
 - rule_id: R7
   rule_statement: >-
-    Workers requested by name are listed as REQUESTED or UNAVAILABLE, with the Agency's unavailable_reason.
+    Workers requested by name are listed as REQUESTED or UNAVAILABLE, with the Agency's
+    unavailable_reason, and each offers Withdraw until the Shift starts, through REQ-WORKFORCE-0004.R7.
   rule_sources:
   - SHEET WA-2
   rule_decisions:
   - D-52
+  - D-98
 - rule_id: R8
   rule_statement: >-
     Workers removed from the Shift are listed below those assigned, each with the removal reason and time.
@@ -72,13 +75,14 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R9
   rule_statement: >-
-    Until the Shift ends, Edit changes headcount, needed headcount, times, planned break, and site instructions
-    through REQ-ORDERING-0003 and REQ-ORDERING-0005.
+    Until the Shift ends, Edit changes headcount, needed headcount, date, times, planned break, and site
+    instructions through REQ-ORDERING-0003 and REQ-ORDERING-0005.
   rule_sources:
   - SHEET SC-3
   - SHEET SC-5
   rule_decisions:
   - D-18
+  - D-97
 - rule_id: R10
   rule_statement: >-
     Until the Shift starts, Cancel calls REQ-ORDERING-0003 once the User confirms, and the page then shows
@@ -149,6 +153,8 @@ requirement_decisions:
 - D-27
 - D-52
 - D-65
+- D-98
+- D-97
 requirement_features:
 - SC-3
 - SC-5
@@ -190,6 +196,8 @@ edges:
   requirement_id: REQ-COMPLIANCE-0006
 - edge_type: DEPENDS_ON
   requirement_id: REQ-RATES-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0016
 data_model:
   status: covered
   reads:
@@ -198,7 +206,6 @@ data_model:
   - Request.created_by
   - Request.created_via
   - Request.recurrence_weekdays
-  - Request.is_block
   - Release.*
   - Assignment.*
   - Worker.first_name

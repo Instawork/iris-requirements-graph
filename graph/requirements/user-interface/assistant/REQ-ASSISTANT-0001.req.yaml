@@ -36,11 +36,10 @@ requirement_rules:
 - rule_id: R4
   rule_statement: >-
     For an Agency User the starters are upload a Rate Card, upload Workers, download a template, assign
-    Workers to Shifts, and submit hours.
+    Workers to Shifts, and submit hours and tips.
   rule_sources:
   - PRD §7 Opening screen
-  rule_decisions:
-  - D-111
+  rule_decisions: []
 - rule_id: R5
   rule_statement: >-
     For a Program User the starters are ask a spend question, upload Units, upload Agencies, upload a
@@ -101,7 +100,6 @@ requirement_sources:
 requirement_decisions:
 - D-36
 - D-64
-- D-111
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

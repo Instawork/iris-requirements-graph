@@ -138,12 +138,13 @@ These hold everywhere unless a rule says otherwise, so rules do not repeat them.
   Rules that say "the acting role" read it from the request.
 - **Names.** A name in a file or a typed request matches a stored name when the two are equal after
   trimming, collapsing inner spaces, and ignoring case, among the records the sender may see. No match
-  or several matches is a problem on the row, which offers up to three closest names for the sender
-  to pick.
+  or several matches is a problem on the row. No match offers the three closest names, and several
+  matches offers every matching record, for the sender to pick (`REQ-AGENT-0002.R19`).
 - **Emails and phones.** Emails are stored trimmed and in lower case. Phones are stored as `+1`
   followed by 10 digits; anything else is refused.
 - **Screens.** A screen that opens another screen names it by requirement id. A screen changes
-  records only through the product requirements it depends on.
+  records only through the product requirements it depends on. Where a screen built earlier leads to
+  one built later, the later screen's requirement adds the link (D-110).
 - **Stack and providers.** The graph does not choose the stack or the email, SMS, voice, language
   model, OCR, or verification providers; Instawork engineering does. Each provider sits behind the
   one platform requirement that uses it, so the choice changes one requirement.

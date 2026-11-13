@@ -23,7 +23,7 @@ requirement_rules:
   - D-110
 - rule_id: R2
   rule_statement: >-
-    The User changes their first name, last name, and phone through REQ-IDENTITY-0001, and the email is
+    The User changes their first name, last name, and phone through REQ-IDENTITY-0003, and the email is
     shown but cannot be changed.
   rule_sources:
   - SHEET PLT-4

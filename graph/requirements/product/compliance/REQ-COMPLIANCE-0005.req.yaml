@@ -63,8 +63,8 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R8
   rule_statement: >-
-    When REQ-WORKFORCE-0003 asks about a Worker already assigned to a Shift that has not started and the
-    answer is not eligible, Iris sends WORKER_NOT_ELIGIBLE.
+    When REQ-WORKFORCE-0016 asks again about a Worker already assigned to a Shift that has not started and
+    the answer is not eligible, Iris sends WORKER_NOT_ELIGIBLE.
   rule_sources:
   - SHEET WA-14
   - FAQ What happens if a worker doesn't meet the requirements?
@@ -81,8 +81,8 @@ requirement_rules:
   - D-51
 - rule_id: R10
   rule_statement: >-
-    This requirement never reads or changes Assignments; removing the Worker with NOT_ELIGIBLE is done
-    by REQ-WORKFORCE-0003.
+    This requirement never reads or changes Assignments; removing the Worker with NOT_ELIGIBLE is done by
+    REQ-WORKFORCE-0016.
   rule_sources:
   - GRAPH keeps the dependency graph free of cycles
   rule_decisions:

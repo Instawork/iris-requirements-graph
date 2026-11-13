@@ -26,8 +26,8 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    The CREDENTIALS upload type takes one PDF or image document for each Credential; documents sent together
-    are separate Uploads, and every row of a CSV or Excel file is a problem with no suggested fix.
+    The CREDENTIALS upload type takes one PDF or image document for each Credential, and documents sent
+    together are separate Uploads.
   rule_sources:
   - SHEET WA-14
   - PRD §4 Professionals

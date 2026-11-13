@@ -21,8 +21,8 @@ requirement_rules:
   - D-66
 - rule_id: R2
   rule_statement: >-
-    Each queued line shows the APPROVED line it would replace, when there is one, and the change in each
-    rate.
+    Each queued line shows the APPROVED line it would replace, when there is one, the change in each rate,
+    and the submitter's change_reason.
   rule_sources:
   - SHEET RC-5
   rule_decisions:

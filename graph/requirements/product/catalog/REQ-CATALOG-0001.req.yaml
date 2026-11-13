@@ -47,17 +47,19 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R6
   rule_statement: >-
-    A title in a file that equals no Position name is a row problem whose proposed fix is a Position the
-    uploader confirms; it never adds a Position.
+    A title in a file that equals no Position name is a row problem that carries the three closest
+    Position names for the uploader to pick; it never adds a Position.
   rule_sources:
   - PRD §7 Agent Chat
   - PRD §7 What the agent checks
-  rule_decisions: []
+  rule_decisions:
+  - D-105
 requirement_sources:
 - SHEET RC-2
 - PRD §6 Position list
 requirement_decisions:
 - D-26
+- D-105
 requirement_features:
 - RC-2
 edges:

@@ -63,8 +63,8 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R7
   rule_statement: >-
-    Upload Credentials opens that step with CREDENTIALS picked, for the documents of many Workers at once,
-    and REQ-COMPLIANCE-0002 saves them.
+    Upload Credentials opens that step with CREDENTIALS picked, takes one PDF or image for each
+    Credential, and REQ-COMPLIANCE-0002 saves them.
   rule_sources:
   - SHEET WA-14
   rule_decisions: []
@@ -74,6 +74,13 @@ requirement_rules:
   rule_sources:
   - PRD §4 Professionals
   rule_decisions: []
+- rule_id: R9
+  rule_statement: >-
+    Deactivate first warns that the Worker comes off Shifts that have not started, as
+    REQ-WORKFORCE-0001.R11 says.
+  rule_sources: []
+  rule_decisions:
+  - D-92
 requirement_sources:
 - SHEET WA-1
 - PRD §4 Professionals
@@ -82,6 +89,7 @@ requirement_decisions:
 - D-50
 - D-63
 - D-67
+- D-92
 requirement_features:
 - WA-1
 - WA-14
@@ -106,6 +114,8 @@ edges:
   requirement_id: REQ-ORG-0006
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0016
 data_model:
   status: covered
   reads:

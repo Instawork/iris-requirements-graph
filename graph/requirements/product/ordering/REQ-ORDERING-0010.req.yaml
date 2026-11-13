@@ -57,6 +57,15 @@ requirement_rules:
   - SESSIONS Shift Creation
   rule_decisions:
   - D-64
+- rule_id: R7
+  rule_statement: >-
+    A message has no session: its sender acts as UNIT_USER across their unrevoked UNIT_USER grants, which
+    REQ-ORG-0009 checks, and a sender with none is refused with that reason.
+  rule_sources:
+  - SHEET SC-10
+  rule_decisions:
+  - D-84
+  - D-108
 requirement_sources:
 - SHEET SC-10
 requirement_decisions:
@@ -64,6 +73,8 @@ requirement_decisions:
 - D-48
 - D-64
 - D-96
+- D-84
+- D-108
 requirement_features:
 - SC-10
 edges:

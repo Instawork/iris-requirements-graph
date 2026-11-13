@@ -131,7 +131,7 @@ data_model:
   detail: >-
     Removals are saved through REQ-WORKFORCE-0003, which writes the other Assignment fields and makes
     the ASSIGNED to REMOVED transition.
-requirement_starting_flow: false
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

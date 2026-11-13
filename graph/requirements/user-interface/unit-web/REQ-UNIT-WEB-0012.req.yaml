@@ -76,6 +76,14 @@ requirement_rules:
   - SHEET 4.4
   rule_decisions:
   - D-60
+- rule_id: R9
+  rule_statement: >-
+    A new pool, a change to one, or a PIN tip that REQ-TIPS-0001.R17 refuses shows that a Timesheet it
+    would cover is locked.
+  rule_sources:
+  - SHEET TS-9
+  rule_decisions:
+  - D-60
 requirement_sources:
 - SHEET TS-11
 - SHEET 4.4

@@ -89,6 +89,14 @@ requirement_rules:
   rule_sources:
   - SHEET RC-5
   rule_decisions: []
+- rule_id: R11
+  rule_statement: >-
+    An APPROVED line with no effective_to also offers End, which takes an end date and a reason and saves
+    through REQ-RATES-0009.R14.
+  rule_sources:
+  - SHEET RC-5
+  rule_decisions:
+  - D-80
 requirement_sources:
 - FEEDBACK
 - SESSIONS Rate Cards & Supplier Sourcing
@@ -99,6 +107,7 @@ requirement_decisions:
 - D-11
 - D-12
 - D-63
+- D-80
 requirement_features:
 - RC-3
 - RC-4

@@ -61,11 +61,12 @@ requirement_rules:
   - D-43
 - rule_id: R7
   rule_statement: >-
-    The Events view lists each Event with its projected cost, its actual cost as APPROVED_SPEND and PENDING_SPEND,
-    and the difference, from REQ-REPORTING-0004.
+    The Events view lists each Event with its projected cost, its actual cost in the parts
+    REQ-REPORTING-0004.R4 names, the estimated part labelled as an estimate, and the difference.
   rule_sources:
   - SHEET REP-2
   rule_decisions:
+  - D-29
   - D-44
 - rule_id: R8
   rule_statement: >-
@@ -103,6 +104,7 @@ requirement_decisions:
 - D-43
 - D-44
 - D-45
+- D-29
 requirement_features:
 - REP-2
 - REP-3

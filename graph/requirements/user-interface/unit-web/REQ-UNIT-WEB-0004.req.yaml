@@ -107,6 +107,8 @@ edges:
   requirement_id: REQ-WORKFORCE-0005
 - edge_type: DEPENDS_ON
   requirement_id: REQ-WORKFORCE-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0016
 data_model:
   status: covered
   reads:

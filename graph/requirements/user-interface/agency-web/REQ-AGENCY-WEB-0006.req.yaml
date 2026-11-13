@@ -60,8 +60,9 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R7
   rule_statement: >-
-    When an assignment adds overtime and REQ-LABOR-0003 allows it, the screen tells the Agency User that
-    the Worker now has overtime in that Work Week at that Unit.
+    When an assignment adds overtime and REQ-LABOR-0003 allows it, the screen shows the answer of
+    REQ-WORKFORCE-0003.R21: the Worker now has overtime in that Work Week, counting every Unit the Agency
+    sends them to.
   rule_sources:
   - SHEET WA-19
   rule_decisions:
@@ -90,11 +91,12 @@ requirement_rules:
   - D-51
 - rule_id: R11
   rule_statement: >-
-    Each ASSIGNED Worker shows when site instructions were last sent to them under REQ-ORDERING-0006,
-    or that none were sent.
+    Each ASSIGNED Worker shows when site instructions were last sent to them under REQ-ORDERING-0006, or
+    that none were sent, with the reason when the Worker has neither an email nor a phone.
   rule_sources:
   - SHEET SC-6
-  rule_decisions: []
+  rule_decisions:
+  - D-91
 - rule_id: R12
   rule_statement: >-
     After the Shift ends, the Release lists its Workers with no Assign, Swap, or Remove.
@@ -102,6 +104,14 @@ requirement_rules:
   - PRD §2 Shift statuses
   rule_decisions:
   - D-18
+- rule_id: R13
+  rule_statement: >-
+    When an assigned Worker has neither an email nor a phone, the screen shows the answer of
+    REQ-WORKFORCE-0003.R24, so the Agency passes the site instructions on.
+  rule_sources:
+  - SHEET SC-6
+  rule_decisions:
+  - D-91
 requirement_sources:
 - SHEET WA-1
 - SESSIONS Worker Assignment & Compliance
@@ -111,6 +121,7 @@ requirement_decisions:
 - D-18
 - D-51
 - D-52
+- D-91
 requirement_features:
 - WA-1
 - WA-2
@@ -139,6 +150,8 @@ edges:
   requirement_id: REQ-ORDERING-0006
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0016
 data_model:
   status: covered
   reads:
@@ -157,6 +170,8 @@ data_model:
   - WorkerRating.worker_id
   - WorkerRating.unit_id
   - WorkerRating.rating
+  - Worker.email
+  - Worker.phone
   writes: []
   detail: null
 requirement_starting_flow: true

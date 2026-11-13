@@ -49,12 +49,14 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R6
   rule_statement: >-
-    Each Release shows its own headcount beside the Shift's whole headcount, so the Agency can tell whether
-    it holds the whole Shift or shares it.
+    Each Release shows its own headcount beside the Shift's whole headcount, whether any other Agency
+    holds the Shift, and the total headcount other Agencies hold, as REQ-DISPATCH-0002.R9 gives them,
+    never their names.
   rule_sources:
   - SESSIONS Shift Creation
   - PRD §2 Shifts
-  rule_decisions: []
+  rule_decisions:
+  - D-90
 - rule_id: R7
   rule_statement: >-
     A PENDING Release offers Accept, which calls REQ-DISPATCH-0002 for its whole headcount, and the Release
@@ -126,6 +128,7 @@ requirement_decisions:
 - D-20
 - D-52
 - D-63
+- D-90
 requirement_features:
 - SC-6
 - SC-8
@@ -153,6 +156,8 @@ edges:
   requirement_id: REQ-WORKFORCE-0004
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0016
 data_model:
   status: covered
   reads:

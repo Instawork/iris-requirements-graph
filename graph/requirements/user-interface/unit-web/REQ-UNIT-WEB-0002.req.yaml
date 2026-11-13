@@ -52,8 +52,7 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R6
   rule_statement: >-
-    A repeat option takes weekdays, an interval in weeks, and an end date, and can mark the Request as
-    a block, under REQ-ORDERING-0004.
+    A repeat option takes weekdays, an interval in weeks, and an end date, under REQ-ORDERING-0004.
   rule_sources:
   - SHEET SC-4
   rule_decisions:
