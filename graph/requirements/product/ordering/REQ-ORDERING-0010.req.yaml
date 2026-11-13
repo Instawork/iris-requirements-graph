@@ -2,10 +2,11 @@ requirement_id: REQ-ORDERING-0010
 requirement_target_layer: product
 requirement_target_module: ORDERING
 requirement_phase: MVP
-requirement_title: Take Requests by email, SMS, or phone
+requirement_title: Take Requests and Shift changes by email, SMS, or phone
 requirement_statement: >-
   A Unit User can order by email, text, or phone call. Iris drafts the Request, fills gaps from what the
-  Unit ordered before, and creates nothing until the sender confirms on the same channel.
+  Unit ordered before, and creates nothing until the sender confirms on the same channel. A message that
+  asks to change or cancel a Shift is drafted the same way.
 requirement_actors:
 - UNIT_USER
 requirement_rules:
@@ -26,8 +27,8 @@ requirement_rules:
   - D-48
 - rule_id: R3
   rule_statement: >-
-    The draft goes back to the sender on the channel they used, and a reply in the same thread approves
-    or rejects it, as REQ-MESSAGING-0002 provides.
+    The draft goes back to the sender on the channel they used, and for an email or a text a reply in
+    the same thread approves or rejects it, as REQ-MESSAGING-0002 provides.
   rule_sources:
   - SHEET SC-10
   rule_decisions: []
@@ -39,16 +40,37 @@ requirement_rules:
   - SHEET SC-10
   rule_decisions:
   - D-17
+- rule_id: R5
+  rule_statement: >-
+    On a call, the AI agent reads the draft aloud, and the caller's spoken yes approves it and spoken
+    no rejects it on that call, as a reply does in a thread.
+  rule_sources:
+  - SHEET SC-10
+  rule_decisions:
+  - D-96
+- rule_id: R6
+  rule_statement: >-
+    A matched Unit User's message that asks to change or cancel a Shift is drafted as REQ-ORDERING-0003
+    drafts a typed request, and is answered and approved as a booking is.
+  rule_sources:
+  - SHEET SC-3
+  - SESSIONS Shift Creation
+  rule_decisions:
+  - D-64
 requirement_sources:
 - SHEET SC-10
 requirement_decisions:
 - D-17
 - D-48
+- D-64
+- D-96
 requirement_features:
 - SC-10
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORDERING-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0003
 - edge_type: DEPENDS_ON
   requirement_id: REQ-MESSAGING-0002
 - edge_type: DEPENDS_ON

@@ -22,7 +22,7 @@ requirement_rules:
     break in minutes and a Department.
   rule_sources:
   - PRD §2 Shifts
-  - FEEDBACK
+  - FEEDBACK Departments within venues, with their own cost centers
   - SHEET WA-18
   rule_decisions: []
 - rule_id: R3
@@ -34,10 +34,11 @@ requirement_rules:
   - D-20
 - rule_id: R4
   rule_statement: >-
-    The date and times of a line are read in the Unit's timezone and saved as starts_at and ends_at.
+    starts_at is the line's date and start time, and ends_at its end time on that date or, under R5, on
+    the next.
   rule_sources:
   - SESSIONS Shift Creation
-  - GRAPH every Shift time at a Unit is read in its time zone
+  - PRD §2 Shifts
   rule_decisions: []
 - rule_id: R5
   rule_statement: >-
@@ -63,7 +64,7 @@ requirement_rules:
     Department of the same Unit.
   rule_sources:
   - PRD §7 What the agent checks
-  - FEEDBACK
+  - FEEDBACK Departments within venues, with their own cost centers
   - SHEET PLT-2
   rule_decisions: []
 - rule_id: R9
@@ -94,11 +95,18 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-53
+- rule_id: R13
+  rule_statement: >-
+    A start or end time that the clock skips on its date is refused, and one that the clock repeats is
+    read as the earlier of the two.
+  rule_sources: []
+  rule_decisions:
+  - D-95
 requirement_sources:
 - SHEET SC-2
 - PRD §2 Shifts
 - PRD Data Model
-requirement_decisions: [D-6, D-17, D-18, D-20, D-53]
+requirement_decisions: [D-6, D-17, D-18, D-20, D-53, D-95]
 requirement_features:
 - SC-2
 edges:
@@ -128,8 +136,6 @@ data_model:
   - Request.unit_id
   - Request.created_by
   - Request.created_via
-  - Request.template_id
-  - Request.is_block
   - Shift.request_id
   - Shift.line_no
   - Shift.position_id

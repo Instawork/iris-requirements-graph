@@ -4,6 +4,7 @@ enums:
   values:
   - {value: FILE_ROWS, meaning: Rows read from an Upload.}
   - {value: REQUEST_DRAFT, meaning: A Request drafted from plain language or a message.}
+  - {value: SHIFT_CHANGE, meaning: 'A change to a Shift''s headcount or times, or its cancellation, asked for in plain language.'}
   - {value: TIMESHEET_EDITS, meaning: Timesheet changes asked for in plain language.}
   - {value: TIP_ENTRY, meaning: Tips entered by chat.}
   - {value: EXPENSE_ENTRY, meaning: Expenses added by chat.}

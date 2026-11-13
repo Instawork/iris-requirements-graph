@@ -1,0 +1,142 @@
+requirement_id: REQ-WORKFORCE-0016
+requirement_target_layer: product
+requirement_target_module: WORKFORCE
+requirement_phase: MVP
+requirement_title: Take Workers off Shifts automatically and recheck their eligibility
+requirement_statement: >-
+  Iris takes assigned Workers off a Shift when it is cancelled, their Release is declined, the Unit blocks
+  them, their Agency makes them inactive, or they stop being eligible. A job rechecks eligibility each day,
+  and another records it once the Shift starts.
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    When REQ-ORDERING-0003 cancels a Shift, each of its ASSIGNED Assignments is removed with SHIFT_CANCELLED.
+  rule_sources:
+  - PRD §2 Shift statuses
+  rule_decisions:
+  - D-18
+- rule_id: R2
+  rule_statement: >-
+    When REQ-DISPATCH-0002 declines an ACCEPTED Release, each of its ASSIGNED Assignments is removed with
+    RELEASE_DECLINED.
+  rule_sources: []
+  rule_decisions:
+  - D-17
+- rule_id: R3
+  rule_statement: >-
+    When REQ-WORKFORCE-0005 saves a BLOCK rating, the Worker's ASSIGNED Assignments on that Unit's Shifts
+    that have not started are removed with BLOCKED_BY_UNIT.
+  rule_sources:
+  - SHEET WA-3
+  rule_decisions:
+  - D-51
+- rule_id: R4
+  rule_statement: >-
+    When REQ-WORKFORCE-0001 makes a Worker inactive, the Worker's ASSIGNED Assignments on Shifts that
+    have not started are removed with WORKER_INACTIVE.
+  rule_sources: []
+  rule_decisions:
+  - D-92
+- rule_id: R5
+  rule_statement: >-
+    A daily job of REQ-JOBS-0001, at 06:00 in each Unit's timezone, asks REQ-COMPLIANCE-0005 again about
+    every ASSIGNED Worker on that Unit's Shifts that have not started.
+  rule_sources: []
+  rule_decisions:
+  - D-51
+  - D-68
+  - D-93
+- rule_id: R6
+  rule_statement: >-
+    When REQ-ORDERING-0003 changes the date or times of a Shift that has not started, REQ-COMPLIANCE-0005
+    is asked again at once about every ASSIGNED Worker on it.
+  rule_sources: []
+  rule_decisions:
+  - D-51
+- rule_id: R7
+  rule_statement: >-
+    When either recheck finds an ASSIGNED Worker not eligible, the Assignment is removed with NOT_ELIGIBLE,
+    and REQ-COMPLIANCE-0005 sends WORKER_NOT_ELIGIBLE.
+  rule_sources:
+  - FAQ What happens if a worker doesn't meet the requirements?
+  - SESSIONS Worker Assignment & Compliance
+  rule_decisions:
+  - D-51
+- rule_id: R8
+  rule_statement: >-
+    Every removal here is made through REQ-WORKFORCE-0003, which records the reason and sends WORKER_REMOVED
+    where its rules say.
+  rule_sources: []
+  rule_decisions:
+  - D-51
+- rule_id: R9
+  rule_statement: >-
+    An interval job of REQ-JOBS-0001 records eligible_at_start, from REQ-COMPLIANCE-0005's answer at that
+    run, on each ASSIGNED Assignment that has none on a Shift whose starts_at has passed.
+  rule_sources:
+  - PRD §1 Metric definitions
+  rule_decisions:
+  - D-68
+requirement_sources:
+- SHEET WA-3
+- PRD §2 Shift statuses
+- SESSIONS Worker Assignment & Compliance
+requirement_decisions:
+- D-17
+- D-18
+- D-51
+- D-68
+- D-92
+- D-93
+requirement_features:
+- WA-3
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-DISPATCH-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-COMPLIANCE-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-JOBS-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
+data_model:
+  status: covered
+  reads:
+  - Request.unit_id
+  - Shift.request_id
+  - Shift.starts_at
+  - Shift.status
+  - Unit.timezone
+  - Release.shift_id
+  - Release.status
+  - Worker.active
+  - WorkerRating.unit_id
+  - WorkerRating.worker_id
+  - WorkerRating.rating
+  - Assignment.release_id
+  - Assignment.worker_id
+  - Assignment.status
+  writes:
+  - Assignment.eligible_at_start
+  detail: >-
+    Removals are saved through REQ-WORKFORCE-0003, which writes the other Assignment fields and makes
+    the ASSIGNED to REMOVED transition.
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

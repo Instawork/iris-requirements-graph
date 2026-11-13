@@ -5,19 +5,21 @@ requirement_phase: MVP
 requirement_title: Edit a Shift until it ends and cancel it before it starts
 requirement_statement: >-
   Until a Shift ends, a Unit User can change its headcount, times, and site instructions. Until it starts,
-  they can cancel it. Agencies holding the Shift are told of each change.
+  they can cancel it. A typed request for a change becomes a Proposal, and Agencies holding the Shift are
+  told of each change.
 requirement_actors:
 - UNIT_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Until a Shift's ends_at, a Unit User over its Unit may change its headcount, start time, end time,
-    planned break, and site instruction fields, unless it is CANCELLED.
+    Until a Shift's ends_at, a Unit User over its Unit may change its headcount, date, start time, end
+    time, planned break, and site instruction fields, unless it is CANCELLED.
   rule_sources:
   - SHEET SC-3
   - PRD §2 Shift statuses
   rule_decisions:
   - D-18
+  - D-97
 - rule_id: R2
   rule_statement: >-
     An edit is refused unless the changed Shift still passes every check a new Shift must pass.
@@ -26,16 +28,18 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    Headcount cannot be lowered below the total headcount of the Shift's PENDING and ACCEPTED Releases.
+    Headcount cannot be lowered below the total headcount of the Shift's PENDING and ACCEPTED Releases,
+    or below the needed_headcount that REQ-ORDERING-0005 keeps.
   rule_sources:
   - SHEET SC-3
   rule_decisions:
   - D-17
   - D-18
+  - D-19
 - rule_id: R4
   rule_statement: >-
-    When an edit changes the times, headcount, or site instructions of a Shift with a PENDING or ACCEPTED
-    Release, SHIFT_CHANGED is sent to the active Agency Users of each Agency holding one.
+    When an edit changes the date, times, headcount, or site instructions of a Shift with a PENDING or
+    ACCEPTED Release, SHIFT_CHANGED is sent to the active Agency Users of each Agency holding one.
   rule_sources:
   - SHEET SC-3
   rule_decisions:
@@ -50,8 +54,9 @@ requirement_rules:
   - D-18
 - rule_id: R6
   rule_statement: >-
-    After a cancel, REQ-DISPATCH-0001 cancels the Shift's PENDING and ACCEPTED Releases and REQ-WORKFORCE-0003
-    removes its ASSIGNED Workers; this requirement changes neither record.
+    A cancel calls REQ-DISPATCH-0001, which cancels the Shift's PENDING and ACCEPTED Releases, and
+    REQ-WORKFORCE-0016 reacts by removing its ASSIGNED Workers; this requirement changes neither record
+    itself.
   rule_sources:
   - PRD §2 Shift statuses
   rule_decisions:
@@ -70,16 +75,81 @@ requirement_rules:
   - D-18
 - rule_id: R9
   rule_statement: >-
-    The same rules apply to an edit or a cancel whichever Channel it comes through.
+    An edit may come from the Shift's page, a SHIFTS file row, a typed request, or a message, and a cancel
+    from any of these except a file; this requirement's rules apply to each.
   rule_sources:
   - PRD §2 Shifts
+  rule_decisions:
+  - D-49
+  - D-64
+- rule_id: R10
+  rule_statement: >-
+    A Shift's Unit, Position, and Department never change once it is created; a Shift booked for the
+    wrong one is cancelled and booked again.
+  rule_sources: []
+  rule_decisions:
+  - D-97
+- rule_id: R11
+  rule_statement: >-
+    A Unit User's typed request to change a Shift's headcount or times, or to cancel it, becomes a Proposal
+    of kind SHIFT_CHANGE with one item for each Shift it names.
+  rule_sources:
+  - PRD §7 Who uses it
+  - PRD §2 Shifts
+  rule_decisions:
+  - D-64
+- rule_id: R12
+  rule_statement: >-
+    Iris finds each Shift the request means among the Shifts in the User's scope that have not ended,
+    from the Unit, Position, date, and start time it gives.
+  rule_sources:
+  - PRD §7 What the agent checks
+  rule_decisions:
+  - D-64
+- rule_id: R13
+  rule_statement: >-
+    When no Shift or several match, or the new headcount or time is missing, Iris asks under REQ-AGENT-0003
+    and creates no Proposal until the User answers.
+  rule_sources:
+  - PRD §7 When the agent is unsure
   rule_decisions: []
+- rule_id: R14
+  rule_statement: >-
+    Each item shows the Shift's current values beside the change or the cancel, is checked under this
+    requirement's rules when drafted, and shows its problem when a check fails.
+  rule_sources:
+  - PRD §7 Typed request
+  - PRD §7 What the agent checks
+  rule_decisions: []
+- rule_id: R15
+  rule_statement: >-
+    On apply, each accepted item is saved as an edit or a cancel under this requirement's rules, so
+    SHIFT_CHANGED and the cancel's effects follow as they do from the Shift's page.
+  rule_sources:
+  - PRD §7 Agent Chat
+  rule_decisions:
+  - D-64
+- rule_id: R16
+  rule_statement: >-
+    When an edit is saved, REQ-ORDERING-0006 reacts to changed site instructions, REQ-ORDERING-0008 to
+    a changed headcount, and REQ-WORKFORCE-0016 to a changed date or time; each owns its rule.
+  rule_sources:
+  - SHEET SC-6
+  - PRD §2 Shift statuses
+  rule_decisions:
+  - D-51
 requirement_sources:
 - SHEET SC-3
 - PRD §2 Shift statuses
+- PRD §7 Who uses it
 requirement_decisions:
 - D-17
 - D-18
+- D-19
+- D-49
+- D-51
+- D-64
+- D-97
 requirement_features:
 - SC-3
 edges:
@@ -87,6 +157,12 @@ edges:
   requirement_id: REQ-ORDERING-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-DISPATCH-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0003
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0005
 - edge_type: DEPENDS_ON
@@ -100,10 +176,14 @@ data_model:
   reads:
   - Shift.*
   - Request.unit_id
+  - Unit.org_node_id
+  - OrgNode.name
+  - Position.name
   - Release.shift_id
   - Release.agency_id
   - Release.headcount
   - Release.status
+  - RoleGrant.user_id
   - RoleGrant.role
   - RoleGrant.agency_id
   - RoleGrant.revoked_at
@@ -120,7 +200,9 @@ data_model:
   - Shift.status
   - Shift.cancelled_by
   - Shift.cancelled_at
-  detail: null
+  detail: >-
+    A typed request is drafted as a Proposal through REQ-AGENT-0002, which owns the Proposal records;
+    the Unit, org node, and Position names are read only to find the Shift a request means.
 requirement_starting_flow: true
 requirement_review:
   status: draft

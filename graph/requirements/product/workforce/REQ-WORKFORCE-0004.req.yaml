@@ -23,7 +23,7 @@ requirement_rules:
     A Worker can be requested only while their Agency holds a PENDING or ACCEPTED Release on the Shift,
     so a request sits inside the send to one Agency.
   rule_sources:
-  - FEEDBACK
+  - FEEDBACK a single agency, then request worker as a nested feature
   rule_decisions:
   - D-17
 - rule_id: R3
@@ -56,13 +56,28 @@ requirement_rules:
   - SHEET WA-2
   rule_decisions:
   - D-52
+- rule_id: R7
+  rule_statement: >-
+    Until the Shift starts, a Unit User over its Unit may withdraw a WorkerRequest in either status, which
+    deletes it.
+  rule_sources: []
+  rule_decisions:
+  - D-98
+- rule_id: R8
+  rule_statement: >-
+    A WorkerRequest is shown, and can be marked, only while the Worker's Agency holds a PENDING or ACCEPTED
+    Release on the Shift, and it keeps its status when that Release closes.
+  rule_sources: []
+  rule_decisions:
+  - D-98
 requirement_sources:
 - SHEET WA-2
-- FEEDBACK
+- FEEDBACK a single agency, then request worker as a nested feature
 - SESSIONS Worker Assignment & Compliance
 requirement_decisions:
 - D-17
 - D-52
+- D-98
 requirement_features:
 - WA-2
 edges:

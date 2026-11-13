@@ -26,28 +26,45 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    When an Assignment becomes ASSIGNED on a Shift that has not ended and has a site instruction filled,
-    SITE_INSTRUCTIONS is sent to the Worker by EMAIL and SMS, whichever addresses the Worker has.
+    When REQ-WORKFORCE-0003 makes an Assignment ASSIGNED on a Shift that has not ended and has a site
+    instruction filled, SITE_INSTRUCTIONS is sent to the Worker by EMAIL and SMS, whichever addresses
+    the Worker has.
   rule_sources:
   - SHEET SC-6
   rule_decisions: []
 - rule_id: R4
   rule_statement: >-
-    When a site instruction of a Shift that has not ended changes, SITE_INSTRUCTIONS is sent again to
-    every ASSIGNED Worker on it.
+    When REQ-ORDERING-0003 changes a site instruction of a Shift that has not ended, SITE_INSTRUCTIONS
+    is sent again to every ASSIGNED Worker on it.
   rule_sources:
   - SHEET SC-6
   rule_decisions: []
 - rule_id: R5
   rule_statement: >-
-    Each send sets instructions_sent_at on the Assignment through REQ-WORKFORCE-0003, and a Worker with
-    neither an email nor a phone is sent nothing.
+    Each send sets instructions_sent_at on the Assignment through REQ-WORKFORCE-0003.
   rule_sources:
   - SHEET SC-6
   rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    When R3 or R4 would send to a Worker with neither an email nor a phone, nothing is sent, and INSTRUCTIONS_NOT_SENT
+    goes in the app to every active Agency User of the Worker's Agency.
+  rule_sources:
+  - SHEET SC-6
+  rule_decisions:
+  - D-91
+- rule_id: R7
+  rule_statement: >-
+    A SITE_INSTRUCTIONS message names the Unit, the Position, and the Shift's date and start and end times,
+    followed by each filled site instruction field; INSTRUCTIONS_NOT_SENT names the Worker and the Shift.
+  rule_sources:
+  - SHEET SC-6
+  rule_decisions:
+  - D-91
 requirement_sources:
 - SHEET SC-6
-requirement_decisions: []
+requirement_decisions:
+- D-91
 requirement_features:
 - SC-6
 edges:
@@ -62,6 +79,13 @@ edges:
 data_model:
   status: covered
   reads:
+  - Request.unit_id
+  - Unit.org_node_id
+  - OrgNode.name
+  - Position.name
+  - Shift.request_id
+  - Shift.position_id
+  - Shift.starts_at
   - Shift.parking
   - Shift.entrance
   - Shift.directions
@@ -77,8 +101,14 @@ data_model:
   - Assignment.instructions_sent_at
   - Worker.email
   - Worker.phone
+  - Worker.agency_id
+  - RoleGrant.user_id
+  - RoleGrant.role
+  - RoleGrant.agency_id
+  - RoleGrant.revoked_at
   writes: []
-  detail: null
+  detail: >-
+    Writes nothing itself: instructions_sent_at is set through REQ-WORKFORCE-0003, which owns Assignments.
 requirement_starting_flow: true
 requirement_review:
   status: draft

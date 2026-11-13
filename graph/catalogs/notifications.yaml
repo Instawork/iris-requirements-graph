@@ -24,7 +24,7 @@ notifications:
   owner: REQ-DISPATCH-0002
   sources: [SHEET SC-8]
 - type: SHIFT_CHANGED
-  trigger: The times, headcount, or site instructions of a Shift with an open Release change.
+  trigger: The date, times, headcount, or site instructions of a Shift with a pending or accepted Release change.
   recipients: Every active Agency User of each Agency holding a pending or accepted Release on it.
   channels: [EMAIL, IN_APP]
   owner: REQ-ORDERING-0003
@@ -38,18 +38,28 @@ notifications:
   sources: [PRD §2 Shifts]
 - type: WORKER_REMOVED
   trigger: >-
-    A Worker is removed from a Shift for any reason except its cancellation or the Worker not being
-    eligible, which WORKER_NOT_ELIGIBLE covers.
-  recipients: The User who created the Request.
+    A Worker is removed from a Shift for any reason except its cancellation, which RELEASE_WITHDRAWN
+    covers, or the Worker not being eligible, which WORKER_NOT_ELIGIBLE covers.
+  recipients: >-
+    The User who created the Request. When the Unit blocked the Worker, also every active Agency User of
+    the Worker's Agency.
   channels: [EMAIL, IN_APP]
   owner: REQ-WORKFORCE-0003
-  sources: [PRD §2 Shifts]
+  sources: [PRD §2 Shifts, SHEET WA-3]
+  decisions: [D-51]
 - type: SITE_INSTRUCTIONS
   trigger: A Worker is assigned to a Shift, or its site instructions change while Workers are assigned.
   recipients: The Worker, at their email or phone.
   channels: [EMAIL, SMS]
   owner: REQ-ORDERING-0006
   sources: [SHEET SC-6]
+- type: INSTRUCTIONS_NOT_SENT
+  trigger: Site instructions would be sent to an assigned Worker who has neither an email nor a phone.
+  recipients: Every active Agency User of the Worker's Agency.
+  channels: [IN_APP]
+  owner: REQ-ORDERING-0006
+  sources: [SHEET SC-6]
+  decisions: [D-91]
 - type: WORKER_NOT_ELIGIBLE
   trigger: An assigned Worker stops being eligible for an upcoming Shift.
   recipients: Every active Agency User of the Worker's Agency, and the User who created the Request.

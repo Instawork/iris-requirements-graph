@@ -36,10 +36,11 @@ entities:
   - {name: double_time_bill_rate, type: money}
   - {name: bill_rate_reason, type: text, nullable: true, note: Required when the rates differ from the Rate Line or there is none}
   - {name: non_contracted, type: bool, note: No approval covered the Unit for this Agency when it was sent}
+  - {name: non_contracted_reason, type: text, nullable: true, note: Why the Shift went to an Agency with no approval covering the Unit; required when non_contracted is true}
   - {name: status, type: enum:ReleaseStatus}
   - {name: released_by, type: ref:User}
   - {name: released_at, type: timestamp}
-  - {name: responded_by, type: ref:User, nullable: true}
+  - {name: responded_by, type: ref:User, nullable: true, note: The Agency User who gave the latest answer}
   - {name: responded_at, type: timestamp, nullable: true}
   - {name: decline_reason, type: text, nullable: true}
   - {name: closed_at, type: timestamp, nullable: true, note: 'When it was withdrawn, cancelled, or expired'}

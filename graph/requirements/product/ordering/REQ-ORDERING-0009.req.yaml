@@ -58,6 +58,14 @@ requirement_rules:
   - PRD §7 Typed request
   - SESSIONS Shift Creation
   rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    A drafted line is sent only at the contracted rate: an Agency with no contracted rate is a problem,
+    and a non-contracted Agency needs a reason the User adds by editing the line.
+  rule_sources:
+  - PRD §7 Agent Chat
+  - SHEET RC-11
+  rule_decisions: []
 requirement_sources:
 - SHEET SC-9
 - PRD §7 Agent Chat

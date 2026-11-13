@@ -217,7 +217,7 @@ decisions:
   - SHEET SC-7
   - SHEET SC-12
   - PRD Data Model
-  - FEEDBACK
+  - FEEDBACK a single agency, then request worker as a nested feature
 - decision_id: D-18
   origin: graph
   question: Until when can a Unit change a Shift, and can Workers be added after it ends?
@@ -253,11 +253,13 @@ decisions:
     the same Workers on every Shift?
   status: open
   assumption: >-
-    A recurring Request repeats its lines on chosen weekdays, every one or more weeks, until an end
-    date, and every Shift is created at booking. Weeks are counted in seven-day spans from each line's
-    first date. A change applies to one Shift, or to every Shift of the same line that has not started.
-    A block is one such booking. Each Shift in it gets its own Release, sent together, and the Agency
-    answers each Release or several at once.
+    A recurring Request repeats its lines on chosen weekdays, every one or more weeks, through an end
+    date, and every Shift is created at booking. A line's date is its first Shift and must fall on a
+    chosen weekday; the end date is included and is at most 52 weeks after that date. Weeks are counted
+    in seven-day spans from each line's first date. A change applies to one Shift, or to every Shift of
+    the same line that has not started. A chained block is such a recurring Request and nothing more in
+    MVP: Iris stores no block flag, each Shift gets its own Release, the Shifts can be sent together
+    and answered one by one or several at once, and the Agency may assign different Workers to each.
   blocking: false
   answer: null
   sources:
@@ -655,8 +657,11 @@ decisions:
   status: open
   assumption: >-
     The rows of one file that create Shifts at the same Unit form one Request. A file creates and changes
-    Shifts and assigns Workers; it does not cancel a Shift. An agency named on a new row receives that
-    Shift's whole headcount at the contracted rate.
+    Shifts and assigns Workers; it does not cancel a Shift or change its Unit, Position, or Department.
+    An agency named on a new row receives that Shift's whole headcount at the contracted rate, and the
+    agency column is not read on a row that changes a Shift. A file carries no Bill Rate, so a row whose
+    agency has no contracted rate is a problem and that Shift is sent from its page. A row to a non-contracted
+    Agency gives the reason in its own column where the gate asks for one.
   blocking: false
   answer: null
   sources:
@@ -675,7 +680,7 @@ decisions:
   sources:
   - SHEET WA-1
   - PRD §6 Templates
-  - FEEDBACK
+  - SESSIONS Timesheets, Tips & Expenses
 - decision_id: D-51
   origin: graph
   question: >-
@@ -690,7 +695,7 @@ decisions:
   sources:
   - SHEET WA-3
   - SHEET WA-14
-  - FAQ
+  - FAQ What happens if a worker doesn't meet the requirements?
 - decision_id: D-52
   origin: graph
   question: >-
@@ -707,7 +712,7 @@ decisions:
   sources:
   - SHEET WA-2
   - SHEET 3.2
-  - FEEDBACK
+  - FEEDBACK a single agency, then request worker as a nested feature
 - decision_id: D-53
   origin: graph
   question: >-
@@ -953,19 +958,23 @@ decisions:
 - decision_id: D-64
   origin: graph
   question: >-
-    What does the assistant do where the PRD is silent: Program User starters, typed requests no
-    requirement owns, and whether a conversation is kept?
+    What does the assistant do where the PRD is silent: Program User starters, which changes to a Shift
+    a typed request may make, typed requests no requirement owns, and whether a conversation is kept?
   status: open
   assumption: >-
-    Program Users get starters for a spend question and for their uploads. A typed request that no product
-    requirement owns, such as changing or cancelling a Shift, creates no Proposal, and the assistant names
-    the screen where it is done. A conversation lasts for the session only. The assistant lists the
-    User's open Proposals each time it opens, whichever channel they came through. Each reporting answer
-    states the measures, groupings, filters, and dates it used.
+    Program Users get starters for a spend question and for their uploads. A Unit User's typed request,
+    or message, to change a Shift's headcount or times, or to cancel it, becomes a Proposal that is saved
+    under the Shift edit rules once approved, as the PRD's typed shift requests are. The request must
+    identify the Shift by Unit, Position, date, and start time, and Iris asks when none or several match.
+    Any other typed request that no product requirement owns creates no Proposal, and the assistant says
+    it cannot make that change. A conversation lasts for the session only. The assistant lists the User's
+    open Proposals each time it opens, whichever channel they came through. Each reporting answer states
+    the measures, groupings, filters, and dates it used.
   blocking: false
   answer: null
   sources:
   - PRD §7 Agent Chat
+  - PRD §7 Who uses it
   - SESSIONS Reporting
   - SHEET SC-10
 - decision_id: D-65
@@ -1484,3 +1493,130 @@ decisions:
   sources:
   - SHEET REP-7
   - PRD §1 Detailed requirements
+- decision_id: D-90
+  origin: graph
+  question: >-
+    What does an Agency see about other Agencies holding the same Shift? The sessions report that Agencies
+    cannot tell today whether they are the only one, and the PRD's shared Shift detail names every Supplier.
+  status: open
+  assumption: >-
+    An Agency sees the Shift's whole headcount, its own Release's headcount, whether any other Agency
+    holds a pending or accepted Release on the Shift, and the total headcount those hold. It never sees
+    the other Agencies' names, rates, answers, or Workers.
+  blocking: false
+  answer: null
+  sources:
+  - SESSIONS Shift Creation
+  - PRD §2 Shifts
+- decision_id: D-91
+  origin: graph
+  question: >-
+    What happens when an assigned Worker has no email and no phone, so site instructions cannot be sent
+    to them?
+  status: open
+  assumption: >-
+    Nothing is sent to the Worker. The Agency User who assigns the Worker is told in the answer to the
+    assignment, and the Agency's other active Agency Users are told in the app each time instructions
+    would have been sent, so the Agency passes them on. Email and phone stay optional on a Worker (D-50).
+  blocking: false
+  answer: null
+  sources:
+  - SHEET SC-6
+- decision_id: D-92
+  origin: graph
+  question: What happens to a Worker's upcoming Assignments when their Agency makes them inactive?
+  status: open
+  assumption: >-
+    They come off every Shift that has not started, as when a Unit blocks them (D-51), and the User
+    who created the Request is told. Assignments on Shifts that have started stay.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET WA-1
+- decision_id: D-93
+  origin: graph
+  question: At what time of day does Iris recheck the eligibility of assigned Workers?
+  status: open
+  assumption: >-
+    At 06:00 in each Unit's timezone, so an Agency learns that a Worker came off a Shift at the start
+    of its working day.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET WA-14
+- decision_id: D-94
+  origin: graph
+  question: Which details of an Agency's Worker does a Unit User see?
+  status: open
+  assumption: >-
+    The Worker's name, photo, and Agency, as on the PRD's Shift detail. A Unit User never sees a Worker's
+    email or phone; a Unit reaches a Worker through the Agency.
+  blocking: false
+  answer: null
+  sources:
+  - PRD §2 Shifts
+  - PRD §4 Professionals
+- decision_id: D-95
+  origin: graph
+  question: How is a Shift's local start or end time read on a day the clocks change?
+  status: open
+  assumption: >-
+    A time that does not exist on its date, because the clock skips it, is refused. A time that occurs
+    twice is read as the earlier of the two.
+  blocking: false
+  answer: null
+  sources:
+  - PRD §2 Shifts
+- decision_id: D-96
+  origin: graph
+  question: Does a spoken yes on a call approve a draft, and what is kept as the record?
+  status: open
+  assumption: >-
+    Yes. The AI agent reads the draft aloud, and the caller's spoken yes approves it and spoken no rejects
+    it on that call, as a reply does for an email or a text. The call's transcript, kept as the message
+    body, is the record, and the Proposal records the caller as the User who decided it.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET SC-10
+- decision_id: D-97
+  origin: graph
+  question: Can a Shift's date, Position, or Department change after it is booked?
+  status: open
+  assumption: >-
+    The date can change with the start and end times, under the same rules. The Unit, Position, and
+    Department cannot, because Releases hold rates for the Position; a Shift booked for the wrong one
+    is cancelled and booked again.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET SC-3
+  - PRD §2 Shift statuses
+- decision_id: D-98
+  origin: graph
+  question: >-
+    Can a Unit take back a request for a Worker by name, and what becomes of the request when the Agency's
+    Release is declined, withdrawn, expired, or cancelled?
+  status: open
+  assumption: >-
+    A Unit User may withdraw a request until the Shift starts, which removes it. A request stays with
+    the Shift when the Agency's Release closes: it is hidden while that Agency holds no pending or accepted
+    Release on the Shift, and shows again if the Shift is sent to that Agency again.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET WA-2
+- decision_id: D-99
+  origin: graph
+  question: >-
+    How do a Unit's existing favorite and block lists get into Iris? The sheet says favorite rosters must
+    carry over.
+  status: open
+  assumption: >-
+    A Unit User rates each Worker in Iris, one at a time, once the Worker's Agency has added them; a rating
+    can be given before the Worker's first Shift there. There is no ratings file in MVP.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET WA-2
+  - SHEET 3.2

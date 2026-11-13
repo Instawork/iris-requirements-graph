@@ -36,12 +36,12 @@ requirement_rules:
   rule_statement: >-
     A rule may hold every Release until hold_until_hours_before hours before the Shift starts.
   rule_sources:
-  - FAQ
+  - FAQ Levy releases shifts 72 hours before doors
   rule_decisions: []
 requirement_sources:
 - SHEET SC-12
 - PRD §2 Shifts
-- FAQ
+- FAQ Levy releases shifts 72 hours before doors
 requirement_decisions:
 - D-17
 requirement_features:
