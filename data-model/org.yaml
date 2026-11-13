@@ -27,6 +27,11 @@ enums:
   - {value: HARD, meaning: The action is refused with the reason shown.}
 - enum: SettingKey
   catalog: settings
+- enum: AccountTeamRole
+  values:
+  - {value: ACCOUNT_MANAGER, meaning: 'Instawork''s day-to-day owner of the Compass relationship for that part of the org (D-265).'}
+  - {value: ACCOUNT_OWNER, meaning: 'Instawork''s commercial owner, for pricing, contracts, and renewals (D-265).'}
+  - {value: SUPPORT_LEAD, meaning: 'Instawork''s person for support questions and for handoffs from Iris''s agents (D-265).'}
 entities:
 - entity: OrgNode
   phase: MVP
@@ -67,20 +72,28 @@ entities:
   - {name: default_directions, type: longtext, nullable: true}
   - {name: default_site_contact, type: longtext, nullable: true}
   - {name: default_attire, type: longtext, nullable: true}
+  - {name: primary_operator_id, type: ref:User, nullable: true, note: 'The Compass operator accountable for the Unit; a Unit User whose grant covers it (D-266)'}
   unique:
   - [org_node_id]
   constraints:
   - org_node_id is a UNIT-level node.
 - entity: Department
   phase: MVP
-  description: 'Part of a Unit charged to its own Cost Center, such as suites or concessions.'
+  description: 'Part of a Unit charged to its own Cost Center, such as suites or concessions, with its own check-in instructions.'
   fields:
   - {name: unit_id, type: ref:Unit}
   - {name: name, type: text}
   - {name: cost_center_id, type: ref:CostCenter}
   - {name: is_active, type: bool}
+  - {name: default_parking, type: longtext, nullable: true}
+  - {name: default_entrance, type: longtext, nullable: true}
+  - {name: default_directions, type: longtext, nullable: true}
+  - {name: default_site_contact, type: longtext, nullable: true}
+  - {name: default_attire, type: longtext, nullable: true}
   unique:
   - [unit_id, name]
+  constraints:
+  - The five default site instructions are copied from the Unit when the Department is created.
 - entity: RoleGrant
   phase: MVP
   description: 'One role a User holds, and the scope it covers. A revoked grant is restored, never added a second time.'
@@ -97,6 +110,19 @@ entities:
   - A UNIT_USER grant has org_node_id and no agency_id.
   - An AGENCY_USER grant has agency_id and no org_node_id.
   - PROGRAM_USER and INSTAWORK_ADMIN grants have neither.
+- entity: AccountTeamAssignment
+  phase: MVP
+  description: 'One Instawork staff member named to an account team role for the whole program or one org node (D-265).'
+  fields:
+  - {name: user_id, type: ref:User, note: Holds an unrevoked INSTAWORK_ADMIN grant}
+  - {name: role, type: enum:AccountTeamRole}
+  - {name: org_node_id, type: ref:OrgNode, nullable: true, note: Empty for the whole program}
+  - {name: assigned_by_id, type: ref:User}
+  - {name: assigned_at, type: timestamp}
+  - {name: removed_by_id, type: ref:User, nullable: true}
+  - {name: removed_at, type: timestamp, nullable: true}
+  constraints:
+  - At most one assignment without removed_at per role and org node, with the program-wide scope counted as one scope.
 - entity: Setting
   phase: MVP
   description: An override of one Setting at one org node, or a new program default. Unset keys use the catalog default.

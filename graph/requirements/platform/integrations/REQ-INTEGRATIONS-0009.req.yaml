@@ -1,0 +1,70 @@
+requirement_id: REQ-INTEGRATIONS-0009
+requirement_target_layer: platform
+requirement_target_module: INTEGRATIONS
+requirement_phase: MVP
+requirement_title: Keep the ids other systems use for Iris records
+requirement_statement: >-
+  Iris keeps the id that Fieldglass, SAP, MyStaff, Instawork, Salesforce, or NetSuite uses for a Unit,
+  Department, Cost Center, Agency, or Position. Loads, migrations, and Iris's agents match records across
+  systems by these ids instead of by name.
+requirement_actors:
+- INSTAWORK_ADMIN
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    An Instawork Admin records, changes, or removes the id one ExternalSystem uses for one Iris record.
+  rule_sources:
+  - GRAPH Instawork's Business admin keeps salesforce_account_id, salesforce_opportunity_id, and netsuite_id
+  rule_decisions:
+  - D-267
+- rule_id: R2
+  rule_statement: >-
+    Ids are kept only for Units, Departments, Cost Centers, Agencies, and Positions, and record_type names
+    that entity.
+  rule_sources: []
+  rule_decisions:
+  - D-267
+- rule_id: R3
+  rule_statement: >-
+    A record has at most one id per system, and two records of one type never share an id in one system;
+    a repeat is refused and names the record that holds it.
+  rule_sources: []
+  rule_decisions:
+  - D-267
+- rule_id: R4
+  rule_statement: >-
+    An id is stored exactly as the outside system writes it, with only leading and trailing spaces removed.
+  rule_sources: []
+  rule_decisions:
+  - D-267
+- rule_id: R5
+  rule_statement: >-
+    No Iris rule needs an id to be present; an id only matches a record to the same record in that system.
+  rule_sources: []
+  rule_decisions:
+  - D-267
+requirement_sources:
+- GRAPH compass-vms-dashboard maps Fieldglass cost center codes to Instawork Company, Business, and region ids
+requirement_decisions:
+- D-267
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
+data_model:
+  status: covered
+  reads:
+  - ExternalReference.*
+  writes:
+  - ExternalReference.*
+  detail: >-
+    The caller says which record an id belongs to, so no other module's records are read here.
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

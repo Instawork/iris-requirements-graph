@@ -76,6 +76,13 @@ requirement_rules:
   rule_decisions:
   - D-54
   - D-143
+- rule_id: R9
+  rule_statement: >-
+    A Department saved from a row copies its five site instructions from the Unit, since the file has no
+    instruction columns.
+  rule_sources: []
+  rule_decisions:
+  - D-264
 requirement_sources:
 - SESSIONS Shift Creation
 - SHEET PLT-2
@@ -85,6 +92,7 @@ requirement_decisions:
 - D-54
 - D-85
 - D-143
+- D-264
 requirement_features:
 - PLT-2
 edges:

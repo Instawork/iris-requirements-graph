@@ -1,0 +1,73 @@
+requirement_id: REQ-ADMIN-WEB-0006
+requirement_target_layer: user-interface
+requirement_target_module: ADMIN-WEB
+requirement_phase: MVP
+requirement_title: Keep the ids other systems use for Iris records
+requirement_statement: >-
+  On the Outside ids screen an Instawork Admin sets the Fieldglass, SAP, MyStaff, Instawork, Salesforce,
+  and NetSuite ids of Units, Departments, Cost Centers, Agencies, and Positions.
+requirement_actors:
+- INSTAWORK_ADMIN
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The Outside ids screen picks a system and a record type and lists every record of that type by name,
+    or by code for a Cost Center, with its id there or empty.
+  rule_sources: []
+  rule_decisions:
+  - D-267
+- rule_id: R2
+  rule_statement: >-
+    The list is searched by name, code, or id, and can show only records with no id in the picked system.
+  rule_sources: []
+  rule_decisions:
+  - D-267
+- rule_id: R3
+  rule_statement: >-
+    Set id and Remove save through REQ-INTEGRATIONS-0009, and a refused id names the record that already
+    holds it.
+  rule_sources: []
+  rule_decisions:
+  - D-267
+requirement_sources:
+- GRAPH Instawork's Business admin keeps salesforce_account_id, salesforce_opportunity_id, and netsuite_id
+requirement_decisions:
+- D-267
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ADMIN-WEB-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INTEGRATIONS-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCIES-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-CATALOG-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+data_model:
+  status: covered
+  reads:
+  - ExternalReference.*
+  - OrgNode.name
+  - Unit.org_node_id
+  - Department.name
+  - Department.unit_id
+  - CostCenter.code
+  - Agency.name
+  - Position.name
+  writes: []
+  detail: null
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

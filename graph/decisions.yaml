@@ -675,7 +675,8 @@ decisions:
   status: open
   assumption: >-
     Program Users only: they add, change, and deactivate org nodes, Units, Departments, and Agencies,
-    and change Settings. A Unit User may change only the default site instructions of a Unit they cover.
+    and change Settings. A Unit User may change only the default site instructions of a Unit they cover
+    and of its Departments.
   blocking: false
   answer_from: COMPASS_OPERATIONS
   answer: null
@@ -3262,3 +3263,109 @@ decisions:
   applies_to: every entity in data-model/
   sources:
   - GRAPH Instawork's Django settings use the instawork.mysqlgis engine
+- decision_id: D-264
+  origin: graph
+  question: Do Departments keep their own check-in instructions?
+  status: open
+  assumption: >-
+    Yes. A Department has the Unit's five site instructions, copied from the Unit when the Department
+    is created and editable after. A Shift uses its Department's copy, or the Unit's when it has none.
+  blocking: false
+  answer_from: COMPASS_OPERATIONS
+  answer: null
+  sources:
+  - GRAPH check-in instructions can differ by Department inside one Unit
+- decision_id: D-265
+  origin: graph
+  question: Which Instawork account team roles does Iris keep for parts of the Compass org?
+  status: open
+  assumption: >-
+    Account Manager, Account Owner, and Support Lead. Instawork Admins assign one person per role for the
+    whole program or any org node, and each Unit takes the nearest assignment above it, so Compass,
+    Agencies, and Iris's agents know whom at Instawork to reach.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - GRAPH Instawork's Company admin keeps am_member and account reps through team_directory roles ACCOUNT_MANAGER and ACCOUNT_OWNER
+  - GRAPH compass-vms-dashboard keeps an Instawork account manager per cost center and copies them on rate revisions
+- decision_id: D-266
+  origin: graph
+  question: Does each Unit name one primary operator?
+  status: open
+  assumption: >-
+    Yes, optionally. A Program User names one Unit User covering the Unit as the Compass person
+    accountable for it, whom Agencies and the account team reach first. Each Request still records the
+    Unit User who placed it.
+  blocking: false
+  answer_from: COMPASS_OPERATIONS
+  answer: null
+  sources:
+  - GRAPH compass-vms-dashboard copies each posting's operator, its Fieldglass requestor, on rate revisions
+  - GRAPH Instawork's Business keeps one contact name, phone, and email
+- decision_id: D-267
+  origin: graph
+  question: Which outside systems' ids does Iris keep for its records?
+  status: open
+  assumption: >-
+    Fieldglass, SAP, MyStaff, Instawork, Salesforce, and NetSuite ids for Units, Departments, Cost Centers,
+    Agencies, and Positions, at most one per system per record. Instawork Admins keep them, and no Iris
+    rule needs one to be present.
+  blocking: false
+  answer_from: INSTAWORK_ENGINEERING
+  answer: null
+  sources:
+  - GRAPH Instawork's Business admin keeps salesforce_account_id, salesforce_opportunity_id, and netsuite_id
+  - GRAPH compass-vms-dashboard maps Fieldglass cost center codes to Instawork Company, Business, and region ids
+- decision_id: D-268
+  origin: graph
+  question: Is each Consolidated Invoice billed to its own Sector's bill-to and Payment Terms?
+  status: open
+  assumption: >-
+    Yes. Each Sector has one Billing Profile with bill-to name, address, Payment Terms, and Compass's
+    payee number for Instawork. An issued invoice keeps a copy of it, a program-wide invoice number, and a
+    due date its terms' days after issue.
+  blocking: false
+  answer_from: COMPASS_FINANCE
+  answer: null
+  sources:
+  - FAQ One consolidated invoice
+  - GRAPH Instawork keeps invoicing_name, invoicing_address, vendor_number, and PaymentTerms days_payment_due per Company
+- decision_id: D-269
+  origin: graph
+  question: Does each Consolidated Invoice carry a Compass purchase order number?
+  status: open
+  assumption: >-
+    Yes, when its Sector has one. A Sector keeps purchase orders whose active date ranges never overlap,
+    and an invoice takes the one active on its week start. An amount limit, when set, is shown and never
+    enforced.
+  blocking: false
+  answer_from: COMPASS_FINANCE
+  answer: null
+  sources:
+  - GRAPH Instawork keeps PurchaseOrder rows per Company and prints the po_number on invoices
+- decision_id: D-270
+  origin: graph
+  question: Who keeps billing details for Sectors and Agencies?
+  status: open
+  assumption: >-
+    Instawork Admins keep Payment Terms, Sector Billing Profiles, purchase orders, and each Agency's legal
+    name, remit-to address, Payment Terms, and payee number. Program Users see all of them, and Agency
+    Users see only their own Agency's.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - GRAPH Instawork staff keep CompanyInvoicingSettings, payment terms, and purchase orders in Django admin
+- decision_id: D-271
+  origin: graph
+  question: How does an issued Consolidated Invoice reach Compass?
+  status: open
+  assumption: >-
+    By email to its Sector's billing recipients with the invoice attached, until posting to SAP through
+    REQ-INTEGRATIONS-0008 replaces it.
+  blocking: false
+  answer_from: COMPASS_FINANCE
+  answer: null
+  sources:
+  - GRAPH Instawork's Company keeps an invoice_email_list that issued invoices are sent to

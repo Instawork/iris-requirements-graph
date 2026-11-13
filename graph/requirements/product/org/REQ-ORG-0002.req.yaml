@@ -119,6 +119,41 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-218
+- rule_id: R14
+  rule_statement: >-
+    A new Department copies default parking, entrance, directions, site contact, and attire from its Unit,
+    and a Program User may change them later.
+  rule_sources: []
+  rule_decisions:
+  - D-264
+- rule_id: R15
+  rule_statement: >-
+    Changing a Unit's default site instructions leaves each Department's copy as it was saved.
+  rule_sources: []
+  rule_decisions:
+  - D-264
+- rule_id: R16
+  rule_statement: >-
+    A Unit User whose Role Grant covers the Unit may change a Department's default parking, entrance,
+    directions, site contact, and attire.
+  rule_sources: []
+  rule_decisions:
+  - D-264
+- rule_id: R17
+  rule_statement: >-
+    A Program User may name a Unit's primary operator, an active User with an unrevoked UNIT_USER grant
+    covering the Unit, or leave it empty.
+  rule_sources:
+  - GRAPH Instawork's Business keeps one contact name, phone, and email
+  rule_decisions:
+  - D-266
+- rule_id: R18
+  rule_statement: >-
+    A primary operator who is deactivated or no longer covered by an unrevoked UNIT_USER grant is shown
+    as none until a Program User names another.
+  rule_sources: []
+  rule_decisions:
+  - D-266
 requirement_sources:
 - SESSIONS Shift Creation
 - SHEET PLT-2
@@ -132,6 +167,8 @@ requirement_decisions:
 - D-191
 - D-218
 - D-219
+- D-264
+- D-266
 requirement_features:
 - PLT-2
 edges:
@@ -152,6 +189,11 @@ data_model:
   - MarketZip.zip
   - MarketZip.market_id
   - CostCenter.code
+  - RoleGrant.user_id
+  - RoleGrant.role
+  - RoleGrant.org_node_id
+  - RoleGrant.revoked_at
+  - User.is_active
   writes:
   - OrgNode.*
   - Unit.*

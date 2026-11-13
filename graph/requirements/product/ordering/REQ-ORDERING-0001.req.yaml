@@ -69,12 +69,13 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R9
   rule_statement: >-
-    A new Shift's parking, entrance, directions, site_contact, and attire start as the Unit's defaults
-    unless the Unit User enters other values.
+    A new Shift's parking, entrance, directions, site_contact, and attire start as its Department's defaults,
+    or the Unit's when it has no Department, unless the Unit User enters other values.
   rule_sources:
   - SHEET SC-6
   - SHEET SC-11
-  rule_decisions: []
+  rule_decisions:
+  - D-264
 - rule_id: R10
   rule_statement: >-
     A Request starts in Iris and records its Unit, the User who created it, and created_via, the Channel
@@ -106,7 +107,7 @@ requirement_sources:
 - SHEET SC-2
 - PRD §2 Shifts
 - PRD Data Model
-requirement_decisions: [D-6, D-17, D-20, D-92, D-163, D-191]
+requirement_decisions: [D-6, D-17, D-20, D-92, D-163, D-191, D-264]
 requirement_features:
 - SC-2
 edges:
@@ -131,6 +132,11 @@ data_model:
   - Unit.default_attire
   - Department.unit_id
   - Department.is_active
+  - Department.default_parking
+  - Department.default_entrance
+  - Department.default_directions
+  - Department.default_site_contact
+  - Department.default_attire
   - Position.is_active
   writes:
   - Request.unit_id

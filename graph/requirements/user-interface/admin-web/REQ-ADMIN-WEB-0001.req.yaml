@@ -11,11 +11,14 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    The Instawork Admin menu lists Home, Positions, Markets, and Labor rules, in that order.
+    The Instawork Admin menu lists Home, Positions, Markets, Labor rules, Account team, and Outside ids,
+    in that order.
   rule_sources: []
   rule_decisions:
   - D-26
   - D-124
+  - D-265
+  - D-267
 - rule_id: R2
   rule_statement: >-
     Home, the page an Instawork Admin lands on, has no to-do list; it shows how many active Positions, how
@@ -63,6 +66,8 @@ requirement_decisions:
 - D-213
 - D-256
 - D-257
+- D-265
+- D-267
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

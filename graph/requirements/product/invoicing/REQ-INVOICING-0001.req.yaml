@@ -82,6 +82,29 @@ requirement_rules:
   - PRD §5 Invoices
   rule_decisions:
   - D-137
+- rule_id: R9
+  rule_statement: >-
+    On issue, a Consolidated Invoice takes the next program-wide invoice number, a copy of its Sector's
+    Billing Profile as bill_to, and the active purchase order covering week_start.
+  rule_sources: []
+  rule_decisions:
+  - D-268
+  - D-269
+- rule_id: R10
+  rule_statement: >-
+    On issue, due_on is the issue date plus the days due of the Billing Profile's Payment Terms, and each
+    Agency Invoice's due_on uses its Agency Billing Profile's Payment Terms.
+  rule_sources: []
+  rule_decisions:
+  - D-268
+  - D-270
+- rule_id: R11
+  rule_statement: >-
+    An invoice whose Sector or Agency has no billing details still issues, with bill_to or due_on empty,
+    and is shown to Program Users as missing them.
+  rule_sources: []
+  rule_decisions:
+  - D-268
 requirement_sources:
 - SHEET INV-1
 - SHEET 5.1
@@ -94,6 +117,9 @@ requirement_decisions:
 - D-137
 - D-240
 - D-241
+- D-268
+- D-269
+- D-270
 requirement_features:
 - INV-1
 edges:
@@ -109,6 +135,8 @@ edges:
   requirement_id: REQ-AUDIT-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-JOBS-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INVOICING-0012
 data_model:
   status: covered
   reads:
@@ -126,11 +154,21 @@ data_model:
   - OrgNode.parent_id
   - OrgNode.level
   - InvoiceLine.*
+  - BillingProfile.*
+  - PaymentTerms.days_due
+  - PurchaseOrder.*
+  - AgencyBillingProfile.agency_id
+  - AgencyBillingProfile.payment_terms_id
   writes:
   - ConsolidatedInvoice.sector_id
   - ConsolidatedInvoice.week_start
   - ConsolidatedInvoice.status
   - ConsolidatedInvoice.issued_at
+  - ConsolidatedInvoice.invoice_number
+  - ConsolidatedInvoice.bill_to
+  - ConsolidatedInvoice.purchase_order_id
+  - ConsolidatedInvoice.due_on
+  - AgencyInvoice.due_on
   - AgencyInvoice.consolidated_invoice_id
   - AgencyInvoice.agency_id
   - AgencyInvoice.status

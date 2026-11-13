@@ -90,13 +90,14 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R11
   rule_statement: >-
-    The date, start_time, and end_time are checked as a new Shift's are, and the parking, entrance, directions,
-    site_contact, and attire columns fill the site instruction fields of the same names.
+    The date, start_time, and end_time are checked as a new Shift's are, and a filled parking, entrance,
+    directions, site_contact, or attire column replaces that default.
   rule_sources:
   - PRD §6 Templates
   - PRD §7 What the agent checks
   - SHEET SC-6
-  rule_decisions: []
+  rule_decisions:
+  - D-264
 - rule_id: R12
   rule_statement: >-
     A row that would create a Shift with the same Unit, Position, Department, start, and end as an earlier
@@ -176,6 +177,7 @@ requirement_decisions:
 - D-102
 - D-187
 - D-188
+- D-264
 requirement_features:
 - SC-2
 edges:

@@ -300,3 +300,28 @@ terms:
   definition: How a change reached Iris, such as the app, a file, the assistant, an email, a text, or a call.
   avoid: []
   sources: [SHEET SC-10, PRD §7 Agent Chat]
+- term: Account team
+  definition: >-
+    The Instawork Account Manager, Account Owner, and Support Lead named for the program or an org node.
+    A Unit's team is the nearest one above it.
+  avoid: []
+  source_words: [AM, account rep, account owner]
+  sources: [GRAPH D-265]
+  decisions: [D-265]
+- term: Primary operator
+  definition: The one Unit User a Program User names as the Compass person accountable for a Unit.
+  avoid: []
+  source_words: [operator, requestor]
+  sources: [GRAPH D-266]
+  decisions: [D-266]
+- term: Billing Profile
+  definition: 'A Sector''s bill-to name and address, Payment Terms, payee number, and invoice recipients.'
+  avoid: []
+  source_words: [invoicing name, invoicing address, invoice email list]
+  sources: [GRAPH D-268]
+  decisions: [D-268, D-271]
+- term: Payment Terms
+  definition: How many days after issue an invoice is due, such as Net 30.
+  avoid: []
+  sources: [GRAPH D-268]
+  decisions: [D-268]

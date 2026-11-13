@@ -1,0 +1,80 @@
+requirement_id: REQ-ADMIN-WEB-0005
+requirement_target_layer: user-interface
+requirement_target_module: ADMIN-WEB
+requirement_phase: MVP
+requirement_title: Keep Instawork's account team for each part of the org
+requirement_statement: >-
+  On the Account team screen an Instawork Admin names the Account Manager, Account Owner, and Support
+  Lead for the whole program or any org node. It shows whom each Unit resolves to.
+requirement_actors:
+- INSTAWORK_ADMIN
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The Account team screen shows the program-wide member for each role, then the org tree with each
+    node's own open assignments.
+  rule_sources: []
+  rule_decisions:
+  - D-265
+- rule_id: R2
+  rule_statement: >-
+    Assign takes a role and an active Instawork Admin for the whole program or one org node, and saves
+    through REQ-ORG-0011, which ends that role's open assignment there.
+  rule_sources: []
+  rule_decisions:
+  - D-265
+- rule_id: R3
+  rule_statement: >-
+    Remove ends an open assignment through REQ-ORG-0011 after a confirmation.
+  rule_sources: []
+  rule_decisions:
+  - D-265
+- rule_id: R4
+  rule_statement: >-
+    Opening a Unit shows the member REQ-ORG-0011 resolves for each role and the node that assignment
+    belongs to, or none.
+  rule_sources: []
+  rule_decisions:
+  - D-265
+requirement_sources:
+- GRAPH Instawork staff set a Company's account manager and account reps in Django admin
+requirement_decisions:
+- D-265
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ADMIN-WEB-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0011
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+data_model:
+  status: covered
+  reads:
+  - AccountTeamAssignment.*
+  - OrgNode.*
+  - Unit.org_node_id
+  - RoleGrant.user_id
+  - RoleGrant.role
+  - RoleGrant.revoked_at
+  - User.first_name
+  - User.last_name
+  - User.email
+  - User.is_active
+  writes: []
+  detail: null
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

@@ -27,12 +27,13 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    The five site instruction fields start filled with the Unit's defaults and can be changed for this
-    Request.
+    Each line's five site instruction fields start filled from its Department's defaults, or the Unit's
+    when it has no Department, and can be changed for that line.
   rule_sources:
   - SHEET SC-6
   - SHEET SC-11
-  rule_decisions: []
+  rule_decisions:
+  - D-264
 - rule_id: R4
   rule_statement: >-
     An end time earlier than the start asks the User to confirm that the Shift ends the next day before
@@ -95,6 +96,7 @@ requirement_decisions:
 - D-17
 - D-23
 - D-107
+- D-264
 requirement_features:
 - SC-2
 edges:
@@ -128,6 +130,11 @@ data_model:
   - Department.unit_id
   - Department.name
   - Department.is_active
+  - Department.default_parking
+  - Department.default_entrance
+  - Department.default_directions
+  - Department.default_site_contact
+  - Department.default_attire
   writes: []
   detail: null
 requirement_starting_flow: true

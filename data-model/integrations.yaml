@@ -1,0 +1,23 @@
+module: INTEGRATIONS
+enums:
+- enum: ExternalSystem
+  values:
+  - {value: FIELDGLASS, meaning: 'SAP Fieldglass, the system Iris replaces for Compass.'}
+  - {value: SAP, meaning: Compass's SAP finance system that invoices post to.}
+  - {value: MYSTAFF, meaning: Compass's MyStaff workforce system.}
+  - {value: INSTAWORK, meaning: 'Instawork''s marketplace backend, such as its Company, Business, and Position ids.'}
+  - {value: SALESFORCE, meaning: Instawork's CRM.}
+  - {value: NETSUITE, meaning: Instawork's finance system.}
+entities:
+- entity: ExternalReference
+  phase: MVP
+  description: The id one outside system uses for one Iris record (D-267).
+  fields:
+  - {name: system, type: enum:ExternalSystem}
+  - {name: record_type, type: text, note: 'The Iris entity name: Unit, Department, CostCenter, Agency, or Position'}
+  - {name: record_id, type: int, note: The id of that record}
+  - {name: external_id, type: text, note: 'Kept exactly as the outside system writes it'}
+  - {name: recorded_by_id, type: ref:User}
+  unique:
+  - [system, record_type, record_id]
+  - [system, record_type, external_id]

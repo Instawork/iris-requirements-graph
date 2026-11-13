@@ -57,8 +57,8 @@ requirement_rules:
   - D-53
 - rule_id: R7
   rule_statement: >-
-    The Unit's address, timezone, Cost Center, Work Week start, secured-site flag, and Departments are
-    shown read-only, because only a Program User changes them.
+    The Unit's address, timezone, Cost Center, Work Week start, secured-site flag, and each Department's
+    name and Cost Center are shown read-only.
   rule_sources:
   - SHEET PLT-2
   rule_decisions:
@@ -80,6 +80,21 @@ requirement_rules:
   - FEEDBACK Departments within venues
   rule_decisions:
   - D-107
+- rule_id: R10
+  rule_statement: >-
+    Each Department on that screen shows its default parking, entrance, directions, site contact, and
+    attire, and the Unit User can change them through REQ-ORG-0002.
+  rule_sources: []
+  rule_decisions:
+  - D-264
+- rule_id: R11
+  rule_statement: >-
+    The Setup screen also shows the Unit's primary operator and, from REQ-ORG-0011, its Account Manager,
+    Account Owner, and Support Lead, each with name, email, and phone.
+  rule_sources: []
+  rule_decisions:
+  - D-265
+  - D-266
 requirement_sources:
 - SHEET SC-11
 - SHEET SC-6
@@ -87,6 +102,9 @@ requirement_decisions:
 - D-53
 - D-64
 - D-107
+- D-264
+- D-265
+- D-266
 requirement_features:
 - SC-11
 edges:
@@ -100,6 +118,8 @@ edges:
   requirement_id: REQ-ORDERING-0007
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0011
 data_model:
   status: covered
   reads:
@@ -112,9 +132,19 @@ data_model:
   - Department.name
   - Department.cost_center_id
   - Department.is_active
+  - Department.default_parking
+  - Department.default_entrance
+  - Department.default_directions
+  - Department.default_site_contact
+  - Department.default_attire
   - CostCenter.code
   - Position.name
   - OrgNode.name
+  - AccountTeamAssignment.*
+  - User.first_name
+  - User.last_name
+  - User.email
+  - User.phone
   writes: []
   detail: null
 requirement_starting_flow: false

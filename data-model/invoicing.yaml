@@ -20,6 +20,67 @@ enums:
   - {value: PASS_THROUGH, meaning: 'Pass-through, as the sheet names it (INV-8). What it means for an invoice waits on D-35.'}
   - {value: FULL_SERVICE, meaning: 'Full service, as the sheet names it (INV-8). What it means for an invoice waits on D-35.'}
 entities:
+- entity: PaymentTerms
+  phase: P2
+  description: 'How many days after issue an invoice is due, such as Net 30 (D-268).'
+  fields:
+  - {name: name, type: text}
+  - {name: days_due, type: int}
+  - {name: is_active, type: bool, note: Inactive terms cannot be picked for new billing details}
+  unique:
+  - [name]
+- entity: BillingProfile
+  phase: P2
+  description: Whom a Sector's Consolidated Invoices are billed to, and on which terms (D-268).
+  fields:
+  - {name: sector_id, type: ref:OrgNode, note: A SECTOR-level node}
+  - {name: bill_to_name, type: text}
+  - {name: address_line, type: text}
+  - {name: city, type: text}
+  - {name: state, type: text, note: Two-letter code}
+  - {name: zip, type: text, note: Five digits}
+  - {name: payment_terms_id, type: ref:PaymentTerms}
+  - {name: compass_payee_number, type: text, nullable: true, note: 'The number Compass accounts payable uses for Instawork, printed on invoices'}
+  unique:
+  - [sector_id]
+  constraints:
+  - sector_id is a SECTOR-level node.
+- entity: BillingRecipient
+  phase: P2
+  description: One email address that receives a Sector's issued Consolidated Invoices (D-271).
+  fields:
+  - {name: billing_profile_id, type: ref:BillingProfile}
+  - {name: email, type: text}
+  unique:
+  - [billing_profile_id, email]
+- entity: PurchaseOrder
+  phase: P2
+  description: A Compass purchase order that a Sector's Consolidated Invoices are charged against (D-269).
+  fields:
+  - {name: sector_id, type: ref:OrgNode, note: A SECTOR-level node}
+  - {name: po_number, type: text}
+  - {name: starts_on, type: date}
+  - {name: ends_on, type: date, nullable: true, note: Empty while open-ended}
+  - {name: amount_limit, type: money, nullable: true, note: 'Shown against invoiced totals, never enforced'}
+  - {name: is_active, type: bool}
+  unique:
+  - [sector_id, po_number]
+  constraints:
+  - Two active purchase orders of one Sector never cover the same date.
+- entity: AgencyBillingProfile
+  phase: P2
+  description: How an Agency is named and paid on its Agency Invoices (D-270).
+  fields:
+  - {name: agency_id, type: ref:Agency}
+  - {name: legal_name, type: text}
+  - {name: remit_to_address_line, type: text}
+  - {name: remit_to_city, type: text}
+  - {name: remit_to_state, type: text, note: Two-letter code}
+  - {name: remit_to_zip, type: text, note: Five digits}
+  - {name: payment_terms_id, type: ref:PaymentTerms}
+  - {name: compass_payee_number, type: text, nullable: true, note: The number Compass accounts payable uses for the Agency}
+  unique:
+  - [agency_id]
 - entity: ConsolidatedInvoice
   phase: P2
   description: One Sector's weekly invoice across every Agency that worked in it.
@@ -28,8 +89,13 @@ entities:
   - {name: week_start, type: date}
   - {name: status, type: enum:InvoiceStatus}
   - {name: issued_at, type: timestamp, nullable: true}
+  - {name: invoice_number, type: text, nullable: true, note: 'Set when ISSUED, from one program-wide sequence'}
+  - {name: bill_to, type: longtext, nullable: true, note: 'The Billing Profile''s name, address, and payee number as they were at issue; empty when the Sector had none'}
+  - {name: purchase_order_id, type: ref:PurchaseOrder, nullable: true, note: The active purchase order covering week_start at issue}
+  - {name: due_on, type: date, nullable: true, note: Issue date plus the Payment Terms' days_due}
   unique:
   - [sector_id, week_start]
+  - [invoice_number]
   constraints:
   - sector_id is a SECTOR-level node.
 - entity: AgencyInvoice
@@ -42,6 +108,7 @@ entities:
   - {name: contract_type, type: enum:ContractType, nullable: true, note: 'Empty until D-35 settles where it is set, on the Agency or the Unit'}
   - {name: status, type: enum:InvoiceStatus}
   - {name: paid_amount, type: money, note: 0 until a payment is recorded}
+  - {name: due_on, type: date, nullable: true, note: 'Issue date plus the Agency''s Payment Terms days_due; empty when it has none'}
   unique:
   - [consolidated_invoice_id, agency_id]
 - entity: InvoiceLine

@@ -72,6 +72,21 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-53
+- rule_id: R9
+  rule_statement: >-
+    Adding a Department starts its parking, entrance, directions, site contact, and attire from the Unit,
+    and the Program User can change them.
+  rule_sources: []
+  rule_decisions:
+  - D-264
+- rule_id: R10
+  rule_statement: >-
+    A Unit's page shows its account team from REQ-ORG-0011 and its primary operator, picked through
+    REQ-ORG-0002 from the active Unit Users whose grants cover the Unit.
+  rule_sources: []
+  rule_decisions:
+  - D-265
+  - D-266
 requirement_sources:
 - SHEET 7.1
 - SHEET PLT-2
@@ -79,6 +94,9 @@ requirement_sources:
 requirement_decisions:
 - D-21
 - D-53
+- D-264
+- D-265
+- D-266
 requirement_features:
 - PLT-2
 edges:
@@ -98,6 +116,8 @@ edges:
   requirement_id: REQ-CATALOG-0002
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0011
 data_model:
   status: covered
   reads:
@@ -107,6 +127,16 @@ data_model:
   - CostCenter.code
   - Market.name
   - Market.state
+  - AccountTeamAssignment.*
+  - RoleGrant.user_id
+  - RoleGrant.role
+  - RoleGrant.org_node_id
+  - RoleGrant.revoked_at
+  - User.first_name
+  - User.last_name
+  - User.email
+  - User.phone
+  - User.is_active
   writes: []
   detail: null
 requirement_starting_flow: true
