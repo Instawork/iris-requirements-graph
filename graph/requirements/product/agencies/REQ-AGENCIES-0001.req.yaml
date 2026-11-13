@@ -12,7 +12,7 @@ requirement_rules:
 - rule_id: R1
   rule_statement: Only a Program User adds an Agency, by form or from an AGENCIES file.
   rule_sources:
-  - FEEDBACK
+  - FEEDBACK Creating an agency in bulk
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
@@ -24,7 +24,7 @@ requirement_rules:
   rule_statement: >-
     Each new Agency needs a first contact with a first name, last name, and email; a phone number is optional.
   rule_sources:
-  - FEEDBACK
+  - DEMO lib/types.ts
   rule_decisions:
   - D-25
 - rule_id: R4
@@ -32,7 +32,7 @@ requirement_rules:
     The contact is invited through REQ-IDENTITY-0002 and granted AGENCY_USER for the new Agency through
     REQ-ORG-0005.
   rule_sources:
-  - FEEDBACK
+  - SHEET PLT-4
   rule_decisions:
   - D-25
 - rule_id: R5
@@ -40,16 +40,18 @@ requirement_rules:
     An AGENCIES file has one row per Agency: agency, contact_first_name, contact_last_name, and contact_email
     are required, and contact_phone and approved_for are optional.
   rule_sources:
-  - FEEDBACK
+  - FEEDBACK Creating an agency in bulk
+  - DEMO lib/types.ts
   rule_decisions: []
 - rule_id: R6
   rule_statement: >-
-    File rows are checked by the same rules as the form and become a Proposal; nothing is saved until
-    the Program User applies it.
+    File rows pass the same checks as the form, so a row naming an existing Agency is a row problem; each
+    row is one Proposal item whose Agency, invite, and grant save together.
   rule_sources:
   - PRD §6 Uploads
-  - FEEDBACK
-  rule_decisions: []
+  - FEEDBACK Creating an agency in bulk
+  rule_decisions:
+  - D-54
 - rule_id: R7
   rule_statement: >-
     A Program User renames, deactivates, or reactivates an Agency; an inactive Agency keeps its records and receives
@@ -58,7 +60,8 @@ requirement_rules:
   rule_decisions:
   - D-53
 requirement_sources:
-- FEEDBACK
+- FEEDBACK Creating an agency in bulk
+- PRD §6 Uploads
 requirement_decisions:
 - D-25
 - D-53

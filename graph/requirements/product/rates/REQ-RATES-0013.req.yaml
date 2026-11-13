@@ -12,8 +12,8 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    The form takes a Position, a Market or a Unit, the six rates, and an effective_from date; a Program
-    User also picks the Agency.
+    The form takes a Position, a Market or a Unit, the six rates, an effective_from date, and a reason;
+    a Program User also picks the Agency.
   rule_sources:
   - SHEET RC-3
   - DEMO lib/types.ts
@@ -23,7 +23,7 @@ requirement_rules:
   rule_statement: >-
     Saving the form submits the line through REQ-RATES-0009 with the app as its channel.
   rule_sources:
-  - FEEDBACK
+  - SHEET RC-3
   rule_decisions:
   - D-10
 - rule_id: R3
@@ -37,7 +37,7 @@ requirement_rules:
   rule_statement: >-
     The form shows the Markup of each Pay and Bill Rate pair as a percentage and has no Markup field (C-14).
   rule_sources:
-  - FEEDBACK
+  - FEEDBACK Just do % only
   rule_decisions:
   - D-11
 - rule_id: R5
@@ -48,13 +48,15 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R6
   rule_statement: >-
-    The submitter may give a reason for the change, which is kept on the new line's Audit Trail entry.
+    The reason is required whenever REQ-RATES-0009 requires a change_reason, optional otherwise, and is
+    saved as the new line's change_reason.
   rule_sources:
   - SHEET RC-5
   rule_decisions: []
 requirement_sources:
 - SHEET RC-3
-- FEEDBACK
+- SHEET RC-5
+- FEEDBACK Just do % only
 requirement_decisions: [D-10, D-11]
 requirement_features:
 - RC-3
@@ -85,8 +87,11 @@ data_model:
   - RateLine.double_time_pay_rate
   - RateLine.double_time_bill_rate
   - RateLine.effective_from
+  - RateLine.change_reason
   - RateLine.submitted_via
-  detail: null
+  detail: >-
+    The form's rules: its fields, the prefill from the current line, and the call to REQ-RATES-0009, which
+    saves the line. REQ-AGENCY-WEB-0005 and REQ-PROGRAM-WEB-0003 show the form.
 requirement_starting_flow: true
 requirement_review:
   status: draft

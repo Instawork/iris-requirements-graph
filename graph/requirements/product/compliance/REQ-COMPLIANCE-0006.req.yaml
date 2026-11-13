@@ -20,8 +20,8 @@ requirement_rules:
   - D-27
 - rule_id: R2
   rule_statement: >-
-    A Worker has at most one BadgeRequest for a Unit, and later Assignments there reuse it whatever its
-    status.
+    A Worker has at most one BadgeRequest for a Unit; a later Assignment there reuses it, and a REVOKED
+    one becomes REQUESTED again with a new requested_at and its issued and revoked fields cleared.
   rule_sources:
   - GRAPH data model BadgeRequest
   rule_decisions:
@@ -37,7 +37,7 @@ requirement_rules:
 - rule_id: R4
   rule_statement: >-
     A Unit User whose scope covers the Unit marks a REQUESTED or ISSUED BadgeRequest REVOKED, which sets
-    revoked_by and revoked_at; REVOKED is final.
+    revoked_by and revoked_at.
   rule_sources:
   - SHEET WA-17
   rule_decisions:

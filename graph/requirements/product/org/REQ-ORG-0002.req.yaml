@@ -28,14 +28,15 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    A Unit needs a name, address line, city, two-letter state, five-digit ZIP code, Cost Center code,
-    and Work Week start day; one missing or malformed is refused.
+    A Unit needs a name no other Unit has, address line, city, two-letter USPS state code, five-digit ZIP
+    code, Cost Center code, and Work Week start day; one missing or malformed is refused.
   rule_sources:
   - PRD Data Model
   - SHEET WA-18
   - SHEET WA-20
   - SHEET PLT-2
-  rule_decisions: []
+  rule_decisions:
+  - D-54
 - rule_id: R4
   rule_statement: >-
     The Unit's Market is the Market that holds its ZIP code; a ZIP code in no Market is refused.
@@ -45,11 +46,13 @@ requirement_rules:
   - D-21
 - rule_id: R5
   rule_statement: >-
-    The time zone is an IANA zone, filled from the ZIP code when the form leaves it empty.
+    The time zone is an IANA zone; when the form leaves it empty Iris fills it from the ZIP code, and
+    refuses the Unit when it cannot place that ZIP code.
   rule_sources:
   - DEMO lib/types.ts
   - GRAPH every Shift time at a Unit is read in its time zone
-  rule_decisions: []
+  rule_decisions:
+  - D-88
 - rule_id: R6
   rule_statement: >-
     A Cost Center code not yet on file is added as a new Cost Center, and a code already on file is reused.
@@ -62,7 +65,7 @@ requirement_rules:
     A Program User adds, renames, deactivates, or reactivates a Department; each has a name unique within its Unit
     and its own Cost Center code.
   rule_sources:
-  - FEEDBACK
+  - FEEDBACK Departments within venues
   - SHEET PLT-2
   rule_decisions:
   - D-53
@@ -94,18 +97,30 @@ requirement_rules:
   - D-53
 - rule_id: R11
   rule_statement: >-
-    A Program User deactivates or reactivates a Unit by changing its node's active flag; an inactive Unit
-    keeps its records and accepts no new Request.
+    A Program User deactivates or reactivates a Unit by changing its node's active flag, reactivating only
+    under an active District; an inactive Unit keeps its records and accepts no new Request.
   rule_sources: []
   rule_decisions:
   - D-53
+  - D-83
+- rule_id: R12
+  rule_statement: >-
+    When REQ-CATALOG-0002 adds a ZIP code to a Market, every Unit with that ZIP code takes that Market;
+    removing a ZIP code from a Market changes no Unit.
+  rule_sources:
+  - PRD §3 Supplier Rates
+  rule_decisions:
+  - D-88
 requirement_sources:
 - SESSIONS Shift Creation
 - SHEET PLT-2
-- FEEDBACK
+- FEEDBACK Departments within venues
 requirement_decisions:
 - D-21
 - D-53
+- D-54
+- D-83
+- D-88
 requirement_features:
 - PLT-2
 edges:

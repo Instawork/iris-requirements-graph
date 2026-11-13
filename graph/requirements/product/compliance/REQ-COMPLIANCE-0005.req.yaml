@@ -44,7 +44,7 @@ requirement_rules:
     The Worker is eligible when every required type is satisfied, and always when the Shift requires none.
   rule_sources:
   - SHEET WA-13
-  - FAQ
+  - FAQ Every worker verified before the first shift
   rule_decisions: []
 - rule_id: R6
   rule_statement: >-
@@ -67,7 +67,7 @@ requirement_rules:
     answer is not eligible, Iris sends WORKER_NOT_ELIGIBLE.
   rule_sources:
   - SHEET WA-14
-  - FAQ
+  - FAQ What happens if a worker doesn't meet the requirements?
   rule_decisions:
   - D-51
 - rule_id: R9
@@ -76,7 +76,7 @@ requirement_rules:
     and to the User who created the Request, with the reasons.
   rule_sources:
   - SHEET WA-14
-  - FAQ
+  - FAQ What happens if a worker doesn't meet the requirements?
   rule_decisions:
   - D-51
 - rule_id: R10
@@ -85,11 +85,12 @@ requirement_rules:
     by REQ-WORKFORCE-0003.
   rule_sources:
   - GRAPH keeps the dependency graph free of cycles
-  rule_decisions: []
+  rule_decisions:
+  - D-51
 requirement_sources:
 - SHEET WA-13
 - SHEET WA-14
-- FAQ
+- FAQ Every worker verified before the first shift
 - SESSIONS Worker Assignment & Compliance
 - DEMO lib/compliance.ts
 requirement_decisions:

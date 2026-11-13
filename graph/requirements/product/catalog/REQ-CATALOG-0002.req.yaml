@@ -31,6 +31,14 @@ requirement_rules:
   - GRAPH a Unit's ZIP code must resolve to one Market
   rule_decisions:
   - D-21
+- rule_id: R4
+  rule_statement: >-
+    Adding a ZIP code to a Market moves the Units with that ZIP code to it through REQ-ORG-0002, and
+    removing a ZIP code changes no Unit.
+  rule_sources:
+  - PRD §3 Supplier Rates
+  rule_decisions:
+  - D-88
 requirement_sources:
 - SHEET RC-3
 - PRD §3 Supplier Rates
@@ -38,6 +46,7 @@ requirement_decisions:
 - D-8
 - D-21
 - D-26
+- D-88
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

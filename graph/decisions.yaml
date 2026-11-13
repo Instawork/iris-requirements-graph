@@ -98,7 +98,6 @@ decisions:
   blocking: false
   answer: null
   sources:
-  - PRD §1 Who sees what
   - SHEET RC-11
 - decision_id: D-10
   origin: graph
@@ -111,7 +110,8 @@ decisions:
   answer: null
   sources:
   - SESSIONS Rate Cards & Supplier Sourcing
-  - FEEDBACK
+  - SHEET RC-4
+  - SHEET Decisions & Inputs
 - decision_id: D-11
   origin: graph
   question: >-
@@ -343,7 +343,8 @@ decisions:
   status: open
   assumption: >-
     Iris raises one request per Worker per secured Unit at their first Assignment there. A Unit User marks
-    it Issued or Revoked. A badge request never stops a Worker being assigned.
+    it Issued or Revoked. A revoked request is raised again when the Worker is next assigned at that Unit.
+    A badge request never stops a Worker being assigned.
   blocking: false
   answer: null
   sources:
@@ -713,9 +714,11 @@ decisions:
   question: Which names identify a record when a file or a form refers to it?
   status: open
   assumption: >-
-    An org node's name is unique under its parent, and a Sector's name across the program. An Agency's
-    name is unique across the program. A file value that matches no record, or more than one, is a row
-    problem.
+    An org node's name is unique under its parent, and a Sector's name across the program. A Unit's name
+    is also unique across the program, so a file names a Unit by its name alone, as the PRD templates do.
+    An Agency's name is unique across the program. A file value that matches no record, or more than one,
+    is a row problem. Where a Region or District name matches several org nodes, the row lists each with
+    its path from the Sector for the sender to pick.
   blocking: false
   answer: null
   sources:
@@ -728,8 +731,10 @@ decisions:
   status: open
   assumption: >-
     A Rate Line may take effect on any date, past or future, that is on or after the start of every
-    approved line for the same Agency, Position, and Market or Unit. It ends the line before it on that
-    date. Work already sent or billed keeps the rates stored on it and is flagged by the variance check.
+    approved line for the same Agency, Position, and Market or Unit that prices at least one date. It
+    ends the line in effect on that date. A line whose six rates equal those of the line it would replace
+    changes nothing and is not submitted. Work already sent or billed keeps the rates stored on it and is
+    flagged by the variance check.
   blocking: false
   answer: null
   sources:
@@ -742,10 +747,12 @@ decisions:
     an uploaded Credential be changed?
   status: open
   assumption: >-
-    A Program User sets Credential Types and Credential Requirements, by org node and Position only, not
-    for a single Event. A Credential is rejected when the document's expiry date has passed or the issuer
-    or registry does not confirm it. It is verified when no sign of editing is found, the document
-    matches the details uploaded, and every check that ran passed; anything else goes to a Program User.
+    A Program User sets Credential Types and adds and removes Credential Requirements, by org node and
+    Position only, not for a single Event, with one requirement for each type, org node, and Position. A
+    Credential is rejected when the document's expiry date has passed or the issuer or registry does not
+    confirm it. It is verified when no sign of editing is found, the document matches the details
+    uploaded, and every check that ran passed; anything else goes to a Program User. A detail left empty
+    on upload is not compared with the document, so it never sends a Credential to review.
     Verified and rejected are final, so a correction or a renewal is a new Credential. A Credential counts
     through its expiry date and an Attestation through its valid-until date. A Credential file never
     creates a Worker.
@@ -1168,3 +1175,145 @@ decisions:
   answer: null
   sources:
   - GRAPH platform requirements may depend only on platform requirements
+- decision_id: D-80
+  origin: graph
+  question: Can an approved Rate Line be ended without a new line replacing it, and who may end it?
+  status: open
+  assumption: >-
+    Yes. A Program User ends an approved Rate Line that has no end date by giving an end date on or after
+    its start, and a reason. From that date the Agency has no contracted rate for that Position and Market
+    or Unit until a new line is approved. A line ended on its own start date never prices work and is
+    ignored when a later line's start date is checked. The Agency sees the end and the reason in its rate
+    history and is not notified.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET RC-5
+  - GRAPH an Agency that stops supplying a Position, or a line saved with a wrong date, needs an end
+- decision_id: D-81
+  origin: graph
+  question: Must every Rate Line give all six rates, and does the pilot rate data (I-5) hold them?
+  status: open
+  assumption: >-
+    Yes. Every Rate Line gives a Pay Rate and a Bill Rate for regular, overtime, and double-time hours, as
+    the PRD rate card does, and a row missing one is a problem. If the pilot data holds only Bill Rates
+    or only regular rates, Compass or the Agencies supply the rest before the rates are loaded.
+  blocking: false
+  answer: null
+  sources:
+  - PRD §6 Templates
+  - SHEET Decisions & Inputs
+- decision_id: D-82
+  origin: graph
+  question: Which values may a whole-number Setting take?
+  status: open
+  assumption: >-
+    0 or more. A negative tolerance, Lock Window, threshold, or warning period is refused. No upper limit
+    is set.
+  blocking: false
+  answer: null
+  sources:
+  - GRAPH the settings catalog gives each key a type and no range
+- decision_id: D-83
+  origin: graph
+  question: In what order may org nodes be made inactive and active again?
+  status: open
+  assumption: >-
+    A Sector, Region, or District is made inactive only when every node beneath it is already inactive. A
+    node or a Unit is made active again only while its parent is active. So an active Unit always sits
+    under active nodes.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET PLT-2
+  - GRAPH D-53 says nodes are made inactive and not what happens beneath them
+- decision_id: D-84
+  origin: graph
+  question: Does a User who holds several Role Grants act with all of them at once, or only as the role they chose?
+  status: open
+  assumption: >-
+    Only as the role they chose. Every request carries an acting context: one role and, for an Agency
+    User, one Agency. A Unit User context covers all the User's Unit User grants. Iris allows an action
+    only when the acting role may take it and the User still holds an unrevoked grant for that role and
+    Agency; their other grants count for nothing until they switch. The context is kept on the session.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET PLT-1
+  - GRAPH a User may hold a Program User and an Agency User grant, and rules such as Rate Line approval differ by role
+- decision_id: D-85
+  origin: graph
+  question: >-
+    May a User hold several Role Grants, what happens when a grant is given twice, and who grants Program
+    User when no active Program User is left?
+  status: open
+  assumption: >-
+    A User may hold any number of Role Grants. A grant that repeats an unrevoked role and scope is
+    refused. Granting a revoked role and scope again restores the old grant and records who restored it.
+    An Instawork Admin may grant Program User whenever no active User holds an unrevoked Program User
+    grant, so the program is never locked out when its last Program User is deactivated.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET PLT-1
+  - SHEET PLT-4
+- decision_id: D-86
+  origin: graph
+  question: >-
+    PLT-2 lists Department as the lowest level of the hierarchy. Can access, Settings, Agency approvals,
+    or Credential Requirements be scoped to a Department?
+  status: open
+  assumption: >-
+    No. A Department sits inside one Unit and has its own Cost Center, so spend rolls up through it. Role
+    Grants, Settings, Agency approvals, and Credential Requirements are scoped to a Unit or a level
+    above it.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET PLT-2
+  - FEEDBACK Departments within venues
+- decision_id: D-87
+  origin: graph
+  question: Who sees the Peer Rate, and how is it rounded and compared?
+  status: open
+  assumption: >-
+    Program Users see the Peer Rate beside each line. An Agency User is told only that a rate is above its
+    peers, and never sees the Peer Rate or another Agency's rate. The Peer Rate is rounded half up to the
+    cent, and a rate is flagged when it is at least the Peer Rate plus the threshold percent of it.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET RC-12
+  - PRD §3 Supplier Rates
+- decision_id: D-88
+  origin: graph
+  question: >-
+    Where does a Unit's time zone come from, and does a Unit's Market follow later changes to a Market's
+    ZIP codes?
+  status: open
+  assumption: >-
+    A Program User may enter the time zone. When it is left empty, Iris fills it from the Unit's ZIP code
+    using a ZIP code table shipped with the build, and refuses the Unit when the table lacks that ZIP
+    code. A Unit's Market is set from its ZIP code when the Unit is saved. When a ZIP code is later added
+    to a Market, the Units with that ZIP code move to that Market; removing a ZIP code from a Market
+    changes no Unit.
+  blocking: false
+  answer: null
+  sources:
+  - DEMO lib/types.ts
+  - PRD §3 Supplier Rates
+- decision_id: D-89
+  origin: graph
+  question: When is a Credential checked, and how often is an Agency warned that one is expiring?
+  status: open
+  assumption: >-
+    A job that runs every five minutes (D-68) checks each Credential waiting for its checks, so a check
+    that cannot run is tried again at the next run. The expiry warning is sent once for each Credential,
+    by a daily job at 08:00 in the program timezone, for every verified Credential not yet warned that no
+    newer Credential replaces and that expires today or within the warning days. A later change to the
+    warning days does not warn again.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET WA-14
+  - SHEET WA-15

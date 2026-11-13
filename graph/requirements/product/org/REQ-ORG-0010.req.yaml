@@ -19,7 +19,7 @@ requirement_rules:
     A key the catalog scopes as any takes a program default and an override at any Sector, Region, District,
     or Unit node, with one value per key and node.
   rule_sources:
-  - FAQ
+  - FAQ Settings for each sector
   - SHEET WA-19
   - SHEET TS-9
   rule_decisions:
@@ -34,12 +34,13 @@ requirement_rules:
   - D-16
 - rule_id: R4
   rule_statement: >-
-    A value that does not fit the key's catalog type (a whole number, true or false, or SOFT or HARD)
-    is refused.
+    A value that does not fit the key's catalog type (a whole number of 0 or more, true or false, or SOFT
+    or HARD) is refused.
   rule_sources:
   - GRAPH the settings catalog gives each key a type
   rule_decisions:
   - D-16
+  - D-82
 - rule_id: R5
   rule_statement: >-
     Removing an override deletes its row so the next value up the tree applies, and removing the program
@@ -48,12 +49,13 @@ requirement_rules:
   rule_decisions:
   - D-16
 requirement_sources:
-- FAQ
+- FAQ Settings for each sector
 - SHEET TS-9
 - SHEET WA-19
 requirement_decisions:
 - D-16
 - D-53
+- D-82
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

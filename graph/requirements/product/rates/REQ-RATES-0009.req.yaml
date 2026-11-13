@@ -15,7 +15,9 @@ requirement_rules:
     An Agency User submits Rate Lines only for their own Agency, and a Program User submits them for any
     Agency (C-13).
   rule_sources:
-  - FEEDBACK
+  - SHEET RC-4
+  - SHEET Decisions & Inputs
+  - SESSIONS Rate Cards & Supplier Sourcing
   rule_decisions:
   - D-10
 - rule_id: R2
@@ -27,7 +29,7 @@ requirement_rules:
 - rule_id: R3
   rule_statement: >-
     A line an Agency User submits is saved as PENDING, and RATE_LINE_PENDING is sent to every active Program
-    User.
+    User for each line, including each accepted row of a file.
   rule_sources:
   - SESSIONS Rate Cards & Supplier Sourcing
   rule_decisions:
@@ -36,7 +38,7 @@ requirement_rules:
   rule_statement: >-
     A line a Program User submits is saved as APPROVED, with no second approval.
   rule_sources:
-  - FEEDBACK
+  - SHEET RC-4
   rule_decisions:
   - D-10
 - rule_id: R5
@@ -64,38 +66,73 @@ requirement_rules:
 - rule_id: R8
   rule_statement: >-
     A line becomes APPROVED only if its effective_from is on or after the effective_from of every APPROVED
-    line for the same Agency, Position, and Market or Unit.
+    line for the same Agency, Position, and Market or Unit that prices at least one date.
   rule_sources: []
   rule_decisions:
   - D-55
+  - D-80
 - rule_id: R9
   rule_statement: >-
-    When a line becomes APPROVED, the APPROVED line for the same Agency, Position, and Market or Unit
-    with no effective_to gets the new line's effective_from as its effective_to, and the new line's replaces_id
-    names it.
+    When a line becomes APPROVED, the APPROVED line in effect on its effective_from for the same Agency,
+    Position, and Market or Unit gets that date as its effective_to, and the new line's replaces_id names
+    it.
   rule_sources:
   - SHEET RC-5
   - DEMO lib/types.ts
   rule_decisions:
   - D-10
+  - D-55
 - rule_id: R10
   rule_statement: >-
-    Once saved, a line's Agency, Position, Market or Unit, rates, and effective_from never change, and
-    its effective_to is set only when a later line replaces it.
+    Once saved, a line's Agency, Position, Market or Unit, rates, effective_from, and change_reason never
+    change, and its effective_to changes only when a later line replaces it or a Program User ends it.
   rule_sources:
   - SHEET RC-5
-  rule_decisions: []
+  rule_decisions:
+  - D-80
 - rule_id: R11
   rule_statement: Each line records who submitted it and the channel it came through.
   rule_sources:
   - SHEET RC-5
   rule_decisions: []
+- rule_id: R12
+  rule_statement: >-
+    A line submitted while an APPROVED line exists for the same Agency, Position, and Market or Unit must
+    give a change_reason, or it is not saved; a first line needs none.
+  rule_sources:
+  - SHEET RC-5
+  rule_decisions: []
+- rule_id: R13
+  rule_statement: >-
+    A line whose six rates equal those of the APPROVED line in effect on its effective_from for the same
+    Agency, Position, and Market or Unit is refused as unchanged.
+  rule_sources:
+  - SHEET RC-5
+  rule_decisions:
+  - D-55
+- rule_id: R14
+  rule_statement: >-
+    A Program User ends an APPROVED line that has no effective_to by setting effective_to on or after
+    its effective_from, with an end_reason; a line ended on its effective_from never prices work.
+  rule_sources:
+  - SHEET RC-5
+  rule_decisions:
+  - D-80
+- rule_id: R15
+  rule_statement: >-
+    When a line that answers a Rate Review is approved or sent back, REQ-RATES-0008 updates that review.
+  rule_sources:
+  - SHEET RC-12
+  rule_decisions:
+  - D-10
 requirement_sources:
 - SESSIONS Rate Cards & Supplier Sourcing
-- FEEDBACK
+- SHEET RC-4
+- SHEET RC-5
 requirement_decisions:
 - D-10
 - D-55
+- D-80
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

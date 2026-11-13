@@ -55,14 +55,16 @@ notifications:
   recipients: Every active Agency User of the Worker's Agency, and the User who created the Request.
   channels: [EMAIL, IN_APP]
   owner: REQ-COMPLIANCE-0005
-  sources: [SHEET WA-14, FAQ]
+  sources: [SHEET WA-14, "FAQ What happens if a worker doesn't meet the requirements?"]
 - type: CREDENTIAL_EXPIRING
-  trigger: A verified credential's expiry is CREDENTIAL_EXPIRY_WARNING_DAYS away or less. Sent once for each credential.
+  trigger: >-
+    A verified credential's expiry is CREDENTIAL_EXPIRY_WARNING_DAYS away or less. Sent once for each credential,
+    by a daily job, and recorded in Credential.expiry_warned_at.
   recipients: Every active Agency User of the Worker's Agency.
   channels: [EMAIL, IN_APP]
   owner: REQ-COMPLIANCE-0002
   sources: [SHEET WA-14]
-  decisions: [D-16]
+  decisions: [D-16, D-89]
 - type: CREDENTIAL_DECIDED
   trigger: A credential is verified or rejected.
   recipients: The User who uploaded it.

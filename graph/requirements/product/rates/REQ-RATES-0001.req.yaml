@@ -25,8 +25,10 @@ requirement_rules:
   rule_sources:
   - PRD §3 Supplier Rates
   - PRD Key Terms
+  - PRD §6 Templates
   rule_decisions:
   - D-11
+  - D-81
 - rule_id: R3
   rule_statement: Each Bill Rate is at least the Pay Rate for the same class of hours.
   rule_sources:
@@ -50,7 +52,7 @@ requirement_rules:
     Markup is never entered or stored; it is the Bill Rate minus the Pay Rate, divided by the Pay Rate,
     shown as a percentage (C-14).
   rule_sources:
-  - FEEDBACK
+  - FEEDBACK Just do % only
   rule_decisions:
   - D-11
 - rule_id: R7
@@ -74,8 +76,8 @@ requirement_rules:
 requirement_sources:
 - SHEET RC-3
 - PRD §3 Supplier Rates
-- FEEDBACK
-requirement_decisions: [D-1, D-11, D-21]
+- FEEDBACK Just do % only
+requirement_decisions: [D-1, D-11, D-21, D-81]
 requirement_features:
 - RC-3
 edges:

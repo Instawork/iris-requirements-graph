@@ -38,12 +38,13 @@ entities:
   - {name: active, type: bool, note: 'An inactive node takes no new child, and an inactive UNIT node takes no new Request'}
   unique:
   - [parent_id, name]
+  constraints:
+  - Two UNIT nodes never share a name, whatever their parents (D-54).
 - entity: CostCenter
   phase: MVP
   description: A Compass cost center code that spend is charged to.
   fields:
   - {name: code, type: text}
-  - {name: name, type: text, nullable: true}
   unique:
   - [code]
 - entity: Unit
@@ -55,8 +56,8 @@ entities:
   - {name: city, type: text}
   - {name: state, type: text, note: Two-letter code; labor rules resolve from this and city}
   - {name: zip, type: text, note: Five digits}
-  - {name: timezone, type: text, note: 'IANA zone, such as America/Chicago; every Shift time at the Unit is in this zone'}
-  - {name: market_id, type: ref:Market, note: The Market whose ZIP codes include zip}
+  - {name: timezone, type: text, note: 'IANA zone, such as America/Chicago; every Shift time at the Unit is in this zone. Filled from zip when not given (D-88)'}
+  - {name: market_id, type: ref:Market, note: 'The Market that holds zip; set when the Unit is saved and again when its ZIP code is added to a Market (D-88)'}
   - {name: cost_center_id, type: ref:CostCenter}
   - {name: work_week_start, type: enum:Weekday}
   - {name: is_secured_site, type: bool, note: Workers need a badge request here}
@@ -79,13 +80,13 @@ entities:
   - [unit_id, name]
 - entity: RoleGrant
   phase: MVP
-  description: One role a User holds, and the scope it covers.
+  description: 'One role a User holds, and the scope it covers. A revoked grant is restored, never added a second time.'
   fields:
   - {name: user_id, type: ref:User}
   - {name: role, type: enum:Role}
   - {name: org_node_id, type: ref:OrgNode, nullable: true, note: Set only for a Unit User; covers every Unit beneath it}
   - {name: agency_id, type: ref:Agency, nullable: true, note: Set only for an Agency User}
-  - {name: granted_by, type: ref:User, nullable: true, note: Empty for a seeded Instawork Admin}
+  - {name: granted_by, type: ref:User, nullable: true, note: 'Empty for a seeded Instawork Admin; after a revoked grant is restored, the User who restored it'}
   - {name: revoked_at, type: timestamp, nullable: true}
   unique:
   - [user_id, role, org_node_id, agency_id]
@@ -98,7 +99,7 @@ entities:
   description: An override of one Setting at one org node, or a new program default. Unset keys use the catalog default.
   fields:
   - {name: key, type: enum:SettingKey}
-  - {name: value, type: text, note: Parsed by the type the settings catalog gives the key}
+  - {name: value, type: text, note: 'Parsed by the type the settings catalog gives the key; a whole number is 0 or more (D-82)'}
   - {name: org_node_id, type: ref:OrgNode, nullable: true, note: Empty means the program default}
   unique:
   - [key, org_node_id]
