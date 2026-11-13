@@ -26,6 +26,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/python tools/get_requirement.py REQ-TIME-0005 # a requirement with everything it needs
 .venv/bin/python tools/list_requirements.py --ready     # what can be built next
 .venv/bin/python tools/list_requirements.py --blocking  # what each blocking decision stops
+.venv/bin/python tools/list_decisions.py --markdown     # open questions, grouped by who answers
 .venv/bin/python tools/build_canvas.py                  # write canvas/ (git ignores it)
 .venv/bin/python tools/set_starting_flow.py --add REQ-UNIT-WEB-0007   # change the flow's seeds
 .venv/bin/python tools/next_requirement_id.py TIME      # the next unused id for a module
