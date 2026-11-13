@@ -5,7 +5,7 @@ requirement_phase: MVP
 requirement_title: Read in-app notifications in an inbox
 requirement_statement: >-
   Every page leads to an inbox of the User's in-app notifications, newest first. Opening one marks it
-  read and leads to the record it is about.
+  read and opens the page registered for the record it is about.
 requirement_actors:
 - INSTAWORK_ADMIN
 - PROGRAM_USER
@@ -28,9 +28,7 @@ requirement_rules:
   - PRD Overview
   rule_decisions: []
 - rule_id: R3
-  rule_statement: >-
-    Opening a notification marks it read through REQ-MESSAGING-0001 and opens the record it is about when
-    the acting role has a screen for that record.
+  rule_statement: Opening a notification marks it read through REQ-MESSAGING-0001.
   rule_sources:
   - PRD Overview
   rule_decisions:
@@ -49,10 +47,22 @@ requirement_rules:
   - PRD Overview
   rule_decisions:
   - D-118
+- rule_id: R6
+  rule_statement: >-
+    Opening a notification then opens the page a screen requirement registered for its subject entity and
+    the acting role, at its subject record, and does nothing else when none is registered.
+  rule_sources:
+  - PRD Overview
+  rule_decisions:
+  - D-118
+  - D-252
+  - D-107
 requirement_sources:
 - PRD Overview
 requirement_decisions:
+- D-107
 - D-118
+- D-252
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON
@@ -71,7 +81,10 @@ data_model:
   - Notification.sent_at
   - Notification.read_at
   writes: []
-  detail: null
+  detail: >-
+    The registry of pages is code, as the registry of upload types is. A screen requirement whose rule names
+    this one adds its page for a subject entity and a role when it is delivered, and each pair of entity
+    and role has at most one page.
 requirement_starting_flow: true
 requirement_review:
   status: draft

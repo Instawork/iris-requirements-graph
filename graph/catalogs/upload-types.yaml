@@ -37,15 +37,15 @@ upload_types:
   phase: MVP
   meaning: An Agency's Workers, one row per person.
   uploaders: [AGENCY_USER]
-  owner: REQ-WORKFORCE-0001
+  owner: REQ-WORKFORCE-0017
   sources: [SHEET WA-1, PRD §6 Templates]
   columns:
-  - {column: first_name, kind: text, required: 'yes', maps_to: Worker.first_name}
-  - {column: last_name, kind: text, required: 'yes', maps_to: Worker.last_name}
-  - {column: email, kind: text, required: 'no', maps_to: Worker.email}
-  - {column: phone, kind: text, required: 'no', maps_to: Worker.phone}
-  - {column: city, kind: text, required: 'no', maps_to: Worker.city}
-  - {column: positions, kind: text, required: 'no', maps_to: Worker.position_ids, lookup: 'Position.name, separated by semicolons'}
+  - {column: first_name, kind: text, required: 'yes', maps_to: Worker.first_name, saved_by: REQ-WORKFORCE-0001}
+  - {column: last_name, kind: text, required: 'yes', maps_to: Worker.last_name, saved_by: REQ-WORKFORCE-0001}
+  - {column: email, kind: text, required: 'no', maps_to: Worker.email, saved_by: REQ-WORKFORCE-0001}
+  - {column: phone, kind: text, required: 'no', maps_to: Worker.phone, saved_by: REQ-WORKFORCE-0001}
+  - {column: city, kind: text, required: 'no', maps_to: Worker.city, saved_by: REQ-WORKFORCE-0001}
+  - {column: positions, kind: text, required: 'no', maps_to: Worker.position_ids, saved_by: REQ-WORKFORCE-0001, lookup: 'Position.name, separated by semicolons'}
 - type: SHIFTS
   phase: MVP
   meaning: >-

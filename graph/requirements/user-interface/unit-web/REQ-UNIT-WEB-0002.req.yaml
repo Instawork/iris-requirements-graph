@@ -80,6 +80,13 @@ requirement_rules:
   rule_sources:
   - SHEET RC-11
   rule_decisions: []
+- rule_id: R14
+  rule_statement: >-
+    This requirement adds New Shift to the Shifts list of REQ-UNIT-WEB-0007, which opens this form.
+  rule_sources:
+  - PRD §2 Shifts
+  rule_decisions:
+  - D-107
 requirement_sources:
 - PRD §2 Shifts
 - SHEET SC-2
@@ -87,6 +94,7 @@ requirement_sources:
 requirement_decisions:
 - D-17
 - D-23
+- D-107
 requirement_features:
 - SC-2
 edges:

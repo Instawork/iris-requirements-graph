@@ -88,6 +88,15 @@ requirement_rules:
   - GRAPH keeps the dependency graph free of cycles
   rule_decisions:
   - D-51
+- rule_id: R11
+  rule_statement: >-
+    A WORKER_NOT_ELIGIBLE message has the Worker as subject and names the Worker, the Shift's Unit, Position,
+    date, and times, and each reason.
+  rule_sources:
+  - SHEET WA-14
+  rule_decisions:
+  - D-252
+  - D-253
 requirement_sources:
 - SHEET WA-13
 - SHEET WA-14
@@ -98,6 +107,8 @@ requirement_decisions:
 - D-3
 - D-51
 - D-149
+- D-252
+- D-253
 requirement_features:
 - WA-13
 - WA-14
@@ -141,6 +152,11 @@ data_model:
   - RoleGrant.agency_id
   - RoleGrant.org_node_id
   - RoleGrant.revoked_at
+  - Shift.ends_at
+  - Position.name
+  - OrgNode.name
+  - Worker.first_name
+  - Worker.last_name
   writes: []
   detail: Reads only. The answer is computed and not stored.
 requirement_starting_flow: true

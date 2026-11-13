@@ -104,6 +104,15 @@ requirement_rules:
   - SESSIONS Invoicing & Accruals
   rule_decisions:
   - D-2
+- rule_id: R13
+  rule_statement: >-
+    This requirement registers with REQ-SHELL-0007, for role PROGRAM_USER, the approval queue for a PENDING
+    RateLine, the History tab of REQ-PROGRAM-WEB-0003 for any other RateLine, and the Rate Reviews tab for
+    subject RateReview.
+  rule_sources: []
+  rule_decisions:
+  - D-107
+  - D-252
 requirement_sources:
 - SESSIONS Rate Cards & Supplier Sourcing
 - SHEET RC-12
@@ -115,6 +124,7 @@ requirement_decisions:
 - D-65
 - D-107
 - D-108
+- D-252
 requirement_features:
 - RC-12
 edges:
@@ -142,6 +152,8 @@ edges:
   requirement_id: REQ-ORG-0002
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0007
 data_model:
   status: covered
   reads:

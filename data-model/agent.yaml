@@ -68,8 +68,9 @@ entities:
     names them.
   - >-
     Each entry of problems has field (a name in values, or empty when the problem is with the whole item),
-    message (what is wrong), fix (what accepting does, in words, or empty when there is no fix), fix_value
-    (the value that replaces the field's value when accepted, or empty when the fix changes no value),
-    drops_item (true when the fix is to reject the item), candidates (empty, or a list of label and value
-    the person may pick from), and picked (empty, or the value of the candidate picked).
+    entry (empty, or the one name the problem is about when the field's value lists several), message
+    (what is wrong), fix (what accepting does, in words, or empty when there is no fix), fix_value (the
+    value that replaces the field's value, or only its entry when one is named, or empty when the fix
+    changes no value), drops_item (true when the fix is to reject the item), candidates (empty, or a list
+    of label and value the person may pick from), and picked (empty, or the value of the candidate picked).
   - An item is ACCEPTED only when each of its problems has a fix or a picked candidate.

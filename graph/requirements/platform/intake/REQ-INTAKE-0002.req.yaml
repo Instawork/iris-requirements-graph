@@ -169,6 +169,14 @@ requirement_rules:
   - PRD §6 Uploads
   rule_decisions:
   - D-102
+- rule_id: R21
+  rule_statement: >-
+    Where the catalog says a column's names are separated by semicolons, each name is looked up on its own,
+    and each that fails is its own problem under REQ-AGENT-0002.R26.
+  rule_sources:
+  - PRD §7 What the agent checks
+  rule_decisions:
+  - D-261
 requirement_sources:
 - PRD §6 Uploads
 - PRD §6 Templates
@@ -182,6 +190,7 @@ requirement_decisions:
 - D-177
 - D-225
 - D-228
+- D-261
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

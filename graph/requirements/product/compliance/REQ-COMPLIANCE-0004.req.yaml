@@ -33,12 +33,12 @@ requirement_rules:
   - D-3
 - rule_id: R4
   rule_statement: >-
-    For a Worker and Credential Type, only the Attestation with the latest attested_at counts, and it
-    is current through its valid_until date, or without end when that is empty.
+    For a Worker and Credential Type, only the Attestation with the latest attested_at counts, and it is
+    current through its valid_until date, or without end when that is empty.
   rule_sources:
   - GRAPH data model Attestation
   rule_decisions:
-  - D-3
+  - D-258
   - D-196
 - rule_id: R5
   rule_statement: >-
@@ -62,6 +62,7 @@ requirement_sources:
 requirement_decisions:
 - D-3
 - D-196
+- D-258
 requirement_features:
 - WA-16
 edges:

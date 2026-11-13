@@ -58,11 +58,13 @@ requirement_rules:
   - D-161
 - rule_id: R7
   rule_statement: >-
-    Each accept and each decline, including a decline after accepting, sends RELEASE_ANSWERED to the User
-    who sent the Release.
+    Each accept and each decline, including one after accepting, sends RELEASE_ANSWERED to the User who
+    sent the Release, naming the Agency, the Shift's Unit, Position, date, and times, the answer, and any
+    decline_reason.
   rule_sources:
   - SHEET SC-8
-  rule_decisions: []
+  rule_decisions:
+  - D-253
 - rule_id: R8
   rule_statement: >-
     An Agency User may answer several PENDING Releases in one step, such as those of a block, and each
@@ -96,6 +98,7 @@ requirement_decisions:
 - D-160
 - D-161
 - D-166
+- D-253
 requirement_features:
 - SC-8
 edges:
@@ -119,6 +122,15 @@ data_model:
   - Release.status
   - Release.released_by
   - Shift.starts_at
+  - Shift.request_id
+  - Shift.position_id
+  - Shift.ends_at
+  - Request.unit_id
+  - Unit.org_node_id
+  - Unit.timezone
+  - OrgNode.name
+  - Position.name
+  - Agency.name
   writes:
   - Release.status
   - Release.responded_by

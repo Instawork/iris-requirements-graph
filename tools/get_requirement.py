@@ -4,7 +4,8 @@
 The output is YAML: the requirement itself, its direct dependencies and dependents, the
 decisions it rests on with the conflicts and inputs tied to them, the full definition of every
 entity it reads or writes, the status transitions it makes, the catalog entries it owns, and
-the catalog entries its rules name but another requirement owns.
+the catalog entries it names but another requirement owns. A whole catalog is printed only for a
+requirement that names the catalog's file, because it reads every entry.
 """
 
 from __future__ import annotations
@@ -18,12 +19,17 @@ import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from irisgraph import REPO_ROOT, Graph, load_graph, type_targets  # noqa: E402
+from irisgraph import REPO_ROOT, REQUIREMENT_ID_IN_TEXT, Graph, load_graph, type_targets  # noqa: E402
 
 UPPER_TOKEN = re.compile(r"\b[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)+\b")
 DECISION_IN_TEXT = re.compile(r"\bD-\d+\b")
 CONFLICT_IN_TEXT = re.compile(r"\bC-\d+\b")
 INPUT_IN_TEXT = re.compile(r"\bI-\d+\b")
+CATALOG_FILES = {
+    "settings": "graph/catalogs/settings.yaml",
+    "notifications": "graph/catalogs/notifications.yaml",
+    "upload_types": "graph/catalogs/upload-types.yaml",
+}
 
 
 def _status(doc: dict) -> dict:
@@ -90,13 +96,14 @@ def requirement_bundle(graph: Graph, requirement_id: str) -> dict:
     text = " ".join(
         [doc.get("requirement_statement") or ""] + [rule.get("rule_statement") or "" for rule in doc.get("requirement_rules") or []]
     )
-    tokens = set(UPPER_TOKEN.findall(text)) | set(re.findall(r"\b[A-Z]{3,}\b", text))
-    module = doc.get("requirement_target_module")
+    detail = str(block.get("detail") or "")
+    # A requirement id such as REQ-TIPS-0004 holds an upload type's name without naming the type.
+    named = REQUIREMENT_ID_IN_TEXT.sub(" ", f"{text} {detail}")
+    tokens = set(UPPER_TOKEN.findall(named)) | set(re.findall(r"\b[A-Z]{3,}\b", named))
     catalogs = {"settings": graph.settings, "notifications": graph.notifications, "upload_types": graph.upload_types}
-    enum_of = {"settings": "SettingKey", "notifications": "NotificationType", "upload_types": "UploadType"}
     used_catalog = {}
     for name, catalog in catalogs.items():
-        whole = (graph.enums.get(enum_of[name]) or {}).get("module") == module
+        whole = CATALOG_FILES[name] in named
         used_catalog[name] = {
             key: catalog[key] for key in sorted(catalog) if (whole or key in tokens) and key not in owns[name]
         }

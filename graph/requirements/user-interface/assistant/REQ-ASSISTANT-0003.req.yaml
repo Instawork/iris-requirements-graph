@@ -47,10 +47,10 @@ requirement_rules:
   - D-28
 - rule_id: R5
   rule_statement: >-
-    An Agency User's request that names Workers for a Shift goes to REQ-WORKFORCE-0003, which proposes
-    the Assignments.
+    An Agency User's request that names Workers for a Shift goes to REQ-WORKFORCE-0018, which returns a
+    Proposal of kind WORKER_ASSIGNMENT.
   rule_sources:
-  - PRD §7 Who uses it
+  - PRD §7 Opening screen
   - SHEET WA-1
   rule_decisions: []
 - rule_id: R6
@@ -85,7 +85,7 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R10
   rule_statement: >-
-    A Unit User's request to change a Shift's headcount or times, or to cancel it, goes to REQ-ORDERING-0003,
+    A Unit User's request to change a Shift's headcount or times, or to cancel it, goes to REQ-ORDERING-0015,
     which returns a Proposal of kind SHIFT_CHANGE.
   rule_sources:
   - PRD §7 Who uses it
@@ -137,11 +137,11 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-TIPS-0002
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-WORKFORCE-0003
-- edge_type: DEPENDS_ON
   requirement_id: REQ-REPORTING-0003
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-ORDERING-0003
+  requirement_id: REQ-WORKFORCE-0018
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0015
 data_model:
   status: covered
   reads:

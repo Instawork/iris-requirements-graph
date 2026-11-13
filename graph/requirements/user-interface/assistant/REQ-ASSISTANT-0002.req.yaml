@@ -20,12 +20,13 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    Each item that needs review shows its row number when it came from a file and, for each problem, the
-    field, the message, and the fix or the candidates to pick from.
+    Each item that needs review shows its file row number, if any, and each problem's field, message, fix,
+    and candidates, and says the fix applies unless a candidate is picked.
   rule_sources:
   - PRD §6 Uploads
   rule_decisions:
   - D-102
+  - D-224
 - rule_id: R3
   rule_statement: >-
     On each such item the User accepts the fix, edits the values, or rejects the item, and one action

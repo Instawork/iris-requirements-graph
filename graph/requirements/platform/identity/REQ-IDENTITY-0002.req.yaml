@@ -30,8 +30,8 @@ requirement_rules:
   - D-34
 - rule_id: R3
   rule_statement: >-
-    An invite for an email a User already holds changes nothing and returns that User, unless the inviter
-    asks to send it again before it is accepted, which creates a new INVITE link.
+    An invite for an email an active User already holds changes nothing and returns that User, unless the
+    inviter asks to send it again before it is accepted, which creates a new INVITE link.
   rule_sources: []
   rule_decisions:
   - D-152
@@ -100,6 +100,13 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-37
+- rule_id: R13
+  rule_statement: >-
+    An invite for an email a deactivated User holds is refused, and the refusal says that User is deactivated
+    and must be reactivated before being invited or granted a role.
+  rule_sources: []
+  rule_decisions:
+  - D-152
 requirement_sources:
 - SHEET PLT-4
 requirement_decisions:

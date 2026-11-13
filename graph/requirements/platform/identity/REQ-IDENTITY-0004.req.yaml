@@ -7,6 +7,7 @@ requirement_statement: >-
   A User who should no longer use Iris is deactivated, which ends their access at once and keeps their
   records. Reactivating gives the same User their access back.
 requirement_actors:
+- INSTAWORK_ADMIN
 - PROGRAM_USER
 - AGENCY_USER
 requirement_rules:

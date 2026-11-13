@@ -128,11 +128,13 @@ requirement_rules:
   - D-82
 - rule_id: R16
   rule_statement: >-
-    An Instawork Admin sees only the Users who hold an unrevoked PROGRAM_USER grant and have not
-    accepted their invite.
+    An Instawork Admin sees only the Users whose PROGRAM_USER grant R15 or R18 lets them revoke, and the
+    other Instawork Admins.
   rule_sources: []
   rule_decisions:
   - D-82
+  - D-256
+  - D-257
 - rule_id: R17
   rule_statement: >-
     No User grants or revokes INSTAWORK_ADMIN.
@@ -140,6 +142,20 @@ requirement_rules:
   rule_decisions:
   - D-26
   - D-97
+- rule_id: R18
+  rule_statement: >-
+    An Instawork Admin may also revoke the PROGRAM_USER grant of the only active User who has accepted their
+    invite and holds one, after which R6 allows a replacement.
+  rule_sources: []
+  rule_decisions:
+  - D-256
+- rule_id: R19
+  rule_statement: >-
+    Through REQ-IDENTITY-0004, an Instawork Admin may deactivate or reactivate another Instawork Admin,
+    and never themselves.
+  rule_sources: []
+  rule_decisions:
+  - D-257
 requirement_sources:
 - SHEET PLT-1
 - SHEET PLT-4
@@ -152,6 +168,8 @@ requirement_decisions:
 - D-152
 - D-167
 - D-168
+- D-256
+- D-257
 requirement_features:
 - PLT-1
 edges:

@@ -11,21 +11,21 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    The Rate Card screen lists the Agency's Rate Lines by Market or Unit and Position, each with its six
-    rates, the Markup of each pair as a percentage, effective_from, effective_to, and status.
+    The Rate Card screen lists the Agency's Rate Lines, sorted by Market or Unit and then Position, each
+    with its six rates, the Markup of each pair as a percentage, effective_from, effective_to, and status.
   rule_sources:
   - PRD §3 Supplier Rates
   - FEEDBACK Just do % only
   rule_decisions:
   - D-11
+  - D-108
 - rule_id: R2
   rule_statement: >-
     It opens on APPROVED lines not yet ended, filters by status, Market or Unit, and Position, and searches
     by Position name.
   rule_sources:
   - DEMO components/rates/rates-page.tsx
-  rule_decisions:
-  - D-108
+  rule_decisions: []
 - rule_id: R3
   rule_statement: >-
     The screen never shows the Peer Rate or another Agency's rates (C-15).
@@ -95,6 +95,14 @@ requirement_rules:
   - SHEET RC-12
   rule_decisions:
   - D-10
+- rule_id: R12
+  rule_statement: >-
+    This requirement registers the Rate Card screen with REQ-SHELL-0007 for role AGENCY_USER: subject RateLine
+    opens the History tab at that line, and subject RateReview the screen at that review.
+  rule_sources: []
+  rule_decisions:
+  - D-107
+  - D-252
 requirement_sources:
 - PRD §3 Supplier Rates
 - SHEET RC-3
@@ -103,7 +111,9 @@ requirement_decisions:
 - D-10
 - D-11
 - D-84
+- D-107
 - D-108
+- D-252
 requirement_features:
 - RC-3
 - RC-4
@@ -134,6 +144,8 @@ edges:
   requirement_id: REQ-RATES-0013
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0007
 data_model:
   status: covered
   reads:

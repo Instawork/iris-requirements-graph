@@ -1,0 +1,130 @@
+requirement_id: REQ-WORKFORCE-0018
+requirement_target_layer: product
+requirement_target_module: WORKFORCE
+requirement_phase: MVP
+requirement_title: Assign Workers by a typed request
+requirement_statement: >-
+  An Agency User types which Workers to put on a Shift released to their Agency. Iris drafts the Assignments
+  as a Proposal, and nobody is assigned until the Agency User approves it.
+requirement_actors:
+- AGENCY_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    An Agency User's typed request to assign named people to Shifts becomes a Proposal of kind WORKER_ASSIGNMENT
+    with one item for each person on each Shift it names.
+  rule_sources:
+  - PRD §7 Opening screen
+  - SHEET WA-1
+  rule_decisions:
+  - D-254
+- rule_id: R2
+  rule_statement: >-
+    Iris finds each Release the request means among the Agency's ACCEPTED Releases on Shifts that have not
+    ended, from the Unit, Position, date, and start time it gives.
+  rule_sources:
+  - PRD §7 What the agent checks
+  rule_decisions:
+  - D-254
+- rule_id: R3
+  rule_statement: >-
+    When no Release or several match, or a person's first or last name is missing, Iris asks under REQ-AGENT-0003
+    and creates no Proposal until the User answers.
+  rule_sources:
+  - PRD §7 When the agent is unsure
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    Each named person is matched to a Worker of the Agency under REQ-WORKFORCE-0002.
+  rule_sources:
+  - PRD §7 What the agent checks
+  - PRD §4 How the system matches a professional
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    A named person who matches no Worker of the Agency is proposed as a new Worker with the name given,
+    and the item says a Worker will be created.
+  rule_sources:
+  - PRD §4 How the system matches a professional
+  rule_decisions:
+  - D-255
+- rule_id: R6
+  rule_statement: >-
+    Each item shows the Worker and the Shift's Unit, Position, date, and times, and an item for a matched
+    Worker is checked under REQ-WORKFORCE-0003.R26 when drafted and shows each reason it would be refused.
+  rule_sources:
+  - PRD §7 Typed request
+  - PRD §7 What the agent checks
+  rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    On apply, each accepted item creates its new Worker through REQ-WORKFORCE-0001 where one was proposed,
+    then assigns the Worker through REQ-WORKFORCE-0003 with assigned_via ASSISTANT, under that requirement's
+    checks.
+  rule_sources:
+  - PRD §7 Agent Chat
+  rule_decisions:
+  - D-254
+  - D-255
+requirement_sources:
+- SHEET WA-1
+- PRD §7 Opening screen
+- PRD §7 Agent Chat
+requirement_decisions:
+- D-254
+- D-255
+requirement_features:
+- WA-1
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+data_model:
+  status: covered
+  reads:
+  - Release.shift_id
+  - Release.agency_id
+  - Release.status
+  - Release.headcount
+  - Shift.request_id
+  - Shift.position_id
+  - Shift.starts_at
+  - Shift.ends_at
+  - Request.unit_id
+  - Unit.org_node_id
+  - Unit.timezone
+  - OrgNode.name
+  - Position.name
+  - Worker.agency_id
+  - Worker.first_name
+  - Worker.last_name
+  - Worker.email
+  - Worker.phone
+  - Proposal.kind
+  - ProposalItem.values
+  - ProposalItem.problems
+  writes: []
+  detail: >-
+    Saves nothing itself: the Proposal is drafted through REQ-AGENT-0002, a new Worker is saved by REQ-WORKFORCE-0001,
+    and each Assignment by REQ-WORKFORCE-0003. The Unit, org node, and Position names are read to find the
+    Release a request means.
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

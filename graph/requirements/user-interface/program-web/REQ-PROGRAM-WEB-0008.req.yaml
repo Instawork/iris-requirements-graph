@@ -92,7 +92,8 @@ data_model:
   - OrgNode.level
   - OrgNode.parent_id
   writes: []
-  detail: null
+  detail: >-
+    The keys with their meanings, types, scopes, and defaults are read from graph/catalogs/settings.yaml.
 requirement_starting_flow: false
 requirement_review:
   status: draft

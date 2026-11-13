@@ -27,8 +27,9 @@ requirement_rules:
   - D-25
 - rule_id: R3
   rule_statement: >-
-    Before the Proposal is shown, each row's agency is checked by the rules of REQ-AGENCIES-0001, its contact
-    by REQ-IDENTITY-0002, and each approved_for name by REQ-AGENCIES-0002.
+    Before the Proposal is shown, each row is checked without saving, its contact_phone against REQ-IDENTITY-0001.R3,
+    its contact_email against REQ-IDENTITY-0002.R13, and each approved_for name as R5 says, and each failure
+    is a row problem.
   rule_sources:
   - PRD §6 Uploads
   - PRD §7 What the agent checks
@@ -58,6 +59,15 @@ requirement_rules:
   rule_decisions:
   - D-25
   - D-141
+- rule_id: R7
+  rule_statement: >-
+    A row whose agency is already an Agency in Iris is a row problem whose fix drops the row, because an
+    AGENCIES file adds Agencies and never changes one.
+  rule_sources:
+  - PRD §6 Uploads
+  - FEEDBACK Creating an agency in bulk
+  rule_decisions:
+  - D-54
 requirement_sources:
 - FEEDBACK Creating an agency in bulk
 - PRD §6 Uploads

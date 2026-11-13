@@ -75,7 +75,7 @@ ENUM_KEYS = {"enum", "values", "transitions", "catalog", "phase", "description"}
 ENTITY_KEYS = {"entity", "phase", "description", "fields", "unique", "constraints"}
 FIELD_KEYS = {"name", "type", "nullable", "note"}
 SETTING_KEYS = {"key", "type", "default", "scope", "meaning", "owner", "sources", "decisions"}
-NOTIFICATION_KEYS = {"type", "trigger", "recipients", "channels", "owner", "sources", "decisions"}
+NOTIFICATION_KEYS = {"type", "subject", "trigger", "recipients", "channels", "owner", "sources", "decisions"}
 UPLOAD_KEYS = {"type", "phase", "meaning", "uploaders", "owner", "sources", "decisions", "columns", "identified_by"}
 COLUMN_KEYS = {"column", "kind", "required", "maps_to", "lookup", "note", "saved_by"}
 COLUMN_KINDS = {"text", "date", "time", "money", "int", "yes_no"}
@@ -956,6 +956,8 @@ def notifications_catalog(graph: Graph):
         for channel in item.get("channels") or []:
             if channel not in channels:
                 problems.append((here, f"unknown channel {channel}"))
+        if item.get("subject") not in graph.entities:
+            problems.append((here, f"subject {item.get('subject')!r} must be an entity in data-model/"))
         _catalog_citations(graph, here, item, problems)
         _owner(graph, here, item, "REQ-MESSAGING-0001", key, problems)
     return problems

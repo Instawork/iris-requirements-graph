@@ -4,8 +4,8 @@ requirement_target_module: UNIT-WEB
 requirement_phase: MVP
 requirement_title: List the Unit's Shifts by date
 requirement_statement: >-
-  A Unit User sees the Shifts of the Units in their scope grouped by date, with how much of each is
-  filled and by which Agencies. From the list they book a Request or open a Shift.
+  A Unit User sees the Shifts of the Units in their scope grouped by date, with how much of each is filled
+  and by which Agencies.
 requirement_actors:
 - UNIT_USER
 requirement_rules:
@@ -19,9 +19,8 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    Each row shows the Position, Unit, Department, start and end, ASSIGNED Workers over headcount, the
-    Agencies holding a PENDING or ACCEPTED Release, and the status, and opens the Shift's page of
-    REQ-UNIT-WEB-0008.
+    Each row shows the Position, Unit, Department, start and end, ASSIGNED Workers over headcount, the Agencies
+    holding a PENDING or ACCEPTED Release, and the status.
   rule_sources:
   - PRD §2 Shifts
   rule_decisions: []
@@ -37,12 +36,6 @@ requirement_rules:
     The list filters by Unit, date range, Position, Agency, status, and Shifts with unsent headcount.
   rule_sources:
   - DEMO components/shifts/shifts-page.tsx
-  rule_decisions: []
-- rule_id: R6
-  rule_statement: >-
-    New Shift opens the booking form of REQ-UNIT-WEB-0002.
-  rule_sources:
-  - PRD §2 Shifts
   rule_decisions: []
 - rule_id: R7
   rule_statement: >-

@@ -11,7 +11,7 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    The Markets screen lists every Market by state and city, with the number of its ZIP codes.
+    The Markets screen lists every Market, sorted by state and then city, with the number of its ZIP codes.
   rule_sources:
   - PRD §3 Supplier Rates
   rule_decisions:

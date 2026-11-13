@@ -66,11 +66,12 @@ requirement_rules:
   - D-188
 - rule_id: R8
   rule_statement: >-
-    An Agency User's row names a shift_id and a Worker, and assigns that Worker through REQ-WORKFORCE-0003
-    to the Agency's ACCEPTED Release on that Shift.
+    An Agency User's row assigns the person it names through REQ-WORKFORCE-0003 to the Agency's ACCEPTED
+    Release on its shift_id, and a person who matches no Worker of the Agency is proposed as a new Worker.
   rule_sources:
   - PRD §6 Templates
   - PRD §7 Who uses it
+  - PRD §7 What the agent accepts
   rule_decisions: []
 - rule_id: R9
   rule_statement: >-
@@ -149,6 +150,21 @@ requirement_rules:
   - PRD §7 File attached
   rule_decisions:
   - D-102
+- rule_id: R19
+  rule_statement: >-
+    The person an Agency User's row names is matched under REQ-WORKFORCE-0002, and a proposed new Worker
+    is created through REQ-WORKFORCE-0001 from the row's name, email, and phone when the row is accepted.
+  rule_sources:
+  - PRD §4 How the system matches a professional
+  - PRD §7 What the agent accepts
+  rule_decisions: []
+- rule_id: R20
+  rule_statement: >-
+    Before the Proposal is shown, a row that assigns a matched Worker is checked under REQ-WORKFORCE-0003.R26,
+    and each reason it would be refused is a row problem.
+  rule_sources:
+  - PRD §7 What the agent checks
+  rule_decisions: []
 requirement_sources:
 - SHEET SC-2
 - SHEET SC-6
@@ -181,6 +197,10 @@ edges:
   requirement_id: REQ-ORG-0009
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AUDIT-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0001
 data_model:
   status: covered
   reads:
@@ -202,6 +222,11 @@ data_model:
   - Release.shift_id
   - Release.agency_id
   - Release.status
+  - Worker.agency_id
+  - Worker.first_name
+  - Worker.last_name
+  - Worker.email
+  - Worker.phone
   writes:
   - Request.unit_id
   - Shift.event_id

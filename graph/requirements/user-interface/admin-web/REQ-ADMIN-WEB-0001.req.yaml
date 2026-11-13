@@ -18,8 +18,8 @@ requirement_rules:
   - D-124
 - rule_id: R2
   rule_statement: >-
-    Home has no to-do list; it shows how many active Positions, how many Markets, and how many Labor Rules
-    in effect today, in the program timezone, are loaded.
+    Home, the page an Instawork Admin lands on, has no to-do list; it shows how many active Positions, how
+    many Markets, and how many Labor Rules in effect today, in the program timezone, are loaded.
   rule_sources: []
   rule_decisions:
   - D-26
@@ -34,18 +34,26 @@ requirement_rules:
   - D-82
 - rule_id: R4
   rule_statement: >-
-    Below the invite, Home lists each User REQ-ORG-0005.R16 lets the Instawork Admin see, with their
-    name, email, and invite date, and offers Send invite again and Revoke under REQ-ORG-0005.R15.
+    Below the invite, Home lists each User with an unaccepted PROGRAM_USER invite, with their name, email,
+    and invite date, and offers Send invite again and Revoke under REQ-ORG-0005.R15.
   rule_sources: []
   rule_decisions:
   - D-82
 - rule_id: R5
   rule_statement: >-
-    While REQ-ORG-0005.R6 refuses a grant, Home says a Program User is in place and offers neither the
-    invite nor that list.
+    While REQ-ORG-0005.R6 refuses a grant, Home says a Program User is in place and offers no invite, and
+    when REQ-ORG-0005.R18 applies it names that User and offers Revoke after a confirmation.
   rule_sources: []
   rule_decisions:
   - D-82
+  - D-256
+- rule_id: R6
+  rule_statement: >-
+    Home lists the other Instawork Admins with name, email, and whether active, and offers Deactivate or
+    Reactivate under REQ-ORG-0005.R19.
+  rule_sources: []
+  rule_decisions:
+  - D-257
 requirement_sources:
 - SHEET PLT-1
 requirement_decisions:
@@ -53,6 +61,8 @@ requirement_decisions:
 - D-82
 - D-124
 - D-213
+- D-256
+- D-257
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

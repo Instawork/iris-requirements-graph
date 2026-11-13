@@ -4,15 +4,15 @@ requirement_target_module: WORKFORCE
 requirement_phase: MVP
 requirement_title: Hold each Agency's Worker roster
 requirement_statement: >-
-  Each Agency keeps its Workers in Iris, added one at a time or from a WORKERS file. A Worker belongs
-  to one Agency, so one person at two Agencies is two Workers.
+  Each Agency keeps its Workers in Iris. A Worker belongs to one Agency, so one person at two Agencies
+  is two Workers.
 requirement_actors:
 - AGENCY_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    An Agency User may add Workers to their own Agency one at a time or from a WORKERS file, and created_via
-    records the Channel.
+    An Agency User may add a Worker to their own Agency, and created_via records the Channel the Worker
+    came through.
   rule_sources:
   - SHEET WA-1
   - PRD §4 Professionals
@@ -38,18 +38,10 @@ requirement_rules:
   rule_sources:
   - PRD §4 How the system matches a professional
   rule_decisions: []
-- rule_id: R5
-  rule_statement: >-
-    Each WORKERS row is matched under REQ-WORKFORCE-0002; a row that matches an existing Worker proposes
-    changes to that Worker, and only an unmatched row proposes a new one.
-  rule_sources:
-  - PRD §7 What the agent checks
-  - PRD §4 How the system matches a professional
-  rule_decisions: []
 - rule_id: R6
   rule_statement: >-
-    A Worker named in a SHIFTS or Timesheet file who matches no Worker of the Agency is created here,
-    with at least a name, once the uploader approves.
+    A requirement that reads a name from a file or a typed request and matches no Worker of the Agency creates
+    the Worker here, with a first and last name, once the User approves.
   rule_sources:
   - PRD §4 Professionals
   - FEEDBACK OCR to match paper timesheets
@@ -68,13 +60,6 @@ requirement_rules:
   rule_sources:
   - PRD §6 Templates
   rule_decisions: []
-- rule_id: R9
-  rule_statement: >-
-    In a WORKERS row, positions are looked up by Position name, separated by semicolons, and a name that
-    matches no Position is a problem.
-  rule_sources:
-  - PRD §6 Templates
-  rule_decisions: []
 - rule_id: R10
   rule_statement: >-
     A Unit User sees a Worker's name, photo, and Agency, and never their email or phone.
@@ -90,13 +75,6 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-89
-- rule_id: R12
-  rule_statement: >-
-    Two WORKERS rows are duplicates when they share an email or share a phone, and the later row is the
-    duplicate.
-  rule_sources:
-  - PRD §6 Uploads
-  rule_decisions: []
 - rule_id: R13
   rule_statement: >-
     A Worker's phone is accepted in the forms REQ-IDENTITY-0001.R3 accepts.
@@ -138,13 +116,7 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-CATALOG-0001
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-WORKFORCE-0002
-- edge_type: DEPENDS_ON
   requirement_id: REQ-INTAKE-0001
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-INTAKE-0002
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-AGENT-0002
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0009
 - edge_type: DEPENDS_ON

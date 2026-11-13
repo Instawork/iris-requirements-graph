@@ -4,8 +4,7 @@ requirement_target_module: SHELL
 requirement_phase: MVP
 requirement_title: Sign in with email and password
 requirement_statement: >-
-  A User of any role signs in on one page with their email and password. The page leads to a password
-  reset and offers no sign-up.
+  A User of any role signs in on one page with their email and password. The page offers no sign-up.
 requirement_actors:
 - INSTAWORK_ADMIN
 - PROGRAM_USER
@@ -37,8 +36,7 @@ requirement_rules:
   - D-98
 - rule_id: R4
   rule_statement: >-
-    The page links to the password reset request of REQ-SHELL-0005 and has no way to create an account,
-    because a User exists only by invite.
+    The page has no way to create an account, because a User exists only by invite.
   rule_sources:
   - SHEET PLT-4
   rule_decisions:

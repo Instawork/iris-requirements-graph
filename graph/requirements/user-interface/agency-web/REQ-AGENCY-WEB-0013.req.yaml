@@ -10,9 +10,8 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    This requirement adds Upload Workers to the Workers screen of REQ-AGENCY-WEB-0003, which opens the
-    Uploads send step of REQ-SHELL-0008 with WORKERS picked, and REQ-WORKFORCE-0001 saves the accepted
-    rows.
+    This requirement adds Upload Workers to the Workers screen of REQ-AGENCY-WEB-0003, which opens the Uploads
+    send step of REQ-SHELL-0008 with WORKERS picked, and REQ-WORKFORCE-0017 saves the accepted rows.
   rule_sources:
   - SHEET WA-1
   - PRD §4 Professionals
@@ -30,7 +29,7 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0008
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-WORKFORCE-0001
+  requirement_id: REQ-WORKFORCE-0017
 data_model:
   status: not_applicable
   reads: []
