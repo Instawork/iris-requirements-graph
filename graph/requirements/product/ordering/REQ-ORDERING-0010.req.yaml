@@ -50,7 +50,7 @@ requirement_rules:
   - D-93
 - rule_id: R6
   rule_statement: >-
-    A matched Unit User's message that asks to change or cancel a Shift is drafted as REQ-ORDERING-0003
+    A matched Unit User's message that asks to change or cancel a Shift is drafted as REQ-ORDERING-0015
     drafts a typed request, and is answered and approved as a booking is.
   rule_sources:
   - SHEET SC-3
@@ -94,13 +94,13 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORDERING-0009
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-ORDERING-0003
-- edge_type: DEPENDS_ON
   requirement_id: REQ-MESSAGING-0002
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AGENT-0002
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0015
 data_model:
   status: covered
   reads:

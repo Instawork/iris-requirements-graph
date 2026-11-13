@@ -52,10 +52,18 @@ requirement_rules:
   - SHEET PLT-4
   rule_decisions:
   - D-34
+- rule_id: R6
+  rule_statement: >-
+    This requirement adds to the sign-in page of REQ-SHELL-0004 a link to its reset request page.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-107
 requirement_sources:
 - SHEET PLT-4
 requirement_decisions:
 - D-34
+- D-107
 - D-117
 - D-171
 requirement_features:

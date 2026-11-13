@@ -85,10 +85,11 @@ requirement_rules:
 - rule_id: R10
   rule_statement: >-
     When a Credential becomes VERIFIED or REJECTED, Iris sends CREDENTIAL_DECIDED in the app to the User
-    who uploaded it, with the status_reason or review_note.
+    who uploaded it, naming the Worker, the Credential Type, the status, and the status_reason or review_note.
   rule_sources:
   - SHEET WA-15
-  rule_decisions: []
+  rule_decisions:
+  - D-253
 - rule_id: R11
   rule_statement: >-
     The document matches when its issuer, issue date, and expiry date equal the uploaded issuer, issued_on,
@@ -116,6 +117,7 @@ requirement_decisions:
 - D-86
 - D-194
 - D-195
+- D-253
 requirement_features:
 - WA-15
 edges:
@@ -141,6 +143,8 @@ data_model:
   - Credential.*
   - CredentialType.name
   - CredentialType.has_expiry
+  - Worker.first_name
+  - Worker.last_name
   writes:
   - Credential.status
   - Credential.status_reason

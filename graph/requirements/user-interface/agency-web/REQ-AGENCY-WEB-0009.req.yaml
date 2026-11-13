@@ -116,6 +116,13 @@ requirement_rules:
   - PRD §2 Shift statuses
   rule_decisions:
   - D-107
+- rule_id: R14
+  rule_statement: >-
+    This requirement registers the Timesheet's page with REQ-SHELL-0007 for subject Timesheet and role AGENCY_USER.
+  rule_sources: []
+  rule_decisions:
+  - D-107
+  - D-252
 requirement_sources:
 - PRD §2 Shifts
 - SHEET 4.4
@@ -130,6 +137,7 @@ requirement_decisions:
 - D-129
 - D-214
 - D-235
+- D-252
 requirement_features:
 - TS-10
 - TS-11
@@ -167,6 +175,8 @@ edges:
   requirement_id: REQ-CATALOG-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0007
 data_model:
   status: covered
   reads:

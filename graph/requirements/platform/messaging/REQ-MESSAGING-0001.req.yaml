@@ -15,12 +15,13 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    The requirement that owns a notification type sends it by naming the type, the subject record, a title,
-    a body, and the recipients; a type missing from the notifications catalog is refused.
+    The owner of a notification type sends it by naming the type, one record of its catalog subject entity,
+    a title, a body, and the recipients; a type the catalog lacks is refused.
   rule_sources:
   - SHEET SC-8
   - PRD Overview
-  rule_decisions: []
+  rule_decisions:
+  - D-252
 - rule_id: R2
   rule_statement: >-
     The owner works out who the catalog's recipients are; a recipient is a User, or an email address or
@@ -87,8 +88,8 @@ requirement_rules:
   - D-38
 - rule_id: R11
   rule_statement: >-
-    A job of REQ-JOBS-0001 runs every five minutes and tries each EMAIL or SMS Notification still QUEUED;
-    every try adds one to attempts, and the third refusal makes it FAILED with the provider's reason.
+    An interval job of REQ-JOBS-0001 tries each EMAIL or SMS Notification still QUEUED; every try adds one
+    to attempts, and the third refusal makes it FAILED with the provider's reason.
   rule_sources: []
   rule_decisions:
   - D-38
@@ -140,6 +141,7 @@ requirement_decisions:
 - D-176
 - D-223
 - D-237
+- D-252
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

@@ -63,10 +63,12 @@ requirement_rules:
   - D-2
 - rule_id: R7
   rule_statement: >-
-    RATE_REVIEW_REQUESTED is sent to every active Agency User of the line's Agency.
+    RATE_REVIEW_REQUESTED is sent to every active Agency User of the line's Agency, naming the line's Position
+    and Market and saying its rate is above its peers.
   rule_sources:
   - SHEET RC-12
-  rule_decisions: []
+  rule_decisions:
+  - D-253
 - rule_id: R8
   rule_statement: >-
     An Agency User of that Agency answers a REQUESTED review with a reason to keep the rate, or with a
@@ -91,11 +93,12 @@ requirement_rules:
   - D-10
 - rule_id: R11
   rule_statement: >-
-    RATE_REVIEW_ANSWERED is sent to the User who requested the review when the Agency gives its reason
-    or submits its lower line.
+    RATE_REVIEW_ANSWERED is sent to the User who requested the review when the Agency gives its reason or
+    submits its lower line, naming the Agency, the Position, the Market, and the answer.
   rule_sources:
   - SHEET RC-12
-  rule_decisions: []
+  rule_decisions:
+  - D-253
 - rule_id: R12
   rule_statement: >-
     Today, for a Rate Line, is the current date in the program timezone that REQ-JOBS-0001 names.
@@ -106,7 +109,15 @@ requirement_rules:
 requirement_sources:
 - SHEET RC-12
 - SESSIONS Invoicing & Accruals
-requirement_decisions: [D-2, D-10, D-12, D-16, D-84, D-213, D-217]
+requirement_decisions:
+- D-2
+- D-10
+- D-12
+- D-16
+- D-84
+- D-213
+- D-217
+- D-253
 requirement_features:
 - RC-12
 edges:
@@ -129,6 +140,10 @@ data_model:
   - RateReview.*
   - RoleGrant.*
   - User.active
+  - Agency.name
+  - Position.name
+  - Market.name
+  - Market.state
   writes:
   - RateReview.*
   detail: null

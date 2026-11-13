@@ -3,14 +3,20 @@
 # INBOUND_REPLY are the exceptions: they answer that person.
 # channels: every channel a type may use. An owner may name fewer for one send (REQ-MESSAGING-0001.R3).
 # No source gives the wording: the owner writes each title and body from the facts its rule names (D-100).
+# subject: the entity a notification is about. The owner passes one record of that entity when it sends
+#   (REQ-MESSAGING-0001.R1), and the inbox opens the page a screen registered for that entity and the acting
+#   role (REQ-SHELL-0007.R6). For a notification about an Assignment, the record passed is its Release, which
+#   the Agency's Release page and the Unit's Shift page both show.
 notifications:
 - type: RELEASE_NEW
+  subject: Release
   trigger: A Release is sent to an Agency, or more headcount is added to its Release.
   recipients: Every active Agency User of the Agency.
   channels: [EMAIL, SMS, IN_APP]
   owner: REQ-DISPATCH-0001
   sources: [SHEET SC-8]
 - type: RELEASE_WITHDRAWN
+  subject: Release
   trigger: A pending Release is withdrawn, or its Shift is cancelled.
   recipients: Every active Agency User of the Agency.
   channels: [EMAIL, IN_APP]
@@ -18,12 +24,14 @@ notifications:
   sources: [SHEET SC-8]
   decisions: [D-161, D-162]
 - type: RELEASE_ANSWERED
+  subject: Release
   trigger: An Agency accepts or declines a Release, including a decline after accepting.
   recipients: The User who sent the Release.
   channels: [EMAIL, IN_APP]
   owner: REQ-DISPATCH-0002
   sources: [SHEET SC-8]
 - type: SHIFT_CHANGED
+  subject: Release
   trigger: The date, times, headcount, or site instructions of a Shift with a pending or accepted Release change.
   recipients: Every active Agency User of each Agency holding a pending or accepted Release on it.
   channels: [EMAIL, IN_APP]
@@ -31,6 +39,7 @@ notifications:
   sources: [SHEET SC-3]
   decisions: [D-18]
 - type: WORKER_ASSIGNED
+  subject: Release
   trigger: A Worker is assigned to a Shift.
   recipients: Every active Unit User over the Shift's Unit.
   channels: [IN_APP]
@@ -38,6 +47,7 @@ notifications:
   sources: [PRD §2 Shifts]
   decisions: [D-149]
 - type: WORKER_REMOVED
+  subject: Release
   trigger: >-
     A Worker is removed from a Shift for any reason except its cancellation, which RELEASE_WITHDRAWN
     covers, or the Worker not being eligible, which WORKER_NOT_ELIGIBLE covers.
@@ -49,12 +59,14 @@ notifications:
   sources: [PRD §2 Shifts, SHEET WA-3]
   decisions: [D-51, D-149]
 - type: SITE_INSTRUCTIONS
+  subject: Shift
   trigger: A Worker is assigned to a Shift, or its site instructions change while Workers are assigned.
   recipients: The Worker, at their email or phone.
   channels: [EMAIL, SMS]
   owner: REQ-ORDERING-0006
   sources: [SHEET SC-6]
 - type: INSTRUCTIONS_NOT_SENT
+  subject: Release
   trigger: Site instructions would be sent to an assigned Worker who has neither an email nor a phone.
   recipients: Every active Agency User of the Worker's Agency.
   channels: [IN_APP]
@@ -62,6 +74,7 @@ notifications:
   sources: [SHEET SC-6]
   decisions: [D-88]
 - type: WORKER_NOT_ELIGIBLE
+  subject: Worker
   trigger: An assigned Worker stops being eligible for an upcoming Shift.
   recipients: Every active Agency User of the Worker's Agency, and every active Unit User over the Shift's Unit.
   channels: [EMAIL, IN_APP]
@@ -69,6 +82,7 @@ notifications:
   sources: [SHEET WA-14, "FAQ What happens if a worker doesn't meet the requirements?"]
   decisions: [D-51, D-149]
 - type: CREDENTIAL_EXPIRING
+  subject: Credential
   trigger: >-
     A verified credential's expiry is CREDENTIAL_EXPIRY_WARNING_DAYS away or less. Sent once for each credential,
     by a daily job, and recorded in Credential.expiry_warned_at.
@@ -78,12 +92,14 @@ notifications:
   sources: [SHEET WA-14]
   decisions: [D-16, D-145]
 - type: CREDENTIAL_DECIDED
+  subject: Credential
   trigger: A credential is verified or rejected.
   recipients: The User who uploaded it.
   channels: [IN_APP]
   owner: REQ-COMPLIANCE-0003
   sources: [SHEET WA-15]
 - type: TIMESHEET_CHANGED
+  subject: Timesheet
   trigger: >-
     A Unit User or an Agency User changes the hours, breaks, or no-show of a Timesheet that has been
     submitted at least once, or splits it; or a Unit User sets or clears a no-show on any Timesheet.
@@ -93,12 +109,14 @@ notifications:
   sources: [PRD §2 How hour changes work, PRD §2 Shifts]
   decisions: [D-69]
 - type: TIMESHEET_REJECTED
+  subject: Timesheet
   trigger: A Unit User rejects a Timesheet.
   recipients: Every active Agency User of the Agency.
   channels: [EMAIL, IN_APP]
   owner: REQ-TIME-0006
   sources: ['SESSIONS Timesheets, Tips & Expenses']
 - type: OVERTIME_ALERT
+  subject: Worker
   trigger: >-
     An Assignment or saved Timesheet hours add overtime for a Worker of one Agency at a Unit, counting
     the Worker's Shifts at every Unit in that Unit's Work Week. Sent once for each Unit that gains overtime.
@@ -110,6 +128,7 @@ notifications:
   sources: [SHEET WA-19]
   decisions: [D-4, D-133, D-72, D-243]
 - type: TIP_NOT_CREDITED
+  subject: Timesheet
   trigger: >-
     A change to a Timesheet leaves part of a Tip Pool unallocated, or makes a Timesheet that holds a cashier
     PIN tip a no-show.
@@ -119,6 +138,7 @@ notifications:
   sources: [SHEET TS-11]
   decisions: [D-135]
 - type: TIP_HOURS_MISSING
+  subject: TipPool
   trigger: >-
     A Timesheet that a Tip Pool covers locks while another covered Timesheet, not a no-show, has no hours
     entered. Sent once for each pool and recorded in TipPool.hours_missing_notified_at.
@@ -128,42 +148,49 @@ notifications:
   sources: [SHEET TS-11, SHEET TS-9]
   decisions: [D-60, D-135]
 - type: RATE_LINE_PENDING
+  subject: RateLine
   trigger: An Agency User submits a Rate Line.
   recipients: Every active Program User.
   channels: [IN_APP]
   owner: REQ-RATES-0009
   decisions: [D-10]
 - type: RATE_LINE_DECIDED
+  subject: RateLine
   trigger: A Program User approves or sends back an Agency's Rate Line.
   recipients: The User who submitted it.
   channels: [EMAIL, IN_APP]
   owner: REQ-RATES-0009
   decisions: [D-10]
 - type: RATE_REVIEW_REQUESTED
+  subject: RateReview
   trigger: A Program User sends a Rate Review.
   recipients: Every active Agency User of the Agency.
   channels: [EMAIL, IN_APP]
   owner: REQ-RATES-0008
   sources: [SHEET RC-12]
 - type: RATE_REVIEW_ANSWERED
+  subject: RateReview
   trigger: An Agency lowers a reviewed rate or gives a reason to keep it.
   recipients: The User who requested the review.
   channels: [IN_APP]
   owner: REQ-RATES-0008
   sources: [SHEET RC-12]
 - type: WORKER_ISSUE_REPORTED
+  subject: WorkerIssue
   trigger: A Unit User reports a Worker issue.
   recipients: Every active Agency User of the Worker's Agency.
   channels: [EMAIL, IN_APP]
   owner: REQ-WORKFORCE-0006
   sources: [SHEET WA-4]
 - type: WORKER_ISSUE_RESOLVED
+  subject: WorkerIssue
   trigger: An Agency resolves a Worker issue.
   recipients: The User who reported it.
   channels: [IN_APP]
   owner: REQ-WORKFORCE-0006
   sources: [SHEET WA-4]
 - type: USER_INVITED
+  subject: User
   trigger: A User is invited.
   recipients: The invited User.
   channels: [EMAIL]
@@ -171,6 +198,7 @@ notifications:
   sources: [SHEET PLT-4]
   decisions: [D-34]
 - type: PASSWORD_RESET
+  subject: User
   trigger: A User asks to reset their password.
   recipients: That User.
   channels: [EMAIL]
@@ -178,6 +206,7 @@ notifications:
   sources: [SHEET PLT-4]
   decisions: [D-34]
 - type: INBOUND_REPLY
+  subject: InboundMessage
   trigger: Iris answers an email or text it received.
   recipients: The sender. The owner names the one channel the message arrived on, so the reply never goes out on the other.
   channels: [EMAIL, SMS]

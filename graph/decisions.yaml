@@ -92,8 +92,9 @@ decisions:
   question: Is the pilot one geography (Chicago was floated) or one sector?
   status: open
   assumption: >-
-    The pilot is one geography. Its Markets, ZIP codes, Units, and Agencies are loaded before launch;
-    nothing in the build depends on which geography.
+    The pilot is one geography. Its Markets, ZIP codes, Units, and Agencies are loaded before launch,
+    and its timezone is the program timezone (D-213). Nothing else in the build depends on which
+    geography.
   blocking: false
   answer_from: COMPASS_OPERATIONS
   answer: null
@@ -176,11 +177,11 @@ decisions:
   - SHEET REP-8
 - decision_id: D-15
   origin: graph
-  question: Which tip tax rules must Iris apply, and in which states first (TS-13)?
+  question: Which tip tax rules must Iris apply at launch (TS-13)?
   status: open
   assumption: No rule is applied until Compass names the rules.
   blocking: true
-  answer_from: COMPASS_FINANCE
+  answer_from: COMPASS_HR_LEGAL_PAYROLL
   answer: null
   sources:
   - SHEET TS-13
@@ -565,7 +566,7 @@ decisions:
     times the regular Bill Rate, rounded for each Release. It holds no tips, expenses, or overtime
     premium.
   blocking: false
-  answer_from: INSTAWORK_PRODUCT
+  answer_from: COMPASS_FINANCE
   answer: null
   sources:
   - SHEET REP-2
@@ -874,8 +875,8 @@ decisions:
   question: How often does timed work run?
   status: open
   assumption: >-
-    Every five minutes. A daily job runs at the local time its requirement names, in the Unit's
-    timezone.
+    Every five minutes. A daily job runs at the local time its requirement names, in each Unit's
+    timezone, or in the program timezone for work that belongs to no Unit.
   blocking: false
   answer_from: INSTAWORK_ENGINEERING
   answer: null
@@ -1279,8 +1280,9 @@ decisions:
   status: open
   assumption: >-
     At every start Iris creates only what is missing: the first Instawork Admin from the deployment
-    configuration, that User's INSTAWORK_ADMIN grant, and the 15 Positions when the catalog is empty. A
-    start never changes or reactivates an existing record.
+    configuration, that User's INSTAWORK_ADMIN grant, and the 15 Positions when the catalog is empty. It
+    never changes or reactivates an existing record, and does not start when the configuration it needs
+    is incomplete.
   blocking: false
   answer_from: INSTAWORK_ENGINEERING
   answer: null
@@ -1411,8 +1413,8 @@ decisions:
   status: open
   assumption: >-
     Each role's menu and Home page are one requirement, built before that role's other screens. Whatever
-    a screen built earlier shows of a feature built later, such as a menu item, a tab, a link, a Home
-    section, a field, or an upload button, is added by the later requirement.
+    an earlier screen shows of or opens in a later feature, such as a menu item, tab, link, Home
+    section, field, upload button, or a notification's page, is added by the later requirement.
   blocking: false
   answer_from: INSTAWORK_ENGINEERING
   answer: null
@@ -1971,8 +1973,8 @@ decisions:
   status: open
   assumption: >-
     Nothing: the invite returns that User, and a new link goes out only when the inviter asks to send
-    the invite again before it is accepted. So two rows of one file, or two requests, that name the same
-    new person send one invite, and its link keeps working.
+    the invite again before it is accepted. Two rows or requests that name one new person send one
+    invite. An invite for a deactivated User's email is refused.
   blocking: false
   answer_from: INSTAWORK_PRODUCT
   answer: null
@@ -2196,7 +2198,9 @@ decisions:
   origin: graph
   question: What is the shortest password Iris accepts?
   status: open
-  assumption: 12 characters. A password is set or changed only through an emailed link.
+  assumption: >-
+    12 characters. A password is set or changed only through an emailed link, except the first Instawork
+    Admin's, which comes from the deployment configuration.
   blocking: false
   answer_from: INSTAWORK_PRODUCT
   answer: null
@@ -2710,10 +2714,11 @@ decisions:
     Rate Line's effective date?
   status: open
   assumption: >-
-    America/New_York, the zone of Atlanta, the one pilot market the sheet names. If the pilot is
-    Chicago, which the sheet also floats, it becomes America/Chicago.
+    The timezone of the pilot geography that D-8 asks Compass about: America/New_York for Atlanta, the
+    one pilot market the sheet names, and America/Chicago if the pilot is Chicago, which the sheet also
+    floats.
   blocking: false
-  answer_from: COMPASS_OPERATIONS
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - SHEET Decisions & Inputs
@@ -3095,3 +3100,138 @@ decisions:
   sources:
   - SHEET WA-20
   - SHEET PLT-1
+- decision_id: D-252
+  origin: graph
+  question: Which record is each notification about?
+  status: open
+  assumption: >-
+    The entity the notifications catalog names as its subject. A notification about an Assignment is about
+    its Release, which the Agency's Release page and the Unit's Shift page both show. The inbox opens
+    the page a screen registered for that entity and role.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - PRD Overview
+  - GRAPH no source says which record a notification opens
+- decision_id: D-253
+  origin: graph
+  question: Which facts does a notification's message carry?
+  status: open
+  assumption: >-
+    Enough to tell which record it means without opening Iris: for work on a Shift, its Unit, Position,
+    date, and times; the Worker or Agency concerned; and any reason given. Each owner's rule lists its
+    facts.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - SHEET SC-8
+  - GRAPH no source gives the wording of any notification
+- decision_id: D-254
+  origin: graph
+  question: What must a typed request to assign Workers say?
+  status: open
+  assumption: >-
+    Each Worker's first and last name, and the Shift by its Unit, Position, date, and start time. It becomes
+    a Proposal that only assigns, saved under the assignment rules once the Agency User approves it.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - PRD §7 Opening screen
+  - SHEET WA-1
+- decision_id: D-255
+  origin: graph
+  question: >-
+    Does a typed request that names a person who matches no Worker of the Agency propose a new Worker?
+  status: open
+  assumption: >-
+    Yes, as a SHIFTS file row does. The item proposes a new Worker with the name given and says so, and
+    the Worker is created when the item is saved.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - PRD §4 How the system matches a professional
+  - GRAPH the PRD says this of a file row and is silent on a typed request
+- decision_id: D-256
+  origin: graph
+  question: >-
+    Can an Instawork Admin replace the only Program User after that User accepted their invite?
+  status: open
+  assumption: >-
+    Yes. While exactly one active User who accepted holds a Program User grant, an Instawork Admin may
+    revoke it and then invite a replacement. With two or more, Program Users manage one another.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - SHEET PLT-1
+  - SHEET PLT-4
+- decision_id: D-257
+  origin: graph
+  question: Who deactivates an Instawork Admin?
+  status: open
+  assumption: >-
+    Another Instawork Admin, never themselves, and no Program User. A new one comes only from changing
+    the configured email and starting Iris again, which leaves the earlier one active until it is deactivated.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - SHEET PLT-4
+  - GRAPH nobody grants or revokes the Instawork Admin role
+- decision_id: D-258
+  origin: graph
+  question: >-
+    When a Worker has several Attestations for one Credential Type, which one counts?
+  status: open
+  assumption: >-
+    Only the latest by the time it was attested. An earlier one never counts again, even after the latest
+    has lapsed.
+  blocking: false
+  answer_from: COMPASS_OPERATIONS
+  answer: null
+  sources:
+  - SHEET WA-16
+  - GRAPH no source says which of several Attestations counts
+- decision_id: D-259
+  origin: graph
+  question: Is a daily run that was missed for a whole local date made later?
+  status: open
+  assumption: >-
+    No. A daily run is made only on its own local date, and the next day's run does the work, so each
+    daily job acts on what is true when it runs.
+  blocking: false
+  answer_from: INSTAWORK_ENGINEERING
+  answer: null
+  sources:
+  - GRAPH an outage can span a whole local date
+- decision_id: D-260
+  origin: graph
+  question: >-
+    Are the rate and Agency gates checked again when headcount is added to a Release?
+  status: open
+  assumption: >-
+    Yes, at the Release's stored rates against today's Rate Line and approvals. A hard gate refuses the
+    added headcount, and a soft gate needs a reason when the Release holds none.
+  blocking: false
+  answer_from: COMPASS_OPERATIONS
+  answer: null
+  sources:
+  - SHEET RC-11
+  - SHEET SC-5
+- decision_id: D-261
+  origin: graph
+  question: How is a problem reported on a file cell that lists several names?
+  status: open
+  assumption: >-
+    One problem for each name that fails, naming that entry. Its fix or picked candidate replaces that
+    entry only, so two wrong names in one cell are settled one at a time.
+  blocking: false
+  answer_from: INSTAWORK_ENGINEERING
+  answer: null
+  sources:
+  - PRD §6 Uploads
+  - GRAPH a problem entry names one field and one replacement value

@@ -47,12 +47,13 @@ requirement_rules:
   - D-61
 - rule_id: R5
   rule_statement: >-
-    Entering a context, at sign-in or by switching, opens its Home under REQ-UNIT-WEB-0001, REQ-AGENCY-WEB-0001,
-    REQ-PROGRAM-WEB-0001, or REQ-ADMIN-WEB-0001, shows that role's menu, and changes no product record.
+    Entering a context, at sign-in or by switching, opens the Home that its role's menu requirement adds,
+    shows that role's menu, and changes no product record.
   rule_sources:
   - DEMO hooks/use-switch-workspace.ts
   rule_decisions:
   - D-61
+  - D-107
 - rule_id: R6
   rule_statement: >-
     The chosen role and context are saved on the User's session through REQ-IDENTITY-0001, in the form
@@ -67,6 +68,7 @@ requirement_sources:
 requirement_decisions:
 - D-61
 - D-81
+- D-107
 - D-221
 requirement_features:
 - PLT-1

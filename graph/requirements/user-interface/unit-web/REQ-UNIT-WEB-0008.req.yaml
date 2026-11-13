@@ -94,6 +94,21 @@ requirement_rules:
   rule_sources:
   - PRD §2 Shifts
   rule_decisions: []
+- rule_id: R18
+  rule_statement: >-
+    This requirement registers the Shift's page with REQ-SHELL-0007 for subject Release and role UNIT_USER,
+    and a notification about a Release opens the page of that Release's Shift.
+  rule_sources: []
+  rule_decisions:
+  - D-107
+  - D-252
+- rule_id: R19
+  rule_statement: >-
+    This requirement makes each row of the Shifts list of REQ-UNIT-WEB-0007 open that Shift's page.
+  rule_sources:
+  - PRD §2 Shifts
+  rule_decisions:
+  - D-107
 requirement_sources:
 - PRD §2 Shifts
 - SHEET SC-3
@@ -101,10 +116,12 @@ requirement_sources:
 requirement_decisions:
 - D-18
 - D-94
+- D-107
 - D-122
 - D-157
 - D-161
 - D-162
+- D-252
 requirement_features:
 - SC-3
 - SC-5
@@ -136,6 +153,8 @@ edges:
   requirement_id: REQ-RATES-0006
 - edge_type: DEPENDS_ON
   requirement_id: REQ-WORKFORCE-0016
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0007
 data_model:
   status: covered
   reads:

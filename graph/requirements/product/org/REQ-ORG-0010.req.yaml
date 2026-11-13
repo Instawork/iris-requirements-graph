@@ -71,7 +71,7 @@ data_model:
   - OrgNode.active
   writes:
   - Setting.*
-  detail: null
+  detail: Each key's type and scope are read from graph/catalogs/settings.yaml.
 requirement_starting_flow: false
 requirement_review:
   status: draft

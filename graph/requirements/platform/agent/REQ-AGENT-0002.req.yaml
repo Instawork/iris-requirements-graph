@@ -201,6 +201,14 @@ requirement_rules:
   - PRD §6 Uploads
   rule_decisions:
   - D-224
+- rule_id: R26
+  rule_statement: >-
+    A problem on a field whose value lists several names says which entry it is about, and its fix or picked
+    candidate replaces that entry only and leaves the others as they are.
+  rule_sources:
+  - GRAPH one cell can hold several names that each need their own fix
+  rule_decisions:
+  - D-261
 requirement_sources:
 - PRD §6 Uploads
 - PRD §7 Agent Chat
@@ -212,6 +220,7 @@ requirement_decisions:
 - D-174
 - D-224
 - D-225
+- D-261
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

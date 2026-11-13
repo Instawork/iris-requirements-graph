@@ -103,17 +103,26 @@ requirement_rules:
   rule_sources:
   - PRD §6 Templates
   rule_decisions: []
+- rule_id: R15
+  rule_statement: >-
+    This requirement registers the Release page of R4 with REQ-SHELL-0007 for subject Release and role AGENCY_USER.
+  rule_sources: []
+  rule_decisions:
+  - D-107
+  - D-252
 requirement_sources:
 - SHEET SC-8
 - SHEET SC-6
 - PRD §2 Shifts
 requirement_decisions:
 - D-87
+- D-107
 - D-108
 - D-159
 - D-160
 - D-161
 - D-166
+- D-252
 requirement_features:
 - SC-6
 - SC-8
@@ -136,6 +145,8 @@ edges:
   requirement_id: REQ-ORG-0009
 - edge_type: DEPENDS_ON
   requirement_id: REQ-WORKFORCE-0016
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0007
 data_model:
   status: covered
   reads:

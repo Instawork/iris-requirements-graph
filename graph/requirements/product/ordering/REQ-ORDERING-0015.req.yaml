@@ -1,0 +1,95 @@
+requirement_id: REQ-ORDERING-0015
+requirement_target_layer: product
+requirement_target_module: ORDERING
+requirement_phase: MVP
+requirement_title: Change or cancel Shifts by a typed request
+requirement_statement: >-
+  A Unit User types a change to a Shift's headcount or times, or asks to cancel it. Iris drafts the change
+  as a Proposal, and the Shift changes only when the Unit User approves it.
+requirement_actors:
+- UNIT_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    A Unit User's typed request to change a Shift's headcount or times, or to cancel it, becomes a Proposal
+    of kind SHIFT_CHANGE with one item for each Shift it names.
+  rule_sources:
+  - PRD §7 Who uses it
+  - PRD §2 Shifts
+  rule_decisions:
+  - D-209
+- rule_id: R2
+  rule_statement: >-
+    Iris finds each Shift the request means among the Shifts in the User's scope that have not ended, from
+    the Unit, Position, date, and start time it gives.
+  rule_sources:
+  - PRD §7 What the agent checks
+  rule_decisions:
+  - D-209
+- rule_id: R3
+  rule_statement: >-
+    When no Shift or several match, or the new headcount or time is missing, Iris asks under REQ-AGENT-0003
+    and creates no Proposal until the User answers.
+  rule_sources:
+  - PRD §7 When the agent is unsure
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    Each item shows the Shift's current values beside the change or the cancel, is checked without saving
+    against the rules of REQ-ORDERING-0003 when drafted, and shows its problem when a check fails.
+  rule_sources:
+  - PRD §7 Typed request
+  - PRD §7 What the agent checks
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    On apply, each accepted item is saved as an edit or a cancel through REQ-ORDERING-0003, so SHIFT_CHANGED
+    and the cancel's effects follow as they do from the Shift's page.
+  rule_sources:
+  - PRD §7 Agent Chat
+  rule_decisions:
+  - D-209
+requirement_sources:
+- SHEET SC-3
+- PRD §7 Who uses it
+- PRD §7 Agent Chat
+requirement_decisions:
+- D-209
+requirement_features:
+- SC-3
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+data_model:
+  status: covered
+  reads:
+  - Shift.*
+  - Request.unit_id
+  - Unit.org_node_id
+  - Unit.timezone
+  - OrgNode.name
+  - Position.name
+  - Proposal.kind
+  - ProposalItem.values
+  - ProposalItem.problems
+  writes: []
+  detail: >-
+    Saves nothing itself: the Proposal is drafted through REQ-AGENT-0002 and each accepted item is saved
+    by REQ-ORDERING-0003. The Unit, org node, and Position names are read to find the Shift a request means.
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

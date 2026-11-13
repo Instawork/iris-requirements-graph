@@ -43,8 +43,7 @@ requirement_rules:
   rule_sources:
   - SHEET REP-9
   - SHEET PLT-2
-  rule_decisions:
-  - D-167
+  rule_decisions: []
 - rule_id: R5
   rule_statement: >-
     The Timesheet compliance view counts Timesheets with a missed break and late Timesheets for the period,
@@ -107,7 +106,6 @@ requirement_decisions:
 - D-44
 - D-125
 - D-131
-- D-167
 - D-178
 - D-182
 - D-185

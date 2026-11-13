@@ -12,8 +12,8 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    A Unit User over a Shift's Unit may send any part of its unsent headcount to one active Agency they
-    choose, which creates a PENDING Release with released_by and released_at.
+    A Unit User over the Unit of a Shift that is not CANCELLED may send any part of its unsent headcount
+    to one active Agency they choose, creating a PENDING Release with released_by and released_at.
   rule_sources:
   - SHEET SC-7
   rule_decisions:
@@ -70,11 +70,12 @@ requirement_rules:
   - D-24
 - rule_id: R8
   rule_statement: >-
-    Before a Release is saved, REQ-RATES-0007 checks its Agency and regular Bill Rate under OFF_CONTRACT_RATE_GATE
-    and NON_CONTRACTED_AGENCY_GATE, and a send it refuses saves nothing.
+    Before a Release is saved, or headcount is added to one, REQ-RATES-0007 checks its Agency and regular
+    Bill Rate under OFF_CONTRACT_RATE_GATE and NON_CONTRACTED_AGENCY_GATE, and a send it refuses saves nothing.
   rule_sources:
   - SHEET RC-11
-  rule_decisions: []
+  rule_decisions:
+  - D-260
 - rule_id: R9
   rule_statement: >-
     non_contracted is set true when REQ-RATES-0007 finds no approval covering the Unit, and the reason
@@ -91,10 +92,12 @@ requirement_rules:
   - D-193
 - rule_id: R11
   rule_statement: >-
-    Creating a Release, or raising its headcount, sends RELEASE_NEW to the Agency's active Agency Users.
+    Creating a Release, or raising its headcount, sends RELEASE_NEW to the Agency's active Agency Users,
+    naming the Unit, the Position, the Shift's date and times, and the Release's headcount.
   rule_sources:
   - SHEET SC-8
-  rule_decisions: []
+  rule_decisions:
+  - D-253
 - rule_id: R12
   rule_statement: >-
     A Unit User over the Unit may withdraw a PENDING Release, which becomes WITHDRAWN with closed_at set
@@ -133,6 +136,22 @@ requirement_rules:
   rule_sources:
   - PRD §7 After the user approves
   rule_decisions: []
+- rule_id: R18
+  rule_statement: >-
+    A RELEASE_WITHDRAWN message names the Unit, the Position, the Shift's date and times, the Release's
+    headcount, and whether the Release was withdrawn or its Shift cancelled.
+  rule_sources:
+  - SHEET SC-8
+  rule_decisions:
+  - D-253
+- rule_id: R19
+  rule_statement: >-
+    When headcount is added to a Release and a SOFT gate needs a reason the Release does not hold, the send
+    must give it, and it is stored on the Release.
+  rule_sources:
+  - SHEET RC-11
+  rule_decisions:
+  - D-260
 requirement_sources:
 - SHEET SC-7
 - SHEET SC-1
@@ -149,6 +168,8 @@ requirement_decisions:
 - D-162
 - D-166
 - D-193
+- D-253
+- D-260
 requirement_features:
 - SC-7
 - SC-1
@@ -195,6 +216,9 @@ data_model:
   - RoleGrant.role
   - RoleGrant.agency_id
   - RoleGrant.revoked_at
+  - Unit.org_node_id
+  - OrgNode.name
+  - Position.name
   writes:
   - Release.shift_id
   - Release.agency_id

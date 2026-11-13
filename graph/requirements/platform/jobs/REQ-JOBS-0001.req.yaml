@@ -51,6 +51,7 @@ requirement_rules:
   - GRAPH Credentials and Rate Reviews belong to no Unit
   rule_decisions:
   - D-213
+  - D-8
 - rule_id: R7
   rule_statement: >-
     On a day the clocks skip a daily job's local time the job runs at the first run after the skip, and
@@ -76,9 +77,23 @@ requirement_rules:
   rule_decisions:
   - D-106
   - D-146
+- rule_id: R10
+  rule_statement: >-
+    A daily run is made only on its own local date, so a date that passes with no run at or after the job's
+    local time gets none later.
+  rule_sources:
+  - GRAPH an outage can span a whole local date
+  rule_decisions:
+  - D-259
 requirement_sources:
 - GRAPH seven MVP requirements act when a time passes, and none provides the clock
-requirement_decisions: [D-67, D-106, D-146, D-213]
+requirement_decisions:
+- D-8
+- D-67
+- D-106
+- D-146
+- D-213
+- D-259
 requirement_features: []
 edges: []
 data_model:

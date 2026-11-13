@@ -29,9 +29,19 @@ requirement_rules:
   rule_sources:
   - SHEET REP-2
   rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    Each attach, move, or detach of a Shift is published as an event, to which REQ-TIPS-0004 reacts
+    under its own rules.
+  rule_sources:
+  - SHEET REP-2
+  - SHEET TS-11
+  rule_decisions:
+  - D-242
 requirement_sources:
 - SHEET REP-2
-requirement_decisions: []
+requirement_decisions:
+- D-242
 requirement_features:
 - REP-2
 edges:

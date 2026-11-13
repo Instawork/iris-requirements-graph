@@ -5,8 +5,7 @@ requirement_phase: MVP
 requirement_title: Edit a Shift until it ends and cancel it before it starts
 requirement_statement: >-
   Until a Shift ends, a Unit User can change its headcount, times, and site instructions. Until it starts,
-  they can cancel it. A typed request for a change becomes a Proposal, and Agencies holding the Shift are
-  told of each change.
+  they can cancel it. Agencies holding the Shift are told of each change.
 requirement_actors:
 - UNIT_USER
 requirement_rules:
@@ -29,7 +28,7 @@ requirement_rules:
 - rule_id: R3
   rule_statement: >-
     Headcount cannot be lowered below the total headcount of the Shift's PENDING and ACCEPTED Releases,
-    or below the needed_headcount that REQ-ORDERING-0005 keeps.
+    or below the needed_headcount that REQ-ORDERING-0005 keeps, when one is set.
   rule_sources:
   - SHEET SC-3
   rule_decisions:
@@ -90,46 +89,6 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-94
-- rule_id: R11
-  rule_statement: >-
-    A Unit User's typed request to change a Shift's headcount or times, or to cancel it, becomes a Proposal
-    of kind SHIFT_CHANGE with one item for each Shift it names.
-  rule_sources:
-  - PRD §7 Who uses it
-  - PRD §2 Shifts
-  rule_decisions:
-  - D-209
-- rule_id: R12
-  rule_statement: >-
-    Iris finds each Shift the request means among the Shifts in the User's scope that have not ended,
-    from the Unit, Position, date, and start time it gives.
-  rule_sources:
-  - PRD §7 What the agent checks
-  rule_decisions:
-  - D-209
-- rule_id: R13
-  rule_statement: >-
-    When no Shift or several match, or the new headcount or time is missing, Iris asks under REQ-AGENT-0003
-    and creates no Proposal until the User answers.
-  rule_sources:
-  - PRD §7 When the agent is unsure
-  rule_decisions: []
-- rule_id: R14
-  rule_statement: >-
-    Each item shows the Shift's current values beside the change or the cancel, is checked under this
-    requirement's rules when drafted, and shows its problem when a check fails.
-  rule_sources:
-  - PRD §7 Typed request
-  - PRD §7 What the agent checks
-  rule_decisions: []
-- rule_id: R15
-  rule_statement: >-
-    On apply, each accepted item is saved as an edit or a cancel under this requirement's rules, so
-    SHIFT_CHANGED and the cancel's effects follow as they do from the Shift's page.
-  rule_sources:
-  - PRD §7 Agent Chat
-  rule_decisions:
-  - D-209
 - rule_id: R16
   rule_statement: >-
     When an edit is saved, REQ-ORDERING-0006 reacts to changed site instructions, REQ-ORDERING-0008 to
@@ -139,10 +98,18 @@ requirement_rules:
   - PRD §2 Shift statuses
   rule_decisions:
   - D-90
+- rule_id: R17
+  rule_statement: >-
+    SHIFT_CHANGED is sent once for each PENDING or ACCEPTED Release of the Shift, as its subject, and names
+    the Unit, the Position, the Shift's date, and each changed field with its old and new value.
+  rule_sources:
+  - SHEET SC-3
+  rule_decisions:
+  - D-252
+  - D-253
 requirement_sources:
 - SHEET SC-3
 - PRD §2 Shift statuses
-- PRD §7 Who uses it
 requirement_decisions:
 - D-18
 - D-19
@@ -152,6 +119,8 @@ requirement_decisions:
 - D-162
 - D-187
 - D-209
+- D-252
+- D-253
 requirement_features:
 - SC-3
 edges:
@@ -159,12 +128,6 @@ edges:
   requirement_id: REQ-ORDERING-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-DISPATCH-0001
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-AGENT-0001
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-AGENT-0002
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-AGENT-0003
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0005
 - edge_type: DEPENDS_ON
@@ -203,8 +166,7 @@ data_model:
   - Shift.cancelled_by
   - Shift.cancelled_at
   detail: >-
-    A typed request is drafted as a Proposal through REQ-AGENT-0002, which owns the Proposal records;
-    the Unit, org node, and Position names are read only to find the Shift a request means.
+    The Unit, org node, and Position names are read only for the SHIFT_CHANGED message.
 requirement_starting_flow: true
 requirement_review:
   status: draft

@@ -93,6 +93,14 @@ requirement_rules:
   - SHEET TS-9
   rule_decisions:
   - D-132
+- rule_id: R11
+  rule_statement: >-
+    This requirement registers the Tip Pool's page with REQ-SHELL-0007 for subject TipPool and role
+    UNIT_USER.
+  rule_sources: []
+  rule_decisions:
+  - D-107
+  - D-252
 requirement_sources:
 - SHEET TS-11
 - SHEET 4.4
@@ -100,14 +108,18 @@ requirement_sources:
 requirement_decisions:
 - D-28
 - D-60
+- D-107
 - D-108
 - D-126
 - D-127
 - D-128
 - D-132
+- D-252
 requirement_features:
 - TS-11
 edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0007
 - edge_type: DEPENDS_ON
   requirement_id: REQ-UNIT-WEB-0001
 - edge_type: DEPENDS_ON

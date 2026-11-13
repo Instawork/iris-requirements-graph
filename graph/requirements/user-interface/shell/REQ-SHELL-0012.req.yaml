@@ -37,8 +37,8 @@ requirement_rules:
   - D-74
 - rule_id: R4
   rule_statement: >-
-    The list is embedded in the Reports screens of REQ-UNIT-WEB-0006 and REQ-PROGRAM-WEB-0005, and a User
-    with no Saved Report is told that an answer in the assistant can be saved.
+    The Reports screens that depend on this requirement embed the list, and a User with no Saved Report
+    is told that an answer in the assistant can be saved.
   rule_sources:
   - SESSIONS Reporting
   rule_decisions:

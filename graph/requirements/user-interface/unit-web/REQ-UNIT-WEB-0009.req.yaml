@@ -80,6 +80,14 @@ requirement_rules:
   - SHEET RC-11
   rule_decisions:
   - D-9
+- rule_id: R13
+  rule_statement: >-
+    When headcount is added to a Release, the step asks for a bill_rate_reason or non_contracted_reason
+    only where REQ-DISPATCH-0001.R19 needs one the Release does not hold.
+  rule_sources:
+  - SHEET RC-11
+  rule_decisions:
+  - D-260
 requirement_sources:
 - SHEET SC-1
 - SHEET SC-7
@@ -91,6 +99,7 @@ requirement_decisions:
 - D-109
 - D-157
 - D-158
+- D-260
 requirement_features:
 - SC-1
 - SC-7

@@ -127,6 +127,13 @@ requirement_rules:
   - SHEET WA-16
   rule_decisions:
   - D-142
+- rule_id: R15
+  rule_statement: >-
+    A CREDENTIAL_EXPIRING message names the Worker, the Credential Type, and the expires_on date.
+  rule_sources:
+  - SHEET WA-14
+  rule_decisions:
+  - D-253
 requirement_sources:
 - SHEET WA-14
 - SHEET WA-15
@@ -143,6 +150,7 @@ requirement_decisions:
 - D-197
 - D-213
 - D-236
+- D-253
 requirement_features:
 - WA-14
 edges:

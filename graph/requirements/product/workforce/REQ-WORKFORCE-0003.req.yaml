@@ -61,15 +61,17 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R7
   rule_statement: >-
-    Workers are assigned in the app, by SHIFTS file rows, or by a typed request, which drafts a Proposal
-    of kind WORKER_ASSIGNMENT; every channel passes the same checks, and assigned_via records it.
+    Workers are assigned in the app, by SHIFTS file rows, or by a typed request under REQ-WORKFORCE-0018;
+    every channel passes the same checks, and assigned_via records it.
   rule_sources:
   - PRD §6 Templates
   - PRD §7 Who uses it
+  - PRD §7 Opening screen
   rule_decisions: []
 - rule_id: R8
   rule_statement: >-
-    A person named in a file or to the assistant is matched to a Worker of the Agency under REQ-WORKFORCE-0002.
+    A caller that assigns from a file or a typed request passes the Worker it matched, or created through
+    REQ-WORKFORCE-0001, and this requirement matches no name.
   rule_sources:
   - PRD §7 What the agent checks
   rule_decisions: []
@@ -159,9 +161,9 @@ requirement_rules:
   - D-88
 - rule_id: R25
   rule_statement: >-
-    When an Assignment becomes ASSIGNED, REQ-ORDERING-0006, REQ-ORDERING-0008, and REQ-COMPLIANCE-0006
-    each react under their own rules, as REQ-ORDERING-0008 does when one becomes REMOVED; this requirement
-    calls none of them.
+    When an Assignment becomes ASSIGNED, REQ-ORDERING-0006, REQ-ORDERING-0008, REQ-COMPLIANCE-0006, and
+    REQ-TIME-0001 each react under their own rules, as REQ-ORDERING-0008 does when one becomes REMOVED;
+    this requirement calls none of them.
   rule_sources:
   - SHEET SC-6
   - PRD §2 Shift statuses
@@ -174,6 +176,15 @@ requirement_rules:
   rule_sources:
   - SESSIONS Worker Assignment & Compliance
   rule_decisions: []
+- rule_id: R27
+  rule_statement: >-
+    WORKER_ASSIGNED and WORKER_REMOVED have the Assignment's Release as subject and name the Worker, their
+    Agency, the Shift's Unit, Position, date, and times, and, for a removal, the removal_reason.
+  rule_sources:
+  - PRD §2 Shifts
+  rule_decisions:
+  - D-252
+  - D-253
 requirement_sources:
 - SHEET WA-1
 - PRD §2 Shifts
@@ -193,6 +204,8 @@ requirement_decisions:
 - D-162
 - D-164
 - D-176
+- D-252
+- D-253
 requirement_features:
 - WA-1
 edges:
@@ -201,15 +214,11 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-WORKFORCE-0001
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-WORKFORCE-0002
-- edge_type: DEPENDS_ON
   requirement_id: REQ-WORKFORCE-0005
 - edge_type: DEPENDS_ON
   requirement_id: REQ-COMPLIANCE-0005
 - edge_type: DEPENDS_ON
   requirement_id: REQ-LABOR-0003
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-AGENT-0002
 - edge_type: DEPENDS_ON
   requirement_id: REQ-MESSAGING-0001
 - edge_type: DEPENDS_ON
@@ -245,6 +254,12 @@ data_model:
   - RoleGrant.org_node_id
   - Unit.org_node_id
   - OrgNode.parent_id
+  - Shift.position_id
+  - Position.name
+  - OrgNode.name
+  - Worker.first_name
+  - Worker.last_name
+  - Agency.name
   writes:
   - Assignment.*
   detail: null

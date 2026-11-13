@@ -25,8 +25,8 @@ entities:
   - {name: channel, type: enum:NotificationChannel}
   - {name: user_id, type: ref:User, nullable: true, note: Empty when the recipient is a Worker or an inbound sender Iris could not match}
   - {name: to_address, type: text, nullable: true, note: 'Email or phone, fixed when the Notification is created; required for EMAIL and SMS'}
-  - {name: subject_type, type: text, note: The entity it is about}
-  - {name: subject_id, type: uuid}
+  - {name: subject_type, type: text, note: 'The entity it is about: the subject the notifications catalog gives its type'}
+  - {name: subject_id, type: uuid, note: The record of that entity the owner passed}
   - {name: title, type: text, note: 'The email''s subject line and the inbox heading; not sent in a text'}
   - {name: body, type: text, note: Never holds an invite or reset link}
   - {name: provider_message_id, type: text, nullable: true, note: 'The id the email provider gave a sent email, so a reply can be matched to it; empty otherwise'}

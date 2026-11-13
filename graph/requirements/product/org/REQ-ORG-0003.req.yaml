@@ -37,8 +37,8 @@ requirement_rules:
   - D-85
 - rule_id: R4
   rule_statement: >-
-    Each row is checked and saved by the rules of REQ-ORG-0002, so a ZIP code in no Market is a row
-    problem.
+    Each row is checked before the Proposal is shown, without saving, and again when it is saved, against
+    REQ-ORG-0002.R1, R3, R4, R5, and R7, so a ZIP code in no Market is a row problem.
   rule_sources:
   - PRD §6 Uploads
   rule_decisions:

@@ -306,6 +306,14 @@ class MutationTests(unittest.TestCase):
         self.copy.edit_yaml("graph/catalogs/notifications.yaml", lambda d: d["notifications"][0].update(channels=["PIGEON"]))
         self.assertCaught("notifications_catalog", "PIGEON")
 
+    def test_notifications_catalog__subject(self):
+        self.copy.edit_yaml("graph/catalogs/notifications.yaml", lambda d: d["notifications"][0].update(subject="Booking"))
+        self.assertCaught("notifications_catalog", "must be an entity")
+
+    def test_notifications_catalog__no_subject(self):
+        self.copy.edit_yaml("graph/catalogs/notifications.yaml", lambda d: d["notifications"][0].pop("subject"))
+        self.assertCaught("notifications_catalog", "must be an entity")
+
     def test_upload_types_catalog(self):
         self.copy.edit_yaml("graph/catalogs/upload-types.yaml", lambda d: d["upload_types"][0]["columns"][0].update(maps_to="RateLine.nope"))
         self.assertCaught("upload_types_catalog", "nope")
