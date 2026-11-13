@@ -16,7 +16,7 @@ requirement_rules:
     including a photo of a paper sign-in sheet read with OCR.
   rule_sources:
   - SHEET TS-5
-  - FEEDBACK
+  - FEEDBACK OCR to match paper timesheets
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
@@ -74,7 +74,8 @@ requirement_rules:
 - rule_id: R9
   rule_statement: >-
     An Agency User's accepted lines save clock_in, clock_out, and break_minutes to DRAFT and REJECTED
-    Timesheets under the rules of REQ-TIME-0001.
+    Timesheets through REQ-TIME-0001, which checks them and recomputes worked_minutes and the hour
+    classes.
   rule_sources:
   - PRD §6 Uploads
   rule_decisions:
@@ -124,7 +125,7 @@ requirement_rules:
   rule_decisions: []
 requirement_sources:
 - SHEET TS-5
-- FEEDBACK
+- FEEDBACK OCR to match paper timesheets
 - SESSIONS Timesheets, Tips & Expenses
 - PRD §6 Uploads
 - PRD §6 Templates
@@ -189,9 +190,14 @@ data_model:
   - Timesheet.clock_out
   - Timesheet.break_minutes
   - Timesheet.no_show
+  - Timesheet.worked_minutes
+  - Timesheet.regular_minutes
+  - Timesheet.overtime_minutes
+  - Timesheet.double_time_minutes
   detail: >-
     assignment_id and position_id are only matched, to find the Timesheet a line belongs to; an upload
-    never changes them.
+    never changes them. Hours are saved through REQ-TIME-0001, REQ-TIME-0006, and REQ-TIME-0009, which
+    recompute worked_minutes and the hour classes.
 requirement_starting_flow: false
 requirement_review:
   status: draft

@@ -4,8 +4,9 @@ requirement_target_module: REPORTING
 requirement_phase: MVP
 requirement_title: Show an Event's projected and actual cost the next morning
 requirement_statement: >-
-  For each Event, Iris shows the cost projected from its Releases beside the actual cost. Both are ready
-  as soon as the Event's Shifts end, so a Unit knows the next morning what the Event cost.
+  For each Event, Iris shows the cost projected from its Releases beside the actual cost. Both are
+  ready as soon as the Event's Shifts end, with any part still priced from scheduled hours shown as an
+  estimate.
 requirement_actors:
 - UNIT_USER
 - PROGRAM_USER
@@ -34,7 +35,8 @@ requirement_rules:
   - D-44
 - rule_id: R4
   rule_statement: >-
-    Actual cost is the Event's SPEND under REQ-REPORTING-0001, shown as APPROVED_SPEND and PENDING_SPEND.
+    Actual cost is the Event's SPEND under REQ-REPORTING-0001, shown as APPROVED_SPEND and
+    PENDING_SPEND, with the estimated part of PENDING_SPEND shown apart and labelled as an estimate.
   rule_sources:
   - SHEET REP-2
   - PRD §1 Detailed requirements
@@ -42,8 +44,8 @@ requirement_rules:
   - D-29
 - rule_id: R5
   rule_statement: >-
-    Both costs are computed from current records when viewed, so actual cost is complete once the Event's
-    last Shift ends, before any Timesheet is entered.
+    Both costs are computed from current records when viewed, so a cost shows once the Event's last
+    Shift ends; until hours are entered it is the estimate from scheduled hours, not what was worked.
   rule_sources:
   - SHEET REP-2
   rule_decisions:

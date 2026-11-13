@@ -40,11 +40,11 @@ requirement_rules:
   - D-43
 - rule_id: R5
   rule_statement: >-
-    Labor cost here is Spend under REQ-REPORTING-0001, the agency labor held in Iris, and excludes Compass's
-    own employees.
+    Labor cost here is Spend under REQ-REPORTING-0001, the agency labor held in Iris, and excludes
+    Compass's own employees.
   rule_sources:
   - SHEET REP-3
-  - FAQ
+  - FAQ Iris covers the agency side of staffing
   rule_decisions:
   - D-43
 - rule_id: R6

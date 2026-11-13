@@ -28,6 +28,7 @@ entities:
   - {name: entered_via, type: enum:Channel}
   constraints:
   - At most one of shift_id and event_id is set.
+  - No Timesheet the pool covers was locked when the pool was entered or last changed.
 - entity: CashierPin
   phase: MVP
   description: Which Worker a cashier PIN belongs to at a Unit, for a period.
@@ -50,7 +51,7 @@ entities:
   - {name: entered_by, type: ref:User}
   constraints:
   - At most one of tip_pool_id and cashier_pin_id is set.
-  - The allocations of one Tip Pool add up to its amount.
+  - Once a Tip Pool has any allocation, its allocations add up to its amount. A pool has none until a Timesheet it covers has worked minutes.
 - entity: Expense
   phase: MVP
   description: 'A cost an Agency paid for a Worker on a Shift, passed through at cost.'

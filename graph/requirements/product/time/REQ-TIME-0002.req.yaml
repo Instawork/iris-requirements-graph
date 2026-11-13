@@ -21,11 +21,13 @@ requirement_rules:
   - D-33
 - rule_id: R2
   rule_statement: >-
-    Submitting is not refused for a missing clock time; REQ-TIME-0005 then lists the Timesheet with MISSING_TIMES.
+    Submitting is not refused for a missing clock time; REQ-TIME-0005 checks every submission and
+    lists such a Timesheet with MISSING_TIMES.
   rule_sources:
   - SHEET TS-7
   rule_decisions:
   - D-22
+  - D-59
 - rule_id: R3
   rule_statement: Submitting a REJECTED Timesheet clears its rejected_reason.
   rule_sources: []

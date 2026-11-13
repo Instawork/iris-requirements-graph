@@ -16,9 +16,9 @@ enums:
 - enum: ContractType
   phase: P2
   values:
-  - {value: CLIENT_PAY_PAYROLL, meaning: Compass pays the Agency's payroll.}
-  - {value: PASS_THROUGH, meaning: The Agency bills at cost plus an agreed fee.}
-  - {value: FULL_SERVICE, meaning: The Agency bills its full Bill Rate.}
+  - {value: CLIENT_PAY_PAYROLL, meaning: 'Client-pay payroll, as the sheet names it (INV-8). What it means for an invoice waits on D-35.'}
+  - {value: PASS_THROUGH, meaning: 'Pass-through, as the sheet names it (INV-8). What it means for an invoice waits on D-35.'}
+  - {value: FULL_SERVICE, meaning: 'Full service, as the sheet names it (INV-8). What it means for an invoice waits on D-35.'}
 entities:
 - entity: ConsolidatedInvoice
   phase: P2
@@ -36,14 +36,14 @@ entities:
   - {name: consolidated_invoice_id, type: ref:ConsolidatedInvoice}
   - {name: agency_id, type: ref:Agency}
   - {name: agency_invoice_number, type: text, nullable: true, note: The Agency's own invoice number}
-  - {name: contract_type, type: enum:ContractType, note: 'Where it is set, on the Agency or the Unit, waits on D-35'}
+  - {name: contract_type, type: enum:ContractType, nullable: true, note: 'Empty until D-35 settles where it is set, on the Agency or the Unit'}
   - {name: status, type: enum:InvoiceStatus}
-  - {name: paid_amount, type: money}
+  - {name: paid_amount, type: money, note: 0 until a payment is recorded}
   unique:
   - [consolidated_invoice_id, agency_id]
 - entity: InvoiceLine
   phase: P2
-  description: One Timesheet's charges on an Agency Invoice.
+  description: One Timesheet's charges on an Agency Invoice. Created whole by REQ-INVOICING-0001, or as an adjustment by REQ-INVOICING-0004.
   fields:
   - {name: agency_invoice_id, type: ref:AgencyInvoice}
   - {name: timesheet_id, type: ref:Timesheet}
@@ -60,7 +60,7 @@ entities:
   fields:
   - {name: invoice_line_id, type: ref:InvoiceLine}
   - {name: minutes, type: int}
-  - {name: amount, type: money}
+  - {name: amount, type: money, nullable: true, note: Set when the Agency credits the hours}
   - {name: reason, type: text}
   - {name: requested_by, type: ref:User}
   - {name: credited_at, type: timestamp, nullable: true}

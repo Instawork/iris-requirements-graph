@@ -33,11 +33,12 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R4
   rule_statement: >-
-    A rule needs threshold_minutes for every kind except MINIMUM_WAGE, break_minutes for MEAL_BREAK and
-    REST_BREAK, and minimum_wage for MINIMUM_WAGE; a rule missing its value is refused.
+    A rule needs threshold_minutes for every kind except MINIMUM_WAGE, break_minutes for MEAL_BREAK
+    and REST_BREAK, and minimum_wage for MINIMUM_WAGE; a rule missing its value is refused.
   rule_sources:
-  - GRAPH data model LaborRule
-  rule_decisions: []
+  - SHEET WA-18
+  rule_decisions:
+  - D-57
 - rule_id: R5
   rule_statement: >-
     Two rules of the same state, city, and kind cannot cover the same date; the later one is refused until
@@ -47,8 +48,8 @@ requirement_rules:
   - D-57
 - rule_id: R6
   rule_statement: >-
-    The rule in effect for a Unit, kind, and date has the Unit's state and covers the date; a rule for
-    the Unit's city wins over the statewide rule.
+    The rule in effect for a Unit, kind, and date has the Unit's state and covers the date; a rule
+    whose city equals the Unit's city, compared as names are, wins over the statewide rule.
   rule_sources:
   - SHEET WA-18
   rule_decisions: []

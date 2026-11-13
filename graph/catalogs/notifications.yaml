@@ -74,11 +74,12 @@ notifications:
 - type: TIMESHEET_CHANGED
   trigger: >-
     A Unit User or an Agency User changes the hours, breaks, or no-show of a Timesheet that has been
-    submitted at least once, or splits it.
+    submitted at least once, or splits it; or a Unit User sets or clears a no-show on any Timesheet.
   recipients: The other party, the Agency's active Agency Users or the Unit Users over the Unit.
   channels: [EMAIL, IN_APP]
   owner: REQ-TIME-0006
-  sources: [PRD Overview, PRD §2 Shifts]
+  sources: [PRD §2 How hour changes work, PRD §2 Shifts]
+  decisions: [D-70]
 - type: TIMESHEET_REJECTED
   trigger: A Unit User rejects a Timesheet.
   recipients: Every active Agency User of the Agency.
@@ -86,11 +87,14 @@ notifications:
   owner: REQ-TIME-0006
   sources: ['SESSIONS Timesheets, Tips & Expenses']
 - type: OVERTIME_ALERT
-  trigger: An Assignment or saved Timesheet hours add overtime for a Worker at a Unit in its Work Week.
-  recipients: Every active Agency User of the Agency, and the User who created the Request.
+  trigger: >-
+    An Assignment or saved Timesheet hours add overtime for a Worker of one Agency, counting every Unit, in
+    the Work Week of the Shift's Unit.
+  recipients: Every active Agency User of the Agency, and every active Unit User over the Unit of the Shift that added it.
   channels: [IN_APP]
   owner: REQ-LABOR-0003
   sources: [SHEET WA-19]
+  decisions: [D-4, D-73]
 - type: RATE_LINE_PENDING
   trigger: An Agency User submits a Rate Line.
   recipients: Every active Program User.

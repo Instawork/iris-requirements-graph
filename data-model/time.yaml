@@ -23,9 +23,12 @@ enums:
   - {value: OUTSIDE_TOLERANCE, meaning: A billed clock time differs from the scheduled time by more than the Approval Tolerance.}
   - {value: MISSED_BREAK, meaning: A break the labor rules require was not taken.}
   - {value: BELOW_MINIMUM_WAGE, meaning: The Pay Rate on the work date is below the local minimum wage.}
-  - {value: RATE_VARIANCE, meaning: 'The billed regular Bill Rate differs from the Release, or for a part split to another Position, from that Position''s contracted rate.'}
+  - {value: RATE_VARIANCE, meaning: 'A part split to another Position bills a regular Bill Rate that differs from that Position''s contracted rate, or the Position has none.'}
   - {value: PENDING_EXPENSE, meaning: An expense on it is not yet approved or rejected.}
   - {value: AGENCY_TIP, meaning: An Agency User entered a tip on it (D-22).}
+  - {value: SHORT_BREAK, meaning: The billed break is shorter than the Shift's planned break.}
+  - {value: LATE_SUBMISSION, meaning: It was submitted after its Lock Window closed.}
+  - {value: ADDED_AFTER_SHIFT, meaning: 'Its Worker was assigned after the Shift ended, possibly beyond the headcount.'}
 entities:
 - entity: Timesheet
   phase: MVP
@@ -42,10 +45,11 @@ entities:
   - {name: regular_minutes, type: int}
   - {name: overtime_minutes, type: int}
   - {name: double_time_minutes, type: int}
-  - {name: regular_bill_rate, type: money, note: "The Release's rate, or the Rate Line's for a part split to another Position, unless the Agency billed another"}
+  - {name: regular_bill_rate, type: money, note: "The Release's rate, or the Rate Line's for a part split to another Position; nobody edits it (D-69)"}
   - {name: overtime_bill_rate, type: money}
   - {name: double_time_bill_rate, type: money}
   - {name: no_show, type: bool}
+  - {name: no_show_by, type: enum:Role, nullable: true, note: 'The acting role that set the mark, AGENCY_USER or UNIT_USER; empty while no_show is false'}
   - {name: status, type: enum:TimesheetStatus}
   - {name: exception_reasons, type: 'list:enum:ExceptionReason', note: Empty when it matches}
   - {name: submitted_by, type: ref:User, nullable: true}
@@ -53,8 +57,9 @@ entities:
   - {name: approved_by, type: ref:User, nullable: true, note: Empty when Iris auto-approved it}
   - {name: approved_at, type: timestamp, nullable: true}
   - {name: rejected_reason, type: text, nullable: true}
-  - {name: locked_at, type: timestamp, nullable: true, note: Set when it locks; it cannot change after}
+  - {name: locked_at, type: timestamp, nullable: true, note: 'Set when it locks; it cannot change after. Timesheets one Tip Pool covers lock together'}
   constraints:
   - regular_minutes plus overtime_minutes plus double_time_minutes equals worked_minutes.
   - An Assignment has one Timesheet, or one per part when split.
-  - A Timesheet with locked_at set never changes in MVP.
+  - A Timesheet with locked_at set never changes in MVP, and neither do its tips and Expenses.
+  - no_show_by is set exactly while no_show is true.

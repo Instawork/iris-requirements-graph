@@ -64,11 +64,11 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R8
   rule_statement: >-
-    A Unit User granted at a Sector, Region, or District sees the same dashboard rolled up across every
-    Unit beneath that node.
+    A Unit User granted at a Sector, Region, or District sees the same dashboard rolled up across
+    every Unit beneath that node.
   rule_sources:
   - SHEET 6.3
-  - FAQ
+  - FAQ Reporting at every level
   rule_decisions:
   - D-25
 - rule_id: R9

@@ -37,10 +37,12 @@ requirement_rules:
   - D-16
 - rule_id: R4
   rule_statement: >-
-    LOCK_WINDOW_HOURS is the value REQ-ORG-0006 resolves for the Timesheet's Unit.
+    LOCK_WINDOW_HOURS is the value REQ-ORG-0006 resolves for the Timesheet's Unit when the report is
+    run, so a changed Setting changes which past Timesheets count as late.
   rule_sources:
   - SHEET TS-9
   rule_decisions:
+  - D-13
   - D-16
 - rule_id: R5
   rule_statement: >-
@@ -57,6 +59,13 @@ requirement_rules:
   - SHEET 6.3
   - SHEET PLT-1
   rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    MISSED_BREAK_TIMESHEETS counts Timesheets with a missed break by the work date of their Shift.
+  rule_sources:
+  - SHEET REP-10
+  rule_decisions:
+  - D-76
 requirement_sources:
 - SHEET REP-10
 - SHEET 6.3
@@ -64,6 +73,7 @@ requirement_decisions:
 - D-13
 - D-16
 - D-22
+- D-76
 requirement_features:
 - REP-10
 edges:

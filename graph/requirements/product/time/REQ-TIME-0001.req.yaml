@@ -12,13 +12,14 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    When a Shift's ends_at passes, Iris creates one DRAFT Timesheet for each ASSIGNED Assignment on it;
-    an Assignment made after that gets its Timesheet at once.
+    A job of REQ-JOBS-0001 runs every five minutes and creates one DRAFT Timesheet for each ASSIGNED
+    Assignment that has none, on every Shift that is not CANCELLED and whose ends_at has passed.
   rule_sources:
   - PRD §2 Shift statuses
   rule_decisions:
   - D-18
   - D-59
+  - D-68
 - rule_id: R2
   rule_statement: >-
     A new Timesheet takes the Shift's Position and Department and the Release's regular, overtime, and
@@ -32,11 +33,11 @@ requirement_rules:
     An Assignment has one Timesheet, or one for each part once it is split under REQ-TIME-0008.
   rule_sources:
   - SHEET TS-10
-  - GRAPH data model Timesheet
+  - PRD §2 Shifts
   rule_decisions: []
 - rule_id: R4
   rule_statement: >-
-    An Agency User of the Worker's Agency enters or changes clock_in, clock_out, break_minutes, and regular_bill_rate
+    An Agency User of the Worker's Agency enters or changes clock_in, clock_out, and break_minutes
     while the Timesheet is DRAFT or REJECTED, and in no other status.
   rule_sources:
   - PRD §2 Shifts
@@ -44,8 +45,8 @@ requirement_rules:
   - D-33
 - rule_id: R5
   rule_statement: >-
-    A change is refused unless clock_out is later than clock_in and break_minutes, when given, is zero
-    or more and less than the minutes between them.
+    A change is refused when clock_out is not later than clock_in, or when break_minutes is negative
+    or not less than the minutes between them; an empty value is not checked.
   rule_sources:
   - PRD §7 What the agent checks
   rule_decisions: []
@@ -57,38 +58,38 @@ requirement_rules:
   - D-59
 - rule_id: R7
   rule_statement: >-
-    worked_minutes is clock_out minus clock_in minus break_minutes, and is 0 while either clock time is
-    empty or no_show is true.
+    worked_minutes is clock_out minus clock_in minus break_minutes, and is 0 while either clock time
+    is empty or no_show is true.
   rule_sources:
   - PRD §2 Shifts
-  - GRAPH data model Timesheet
-  rule_decisions: []
+  rule_decisions:
+  - D-59
 - rule_id: R8
   rule_statement: >-
-    Whenever worked_minutes changes, Iris reclassifies the Worker's Timesheets at that Unit in that Work
-    Week through REQ-LABOR-0005 and saves regular_minutes, overtime_minutes, and double_time_minutes on
-    those not locked.
+    Whenever worked_minutes changes, Iris reclassifies through REQ-LABOR-0005 every Timesheet of that
+    Worker whose own Unit's Work Week holds the changed work date, and saves the three minute classes
+    on those not locked.
   rule_sources:
   - SHEET WA-19
   rule_decisions:
   - D-4
 - rule_id: R9
   rule_statement: >-
-    After that, Iris gives the week's minutes before and after the change to REQ-LABOR-0003, which alerts
-    when the change adds overtime.
+    After that, Iris gives REQ-LABOR-0003 the Worker's Shifts in the Work Week of the changed
+    Timesheet's Unit, before and after the change, and it alerts when the change adds overtime.
   rule_sources:
   - SHEET WA-19
   rule_decisions:
   - D-4
 - rule_id: R10
   rule_statement: >-
-    When an Agency User bills another regular_bill_rate, which must be above zero, the overtime and double-time
-    Bill Rates change by the same ratio, rounded half up to the cent.
+    Nobody enters or changes a Bill Rate on a Timesheet: its three rates stay those of R2, or of the
+    Rate Line for a part REQ-TIME-0008 splits to another Position.
   rule_sources:
-  - SHEET RC-10
+  - PRD §7 What the agent accepts
+  - SESSIONS Timesheets, Tips & Expenses
   rule_decisions:
-  - D-24
-  - D-41
+  - D-69
 - rule_id: R11
   rule_statement: >-
     The amount for each hour class is its Bill Rate times its minutes divided by 60, rounded half up to
@@ -104,6 +105,29 @@ requirement_rules:
   rule_sources:
   - PRD §2 Shifts
   rule_decisions: []
+- rule_id: R13
+  rule_statement: >-
+    When REQ-WORKFORCE-0003 assigns a Worker after the Shift's ends_at, this requirement creates that
+    Assignment's DRAFT Timesheet in the same transaction, so hours can be saved to it at once.
+  rule_sources:
+  - PRD §2 Shift statuses
+  rule_decisions:
+  - D-18
+- rule_id: R14
+  rule_statement: >-
+    A clock time is a local date and time at the Unit; one that does not exist on a daylight-saving
+    change is refused, and one that occurs twice means the occurrence nearest the scheduled time.
+  rule_sources: []
+  rule_decisions:
+  - D-59
+- rule_id: R15
+  rule_statement: >-
+    Each change to a Timesheet's hours or no-show is published as an event; REQ-TIPS-0001 re-splits
+    its Tip Pools and REQ-TIME-0005 rechecks it while it is SUBMITTED.
+  rule_sources:
+  - SHEET TS-11
+  - SHEET TS-7
+  rule_decisions: []
 requirement_sources:
 - SHEET 4.3
 - PRD §2 Shifts
@@ -112,10 +136,11 @@ requirement_sources:
 requirement_decisions:
 - D-4
 - D-18
-- D-24
 - D-33
 - D-41
 - D-59
+- D-68
+- D-69
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON
@@ -132,6 +157,8 @@ edges:
   requirement_id: REQ-ORG-0009
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AUDIT-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-JOBS-0001
 data_model:
   status: covered
   reads:
@@ -150,6 +177,9 @@ data_model:
   - Shift.starts_at
   - Shift.ends_at
   - Shift.break_minutes
+  - Shift.status
+  - Unit.timezone
+  - Timesheet.locked_at
   writes:
   - Timesheet.assignment_id
   - Timesheet.position_id

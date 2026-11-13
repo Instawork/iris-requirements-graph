@@ -11,7 +11,8 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Each Agency Invoice carries one contract type: CLIENT_PAY_PAYROLL, PASS_THROUGH, or FULL_SERVICE.
+    Each Agency Invoice carries one contract type, CLIENT_PAY_PAYROLL, PASS_THROUGH, or FULL_SERVICE,
+    which stays empty until D-35 settles where it is set.
   rule_sources:
   - SHEET INV-8
   rule_decisions:

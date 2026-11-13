@@ -11,8 +11,8 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    When spend or fill crosses a threshold, such as SPEND passing BUDGET, Iris sends an alert by email
-    or chat.
+    A job of REQ-JOBS-0001 checks spend and fill against each threshold, such as SPEND passing BUDGET,
+    and sends an alert by email or chat when one is first crossed.
   rule_sources:
   - SHEET REP-5
   - SHEET 6.2
@@ -32,6 +32,8 @@ edges:
   requirement_id: REQ-REPORTING-0007
 - edge_type: DEPENDS_ON
   requirement_id: REQ-MESSAGING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-JOBS-0001
 data_model:
   status: pending
   reads: []

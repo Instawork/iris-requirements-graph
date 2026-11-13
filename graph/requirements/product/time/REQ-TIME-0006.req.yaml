@@ -21,8 +21,8 @@ requirement_rules:
   - D-33
 - rule_id: R2
   rule_statement: >-
-    Corrected values must pass the same checks as hours entered under REQ-TIME-0001, or the correction
-    is refused.
+    A correction is saved through REQ-TIME-0001, which applies the same checks as to hours an Agency
+    enters and recomputes worked_minutes and the hour classes; values it refuses are not saved.
   rule_sources:
   - PRD §7 What the agent checks
   rule_decisions: []
@@ -66,12 +66,13 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R8
   rule_statement: >-
-    When hours, breaks, or no-show change on a Timesheet that has been submitted at least once, Iris sends
-    TIMESHEET_CHANGED by email and in the app to the other party.
+    Iris sends TIMESHEET_CHANGED to the other party when hours, breaks, or no-show change on a
+    Timesheet submitted at least once, and whenever a Unit User sets or clears a no-show.
   rule_sources:
-  - PRD Overview
+  - PRD §2 How hour changes work
   - PRD §2 Shifts
-  rule_decisions: []
+  rule_decisions:
+  - D-70
 - rule_id: R9
   rule_statement: >-
     For a Unit User's change the other party is every active Agency User of the Worker's Agency; for an
@@ -81,12 +82,13 @@ requirement_rules:
   rule_decisions: []
 requirement_sources:
 - SHEET TS-7
-- PRD Overview
+- PRD §2 How hour changes work
 - PRD §2 Shifts
 - SESSIONS Timesheets, Tips & Expenses
 requirement_decisions:
 - D-5
 - D-33
+- D-70
 requirement_features:
 - TS-7
 edges:
@@ -125,6 +127,10 @@ data_model:
   - Timesheet.break_minutes
   - Timesheet.status
   - Timesheet.rejected_reason
+  - Timesheet.worked_minutes
+  - Timesheet.regular_minutes
+  - Timesheet.overtime_minutes
+  - Timesheet.double_time_minutes
   detail: null
 requirement_starting_flow: false
 requirement_review:

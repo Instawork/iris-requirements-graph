@@ -25,18 +25,17 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    A SALES row is reported as a problem when its unit matches no Unit or more than one, its date is invalid,
-    or its revenue, events, or meals served is not a number.
+    A SALES row is reported as a problem when its unit matches no Unit or more than one, its date is
+    invalid, or its revenue, events, or meals served is not a number.
   rule_sources:
-  - PRD §7 Agent Chat
-  - GRAPH Unit names can repeat across Districts
-  rule_decisions: []
+  - PRD §7 What the agent checks
+  rule_decisions:
+  - D-54
 - rule_id: R4
   rule_statement: >-
     Two rows in one SALES file for the same Unit and date are reported as a problem.
   rule_sources:
-  - PRD §7 Agent Chat
-  - 'GRAPH data model: one Sales Record per Unit and date'
+  - PRD §7 What the agent checks
   rule_decisions: []
 - rule_id: R5
   rule_statement: >-
@@ -58,6 +57,7 @@ requirement_sources:
 - PRD §6 Templates
 requirement_decisions:
 - D-43
+- D-54
 requirement_features:
 - REP-4
 edges:
