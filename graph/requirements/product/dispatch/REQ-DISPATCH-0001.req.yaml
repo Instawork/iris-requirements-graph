@@ -52,8 +52,8 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R6
   rule_statement: >-
-    A Unit User may enter another regular Bill Rate with a bill_rate_reason; the overtime and double-time
-    rates are then the contracted rates scaled by the same ratio, rounded half up to the cent.
+    A Unit User may enter another regular Bill Rate with a bill_rate_reason, and the Release then stores
+    the overtime and double-time Bill Rates that REQ-RATES-0007 returns for it.
   rule_sources:
   - SHEET SC-1
   - SHEET RC-11
@@ -63,22 +63,22 @@ requirement_rules:
 - rule_id: R7
   rule_statement: >-
     With no contracted Rate Line, rate_line_id is empty, the Unit User enters the regular Bill Rate and
-    a bill_rate_reason, and overtime is 1.5 times and double time 2 times that rate.
+    a bill_rate_reason, and the other two rates are those REQ-RATES-0007 returns.
   rule_sources:
   - SHEET RC-11
   rule_decisions:
   - D-24
 - rule_id: R8
   rule_statement: >-
-    A send at a Bill Rate other than the contracted rate, or with no contracted rate, goes ahead or is
-    refused as REQ-RATES-0007 decides under OFF_CONTRACT_RATE_GATE.
+    Before a Release is saved, REQ-RATES-0007 checks its Agency and regular Bill Rate under OFF_CONTRACT_RATE_GATE
+    and NON_CONTRACTED_AGENCY_GATE, and a send it refuses saves nothing.
   rule_sources:
   - SHEET RC-11
   rule_decisions: []
 - rule_id: R9
   rule_statement: >-
-    non_contracted is true when no current AgencyApproval covers the Unit, and such a send goes ahead
-    or is refused as REQ-RATES-0007 decides under NON_CONTRACTED_AGENCY_GATE.
+    non_contracted is set true when REQ-RATES-0007 finds no approval covering the Unit, and the reason
+    the Unit User gives for such a send is stored in the Audit Trail.
   rule_sources:
   - SHEET RC-11
   rule_decisions:
@@ -87,8 +87,8 @@ requirement_rules:
   rule_statement: A Release keeps the rates it was sent at when Rate Lines change later.
   rule_sources:
   - SHEET SC-1
-  - GRAPH a Release is priced once, when it is sent, pending a decision
-  rule_decisions: []
+  rule_decisions:
+  - D-24
 - rule_id: R11
   rule_statement: >-
     Creating a Release, or raising its headcount, sends RELEASE_NEW to the Agency's active Agency Users.
@@ -139,7 +139,10 @@ requirement_sources:
 - FEEDBACK
 - SESSIONS Worker Assignment & Compliance
 requirement_decisions:
+- D-9
 - D-17
+- D-18
+- D-20
 - D-24
 requirement_features:
 - SC-7

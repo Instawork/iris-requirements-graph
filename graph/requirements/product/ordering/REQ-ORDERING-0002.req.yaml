@@ -5,7 +5,8 @@ requirement_phase: MVP
 requirement_title: Show the contracted rate for each Shift line while booking
 requirement_statement: >-
   While booking, a Unit User sees the contracted Bill Rate of each Agency a Shift line could go to, before
-  anything is sent. The rates a Release is sent at are saved on the Release, not on the Shift.
+  anything is sent. Break and minimum-wage flags show on the line too. The rates a Release is sent at
+  are saved on the Release, not on the Shift.
 requirement_actors:
 - UNIT_USER
 requirement_rules:
@@ -41,6 +42,14 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R5
   rule_statement: >-
+    Each line is also checked by REQ-LABOR-0002, using its times, its planned break, and the picked Agency's
+    regular Pay Rate, and a rule not met shows as a flag that never blocks booking.
+  rule_sources:
+  - SHEET WA-18
+  rule_decisions:
+  - D-23
+- rule_id: R6
+  rule_statement: >-
     Pricing a line saves no rate on the Shift; Bill Rates are saved only on a Release when it is sent.
   rule_sources:
   - PRD Data Model
@@ -52,6 +61,7 @@ requirement_sources:
 - SESSIONS Shift Creation
 requirement_decisions:
 - D-17
+- D-23
 requirement_features:
 - SC-1
 edges:
@@ -64,6 +74,8 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AGENCIES-0002
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-LABOR-0002
+- edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0009
 data_model:
   status: covered
@@ -71,12 +83,15 @@ data_model:
   - Request.unit_id
   - Shift.position_id
   - Shift.starts_at
+  - Shift.ends_at
+  - Shift.break_minutes
   - Agency.name
   - Agency.active
   - AgencyApproval.agency_id
   - AgencyApproval.org_node_id
   - AgencyApproval.removed_at
   - RateLine.regular_bill_rate
+  - RateLine.regular_pay_rate
   writes: []
   detail: null
 requirement_starting_flow: false

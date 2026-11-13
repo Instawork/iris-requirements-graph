@@ -78,6 +78,7 @@ requirement_sources:
 - SHEET SC-3
 - PRD §2 Shift statuses
 requirement_decisions:
+- D-17
 - D-18
 requirement_features:
 - SC-3

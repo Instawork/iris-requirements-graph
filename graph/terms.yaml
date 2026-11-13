@@ -227,3 +227,17 @@ terms:
   definition: The date a Shift starts, in its Unit's timezone. Spend is dated by it.
   avoid: []
   sources: [SHEET INV-5]
+- term: Site instructions
+  definition: A Shift's parking, entrance, directions, site contact, and attire.
+  avoid: []
+  sources: [SHEET SC-6]
+- term: Series
+  definition: The Shifts a recurring Request created from one of its lines.
+  avoid: []
+  sources: [SHEET SC-4]
+  decisions: [D-20]
+- term: Chained block
+  definition: A recurring Request booked as one multi-week assignment. Not the same as blocking a Worker.
+  avoid: []
+  sources: [SHEET SC-4]
+  decisions: [D-20]

@@ -31,10 +31,9 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R4
   rule_statement: When ends_at passes, an OPEN Shift becomes UNFILLED.
-  rule_sources:
-  - >-
-    GRAPH a Shift that ended with no Worker assigned was not worked, pending a decision
-  rule_decisions: []
+  rule_sources: []
+  rule_decisions:
+  - D-47
 - rule_id: R5
   rule_statement: >-
     An UNFILLED Shift becomes WORKED when a Worker is assigned to it from a Timesheet.
@@ -56,6 +55,7 @@ requirement_sources:
 - PRD §2 Shift statuses
 requirement_decisions:
 - D-18
+- D-47
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

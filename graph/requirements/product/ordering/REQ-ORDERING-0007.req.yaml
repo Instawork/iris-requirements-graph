@@ -5,7 +5,7 @@ requirement_phase: MVP
 requirement_title: Save Request templates and Unit defaults
 requirement_statement: >-
   A Unit User saves Request templates, such as a game-day package of 5 bartenders and 4 concessions workers.
-  They also set Unit defaults that prefill new Requests.
+  They also set the Department each Position defaults to, which prefills new Requests.
 requirement_actors:
 - UNIT_USER
 requirement_rules:
@@ -51,14 +51,6 @@ requirement_rules:
   - SHEET SC-11
   - FEEDBACK
   rule_decisions: []
-- rule_id: R7
-  rule_statement: >-
-    A Unit User over a Unit may set its default parking, entrance, directions, site contact, and attire,
-    which are saved on the Unit through REQ-ORG-0002.
-  rule_sources:
-  - SHEET SC-11
-  - SHEET SC-6
-  rule_decisions: []
 requirement_sources:
 - SHEET SC-11
 requirement_decisions: []
@@ -81,11 +73,6 @@ data_model:
   - Position.active
   - Department.unit_id
   - Department.active
-  - Unit.default_parking
-  - Unit.default_entrance
-  - Unit.default_directions
-  - Unit.default_site_contact
-  - Unit.default_attire
   writes:
   - RequestTemplate.*
   - RequestTemplateLine.*

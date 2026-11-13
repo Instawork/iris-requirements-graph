@@ -3,7 +3,7 @@
 # INBOUND_REPLY are the exceptions: they answer that person.
 notifications:
 - type: RELEASE_NEW
-  trigger: A Release is sent to an Agency.
+  trigger: A Release is sent to an Agency, or more headcount is added to its Release.
   recipients: Every active Agency User of the Agency.
   channels: [EMAIL, SMS, IN_APP]
   owner: REQ-DISPATCH-0001
@@ -41,7 +41,7 @@ notifications:
   owner: REQ-WORKFORCE-0003
   sources: [PRD §2 Shifts]
 - type: SITE_INSTRUCTIONS
-  trigger: A Worker is assigned to a Shift, or its site instructions change after they were sent.
+  trigger: A Worker is assigned to a Shift, or its site instructions change while Workers are assigned.
   recipients: The Worker, at their email or phone.
   channels: [EMAIL, SMS]
   owner: REQ-ORDERING-0006
@@ -76,7 +76,7 @@ notifications:
   recipients: Every active Agency User of the Agency.
   channels: [EMAIL, IN_APP]
   owner: REQ-TIME-0006
-  sources: [SESSIONS Timesheets, Tips & Expenses]
+  sources: ['SESSIONS Timesheets, Tips & Expenses']
 - type: OVERTIME_ALERT
   trigger: An Assignment or a Timesheet puts a Worker into overtime.
   recipients: Every active Agency User of the Agency, and the User who created the Request.

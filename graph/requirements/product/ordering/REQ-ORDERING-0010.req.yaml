@@ -22,9 +22,8 @@ requirement_rules:
     the Unit's most recent Shift for that Position and marks each filled value in the draft.
   rule_sources:
   - SHEET SC-10
-  - >-
-    GRAPH unit memory is read from the Unit's past Shifts, pending a decision
-  rule_decisions: []
+  rule_decisions:
+  - D-48
 - rule_id: R3
   rule_statement: >-
     The draft goes back to the sender on the channel they used, and a reply in the same thread approves
@@ -42,7 +41,9 @@ requirement_rules:
   - D-17
 requirement_sources:
 - SHEET SC-10
-requirement_decisions: []
+requirement_decisions:
+- D-17
+- D-48
 requirement_features:
 - SC-10
 edges:

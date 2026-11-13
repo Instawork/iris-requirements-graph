@@ -23,8 +23,8 @@ requirement_rules:
   rule_sources:
   - PRD §6 Templates
   - FEEDBACK
-  - GRAPH a paper sign-in sheet gives only names, pending a decision
-  rule_decisions: []
+  rule_decisions:
+  - D-50
 - rule_id: R3
   rule_statement: >-
     Email is stored lowercase and phone as digits only; within one Agency no two Workers share an email
@@ -60,11 +60,18 @@ requirement_rules:
     inactive Worker cannot be assigned.
   rule_sources:
   - SHEET WA-1
-  - GRAPH a roster needs edit and deactivate, pending a decision
-  rule_decisions: []
+  rule_decisions:
+  - D-50
 - rule_id: R8
   rule_statement: >-
     A Worker's Positions are informational and do not limit the Shifts the Worker can be assigned to.
+  rule_sources:
+  - PRD §6 Templates
+  rule_decisions: []
+- rule_id: R9
+  rule_statement: >-
+    In a WORKERS row, positions are looked up by Position name, separated by semicolons, and a name that
+    matches no Position is a problem.
   rule_sources:
   - PRD §6 Templates
   rule_decisions: []
@@ -72,7 +79,8 @@ requirement_sources:
 - SHEET WA-1
 - PRD §4 Professionals
 - PRD §6 Templates
-requirement_decisions: []
+requirement_decisions:
+- D-50
 requirement_features:
 - WA-1
 edges:

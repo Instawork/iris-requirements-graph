@@ -140,3 +140,26 @@ conflicts:
     Hours worked that no issued invoice covers, split into with the Agency, waiting for approval, and
     approved (sheet 5.3; sessions). The approved part is the INV-12 figure.
   drop: Approved, uninvoiced Timesheets only (sheet INV-12 read alone).
+- conflict_id: C-29
+  topic: Shift statuses after the Shift
+  keep: >-
+    A Shift ends as Worked, Unfilled, or Cancelled; hours, approval, and lock are tracked on each
+    Timesheet (sheet TS-7 to TS-9; C-4).
+  drop: Confirming hours, Final, and Invoiced as Shift statuses (PRD).
+- conflict_id: C-30
+  topic: Worker contact details
+  keep: >-
+    Email and phone are optional on a Worker (feedback on paper timesheets and OCR; the PRD's own Shift
+    template makes the phone optional).
+  drop: Email and phone required on every Professional row (PRD).
+- conflict_id: C-31
+  topic: Which Workers a Unit can rate and request
+  keep: >-
+    A Unit can request and rate a Worker before they have worked there, so favorite rosters and blocks
+    carry over (sheet WA-2, 3.2).
+  drop: >-
+    Buyers see and rate only professionals assigned to or who have worked at their locations (PRD).
+- conflict_id: C-32
+  topic: Double-booking inside one Agency
+  keep: Conflict detection across Shifts and Agencies is Phase 3 (sheet WA-6).
+  drop: A Worker booked elsewhere that day is held back at assignment in MVP (demo).

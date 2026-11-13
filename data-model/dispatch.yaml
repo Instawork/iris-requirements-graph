@@ -29,7 +29,7 @@ entities:
   fields:
   - {name: shift_id, type: ref:Shift}
   - {name: agency_id, type: ref:Agency}
-  - {name: headcount, type: int, note: At least 1}
+  - {name: headcount, type: int, note: At least 1; raised when more of the Shift's headcount is sent to the same Agency}
   - {name: rate_line_id, type: ref:RateLine, nullable: true, note: The contracted line on the work date; empty when none exists}
   - {name: regular_bill_rate, type: money}
   - {name: overtime_bill_rate, type: money}

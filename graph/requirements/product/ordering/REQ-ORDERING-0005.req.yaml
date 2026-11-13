@@ -50,6 +50,7 @@ requirement_rules:
 requirement_sources:
 - SHEET SC-5
 requirement_decisions:
+- D-17
 - D-18
 - D-19
 requirement_features:

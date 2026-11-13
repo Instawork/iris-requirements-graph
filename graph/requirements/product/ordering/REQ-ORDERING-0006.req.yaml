@@ -26,8 +26,8 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    When an Assignment becomes ASSIGNED on a Shift with any site instruction filled, SITE_INSTRUCTIONS
-    is sent to the Worker's email and, by SMS, to the Worker's phone, whichever the Worker has.
+    When an Assignment becomes ASSIGNED on a Shift that has not ended and has a site instruction filled,
+    SITE_INSTRUCTIONS is sent to the Worker by EMAIL and SMS, whichever addresses the Worker has.
   rule_sources:
   - SHEET SC-6
   rule_decisions: []

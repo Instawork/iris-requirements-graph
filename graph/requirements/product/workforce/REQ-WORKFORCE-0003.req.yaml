@@ -44,12 +44,21 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R5
   rule_statement: >-
-    REQ-LABOR-0003 is given the Worker, the Shift, and the Worker's other ASSIGNED Shifts; when it reports
-    overtime, the assignment is refused if OVERTIME_HARD_BLOCK is true for the Unit and saved otherwise.
+    Before an assignment is saved, REQ-LABOR-0003 is given the Worker's ASSIGNED Shifts at that Unit in
+    the Shift's Work Week, each at its scheduled minutes less the planned break, with and without this
+    Shift.
+  rule_sources:
+  - SHEET WA-19
+  rule_decisions:
+  - D-4
+- rule_id: R6
+  rule_statement: >-
+    When REQ-LABOR-0003 answers to refuse, as it does for overtime while OVERTIME_HARD_BLOCK is true for
+    the Unit, the assignment is not saved; otherwise it is saved.
   rule_sources:
   - SHEET WA-19
   rule_decisions: []
-- rule_id: R6
+- rule_id: R7
   rule_statement: >-
     Workers can be assigned in the app, by SHIFTS file rows, or by naming them to the assistant; file
     and assistant assignments are Proposal items under the same checks, and assigned_via records the Channel.
@@ -57,27 +66,27 @@ requirement_rules:
   - PRD §6 Templates
   - PRD §7 Who uses it
   rule_decisions: []
-- rule_id: R7
+- rule_id: R8
   rule_statement: >-
     A person named in a file or to the assistant is matched to a Worker of the Agency under REQ-WORKFORCE-0002.
   rule_sources:
   - PRD §7 What the agent checks
   rule_decisions: []
-- rule_id: R8
+- rule_id: R9
   rule_statement: >-
     Until the Shift's ends_at, an Agency User may remove their Agency's ASSIGNED Worker; the Assignment
     becomes REMOVED with REMOVED_BY_AGENCY, removed_by, and removed_at.
   rule_sources:
   - PRD §2 Shift statuses
   rule_decisions: []
-- rule_id: R9
+- rule_id: R10
   rule_statement: >-
     An Agency User may swap an ASSIGNED Worker for another in one step: the old Assignment becomes REMOVED
     with SWAPPED and replaced_by_id, and the new one must pass every check.
   rule_sources:
   - SESSIONS Worker Assignment & Compliance
   rule_decisions: []
-- rule_id: R10
+- rule_id: R11
   rule_statement: >-
     When a Shift becomes CANCELLED, each of its ASSIGNED Assignments becomes REMOVED with SHIFT_CANCELLED
     and no removed_by.
@@ -85,13 +94,13 @@ requirement_rules:
   - PRD §2 Shift statuses
   rule_decisions:
   - D-18
-- rule_id: R11
+- rule_id: R12
   rule_statement: >-
     When an ACCEPTED Release becomes DECLINED, each of its ASSIGNED Assignments becomes REMOVED with RELEASE_DECLINED.
   rule_sources: []
   rule_decisions:
   - D-17
-- rule_id: R12
+- rule_id: R13
   rule_statement: >-
     When REQ-COMPLIANCE-0005 no longer finds an ASSIGNED Worker eligible for a Shift that has not started,
     the Assignment becomes REMOVED with NOT_ELIGIBLE and no removed_by.
@@ -99,44 +108,50 @@ requirement_rules:
   - FAQ
   - SESSIONS Worker Assignment & Compliance
   rule_decisions: []
-- rule_id: R13
+- rule_id: R14
+  rule_statement: >-
+    REQ-COMPLIANCE-0005 is asked again about every ASSIGNED Worker on a Shift that has not started once
+    each day and whenever the Shift's times change.
+  rule_sources: []
+  rule_decisions:
+  - D-51
+- rule_id: R15
   rule_statement: >-
     When a Unit rates a Worker BLOCK, the Worker's ASSIGNED Assignments on that Unit's Shifts that have
     not started become REMOVED with BLOCKED_BY_UNIT.
   rule_sources:
   - SHEET WA-3
-  - >-
-    GRAPH a blocked Worker cannot stay on that Unit's upcoming Shifts, pending a decision
-  rule_decisions: []
-- rule_id: R14
+  rule_decisions:
+  - D-51
+- rule_id: R16
   rule_statement: >-
     WORKER_ASSIGNED is sent when an Assignment becomes ASSIGNED, and WORKER_REMOVED when one becomes REMOVED
     for any reason except SHIFT_CANCELLED, both to the User who created the Request.
   rule_sources:
   - PRD §2 Shifts
   rule_decisions: []
-- rule_id: R15
+- rule_id: R17
   rule_statement: >-
     Unit Users over the Shift's Unit see each ASSIGNED Worker's name and Agency.
   rule_sources:
   - PRD §2 Shifts
   - SHEET WA-1
   rule_decisions: []
-- rule_id: R16
+- rule_id: R18
   rule_statement: >-
     When a Shift starts, eligible_at_start records for each ASSIGNED Assignment whether REQ-COMPLIANCE-0005
     finds the Worker eligible.
   rule_sources:
   - PRD §1 Metric definitions
   rule_decisions: []
-- rule_id: R17
+- rule_id: R19
   rule_statement: >-
     instructions_sent_at holds the time the Shift's site instructions were last sent to the Worker for
     that Assignment.
   rule_sources:
   - SHEET SC-6
   rule_decisions: []
-- rule_id: R18
+- rule_id: R20
   rule_statement: >-
     After a Shift ends, a Worker is assigned only when a Timesheet names a Worker of the Agency who has
     no Assignment on it, and that Assignment may exceed the Release's headcount.
@@ -149,8 +164,11 @@ requirement_sources:
 - PRD §2 Shifts
 - SESSIONS Worker Assignment & Compliance
 requirement_decisions:
+- D-4
 - D-17
 - D-18
+- D-19
+- D-51
 requirement_features:
 - WA-1
 edges:
@@ -182,7 +200,10 @@ data_model:
   - Shift.request_id
   - Shift.starts_at
   - Shift.ends_at
+  - Shift.break_minutes
   - Shift.status
+  - Unit.timezone
+  - Unit.work_week_start
   - Release.shift_id
   - Release.agency_id
   - Release.headcount

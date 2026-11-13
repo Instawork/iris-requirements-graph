@@ -196,9 +196,14 @@ decisions:
   question: In MVP, can one Shift go to more than one Agency, and how is its headcount split?
   status: open
   assumption: >-
-    A Unit User sends a Shift to one chosen Agency. Headcount that Agency declines or gives back can be
-    sent to another Agency. Each Release states its headcount, and automatic multi-Agency dispatch is
-    Phase 2.
+    A Unit User sends a Shift to one chosen Agency. Each Release states its headcount, and a Shift's
+    pending and accepted Releases never total more than its headcount, which cannot drop below that
+    total. A new Release can be sent until the Shift starts; after that, headcount can only be added to
+    an accepted Release. More headcount sent to an Agency already holding the Shift is added to its
+    Release, which keeps its status and rates. An Agency answers for the whole Release, gives a reason
+    to decline, and may decline an accepted Release until the Shift starts. The Unit may withdraw a
+    pending Release, and one still pending at the Shift's start expires. Headcount that is declined,
+    given back, withdrawn, or expired can be sent again. Automatic multi-Agency dispatch is Phase 2.
   blocking: false
   answer: null
   sources:
@@ -211,9 +216,11 @@ decisions:
   question: Until when can a Unit change a Shift, and can Workers be added after it ends?
   status: open
   assumption: >-
-    Headcount and times can change until the Shift ends, and a Shift can be cancelled until it starts.
-    After it ends, only Timesheet corrections apply, and a Worker found on a Timesheet without an
-    Assignment is assigned there.
+    Headcount, times, and site instructions can change until the Shift ends, and a Shift can be
+    cancelled until it starts. A new Shift must end in the future. Cancelling a Shift cancels its
+    pending and accepted Releases and takes its assigned Workers off it. After it ends, only Timesheet
+    corrections apply, and a Worker found on a Timesheet without an Assignment is assigned there, even
+    beyond the headcount.
   blocking: false
   answer: null
   sources:
@@ -234,11 +241,16 @@ decisions:
   - SHEET INV-13
 - decision_id: D-20
   origin: graph
-  question: Must an Agency accept a chained block as a whole and keep the same Workers on every Shift?
+  question: >-
+    How does a recurring Request repeat, and must an Agency accept a chained block as a whole and keep
+    the same Workers on every Shift?
   status: open
   assumption: >-
-    A block is one booking. Each Shift in it gets its own Release, sent together, and the Agency answers
-    each Release or all of them at once.
+    A recurring Request repeats its lines on chosen weekdays, every one or more weeks, until an end
+    date, and every Shift is created at booking. Weeks are counted in seven-day spans from each line's
+    first date. A change applies to one Shift, or to every Shift of the same line that has not started.
+    A block is one such booking. Each Shift in it gets its own Release, sent together, and the Agency
+    answers each Release or several at once.
   blocking: false
   answer: null
   sources:
@@ -288,7 +300,8 @@ decisions:
   status: open
   assumption: >-
     A changed regular rate scales the contracted overtime and double-time rates by the same ratio. With no
-    Rate Line, overtime is 1.5 times and double time 2 times the regular rate the Unit enters.
+    Rate Line, overtime is 1.5 times and double time 2 times the regular rate the Unit enters. A Release
+    keeps the rates it was sent at when Rate Lines change later.
   blocking: false
   answer: null
   sources:
@@ -592,3 +605,83 @@ decisions:
   sources:
   - SHEET INV-7
   - SHEET INV-11
+- decision_id: D-47
+  origin: graph
+  question: What status does a Shift take when it ends with no Worker assigned?
+  status: open
+  assumption: >-
+    Unfilled, not Worked. It becomes Worked if a Worker is later assigned to it from a Timesheet.
+  blocking: false
+  answer: null
+  sources:
+  - PRD §2 Shift statuses
+- decision_id: D-48
+  origin: graph
+  question: What does Iris remember about each Unit when it books by email, SMS, or phone?
+  status: open
+  assumption: >-
+    Nothing extra is stored. When a message leaves out the times, Department, or Agency for a Position,
+    Iris fills them from the Unit's most recent Shift for that Position and shows what it filled.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET SC-10
+- decision_id: D-49
+  origin: graph
+  question: How do the rows of a Shifts file become Requests, and can a file cancel a Shift?
+  status: open
+  assumption: >-
+    The rows of one file that create Shifts at the same Unit form one Request. A file creates and changes
+    Shifts and assigns Workers; it does not cancel a Shift. An agency named on a new row receives that
+    Shift's whole headcount at the contracted rate.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET SC-2
+  - PRD §6 Templates
+- decision_id: D-50
+  origin: graph
+  question: What must an Agency give for a Worker, and can it change or deactivate one?
+  status: open
+  assumption: >-
+    A first and a last name are enough; email and phone are optional, because a paper sign-in sheet
+    carries only names. An Agency User may change their Agency's Workers and deactivate them, and an
+    inactive Worker cannot be assigned.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET WA-1
+  - PRD §6 Templates
+  - FEEDBACK
+- decision_id: D-51
+  origin: graph
+  question: >-
+    What happens to a Worker's upcoming Assignments when the Unit blocks them or they stop being
+    eligible?
+  status: open
+  assumption: >-
+    They come off every Shift at that Unit that has not started, and the Agency and the Unit are told.
+    Eligibility is checked again once each day and whenever a Shift's times change.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET WA-3
+  - SHEET WA-14
+  - FAQ
+- decision_id: D-52
+  origin: graph
+  question: >-
+    Is a request for a Worker by name a hold or a preference, and which Workers can a Unit request or
+    rate before they have worked there in Iris?
+  status: open
+  assumption: >-
+    A preference: the Agency sees requested Workers first, may mark one unavailable with a reason, and
+    may assign any Worker who passes the checks. When sending a Shift, a Unit picks from the receiving
+    Agency's active Workers, and it can rate any Worker before a first Shift, so favorite and block
+    lists carry over.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET WA-2
+  - SHEET 3.2
+  - FEEDBACK
