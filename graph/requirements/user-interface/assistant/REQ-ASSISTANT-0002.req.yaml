@@ -126,7 +126,7 @@ data_model:
   - ProposalItem.action
   - ProposalItem.record_type
   - ProposalItem.record_id
-  - ProposalItem.values
+  - ProposalItem.field_values
   - ProposalItem.decision
   - ProposalItem.result
   - ProposalItem.result_message

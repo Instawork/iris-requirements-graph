@@ -54,7 +54,7 @@ entities:
   fields:
   - {name: worker_id, type: ref:Worker}
   - {name: credential_type_id, type: ref:CredentialType}
-  - {name: file_url, type: text, note: The stored document of the Upload or form it came from; never a public link}
+  - {name: file_url, type: longtext, note: The stored document of the Upload or form it came from; never a public link}
   - {name: issuer, type: text, nullable: true}
   - {name: number, type: text, nullable: true}
   - {name: issued_on, type: date, nullable: true}

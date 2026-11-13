@@ -587,7 +587,7 @@ function DataModelView({ phase, setPhase, entity, nav }: { phase: PhaseFilter; s
   return (
     <Stack gap={12}>
       <Text tone="secondary">
-        Tables follow Instawork's Django model conventions (<Mono>D-262</Mono>). Every table has an integer primary key <Mono>id</Mono> that the database assigns in sequence, plus <Mono>created_at</Mono> and <Mono>updated_at</Mono>. A reference is an integer <Mono>{"<name>_id"}</Mono> column holding the other table's <Mono>id</Mono>. A unique constraint only stops duplicates; it is never the key. Fields are required unless marked nullable; <Mono>text</Mono> is up to 255 characters and <Mono>longtext</Mono> has no limit. Money is USD to the cent and hours are whole minutes. Each entity is written only by requirements in its own module.
+        Tables follow Instawork's Django model conventions (<Mono>D-262</Mono>) on MySQL 8 (<Mono>D-263</Mono>). Every table has an integer primary key <Mono>id</Mono> that the database assigns in sequence, plus <Mono>created_at</Mono> and <Mono>updated_at</Mono>. A reference is an integer <Mono>{"<name>_id"}</Mono> column holding the other table's <Mono>id</Mono>. A unique constraint only stops duplicates; it is never the key. Fields are required unless marked nullable; <Mono>text</Mono> is up to 255 characters and <Mono>longtext</Mono> has no limit. Money is USD to the cent and hours are whole minutes. Each entity is written only by requirements in its own module.
       </Text>
       <PhaseFilterBar value={phase} onChange={setPhase} counts={phaseCounts(G.entities, (e) => e.phase)} />
       <Grid columns="250px minmax(0, 1fr)" gap={16} align="start">
@@ -629,7 +629,10 @@ function DataModelView({ phase, setPhase, entity, nav }: { phase: PhaseFilter; s
             {selected.unique.length || selected.constraints.length ? (
               <Stack gap={4}>
                 <Label>Constraints</Label>
-                {selected.unique.map((u) => <Text key={u.join()} size="small">{`Unique constraint: ${u.join(" + ")}`}</Text>)}
+                {selected.unique.map((u) => {
+                  const empty = u.filter((n) => selected.fields.some((f) => f.name === n && f.nullable && f.type.startsWith("ref:")));
+                  return <Text key={u.join()} size="small">{`Unique constraint: ${u.join(" + ")}${empty.length ? ` (rows with an empty ${empty.join(" or ")} are checked by Iris; MySQL never matches two NULLs)` : ""}`}</Text>;
+                })}
                 {selected.constraints.map((c) => <Text key={c} size="small">{c}</Text>)}
               </Stack>
             ) : null}

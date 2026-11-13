@@ -276,6 +276,10 @@ class MutationTests(unittest.TestCase):
         self.copy.edit_yaml("data-model/audit.yaml", lambda d: d["entities"][0]["fields"].append({"name": "target_id", "type": "int"}))
         self.assertCaught("data_model_naming", "target_type")
 
+    def test_data_model_naming__reserved_word(self):
+        self.copy.edit_yaml("data-model/audit.yaml", lambda d: d["entities"][0]["fields"].append({"name": "values", "type": "json"}))
+        self.assertCaught("data_model_naming", "reserved word")
+
     def test_enums_used(self):
         self.copy.edit_yaml("data-model/org.yaml", lambda d: d["enums"].append({"enum": "Unused", "values": [{"value": "A", "meaning": "A."}]}))
         self.assertCaught("enums_used", "Unused")

@@ -24,7 +24,7 @@ entities:
   description: A file someone sent, and what became of it.
   fields:
   - {name: file_name, type: text}
-  - {name: file_url, type: text, note: Private storage; the original is kept}
+  - {name: file_url, type: longtext, note: Private storage; the original is kept}
   - {name: type, type: enum:UploadType, nullable: true, note: Empty until detected or picked}
   - {name: uploaded_by_id, type: ref:User}
   - {name: channel, type: enum:Channel}

@@ -81,6 +81,20 @@ COLUMN_KEYS = {"column", "kind", "required", "maps_to", "lookup", "note", "saved
 ENTITY_NAME = re.compile(r"^[A-Z][A-Za-z0-9]*$")
 FIELD_NAME = re.compile(r"^[a-z][a-z0-9_]*$")
 BOOL_PREFIXES = ("is_", "has_")
+MYSQL_RESERVED = {
+    "add", "all", "alter", "before", "between", "both", "by", "call", "cascade", "case", "change", "check",
+    "column", "condition", "constraint", "convert", "create", "cross", "cursor", "database", "default",
+    "delete", "desc", "describe", "distinct", "div", "drop", "each", "else", "exists", "explain", "false",
+    "fetch", "for", "force", "foreign", "from", "function", "generated", "grant", "group", "groups", "having",
+    "if", "ignore", "in", "index", "inner", "insert", "interval", "into", "is", "join", "keys", "kill",
+    "lag", "lead", "leading", "leave", "left", "like", "limit", "lines", "load", "lock", "long", "loop",
+    "match", "mod", "natural", "not", "null", "of", "on", "option", "or", "order", "out", "outer",
+    "over", "partition", "primary", "procedure", "purge", "range", "rank", "read", "references",
+    "regexp", "release", "rename", "repeat", "replace", "require", "restrict", "return", "revoke",
+    "right", "row", "rows", "schema", "select", "separator", "set", "show", "signal", "sql", "table",
+    "then", "to", "trailing", "trigger", "true", "undo", "union", "unique", "unlock", "update", "usage",
+    "use", "using", "values", "when", "where", "while", "window", "with", "write", "xor",
+}
 COLUMN_KINDS = {"text", "date", "time", "money", "int", "yes_no"}
 KIND_OF_FIELD_TYPE = {"bool": "yes_no", "money": "money", "int": "int", "date": "date"}
 TERM_KEYS = {"term", "definition", "avoid", "source_words", "sources", "decisions"}
@@ -763,6 +777,8 @@ def data_model_naming(graph: Graph):
             parsed = parse_type(item.get("type"))
             if not FIELD_NAME.match(field_name):
                 problems.append((here, f"field {field_name} must be snake_case"))
+            if field_name in MYSQL_RESERVED:
+                problems.append((here, f"field {field_name} is a MySQL reserved word; rename it"))
             if parsed is None:
                 continue
             if parsed[0] == "ref" and not field_name.endswith("_id"):

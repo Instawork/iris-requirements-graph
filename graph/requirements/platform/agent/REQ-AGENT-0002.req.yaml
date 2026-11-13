@@ -54,7 +54,7 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R6
   rule_statement: >-
-    ACCEPTED puts each fix's value into values and is refused while a problem has neither a fix nor a
+    ACCEPTED puts each fix's value into field_values and is refused while a problem has neither a fix nor a
     picked candidate; EDITED applies no fix and keeps the User's values, changed or not.
   rule_sources:
   - PRD §6 Uploads

@@ -40,6 +40,7 @@ entities:
   - [parent_id, name]
   constraints:
   - Two UNIT nodes never share a name, whatever their parents (D-54).
+  - A SECTOR has no parent; every other node's parent is exactly one level above it.
 - entity: CostCenter
   phase: MVP
   description: A Compass cost center code that spend is charged to.
@@ -68,6 +69,8 @@ entities:
   - {name: default_attire, type: longtext, nullable: true}
   unique:
   - [org_node_id]
+  constraints:
+  - org_node_id is a UNIT-level node.
 - entity: Department
   phase: MVP
   description: 'Part of a Unit charged to its own Cost Center, such as suites or concessions.'

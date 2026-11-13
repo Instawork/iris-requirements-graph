@@ -72,8 +72,8 @@ data_model:
   - AuditEvent.actor_id
   - AuditEvent.channel
   - AuditEvent.proposal_id
-  - AuditEvent.before
-  - AuditEvent.after
+  - AuditEvent.old_values
+  - AuditEvent.new_values
   - AuditEvent.reason
   - AuditEvent.created_at
   - User.first_name

@@ -78,7 +78,7 @@ data_model:
   - OrgNode.name
   - Position.name
   - Proposal.kind
-  - ProposalItem.values
+  - ProposalItem.field_values
   - ProposalItem.problems
   writes: []
   detail: >-

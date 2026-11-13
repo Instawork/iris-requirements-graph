@@ -52,7 +52,7 @@ entities:
   - {name: email, type: text, nullable: true}
   - {name: phone, type: text, nullable: true}
   - {name: city, type: text, nullable: true}
-  - {name: photo_url, type: text, nullable: true}
+  - {name: photo_url, type: longtext, nullable: true}
   - {name: is_active, type: bool, note: An inactive Worker cannot be assigned}
   - {name: created_via, type: enum:Channel}
   constraints:

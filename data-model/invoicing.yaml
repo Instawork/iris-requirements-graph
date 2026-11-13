@@ -30,6 +30,8 @@ entities:
   - {name: issued_at, type: timestamp, nullable: true}
   unique:
   - [sector_id, week_start]
+  constraints:
+  - sector_id is a SECTOR-level node.
 - entity: AgencyInvoice
   phase: P2
   description: One Agency's part of a Consolidated Invoice.

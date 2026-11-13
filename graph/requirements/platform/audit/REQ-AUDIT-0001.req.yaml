@@ -36,8 +36,8 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R4
   rule_statement: >-
-    For an UPDATE, before holds the old values and after the new values of the fields that changed; a
-    CREATE holds the whole record in after only, and a DELETE holds it in before only.
+    For an UPDATE, old_values and new_values hold the fields that changed; a CREATE holds the whole
+    record in new_values only, and a DELETE holds it in old_values only.
   rule_sources:
   - PRD §2 Shifts
   rule_decisions:
@@ -75,7 +75,7 @@ requirement_rules:
 - rule_id: R9
   rule_statement: >-
     Proposals, Uploads, Notifications, InboundMessages, AccessLinks, Sessions, and sign-in times are not
-    audited, and a password hash or link token is never stored in before or after.
+    audited, and a password hash or link token is never stored in old_values or new_values.
   rule_sources: []
   rule_decisions:
   - D-37
@@ -112,7 +112,7 @@ data_model:
   writes:
   - AuditEvent.*
   detail: >-
-    The caller passes the actor, the Proposal, and the before and after values; AUDIT reads no other module's
+    The caller passes the actor, the Proposal, and the old and new values; AUDIT reads no other module's
     records.
 requirement_starting_flow: true
 requirement_review:

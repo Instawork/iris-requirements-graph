@@ -112,7 +112,7 @@ data_model:
   - Worker.email
   - Worker.phone
   - Proposal.kind
-  - ProposalItem.values
+  - ProposalItem.field_values
   - ProposalItem.problems
   writes: []
   detail: >-

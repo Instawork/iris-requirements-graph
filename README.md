@@ -96,7 +96,8 @@ decision.
 
 ### Data model
 
-Tables follow the Instawork Django model conventions (D-262):
+Tables follow the Instawork Django model conventions (D-262) on MySQL 8 with InnoDB, the database
+Instawork runs (D-263):
 
 - Every table has an integer primary key `id`, assigned in sequence by the database and never
   reused, plus `created_at` and `updated_at`. They are not listed in `data-model/`; the validator
@@ -111,7 +112,7 @@ Tables follow the Instawork Django model conventions (D-262):
   such as a Request template's lines or a Tip Pool's shares. A record anything else points at is
   deactivated or ended instead of deleted.
 - A record linked to many others gets a join entity with one row per pair, such as `WorkerPosition`.
-  A `list:` holds enum values only, never references.
+  A `list:` holds enum values only, never references, and is stored as a JSON array of their text.
 - A field that may point at a record of any entity is an `int` `<name>_id` beside a `text`
   `<name>_type` holding the entity's name, such as `AuditEvent.record_type` and `record_id`. A
   `text` field ending in `_id` holds an outside system's id.
@@ -130,7 +131,11 @@ Tables follow the Instawork Django model conventions (D-262):
   requirement writes the status field, and every value can be reached.
 - `SettingKey`, `NotificationType`, and `UploadType` take their values from `graph/catalogs/`.
 - In a `unique` key, an empty value counts as a value: two rows that match, including where both
-  are empty, conflict.
+  are empty, conflict. MySQL cannot enforce that for an empty reference, because a unique index never
+  matches two NULLs, so the requirement that writes the entity checks those rows itself under the
+  simultaneous-requests convention. The canvas marks each such key.
+- No table or field is named with a MySQL reserved word, so analysts' queries never need quoting.
+  `key` is allowed, as Instawork already uses it.
 - The tables for every entity of a phase are created from `data-model/` before that phase's first
   requirement is built. A requirement adds behavior, not tables, so a `ref:` never waits for another
   requirement.

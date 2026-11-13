@@ -56,18 +56,18 @@ entities:
   - {name: action, type: enum:ItemAction}
   - {name: record_type, type: text, note: 'The entity it changes; the main one when an item makes several records'}
   - {name: record_id, type: int, nullable: true, note: 'Empty for CREATE until the item is saved, then the record it made'}
-  - {name: values, type: json, note: 'Names and values as proposed, with accepted fixes applied, or as edited'}
+  - {name: field_values, type: json, note: 'Names and values as proposed, with accepted fixes applied, or as edited'}
   - {name: problems, type: json, nullable: true, note: 'One entry for each problem a check found; empty when there is none'}
   - {name: decision, type: enum:ItemDecision, nullable: true}
   - {name: result, type: enum:ItemResult, nullable: true}
   - {name: result_message, type: longtext, nullable: true}
   constraints:
   - >-
-    values is one flat object of name to value. For a FILE_ROWS item the names are the upload type's catalog
+    field_values is one flat object of name to value. For a FILE_ROWS item the names are the upload type's catalog
     columns and each value is the file's text; for any other kind the requirement that proposes the item
     names them.
   - >-
-    Each entry of problems has field (a name in values, or empty when the problem is with the whole item),
+    Each entry of problems has field (a name in field_values, or empty when the problem is with the whole item),
     entry (empty, or the one name the problem is about when the field's value lists several), message
     (what is wrong), fix (what accepting does, in words, or empty when there is no fix), fix_value (the
     value that replaces the field's value, or only its entry when one is named, or empty when the fix

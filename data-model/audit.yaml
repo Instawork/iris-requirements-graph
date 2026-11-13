@@ -26,6 +26,6 @@ entities:
   - {name: actor_id, type: ref:User, nullable: true, note: Empty for SYSTEM changes}
   - {name: channel, type: enum:Channel}
   - {name: proposal_id, type: ref:Proposal, nullable: true}
-  - {name: before, type: json, nullable: true, note: 'Field names and old values: the changed fields for an UPDATE, the whole record for a DELETE'}
-  - {name: after, type: json, nullable: true, note: 'Field names and new values: the changed fields for an UPDATE, the whole record for a CREATE'}
+  - {name: old_values, type: json, nullable: true, note: 'Field names and old values: the changed fields for an UPDATE, the whole record for a DELETE'}
+  - {name: new_values, type: json, nullable: true, note: 'Field names and new values: the changed fields for an UPDATE, the whole record for a CREATE'}
   - {name: reason, type: longtext, nullable: true}
