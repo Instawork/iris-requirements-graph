@@ -2,9 +2,10 @@ requirement_id: REQ-INVOICING-0001
 requirement_target_layer: product
 requirement_target_module: INVOICING
 requirement_phase: P2
-requirement_title: Build one weekly consolidated invoice
+requirement_title: Build each Sector's weekly consolidated invoice
 requirement_statement: >-
-  Each week Iris builds one Consolidated Invoice from Approved Timesheets, with every Agency inside it.
+  Each week Iris builds one Consolidated Invoice per Sector from Approved Timesheets, with every Agency
+  that worked in that Sector inside it.
   It opens on a summary and drills down from Unit to Agency, Shift, and Worker.
 requirement_actors:
 - SYSTEM
@@ -14,19 +15,20 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Iris keeps one Consolidated Invoice per week and, inside it, one Agency Invoice for each Agency with
-    lines that week.
+    Iris keeps one Consolidated Invoice per Sector per week and, inside it, one Agency Invoice for each
+    Agency with lines in that Sector that week.
   rule_sources:
   - SHEET INV-1
   - SESSIONS Invoicing & Accruals
   - PRD Key Terms
+  - FAQ One consolidated invoice
   rule_decisions:
   - D-240
   - D-241
 - rule_id: R2
   rule_statement: >-
     When a Timesheet becomes APPROVED, this requirement adds its line to the current week's
-    Consolidated Invoice, which starts OPEN, creating that invoice and the Agency's Agency Invoice in
+    Consolidated Invoice of its Unit's Sector, which starts OPEN, creating that invoice and the Agency's Agency Invoice in
     it when missing.
   rule_sources:
   - SESSIONS Invoicing & Accruals
@@ -122,6 +124,7 @@ data_model:
   - Unit.timezone
   - InvoiceLine.*
   writes:
+  - ConsolidatedInvoice.sector_id
   - ConsolidatedInvoice.week_start
   - ConsolidatedInvoice.status
   - ConsolidatedInvoice.issued_at

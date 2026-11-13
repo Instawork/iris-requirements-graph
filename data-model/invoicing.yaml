@@ -22,13 +22,14 @@ enums:
 entities:
 - entity: ConsolidatedInvoice
   phase: P2
-  description: The single weekly invoice across every Agency.
+  description: One Sector's weekly invoice across every Agency that worked in it.
   fields:
+  - {name: sector_id, type: ref:OrgNode, note: A SECTOR-level node}
   - {name: week_start, type: date}
   - {name: status, type: enum:InvoiceStatus}
   - {name: issued_at, type: timestamp, nullable: true}
   unique:
-  - [week_start]
+  - [sector_id, week_start]
 - entity: AgencyInvoice
   phase: P2
   description: One Agency's part of a Consolidated Invoice.

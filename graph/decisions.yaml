@@ -3025,10 +3025,10 @@ decisions:
   sources:
   - GRAPH a job runs with no User
 - decision_id: D-240
-  origin: sheet
+  origin: graph
   question: Who receives the weekly Consolidated Invoice, one for all of Compass or one per Sector?
   status: open
-  assumption: One for the whole program each week, with every Agency inside it.
+  assumption: One per Sector each week, with every Agency that worked in that Sector inside it.
   blocking: false
   answer_from: COMPASS_FINANCE
   answer: null
@@ -3036,7 +3036,7 @@ decisions:
   - SHEET INV-1
   - FAQ One consolidated invoice
 - decision_id: D-241
-  origin: sheet
+  origin: graph
   question: On which day does the invoice week start?
   status: open
   assumption: Monday, in the program timezone of D-213; the week closes at the end of Sunday.
