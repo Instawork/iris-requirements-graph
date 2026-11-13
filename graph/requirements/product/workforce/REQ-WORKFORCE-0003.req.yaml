@@ -126,7 +126,7 @@ requirement_rules:
 - rule_id: R16
   rule_statement: >-
     WORKER_ASSIGNED is sent when an Assignment becomes ASSIGNED, and WORKER_REMOVED when one becomes REMOVED
-    for any reason except SHIFT_CANCELLED, both to the User who created the Request.
+    for any reason except SHIFT_CANCELLED or NOT_ELIGIBLE, both to the User who created the Request.
   rule_sources:
   - PRD §2 Shifts
   rule_decisions: []

@@ -35,7 +35,9 @@ notifications:
   owner: REQ-WORKFORCE-0003
   sources: [PRD §2 Shifts]
 - type: WORKER_REMOVED
-  trigger: A Worker is removed from a Shift for any reason except its cancellation.
+  trigger: >-
+    A Worker is removed from a Shift for any reason except its cancellation or the Worker not being
+    eligible, which WORKER_NOT_ELIGIBLE covers.
   recipients: The User who created the Request.
   channels: [EMAIL, IN_APP]
   owner: REQ-WORKFORCE-0003
