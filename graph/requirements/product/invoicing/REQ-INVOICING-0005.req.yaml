@@ -1,0 +1,34 @@
+requirement_id: REQ-INVOICING-0005
+requirement_target_layer: product
+requirement_target_module: INVOICING
+requirement_phase: P2
+requirement_title: Keep the original work date through revisions
+requirement_statement: >-
+  Every line keeps the date the work was done, even after revisions, and that date is the system of record
+  for payment terms.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- INV-5
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INVOICING-0002
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - InvoiceLine
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

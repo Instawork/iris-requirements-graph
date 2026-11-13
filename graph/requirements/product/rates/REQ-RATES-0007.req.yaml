@@ -1,0 +1,55 @@
+requirement_id: REQ-RATES-0007
+requirement_target_layer: product
+requirement_target_module: RATES
+requirement_phase: MVP
+requirement_title: Gate off-contract rates and non-contracted Agencies
+requirement_statement: >-
+  The off-contract gate decides what happens when a Unit uses a non-contracted Agency or a rate that differs
+  from the Rate Card. The gate is soft or hard.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Soft lets the action through with a required reason and flags it as off-contract spend.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: Hard blocks the action and tells the user why.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    The gate is a Setting, so it can differ by Sector, Region, District, or Unit.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+requirement_decisions:
+- D-2
+requirement_features:
+- RC-11
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCIES-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0006
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Setting
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

@@ -1,0 +1,62 @@
+requirement_id: REQ-TIPS-0001
+requirement_target_layer: product
+requirement_target_module: TIPS
+requirement_phase: MVP
+requirement_title: Enter tips in bulk or by chat and split them by hours
+requirement_statement: >-
+  A user enters a tip pool for a Shift, an Event, or a Unit and date, and Iris splits it across the Workers
+  by hours worked. Tips pass through at cost.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Tips can be entered on the Timesheets, from a file, or in the assistant, such as “split $600 in tips
+    by hours”.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    Tips recorded under cashier PINs are matched to Workers through the Unit's PIN map.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    The split uses the hours on the Workers' Timesheets, and rounding leaves the pool total unchanged.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: Tips carry no markup.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- PRD §5 Invoices
+- SESSIONS Tips
+requirement_decisions: []
+requirement_features:
+- TS-11
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INTAKE-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0002
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - TipPool
+  - TipAllocation
+  - CashierPin
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

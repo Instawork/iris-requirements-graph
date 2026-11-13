@@ -1,0 +1,56 @@
+requirement_id: REQ-WORKFORCE-0002
+requirement_target_layer: product
+requirement_target_module: WORKFORCE
+requirement_phase: MVP
+requirement_title: Match a named person to an existing Worker
+requirement_statement: >-
+  When a file, message, or form names a person, Iris checks that Agency's Workers in a fixed order before
+  creating anyone.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: The same email as a Worker on file is that Worker.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    Otherwise, the same phone number, comparing digits only, is that Worker.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    Otherwise, the same first and last name is a possible match that the user must confirm.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: Iris never merges Workers on name alone.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    With no match, a new Worker is created from the row once the user approves.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- PRD §4 How the system matches a professional
+requirement_decisions: []
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0002
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Worker
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

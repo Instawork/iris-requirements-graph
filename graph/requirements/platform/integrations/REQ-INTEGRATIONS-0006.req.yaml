@@ -1,0 +1,36 @@
+requirement_id: REQ-INTEGRATIONS-0006
+requirement_target_layer: platform
+requirement_target_module: INTEGRATIONS
+requirement_phase: MVP
+requirement_title: Verify a credential with its issuer
+requirement_statement: >-
+  Iris checks a credential with its issuer or a public registry where one is available, and returns the
+  result with a reference.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: When no source is available, the result is Needs review.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- SESSIONS Verify with Chkr
+requirement_decisions: []
+requirement_features:
+- WA-15
+edges: []
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: The result is stored on Credential by REQ-COMPLIANCE-0003.
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

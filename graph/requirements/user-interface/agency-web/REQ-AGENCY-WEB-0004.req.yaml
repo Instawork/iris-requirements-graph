@@ -1,0 +1,43 @@
+requirement_id: REQ-AGENCY-WEB-0004
+requirement_target_layer: user-interface
+requirement_target_module: AGENCY-WEB
+requirement_phase: MVP
+requirement_title: Submit Timesheets, tips, and expenses
+requirement_statement: >-
+  An Agency User submits hours by form, file, or the assistant, and adds tips and expenses to them.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: Rejected and corrected Timesheets show the Unit's reason.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET 4.3
+requirement_decisions: []
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0004
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIPS-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIPS-0002
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

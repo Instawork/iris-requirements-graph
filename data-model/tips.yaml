@@ -1,0 +1,66 @@
+module: TIPS
+enums:
+- enum: ExpenseKind
+  values:
+  - {value: PARKING, meaning: Parking the Agency paid for.}
+  - {value: BACKGROUND_CHECK, meaning: A background check the Shift required.}
+  - {value: OTHER, meaning: Any other cost; the note says what.}
+- enum: ApprovalStatus
+  values:
+  - {value: PENDING, meaning: Waiting for the Unit.}
+  - {value: APPROVED, meaning: The Unit approved it.}
+  - {value: REJECTED, meaning: The Unit rejected it with a reason.}
+  transitions:
+  - {from: null, to: PENDING, requirement: REQ-TIPS-0002}
+  - {from: PENDING, to: APPROVED, requirement: REQ-TIPS-0002}
+  - {from: PENDING, to: REJECTED, requirement: REQ-TIPS-0002}
+entities:
+- entity: TipPool
+  phase: MVP
+  description: Tips for a Unit and work date, or one Shift or Event on it, to be split across Workers by hours.
+  fields:
+  - {name: unit_id, type: ref:Unit}
+  - {name: work_date, type: date}
+  - {name: shift_id, type: ref:Shift, nullable: true}
+  - {name: event_id, type: ref:Event, nullable: true}
+  - {name: amount, type: money}
+  - {name: entered_by, type: ref:User}
+  - {name: entered_via, type: enum:Channel}
+  constraints:
+  - At most one of shift_id and event_id is set.
+- entity: CashierPin
+  phase: MVP
+  description: Which Worker a cashier PIN belongs to at a Unit, for a period.
+  fields:
+  - {name: unit_id, type: ref:Unit}
+  - {name: pin, type: text}
+  - {name: worker_id, type: ref:Worker}
+  - {name: valid_from, type: date}
+  - {name: valid_to, type: date, nullable: true, note: Exclusive}
+  constraints:
+  - A PIN at a Unit belongs to at most one Worker on any date.
+- entity: TipAllocation
+  phase: MVP
+  description: Tips credited to one Timesheet, from a pool split, a cashier PIN, or entered for that Worker.
+  fields:
+  - {name: timesheet_id, type: ref:Timesheet}
+  - {name: tip_pool_id, type: ref:TipPool, nullable: true}
+  - {name: cashier_pin_id, type: ref:CashierPin, nullable: true}
+  - {name: amount, type: money}
+  - {name: entered_by, type: ref:User}
+  constraints:
+  - At most one of tip_pool_id and cashier_pin_id is set.
+  - The allocations of one Tip Pool add up to its amount.
+- entity: Expense
+  phase: MVP
+  description: 'A cost an Agency paid for a Worker on a Shift, passed through at cost.'
+  fields:
+  - {name: timesheet_id, type: ref:Timesheet}
+  - {name: kind, type: enum:ExpenseKind}
+  - {name: amount, type: money}
+  - {name: note, type: text, nullable: true, note: Required for OTHER}
+  - {name: status, type: enum:ApprovalStatus}
+  - {name: added_by, type: ref:User}
+  - {name: decided_by, type: ref:User, nullable: true}
+  - {name: decided_at, type: timestamp, nullable: true}
+  - {name: rejected_reason, type: text, nullable: true}

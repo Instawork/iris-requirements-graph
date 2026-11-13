@@ -1,0 +1,107 @@
+layers:
+- layer: user-interface
+  layer_name: User Interface
+  about: >-
+    Screens each persona uses. Covers MVP surfaces, plus later features that are themselves a screen.
+  modules:
+  - module_id: SHELL
+    module_name: Web shell
+    about: >-
+      What every signed-in page shares: phone-ready layout, persona context, and to-do home pages.
+  - module_id: UNIT-WEB
+    module_name: Unit app
+    about: >-
+      Screens for Unit Users, the operators who order Shifts and approve hours.
+  - module_id: AGENCY-WEB
+    module_name: Agency app
+    about: >-
+      Screens for Agency Users, who accept Shifts, staff them, and submit hours.
+  - module_id: PROGRAM-WEB
+    module_name: Program app
+    about: Screens for Program Users, the Compass program office that runs Iris.
+  - module_id: ASSISTANT
+    module_name: Iris assistant
+    about: >-
+      The chat panel on every page that takes files and plain-language requests.
+  - module_id: WORKER-MOBILE
+    module_name: Worker phone
+    about: What a Worker from any Agency sees on their phone. Phase 3.
+- layer: product
+  layer_name: Product
+  about: >-
+    Business capabilities and their rules. This is where most requirements live.
+  modules:
+  - module_id: ORG
+    module_name: Org and access
+    about: The Compass org tree, Departments, Cost Centers, Role Grants, scopes, and Settings.
+  - module_id: CATALOG
+    module_name: Positions and markets
+    about: Reference lists every other module prices and filters by.
+  - module_id: AGENCIES
+    module_name: Agencies
+    about: >-
+      Agency records, where each may serve, and its commercial relationship with Compass.
+  - module_id: RATES
+    module_name: Rate cards
+    about: >-
+      What each Agency charges, how rates change, and how deviations are caught.
+  - module_id: ORDERING
+    module_name: Ordering
+    about: 'How a Unit asks for Workers: Requests, Shifts, Events, and templates.'
+  - module_id: DISPATCH
+    module_name: Dispatch
+    about: How a Shift reaches Agencies and how they answer.
+  - module_id: WORKFORCE
+    module_name: Workers
+    about: Agency Workers, who is assigned where, and Unit feedback on them.
+  - module_id: COMPLIANCE
+    module_name: Credentials
+    about: What a Shift requires of a Worker and how Iris confirms it.
+  - module_id: LABOR
+    module_name: Labor rules
+    about: State and local rules, Work Weeks, and overtime.
+  - module_id: TIME
+    module_name: Timesheets
+    about: 'Hours worked: intake, approval, corrections, and lock.'
+  - module_id: TIPS
+    module_name: Tips and expenses
+    about: Money passed through at cost alongside hours.
+  - module_id: INVOICING
+    module_name: Invoicing
+    about: The weekly consolidated invoice and its corrections. Phase 2.
+  - module_id: FINANCE
+    module_name: Accruals and finance
+    about: Accruals, finance access, and GL mapping. Phase 2 and 3.
+  - module_id: REPORTING
+    module_name: Reporting
+    about: >-
+      One spend definition, standard metrics, dashboards, and plain-language answers.
+  - module_id: SUPPORT
+    module_name: Support
+    about: In-app help, feedback, and announcements. Phase 2.
+- layer: platform
+  layer_name: Platform
+  about: >-
+    Shared services every product module uses: sign-in, the agent runtime, file intake, messaging, audit, and
+    integrations.
+  modules:
+  - module_id: IDENTITY
+    module_name: Sign-in
+    about: User accounts, invites, passwords, and sessions.
+  - module_id: AGENT
+    module_name: Agent runtime
+    about: >-
+      Rules every AI-assisted flow follows: interpret with the LLM, compute with code, wait for approval.
+  - module_id: INTAKE
+    module_name: File intake
+    about: >-
+      Files in and out: type detection, row validation, templates, the upload log, and CSV downloads.
+  - module_id: MESSAGING
+    module_name: Messaging
+    about: Email, SMS, phone, and in-app messages, outbound and inbound.
+  - module_id: AUDIT
+    module_name: Audit trail
+    about: Append-only history of who changed what.
+  - module_id: INTEGRATIONS
+    module_name: Integrations
+    about: Connections to Compass, Agency, and verification systems.

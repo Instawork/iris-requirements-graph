@@ -1,0 +1,61 @@
+requirement_id: REQ-ORG-0001
+requirement_target_layer: product
+requirement_target_module: ORG
+requirement_phase: MVP
+requirement_title: Hold the Compass org tree
+requirement_statement: >-
+  Iris holds Compass's org as a tree of Sector, Region, District, Unit, and Department. Spend, Shifts,
+  and Timesheets roll up this tree.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Each Region sits under one Sector, each District under one Region, and each Unit under one District.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    A Unit has a name, an address, a ZIP code, a Market, and a Cost Center code.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    A Department belongs to one Unit and has its own name and Cost Center code.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: Cost Center codes are unique across the program.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    A Unit's Market is the Market whose ZIP codes include the Unit's ZIP code.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- FEEDBACK
+requirement_decisions: []
+requirement_features:
+- PLT-2
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-CATALOG-0002
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - OrgNode
+  - Unit
+  - Department
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

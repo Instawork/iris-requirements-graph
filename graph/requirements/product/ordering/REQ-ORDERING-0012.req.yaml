@@ -1,0 +1,46 @@
+requirement_id: REQ-ORDERING-0012
+requirement_target_layer: product
+requirement_target_module: ORDERING
+requirement_phase: P3
+requirement_title: Route over-budget Requests for approval
+requirement_statement: >-
+  When a Request would take a Unit over budget, it goes to an approver before any Agency sees it.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The approver approves or declines with an optional note, and the Unit User is told.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: How far over budget needs approval is a Setting.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- FEEDBACK
+requirement_decisions: []
+requirement_features:
+- SC-15
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-REPORTING-0007
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-MESSAGING-0001
+data_model:
+  status: pending
+  reads: []
+  writes: []
+  detail: Designed when Phase 3 is scoped.
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

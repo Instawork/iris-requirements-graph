@@ -1,0 +1,68 @@
+requirement_id: REQ-UNIT-WEB-0002
+requirement_target_layer: user-interface
+requirement_target_module: UNIT-WEB
+requirement_phase: MVP
+requirement_title: Book and manage Requests
+requirement_statement: >-
+  A Unit User books Requests with a form, from a template, from a file, or in the assistant, and follows
+  each Shift until it is worked.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The Shifts list groups Shifts by date and shows each one's headcount filled, Agencies, and status.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    A Shift's page shows each assigned Worker's name and Agency, and Open for unfilled headcount.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    From a Shift, the user edits it, cancels it, sends it to another Agency, or requests Workers by name.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- PRD §2 Shifts
+- SESSIONS Shift creation
+requirement_decisions: []
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0004
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0007
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0011
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-DISPATCH-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0004
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INTAKE-0001
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: true
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

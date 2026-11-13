@@ -1,0 +1,34 @@
+requirement_id: REQ-INVOICING-0006
+requirement_target_layer: product
+requirement_target_module: INVOICING
+requirement_phase: P2
+requirement_title: Link vendor invoice numbers to Requests and lines
+requirement_statement: >-
+  Each Agency Invoice stores the Agency's own invoice number, searchable alongside its Requests and lines,
+  so vendors and finance share one reference.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- INV-6
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INVOICING-0001
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - AgencyInvoice
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

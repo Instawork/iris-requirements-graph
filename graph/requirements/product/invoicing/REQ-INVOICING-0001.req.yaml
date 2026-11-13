@@ -1,0 +1,49 @@
+requirement_id: REQ-INVOICING-0001
+requirement_target_layer: product
+requirement_target_module: INVOICING
+requirement_phase: P2
+requirement_title: Build one weekly consolidated invoice
+requirement_statement: >-
+  Each week Iris builds one consolidated invoice from approved Timesheets, tips, and expenses. It opens
+  on a summary and drills down from Unit to Agency, Shift, and Worker.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Each Agency's share is its own Agency Invoice inside the consolidated invoice.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: Approved hours join the open week's invoice until that week closes.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- START
+- FAQ
+requirement_decisions:
+- D-14
+requirement_features:
+- INV-1
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INVOICING-0002
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - ConsolidatedInvoice
+  - AgencyInvoice
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

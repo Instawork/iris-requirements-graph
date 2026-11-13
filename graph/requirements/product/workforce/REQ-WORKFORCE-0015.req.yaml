@@ -1,0 +1,34 @@
+requirement_id: REQ-WORKFORCE-0015
+requirement_target_layer: product
+requirement_target_module: WORKFORCE
+requirement_phase: P3
+requirement_title: Carry do-not-return lists from internal staff systems
+requirement_statement: >-
+  Former Compass employees removed from a Unit cannot come back there as Agency Workers.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- PLT-13
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INTEGRATIONS-0007
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0007
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

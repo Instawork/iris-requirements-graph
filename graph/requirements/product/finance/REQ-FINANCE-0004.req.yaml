@@ -1,0 +1,35 @@
+requirement_id: REQ-FINANCE-0004
+requirement_target_layer: product
+requirement_target_module: FINANCE
+requirement_phase: P3
+requirement_title: Map GL codes by job title within a Cost Center
+requirement_statement: >-
+  Each Position within a Cost Center maps to a GL code, such as front or back of house, so costs land
+  in the right account.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- INV-15
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-CATALOG-0001
+data_model:
+  status: pending
+  reads: []
+  writes: []
+  detail: Designed when Phase 3 is scoped.
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

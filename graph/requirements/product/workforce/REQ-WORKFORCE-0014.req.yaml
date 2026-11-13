@@ -1,0 +1,29 @@
+requirement_id: REQ-WORKFORCE-0014
+requirement_target_layer: product
+requirement_target_module: WORKFORCE
+requirement_phase: P3
+requirement_title: Offer career paths and training to hourly Workers
+requirement_statement: Iris offers hourly Workers career paths and training.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- WA-12
+edges: []
+data_model:
+  status: pending
+  reads: []
+  writes: []
+  detail: Designed when Phase 3 is scoped.
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

@@ -1,0 +1,51 @@
+requirement_id: REQ-ORG-0006
+requirement_target_layer: product
+requirement_target_module: ORG
+requirement_phase: MVP
+requirement_title: Resolve a Setting for a Unit
+requirement_statement: >-
+  Configurable values are Settings. Each has a program default and can be overridden at a Sector, Region,
+  District, or Unit, and the nearest override wins.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Settings include the Approval Tolerance, auto-approval, the Lock Window, the off-contract gate, the
+    peer rate threshold, the credential expiry warning, and the overtime hard block.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: Every Setting has a program default before any override exists.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: Changing a Setting is recorded in the Audit Trail.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET RC-11, TS-7, TS-9, WA-19
+- OPS Settings for each sector
+requirement_decisions:
+- D-16
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Setting
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

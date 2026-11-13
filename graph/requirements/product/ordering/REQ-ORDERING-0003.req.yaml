@@ -1,0 +1,53 @@
+requirement_id: REQ-ORDERING-0003
+requirement_target_layer: product
+requirement_target_module: ORDERING
+requirement_phase: MVP
+requirement_title: Edit or cancel a Request before it starts
+requirement_statement: >-
+  Until a Shift starts, a Unit User can add headcount, change times, add Shifts, or cancel. Every Agency
+  holding the Shift is told at once.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: Headcount cannot drop below the number of Workers already assigned.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: A cancelled Shift is never billed.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: Each edit is recorded in the Audit Trail.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- PRD §2 Shift statuses
+requirement_decisions: []
+requirement_features:
+- SC-3
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-MESSAGING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Shift
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

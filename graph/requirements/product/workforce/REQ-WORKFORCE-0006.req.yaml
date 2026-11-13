@@ -1,0 +1,42 @@
+requirement_id: REQ-WORKFORCE-0006
+requirement_target_layer: product
+requirement_target_module: WORKFORCE
+requirement_phase: MVP
+requirement_title: Report a Worker issue to the Agency
+requirement_statement: >-
+  A Unit User reports an issue with a Worker, such as conduct, safety, quality, or a no-show. The Agency
+  receives it and tracks it to resolution.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: An issue stays Open until the Agency resolves it with a note.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: The Unit sees the Agency's response and the resolution.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- WA-4
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-MESSAGING-0001
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - WorkerIssue
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

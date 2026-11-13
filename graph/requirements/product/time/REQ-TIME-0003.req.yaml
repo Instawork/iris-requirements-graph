@@ -1,0 +1,66 @@
+requirement_id: REQ-TIME-0003
+requirement_target_layer: product
+requirement_target_module: TIME
+requirement_phase: MVP
+requirement_title: Read Timesheets in any format and match them to Shifts
+requirement_statement: >-
+  A user drops in a PDF, CSV, spreadsheet, or photo of a paper sign-in sheet. Iris matches each line to
+  an Assignment and proposes the hours.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Agency Users upload for their own Workers, and Unit Users for their Units' Shifts.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    Each line is matched by Worker, Unit, date, and Position to an Assignment.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: Unmatched lines are shown for the user to match, add, or drop.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    Approved lines update the Timesheets as Draft, or as Submitted if the user chooses.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- FEEDBACK
+- SESSIONS Scan a sign-in sheet
+- PRD §6 Uploads
+requirement_decisions:
+- D-5
+requirement_features:
+- TS-5
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INTAKE-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INTAKE-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0002
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Timesheet
+  - Upload
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

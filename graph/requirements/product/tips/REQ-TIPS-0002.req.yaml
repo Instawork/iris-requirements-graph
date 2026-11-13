@@ -1,0 +1,53 @@
+requirement_id: REQ-TIPS-0002
+requirement_target_layer: product
+requirement_target_module: TIPS
+requirement_phase: MVP
+requirement_title: Add and approve expenses
+requirement_statement: >-
+  An Agency adds expenses it paid for a Shift, such as parking or a required background check. Expenses
+  are billed at cost and approved with the hours.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    An expense has a kind, an amount, the Timesheet it belongs to, and a note.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    Expenses can be added one at a time, for a whole crew in one sentence, or from an expense sheet.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: The Unit approves or rejects each expense along with its Timesheet.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- SESSIONS Expenses
+requirement_decisions: []
+requirement_features:
+- TS-12
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INTAKE-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0002
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Expense
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

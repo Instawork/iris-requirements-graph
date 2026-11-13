@@ -1,0 +1,56 @@
+requirement_id: REQ-ORG-0003
+requirement_target_layer: product
+requirement_target_module: ORG
+requirement_phase: MVP
+requirement_title: Load Units and Departments from a file
+requirement_statement: >-
+  A Program User loads many Units and Departments at once from a file, through File Intake.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Each row names the Sector, Region, District, Unit, address, ZIP code, and Cost Center code, and optionally
+    a Department with its Cost Center code.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    Sectors, Regions, and Districts that do not exist yet are created from the rows once the user approves
+    the Proposal.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: Every row is checked with the same rules as adding a Unit by hand.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SESSIONS Bulk cost center upload
+requirement_decisions: []
+requirement_features:
+- PLT-2
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INTAKE-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0002
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - OrgNode
+  - Unit
+  - Department
+  - Upload
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

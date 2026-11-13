@@ -1,0 +1,51 @@
+requirement_id: REQ-ORG-0002
+requirement_target_layer: product
+requirement_target_module: ORG
+requirement_phase: MVP
+requirement_title: Add a Unit and its Departments
+requirement_statement: >-
+  A Program User adds a Unit under a District, with any Departments it charges separately. The Unit can
+  order Shifts once it is saved.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: The ZIP code must fall in a Market; otherwise the Unit is not saved.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: A Cost Center code already in use is refused.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    A Unit can be edited or deactivated later, and a deactivated Unit cannot create Requests.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SESSIONS Shift creation
+- DEMO run-of-show block 1
+requirement_decisions: []
+requirement_features:
+- PLT-2
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Unit
+  - Department
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

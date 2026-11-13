@@ -1,0 +1,17 @@
+module: FINANCE
+entities:
+- entity: AccrualSnapshot
+  phase: P2
+  description: Approved, uninvoiced spend at one moment.
+  fields:
+  - {name: taken_at, type: timestamp}
+  - {name: taken_by, type: ref:User}
+- entity: AccrualLine
+  phase: P2
+  description: One Cost Center's amount in an Accrual Snapshot.
+  fields:
+  - {name: snapshot_id, type: ref:AccrualSnapshot}
+  - {name: cost_center_id, type: ref:CostCenter}
+  - {name: amount, type: money}
+  unique:
+  - [snapshot_id, cost_center_id]

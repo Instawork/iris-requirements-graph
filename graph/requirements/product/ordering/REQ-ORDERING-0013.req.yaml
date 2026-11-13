@@ -1,0 +1,33 @@
+requirement_id: REQ-ORDERING-0013
+requirement_target_layer: product
+requirement_target_module: ORDERING
+requirement_phase: P3
+requirement_title: Forecast Department demand
+requirement_statement: >-
+  Iris forecasts each Department's demand from its order history, such as 100-level concessions against
+  suites.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- SC-16
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0001
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

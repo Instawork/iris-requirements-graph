@@ -1,0 +1,34 @@
+requirement_id: REQ-AGENCIES-0005
+requirement_target_layer: product
+requirement_target_module: AGENCIES
+requirement_phase: P3
+requirement_title: Track Agency contracts and renewals
+requirement_statement: >-
+  Iris keeps each Agency's contract dates and terms, and reminds Compass before a contract ends.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- RC-15
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCIES-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-MESSAGING-0001
+data_model:
+  status: pending
+  reads: []
+  writes: []
+  detail: Designed when Phase 3 is scoped.
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

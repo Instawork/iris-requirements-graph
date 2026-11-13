@@ -1,0 +1,35 @@
+requirement_id: REQ-REPORTING-0008
+requirement_target_layer: product
+requirement_target_module: REPORTING
+requirement_phase: MVP
+requirement_title: Show operators spend against budget
+requirement_statement: >-
+  An operator sees spend against budget, spend by Agency, and this month against last month, for their
+  Units.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- REP-7
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-REPORTING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-REPORTING-0007
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

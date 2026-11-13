@@ -1,0 +1,40 @@
+requirement_id: REQ-MESSAGING-0002
+requirement_target_layer: platform
+requirement_target_module: MESSAGING
+requirement_phase: MVP
+requirement_title: Receive requests by email, SMS, and phone
+requirement_statement: >-
+  Iris has an email address, a text number, and a phone line. They pass incoming requests to the assistant
+  and reply on the same channel.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: Phone calls are transcribed before the assistant reads them.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    Each inbound message is kept with its sender and the Proposal it produced.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET SC-10
+requirement_decisions: []
+requirement_features: []
+edges: []
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - InboundMessage
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

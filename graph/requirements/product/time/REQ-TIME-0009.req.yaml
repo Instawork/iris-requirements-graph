@@ -1,0 +1,38 @@
+requirement_id: REQ-TIME-0009
+requirement_target_layer: product
+requirement_target_module: TIME
+requirement_phase: MVP
+requirement_title: Mark a Worker as a no-show
+requirement_statement: >-
+  A Unit or Agency User marks an assigned Worker as a no-show. The Timesheet's hours become zero, so nothing
+  is billed for that Worker.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: A no-show counts toward the Agency's no-show rate.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- PRD §2 Shifts
+- SHEET WA-4
+requirement_decisions: []
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0001
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Timesheet
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

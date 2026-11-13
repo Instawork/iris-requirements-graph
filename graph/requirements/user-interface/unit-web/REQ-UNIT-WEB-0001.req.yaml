@@ -1,0 +1,48 @@
+requirement_id: REQ-UNIT-WEB-0001
+requirement_target_layer: user-interface
+requirement_target_module: UNIT-WEB
+requirement_phase: MVP
+requirement_title: Unit home
+requirement_statement: A Unit User's home lists their to-dos and a summary of their spend.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    To-dos are Timesheet exceptions to review, declined Releases to resend, and Shifts starting soon with
+    open headcount.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    Spend shows this week and this month against the prior period, against budget, and by Agency.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- PRD §1 Buyer view
+- SHEET REP-7
+requirement_decisions: []
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-DISPATCH-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-REPORTING-0008
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

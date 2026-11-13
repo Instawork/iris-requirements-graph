@@ -1,0 +1,37 @@
+requirement_id: REQ-INVOICING-0011
+requirement_target_layer: product
+requirement_target_module: INVOICING
+requirement_phase: P2
+requirement_title: Send back overbilled hours for credit
+requirement_statement: >-
+  Compass sends back hours billed above the clock on an issued invoice. The Agency credits them, and the
+  Timesheet is revised to match.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- INV-11
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INVOICING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: >-
+    Until Iris has its own clock (Phase 3), the clock is the Unit's record of hours.
+  migration_entities:
+  - InvoiceCredit
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

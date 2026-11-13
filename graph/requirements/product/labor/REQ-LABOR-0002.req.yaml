@@ -1,0 +1,47 @@
+requirement_id: REQ-LABOR-0002
+requirement_target_layer: product
+requirement_target_module: LABOR
+requirement_phase: MVP
+requirement_title: Check labor rules at booking and on Timesheets
+requirement_statement: >-
+  Iris checks each Shift against its Unit's state and city rules when it is booked, and each Timesheet
+  when it is submitted. These checks flag, not block.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    At booking, a Shift long enough to need a break with none planned is flagged.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    At booking, a Bill Rate whose Pay Rate is below the local minimum wage is flagged.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: On a Timesheet, a missed required break is flagged as an exception.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- WA-18
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-LABOR-0001
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: Flags are computed from LaborRule; not stored.
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

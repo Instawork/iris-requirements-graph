@@ -1,0 +1,30 @@
+requirement_id: REQ-INVOICING-0009
+requirement_target_layer: product
+requirement_target_module: INVOICING
+requirement_phase: P2
+requirement_title: Track statement-of-work projects
+requirement_statement: >-
+  Statement-of-work projects are captured, tracked, and reported apart from Shifts.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- INV-9
+edges: []
+data_model:
+  status: pending
+  reads: []
+  writes: []
+  detail: Designed when Phase 2 is scoped.
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

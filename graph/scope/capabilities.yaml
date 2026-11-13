@@ -1,0 +1,190 @@
+capabilities:
+- capability_id: '1.1'
+  area: Rate Cards & Supplier Sourcing
+  name: Position catalog & title mapping
+  description: >-
+    Every vendor's job titles mapped automatically to the Compass position catalog.
+  phase: P2
+- capability_id: '1.2'
+  area: Rate Cards & Supplier Sourcing
+  name: Rate card management
+  description: >-
+    Structured rate cards on the Compass position catalog, by market and vendor, loaded in bulk, with
+    a full change history.
+  phase: MVP
+- capability_id: '1.3'
+  area: Rate Cards & Supplier Sourcing
+  name: Market-based pricing
+  description: Rates benchmarked against market pay.
+  phase: P3
+- capability_id: '1.4'
+  area: Rate Cards & Supplier Sourcing
+  name: Rate compliance & price audits
+  description: >-
+    Every shift and invoice checked against the rate card and peer rates, with gates and a review loop
+    with the agency.
+  phase: MVP
+- capability_id: '1.5'
+  area: Rate Cards & Supplier Sourcing
+  name: Supplier sourcing & contracts
+  description: >-
+    Run bid events, onboard agencies, and track contract terms and renewals in one place.
+  phase: P3
+- capability_id: '1.6'
+  area: Rate Cards & Supplier Sourcing
+  name: Supplier performance management
+  description: >-
+    Agency scorecards and SLAs, with automatic follow-ups, performance-based recommendations and executive
+    business reviews.
+  phase: P3
+- capability_id: '2.1'
+  area: Shift Creation
+  name: Shift ordering
+  description: >-
+    Fast, shift-level ordering with the contracted rate, compliance and site instructions built in, sent
+    to the agency you choose.
+  phase: MVP
+- capability_id: '2.2'
+  area: Shift Creation
+  name: AI shift creation assistant
+  description: Shift creation through natural language.
+  phase: MVP
+- capability_id: '2.3'
+  area: Shift Creation
+  name: Dispatch & fill management
+  description: Release shifts to agencies in the unit's preferred order.
+  phase: P2
+- capability_id: '2.4'
+  area: Shift Creation
+  name: Budget & demand planning
+  description: Budget approvals on orders and forecasts of demand from past orders.
+  phase: P3
+- capability_id: '3.1'
+  area: Worker Assignment & Compliance
+  name: Agency staffing & assignment
+  description: >-
+    Agencies assign named workers to shifts, and units can request specific workers.
+  phase: MVP
+- capability_id: '3.2'
+  area: Worker Assignment & Compliance
+  name: Worker feedback & issues
+  description: Rate workers after shifts and report issues straight to the agency.
+  phase: MVP
+- capability_id: '3.3'
+  area: Worker Assignment & Compliance
+  name: Unified worker profile
+  description: >-
+    One profile per worker across agencies, carrying history and blocks, preventing double-booking and
+    tracking hours across agencies.
+  phase: P3
+- capability_id: '3.4'
+  area: Worker Assignment & Compliance
+  name: Credentialing & document verification
+  description: >-
+    Certification requirements by role, location and sector, with AI verification of documents and an
+    audit trail.
+  phase: MVP
+- capability_id: '3.5'
+  area: Worker Assignment & Compliance
+  name: Labor law & overtime rules
+  description: >-
+    State and local rules for breaks and overtime applied automatically, with each unit's own work week.
+  phase: MVP
+- capability_id: '4.1'
+  area: Timesheets, Tips & Expenses
+  name: Real-time time capture & worker check-in
+  description: >-
+    Workers from any agency check in and out on their phone and see their shift details.
+  phase: P3
+- capability_id: '4.2'
+  area: Timesheets, Tips & Expenses
+  name: AI timesheet assistant
+  description: >-
+    Iris reads timesheets in any format, matches them to shifts, and takes edits in plain language.
+  phase: MVP
+- capability_id: '4.3'
+  area: Timesheets, Tips & Expenses
+  name: Exception-based approval
+  description: >-
+    Approve daily, auto-approve what's clean, fix only the exceptions, and lock timesheets on a set window.
+  phase: MVP
+- capability_id: '4.4'
+  area: Timesheets, Tips & Expenses
+  name: Tips & expenses
+  description: >-
+    Enter tips and expenses in bulk or by chat, split by hours worked, with state tip tax rules applied.
+  phase: MVP
+- capability_id: '5.1'
+  area: Invoicing & Accruals
+  name: Consolidated invoicing
+  description: >-
+    One weekly invoice built from approved hours, summary first, with drill-down to every shift and worker.
+  phase: P2
+- capability_id: '5.2'
+  area: Invoicing & Accruals
+  name: Corrections & credits
+  description: >-
+    Fix rates and hours without re-entering timesheets, and send back overbilled hours for credit.
+  phase: P2
+- capability_id: '5.3'
+  area: Invoicing & Accruals
+  name: Accruals & month-end close
+  description: >-
+    A point-in-time view of worked but uninvoiced spend, with requests kept clean so accruals are accurate.
+  phase: P2
+- capability_id: '5.4'
+  area: Invoicing & Accruals
+  name: Finance access & ERP
+  description: >-
+    Finance users scoped to their cost centers, GL mapping, and posting to SAP.
+  phase: P3
+- capability_id: '6.1'
+  area: Reporting
+  name: AI reporting assistant
+  description: >-
+    Ask any question about spend and labor in plain language and get a chart, table or dashboard, down
+    to the event.
+  phase: MVP
+- capability_id: '6.2'
+  area: Reporting
+  name: Alerts & digests
+  description: >-
+    Proactive alerts when spend or fill crosses a threshold, and scheduled summaries by email.
+  phase: P2
+- capability_id: '6.3'
+  area: Reporting
+  name: Dashboards by audience
+  description: >-
+    Ready-made views for operators, program owners and sector leadership, including timecard compliance.
+  phase: MVP
+- capability_id: '6.4'
+  area: Reporting
+  name: Workforce analytics
+  description: Tenure, turnover and temp-to-perm insight by agency and location.
+  phase: P3
+- capability_id: '7.1'
+  area: Platform & Integrations
+  name: Platform foundation
+  description: >-
+    Accounts and roles for every persona and the Compass org structure, on web and mobile.
+  phase: MVP
+- capability_id: '7.2'
+  area: Platform & Integrations
+  name: Integrations & data feeds
+  description: >-
+    Connect agencies by API or file, migrate from Fieldglass, feed data to Snowflake, sync units and cost
+    centers automatically, add single sign-on, and let Compass configure fields and views itself.
+  phase: P3
+- capability_id: '7.3'
+  area: Platform & Integrations
+  name: MyStaff integration & internal labor pool
+  description: >-
+    Start requests in MyStaff, offer them to the internal labor pool first, send approved time back, and
+    carry over do-not-return lists.
+  phase: P3
+- capability_id: '7.4'
+  area: Platform & Integrations
+  name: AI support & feedback
+  description: >-
+    An in-app assistant for how-to questions, feedback and enhancement requests, and program announcements.
+  phase: P2

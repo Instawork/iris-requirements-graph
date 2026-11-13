@@ -1,0 +1,33 @@
+requirement_id: REQ-INVOICING-0004
+requirement_target_layer: product
+requirement_target_module: INVOICING
+requirement_phase: P2
+requirement_title: Show prior-period adjustments separately
+requirement_statement: >-
+  Corrections to earlier weeks appear in their own section, apart from the current week's charges.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- INV-3
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INVOICING-0001
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - InvoiceLine
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

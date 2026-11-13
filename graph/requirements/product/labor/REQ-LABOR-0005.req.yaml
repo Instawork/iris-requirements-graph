@@ -1,0 +1,49 @@
+requirement_id: REQ-LABOR-0005
+requirement_target_layer: product
+requirement_target_module: LABOR
+requirement_phase: MVP
+requirement_title: Classify hours as regular, overtime, or double time
+requirement_statement: >-
+  Iris splits each Timesheet's hours into regular, overtime, and double time, using the labor rules and
+  the Worker's hours that Work Week at that Agency.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Each class of hours is billed at the matching Bill Rate on the Rate Line.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    When a correction changes earlier hours in the week, later Timesheets that week are reclassified.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- PRD §3 Supplier rates
+- SHEET WA-19, WA-20
+requirement_decisions:
+- D-4
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-LABOR-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-LABOR-0004
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0005
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Timesheet
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

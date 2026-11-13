@@ -1,0 +1,30 @@
+requirement_id: REQ-INTEGRATIONS-0003
+requirement_target_layer: platform
+requirement_target_module: INTEGRATIONS
+requirement_phase: P3
+requirement_title: Feed data to Snowflake in real time
+requirement_statement: >-
+  Iris streams its data to Snowflake, so Levy, Foodbuy, and corporate teams can build their own dashboards.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- PLT-7
+edges: []
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

@@ -1,0 +1,35 @@
+requirement_id: REQ-UNIT-WEB-0004
+requirement_target_layer: user-interface
+requirement_target_module: UNIT-WEB
+requirement_phase: MVP
+requirement_title: Rate Workers and report issues
+requirement_statement: >-
+  After a Shift is worked, a Unit User rates each Worker and can report an issue to the Agency from the
+  same list.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- SHEET WA-3
+- SHEET WA-4
+requirement_decisions: []
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0006
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

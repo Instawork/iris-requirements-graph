@@ -1,0 +1,68 @@
+requirement_id: REQ-RATES-0001
+requirement_target_layer: product
+requirement_target_module: RATES
+requirement_phase: MVP
+requirement_title: Hold each Agency's Rate Card
+requirement_statement: >-
+  A Rate Card is an Agency's set of Rate Lines. Each Rate Line prices one Position in one Market for regular,
+  overtime, and double-time hours.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    For each hour type, a Rate Line holds a Pay Rate and a Bill Rate, and shows the markup as a percentage
+    of the Pay Rate.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: The Bill Rate is at least the Pay Rate for every hour type.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    Overtime rates are at least the regular rates, and double-time rates are at least the overtime rates.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    An Agency has at most one live Rate Line per Position and Market, or per Position and Unit for Unit
+    rates.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    A Rate Line has an effective date, and work is priced with the line in effect on the work date.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- PRD §3 Supplier rates
+- PRD §7 Rate card checks
+- FEEDBACK
+requirement_decisions:
+- D-11
+requirement_features:
+- RC-3
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-CATALOG-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-CATALOG-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCIES-0001
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - RateLine
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

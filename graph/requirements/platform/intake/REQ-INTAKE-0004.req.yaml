@@ -1,0 +1,42 @@
+requirement_id: REQ-INTAKE-0004
+requirement_target_layer: platform
+requirement_target_module: INTAKE
+requirement_phase: MVP
+requirement_title: Keep a log of every upload
+requirement_statement: >-
+  Every file, from the Uploads page or the assistant, is logged with its type, sender, time, row count,
+  and status.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Status is Saved, Needs review, or Failed, with the number of rows to review.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: Each user sees only their own uploads.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- PRD §6 Uploads
+requirement_decisions: []
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INTAKE-0001
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Upload
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

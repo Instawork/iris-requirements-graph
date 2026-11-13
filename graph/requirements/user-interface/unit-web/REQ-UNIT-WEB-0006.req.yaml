@@ -1,0 +1,36 @@
+requirement_id: REQ-UNIT-WEB-0006
+requirement_target_layer: user-interface
+requirement_target_module: UNIT-WEB
+requirement_phase: MVP
+requirement_title: See operator dashboards
+requirement_statement: >-
+  A Unit User opens the operator dashboard, Event costs, and labor cost as a share of sales for their
+  Units.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- SHEET 6.3
+requirement_decisions: []
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-REPORTING-0004
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-REPORTING-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-REPORTING-0008
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

@@ -1,0 +1,61 @@
+requirement_id: REQ-REPORTING-0001
+requirement_target_layer: product
+requirement_target_module: REPORTING
+requirement_phase: MVP
+requirement_title: Define spend once for every screen
+requirement_statement: >-
+  Every screen, report, and answer uses one definition of spend, so the same question gives the same number
+  everywhere.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Actual spend is approved Timesheet hours at their Bill Rates by hour class, plus approved tips and
+    expenses.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    Pending spend is the same sum for submitted Timesheets not yet approved.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    Projected spend is booked headcount times scheduled hours times the booked Bill Rate, for Shifts not
+    yet worked.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: Spend is dated by work date and rolls up the org tree by Cost Center.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- PRD §1 Metric definitions
+- DEMO
+requirement_decisions: []
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-LABOR-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIPS-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIPS-0002
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: >-
+    Computed from Shift, Timesheet, TipAllocation, and Expense; not stored.
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

@@ -1,0 +1,93 @@
+module: COMPLIANCE
+enums:
+- enum: ProofMethod
+  values:
+  - {value: ATTESTATION, meaning: An Agency attestation satisfies the type.}
+  - {value: VERIFIED_DOCUMENT, meaning: A verified credential document is needed.}
+- enum: CredentialStatus
+  values:
+  - {value: PENDING_CHECK, meaning: Uploaded; the document checks have not finished.}
+  - {value: VERIFIED, meaning: 'The checks passed, or a reviewer confirmed it.'}
+  - {value: NEEDS_REVIEW, meaning: The checks could not settle it; a Program User decides.}
+  - {value: REJECTED, meaning: The checks or a reviewer rejected it. Never counts toward eligibility.}
+  transitions:
+  - {from: null, to: PENDING_CHECK, requirement: REQ-COMPLIANCE-0002}
+  - {from: PENDING_CHECK, to: VERIFIED, requirement: REQ-COMPLIANCE-0003}
+  - {from: PENDING_CHECK, to: NEEDS_REVIEW, requirement: REQ-COMPLIANCE-0003}
+  - {from: PENDING_CHECK, to: REJECTED, requirement: REQ-COMPLIANCE-0003}
+  - {from: NEEDS_REVIEW, to: VERIFIED, requirement: REQ-COMPLIANCE-0003}
+  - {from: NEEDS_REVIEW, to: REJECTED, requirement: REQ-COMPLIANCE-0003}
+- enum: BadgeStatus
+  values:
+  - {value: REQUESTED, meaning: Raised and not yet issued.}
+  - {value: ISSUED, meaning: The Unit issued the badge and system access.}
+  - {value: REVOKED, meaning: The Unit revoked them.}
+  transitions:
+  - {from: null, to: REQUESTED, requirement: REQ-COMPLIANCE-0006}
+  - {from: REQUESTED, to: ISSUED, requirement: REQ-COMPLIANCE-0006}
+  - {from: ISSUED, to: REVOKED, requirement: REQ-COMPLIANCE-0006}
+  - {from: REQUESTED, to: REVOKED, requirement: REQ-COMPLIANCE-0006}
+entities:
+- entity: CredentialType
+  phase: MVP
+  description: 'A kind of credential, such as a food handler card.'
+  fields:
+  - {name: name, type: text}
+  - {name: proof, type: enum:ProofMethod}
+  - {name: has_expiry, type: bool}
+  - {name: active, type: bool}
+  unique:
+  - [name]
+- entity: CredentialRequirement
+  phase: MVP
+  description: A Credential Type required program-wide, under an org node, for a Position, or for both.
+  fields:
+  - {name: credential_type_id, type: ref:CredentialType}
+  - {name: org_node_id, type: ref:OrgNode, nullable: true, note: Empty means every Unit}
+  - {name: position_id, type: ref:Position, nullable: true, note: Empty means every Position}
+  unique:
+  - [credential_type_id, org_node_id, position_id]
+- entity: Credential
+  phase: MVP
+  description: A credential document a Worker holds, and the result of checking it.
+  fields:
+  - {name: worker_id, type: ref:Worker}
+  - {name: credential_type_id, type: ref:CredentialType}
+  - {name: file_url, type: text}
+  - {name: issuer, type: text, nullable: true}
+  - {name: number, type: text, nullable: true}
+  - {name: issued_on, type: date, nullable: true}
+  - {name: expires_on, type: date, nullable: true, note: Required when the type has an expiry}
+  - {name: status, type: enum:CredentialStatus}
+  - {name: status_reason, type: text, nullable: true}
+  - {name: verification_reference, type: text, nullable: true, note: From the issuer or registry}
+  - {name: checked_at, type: timestamp, nullable: true}
+  - {name: reviewed_by, type: ref:User, nullable: true}
+  - {name: reviewed_at, type: timestamp, nullable: true}
+  - {name: review_note, type: text, nullable: true}
+  - {name: uploaded_by, type: ref:User}
+  - {name: replaces_id, type: ref:Credential, nullable: true, note: The credential this renewal replaces}
+- entity: Attestation
+  phase: MVP
+  description: An Agency's statement that a Worker meets a Credential Type. Append-only; the latest wins.
+  fields:
+  - {name: worker_id, type: ref:Worker}
+  - {name: credential_type_id, type: ref:CredentialType}
+  - {name: statement, type: text}
+  - {name: valid_until, type: date, nullable: true}
+  - {name: attested_by, type: ref:User}
+  - {name: attested_at, type: timestamp}
+- entity: BadgeRequest
+  phase: MVP
+  description: Badge and system access for one Worker at one secured Unit (D-27).
+  fields:
+  - {name: worker_id, type: ref:Worker}
+  - {name: unit_id, type: ref:Unit}
+  - {name: status, type: enum:BadgeStatus}
+  - {name: requested_at, type: timestamp}
+  - {name: issued_by, type: ref:User, nullable: true}
+  - {name: issued_at, type: timestamp, nullable: true}
+  - {name: revoked_by, type: ref:User, nullable: true}
+  - {name: revoked_at, type: timestamp, nullable: true}
+  unique:
+  - [worker_id, unit_id]

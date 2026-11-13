@@ -1,0 +1,32 @@
+requirement_id: REQ-SHELL-0002
+requirement_target_layer: user-interface
+requirement_target_module: SHELL
+requirement_phase: MVP
+requirement_title: Show who the user is acting as
+requirement_statement: >-
+  Every page shows the signed-in User's persona and scope, such as an Agency or a Unit, so it is always
+  clear whose view this is.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- FEEDBACK
+requirement_decisions: []
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0005
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

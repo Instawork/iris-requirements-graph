@@ -1,0 +1,39 @@
+requirement_id: REQ-INTEGRATIONS-0007
+requirement_target_layer: platform
+requirement_target_module: INTEGRATIONS
+requirement_phase: P3
+requirement_title: Exchange Requests and approved time with MyStaff
+requirement_statement: >-
+  Requests flow in from MyStaff and approved time flows back, so temps are not clocked into MyStaff by
+  hand.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    MyStaff runs on Infor Workforce Management, and a scheduled file export can stand in until the API
+    is connected.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- FAQ
+requirement_decisions:
+- D-6
+requirement_features:
+- PLT-11
+edges: []
+data_model:
+  status: pending
+  reads: []
+  writes: []
+  detail: Waiting on MyStaff API documentation (I-1).
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

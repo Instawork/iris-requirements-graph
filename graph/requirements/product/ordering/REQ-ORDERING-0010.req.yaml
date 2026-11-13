@@ -1,0 +1,51 @@
+requirement_id: REQ-ORDERING-0010
+requirement_target_layer: product
+requirement_target_module: ORDERING
+requirement_phase: MVP
+requirement_title: Take Requests by email, SMS, or phone
+requirement_statement: >-
+  A Unit User can order by email, text, or phone call. Iris drafts the Request, confirms it on the same
+  channel, and remembers each Unit's usual choices.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The sender must match a Unit User's email or phone number, or nothing is drafted.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    Iris fills gaps from the Unit's past Requests, such as usual Positions, times, and Agency, and says
+    what it filled.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: Nothing is created until the user confirms on the same channel.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- SC-10
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-MESSAGING-0002
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: >-
+    Usual choices are read from the Unit's past Requests; nothing extra is stored.
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

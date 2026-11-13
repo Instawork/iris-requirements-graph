@@ -1,0 +1,180 @@
+# Every upload type Iris accepts, who may send it, the requirement that saves its rows, and its template columns.
+# Files are CSV or Excel. Dates are YYYY-MM-DD, times like 4:00 PM, money without a dollar sign (PRD §6).
+# maps_to: the field a column fills. lookup: how a name in the file is resolved to a record.
+# required: yes | no | a condition, written as a short phrase.
+upload_types:
+- type: RATE_CARD
+  phase: MVP
+  meaning: Rate Lines, one row per Agency, Position, and Market or Unit.
+  uploaders: [AGENCY_USER, PROGRAM_USER]
+  owner: REQ-RATES-0002
+  sources: [SHEET RC-4, PRD §6 Templates, FEEDBACK]
+  columns:
+  - {column: agency, required: Program Users only, maps_to: RateLine.agency_id, lookup: Agency.name}
+  - {column: city, required: unless unit is set, maps_to: RateLine.market_id, lookup: Market.name and Market.state}
+  - {column: state, required: unless unit is set, maps_to: RateLine.market_id}
+  - {column: unit, required: 'no', maps_to: RateLine.unit_id, lookup: Unit name}
+  - {column: position, required: 'yes', maps_to: RateLine.position_id, lookup: Position.name}
+  - {column: regular_pay_rate, required: 'yes', maps_to: RateLine.regular_pay_rate}
+  - {column: regular_bill_rate, required: 'yes', maps_to: RateLine.regular_bill_rate}
+  - {column: overtime_pay_rate, required: 'yes', maps_to: RateLine.overtime_pay_rate}
+  - {column: overtime_bill_rate, required: 'yes', maps_to: RateLine.overtime_bill_rate}
+  - {column: double_time_pay_rate, required: 'yes', maps_to: RateLine.double_time_pay_rate}
+  - {column: double_time_bill_rate, required: 'yes', maps_to: RateLine.double_time_bill_rate}
+  - {column: effective_from, required: 'yes', maps_to: RateLine.effective_from}
+- type: WORKERS
+  phase: MVP
+  meaning: An Agency's Workers, one row per person.
+  uploaders: [AGENCY_USER]
+  owner: REQ-WORKFORCE-0001
+  sources: [SHEET WA-1, PRD §6 Templates]
+  columns:
+  - {column: first_name, required: 'yes', maps_to: Worker.first_name}
+  - {column: last_name, required: 'yes', maps_to: Worker.last_name}
+  - {column: email, required: 'no', maps_to: Worker.email}
+  - {column: phone, required: 'no', maps_to: Worker.phone}
+  - {column: city, required: 'no', maps_to: Worker.city}
+  - {column: positions, required: 'no', maps_to: Worker.position_ids, lookup: 'Position.name, separated by semicolons'}
+- type: SHIFTS
+  phase: MVP
+  meaning: >-
+    From a Unit, rows that create or change Shifts. From an Agency, rows that assign named Workers to Shifts
+    released to it.
+  uploaders: [UNIT_USER, AGENCY_USER]
+  owner: REQ-ORDERING-0014
+  sources: [SHEET SC-2, PRD §6 Templates]
+  columns:
+  - {column: shift_id, required: to change or staff an existing Shift, maps_to: Shift.id, note: Filled by Iris on download}
+  - {column: event, required: 'no', maps_to: Shift.event_id, lookup: Event.name at the Unit}
+  - {column: unit, required: 'yes', maps_to: Request.unit_id, lookup: Unit name}
+  - {column: department, required: 'no', maps_to: Shift.department_id, lookup: Department.name at the Unit}
+  - {column: position, required: 'yes', maps_to: Shift.position_id, lookup: Position.name}
+  - {column: date, required: 'yes', maps_to: Shift.starts_at}
+  - {column: start_time, required: 'yes', maps_to: Shift.starts_at}
+  - {column: end_time, required: 'yes', maps_to: Shift.ends_at}
+  - {column: break_minutes, required: 'no', maps_to: Shift.break_minutes}
+  - {column: headcount, required: for a new Shift, maps_to: Shift.headcount}
+  - {column: agency, required: 'no', maps_to: Release.agency_id, lookup: Agency.name, saved_by: REQ-DISPATCH-0001, note: Sends the new Shift to this Agency}
+  - {column: instructions, required: 'no', maps_to: Shift.directions}
+  - {column: worker_email, required: 'to assign a Worker, unless phone or name matches', maps_to: Assignment.worker_id, lookup: Worker match by REQ-WORKFORCE-0002, saved_by: REQ-WORKFORCE-0003}
+  - {column: worker_first_name, required: to assign a Worker, maps_to: Assignment.worker_id, saved_by: REQ-WORKFORCE-0003}
+  - {column: worker_last_name, required: to assign a Worker, maps_to: Assignment.worker_id, saved_by: REQ-WORKFORCE-0003}
+  - {column: worker_phone, required: 'no', maps_to: Assignment.worker_id, saved_by: REQ-WORKFORCE-0003}
+- type: TIMESHEETS
+  phase: MVP
+  meaning: Hours for assigned Workers, in a template or in any format Iris can read (PDF, image, CSV).
+  uploaders: [AGENCY_USER, UNIT_USER]
+  owner: REQ-TIME-0003
+  sources: [SHEET TS-5, PRD §6 Templates]
+  columns:
+  - {column: shift_id, required: 'unless unit, date, and position identify the Shift', maps_to: Timesheet.assignment_id}
+  - {column: unit, required: 'no', maps_to: Timesheet.assignment_id, lookup: Unit name}
+  - {column: date, required: 'no', maps_to: Timesheet.assignment_id}
+  - {column: position, required: 'no', maps_to: Timesheet.position_id, lookup: Position.name}
+  - {column: worker_first_name, required: 'yes', maps_to: Timesheet.assignment_id, lookup: Worker match by REQ-WORKFORCE-0002}
+  - {column: worker_last_name, required: 'yes', maps_to: Timesheet.assignment_id}
+  - {column: worker_email, required: 'no', maps_to: Timesheet.assignment_id}
+  - {column: clock_in, required: unless no_show, maps_to: Timesheet.clock_in}
+  - {column: clock_out, required: unless no_show, maps_to: Timesheet.clock_out}
+  - {column: break_minutes, required: 'no', maps_to: Timesheet.break_minutes}
+  - {column: no_show, required: 'no', maps_to: Timesheet.no_show, note: Yes or No}
+- type: TIPS
+  phase: MVP
+  meaning: Tip Pools to split by hours, or tips under a cashier PIN.
+  uploaders: [UNIT_USER]
+  owner: REQ-TIPS-0001
+  sources: [SHEET TS-11, PRD §6 Templates]
+  columns:
+  - {column: unit, required: 'yes', maps_to: TipPool.unit_id, lookup: Unit name}
+  - {column: date, required: 'yes', maps_to: TipPool.work_date}
+  - {column: shift_id, required: 'no', maps_to: TipPool.shift_id}
+  - {column: event, required: 'no', maps_to: TipPool.event_id, lookup: Event.name at the Unit}
+  - {column: cashier_pin, required: 'no', maps_to: TipAllocation.cashier_pin_id, lookup: CashierPin valid on the date}
+  - {column: amount, required: 'yes', maps_to: TipPool.amount}
+- type: EXPENSES
+  phase: MVP
+  meaning: Costs an Agency paid for Workers on Shifts.
+  uploaders: [AGENCY_USER]
+  owner: REQ-TIPS-0002
+  sources: [SHEET TS-12]
+  columns:
+  - {column: shift_id, required: 'yes', maps_to: Expense.timesheet_id}
+  - {column: worker_first_name, required: 'yes', maps_to: Expense.timesheet_id}
+  - {column: worker_last_name, required: 'yes', maps_to: Expense.timesheet_id}
+  - {column: kind, required: 'yes', maps_to: Expense.kind, note: 'PARKING, BACKGROUND_CHECK, or OTHER'}
+  - {column: amount, required: 'yes', maps_to: Expense.amount}
+  - {column: note, required: when kind is OTHER, maps_to: Expense.note}
+- type: CREDENTIALS
+  phase: MVP
+  meaning: Credential documents for Workers, one file per document, or a list of them with their details.
+  uploaders: [AGENCY_USER]
+  owner: REQ-COMPLIANCE-0002
+  sources: [SHEET WA-14]
+  columns:
+  - {column: worker_first_name, required: 'yes', maps_to: Credential.worker_id, lookup: Worker match by REQ-WORKFORCE-0002}
+  - {column: worker_last_name, required: 'yes', maps_to: Credential.worker_id}
+  - {column: worker_email, required: 'no', maps_to: Credential.worker_id}
+  - {column: credential_type, required: 'yes', maps_to: Credential.credential_type_id, lookup: CredentialType.name}
+  - {column: issuer, required: 'no', maps_to: Credential.issuer}
+  - {column: number, required: 'no', maps_to: Credential.number}
+  - {column: issued_on, required: 'no', maps_to: Credential.issued_on}
+  - {column: expires_on, required: when the type has an expiry, maps_to: Credential.expires_on}
+  - {column: file_name, required: 'yes', maps_to: Credential.file_url, note: A file attached with the list}
+- type: UNITS
+  phase: MVP
+  meaning: Units and their Departments, one row per Department, or per Unit when it has none.
+  uploaders: [PROGRAM_USER]
+  owner: REQ-ORG-0003
+  sources: [SHEET PLT-2, SESSIONS Shift Creation]
+  columns:
+  - {column: sector, required: 'yes', maps_to: OrgNode.parent_id, lookup: OrgNode.name at SECTOR}
+  - {column: region, required: 'yes', maps_to: OrgNode.parent_id, lookup: OrgNode.name at REGION under the sector}
+  - {column: district, required: 'yes', maps_to: OrgNode.parent_id, lookup: OrgNode.name at DISTRICT under the region}
+  - {column: unit, required: 'yes', maps_to: OrgNode.name}
+  - {column: address_line, required: 'yes', maps_to: Unit.address_line}
+  - {column: city, required: 'yes', maps_to: Unit.city}
+  - {column: state, required: 'yes', maps_to: Unit.state}
+  - {column: zip, required: 'yes', maps_to: Unit.zip}
+  - {column: timezone, required: 'no', maps_to: Unit.timezone, note: Filled from the ZIP code if empty}
+  - {column: unit_cost_center, required: 'yes', maps_to: Unit.cost_center_id, lookup: CostCenter.code}
+  - {column: work_week_start, required: 'yes', maps_to: Unit.work_week_start}
+  - {column: secured_site, required: 'no', maps_to: Unit.is_secured_site, note: Yes or No}
+  - {column: department, required: 'no', maps_to: Department.name}
+  - {column: department_cost_center, required: when department is set, maps_to: Department.cost_center_id, lookup: CostCenter.code}
+- type: AGENCIES
+  phase: MVP
+  meaning: Agencies, with their first Agency User and the org nodes they are approved for.
+  uploaders: [PROGRAM_USER]
+  owner: REQ-AGENCIES-0001
+  sources: [FEEDBACK]
+  columns:
+  - {column: agency, required: 'yes', maps_to: Agency.name}
+  - {column: contact_first_name, required: 'yes', maps_to: User.first_name, saved_by: REQ-IDENTITY-0001}
+  - {column: contact_last_name, required: 'yes', maps_to: User.last_name, saved_by: REQ-IDENTITY-0001}
+  - {column: contact_email, required: 'yes', maps_to: User.email, saved_by: REQ-IDENTITY-0001}
+  - {column: contact_phone, required: 'no', maps_to: User.phone, saved_by: REQ-IDENTITY-0001}
+  - {column: approved_for, required: 'no', maps_to: AgencyApproval.org_node_id, lookup: 'OrgNode.name, separated by semicolons', saved_by: REQ-AGENCIES-0002}
+- type: BUDGETS
+  phase: MVP
+  meaning: Labor budgets, one row per Unit, or Department, and date range.
+  uploaders: [PROGRAM_USER]
+  owner: REQ-REPORTING-0007
+  sources: [SHEET REP-8]
+  columns:
+  - {column: unit, required: 'yes', maps_to: Budget.unit_id, lookup: Unit name}
+  - {column: department, required: 'no', maps_to: Budget.department_id, lookup: Department.name at the Unit}
+  - {column: period_start, required: 'yes', maps_to: Budget.period_start}
+  - {column: period_end, required: 'yes', maps_to: Budget.period_end}
+  - {column: amount, required: 'yes', maps_to: Budget.amount}
+- type: SALES
+  phase: MVP
+  meaning: Sales by Unit and date.
+  uploaders: [PROGRAM_USER]
+  owner: REQ-REPORTING-0005
+  sources: [SHEET REP-4, PRD §6 Templates]
+  columns:
+  - {column: unit, required: 'yes', maps_to: SalesRecord.unit_id, lookup: Unit name}
+  - {column: date, required: 'yes', maps_to: SalesRecord.date}
+  - {column: revenue, required: 'no', maps_to: SalesRecord.revenue}
+  - {column: events, required: 'no', maps_to: SalesRecord.events_held}
+  - {column: meals_served, required: 'no', maps_to: SalesRecord.meals_served}

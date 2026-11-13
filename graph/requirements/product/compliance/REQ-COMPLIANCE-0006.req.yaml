@@ -1,0 +1,43 @@
+requirement_id: REQ-COMPLIANCE-0006
+requirement_target_layer: product
+requirement_target_module: COMPLIANCE
+requirement_phase: MVP
+requirement_title: Request badge and system access for secured sites
+requirement_statement: >-
+  At a Unit marked as a secured site, assigning a Worker raises a badge and system access request that
+  Iris tracks until it is issued.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: A badge request is Requested, Issued, or Revoked.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: The Unit sees which assigned Workers still lack a badge.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- WA-17
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0003
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - BadgeRequest
+  - Unit
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

@@ -1,0 +1,30 @@
+requirement_id: REQ-INTEGRATIONS-0004
+requirement_target_layer: platform
+requirement_target_module: INTEGRATIONS
+requirement_phase: P3
+requirement_title: Sync Units and Cost Centers automatically
+requirement_statement: >-
+  New Units and Cost Centers appear in Iris automatically from Compass's systems.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- PLT-8
+edges: []
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

@@ -1,0 +1,4 @@
+# People who may approve a requirement. requirement_review.by must be one of these reviewer_id values.
+reviewers:
+- reviewer_id: pdongritot
+  reviewer_name: Prathamesh Dongritot

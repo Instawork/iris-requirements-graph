@@ -1,0 +1,425 @@
+# Open questions the sources leave unanswered.
+# origin: sheet = listed on the sheet's Decisions tab; graph = raised while building this graph.
+# An open decision carries the assumption the graph builds on until Compass answers.
+# blocking: true means no requirement that cites it, or depends on one that does, may be approved.
+decisions:
+- decision_id: D-1
+  origin: sheet
+  question: Will Foodbuy add Unit as a rate dimension (RC-6)?
+  status: open
+  assumption: >-
+    Yes. A Rate Line can price one Position at one Unit, and it wins over the Market Rate Line for that
+    Agency and Position.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET Decisions & Inputs
+  - SHEET RC-6
+- decision_id: D-2
+  origin: sheet
+  question: 'Who at Compass acts on flagged rate deviations: Foodbuy, Monument, or the Unit?'
+  status: open
+  assumption: >-
+    Program Users see every rate flag and send Rate Reviews. Unit Users see the flags on their own
+    Shifts and Timesheets.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET Decisions & Inputs
+- decision_id: D-3
+  origin: sheet
+  question: Who verifies certifications and background checks for agency Workers (WA-16)?
+  status: open
+  assumption: >-
+    Iris checks each document automatically. A Program User reviews what the checks cannot settle and
+    sets, per Credential Type, whether an attestation or a verified document satisfies it.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET Decisions & Inputs
+  - SHEET WA-16
+- decision_id: D-4
+  origin: sheet
+  question: >-
+    Whose Work Week governs, and who owes overtime when a Worker spans Units or Agencies? Needs HR,
+    legal, and payroll.
+  status: open
+  assumption: >-
+    Overtime is counted per Worker per Agency within the Work Week of the Unit where the hours are
+    worked. Hours at other Units and other Agencies are not combined in MVP.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET Decisions & Inputs
+  - SHEET WA-19
+- decision_id: D-5
+  origin: sheet
+  question: Does MVP include clock-in for every Agency's Workers, or start with Timesheet intake (TS-1)?
+  status: open
+  assumption: MVP starts with Timesheet intake. Clock-in is Phase 3.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET Decisions & Inputs
+- decision_id: D-6
+  origin: sheet
+  question: Do Requests start in Iris, or in MyStaff from day one (PLT-11, PLT-12)?
+  status: open
+  assumption: Requests start in Iris. MyStaff integration is Phase 3.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET Decisions & Inputs
+- decision_id: D-7
+  origin: sheet
+  question: What can Finance Users see, by sector (INV-14)?
+  status: open
+  assumption: Finance Users arrive in Phase 3; nothing in MVP depends on this.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET Decisions & Inputs
+- decision_id: D-8
+  origin: sheet
+  question: 'Pilot shape: a geography (Chicago was floated) or a sector, and which Units.'
+  status: open
+  assumption: >-
+    The pilot is one geography. Its Markets, ZIP codes, Units, and Agencies are loaded before launch;
+    nothing in the build depends on which geography.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET Decisions & Inputs
+- decision_id: D-9
+  origin: graph
+  question: Who approves an Agency for a Unit?
+  status: open
+  assumption: A Program User approves an Agency at a Sector, Region, District, or Unit.
+  blocking: false
+  answer: null
+  sources:
+  - PRD §1 Who sees what
+  - SHEET RC-11
+- decision_id: D-10
+  origin: graph
+  question: Who may change a live Rate Line?
+  status: open
+  assumption: >-
+    An Agency User or a Program User submits a new Rate Line. A Program User approves Agency
+    submissions; a Program User's own lines need no second approval.
+  blocking: false
+  answer: null
+  sources:
+  - SESSIONS Rate Cards & Supplier Sourcing
+  - FEEDBACK
+- decision_id: D-11
+  origin: graph
+  question: >-
+    Which side of the rate is contracted: the Bill Rate, or the Pay Rate plus a fixed markup? The
+    session notes leave a bill and pay rate flip pending.
+  status: open
+  assumption: >-
+    The Bill Rate is contracted. Each Rate Line stores Pay and Bill Rates, and the markup is shown as a
+    percentage of the Pay Rate.
+  blocking: false
+  answer: null
+  sources:
+  - SESSIONS Rate Cards & Supplier Sourcing
+  - FEEDBACK
+- decision_id: D-12
+  origin: graph
+  question: Is the Peer Rate a simple average, or weighted by volume or rating?
+  status: open
+  assumption: >-
+    A simple average of the regular Bill Rates other Agencies hold on approved Rate Lines in effect today
+    for the same Position and Market.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET RC-12
+- decision_id: D-13
+  origin: graph
+  question: >-
+    What happens to a Timesheet still unapproved when its Lock Window closes: auto-approve, escalate, or
+    block invoicing?
+  status: open
+  assumption: >-
+    Only an Approved Timesheet locks. An unapproved one stays open after the window and shows as late on
+    the Unit's and the Agency's to-dos.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET TS-9
+- decision_id: D-14
+  origin: graph
+  question: >-
+    Which day does the invoice week start, what is a budget period, and who receives the invoice: one for
+    Compass, or one per sector?
+  status: open
+  assumption: >-
+    In MVP each Budget row carries its own start and end dates, and a dashboard week is the Unit's Work
+    Week. The invoice questions wait for Phase 2.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET INV-1
+  - SHEET REP-8
+  - FAQ
+- decision_id: D-15
+  origin: graph
+  question: Which tip tax rules must Iris apply, and in which states first (TS-13)?
+  status: open
+  assumption: No rule is applied until Compass names the rules.
+  blocking: true
+  answer: null
+  sources:
+  - SHEET TS-13
+- decision_id: D-16
+  origin: graph
+  question: What are the program defaults for every Setting?
+  status: open
+  assumption: >-
+    The defaults in graph/catalogs/settings.yaml: tolerance 15 minutes, Lock Window 48 hours, both gates
+    soft, peer threshold 15%, expiry warning 30 days, overtime hard block off.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET TS-7
+  - SHEET TS-9
+  - SHEET RC-11
+  - SHEET RC-12
+  - SHEET WA-19
+- decision_id: D-17
+  origin: graph
+  question: In MVP, can one Shift go to more than one Agency, and how is its headcount split?
+  status: open
+  assumption: >-
+    A Unit User sends a Shift to one chosen Agency. Headcount that Agency declines or gives back can be
+    sent to another Agency. Each Release states its headcount, and automatic multi-Agency dispatch is
+    Phase 2.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET SC-7
+  - SHEET SC-12
+  - PRD Data Model
+  - FEEDBACK
+- decision_id: D-18
+  origin: graph
+  question: Until when can a Unit change a Shift, and can Workers be added after it ends?
+  status: open
+  assumption: >-
+    Headcount and times can change until the Shift ends, and a Shift can be cancelled until it starts.
+    After it ends, only Timesheet corrections apply, and a Worker found on a Timesheet without an
+    Assignment is assigned there.
+  blocking: false
+  answer: null
+  sources:
+  - PRD §2 Shift statuses
+  - SHEET SC-3
+  - SHEET SC-5
+- decision_id: D-19
+  origin: graph
+  question: When a Unit books more Workers than it needs, such as 55 for 50, which Workers are billed?
+  status: open
+  assumption: >-
+    Every Worker who works is billed. The headcount needed is recorded for reporting and has no effect on
+    billing.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET SC-5
+  - SHEET INV-13
+- decision_id: D-20
+  origin: graph
+  question: Must an Agency accept a chained block as a whole and keep the same Workers on every Shift?
+  status: open
+  assumption: >-
+    A block is one booking. Each Shift in it gets its own Release, sent together, and the Agency answers
+    each Release or all of them at once.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET SC-4
+- decision_id: D-21
+  origin: graph
+  question: What is a Market (a city, a metro, a state, or a set of ZIP codes), and who defines it?
+  status: open
+  assumption: >-
+    A Market is a city in a state with its ZIP codes, as on the PRD rate card. Instawork loads the pilot
+    Markets.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET RC-3
+  - PRD §3 Supplier Rates
+  - SESSIONS Rate Cards & Supplier Sourcing
+- decision_id: D-22
+  origin: graph
+  question: Which conditions besides schedule tolerance stop a Timesheet from being auto-approved?
+  status: open
+  assumption: >-
+    A missing clock time, a time outside tolerance, a missed required break, a Pay Rate below the minimum
+    wage, a billed rate that differs from the Release, and a pending expense. Overtime alone does not.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET TS-7
+  - SHEET RC-10
+  - SHEET WA-18
+  - SHEET WA-19
+- decision_id: D-23
+  origin: graph
+  question: Do break and minimum-wage checks at booking flag the Shift or block it?
+  status: open
+  assumption: They flag. Only overtime has an optional hard block, per WA-19.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET WA-18
+  - SHEET WA-19
+- decision_id: D-24
+  origin: graph
+  question: >-
+    When a Unit changes the Bill Rate on a Release, or sends off-contract with no Rate Line, what are the
+    overtime and double-time Bill Rates?
+  status: open
+  assumption: >-
+    A changed regular rate scales the contracted overtime and double-time rates by the same ratio. With no
+    Rate Line, overtime is 1.5 times and double time 2 times the regular rate the Unit enters.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET SC-1
+  - SHEET RC-11
+- decision_id: D-25
+  origin: graph
+  question: Who invites Users, is there a view-only scope, and can a Program User be limited to a sector?
+  status: open
+  assumption: >-
+    Program Users invite any User, and an Agency User invites Users to their own Agency. MVP has no
+    view-only role, and every Program User covers the whole program.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET PLT-1
+  - SHEET PLT-4
+  - FAQ
+- decision_id: D-26
+  origin: graph
+  question: >-
+    Who keeps reference data (Positions, Markets, labor rules) and creates the first Program User?
+  status: open
+  assumption: >-
+    Instawork staff, as Instawork Admins. They load the Position catalog, Markets, and labor rules, and
+    invite the first Program User.
+  blocking: false
+  answer: null
+  sources:
+  - PRD §6 Uploads
+  - SHEET WA-18
+- decision_id: D-27
+  origin: graph
+  question: Who raises and issues badge requests, and is a request per Worker per Unit or per Assignment?
+  status: open
+  assumption: >-
+    Iris raises one request per Worker per secured Unit at their first Assignment there. A Unit User marks
+    it Issued or Revoked.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET WA-17
+- decision_id: D-28
+  origin: graph
+  question: Who enters tips, how do cashier-PIN tips combine with the hours split, and which Workers share a pool?
+  status: open
+  assumption: >-
+    Unit Users enter Tip Pools, and Agency Users enter each Worker's own tips on their Timesheets. A tip
+    under a cashier PIN goes to that PIN's Worker and is not split. A pool splits across every covered
+    Timesheet, whatever the Agency.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET TS-11
+  - SESSIONS Timesheets, Tips & Expenses
+  - PRD §2 Shifts
+- decision_id: D-29
+  origin: graph
+  question: What counts as pending spend?
+  status: open
+  assumption: >-
+    Hours worked on Shifts that have ended but whose Timesheets are not yet approved, at the hours entered
+    or the scheduled hours when none are entered.
+  blocking: false
+  answer: null
+  sources:
+  - PRD §1 Detailed requirements
+  - SHEET REP-2
+- decision_id: D-30
+  origin: graph
+  question: What does spend "far above normal" mean on the Program home?
+  status: open
+  assumption: >-
+    Each Unit shows this month's spend against the average of its three prior full months, as a
+    percentage. MVP shows the number and sets no flag threshold.
+  blocking: false
+  answer: null
+  sources:
+  - PRD §1 Dashboard / Profile
+- decision_id: D-31
+  origin: graph
+  question: Does Iris move money, or only record what is owed?
+  status: open
+  assumption: >-
+    Iris records what is owed. MVP has no invoices or payments, and Phase 2 shows payment status
+    without paying anyone.
+  blocking: false
+  answer: null
+  sources:
+  - START
+  - FAQ
+  - SHEET INV-7
+- decision_id: D-32
+  origin: graph
+  question: Which phase does Compass give each capability? The Compass Priority column is blank.
+  status: open
+  assumption: Every phase follows Instawork's Suggested Priority on the sheet.
+  blocking: false
+  applies_to: every requirement_phase
+  answer: null
+  sources:
+  - SHEET Core Capabilities
+  - SHEET Summary
+- decision_id: D-33
+  origin: graph
+  question: Who can change a Timesheet in each state?
+  status: open
+  assumption: >-
+    An Agency User edits Draft and Rejected Timesheets. A Unit User corrects Submitted and Approved ones
+    until lock, and an Approved Timesheet stays Approved. Nobody edits a locked Timesheet.
+  blocking: false
+  answer: null
+  sources:
+  - PRD §2 Shifts
+  - SHEET TS-7
+  - SHEET TS-9
+- decision_id: D-34
+  origin: graph
+  question: What are the account security defaults?
+  status: open
+  assumption: >-
+    Invite and reset links work once and expire after 72 hours. Passwords have at least 12 characters.
+    A session ends after 12 hours without activity.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET PLT-4
+- decision_id: D-35
+  origin: graph
+  question: Is the contract type that decides who receives an invoice set per Agency or per Unit (INV-8)?
+  status: open
+  assumption: Phase 2 only; nothing in MVP depends on it.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET INV-8

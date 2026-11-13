@@ -1,0 +1,53 @@
+requirement_id: REQ-LABOR-0003
+requirement_target_layer: product
+requirement_target_module: LABOR
+requirement_phase: MVP
+requirement_title: Track overtime within each Agency and alert
+requirement_statement: >-
+  Iris adds up each Worker's hours in the Work Week at their Agency and alerts before an assignment takes
+  them past the overtime threshold.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Hours counted are approved Timesheet hours plus the scheduled hours of upcoming assigned Shifts.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    Overtime is flagged, not blocked, unless the overtime hard block Setting is on.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: Hours at other Agencies are not counted in MVP.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- DEMO
+requirement_decisions:
+- D-4
+requirement_features:
+- WA-19
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-LABOR-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-LABOR-0004
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0006
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

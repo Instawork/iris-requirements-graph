@@ -1,0 +1,78 @@
+requirement_id: REQ-WORKFORCE-0003
+requirement_target_layer: product
+requirement_target_module: WORKFORCE
+requirement_phase: MVP
+requirement_title: Assign named Workers to an accepted Shift
+requirement_statement: >-
+  An Agency User assigns its own Workers to a Shift it accepted. The Unit sees each assigned Worker by
+  name, with their Agency.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Only eligible Workers can be assigned, and others are shown with the reason they cannot work.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: A Worker cannot be on two overlapping Shifts at the same Agency.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    A Worker the Unit has blocked cannot be assigned to that Unit's Shifts.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    An assignment that would pass the overtime threshold shows an alert, or is blocked when the hard block
+    Setting is on.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    The Unit is told when a Worker is added or removed, and a removal reopens that headcount.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    Each assigned Worker receives the Shift's site instructions by text or email.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- PRD §2 Shifts
+- SESSIONS Assign workers
+requirement_decisions: []
+requirement_features:
+- WA-1
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-DISPATCH-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-COMPLIANCE-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-LABOR-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-MESSAGING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Assignment
+requirement_starting_flow: true
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

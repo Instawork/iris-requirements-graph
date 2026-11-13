@@ -1,0 +1,48 @@
+requirement_id: REQ-DISPATCH-0002
+requirement_target_layer: product
+requirement_target_module: DISPATCH
+requirement_phase: MVP
+requirement_title: Accept or decline a released Shift
+requirement_statement: >-
+  An Agency User accepts or declines each Release, and the Unit User sees the answer straight away.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    A decline needs a reason, and the Unit can then send the Shift to another Agency.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: Accepting lets the Agency assign Workers to the Shift.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: An unanswered Release stays pending and shows on the Agency's to-dos.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- SC-8
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-DISPATCH-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-MESSAGING-0001
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Release
+requirement_starting_flow: true
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

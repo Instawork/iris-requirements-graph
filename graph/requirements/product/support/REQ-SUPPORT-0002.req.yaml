@@ -1,0 +1,29 @@
+requirement_id: REQ-SUPPORT-0002
+requirement_target_layer: product
+requirement_target_module: SUPPORT
+requirement_phase: P2
+requirement_title: Collect feedback and enhancement requests in the app
+requirement_statement: Users send feedback and enhancement requests from inside the app.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- PLT-15
+edges: []
+data_model:
+  status: pending
+  reads: []
+  writes: []
+  detail: Designed when Phase 2 is scoped.
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

@@ -1,0 +1,50 @@
+requirement_id: REQ-AGENCIES-0004
+requirement_target_layer: product
+requirement_target_module: AGENCIES
+requirement_phase: P3
+requirement_title: Run a sourcing event with bid rounds
+requirement_statement: >-
+  Compass invites Agencies to bid on Positions and Markets in rounds. Approved bids load into each Agency's
+  Rate Card.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    In each round, an Agency submits rates for every Position and Market it bids on.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: Compass can counter, approve, or reject each Agency's bid.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    An Agency's rates go live on its Rate Card as soon as its bid is approved.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- SESSIONS Procurement
+requirement_decisions: []
+requirement_features:
+- RC-14
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0003
+data_model:
+  status: pending
+  reads: []
+  writes: []
+  detail: Designed when Phase 3 is scoped.
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

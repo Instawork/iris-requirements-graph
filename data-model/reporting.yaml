@@ -1,0 +1,66 @@
+module: REPORTING
+enums:
+- enum: Measure
+  values:
+  - {value: SPEND, meaning: 'Approved spend plus pending spend, as REQ-REPORTING-0001 defines.'}
+  - {value: APPROVED_SPEND, meaning: Spend on Approved Timesheets and approved expenses.}
+  - {value: PENDING_SPEND, meaning: Spend not yet approved (D-29).}
+  - {value: HOURS, meaning: Worked hours.}
+  - {value: OVERTIME_HOURS, meaning: Overtime plus double-time hours.}
+  - {value: HEADCOUNT_REQUESTED, meaning: Headcount on Shifts.}
+  - {value: FILL_RATE, meaning: Assigned Workers over headcount on Shifts that started.}
+  - {value: NO_SHOW_RATE, meaning: No-show Timesheets over Assignments on worked Shifts.}
+  - {value: BUDGET, meaning: Budget amount for the period.}
+  - {value: LABOR_PCT_OF_SALES, meaning: Spend over revenue.}
+  - {value: LATE_TIMESHEETS, meaning: Timesheets not approved when their Lock Window closed.}
+- enum: Dimension
+  values:
+  - {value: SECTOR, meaning: Sector}
+  - {value: REGION, meaning: Region}
+  - {value: DISTRICT, meaning: District}
+  - {value: UNIT, meaning: Unit}
+  - {value: DEPARTMENT, meaning: Department}
+  - {value: COST_CENTER, meaning: Cost Center}
+  - {value: AGENCY, meaning: Agency}
+  - {value: POSITION, meaning: Position}
+  - {value: EVENT, meaning: Event}
+  - {value: WORK_DATE, meaning: Work date}
+  - {value: WORK_WEEK, meaning: The Unit's Work Week}
+  - {value: MONTH, meaning: Calendar month}
+entities:
+- entity: Budget
+  phase: MVP
+  description: A Unit's or Department's labor budget for a date range (D-14).
+  fields:
+  - {name: unit_id, type: ref:Unit}
+  - {name: department_id, type: ref:Department, nullable: true}
+  - {name: period_start, type: date}
+  - {name: period_end, type: date, note: Inclusive}
+  - {name: amount, type: money}
+  - {name: upload_id, type: ref:Upload, nullable: true}
+  constraints:
+  - Budgets for the same Unit and Department never overlap in dates.
+- entity: SalesRecord
+  phase: MVP
+  description: A Unit's sales for one date.
+  fields:
+  - {name: unit_id, type: ref:Unit}
+  - {name: date, type: date}
+  - {name: revenue, type: money, nullable: true}
+  - {name: events_held, type: int, nullable: true}
+  - {name: meals_served, type: int, nullable: true}
+  - {name: upload_id, type: ref:Upload, nullable: true}
+  unique:
+  - [unit_id, date]
+- entity: SavedReport
+  phase: MVP
+  description: A chart, table, or dashboard a User saved from a question.
+  fields:
+  - {name: owner_id, type: ref:User}
+  - {name: name, type: text}
+  - {name: measures, type: 'list:enum:Measure'}
+  - {name: group_by, type: 'list:enum:Dimension'}
+  - {name: filters, type: json, note: Dimension values to keep}
+  - {name: period_start, type: date, nullable: true}
+  - {name: period_end, type: date, nullable: true}
+  - {name: relative_period, type: text, nullable: true, note: 'Such as last_4_weeks; used instead of fixed dates'}

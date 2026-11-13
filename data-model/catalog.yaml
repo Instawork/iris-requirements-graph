@@ -1,0 +1,37 @@
+module: CATALOG
+entities:
+- entity: Position
+  phase: MVP
+  description: 'A job in Compass''s own words, such as Bartender.'
+  fields:
+  - {name: name, type: text}
+  - {name: active, type: bool, note: An inactive Position cannot be booked or priced}
+  unique:
+  - [name]
+- entity: Market
+  phase: MVP
+  description: A city in a state where Rate Lines are priced (D-21).
+  fields:
+  - {name: name, type: text, note: 'The city, such as Atlanta'}
+  - {name: state, type: text, note: Two-letter code}
+  unique:
+  - [name, state]
+- entity: MarketZip
+  phase: MVP
+  description: One ZIP code that belongs to a Market.
+  fields:
+  - {name: market_id, type: ref:Market}
+  - {name: zip, type: text, note: Five digits}
+  unique:
+  - [zip]
+- entity: TitleMapping
+  phase: P2
+  description: One Agency's job title mapped to a Compass Position.
+  fields:
+  - {name: agency_id, type: ref:Agency}
+  - {name: agency_title, type: text}
+  - {name: position_id, type: ref:Position}
+  - {name: confirmed_by, type: ref:User}
+  - {name: confirmed_at, type: timestamp}
+  unique:
+  - [agency_id, agency_title]

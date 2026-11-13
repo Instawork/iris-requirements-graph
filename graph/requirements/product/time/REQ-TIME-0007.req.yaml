@@ -1,0 +1,46 @@
+requirement_id: REQ-TIME-0007
+requirement_target_layer: product
+requirement_target_module: TIME
+requirement_phase: MVP
+requirement_title: Lock Timesheets after the Lock Window
+requirement_statement: >-
+  A Timesheet locks once the Lock Window after its Shift has passed, such as 24 to 48 hours. A locked
+  Timesheet cannot be edited.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: The Lock Window is a Setting.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: After lock, hours change only through an invoice correction or credit.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+requirement_decisions:
+- D-13
+- D-16
+requirement_features:
+- TS-9
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0006
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Timesheet
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

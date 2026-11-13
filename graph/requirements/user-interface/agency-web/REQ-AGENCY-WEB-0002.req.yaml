@@ -1,0 +1,44 @@
+requirement_id: REQ-AGENCY-WEB-0002
+requirement_target_layer: user-interface
+requirement_target_module: AGENCY-WEB
+requirement_phase: MVP
+requirement_title: Answer and staff released Shifts
+requirement_statement: >-
+  An Agency User sees the Shifts released to the Agency, accepts or declines each, and assigns its Workers.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The assign list shows eligible Workers first, and every other Worker with the reason they cannot work.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: Workers the Unit requested by name are marked.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SESSIONS Assign workers
+requirement_decisions: []
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-DISPATCH-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0004
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: true
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

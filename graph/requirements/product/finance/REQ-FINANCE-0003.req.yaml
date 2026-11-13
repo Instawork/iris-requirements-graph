@@ -1,0 +1,33 @@
+requirement_id: REQ-FINANCE-0003
+requirement_target_layer: product
+requirement_target_module: FINANCE
+requirement_phase: P3
+requirement_title: Scope Finance Users to their Cost Centers
+requirement_statement: >-
+  A Finance User sees spend only for the Cost Centers they own, with a roll-up across their region.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- SHEET
+requirement_decisions:
+- D-7
+requirement_features:
+- INV-14
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0005
+data_model:
+  status: pending
+  reads: []
+  writes: []
+  detail: Designed when Phase 3 is scoped.
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

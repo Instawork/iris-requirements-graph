@@ -1,0 +1,115 @@
+module: WORKFORCE
+enums:
+- enum: AssignmentStatus
+  values:
+  - {value: ASSIGNED, meaning: The Worker is booked on the Shift.}
+  - {value: REMOVED, meaning: 'The Worker is off the Shift; removal_reason says why.'}
+  transitions:
+  - {from: null, to: ASSIGNED, requirement: REQ-WORKFORCE-0003}
+  - {from: ASSIGNED, to: REMOVED, requirement: REQ-WORKFORCE-0003}
+- enum: RemovalReason
+  values:
+  - {value: REMOVED_BY_AGENCY, meaning: An Agency User took the Worker off.}
+  - {value: SWAPPED, meaning: An Agency User replaced the Worker with another.}
+  - {value: SHIFT_CANCELLED, meaning: The Shift was cancelled.}
+  - {value: RELEASE_DECLINED, meaning: The Agency declined the Release after accepting it.}
+  - {value: NOT_ELIGIBLE, meaning: 'A required credential lapsed or was rejected before the Shift.'}
+  - {value: BLOCKED_BY_UNIT, meaning: The Unit blocked the Worker.}
+- enum: WorkerRequestStatus
+  values:
+  - {value: REQUESTED, meaning: The Unit asked for this Worker on the Shift.}
+  - {value: UNAVAILABLE, meaning: The Agency said the Worker cannot work it.}
+  transitions:
+  - {from: null, to: REQUESTED, requirement: REQ-WORKFORCE-0004}
+  - {from: REQUESTED, to: UNAVAILABLE, requirement: REQ-WORKFORCE-0004}
+- enum: Rating
+  values:
+  - {value: FAVORITE, meaning: The Unit wants the Worker back and lists them first.}
+  - {value: OKAY_TO_RETURN, meaning: The Worker may return.}
+  - {value: BLOCK, meaning: The Worker cannot be assigned to this Unit's Shifts.}
+- enum: IssueCategory
+  values:
+  - {value: CONDUCT, meaning: Conduct}
+  - {value: SAFETY, meaning: Safety}
+  - {value: QUALITY, meaning: Quality of work}
+  - {value: NO_SHOW, meaning: 'The Worker did not show. Separate from marking the Timesheet a no-show.'}
+- enum: IssueStatus
+  values:
+  - {value: OPEN, meaning: Reported and not yet resolved.}
+  - {value: RESOLVED, meaning: The Agency resolved it with a note.}
+  transitions:
+  - {from: null, to: OPEN, requirement: REQ-WORKFORCE-0006}
+  - {from: OPEN, to: RESOLVED, requirement: REQ-WORKFORCE-0006}
+entities:
+- entity: Worker
+  phase: MVP
+  description: A person one Agency sends to Shifts. One person at two Agencies is two Workers in MVP.
+  fields:
+  - {name: agency_id, type: ref:Agency}
+  - {name: first_name, type: text}
+  - {name: last_name, type: text}
+  - {name: email, type: text, nullable: true, note: Stored lowercase}
+  - {name: phone, type: text, nullable: true, note: Digits only}
+  - {name: city, type: text, nullable: true}
+  - {name: position_ids, type: 'list:ref:Position', nullable: true, note: Positions the Worker works; informational in MVP}
+  - {name: photo_url, type: text, nullable: true}
+  - {name: active, type: bool, note: An inactive Worker cannot be assigned}
+  - {name: created_via, type: enum:Channel}
+  constraints:
+  - Within one Agency, no two Workers share an email, and no two share a phone.
+- entity: Assignment
+  phase: MVP
+  description: A named Worker on a Shift, through one of the Agency's Releases.
+  fields:
+  - {name: release_id, type: ref:Release}
+  - {name: worker_id, type: ref:Worker}
+  - {name: status, type: enum:AssignmentStatus}
+  - {name: assigned_by, type: ref:User}
+  - {name: assigned_via, type: enum:Channel}
+  - {name: assigned_at, type: timestamp}
+  - {name: removed_by, type: ref:User, nullable: true, note: Empty when the system removed the Worker}
+  - {name: removed_at, type: timestamp, nullable: true}
+  - {name: removal_reason, type: enum:RemovalReason, nullable: true}
+  - {name: replaced_by_id, type: ref:Assignment, nullable: true, note: Set on a swap}
+  - {name: eligible_at_start, type: bool, nullable: true, note: Recorded when the Shift starts}
+  - {name: instructions_sent_at, type: timestamp, nullable: true}
+  constraints:
+  - A Worker has at most one ASSIGNED Assignment per Shift.
+  - A Release has at most as many ASSIGNED Assignments as its headcount.
+- entity: WorkerRequest
+  phase: MVP
+  description: A Unit asking for a specific Worker on a Shift.
+  fields:
+  - {name: shift_id, type: ref:Shift}
+  - {name: worker_id, type: ref:Worker}
+  - {name: requested_by, type: ref:User}
+  - {name: status, type: enum:WorkerRequestStatus}
+  - {name: unavailable_reason, type: text, nullable: true}
+  unique:
+  - [shift_id, worker_id]
+- entity: WorkerRating
+  phase: MVP
+  description: A Unit's current rating of a Worker.
+  fields:
+  - {name: unit_id, type: ref:Unit}
+  - {name: worker_id, type: ref:Worker}
+  - {name: rating, type: enum:Rating}
+  - {name: review, type: text, nullable: true}
+  - {name: rated_by, type: ref:User}
+  - {name: rated_at, type: timestamp}
+  unique:
+  - [unit_id, worker_id]
+- entity: WorkerIssue
+  phase: MVP
+  description: A problem a Unit reports with a Worker, tracked to resolution by the Agency.
+  fields:
+  - {name: worker_id, type: ref:Worker}
+  - {name: unit_id, type: ref:Unit}
+  - {name: shift_id, type: ref:Shift, nullable: true}
+  - {name: category, type: enum:IssueCategory}
+  - {name: description, type: text}
+  - {name: status, type: enum:IssueStatus}
+  - {name: reported_by, type: ref:User}
+  - {name: resolution, type: text, nullable: true}
+  - {name: resolved_by, type: ref:User, nullable: true}
+  - {name: resolved_at, type: timestamp, nullable: true}

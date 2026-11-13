@@ -1,0 +1,39 @@
+requirement_id: REQ-ASSISTANT-0002
+requirement_target_layer: user-interface
+requirement_target_module: ASSISTANT
+requirement_phase: MVP
+requirement_title: Show every Proposal as a card to approve
+requirement_statement: >-
+  The assistant shows each Proposal as a card with rows ready, rows to review, and the suggested fixes.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: The card offers accept all, review each, and edit.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: After approval, the reply says what changed and links to it.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- PRD §7 Agent chat
+requirement_decisions: []
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0002
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

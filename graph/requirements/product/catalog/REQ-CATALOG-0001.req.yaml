@@ -1,0 +1,47 @@
+requirement_id: REQ-CATALOG-0001
+requirement_target_layer: product
+requirement_target_module: CATALOG
+requirement_phase: MVP
+requirement_title: Hold the Compass Position catalog
+requirement_statement: >-
+  Iris holds one catalog of Positions in Compass's own names. Every Shift, Rate Line, and Credential Requirement
+  uses a Position from it.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: Position names are unique.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    The catalog starts with Server, Banquet server, Bartender, Barback, Line cook, Prep cook, Dishwasher,
+    Food runner, Busser, Cashier, Barista, Concessions attendant, Event staff, Porter, and Housekeeper.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: Instawork maintains the catalog as reference data in MVP.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- PRD §6 Position list
+requirement_decisions: []
+requirement_features:
+- RC-2
+edges: []
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Position
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

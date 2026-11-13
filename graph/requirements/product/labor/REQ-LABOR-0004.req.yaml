@@ -1,0 +1,39 @@
+requirement_id: REQ-LABOR-0004
+requirement_target_layer: product
+requirement_target_module: LABOR
+requirement_phase: MVP
+requirement_title: Set each Unit's Work Week
+requirement_statement: >-
+  Each Unit has its own Work Week start day, used for overtime and weekly reporting.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    A Program User sets the start day when adding the Unit and can change it later.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+requirement_decisions:
+- D-4
+requirement_features:
+- WA-20
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0002
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Unit
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

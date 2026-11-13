@@ -1,0 +1,50 @@
+requirement_id: REQ-WORKFORCE-0005
+requirement_target_layer: product
+requirement_target_module: WORKFORCE
+requirement_phase: MVP
+requirement_title: Rate a Worker after a Shift
+requirement_statement: >-
+  After a Shift is worked, a Unit User rates each Worker as Favorite, Okay to return, or Block. The rating
+  holds for that Worker at that Unit.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: A blocked Worker cannot be assigned to that Unit's Shifts.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: Favorites are listed first when the Unit requests Workers by name.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: The Agency sees each rating on its Worker.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: A rating can be changed later, and each change is recorded.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- WA-3
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - WorkerRating
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

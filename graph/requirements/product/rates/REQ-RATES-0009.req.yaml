@@ -1,0 +1,53 @@
+requirement_id: REQ-RATES-0009
+requirement_target_layer: product
+requirement_target_module: RATES
+requirement_phase: MVP
+requirement_title: Approve Rate Line changes before they go live
+requirement_statement: >-
+  New or changed Rate Lines from an Agency start as pending. A Program User approves them or sends them
+  back with a reason.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: Approved lines go live on their effective date.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    Lines sent back stay off the Rate Card, and the Agency sees the reason.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: Changes a Program User makes go live without a second approval.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SESSIONS Procurement
+- SHEET RC-11
+- DEMO
+requirement_decisions:
+- D-10
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-MESSAGING-0001
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - RateLine
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

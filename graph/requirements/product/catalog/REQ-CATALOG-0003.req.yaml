@@ -1,0 +1,54 @@
+requirement_id: REQ-CATALOG-0003
+requirement_target_layer: product
+requirement_target_module: CATALOG
+requirement_phase: P2
+requirement_title: Map Agency job titles to Positions
+requirement_statement: >-
+  Each Agency's own job titles map to Compass Positions, so a Unit orders a Bartender and never sees an
+  Agency's name for it.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    A mapping belongs to one Agency and maps one Agency title to one Position.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    When a file uses an unmapped title, the agent proposes a Position and a Program User confirms it.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    A confirmed mapping is applied automatically to later files from that Agency.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- FAQ deck
+requirement_decisions: []
+requirement_features:
+- RC-1
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-CATALOG-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCIES-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0002
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - TitleMapping
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

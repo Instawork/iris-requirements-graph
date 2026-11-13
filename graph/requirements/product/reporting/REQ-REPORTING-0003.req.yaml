@@ -1,0 +1,55 @@
+requirement_id: REQ-REPORTING-0003
+requirement_target_layer: product
+requirement_target_module: REPORTING
+requirement_phase: MVP
+requirement_title: Answer plain-language questions with a chart, table, or dashboard
+requirement_statement: >-
+  A user asks a question, such as “What did we spend by agency last week?”, and gets a chart or table
+  that can be saved as a dashboard.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The agent turns the question into a report definition: measures, grouping, filters, and period.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    Code computes every number from the standard spend and metric definitions.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: Answers include only data inside the user's scope.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- SESSIONS Ask for a number
+requirement_decisions: []
+requirement_features:
+- REP-1
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-REPORTING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-REPORTING-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0005
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - SavedReport
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

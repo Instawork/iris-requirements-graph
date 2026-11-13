@@ -1,0 +1,50 @@
+# Material Iris needs from Compass or others before or during the build.
+# origin: sheet = on the sheet's Inputs list, worded as close to it as possible; graph = raised while building this graph.
+inputs:
+- input_id: I-1
+  origin: sheet
+  ask: MyStaff API documentation, and documentation for any other tools Iris should connect to.
+  sources: [SHEET Decisions & Inputs]
+- input_id: I-2
+  origin: sheet
+  ask: >-
+    Timesheet policies, and as many samples as possible of every Timesheet format Compass receives:
+    images, PDFs, and CSVs.
+  sources: [SHEET Decisions & Inputs]
+- input_id: I-3
+  origin: sheet
+  ask: Samples of the reports Compass pulls today.
+  sources: [SHEET Decisions & Inputs]
+- input_id: I-4
+  origin: sheet
+  ask: >-
+    Redacted examples of urgent operator emails and chats sent to Monument, Agencies, and others. We need
+    what's being asked and what's attached, not who sent it.
+  sources: [SHEET Decisions & Inputs]
+- input_id: I-5
+  origin: sheet
+  ask: Rate data and the Agency list for the pilot market (Atlanta, per the rates working session).
+  sources: [SHEET Decisions & Inputs]
+- input_id: I-6
+  origin: graph
+  ask: Which providers Compass relies on for background checks and certificates.
+  sources: [DEMO run-of-show]
+- input_id: I-7
+  origin: graph
+  ask: >-
+    Compass's standard Position catalog. Until it arrives, Iris starts from the PRD's v1 position list.
+  sources: [SHEET RC-2, PRD §6 Position list]
+- input_id: I-8
+  origin: graph
+  ask: The pilot's Units, Departments, Cost Centers, Markets, and Market ZIP codes.
+  sources: [SHEET Decisions & Inputs]
+  decisions: [D-8, D-21]
+- input_id: I-9
+  origin: graph
+  ask: Marc Caplan's view on how rates should work between Compass and Agencies.
+  sources: [FEEDBACK]
+- input_id: I-10
+  origin: graph
+  ask: The break, minimum wage, and overtime rules for each pilot state and city, reviewed by Compass HR and legal.
+  sources: [SHEET WA-18, SHEET Decisions & Inputs]
+  decisions: [D-4]

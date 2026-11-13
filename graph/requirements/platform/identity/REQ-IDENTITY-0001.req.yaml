@@ -1,0 +1,48 @@
+requirement_id: REQ-IDENTITY-0001
+requirement_target_layer: platform
+requirement_target_module: IDENTITY
+requirement_phase: MVP
+requirement_title: Sign in with a User account
+requirement_statement: >-
+  Every person has a User account with an email, a name, and a phone number. They sign in with email and
+  password and manage their own profile.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: A User resets a forgotten password through a link sent to their email.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    A Program User invites Users and can deactivate them, and a deactivated User cannot sign in.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    Compass single sign-on is separate and comes later, in REQ-INTEGRATIONS-0005.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- PLT-4
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-MESSAGING-0001
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - User
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

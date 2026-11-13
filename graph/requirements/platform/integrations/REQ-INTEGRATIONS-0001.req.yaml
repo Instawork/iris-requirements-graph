@@ -1,0 +1,31 @@
+requirement_id: REQ-INTEGRATIONS-0001
+requirement_target_layer: platform
+requirement_target_module: INTEGRATIONS
+requirement_phase: P3
+requirement_title: Connect Agencies by API
+requirement_statement: >-
+  Agencies with their own platforms connect by API to receive Releases and send assignments and Timesheets.
+  Every other Agency keeps using file upload.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- PLT-5
+edges: []
+data_model:
+  status: pending
+  reads: []
+  writes: []
+  detail: Designed when Phase 3 is scoped.
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

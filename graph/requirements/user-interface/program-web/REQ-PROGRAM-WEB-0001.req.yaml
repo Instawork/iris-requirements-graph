@@ -1,0 +1,50 @@
+requirement_id: REQ-PROGRAM-WEB-0001
+requirement_target_layer: user-interface
+requirement_target_module: PROGRAM-WEB
+requirement_phase: MVP
+requirement_title: Program home
+requirement_statement: A Program User's home lists program to-dos and ranks Units by spend.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    To-dos are credentials needing review, rate changes to approve, and rates above their peers.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    Units are ranked by spend, with spend far above normal and off-contract spend flagged.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- PRD §1 Compass view
+requirement_decisions: []
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-COMPLIANCE-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0007
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-REPORTING-0001
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

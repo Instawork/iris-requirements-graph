@@ -1,0 +1,6 @@
+# Requirement ids that no longer exist. An id here is never used again.
+# replaced_by: the requirement that now holds the behavior, or null when it was dropped.
+retired:
+- requirement_id: REQ-ORG-0004
+  replaced_by: REQ-IDENTITY-0001
+  reason: Sign-in moved to the IDENTITY platform module so every layer can depend on it.

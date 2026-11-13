@@ -1,0 +1,30 @@
+requirement_id: REQ-INTAKE-0003
+requirement_target_layer: platform
+requirement_target_module: INTAKE
+requirement_phase: MVP
+requirement_title: Provide a template for each upload type
+requirement_statement: >-
+  Each upload type has a downloadable CSV or Excel template, the same on the Uploads page and in the assistant.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- PRD §6 Templates
+- PRD §7 Agent chat
+requirement_decisions: []
+requirement_features: []
+edges: []
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

@@ -1,0 +1,52 @@
+requirement_id: REQ-WORKFORCE-0004
+requirement_target_layer: product
+requirement_target_module: WORKFORCE
+requirement_phase: MVP
+requirement_title: Request specific Workers by name
+requirement_statement: >-
+  When sending a Shift to one Agency, the Unit User can name the Workers they want from that Agency, such
+  as their favorites.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The user picks from that Agency's Workers who have worked at the Unit, with favorites listed first.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: The Agency sees which Workers were requested and assigns them first.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    If a requested Worker cannot work, the Agency says why and may fill the headcount with another Worker.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- FEEDBACK
+- SESSIONS Request workers by name
+requirement_decisions: []
+requirement_features:
+- WA-2
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-DISPATCH-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0005
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - WorkerRequest
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

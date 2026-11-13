@@ -1,0 +1,71 @@
+sources:
+- source: SHEET
+  rank: 1
+  title: 'Iris VMS: Core Capabilities for MVP Prioritization (Compass)'
+  url: >-
+    https://docs.google.com/spreadsheets/d/1SlUyWtbhik3KEKW4VAskSAEfS8v3S-_OjgVfZpA2WM4/edit
+  date: Nov 2026, draft
+  use: >-
+    Scope. All 31 capabilities and 112 features with their suggested phases, plus the decisions and inputs
+    owed by Compass.
+- source: START
+  rank: 1
+  title: 'Iris VMS: Start here (Confluence pantry)'
+  url: >-
+    https://instawork.atlassian.net/wiki/spaces/iris/overview?homepageId=4892131723
+  date: Nov 12, 2026
+  use: What Iris is, and which documents count.
+- source: FEEDBACK
+  rank: 2
+  title: Iris demo feedback (Kenneth)
+  url: >-
+    https://docs.google.com/document/d/14AQi9DSbYzvEEijmSjCUajHHymowKWYXTPcO3hDEkWc/edit
+  date: Nov 2026
+  use: >-
+    Product calls on the demo: workers not pros, markup as a percent, Departments with Cost Centers, request
+    by name inside single-agency send, OCR.
+- source: SESSIONS
+  rank: 2
+  title: 'Compass VMS Demo: 11/4 and 11/5 sessions agenda and Iris demo notes'
+  url: >-
+    https://docs.google.com/document/d/1Xy3QVWr-aVVV6mpMxWsH6kb987IzwVPXDQ1iW8k83Bo/edit
+  date: Nov 4–5, 2026
+  use: What Compass heard and saw in each workflow, step by step.
+- source: SLACK
+  rank: 2
+  title: '#iris-working-group kickoff'
+  url: https://instaworkteam.slack.com/archives/C0CH57P6F4M
+  date: Nov 12, 2026
+  use: The next step is data models built from the MVP requirements.
+- source: PRD
+  rank: 3
+  title: 'Compass VMS: Product Requirements'
+  url: >-
+    https://instawork.atlassian.net/wiki/spaces/ec/pages/4841898227/Compass+VMS+Product+Requirements
+  date: Oct 2026
+  use: >-
+    Detail where the sheet is silent: statuses, Worker matching, upload templates, agent rules, metric
+    formulas. Overridden wherever the sheet or sessions differ.
+- source: OPS
+  rank: 4
+  title: Iris for Compass (Product Ops)
+  url: >-
+    https://instawork.atlassian.net/wiki/spaces/ec/pages/4859920389/Iris+for+Compass
+  date: Oct 2026
+  use: 'Pitch framing: control, compliance, cost, and settings per sector.'
+- source: FAQ
+  rank: 4
+  title: Iris FAQ and deck (Drive)
+  url: >-
+    https://drive.google.com/drive/folders/14WYK18DR1mu3SiXCUTRQw21Zjvzhl91U
+  date: Oct 2026
+  use: >-
+    Pitch-level claims: MySTAFF handoff, verification before the first shift, sector release timing, one
+    invoice per sector.
+- source: DEMO
+  rank: 5
+  title: Instawork/iris-demo, branch feat/live-backend
+  url: https://github.com/Instawork/iris-demo/tree/feat/live-backend
+  date: Nov 2026
+  use: >-
+    Fills small gaps only and is cited where used. Never overrides a higher source.

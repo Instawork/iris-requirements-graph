@@ -1,0 +1,35 @@
+requirement_id: REQ-DISPATCH-0004
+requirement_target_layer: product
+requirement_target_module: DISPATCH
+requirement_phase: P2
+requirement_title: Show fill status for open Requests
+requirement_statement: >-
+  A Unit User sees every open Request with headcount filled by Agency and time to start, without chasing
+  notifications.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- SC-13
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-DISPATCH-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0008
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

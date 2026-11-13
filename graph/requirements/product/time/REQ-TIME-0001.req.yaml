@@ -1,0 +1,63 @@
+requirement_id: REQ-TIME-0001
+requirement_target_layer: product
+requirement_target_module: TIME
+requirement_phase: MVP
+requirement_title: Hold a Timesheet for each assigned Worker
+requirement_statement: >-
+  Each Assignment gets a Timesheet once its Shift is worked. The Timesheet holds the hours the Agency
+  bills, against the scheduled times.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    A Timesheet holds scheduled start and end, billed clock-in and clock-out, break minutes, hours, Bill
+    Rate, Position, and Department.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    A Timesheet is Draft, Submitted, Approved, Rejected, Locked, or Invoiced.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    Every change is recorded in the Audit Trail, with a reason where one is required.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: Each change after submission notifies the other party.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET 4.3
+- PRD §2 Shifts
+- DEMO
+requirement_decisions: []
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-LABOR-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-MESSAGING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Timesheet
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

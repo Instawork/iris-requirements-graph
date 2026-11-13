@@ -1,0 +1,61 @@
+requirement_id: REQ-ORG-0005
+requirement_target_layer: product
+requirement_target_module: ORG
+requirement_phase: MVP
+requirement_title: Grant a role within a scope
+requirement_statement: >-
+  A User holds one or more Role Grants. Each grant pairs a role with a scope, and the User sees and acts
+  only on data inside that scope.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    A Unit User is granted at a Sector, Region, District, or Unit, and covers every Unit beneath it.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    An Agency User is granted to one Agency and sees only Shifts released to that Agency and the Agency's
+    own records.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: A Program User covers the whole program.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: Unit Users see Bill Rates only, never Pay Rates or markups.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: Agency Users never see another Agency's rates, Workers, or Timesheets.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- PRD §3 Supplier rates
+- FAQ deck
+requirement_decisions: []
+requirement_features:
+- PLT-1
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-IDENTITY-0001
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - RoleGrant
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

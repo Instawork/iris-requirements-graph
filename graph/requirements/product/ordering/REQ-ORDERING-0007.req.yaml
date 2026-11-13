@@ -1,0 +1,48 @@
+requirement_id: REQ-ORDERING-0007
+requirement_target_layer: product
+requirement_target_module: ORDERING
+requirement_phase: MVP
+requirement_title: Save Request templates and Unit defaults
+requirement_statement: >-
+  A Unit User saves Request templates, such as a game-day package of 5 bartenders and 4 concessions workers,
+  and sets defaults that prefill new Requests.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    A template holds Shift lines with Position, headcount, times, and Department, and can be applied to
+    any date.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    Unit defaults cover site instructions and which Department each Position is charged to.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- DEMO
+requirement_decisions: []
+requirement_features:
+- SC-11
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0001
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - RequestTemplate
+  - Unit
+  - Department
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

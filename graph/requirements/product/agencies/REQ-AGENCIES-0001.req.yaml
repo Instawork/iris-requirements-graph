@@ -1,0 +1,59 @@
+requirement_id: REQ-AGENCIES-0001
+requirement_target_layer: product
+requirement_target_module: AGENCIES
+requirement_phase: MVP
+requirement_title: Add an Agency
+requirement_statement: >-
+  A Program User adds each Agency that staffs Compass Shifts, one at a time or in bulk from a file.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    An Agency has a name, a primary contact's name, email, and phone, and the Markets it covers.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: Adding an Agency invites its primary contact as an Agency User.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    Bulk loading uses File Intake and the same checks as adding one by hand.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    Agencies send data by file upload in MVP; API connections come later, in REQ-INTEGRATIONS-0001.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- FEEDBACK
+- SHEET PLT-5
+- DEMO run-of-show block 1
+requirement_decisions: []
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-IDENTITY-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-CATALOG-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INTAKE-0002
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Agency
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

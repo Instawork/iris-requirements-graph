@@ -1,0 +1,41 @@
+requirement_id: REQ-RATES-0004
+requirement_target_layer: product
+requirement_target_module: RATES
+requirement_phase: MVP
+requirement_title: Price a Position for one Unit
+requirement_statement: >-
+  A Rate Line can be set for a single Unit. It then overrides the Market Rate Line for that Agency and
+  Position at that Unit.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: Without a Unit Rate Line, the Market Rate Line applies.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+requirement_decisions:
+- D-1
+requirement_features:
+- RC-6
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0001
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: RateLine.unit_id is set for Unit rates.
+  migration_entities:
+  - RateLine
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

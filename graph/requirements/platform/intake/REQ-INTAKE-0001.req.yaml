@@ -1,0 +1,49 @@
+requirement_id: REQ-INTAKE-0001
+requirement_target_layer: platform
+requirement_target_module: INTAKE
+requirement_phase: MVP
+requirement_title: Accept a file and detect what it holds
+requirement_statement: >-
+  Users attach CSV, Excel, PDF, or image files on the Uploads page or in the assistant, and Iris detects
+  each file's upload type.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Upload types are Rate Card, Workers, Shifts, Timesheets, Expenses, Tips, Units, Agencies, Budgets,
+    and Sales data.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: Text in images and scanned PDFs is read with OCR.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: If the type is unclear, Iris asks the user.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- PRD §6 Uploads
+- PRD §7 Agent chat
+- SHEET TS-5
+requirement_decisions: []
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0001
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Upload
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

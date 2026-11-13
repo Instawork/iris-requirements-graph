@@ -1,0 +1,535 @@
+features:
+- feature_id: RC-1
+  capability_id: '1.1'
+  feature: >-
+    Map vendor job titles to Compass positions automatically (e.g. "mixologist" → Bartender)
+  why: Unit managers should post "bartender" and never see vendor naming
+- feature_id: RC-2
+  capability_id: '1.2'
+  feature: Standard Compass position catalog
+  why: Every agency names jobs differently; Compass wants one set of titles
+- feature_id: RC-3
+  capability_id: '1.2'
+  feature: >-
+    Structured rate card by position, market and vendor, replacing the master spreadsheet
+  why: About 200K rates sit in spreadsheets with known inaccuracies
+- feature_id: RC-4
+  capability_id: '1.2'
+  feature: Bulk rate upload and import
+  why: Needed to load pilot-market rates quickly
+- feature_id: RC-5
+  capability_id: '1.2'
+  feature: Rate change audit trail
+  why: Know who changed a rate, when and why
+- feature_id: RC-6
+  capability_id: '1.2'
+  feature: >-
+    Unit as an additional rate card dimension (position + market + vendor + unit)
+  why: Raised; pending a Foodbuy decision
+- feature_id: RC-7
+  capability_id: '1.3'
+  feature: Market pay benchmarking using Instawork data
+  why: Rates should reflect the market, not just the last negotiation
+- feature_id: RC-8
+  capability_id: '1.3'
+  feature: Market-indexed rates negotiated to vendors in bulk
+  why: 2-year renegotiation cycles lag minimum wage and market changes
+- feature_id: RC-9
+  capability_id: '1.3'
+  feature: Urgency premium rules (e.g. 1.5x for last-minute requests)
+  why: Accepted, pre-agreed variability for urgency
+- feature_id: RC-10
+  capability_id: '1.4'
+  feature: >-
+    Rate variance flags at booking and on approved timesheets, with drill-down (e.g. card $25, paid $29,
+    and why)
+  why: Units need to see deviations and push back on vendors
+- feature_id: RC-11
+  capability_id: '1.4'
+  feature: Soft or hard gates for off-contract rates and non-contracted vendors
+  why: Non-compliant spend persists through local relationships
+- feature_id: RC-12
+  capability_id: '1.4'
+  feature: >-
+    Rate review: e.g. when an agency's rates run 15%+ above peer rates, ask the agency to lower the rate
+    or justify it
+  why: Units need to see deviations and push back on vendors
+- feature_id: RC-13
+  capability_id: '1.5'
+  feature: 'Supplier management: onboarding, markup, vendor allowance'
+  why: Supplier details are spread across many spreadsheets
+- feature_id: RC-14
+  capability_id: '1.5'
+  feature: >-
+    Sourcing events: agencies bid in rounds; awarded rates load into the rate card
+  why: >-
+    Rates and markups should be negotiated in one structured place, not spreadsheets
+- feature_id: RC-15
+  capability_id: '1.5'
+  feature: >-
+    Supplier contract tracking: start and end dates, renewal reminders, terms on file
+  why: >-
+    Foodbuy tasks: negotiates supplier contracts; supplier contracts managed
+- feature_id: RC-16
+  capability_id: '1.6'
+  feature: >-
+    Supplier scorecards and SLAs by agency: time to fill, fill rate, no-show rate, worker ratings, invoice
+    accuracy
+  why: >-
+    No scorecards today; metrics to be defined with Foodbuy. MSP task: reports on SLAs and scorecards
+- feature_id: RC-17
+  capability_id: '1.6'
+  feature: >-
+    Automatic follow-ups to agencies that miss time-to-fill, fill rate or spend thresholds
+  why: >-
+    Foodbuy task: follow up on negative performance activity (time to fill, spend overages)
+- feature_id: RC-18
+  capability_id: '1.6'
+  feature: >-
+    Recommend the best agency and workers at booking, based on performance, fill rate and cost
+  why: 'VMS requirement: guide managers to the best vendor and talent'
+- feature_id: RC-19
+  capability_id: '1.6'
+  feature: Executive business review pack generated from program data
+  why: 'MSP task: delivery of executive business reviews'
+- feature_id: SC-1
+  capability_id: '2.1'
+  feature: Contracted rate set as default upon booking
+  why: Operators don't know the contracted rate when they book
+- feature_id: SC-2
+  capability_id: '2.1'
+  feature: Multiple positions in one request
+  why: Events need several roles at once
+- feature_id: SC-3
+  capability_id: '2.1'
+  feature: Fast edits to open requests (add headcount, change times)
+  why: Headcounts change constantly and climb as the event nears
+- feature_id: SC-4
+  capability_id: '2.1'
+  feature: >-
+    Recurring and chained shifts (multi-week assignments booked as a block)
+  why: Recurring needs shouldn't be re-entered
+- feature_id: SC-5
+  capability_id: '2.1'
+  feature: Overbooking and on-the-day add (e.g. 50 needed, 55 arrive)
+  why: Common at large Levy events
+- feature_id: SC-6
+  capability_id: '2.1'
+  feature: >-
+    Structured shift instructions shared with the agency and sent to workers by text or email: parking,
+    entrance, directions, site contact, attire
+  why: 'VMS requirement: onboarding instructions (attire, directions, parking)'
+- feature_id: SC-7
+  capability_id: '2.1'
+  feature: Send each request to a chosen agency
+  why: >-
+    Agreed starting flow: a unit posts a shift, then the agency assigns a worker
+- feature_id: SC-8
+  capability_id: '2.1'
+  feature: >-
+    Agency notifications for released shifts (email or SMS), with accept or decline
+  why: >-
+    Agencies are half the users; they need to know the moment a shift is theirs
+- feature_id: SC-9
+  capability_id: '2.2'
+  feature: >-
+    Natural-language booking in the app ("3 bartenders and 2 line cooks Monday")
+  why: Faster than forms; handles partial info and asks for what's missing
+- feature_id: SC-10
+  capability_id: '2.2'
+  feature: >-
+    Booking by email, SMS and phone through an AI agent, with memory of each unit's preferences
+  why: About 30% of Instawork shifts already come in through chat
+- feature_id: SC-11
+  capability_id: '2.2'
+  feature: >-
+    Request templates and location defaults (e.g. game-day package: 5 bartenders, 4 concessions)
+  why: Entering requests is slow and repetitive
+- feature_id: SC-12
+  capability_id: '2.3'
+  feature: >-
+    Dispatch rules: one preferred agency, several at once, or open to all after a set time
+  why: Units have preferred vendors but need a fallback
+- feature_id: SC-13
+  capability_id: '2.3'
+  feature: Fill-status dashboard for open requests
+  why: An alternative to chasing notifications
+- feature_id: SC-14
+  capability_id: '2.3'
+  feature: 'Fill-risk predictions: flag shifts likely to start short'
+  why: Operators want to know about fill problems before the event
+- feature_id: SC-15
+  capability_id: '2.4'
+  feature: 'Budget approvals: orders over a unit''s budget route for approval'
+  why: Labor should be managed as a variable cost against budget
+- feature_id: SC-16
+  capability_id: '2.4'
+  feature: >-
+    Department-level forecasting from order history in Iris (e.g. 100-level concessions vs. suites)
+  why: Units under-order and spike last minute
+- feature_id: WA-1
+  capability_id: '3.1'
+  feature: 'Agency roster: agencies assign named workers to allocated shifts'
+  why: Compass needs to know who is actually coming on site
+- feature_id: WA-2
+  capability_id: '3.1'
+  feature: Request specific workers, linked to the worker record
+  why: >-
+    Favorite rosters must carry over (one operator always requests the same 20 people)
+- feature_id: WA-3
+  capability_id: '3.2'
+  feature: 'Post-shift ratings: favorite, okay to return, block'
+  why: Operators want to rate workers and keep the good ones
+- feature_id: WA-4
+  capability_id: '3.2'
+  feature: >-
+    Report an associate issue (conduct, safety, quality, no-show) routed to the agency, with resolution
+    tracking
+  why: 'VMS requirement: report associate issues'
+- feature_id: WA-5
+  capability_id: '3.3'
+  feature: Single worker profile across agencies
+  why: Certifications and history follow the worker, not the agency
+- feature_id: WA-6
+  capability_id: '3.3'
+  feature: >-
+    Conflict detection to prevent double-booking across shifts and agencies
+  why: Workers can be booked by two agencies for the same time
+- feature_id: WA-7
+  capability_id: '3.3'
+  feature: >-
+    Overtime tracking and alerts across agencies, using the unified worker profile
+  why: >-
+    A worker's hours can span agencies and units; overtime ownership is an open decision
+- feature_id: WA-8
+  capability_id: '3.3'
+  feature: >-
+    ACA and co-employment risk flags from each worker's hours across agencies and units
+  why: 'MSP task: identify risks for ACA, 1099 and co-employment'
+- feature_id: WA-9
+  capability_id: '3.3'
+  feature: Do-not-return carryover across agencies
+  why: Former employees removed from a location shouldn't come back as temps
+- feature_id: WA-10
+  capability_id: '3.3'
+  feature: >-
+    Resume, interview and offer records for longer assignments and temp-to-perm
+  why: >-
+    VMS requirements: resume collection; interviews through application; offers and acceptance letters
+- feature_id: WA-11
+  capability_id: '3.3'
+  feature: Nonprofit volunteer labor (e.g. church groups at Levy Stadium)
+  why: >-
+    Different economics, but compliance such as alcohol certification still applies
+- feature_id: WA-12
+  capability_id: '3.3'
+  feature: Career pathing and training for hourly workers
+  why: Raised as an interest for hourly workers across Compass
+- feature_id: WA-13
+  capability_id: '3.4'
+  feature: >-
+    Certification requirements by region, position, unit and sector (e.g. alcohol service, food handler,
+    TB tests)
+  why: Requirements vary by job, location and event
+- feature_id: WA-14
+  capability_id: '3.4'
+  feature: Certification upload with expiry tracking
+  why: Lapsed certifications shouldn't slip through
+- feature_id: WA-15
+  capability_id: '3.4'
+  feature: >-
+    AI document validation: checks expiry, issuer, signs of editing, and public registries where available
+  why: Fraudulent certificates are a concern
+- feature_id: WA-16
+  capability_id: '3.4'
+  feature: >-
+    Attestation records and audit trail for agency-worker compliance (audited by Compass or the MSP)
+  why: Agencies attest; Compass audits
+- feature_id: WA-17
+  capability_id: '3.4'
+  feature: Badge and system access requests for workers at secured sites
+  why: 'VMS requirement: manages badges and system access'
+- feature_id: WA-18
+  capability_id: '3.5'
+  feature: >-
+    State and local labor rules (breaks, minimum wage) applied at booking and on timesheets
+  why: >-
+    Rules vary by state and city; compliance shouldn't depend on the operator
+- feature_id: WA-19
+  capability_id: '3.5'
+  feature: >-
+    Overtime tracking and alerts within each agency, with an optional hard block per location
+  why: >-
+    Flag overtime rather than block it; some locations want a hard block, festivals accept overtime
+- feature_id: WA-20
+  capability_id: '3.5'
+  feature: Per-unit work week configuration for overtime and reporting
+  why: 39 pay areas; work weeks start on nearly every day
+- feature_id: TS-1
+  capability_id: '4.1'
+  feature: >-
+    Clock-in and clock-out for workers from any agency (mobile, QR or kiosk)
+  why: >-
+    Compass needs a trusted source of truth for hours (open decision, see Decisions Needed)
+- feature_id: TS-2
+  capability_id: '4.1'
+  feature: >-
+    Worker experience for agency workers: shift details, instructions and certification status on their
+    phone
+  why: Workers from every agency need the same instructions and check-in
+- feature_id: TS-3
+  capability_id: '4.1'
+  feature: >-
+    Clock-ins at multiple locations reconciled across large venues and campuses
+  why: Workers clock in at different spots
+- feature_id: TS-4
+  capability_id: '4.1'
+  feature: >-
+    Timesheet audit against Iris's own clock: flag missing punches and hours above the clock, propose
+    a fix, keep correction history
+  why: Operators want confidence they pay only for hours actually worked
+- feature_id: TS-5
+  capability_id: '4.2'
+  feature: >-
+    Timesheet intake in any format (PDF, CSV, image), matched to shifts automatically
+  why: Most temp time is on paper today; only about 2% runs through MyStaff
+- feature_id: TS-6
+  capability_id: '4.2'
+  feature: Natural-language timesheet edits ("Grace moved to bartender at 3:45")
+  why: Fast handling of edge cases
+- feature_id: TS-7
+  capability_id: '4.3'
+  feature: >-
+    Exception-based approval: auto-approve within schedule tolerance, surface the rest on a dashboard
+  why: Approvals take too long; operators would comply if it took minutes
+- feature_id: TS-8
+  capability_id: '4.3'
+  feature: >-
+    Daily or per-event timesheet submission and approval, not just at week end
+  why: The true cost of a Monday event shouldn't stay hidden until week end
+- feature_id: TS-9
+  capability_id: '4.3'
+  feature: Configurable timesheet lock window (e.g. 24–48 hours after an event)
+  why: Edits allowed for up to about 3 weeks make reporting stale
+- feature_id: TS-10
+  capability_id: '4.3'
+  feature: >-
+    Split a shift by time and position for mid-shift role changes (e.g. bartender → barback)
+  why: Mid-shift role and rate changes are rarely captured
+- feature_id: TS-11
+  capability_id: '4.4'
+  feature: Tips entry (bulk or chat), split by hours worked
+  why: Tip pooling is manual; stadiums use cashier PINs
+- feature_id: TS-12
+  capability_id: '4.4'
+  feature: Expense entry and approval
+  why: Expenses flow through the same process
+- feature_id: TS-13
+  capability_id: '4.4'
+  feature: Tip tax rules by state
+  why: Rules vary (e.g. New York)
+- feature_id: INV-1
+  capability_id: '5.1'
+  feature: >-
+    Consolidated weekly invoice, summary first, with drill-down from unit to agency, shift and worker
+  why: >-
+    Thousands of lines can't be tied back to an event; too much detail at once is overwhelming
+- feature_id: INV-2
+  capability_id: '5.1'
+  feature: Rate card deviation flags on the invoice
+  why: See where spend runs above the card
+- feature_id: INV-3
+  capability_id: '5.1'
+  feature: Prior-period adjustments shown separately from the current week
+  why: Corrections mixed into current charges confuse units
+- feature_id: INV-4
+  capability_id: '5.1'
+  feature: Line breakdown by regular time, overtime, tips and expenses
+  why: Needed for unit-level reconciliation
+- feature_id: INV-5
+  capability_id: '5.1'
+  feature: Original work date kept as the system of record through revisions
+  why: Revisions shift dates and trigger supplier payment-term disputes
+- feature_id: INV-6
+  capability_id: '5.1'
+  feature: >-
+    Shared reference between vendor invoice numbers and requests and line items
+  why: Vendors and finance don't share a reference
+- feature_id: INV-7
+  capability_id: '5.1'
+  feature: Payment status visible to units
+  why: Units can't confirm whether something was paid
+- feature_id: INV-8
+  capability_id: '5.1'
+  feature: 'Contract type handling: client-pay payroll, pass-through, full service'
+  why: Changes who receives the invoice
+- feature_id: INV-9
+  capability_id: '5.1'
+  feature: >-
+    Statement-of-work (SOW) projects: capture, track and report spend separately from shifts
+  why: 'MSP task: SOW capture and reporting'
+- feature_id: INV-10
+  capability_id: '5.2'
+  feature: >-
+    Rate corrections without backing out and re-entering whole timesheet sets
+  why: Corrections are painful today
+- feature_id: INV-11
+  capability_id: '5.2'
+  feature: >-
+    Send back hours billed above the clock on an issued invoice; agency credits them and the timesheet
+    is revised
+  why: Hours billed above the clock should come back as a credit
+- feature_id: INV-12
+  capability_id: '5.3'
+  feature: Point-in-time accrual snapshot from approved, uninvoiced timesheets
+  why: >-
+    Temp invoices arrive with no accrual in place; accruals should use actual punches and rates
+- feature_id: INV-13
+  capability_id: '5.3'
+  feature: Automatic close-out of swapped and no-show workers on requests
+  why: >-
+    Requests pile up workers (about 200 booked against 150 needed), inflating accruals
+- feature_id: INV-14
+  capability_id: '5.4'
+  feature: Finance user role scoped to owned cost centers, with regional roll-up
+  why: Finance has no direct access today; scope varies by sector
+- feature_id: INV-15
+  capability_id: '5.4'
+  feature: >-
+    GL code mapping by job title within a cost center (front vs. back of house)
+  why: Costs must land in the right GL codes
+- feature_id: INV-16
+  capability_id: '5.4'
+  feature: ERP integration (SAP ECC, migrating to S/4 HANA)
+  why: Invoices post to SAP today
+- feature_id: REP-1
+  capability_id: '6.1'
+  feature: >-
+    Natural-language reporting: ask a question, get a chart, table or dashboard
+  why: Reporting today is Excel exports and a monthly PDF deck
+- feature_id: REP-2
+  capability_id: '6.1'
+  feature: >-
+    Event-level cost: group shifts into an event and see projected vs. actual, available the next morning
+  why: >-
+    Units want to know what last Friday's banquet actually cost, and some clients expect it the next morning
+- feature_id: REP-3
+  capability_id: '6.1'
+  feature: Labor cost as a percentage of sales by location, using revenue data
+  why: >-
+    Managers should see total labor cost as % of sales, not a surprise invoice
+- feature_id: REP-4
+  capability_id: '6.1'
+  feature: Sales data upload by location
+  why: Labor cost as a % of sales needs revenue data by location
+- feature_id: REP-5
+  capability_id: '6.2'
+  feature: Exception alerts (e.g. over budget) by email or chat
+  why: Leadership wants alerts, not routine check-ins
+- feature_id: REP-6
+  capability_id: '6.2'
+  feature: Scheduled email digests
+  why: Regular summaries without logging in
+- feature_id: REP-7
+  capability_id: '6.3'
+  feature: >-
+    Operator spend dashboard: spend vs. budget, by supplier, vs. last month
+  why: Managers see spend only when the invoice lands, 2–4 weeks later
+- feature_id: REP-8
+  capability_id: '6.3'
+  feature: Unit budgets loaded by bulk upload
+  why: Spend vs. budget needs budgets in Iris
+- feature_id: REP-9
+  capability_id: '6.3'
+  feature: >-
+    Program owner views: top suppliers, events and operators, with trends over time
+  why: Program owners need trends and supplier performance
+- feature_id: REP-10
+  capability_id: '6.3'
+  feature: 'Timecard compliance report: missed breaks and late approvals'
+  why: 'VMS requirement: timecard compliance reporting'
+- feature_id: REP-11
+  capability_id: '6.4'
+  feature: >-
+    Workforce reporting: tenure, temp duration and turnover by agency and location
+  why: >-
+    VMS requirements: turnover reporting; workforce reporting (temp duration)
+- feature_id: REP-12
+  capability_id: '6.4'
+  feature: >-
+    Temp-to-perm tracking across units, with over-reliance-on-temps flags by location
+  why: >-
+    Free conversion threshold can be met across units; heavy temp use is a signal to hire
+- feature_id: PLT-1
+  capability_id: '7.1'
+  feature: 'RBAC: unit (buyer), agency (supplier), corporate/program owner'
+  why: Each persona gets its own view
+- feature_id: PLT-2
+  capability_id: '7.1'
+  feature: >-
+    Org hierarchy: sector → region → district → unit → department, with cost centers
+  why: Spend must roll up the Compass structure
+- feature_id: PLT-3
+  capability_id: '7.1'
+  feature: Web app usable on mobile
+  why: Operators and agencies work on the go
+- feature_id: PLT-4
+  capability_id: '7.1'
+  feature: User accounts with login, profiles and password management
+  why: 'MSP task: profile and password management'
+- feature_id: PLT-5
+  capability_id: '7.2'
+  feature: >-
+    Agency integration paths: API for agencies with their own platforms, file upload for the rest
+  why: Vendors with their own tech will ask why they should switch
+- feature_id: PLT-6
+  capability_id: '7.2'
+  feature: >-
+    Data migration from Fieldglass: rate cards, workers, history (enables prior-year comparisons)
+  why: Pilot units need their existing rates and workers in place on day one
+- feature_id: PLT-7
+  capability_id: '7.2'
+  feature: Real-time data feed to Snowflake
+  why: >-
+    Levy, Foodbuy and corporate teams want raw data for their own dashboards
+- feature_id: PLT-8
+  capability_id: '7.2'
+  feature: Automatic sync of units and cost centers
+  why: New units and cost centers should appear automatically
+- feature_id: PLT-9
+  capability_id: '7.2'
+  feature: Single sign-on with Compass's identity provider
+  why: >-
+    Not raised in the sessions; comes from the MSP task list (profile and password management)
+- feature_id: PLT-10
+  capability_id: '7.2'
+  feature: Compass-configurable fields, labels and views without vendor tickets
+  why: Field changes in the current VMS need tickets that get rejected
+- feature_id: PLT-11
+  capability_id: '7.3'
+  feature: 'MyStaff integration: requests in, approved time out'
+  why: >-
+    One place to start a request; no need to clock temps into MyStaff if the VMS sends time back
+- feature_id: PLT-12
+  capability_id: '7.3'
+  feature: Internal labor pool first, then temp agencies on a time-based handoff
+  why: Fill from FTE schedule, then labor pool, then temp
+- feature_id: PLT-13
+  capability_id: '7.3'
+  feature: Do-not-return carryover from internal staff systems
+  why: Former employees removed from a location shouldn't come back as temps
+- feature_id: PLT-14
+  capability_id: '7.4'
+  feature: >-
+    In-app help agent for how-to and Tier I questions, escalating to Instawork support
+  why: >-
+    VMS requirement: Tier I and Tier II system support; MSP task: respond to system issues
+- feature_id: PLT-15
+  capability_id: '7.4'
+  feature: In-app feedback and enhancement requests
+  why: >-
+    VMS requirement: app feedback; MSP task: intake program enhancement requests
+- feature_id: PLT-16
+  capability_id: '7.4'
+  feature: In-app announcements for program updates
+  why: 'MSP task: communicate program updates'

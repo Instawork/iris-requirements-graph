@@ -1,0 +1,38 @@
+requirement_id: REQ-REPORTING-0010
+requirement_target_layer: product
+requirement_target_module: REPORTING
+requirement_phase: MVP
+requirement_title: Report timecard compliance
+requirement_statement: Iris reports missed breaks and late approvals by Unit and Agency.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    A late approval is a Timesheet not approved before its Lock Window closed.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- REP-10
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-LABOR-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0007
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

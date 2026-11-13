@@ -1,0 +1,208 @@
+# The words every requirement uses. One term per entry.
+# avoid: words requirement text must not use for this idea. The validator fails on them in requirement titles,
+# statements, and rules. The sources may still use them; source_words records where they do.
+terms:
+- term: Program
+  definition: Compass's agency labor program run in Iris.
+  avoid: [MSP portal]
+  source_words: [corporate, program owner]
+  sources: [SHEET PLT-1]
+- term: Program User
+  definition: Someone in the Compass program office who runs Iris for the whole program.
+  avoid: [Compass admin, corporate user]
+  sources: [SHEET PLT-1]
+- term: Instawork Admin
+  definition: Instawork staff who load reference data and invite the first Program User.
+  avoid: []
+  sources: [GRAPH D-26]
+- term: Sector
+  definition: The top level of the Compass org, such as Levy.
+  avoid: []
+  sources: [SHEET PLT-2]
+- term: Region
+  definition: The org level under a Sector.
+  avoid: []
+  sources: [SHEET PLT-2]
+- term: District
+  definition: The org level under a Region, and above a Unit.
+  avoid: []
+  sources: [SHEET PLT-2]
+- term: Unit
+  definition: A Compass location that orders Shifts, such as a stadium or a hospital.
+  avoid: [Buyer, location, venue]
+  source_words: [location, venue]
+  sources: [SHEET PLT-2]
+- term: Unit User
+  definition: A Compass operator who books Shifts and approves hours for the Units under their scope.
+  avoid: [operator account]
+  source_words: [operator, unit manager]
+  sources: [SHEET PLT-1]
+- term: Department
+  definition: Part of a Unit charged to its own Cost Center, such as suites or concessions.
+  avoid: []
+  sources: [FEEDBACK, SHEET PLT-2]
+- term: Cost Center
+  definition: The accounting code a Unit or Department charges spend to.
+  avoid: []
+  sources: [SHEET PLT-2]
+- term: Agency
+  definition: A staffing vendor that supplies Workers to Compass.
+  avoid: [Supplier, vendor]
+  source_words: [vendor, supplier]
+  sources: [SHEET RC-3, FEEDBACK]
+- term: Agency User
+  definition: Staff of one Agency who answer Releases, staff Shifts, and submit hours.
+  avoid: []
+  sources: [SHEET PLT-1]
+- term: Worker
+  definition: A person an Agency sends to Shifts.
+  avoid: [Professional, Pro, associate]
+  source_words: [associate, temp]
+  sources: [FEEDBACK, SHEET WA-1]
+- term: Role Grant
+  definition: One role a User holds, with its scope, a part of the org or one Agency. A graph term.
+  avoid: []
+  sources: [GRAPH data model, SHEET PLT-1]
+- term: Market
+  definition: A city in a state, with its ZIP codes, where Rate Lines are priced, such as Atlanta.
+  avoid: []
+  source_words: [city]
+  sources: [SHEET RC-3, PRD §3 Supplier Rates]
+- term: Position
+  definition: A job in Compass's catalog, such as Bartender.
+  avoid: [job title]
+  source_words: [job title]
+  sources: [SHEET RC-2]
+- term: Rate Card
+  definition: The set of one Agency's Rate Lines.
+  avoid: []
+  sources: [SHEET RC-3]
+- term: Rate Line
+  definition: >-
+    One Agency's regular, overtime, and double-time Pay and Bill Rates for one Position in one Market or at
+    one Unit, from an effective date.
+  avoid: []
+  sources: [SHEET RC-3, SHEET RC-6, PRD §3 Supplier Rates]
+- term: Pay Rate
+  definition: What the Agency pays the Worker per hour.
+  avoid: []
+  sources: [PRD Key Terms]
+- term: Bill Rate
+  definition: What Compass pays the Agency per hour.
+  avoid: []
+  sources: [PRD Key Terms]
+- term: Markup
+  definition: The Bill Rate minus the Pay Rate, as a percentage of the Pay Rate.
+  avoid: []
+  sources: [FEEDBACK, PRD Key Terms]
+- term: Contracted rate
+  definition: The Bill Rate on the approved Rate Line in effect for the Agency, Position, Unit, and work date.
+  avoid: []
+  sources: [SHEET SC-1]
+- term: Off-contract
+  definition: Sent at a Bill Rate other than the contracted rate, or with no contracted rate.
+  avoid: [off-card]
+  source_words: [off-card]
+  sources: [SHEET RC-11]
+- term: Non-contracted Agency
+  definition: An Agency with no approval covering the Unit it is sent a Shift for.
+  avoid: []
+  sources: [SHEET RC-11]
+- term: Peer Rate
+  definition: >-
+    The average regular Bill Rate other Agencies hold for the same Position and Market on approved lines in
+    effect today.
+  avoid: []
+  sources: [SHEET RC-12]
+  decisions: [D-12]
+- term: Rate Review
+  definition: A request that an Agency lower or justify a regular Bill Rate above the Peer Rate.
+  avoid: []
+  sources: [SHEET RC-12]
+- term: Request
+  definition: A Unit's order of one or more Shifts, booked together.
+  avoid: [job posting, shift group]
+  source_words: [order]
+  sources: [SHEET SC-2]
+- term: Shift
+  definition: One Position at one Unit, from a start time to an end time, for a headcount.
+  avoid: []
+  sources: [PRD Key Terms, SHEET SC-2]
+- term: Event
+  definition: A named occasion at a Unit, such as a banquet, that groups Shifts so their cost is seen as one.
+  avoid: []
+  sources: [SHEET REP-2]
+- term: Release
+  definition: Part or all of a Shift's headcount sent to one Agency, and that Agency's answer.
+  avoid: []
+  sources: [SHEET SC-7, SHEET SC-8]
+- term: Assignment
+  definition: A named Worker on a Shift, through one of the Agency's Releases.
+  avoid: []
+  sources: [SHEET WA-1]
+- term: Credential
+  definition: A document proving a Worker meets a Credential Type, such as a food handler card.
+  avoid: [certification]
+  source_words: [certification]
+  sources: [SHEET WA-14]
+- term: Credential Type
+  definition: A kind of Credential, and whether an Attestation or a verified document satisfies it.
+  avoid: []
+  sources: [SHEET WA-13]
+  decisions: [D-3]
+- term: Credential Requirement
+  definition: Where a Credential Type is required, by org scope, Position, or both.
+  avoid: []
+  sources: [SHEET WA-13]
+- term: Attestation
+  definition: An Agency's recorded statement that a Worker meets a Credential Type.
+  avoid: []
+  sources: [SHEET WA-16]
+- term: Eligible
+  definition: >-
+    A Worker is eligible for a Shift when every Credential Type it requires is satisfied on the work date.
+    A graph term.
+  avoid: []
+  sources: [GRAPH REQ-COMPLIANCE-0005, SHEET WA-13]
+- term: Work Week
+  definition: A Unit's seven-day week, starting on its own day, used for overtime and weekly reporting.
+  avoid: [pay week]
+  source_words: [pay area]
+  sources: [SHEET WA-20]
+- term: Timesheet
+  definition: The hours one Worker billed for one Shift, or for one part of a Shift split by role.
+  avoid: [timecard]
+  source_words: [timecard]
+  sources: [SHEET TS-5]
+- term: Approval Tolerance
+  definition: How far billed clock times may differ from the schedule and still auto-approve.
+  avoid: []
+  sources: [SHEET TS-7]
+- term: Lock Window
+  definition: How long after a Shift ends that its Approved Timesheet locks.
+  avoid: [hours deadline]
+  source_words: [hours deadline]
+  sources: [SHEET TS-9]
+- term: Tip Pool
+  definition: >-
+    Tips for a Unit and date, or one Shift or Event on it, split across Workers by hours and passed through
+    at cost.
+  avoid: []
+  sources: [SHEET TS-11]
+- term: Spend
+  definition: Approved spend plus pending spend, as REQ-REPORTING-0001 defines them.
+  avoid: []
+  sources: [PRD §1 Detailed requirements, SHEET REP-7]
+  decisions: [D-29]
+- term: Setting
+  definition: A configurable value with a program default and overrides down the org tree.
+  avoid: []
+  sources: [OPS]
+- term: Proposal
+  definition: Changes Iris prepared from a file or a message, which a person approves before anything is saved.
+  avoid: []
+  sources: [PRD §7 Agent Chat]
+- term: Audit Trail
+  definition: Append-only history of who changed what, when, through which channel, and why.
+  avoid: []
+  sources: [SHEET RC-5, SHEET WA-16]

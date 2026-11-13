@@ -1,0 +1,37 @@
+requirement_id: REQ-RATES-0012
+requirement_target_layer: product
+requirement_target_module: RATES
+requirement_phase: P3
+requirement_title: Apply urgency premiums
+requirement_statement: >-
+  Pre-agreed urgency premiums raise the rate for last-minute Requests, such as 1.5 times the rate.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Each premium states its multiplier and how close to the Shift start a Request must be to qualify.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- RC-9
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0005
+data_model:
+  status: pending
+  reads: []
+  writes: []
+  detail: Designed when Phase 3 is scoped.
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

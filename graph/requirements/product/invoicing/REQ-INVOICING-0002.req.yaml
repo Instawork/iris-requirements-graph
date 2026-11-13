@@ -1,0 +1,49 @@
+requirement_id: REQ-INVOICING-0002
+requirement_target_layer: product
+requirement_target_module: INVOICING
+requirement_phase: P2
+requirement_title: Break each line into regular time, overtime, tips, and expenses
+requirement_statement: >-
+  Each invoice line is one Timesheet, priced as regular, overtime, and double-time hours at their Bill
+  Rates, plus tips and expenses at cost.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    When several Agencies fill one Shift, each Agency is invoiced only for its own Workers at its own
+    rates.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: No-shows have zero hours and add nothing.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- PRD §5 Invoices
+requirement_decisions: []
+requirement_features:
+- INV-4
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-LABOR-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIPS-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIPS-0002
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - InvoiceLine
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

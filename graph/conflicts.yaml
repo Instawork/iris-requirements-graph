@@ -1,0 +1,120 @@
+# Where two sources disagree, what the graph keeps and what it drops. Precedence is in sources.yaml (rank).
+conflicts:
+- conflict_id: C-1
+  topic: Names
+  keep: Unit, Agency, Worker (sheet, feedback).
+  drop: Buyer, Supplier, Professional or Pro (PRD, demo).
+- conflict_id: C-2
+  topic: Releasing to Agencies
+  keep: >-
+    MVP sends each Shift to a chosen Agency; dispatch rules come in Phase 2 (sheet SC-7, SC-12; D-17).
+  drop: >-
+    Tiered release every 4 hours as the default (PRD). Kept as the detail of the Phase 2 rule.
+- conflict_id: C-3
+  topic: Invoices
+  keep: One weekly consolidated invoice, in Phase 2 (sheet INV-1).
+  drop: >-
+    A separate invoice per Agency per Shift, generated at the hours deadline and bundled into Invoice
+    Groups (PRD).
+- conflict_id: C-4
+  topic: Confirming hours
+  keep: >-
+    The Agency submits and the Unit approves by exception (sessions, demo); Timesheets lock after a window
+    (sheet TS-7 to TS-9; D-33).
+  drop: >-
+    Either side edits hours freely like a shared document (PRD). Its change history and its rule that each
+    change notifies the other party by email are kept.
+- conflict_id: C-5
+  topic: Hours deadline
+  keep: Approved Timesheets lock 24 to 48 hours after the Shift, 48 by default (sheet TS-9; D-16).
+  drop: Hours become final 72 hours after the Shift ends (PRD).
+- conflict_id: C-6
+  topic: Worker ratings
+  keep: Favorite, Okay to return, or Block, with an optional review (sheet WA-3; PRD).
+  drop: 1 to 5 stars feeding invoice anomaly weighting (PRD).
+- conflict_id: C-7
+  topic: Compliance
+  keep: >-
+    Inside Iris in MVP: requirements, uploads, AI validation, attestations (sheet 3.4).
+  drop: Handled in a separate system (PRD).
+- conflict_id: C-8
+  topic: Units
+  keep: >-
+    Added by form or file in MVP (sessions); automatic sync in Phase 3 (sheet PLT-8).
+  drop: Loaded only from an external vetted source (PRD).
+- conflict_id: C-9
+  topic: Org tree
+  keep: Sector, Region, District, Unit, Department (sheet PLT-2).
+  drop: Super sector and regional business levels (demo).
+- conflict_id: C-10
+  topic: Agency approval
+  keep: Approval belongs to the Program, at an org scope (D-9).
+  drop: Each Unit approves and ranks its own Agencies (PRD).
+- conflict_id: C-11
+  topic: Release notices
+  keep: Agencies hear of a new Release by email or SMS, and in the app (sheet SC-8).
+  drop: Release notices in the app only (PRD). The PRD's email on hour changes is kept.
+- conflict_id: C-12
+  topic: Users per role
+  keep: Many Users per role, each with their own login (sheet PLT-1, PLT-4).
+  drop: Each role is one user for now (PRD).
+- conflict_id: C-13
+  topic: Who sets up rates
+  keep: >-
+    Program Users can enter and load Rate Lines for any Agency, as well as Agencies for themselves
+    (feedback; D-10).
+  drop: Only Agencies upload rates; Compass does not set them up (PRD).
+- conflict_id: C-14
+  topic: Markup
+  keep: Markup is shown as a percentage of the Pay Rate (feedback "just do % only"; D-11).
+  drop: Markup as a dollar amount, bill minus pay, entered on the rate card (PRD).
+- conflict_id: C-15
+  topic: Comparing Agency rates
+  keep: >-
+    Program Users filter and sort Rate Lines by Position and Market, with the Peer Rate beside each line
+    (feedback: too many Agencies to see side by side).
+  drop: Every Agency's rates side by side (PRD).
+- conflict_id: C-16
+  topic: Bill Rate on a Shift
+  keep: >-
+    The contracted rate is set as the default, and a Unit User may change it with a reason (sheet SC-1,
+    RC-11; sessions).
+  drop: Nobody types a bill rate on a Shift (PRD).
+- conflict_id: C-17
+  topic: Hours, tips, and expenses uploads
+  keep: Separate Timesheet, tips, and expense upload types (sheet TS-5, TS-11, TS-12).
+  drop: Hours and tips as fields on the Shift file, not separate uploads (PRD).
+- conflict_id: C-18
+  topic: Labor cost against sales
+  keep: Labor cost as a percentage of sales in MVP (sheet REP-3).
+  drop: Comparison logic is not part of v1 (PRD).
+- conflict_id: C-19
+  topic: Requests from MyStaff
+  keep: Requests start in Iris; MyStaff is Phase 3 (sheet PLT-11; D-6).
+  drop: Open shifts come straight from MyStaff (FAQ).
+- conflict_id: C-20
+  topic: Invoice period
+  keep: Weekly (sheet INV-1).
+  drop: Every month rolls into one consolidated invoice (demo).
+- conflict_id: C-21
+  topic: Agency performance views
+  keep: Agency scorecards in Phase 3 (sheet RC-16).
+  drop: Units rank Agencies by spend, relationship, and performance on the dashboard (PRD).
+- conflict_id: C-22
+  topic: Budget approvals
+  keep: 'Phase 3 (sheet SC-15; feedback: skip unless it''s an issue).'
+  drop: Every over-budget order needs approval from day one (FAQ, deck).
+- conflict_id: C-23
+  topic: Clock-in
+  keep: >-
+    Phase 3 and an open decision (sheet TS-1; D-5). MVP auto-approval compares billed times with the schedule.
+  drop: Iris clock as the source of truth from day one (FAQ, deck, sessions, demo).
+- conflict_id: C-24
+  topic: Forecasts and savings
+  keep: >-
+    Only what the sheet lists: fill risk (Phase 2) and Department demand forecasting (Phase 3).
+  drop: Spend forecasts and savings recommendations (FAQ, deck, sessions).
+- conflict_id: C-25
+  topic: Paying Agencies
+  keep: Iris records what is owed and shows payment status in Phase 2 (sheet INV-7; D-31).
+  drop: Agencies are paid through Iris (FAQ).

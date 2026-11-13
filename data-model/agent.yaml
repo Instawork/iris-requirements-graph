@@ -1,0 +1,62 @@
+module: AGENT
+enums:
+- enum: ProposalKind
+  values:
+  - {value: FILE_ROWS, meaning: Rows read from an Upload.}
+  - {value: REQUEST_DRAFT, meaning: A Request drafted from plain language or a message.}
+  - {value: TIMESHEET_EDITS, meaning: Timesheet changes asked for in plain language.}
+  - {value: TIP_ENTRY, meaning: Tips entered by chat.}
+  - {value: WORKER_ASSIGNMENT, meaning: Workers named in chat for a Release.}
+  - {value: RECORD_EDIT, meaning: Any other change asked for in the assistant.}
+- enum: ProposalStatus
+  values:
+  - {value: OPEN, meaning: Waiting for the person it was made for.}
+  - {value: APPLIED, meaning: Every accepted item was saved.}
+  - {value: PARTLY_APPLIED, meaning: Some accepted items failed the recheck on save.}
+  - {value: REJECTED, meaning: The person rejected every item; nothing was saved.}
+  transitions:
+  - {from: null, to: OPEN, requirement: REQ-AGENT-0002}
+  - {from: OPEN, to: APPLIED, requirement: REQ-AGENT-0002}
+  - {from: OPEN, to: PARTLY_APPLIED, requirement: REQ-AGENT-0002}
+  - {from: OPEN, to: REJECTED, requirement: REQ-AGENT-0002}
+- enum: ItemAction
+  values:
+  - {value: CREATE, meaning: Add a record.}
+  - {value: UPDATE, meaning: Change a record.}
+  - {value: DELETE, meaning: Remove or cancel a record.}
+- enum: ItemDecision
+  values:
+  - {value: ACCEPTED, meaning: Accepted as proposed.}
+  - {value: EDITED, meaning: Accepted after the person changed values.}
+  - {value: REJECTED, meaning: Not to be saved.}
+- enum: ItemResult
+  values:
+  - {value: SAVED, meaning: Saved through the owning requirement.}
+  - {value: FAILED_RECHECK, meaning: 'The owning requirement refused it on save; result_message says why.'}
+entities:
+- entity: Proposal
+  phase: MVP
+  description: Changes Iris prepared from a file or a message, waiting for a person to decide.
+  fields:
+  - {name: kind, type: enum:ProposalKind}
+  - {name: channel, type: enum:Channel}
+  - {name: created_for, type: ref:User}
+  - {name: summary, type: text}
+  - {name: status, type: enum:ProposalStatus}
+  - {name: decided_by, type: ref:User, nullable: true}
+  - {name: decided_at, type: timestamp, nullable: true}
+- entity: ProposalItem
+  phase: MVP
+  description: One change in a Proposal, with any problem found and the person's decision.
+  fields:
+  - {name: proposal_id, type: ref:Proposal}
+  - {name: row_no, type: int, nullable: true, note: The file row it came from}
+  - {name: action, type: enum:ItemAction}
+  - {name: record_type, type: text, note: The entity it changes}
+  - {name: record_id, type: uuid, nullable: true, note: Empty for CREATE}
+  - {name: values, type: json, note: Field values as proposed or as edited}
+  - {name: problem, type: text, nullable: true}
+  - {name: suggested_fix, type: json, nullable: true}
+  - {name: decision, type: enum:ItemDecision, nullable: true}
+  - {name: result, type: enum:ItemResult, nullable: true}
+  - {name: result_message, type: text, nullable: true}

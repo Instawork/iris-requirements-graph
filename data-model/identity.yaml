@@ -1,0 +1,34 @@
+module: IDENTITY
+enums:
+- enum: AccessLinkPurpose
+  values:
+  - {value: INVITE, meaning: Lets an invited User set a password and accept.}
+  - {value: PASSWORD_RESET, meaning: Lets a User set a new password.}
+entities:
+- entity: User
+  phase: MVP
+  description: A person who signs in to Iris. What they may see and do comes from their Role Grants.
+  fields:
+  - {name: email, type: text, note: Stored lowercase}
+  - {name: first_name, type: text}
+  - {name: last_name, type: text}
+  - {name: phone, type: text, nullable: true, note: Digits only; used to match inbound texts and calls}
+  - {name: password_hash, type: text, nullable: true, note: Empty until the invite is accepted}
+  - {name: invited_by, type: ref:User, nullable: true, note: Empty for a User an Instawork Admin seeded}
+  - {name: invited_at, type: timestamp, nullable: true}
+  - {name: invite_accepted_at, type: timestamp, nullable: true}
+  - {name: last_signed_in_at, type: timestamp, nullable: true}
+  - {name: active, type: bool, note: A deactivated User cannot sign in}
+  unique:
+  - [email]
+- entity: AccessLink
+  phase: MVP
+  description: A single-use link sent by email to invite a User or reset a password (D-34).
+  fields:
+  - {name: user_id, type: ref:User}
+  - {name: purpose, type: enum:AccessLinkPurpose}
+  - {name: token_hash, type: text, note: The token itself is never stored}
+  - {name: expires_at, type: timestamp}
+  - {name: used_at, type: timestamp, nullable: true}
+  unique:
+  - [token_hash]

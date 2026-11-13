@@ -1,0 +1,66 @@
+module: INVOICING
+enums:
+- enum: InvoiceStatus
+  phase: P2
+  values:
+  - {value: OPEN, meaning: Collecting the week's Approved Timesheets.}
+  - {value: ISSUED, meaning: Sent; lines change only through adjustments on a later invoice.}
+  - {value: PARTLY_PAID, meaning: Some of it has been paid.}
+  - {value: PAID, meaning: Paid in full.}
+  transitions:
+  - {from: null, to: OPEN, requirement: REQ-INVOICING-0001}
+  - {from: OPEN, to: ISSUED, requirement: REQ-INVOICING-0001}
+  - {from: ISSUED, to: PARTLY_PAID, requirement: REQ-INVOICING-0007}
+  - {from: ISSUED, to: PAID, requirement: REQ-INVOICING-0007}
+  - {from: PARTLY_PAID, to: PAID, requirement: REQ-INVOICING-0007}
+- enum: ContractType
+  phase: P2
+  values:
+  - {value: CLIENT_PAY_PAYROLL, meaning: Compass pays the Agency's payroll.}
+  - {value: PASS_THROUGH, meaning: The Agency bills at cost plus an agreed fee.}
+  - {value: FULL_SERVICE, meaning: The Agency bills its full Bill Rate.}
+entities:
+- entity: ConsolidatedInvoice
+  phase: P2
+  description: The single weekly invoice across every Agency.
+  fields:
+  - {name: week_start, type: date}
+  - {name: status, type: enum:InvoiceStatus}
+  - {name: issued_at, type: timestamp, nullable: true}
+  unique:
+  - [week_start]
+- entity: AgencyInvoice
+  phase: P2
+  description: One Agency's part of a Consolidated Invoice.
+  fields:
+  - {name: consolidated_invoice_id, type: ref:ConsolidatedInvoice}
+  - {name: agency_id, type: ref:Agency}
+  - {name: vendor_invoice_number, type: text, nullable: true}
+  - {name: contract_type, type: enum:ContractType}
+  - {name: status, type: enum:InvoiceStatus}
+  - {name: paid_amount, type: money}
+  unique:
+  - [consolidated_invoice_id, agency_id]
+- entity: InvoiceLine
+  phase: P2
+  description: One Timesheet's charges on an Agency Invoice.
+  fields:
+  - {name: agency_invoice_id, type: ref:AgencyInvoice}
+  - {name: timesheet_id, type: ref:Timesheet}
+  - {name: work_date, type: date, note: Never changes through revisions}
+  - {name: regular_amount, type: money}
+  - {name: overtime_amount, type: money}
+  - {name: double_time_amount, type: money}
+  - {name: tips_amount, type: money}
+  - {name: expenses_amount, type: money}
+  - {name: adjusts_line_id, type: ref:InvoiceLine, nullable: true, note: Set on a prior-period adjustment}
+- entity: InvoiceCredit
+  phase: P2
+  description: Hours sent back on an issued invoice, and the Agency's credit.
+  fields:
+  - {name: invoice_line_id, type: ref:InvoiceLine}
+  - {name: minutes, type: int}
+  - {name: amount, type: money}
+  - {name: reason, type: text}
+  - {name: requested_by, type: ref:User}
+  - {name: credited_at, type: timestamp, nullable: true}

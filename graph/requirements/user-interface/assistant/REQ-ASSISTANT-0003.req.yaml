@@ -1,0 +1,40 @@
+requirement_id: REQ-ASSISTANT-0003
+requirement_target_layer: user-interface
+requirement_target_module: ASSISTANT
+requirement_phase: MVP
+requirement_title: Hand each request to the capability that owns it
+requirement_statement: >-
+  The assistant passes each typed request to booking, Timesheet edits, tips and expenses, or reporting,
+  and shows that capability's answer.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- SESSIONS IRIS demo
+requirement_decisions: []
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0004
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIPS-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIPS-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-REPORTING-0003
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

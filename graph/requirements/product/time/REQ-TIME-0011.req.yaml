@@ -1,0 +1,33 @@
+requirement_id: REQ-TIME-0011
+requirement_target_layer: product
+requirement_target_module: TIME
+requirement_phase: P3
+requirement_title: Reconcile clock-ins across large venues
+requirement_statement: >-
+  At large venues and campuses, clock-ins at different spots are reconciled into one record per Worker
+  per Shift.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- TS-3
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0010
+data_model:
+  status: pending
+  reads: []
+  writes: []
+  detail: Designed when Phase 3 is scoped.
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

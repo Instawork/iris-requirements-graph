@@ -1,0 +1,63 @@
+module: RATES
+enums:
+- enum: RateLineStatus
+  values:
+  - {value: PENDING, meaning: Submitted and waiting for a Program User. Never prices work.}
+  - {value: APPROVED, meaning: 'Prices work dated from effective_from until effective_to, or with no end.'}
+  - {value: SENT_BACK, meaning: Returned with a reason. Never prices work; the submitter answers with a new line.}
+  transitions:
+  - {from: null, to: PENDING, requirement: REQ-RATES-0009}
+  - {from: null, to: APPROVED, requirement: REQ-RATES-0009}
+  - {from: PENDING, to: APPROVED, requirement: REQ-RATES-0009}
+  - {from: PENDING, to: SENT_BACK, requirement: REQ-RATES-0009}
+- enum: RateReviewStatus
+  values:
+  - {value: REQUESTED, meaning: The Agency has been asked to lower or justify the rate.}
+  - {value: LOWERED, meaning: The Agency's lower Rate Line was approved.}
+  - {value: KEPT, meaning: The Agency gave a reason to keep the rate.}
+  transitions:
+  - {from: null, to: REQUESTED, requirement: REQ-RATES-0008}
+  - {from: REQUESTED, to: LOWERED, requirement: REQ-RATES-0008}
+  - {from: REQUESTED, to: KEPT, requirement: REQ-RATES-0008}
+entities:
+- entity: RateLine
+  phase: MVP
+  description: 'One Agency''s regular, overtime, and double-time Pay and Bill Rates for one Position in one Market, or at one Unit.'
+  fields:
+  - {name: agency_id, type: ref:Agency}
+  - {name: position_id, type: ref:Position}
+  - {name: market_id, type: ref:Market, nullable: true, note: Set for a Market rate}
+  - {name: unit_id, type: ref:Unit, nullable: true, note: Set for a Unit rate (D-1)}
+  - {name: regular_pay_rate, type: money}
+  - {name: regular_bill_rate, type: money}
+  - {name: overtime_pay_rate, type: money}
+  - {name: overtime_bill_rate, type: money}
+  - {name: double_time_pay_rate, type: money}
+  - {name: double_time_bill_rate, type: money}
+  - {name: effective_from, type: date}
+  - {name: effective_to, type: date, nullable: true, note: Exclusive; set when a later approved line for the same key takes effect}
+  - {name: replaces_id, type: ref:RateLine, nullable: true, note: The approved line this one supersedes}
+  - {name: status, type: enum:RateLineStatus}
+  - {name: submitted_by, type: ref:User}
+  - {name: submitted_via, type: enum:Channel}
+  - {name: reviewed_by, type: ref:User, nullable: true}
+  - {name: reviewed_at, type: timestamp, nullable: true}
+  - {name: sent_back_reason, type: text, nullable: true}
+  constraints:
+  - Exactly one of market_id and unit_id is set.
+  - Two APPROVED lines with the same Agency, Position, and Market or Unit never cover the same date.
+- entity: RateReview
+  phase: MVP
+  description: A request that an Agency lower or justify a regular Bill Rate above the Peer Rate.
+  fields:
+  - {name: rate_line_id, type: ref:RateLine}
+  - {name: peer_rate, type: money, note: The Peer Rate when the review was requested}
+  - {name: status, type: enum:RateReviewStatus}
+  - {name: requested_by, type: ref:User}
+  - {name: requested_at, type: timestamp}
+  - {name: answer, type: text, nullable: true, note: 'The reason to keep, or a note on the lower rate'}
+  - {name: proposed_rate_line_id, type: ref:RateLine, nullable: true, note: The lower line the Agency submitted}
+  - {name: answered_by, type: ref:User, nullable: true}
+  - {name: answered_at, type: timestamp, nullable: true}
+  constraints:
+  - A Rate Line has at most one REQUESTED review.

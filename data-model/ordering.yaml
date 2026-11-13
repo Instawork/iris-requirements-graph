@@ -1,0 +1,98 @@
+module: ORDERING
+enums:
+- enum: ShiftStatus
+  values:
+  - {value: OPEN, meaning: Not ended and no Worker is assigned.}
+  - {value: PARTIALLY_FILLED, meaning: Not ended and fewer Workers are assigned than the headcount.}
+  - {value: FILLED, meaning: Not ended and assigned Workers equal or exceed the headcount.}
+  - {value: WORKED, meaning: Its end time has passed with at least one Worker assigned.}
+  - {value: UNFILLED, meaning: Its end time has passed with no Worker assigned.}
+  - {value: CANCELLED, meaning: The Unit cancelled it before it started.}
+  transitions:
+  - {from: null, to: OPEN, requirement: REQ-ORDERING-0001}
+  - {from: OPEN, to: PARTIALLY_FILLED, requirement: REQ-ORDERING-0008}
+  - {from: OPEN, to: FILLED, requirement: REQ-ORDERING-0008}
+  - {from: PARTIALLY_FILLED, to: FILLED, requirement: REQ-ORDERING-0008}
+  - {from: PARTIALLY_FILLED, to: OPEN, requirement: REQ-ORDERING-0008}
+  - {from: FILLED, to: PARTIALLY_FILLED, requirement: REQ-ORDERING-0008}
+  - {from: FILLED, to: OPEN, requirement: REQ-ORDERING-0008}
+  - {from: PARTIALLY_FILLED, to: WORKED, requirement: REQ-ORDERING-0008}
+  - {from: FILLED, to: WORKED, requirement: REQ-ORDERING-0008}
+  - {from: OPEN, to: UNFILLED, requirement: REQ-ORDERING-0008}
+  - {from: OPEN, to: CANCELLED, requirement: REQ-ORDERING-0003}
+  - {from: PARTIALLY_FILLED, to: CANCELLED, requirement: REQ-ORDERING-0003}
+  - {from: FILLED, to: CANCELLED, requirement: REQ-ORDERING-0003}
+entities:
+- entity: Event
+  phase: MVP
+  description: 'A named occasion at one Unit that groups Shifts for costing, such as a Friday banquet.'
+  fields:
+  - {name: unit_id, type: ref:Unit}
+  - {name: name, type: text}
+  unique:
+  - [unit_id, name]
+- entity: Request
+  phase: MVP
+  description: A Unit's order for one or more Shifts, booked together.
+  fields:
+  - {name: unit_id, type: ref:Unit}
+  - {name: created_by, type: ref:User}
+  - {name: created_via, type: enum:Channel}
+  - {name: template_id, type: ref:RequestTemplate, nullable: true}
+  - {name: recurrence_weekdays, type: 'list:enum:Weekday', nullable: true, note: Set for a recurring Request}
+  - {name: recurrence_every_weeks, type: int, nullable: true}
+  - {name: recurrence_ends_on, type: date, nullable: true}
+  - {name: is_block, type: bool, note: A chained multi-week assignment booked as one block}
+- entity: Shift
+  phase: MVP
+  description: 'One Position at one Unit, from a start time to an end time, for a headcount.'
+  fields:
+  - {name: request_id, type: ref:Request}
+  - {name: line_no, type: int, note: The Request line it came from; occurrences of one line form a series}
+  - {name: position_id, type: ref:Position}
+  - {name: department_id, type: ref:Department, nullable: true}
+  - {name: event_id, type: ref:Event, nullable: true}
+  - {name: starts_at, type: timestamp}
+  - {name: ends_at, type: timestamp, note: Later than starts_at}
+  - {name: break_minutes, type: int, nullable: true, note: Planned unpaid break}
+  - {name: headcount, type: int, note: At least 1; Workers the Unit asks Agencies for}
+  - {name: needed_headcount, type: int, nullable: true, note: Set only when overbooking; at most headcount (D-19)}
+  - {name: status, type: enum:ShiftStatus, note: Set only by the system}
+  - {name: parking, type: text, nullable: true}
+  - {name: entrance, type: text, nullable: true}
+  - {name: directions, type: text, nullable: true}
+  - {name: site_contact, type: text, nullable: true}
+  - {name: attire, type: text, nullable: true}
+  - {name: cancelled_by, type: ref:User, nullable: true}
+  - {name: cancelled_at, type: timestamp, nullable: true}
+  constraints:
+  - The work date is the date of starts_at in the Unit's timezone.
+  - The Shift is charged to its Department's Cost Center, or to the Unit's when it has no Department.
+- entity: RequestTemplate
+  phase: MVP
+  description: 'A saved package of Shift lines a Unit reuses, such as a game-day package.'
+  fields:
+  - {name: unit_id, type: ref:Unit}
+  - {name: name, type: text}
+  unique:
+  - [unit_id, name]
+- entity: RequestTemplateLine
+  phase: MVP
+  description: One line of a Request template.
+  fields:
+  - {name: template_id, type: ref:RequestTemplate}
+  - {name: position_id, type: ref:Position}
+  - {name: department_id, type: ref:Department, nullable: true}
+  - {name: headcount, type: int}
+  - {name: start_time, type: time, note: Local time at the Unit}
+  - {name: end_time, type: time, note: Before start_time means the next day}
+  - {name: break_minutes, type: int, nullable: true}
+- entity: UnitPositionDefault
+  phase: MVP
+  description: The Department a Position is charged to by default at one Unit.
+  fields:
+  - {name: unit_id, type: ref:Unit}
+  - {name: position_id, type: ref:Position}
+  - {name: department_id, type: ref:Department}
+  unique:
+  - [unit_id, position_id]

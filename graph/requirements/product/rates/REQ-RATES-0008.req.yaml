@@ -1,0 +1,64 @@
+requirement_id: REQ-RATES-0008
+requirement_target_layer: product
+requirement_target_module: RATES
+requirement_phase: MVP
+requirement_title: Ask an Agency to review a rate above its peers
+requirement_statement: >-
+  When an Agency's Bill Rate is above the Peer Rate by more than the threshold, Iris flags it, and a Program
+  User can ask the Agency to lower or justify it.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The Peer Rate is the average regular Bill Rate other Agencies hold for the same Position and Market.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: The threshold is a Setting, 15% by default.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    The Agency answers by proposing a lower rate or by giving a reason to keep it.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    A Rate Review is Requested, then Lowered or Kept, and each step is recorded.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- SESSIONS Ask agency to review its rates
+requirement_decisions:
+- D-2
+- D-12
+requirement_features:
+- RC-12
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-MESSAGING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - RateReview
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

@@ -1,0 +1,47 @@
+requirement_id: REQ-AUDIT-0001
+requirement_target_layer: platform
+requirement_target_module: AUDIT
+requirement_phase: MVP
+requirement_title: Record who changed what
+requirement_statement: >-
+  Changes to audited records go into an append-only Audit Trail with who, when, through which channel,
+  the old and new values, and the reason.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Channels are app, file upload, assistant, email, SMS, phone, API, or system.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: Entries are never edited or deleted.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    Audited records include Units, Settings, Rate Lines, Shifts, Assignments, Timesheets, Credentials,
+    and Attestations.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET RC-5, WA-16, TS-4
+- PRD §2 Shifts
+requirement_decisions: []
+requirement_features: []
+edges: []
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - AuditEvent
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

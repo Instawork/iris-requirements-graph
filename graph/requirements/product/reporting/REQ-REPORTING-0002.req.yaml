@@ -1,0 +1,57 @@
+requirement_id: REQ-REPORTING-0002
+requirement_target_layer: product
+requirement_target_module: REPORTING
+requirement_phase: MVP
+requirement_title: Define the standard metrics
+requirement_statement: >-
+  Fill rate, time to fill, no-show rate, and compliance each have one formula, used by every dashboard,
+  report, and scorecard.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Fill rate is headcount an Agency filled divided by headcount released to it.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    Time to fill is the average time from Release to the Agency's headcount being filled.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: No-show rate is Workers marked no-show divided by Workers assigned.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    Compliance is assigned Workers who were eligible at Shift start divided by Workers assigned.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- PRD §1 Metric definitions
+requirement_decisions: []
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-DISPATCH-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-COMPLIANCE-0005
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: Computed; not stored.
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

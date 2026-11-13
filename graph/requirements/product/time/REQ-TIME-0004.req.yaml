@@ -1,0 +1,48 @@
+requirement_id: REQ-TIME-0004
+requirement_target_layer: product
+requirement_target_module: TIME
+requirement_phase: MVP
+requirement_title: Edit Timesheets in plain language
+requirement_statement: >-
+  A user describes a change, such as “Grace moved to bartender at 3:45”, and Iris proposes the exact Timesheet
+  edits for approval.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: Iris applies only the edits the user approves.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: A mid-shift role change becomes a Timesheet split.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- TS-6
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0008
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Proposal
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

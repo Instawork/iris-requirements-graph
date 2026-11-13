@@ -1,0 +1,38 @@
+requirement_id: REQ-TIME-0010
+requirement_target_layer: product
+requirement_target_module: TIME
+requirement_phase: P3
+requirement_title: Clock Workers from any Agency in and out
+requirement_statement: >-
+  Workers from any Agency clock in and out by phone, QR code, or kiosk, so Compass has its own trusted
+  record of hours.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: The clock record is kept apart from the hours the Agency bills.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+requirement_decisions:
+- D-5
+requirement_features:
+- TS-1
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
+data_model:
+  status: pending
+  reads: []
+  writes: []
+  detail: Designed when Phase 3 is scoped.
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

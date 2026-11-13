@@ -1,0 +1,63 @@
+requirement_id: REQ-RATES-0002
+requirement_target_layer: product
+requirement_target_module: RATES
+requirement_phase: MVP
+requirement_title: Load Rate Lines in bulk
+requirement_statement: >-
+  Rate Lines are loaded from a CSV or Excel file through File Intake, so a whole pilot market can be loaded
+  at once.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Each row names the Agency, Market, and Position, and the regular, overtime, and double-time Pay and
+    Bill Rates.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    An Agency User loads rows only for its own Agency, while a Program User loads rows for any Agency.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    Every row is checked against the Rate Line rules, and duplicate Position and Market rows are flagged.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    An unknown job title is proposed as a fix and never saved as a new Position.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- PRD §6 Rate card template
+requirement_decisions: []
+requirement_features:
+- RC-4
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INTAKE-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0002
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - RateLine
+  - Upload
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

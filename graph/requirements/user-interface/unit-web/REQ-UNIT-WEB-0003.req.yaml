@@ -1,0 +1,61 @@
+requirement_id: REQ-UNIT-WEB-0003
+requirement_target_layer: user-interface
+requirement_target_module: UNIT-WEB
+requirement_phase: MVP
+requirement_title: Review and approve Timesheets
+requirement_statement: >-
+  A Unit User sees submitted Timesheets with exceptions first, and resolves each one from the same screen.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Each exception shows what the Agency billed beside the schedule, with the reason and Iris's proposed
+    fix.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    From a Timesheet, the user approves, corrects times, rejects, splits by role, marks a no-show, or
+    adds tips and expenses.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    When auto-approval is off, the user approves all clean Timesheets in one action.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET 4.3
+- SESSIONS Timesheets
+requirement_decisions: []
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIPS-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIPS-0002
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

@@ -1,0 +1,34 @@
+requirement_id: REQ-AGENCIES-0009
+requirement_target_layer: product
+requirement_target_module: AGENCIES
+requirement_phase: P3
+requirement_title: Generate an executive business review pack
+requirement_statement: >-
+  Iris builds the executive business review from program data for the period Compass picks.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- RC-19
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-REPORTING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-REPORTING-0002
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

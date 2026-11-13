@@ -1,0 +1,65 @@
+requirement_id: REQ-TIME-0005
+requirement_target_layer: product
+requirement_target_module: TIME
+requirement_phase: MVP
+requirement_title: Auto-approve within tolerance and surface exceptions
+requirement_statement: >-
+  Iris approves submitted Timesheets that match the schedule within the Approval Tolerance, and puts every
+  other one on the Unit's exception list.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    A Timesheet matches when its billed clock-in and clock-out are each within the tolerance of the scheduled
+    times.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    Rate variance, a missed required break, overtime, a missing clock-out, or a no-show makes a Timesheet
+    an exception.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    Exceptions are listed with their reason and, where Iris has one, a proposed fix.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: The Approval Tolerance and whether auto-approval is on are Settings.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- SESSIONS Timesheets
+requirement_decisions:
+- D-16
+requirement_features:
+- TS-7
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-LABOR-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-LABOR-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0006
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Timesheet
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

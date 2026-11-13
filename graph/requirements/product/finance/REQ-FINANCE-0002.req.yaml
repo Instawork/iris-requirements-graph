@@ -1,0 +1,34 @@
+requirement_id: REQ-FINANCE-0002
+requirement_target_layer: product
+requirement_target_module: FINANCE
+requirement_phase: P2
+requirement_title: Close out swapped and no-show Workers
+requirement_statement: >-
+  Assignments for Workers who were swapped out or did not show are closed automatically, so Requests do
+  not pile up Workers and inflate accruals.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- INV-13
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0009
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Assignment
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

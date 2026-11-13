@@ -1,0 +1,34 @@
+requirement_id: REQ-DISPATCH-0005
+requirement_target_layer: product
+requirement_target_module: DISPATCH
+requirement_phase: P2
+requirement_title: Predict which Shifts will start short
+requirement_statement: >-
+  Iris flags Shifts likely to start short, such as under 80% filled within three days of start, so operators
+  act early.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- SHEET
+- SESSIONS Fill risk
+requirement_decisions: []
+requirement_features:
+- SC-14
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-DISPATCH-0004
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

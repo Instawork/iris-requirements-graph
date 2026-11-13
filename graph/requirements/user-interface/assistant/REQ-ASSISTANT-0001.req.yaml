@@ -1,0 +1,58 @@
+requirement_id: REQ-ASSISTANT-0001
+requirement_target_layer: user-interface
+requirement_target_module: ASSISTANT
+requirement_phase: MVP
+requirement_title: Open the Iris assistant from any page
+requirement_statement: >-
+  Every page opens the assistant, where users attach files or type requests. It offers starters for the
+  user's persona.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Unit starters are book a shift, upload shifts, download a template, and approve recent hours.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    Agency starters are upload a rate card, upload workers, download a template, assign workers to open
+    shifts, and submit hours and tips.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    Files sent in the assistant appear in the upload log like any other upload.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- PRD §7 Agent chat
+requirement_decisions: []
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INTAKE-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INTAKE-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INTAKE-0004
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

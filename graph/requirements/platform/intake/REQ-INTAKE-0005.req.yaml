@@ -1,0 +1,29 @@
+requirement_id: REQ-INTAKE-0005
+requirement_target_layer: platform
+requirement_target_module: INTAKE
+requirement_phase: MVP
+requirement_title: Download any table as CSV
+requirement_statement: >-
+  Every table can be downloaded as CSV, holding only what that user can see.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- PRD §6 Uploads
+requirement_decisions: []
+requirement_features: []
+edges: []
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

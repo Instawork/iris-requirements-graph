@@ -1,0 +1,35 @@
+requirement_id: REQ-INVOICING-0003
+requirement_target_layer: product
+requirement_target_module: INVOICING
+requirement_phase: P2
+requirement_title: Flag Rate Card deviations on the invoice
+requirement_statement: >-
+  Lines billed above the Rate Card show the card rate, the billed rate, and the difference, and the invoice
+  totals off-card spend.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- INV-2
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INVOICING-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0006
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

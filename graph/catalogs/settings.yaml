@@ -1,0 +1,60 @@
+# Every Setting Iris resolves. Values in data-model Setting rows override these defaults (REQ-ORG-0006).
+# scope: any = can be overridden at any org node; program = one program-wide value only.
+# owner: the requirement whose behavior the Setting changes.
+settings:
+- key: APPROVAL_TOLERANCE_MINUTES
+  type: int
+  default: 15
+  scope: any
+  meaning: How far a billed clock time may differ from the schedule and still auto-approve.
+  owner: REQ-TIME-0005
+  sources: [SHEET TS-7]
+  decisions: [D-16]
+- key: LOCK_WINDOW_HOURS
+  type: int
+  default: 48
+  scope: any
+  meaning: Hours after a Shift ends that an Approved Timesheet locks.
+  owner: REQ-TIME-0007
+  sources: [SHEET TS-9]
+  decisions: [D-16, D-13]
+- key: OFF_CONTRACT_RATE_GATE
+  type: enum:GateMode
+  default: SOFT
+  scope: any
+  meaning: What happens when a Unit sends a Shift at a Bill Rate other than the contracted one, or with none.
+  owner: REQ-RATES-0007
+  sources: [SHEET RC-11]
+  decisions: [D-16]
+- key: NON_CONTRACTED_AGENCY_GATE
+  type: enum:GateMode
+  default: SOFT
+  scope: any
+  meaning: What happens when a Unit sends a Shift to an Agency not approved for it.
+  owner: REQ-RATES-0007
+  sources: [SHEET RC-11]
+  decisions: [D-16]
+- key: PEER_RATE_THRESHOLD_PCT
+  type: int
+  default: 15
+  scope: program
+  meaning: How far above the Peer Rate a regular Bill Rate may be before it is flagged.
+  owner: REQ-RATES-0008
+  sources: [SHEET RC-12]
+  decisions: [D-16, D-12]
+- key: CREDENTIAL_EXPIRY_WARNING_DAYS
+  type: int
+  default: 30
+  scope: program
+  meaning: Days before a credential expires that the Agency is warned.
+  owner: REQ-COMPLIANCE-0002
+  sources: [SHEET WA-14]
+  decisions: [D-16]
+- key: OVERTIME_HARD_BLOCK
+  type: bool
+  default: false
+  scope: any
+  meaning: When true, an Assignment that would put a Worker into overtime is refused instead of flagged.
+  owner: REQ-LABOR-0003
+  sources: [SHEET WA-19]
+  decisions: [D-16]

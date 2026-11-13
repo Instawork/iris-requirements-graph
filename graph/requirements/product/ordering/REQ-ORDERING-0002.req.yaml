@@ -1,0 +1,68 @@
+requirement_id: REQ-ORDERING-0002
+requirement_target_layer: product
+requirement_target_module: ORDERING
+requirement_phase: MVP
+requirement_title: Price each Shift from the contracted rate while booking
+requirement_statement: >-
+  While booking, the user sees each Shift priced at the contracted Bill Rate of the Agency it goes to,
+  and the estimated cost, before sending.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: The Shift stores the Bill Rate it was booked at.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    The estimate is headcount times scheduled hours, less any planned break, times the Bill Rate.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    A Unit User may change the Bill Rate only with a reason, and the change is flagged as rate variance.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    When the Agency has no Rate Line for the Shift, the off-contract gate applies.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    The Shift is checked against the labor rules for its Unit's state and city.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- PRD §2 Shifts
+- SESSIONS Shift creation
+requirement_decisions: []
+requirement_features:
+- SC-1
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0007
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-LABOR-0002
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Shift
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

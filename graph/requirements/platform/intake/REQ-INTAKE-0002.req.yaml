@@ -1,0 +1,51 @@
+requirement_id: REQ-INTAKE-0002
+requirement_target_layer: platform
+requirement_target_module: INTAKE
+requirement_phase: MVP
+requirement_title: Validate every row and propose fixes
+requirement_statement: >-
+  Iris checks every row against the rules for its upload type and proposes a fix for each problem, as
+  a Proposal.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Dates are read as YYYY-MM-DD, times as 4:00 PM, and money without a dollar sign, and common variations
+    become proposed fixes.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: Job titles are matched to the Position catalog, such as Svr to Server.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    Missing required columns, duplicates, and references to unknown records are reported per row.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- PRD §6 Templates
+- PRD §7 What the agent checks
+requirement_decisions: []
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INTAKE-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0002
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Upload
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

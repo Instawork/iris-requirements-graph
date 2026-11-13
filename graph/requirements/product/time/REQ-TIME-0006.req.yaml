@@ -1,0 +1,50 @@
+requirement_id: REQ-TIME-0006
+requirement_target_layer: product
+requirement_target_module: TIME
+requirement_phase: MVP
+requirement_title: Correct or reject a Timesheet with a reason
+requirement_statement: >-
+  A Unit User can approve a Timesheet at corrected times or reject it back to the Agency. Either way they
+  give a reason, and the Agency sees it.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    A rejected Timesheet returns to the Agency, which fixes and resubmits it.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    The Agency sees each correction and its reason in the Timesheet's history.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- PRD §2 Shifts
+- DEMO
+requirement_decisions: []
+requirement_features:
+- TS-7
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-MESSAGING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Timesheet
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

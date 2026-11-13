@@ -1,0 +1,48 @@
+requirement_id: REQ-TIME-0002
+requirement_target_layer: product
+requirement_target_module: TIME
+requirement_phase: MVP
+requirement_title: Submit and approve Timesheets daily or per Event
+requirement_statement: >-
+  An Agency submits Timesheets as soon as a Shift is worked, and the Unit approves them the same day or
+  per Event, not only at week end.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    An Agency User submits one Timesheet, or every Timesheet for a Shift or an Event, at once.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    A Unit User approves, corrects, or rejects each submitted Timesheet that was not auto-approved.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- TS-8
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0006
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Timesheet
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

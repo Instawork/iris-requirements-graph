@@ -1,0 +1,53 @@
+requirement_id: REQ-COMPLIANCE-0003
+requirement_target_layer: product
+requirement_target_module: COMPLIANCE
+requirement_phase: MVP
+requirement_title: Validate credential documents with AI
+requirement_statement: >-
+  Iris checks each uploaded document for expiry, issuer, and signs of editing, and checks it with the
+  issuer or a public registry where available.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: The result is Verified, Needs review, or Rejected, with the reason.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    A Needs review result goes to a Compass reviewer, who confirms or rejects it with a note.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: A Rejected credential does not count toward eligibility.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- SESSIONS Worker compliance
+requirement_decisions:
+- D-3
+requirement_features:
+- WA-15
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-COMPLIANCE-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INTEGRATIONS-0006
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Credential
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

@@ -1,0 +1,45 @@
+requirement_id: REQ-MESSAGING-0001
+requirement_target_layer: platform
+requirement_target_module: MESSAGING
+requirement_phase: MVP
+requirement_title: Send notifications by email, SMS, and in the app
+requirement_statement: >-
+  Iris sends each notification to the right people on the right channels and records whether it was delivered.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Recipients are Users chosen by role and scope, or Workers by email or phone.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    Each notification type states its channels, such as email or SMS for a new Release.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: Every notification to a User also appears in the app.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET SC-6, SC-8
+- PRD Overview
+requirement_decisions: []
+requirement_features: []
+edges: []
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Notification
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

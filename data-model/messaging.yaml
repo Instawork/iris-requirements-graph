@@ -1,0 +1,46 @@
+module: MESSAGING
+enums:
+- enum: NotificationType
+  catalog: notifications
+- enum: NotificationChannel
+  values:
+  - {value: IN_APP, meaning: Shown in the User's Iris inbox.}
+  - {value: EMAIL, meaning: Sent by email.}
+  - {value: SMS, meaning: Sent by text message.}
+- enum: NotificationStatus
+  values:
+  - {value: QUEUED, meaning: Waiting to send.}
+  - {value: SENT, meaning: 'Handed to the provider, or shown in the app.'}
+  - {value: FAILED, meaning: The provider refused it after retries.}
+  transitions:
+  - {from: null, to: QUEUED, requirement: REQ-MESSAGING-0001}
+  - {from: QUEUED, to: SENT, requirement: REQ-MESSAGING-0001}
+  - {from: QUEUED, to: FAILED, requirement: REQ-MESSAGING-0001}
+entities:
+- entity: Notification
+  phase: MVP
+  description: One message to one recipient on one channel.
+  fields:
+  - {name: type, type: enum:NotificationType}
+  - {name: channel, type: enum:NotificationChannel}
+  - {name: user_id, type: ref:User, nullable: true, note: Empty when the recipient is a Worker}
+  - {name: to_address, type: text, nullable: true, note: Email or phone; required for EMAIL and SMS}
+  - {name: subject_type, type: text, note: The entity it is about}
+  - {name: subject_id, type: uuid}
+  - {name: body, type: text}
+  - {name: status, type: enum:NotificationStatus}
+  - {name: sent_at, type: timestamp, nullable: true}
+  - {name: read_at, type: timestamp, nullable: true, note: IN_APP only}
+  - {name: failure_reason, type: text, nullable: true}
+- entity: InboundMessage
+  phase: MVP
+  description: An email, text, or call Iris received.
+  fields:
+  - {name: channel, type: enum:Channel, note: 'EMAIL, SMS, or PHONE'}
+  - {name: sender, type: text, note: Email address or phone digits}
+  - {name: user_id, type: ref:User, nullable: true, note: The User the sender matched}
+  - {name: thread_key, type: text, nullable: true, note: Groups replies to one conversation}
+  - {name: body, type: text, note: The transcript for a call}
+  - {name: attachment_upload_ids, type: 'list:ref:Upload', nullable: true}
+  - {name: received_at, type: timestamp}
+  - {name: proposal_id, type: ref:Proposal, nullable: true}

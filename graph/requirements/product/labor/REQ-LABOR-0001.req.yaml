@@ -1,0 +1,42 @@
+requirement_id: REQ-LABOR-0001
+requirement_target_layer: product
+requirement_target_module: LABOR
+requirement_phase: MVP
+requirement_title: Hold state and local labor rules
+requirement_statement: >-
+  Iris holds labor rules by state and city, such as meal and rest breaks, minimum wage, and overtime thresholds,
+  so compliance does not rely on operators.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Each rule names its state, its city when local, what it requires, and when it takes effect.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: Instawork maintains the rules as reference data.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- DEMO
+requirement_decisions: []
+requirement_features:
+- WA-18
+edges: []
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - LaborRule
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

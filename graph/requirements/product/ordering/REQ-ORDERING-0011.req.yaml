@@ -1,0 +1,44 @@
+requirement_id: REQ-ORDERING-0011
+requirement_target_layer: product
+requirement_target_module: ORDERING
+requirement_phase: MVP
+requirement_title: Group Requests into an Event
+requirement_statement: >-
+  A Unit User names an Event, such as a Friday banquet, and attaches Requests to it, so its cost can be
+  reported as one.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: An Event belongs to one Unit and has a name and one or more dates.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: A Request belongs to at most one Event.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- PRD Data model
+requirement_decisions: []
+requirement_features:
+- REP-2
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0001
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Event
+  - Request
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

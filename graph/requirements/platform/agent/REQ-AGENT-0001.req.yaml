@@ -1,0 +1,38 @@
+requirement_id: REQ-AGENT-0001
+requirement_target_layer: platform
+requirement_target_module: AGENT
+requirement_phase: MVP
+requirement_title: Interpret with the LLM, compute with code
+requirement_statement: >-
+  The LLM reads typed requests and messy columns and writes summaries. Code does every validation, every
+  match, and all money and hours math.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: The same input and the same answers always give the same result.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: The LLM never writes records; it only produces Proposals.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- PRD §7 What the LLM does and what code does
+requirement_decisions: []
+requirement_features: []
+edges: []
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

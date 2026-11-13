@@ -1,0 +1,39 @@
+requirement_id: REQ-REPORTING-0004
+requirement_target_layer: product
+requirement_target_module: REPORTING
+requirement_phase: MVP
+requirement_title: Show an Event's projected and actual cost the next morning
+requirement_statement: >-
+  For each Event, Iris shows projected cost from booking beside actual cost from Timesheets, available
+  the next morning.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: Hours submitted but not yet approved show as pending spend.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- REP-2
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0011
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-REPORTING-0001
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

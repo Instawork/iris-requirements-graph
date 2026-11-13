@@ -1,0 +1,64 @@
+requirement_id: REQ-DISPATCH-0001
+requirement_target_layer: product
+requirement_target_module: DISPATCH
+requirement_phase: MVP
+requirement_title: Send a Shift to a chosen Agency
+requirement_statement: >-
+  The Unit User picks the Agency each Shift goes to and sends it. Each send creates a Release, and the
+  Agency is notified at once.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Agencies approved for the Unit are offered, and sending to any other Agency follows the off-contract
+    gate.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    A Shift can be released to more than one Agency, and each Agency staffs its own Workers.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    The Release carries the Shift details, the site instructions, and the Agency's contracted Bill Rate.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: The Agency is notified by email or SMS, and in the app.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- PRD §2 Shifts
+- SESSIONS Send to one agency
+requirement_decisions: []
+requirement_features:
+- SC-7
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCIES-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0007
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-MESSAGING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Release
+requirement_starting_flow: true
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

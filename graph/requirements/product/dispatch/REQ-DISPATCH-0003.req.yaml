@@ -1,0 +1,62 @@
+requirement_id: REQ-DISPATCH-0003
+requirement_target_layer: product
+requirement_target_module: DISPATCH
+requirement_phase: P2
+requirement_title: Release Shifts by dispatch rules
+requirement_statement: >-
+  A Unit sets dispatch rules per Position: one preferred Agency, several at once, or a release order that
+  opens to all approved Agencies after a set time.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    In a release order, each next Agency receives the Shift after a window, 4 hours by default.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    Agencies already released keep the Shift, and later ones are added, not swapped in.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: Release stops once the headcount is filled.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    If the Shift starts before the remaining windows run out, every remaining Agency receives it at once.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    A sector can hold Releases until a set time before the Shift, such as 72 hours before doors.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- PRD §2 Shifts
+- FAQ
+requirement_decisions: []
+requirement_features:
+- SC-12
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-DISPATCH-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0006
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - DispatchRule
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

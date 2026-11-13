@@ -1,0 +1,43 @@
+requirement_id: REQ-ORDERING-0005
+requirement_target_layer: product
+requirement_target_module: ORDERING
+requirement_phase: MVP
+requirement_title: Overbook and add headcount on the day
+requirement_statement: >-
+  A Unit User can book more Workers than needed, such as 55 when 50 are needed, and can add headcount
+  on the day of the Shift.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    A Shift records the headcount booked and, when overbooking, the headcount needed.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: Same-day additions reach the Agency immediately.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- SC-5
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0003
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Shift
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

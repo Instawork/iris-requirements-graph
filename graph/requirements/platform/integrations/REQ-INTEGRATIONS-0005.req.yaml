@@ -1,0 +1,29 @@
+requirement_id: REQ-INTEGRATIONS-0005
+requirement_target_layer: platform
+requirement_target_module: INTEGRATIONS
+requirement_phase: P3
+requirement_title: Sign in with Compass single sign-on
+requirement_statement: Compass Users sign in through Compass's identity provider.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- PLT-9
+edges: []
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

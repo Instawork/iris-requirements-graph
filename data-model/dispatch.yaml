@@ -1,0 +1,59 @@
+module: DISPATCH
+enums:
+- enum: ReleaseStatus
+  values:
+  - {value: PENDING, meaning: Sent and not yet answered.}
+  - {value: ACCEPTED, meaning: The Agency will staff the Release's headcount.}
+  - {value: DECLINED, meaning: 'The Agency declined, before or after accepting. Its headcount is free to send elsewhere.'}
+  - {value: WITHDRAWN, meaning: The Unit took back a pending Release.}
+  - {value: CANCELLED, meaning: The Shift was cancelled.}
+  - {value: EXPIRED, meaning: Still pending when the Shift started.}
+  transitions:
+  - {from: null, to: PENDING, requirement: REQ-DISPATCH-0001}
+  - {from: PENDING, to: WITHDRAWN, requirement: REQ-DISPATCH-0001}
+  - {from: PENDING, to: ACCEPTED, requirement: REQ-DISPATCH-0002}
+  - {from: PENDING, to: DECLINED, requirement: REQ-DISPATCH-0002}
+  - {from: ACCEPTED, to: DECLINED, requirement: REQ-DISPATCH-0002}
+  - {from: PENDING, to: EXPIRED, requirement: REQ-DISPATCH-0002}
+  - {from: PENDING, to: CANCELLED, requirement: REQ-DISPATCH-0001}
+  - {from: ACCEPTED, to: CANCELLED, requirement: REQ-DISPATCH-0001}
+- enum: DispatchMode
+  values:
+  - {value: PREFERRED, meaning: One preferred Agency receives the Shift.}
+  - {value: SEVERAL, meaning: Several Agencies receive it at once.}
+  - {value: RELEASE_ORDER, meaning: 'Agencies receive it in order, one window apart, then all approved Agencies.'}
+entities:
+- entity: Release
+  phase: MVP
+  description: Part or all of a Shift's headcount sent to one Agency, the rates it was sent at, and the Agency's answer.
+  fields:
+  - {name: shift_id, type: ref:Shift}
+  - {name: agency_id, type: ref:Agency}
+  - {name: headcount, type: int, note: At least 1}
+  - {name: rate_line_id, type: ref:RateLine, nullable: true, note: The contracted line on the work date; empty when none exists}
+  - {name: regular_bill_rate, type: money}
+  - {name: overtime_bill_rate, type: money}
+  - {name: double_time_bill_rate, type: money}
+  - {name: bill_rate_reason, type: text, nullable: true, note: Required when the rates differ from the Rate Line or there is none}
+  - {name: non_contracted, type: bool, note: No approval covered the Unit for this Agency when it was sent}
+  - {name: status, type: enum:ReleaseStatus}
+  - {name: released_by, type: ref:User}
+  - {name: released_at, type: timestamp}
+  - {name: responded_by, type: ref:User, nullable: true}
+  - {name: responded_at, type: timestamp, nullable: true}
+  - {name: decline_reason, type: text, nullable: true}
+  - {name: closed_at, type: timestamp, nullable: true, note: 'When it was withdrawn, cancelled, or expired'}
+  constraints:
+  - The headcounts of a Shift's PENDING and ACCEPTED Releases add up to at most the Shift's headcount.
+  - A Shift has at most one PENDING or ACCEPTED Release per Agency.
+- entity: DispatchRule
+  phase: P2
+  description: How a Unit releases Shifts for a Position to Agencies.
+  fields:
+  - {name: unit_id, type: ref:Unit}
+  - {name: position_id, type: ref:Position, nullable: true, note: Empty means every Position}
+  - {name: mode, type: enum:DispatchMode}
+  - {name: agency_ids, type: 'list:ref:Agency', note: In release order}
+  - {name: window_hours, type: int}
+  - {name: open_to_all_after_hours, type: int, nullable: true}
+  - {name: hold_until_hours_before, type: int, nullable: true}

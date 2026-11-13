@@ -1,0 +1,64 @@
+requirement_id: REQ-ORDERING-0009
+requirement_target_layer: product
+requirement_target_module: ORDERING
+requirement_phase: MVP
+requirement_title: Draft a Request from a plain-language sentence
+requirement_statement: >-
+  A Unit User types what they need, such as “3 bartenders and 2 line cooks Monday”, and Iris drafts the
+  Request for them to review and send.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Iris reads Position, headcount, Unit, date, and times from the text, and asks for anything missing.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    The draft shows each Shift, the receiving Agency, its Bill Rate, and the estimated cost.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: The draft is checked with the same rules as the booking form.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: Nothing is created or sent until the user confirms the draft.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- PRD §7 Agent chat
+- SESSIONS Order in a sentence
+requirement_decisions: []
+requirement_features:
+- SC-9
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-DISPATCH-0001
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Proposal
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

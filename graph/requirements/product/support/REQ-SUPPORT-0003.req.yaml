@@ -1,0 +1,32 @@
+requirement_id: REQ-SUPPORT-0003
+requirement_target_layer: product
+requirement_target_module: SUPPORT
+requirement_phase: P2
+requirement_title: Post program announcements in the app
+requirement_statement: >-
+  Program Users post announcements about program updates that users see in the app.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- PLT-16
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-MESSAGING-0001
+data_model:
+  status: pending
+  reads: []
+  writes: []
+  detail: Designed when Phase 2 is scoped.
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

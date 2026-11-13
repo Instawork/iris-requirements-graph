@@ -1,0 +1,72 @@
+requirement_id: REQ-ORDERING-0001
+requirement_target_layer: product
+requirement_target_module: ORDERING
+requirement_phase: MVP
+requirement_title: Create a Request with one or more Shifts
+requirement_statement: >-
+  A Unit User creates a Request for one Unit. A Request holds one or more Shifts, and each Shift is one
+  Position at one time.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Each Shift has a Position, a date, a start time, an end time, a headcount, an optional planned break,
+    and an optional Department.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    A Shift whose end time is earlier than its start time ends on the next day.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    The Position must be in the catalog, and the Unit must be inside the user's scope.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: Headcount is at least 1, and a Shift cannot start in the past.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    A Shift is charged to its Department's Cost Center, or to the Unit's when it has no Department.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: Nothing reaches an Agency until the user sends the Request.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- PRD §2 Shifts
+- PRD Data model
+requirement_decisions: []
+requirement_features:
+- SC-2
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-CATALOG-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0008
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - Request
+  - Shift
+requirement_starting_flow: true
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

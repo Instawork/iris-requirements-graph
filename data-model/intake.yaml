@@ -1,0 +1,35 @@
+module: INTAKE
+enums:
+- enum: UploadType
+  catalog: upload-types
+- enum: UploadStatus
+  values:
+  - {value: RECEIVED, meaning: Stored and being read.}
+  - {value: NEEDS_TYPE, meaning: Iris could not tell what the file holds; the uploader picks a type.}
+  - {value: IN_REVIEW, meaning: Rows are read and a Proposal waits for the uploader.}
+  - {value: SAVED, meaning: 'The Proposal was applied, in full or in part.'}
+  - {value: FAILED, meaning: The file could not be read; failure_reason says why.}
+  - {value: DISCARDED, meaning: The uploader rejected the whole Proposal.}
+  transitions:
+  - {from: null, to: RECEIVED, requirement: REQ-INTAKE-0001}
+  - {from: RECEIVED, to: NEEDS_TYPE, requirement: REQ-INTAKE-0001}
+  - {from: RECEIVED, to: FAILED, requirement: REQ-INTAKE-0001}
+  - {from: NEEDS_TYPE, to: RECEIVED, requirement: REQ-INTAKE-0001}
+  - {from: RECEIVED, to: IN_REVIEW, requirement: REQ-INTAKE-0002}
+  - {from: IN_REVIEW, to: SAVED, requirement: REQ-INTAKE-0002}
+  - {from: IN_REVIEW, to: DISCARDED, requirement: REQ-INTAKE-0002}
+entities:
+- entity: Upload
+  phase: MVP
+  description: A file someone sent, and what became of it.
+  fields:
+  - {name: file_name, type: text}
+  - {name: file_url, type: text, note: Private storage; the original is kept}
+  - {name: type, type: enum:UploadType, nullable: true, note: Empty until detected or picked}
+  - {name: uploaded_by, type: ref:User}
+  - {name: channel, type: enum:Channel}
+  - {name: status, type: enum:UploadStatus}
+  - {name: total_rows, type: int, nullable: true}
+  - {name: rows_to_review, type: int, nullable: true}
+  - {name: proposal_id, type: ref:Proposal, nullable: true}
+  - {name: failure_reason, type: text, nullable: true}

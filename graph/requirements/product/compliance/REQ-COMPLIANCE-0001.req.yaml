@@ -1,0 +1,57 @@
+requirement_id: REQ-COMPLIANCE-0001
+requirement_target_layer: product
+requirement_target_module: COMPLIANCE
+requirement_phase: MVP
+requirement_title: Set credential requirements by org scope and Position
+requirement_statement: >-
+  A Program User sets which Credential Types a Worker needs. A requirement applies program-wide, to an
+  org scope, to a Position, or to both a scope and a Position.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Credential Types include background check, work authorization, food handler card, alcohol service
+    certification, TB test, and sector training.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    A Shift requires every Credential Type required by its Unit, by any org scope above it, and by its
+    Position.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    Each Credential Type says whether an Agency attestation is enough, a verified document is needed,
+    or either works.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET
+- FAQ
+- SESSIONS Worker compliance
+requirement_decisions: []
+requirement_features:
+- WA-13
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-CATALOG-0001
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - CredentialType
+  - CredentialRequirement
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

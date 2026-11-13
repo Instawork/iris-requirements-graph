@@ -1,0 +1,32 @@
+requirement_id: REQ-INVOICING-0007
+requirement_target_layer: product
+requirement_target_module: INVOICING
+requirement_phase: P2
+requirement_title: Show payment status to Units
+requirement_statement: Units see whether each Agency Invoice is unpaid, partly paid, or paid.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- SHEET
+requirement_decisions: []
+requirement_features:
+- INV-7
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INVOICING-0001
+data_model:
+  status: covered
+  reads: []
+  writes: []
+  detail: null
+  migration_entities:
+  - AgencyInvoice
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

@@ -1,0 +1,57 @@
+requirement_id: REQ-COMPLIANCE-0005
+requirement_target_layer: product
+requirement_target_module: COMPLIANCE
+requirement_phase: MVP
+requirement_title: Decide whether a Worker is eligible for a Shift
+requirement_statement: >-
+  A Worker is eligible for a Shift when every required Credential Type is satisfied on the Shift date.
+  Iris gives the reason when they are not.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    A Credential Type is satisfied by a verified, unexpired credential, or by an attestation where the
+    type accepts one.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    The same check runs whoever assigns, whether an Agency User, a file, or the assistant.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    When a credential lapses before an assigned Shift, the Agency is told to renew it or replace the Worker.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- FAQ
+- SESSIONS Worker compliance
+- DEMO
+requirement_decisions: []
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-COMPLIANCE-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-COMPLIANCE-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-COMPLIANCE-0004
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-MESSAGING-0001
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: >-
+    Computed from Credential, Attestation, and CredentialRequirement; not stored.
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

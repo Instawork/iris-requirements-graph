@@ -1,0 +1,53 @@
+requirement_id: REQ-PROGRAM-WEB-0003
+requirement_target_layer: user-interface
+requirement_target_module: PROGRAM-WEB
+requirement_phase: MVP
+requirement_title: Manage Rate Cards across Agencies
+requirement_statement: >-
+  A Program User compares Agencies' rates by Position and Market, approves changes, and reads the rate
+  history.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The comparison filters by Market and Position rather than showing every Agency side by side.
+  rule_sources: []
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    Rates above their peers are highlighted, and a Rate Review can be sent from the row.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- FEEDBACK
+- SESSIONS Rates
+requirement_decisions: []
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0004
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0009
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

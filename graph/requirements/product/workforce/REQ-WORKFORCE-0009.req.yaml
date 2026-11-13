@@ -1,0 +1,36 @@
+requirement_id: REQ-WORKFORCE-0009
+requirement_target_layer: product
+requirement_target_module: WORKFORCE
+requirement_phase: P3
+requirement_title: Track overtime across Agencies
+requirement_statement: >-
+  Iris adds up a person's hours across Agencies and Units, so overtime is caught when they work for several
+  Agencies.
+requirement_actors: []
+requirement_rules: []
+requirement_sources:
+- SHEET
+requirement_decisions:
+- D-4
+requirement_features:
+- WA-7
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0007
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-LABOR-0003
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

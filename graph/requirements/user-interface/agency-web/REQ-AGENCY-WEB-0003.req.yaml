@@ -1,0 +1,46 @@
+requirement_id: REQ-AGENCY-WEB-0003
+requirement_target_layer: user-interface
+requirement_target_module: AGENCY-WEB
+requirement_phase: MVP
+requirement_title: Manage Workers and their credentials
+requirement_statement: >-
+  An Agency User adds Workers one at a time or from a file, uploads their credentials, and records attestations.
+requirement_actors: []
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Each Worker shows whether they are compliant, what is missing or expiring, and their ratings from
+    Units.
+  rule_sources: []
+  rule_decisions: []
+requirement_sources:
+- SHEET WA-1
+- SESSIONS Worker compliance
+requirement_decisions: []
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-COMPLIANCE-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-COMPLIANCE-0004
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-COMPLIANCE-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0005
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: null
+  migration_entities: []
+requirement_starting_flow: true
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []
