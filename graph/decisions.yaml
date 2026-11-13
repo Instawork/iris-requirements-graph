@@ -220,7 +220,7 @@ decisions:
   status: open
   assumption: >-
     Headcount, times, and site instructions can change until the Shift ends. After that its schedule is
-    fixed, and hours are corrected on Timesheets, which are auto-approved against it (C-44).
+    fixed, and hours are corrected on Timesheets, which are auto-approved against it (C-38).
   blocking: false
   answer_from: COMPASS_OPERATIONS
   answer: null
@@ -330,7 +330,7 @@ decisions:
   status: open
   assumption: >-
     Instawork staff, as Instawork Admins. An Instawork Admin is created only from the deployment
-    configuration (D-98), never by invite.
+    configuration (D-97), never by invite.
   blocking: false
   answer_from: INSTAWORK_PRODUCT
   answer: null
@@ -421,7 +421,7 @@ decisions:
   assumption: >-
     An Agency User edits Draft and Rejected Timesheets, and a Unit User corrects Submitted and Approved
     ones until lock, which stay Approved. Nobody edits a locked Timesheet, and on a Draft or Rejected
-    one a Unit User may change only the no-show mark (D-70).
+    one a Unit User may change only the no-show mark (D-69).
   blocking: false
   answer_from: COMPASS_OPERATIONS
   answer: null
@@ -781,7 +781,7 @@ decisions:
   question: How does a User with several roles choose and switch the one they act in?
   status: open
   assumption: >-
-    A User with several contexts, as D-82 defines them, chooses one at each sign-in and can switch
+    A User with several contexts, as D-81 defines them, chooses one at each sign-in and can switch
     without signing out. Switching changes the menu and no record, and a User with no unrevoked grant
     can only sign out.
   blocking: false
@@ -807,7 +807,7 @@ decisions:
   - SHEET TS-7
   - SHEET SC-7
   - SHEET WA-17
-- decision_id: D-64
+- decision_id: D-63
   origin: graph
   question: Which starters does the assistant offer a Program User?
   status: open
@@ -819,7 +819,7 @@ decisions:
   sources:
   - PRD §7 Who uses it
   - SESSIONS Reporting
-- decision_id: D-65
+- decision_id: D-64
   origin: graph
   question: Which screens does a Unit User have?
   status: open
@@ -834,7 +834,7 @@ decisions:
   - PRD Pages
   - SHEET PLT-1
   - SHEET SC-11
-- decision_id: D-66
+- decision_id: D-65
   origin: graph
   question: Which screens does a Program User have?
   status: open
@@ -850,7 +850,7 @@ decisions:
   - PRD Pages
   - SHEET PLT-1
   - SHEET RC-16
-- decision_id: D-67
+- decision_id: D-66
   origin: graph
   question: >-
     What does a roster show as a Worker's compliance, when Credential Requirements differ by Unit and
@@ -867,7 +867,7 @@ decisions:
   - SHEET WA-13
   - SHEET WA-14
   - PRD §4 Professionals
-- decision_id: D-68
+- decision_id: D-67
   origin: graph
   question: How often does timed work run?
   status: open
@@ -879,7 +879,7 @@ decisions:
   answer: null
   sources:
   - GRAPH seven MVP requirements act when a time passes, and none provides the clock
-- decision_id: D-69
+- decision_id: D-68
   origin: graph
   question: May an Agency bill a Bill Rate on a Timesheet other than the rate its Shift was sent at?
   status: open
@@ -895,7 +895,7 @@ decisions:
   - SESSIONS Timesheets, Tips & Expenses
   - SHEET RC-10
   - SHEET INV-10
-- decision_id: D-70
+- decision_id: D-69
   origin: graph
   question: Can a Unit record a no-show before the Agency submits the Timesheet?
   status: open
@@ -908,7 +908,7 @@ decisions:
   sources:
   - PRD §2 Shifts
   - SHEET TS-7
-- decision_id: D-71
+- decision_id: D-70
   origin: graph
   question: Which kinds of expense can an Agency add?
   status: open
@@ -919,7 +919,7 @@ decisions:
   sources:
   - SHEET TS-12
   - SESSIONS Timesheets, Tips & Expenses
-- decision_id: D-72
+- decision_id: D-71
   origin: graph
   question: What stops a tips or expense file sent twice from doubling the money?
   status: open
@@ -934,7 +934,7 @@ decisions:
   - SHEET TS-11
   - SHEET TS-12
   - PRD §7 What the agent checks
-- decision_id: D-73
+- decision_id: D-72
   origin: graph
   question: Who is told when a change adds overtime?
   status: open
@@ -946,7 +946,7 @@ decisions:
   answer: null
   sources:
   - SHEET WA-19
-- decision_id: D-74
+- decision_id: D-73
   origin: graph
   question: How is the answer to a reporting question displayed?
   status: open
@@ -959,7 +959,7 @@ decisions:
   answer: null
   sources:
   - SHEET REP-1
-- decision_id: D-75
+- decision_id: D-74
   origin: graph
   question: >-
     Which relative periods can a Saved Report use?
@@ -974,7 +974,7 @@ decisions:
   sources:
   - SHEET REP-1
   - SHEET REP-7
-- decision_id: D-76
+- decision_id: D-75
   origin: graph
   question: Which measures and dimensions can a question or a report use?
   status: open
@@ -989,7 +989,7 @@ decisions:
   - SHEET 6.1
   - SHEET REP-10
   - PRD §3 Supplier Rates
-- decision_id: D-77
+- decision_id: D-76
   origin: graph
   question: How are the figures on a report rounded?
   status: open
@@ -1003,7 +1003,7 @@ decisions:
   sources:
   - SHEET REP-7
   - PRD §1 Detailed requirements
-- decision_id: D-78
+- decision_id: D-77
   origin: graph
   question: Can an approved Rate Line be ended without a new line replacing it?
   status: open
@@ -1017,7 +1017,7 @@ decisions:
   sources:
   - SHEET RC-5
   - GRAPH an Agency that stops supplying a Position, or a line saved with a wrong date, needs an end
-- decision_id: D-79
+- decision_id: D-78
   origin: graph
   question: Must every Rate Line give all six rates?
   status: open
@@ -1031,7 +1031,7 @@ decisions:
   sources:
   - PRD §6 Templates
   - SHEET Decisions & Inputs
-- decision_id: D-80
+- decision_id: D-79
   origin: graph
   question: Which values may a whole-number Setting take?
   status: open
@@ -1043,7 +1043,7 @@ decisions:
   answer: null
   sources:
   - GRAPH the settings catalog gives each key a type and no range
-- decision_id: D-81
+- decision_id: D-80
   origin: graph
   question: In what order may org nodes be made inactive and active again?
   status: open
@@ -1057,7 +1057,7 @@ decisions:
   sources:
   - SHEET PLT-2
   - GRAPH no source says what happens beneath a node that is made inactive
-- decision_id: D-82
+- decision_id: D-81
   origin: graph
   question: >-
     Does a User who holds several Role Grants act with all of them at once, or only as the role they
@@ -1073,7 +1073,7 @@ decisions:
   sources:
   - SHEET PLT-1
   - GRAPH a User may hold a Program User and an Agency User grant, and rules such as Rate Line approval differ by role
-- decision_id: D-83
+- decision_id: D-82
   origin: graph
   question: When may an Instawork Admin invite a Program User?
   status: open
@@ -1087,7 +1087,7 @@ decisions:
   sources:
   - SHEET PLT-1
   - SHEET PLT-4
-- decision_id: D-84
+- decision_id: D-83
   origin: graph
   question: >-
     PLT-2 lists Department as the lowest level of the hierarchy. Can access, Settings, Agency approvals,
@@ -1103,7 +1103,7 @@ decisions:
   sources:
   - SHEET PLT-2
   - FEEDBACK Departments within venues
-- decision_id: D-85
+- decision_id: D-84
   origin: graph
   question: Who sees the Peer Rate?
   status: open
@@ -1116,7 +1116,7 @@ decisions:
   sources:
   - SHEET RC-12
   - PRD §3 Supplier Rates
-- decision_id: D-86
+- decision_id: D-85
   origin: graph
   question: Where does a Unit's time zone come from?
   status: open
@@ -1128,12 +1128,12 @@ decisions:
   answer: null
   sources:
   - DEMO lib/types.ts
-- decision_id: D-87
+- decision_id: D-86
   origin: graph
   question: How long does Iris keep trying a Credential check that cannot finish?
   status: open
   assumption: >-
-    A job that runs every five minutes (D-68) checks each Credential waiting for its checks. A run in
+    A job that runs every five minutes (D-67) checks each Credential waiting for its checks. A run in
     which the document model returns no usable answer leaves the Credential waiting, and the third such
     run sends it to a Program User for review.
   blocking: false
@@ -1141,7 +1141,7 @@ decisions:
   answer: null
   sources:
   - SHEET WA-15
-- decision_id: D-88
+- decision_id: D-87
   origin: graph
   question: >-
     What does an Agency see about other Agencies holding the same Shift? The sessions report that Agencies
@@ -1157,7 +1157,7 @@ decisions:
   sources:
   - SESSIONS Shift Creation
   - PRD §2 Shifts
-- decision_id: D-89
+- decision_id: D-88
   origin: graph
   question: >-
     What happens when an assigned Worker has no email and no phone, so site instructions cannot be sent
@@ -1172,7 +1172,7 @@ decisions:
   answer: null
   sources:
   - SHEET SC-6
-- decision_id: D-90
+- decision_id: D-89
   origin: graph
   question: What happens to a Worker's upcoming Assignments when their Agency makes them inactive?
   status: open
@@ -1184,7 +1184,7 @@ decisions:
   answer: null
   sources:
   - SHEET WA-1
-- decision_id: D-91
+- decision_id: D-90
   origin: graph
   question: When does Iris recheck the eligibility of assigned Workers?
   status: open
@@ -1196,7 +1196,7 @@ decisions:
   answer: null
   sources:
   - SHEET WA-14
-- decision_id: D-92
+- decision_id: D-91
   origin: graph
   question: Which details of an Agency's Worker does a Unit User see?
   status: open
@@ -1209,7 +1209,7 @@ decisions:
   sources:
   - PRD §2 Shifts
   - PRD §4 Professionals
-- decision_id: D-93
+- decision_id: D-92
   origin: graph
   question: How is a Shift's local start or end time read on a day the clocks change?
   status: open
@@ -1221,7 +1221,7 @@ decisions:
   answer: null
   sources:
   - PRD §2 Shifts
-- decision_id: D-94
+- decision_id: D-93
   origin: graph
   question: Does a spoken yes on a call approve a draft?
   status: open
@@ -1233,7 +1233,7 @@ decisions:
   answer: null
   sources:
   - SHEET SC-10
-- decision_id: D-95
+- decision_id: D-94
   origin: graph
   question: Can a Shift's Unit, Position, or Department change after it is booked?
   status: open
@@ -1246,7 +1246,7 @@ decisions:
   sources:
   - SHEET SC-3
   - PRD §2 Shift statuses
-- decision_id: D-96
+- decision_id: D-95
   origin: graph
   question: Can a Unit take back a request for a Worker by name?
   status: open
@@ -1256,7 +1256,7 @@ decisions:
   answer: null
   sources:
   - SHEET WA-2
-- decision_id: D-97
+- decision_id: D-96
   origin: graph
   question: >-
     How do a Unit's existing favorite and block lists get into Iris? The sheet says favorite rosters must
@@ -1271,7 +1271,7 @@ decisions:
   sources:
   - SHEET WA-2
   - SHEET 3.2
-- decision_id: D-98
+- decision_id: D-97
   origin: graph
   question: What does Iris create when it starts?
   status: open
@@ -1285,7 +1285,7 @@ decisions:
   sources:
   - SHEET PLT-4
   - GRAPH the first User has nobody to invite them
-- decision_id: D-99
+- decision_id: D-98
   origin: graph
   question: When does a sign-in end?
   status: open
@@ -1297,7 +1297,7 @@ decisions:
   answer: null
   sources:
   - SHEET PLT-4
-- decision_id: D-100
+- decision_id: D-99
   origin: graph
   question: What does the Audit Trail record when a record is deactivated, revoked, or cancelled?
   status: open
@@ -1310,7 +1310,7 @@ decisions:
   sources:
   - SHEET RC-5
   - PRD §2 Shifts
-- decision_id: D-101
+- decision_id: D-100
   origin: graph
   question: Who words each notification?
   status: open
@@ -1323,7 +1323,7 @@ decisions:
   answer: null
   sources:
   - SHEET SC-8
-- decision_id: D-102
+- decision_id: D-101
   origin: graph
   question: What does REQ-AGENT-0001 deliver, when its rules bind every flow that uses the LLM?
   status: open
@@ -1336,7 +1336,7 @@ decisions:
   answer: null
   sources:
   - PRD §7 What the LLM does and what code does
-- decision_id: D-103
+- decision_id: D-102
   origin: graph
   question: What does a Proposal item carry?
   status: open
@@ -1350,7 +1350,7 @@ decisions:
   sources:
   - PRD §6 Uploads
   - PRD §7 Agent Chat
-- decision_id: D-104
+- decision_id: D-103
   origin: graph
   question: How does Iris tell which upload type a file is?
   status: open
@@ -1365,7 +1365,7 @@ decisions:
   - PRD §6 Uploads
   - PRD §7 When the agent is unsure
   - SHEET TS-5
-- decision_id: D-105
+- decision_id: D-104
   origin: graph
   question: Which issuers and public registries does MVP check a Credential against (WA-15)?
   status: open
@@ -1379,7 +1379,7 @@ decisions:
   sources:
   - SHEET WA-15
   - SESSIONS Worker Assignment & Compliance
-- decision_id: D-106
+- decision_id: D-105
   origin: graph
   question: Which requirement takes a request sent by email, text, or phone?
   status: open
@@ -1390,7 +1390,7 @@ decisions:
   sources:
   - SHEET SC-10
   - SHEET SC-9
-- decision_id: D-107
+- decision_id: D-106
   origin: graph
   question: How does a platform requirement use product records, which it may not read?
   status: open
@@ -1403,7 +1403,7 @@ decisions:
   answer: null
   sources:
   - GRAPH platform requirements may depend only on platform requirements
-- decision_id: D-108
+- decision_id: D-107
   origin: graph
   question: How can the first slice be used before every screen and feature exists?
   status: open
@@ -1417,7 +1417,7 @@ decisions:
   sources:
   - GRAPH the starting flow must be usable before every screen is built
   - PRD Pages
-- decision_id: D-109
+- decision_id: D-108
   origin: graph
   question: Which rows does a list show first, where no source gives an order?
   status: open
@@ -1435,7 +1435,7 @@ decisions:
   - DEMO components/shifts/shifts-page.tsx
   - DEMO components/pros/professionals-page.tsx
   - DEMO components/rates/rates-page.tsx
-- decision_id: D-111
+- decision_id: D-109
   origin: graph
   question: In what order are Agencies offered to a Unit User who is choosing one for a Shift?
   status: open
@@ -1446,7 +1446,7 @@ decisions:
   sources:
   - PRD §3 Supplier Rates
   - SHEET SC-1
-- decision_id: D-117
+- decision_id: D-110
   origin: graph
   question: >-
     Which Bill Rates does a part of a Timesheet take when it is split to a Position with no Rate Line?
@@ -1458,7 +1458,7 @@ decisions:
   sources:
   - SHEET TS-10
   - SHEET RC-10
-- decision_id: D-118
+- decision_id: D-111
   origin: graph
   question: When is a Timesheet created?
   status: open
@@ -1469,7 +1469,7 @@ decisions:
   sources:
   - PRD §2 Shifts
   - PRD §2 Shift statuses
-- decision_id: D-119
+- decision_id: D-112
   origin: graph
   question: How is a Timesheet's clock time read on a day the clocks change?
   status: open
@@ -1481,7 +1481,7 @@ decisions:
   answer: null
   sources:
   - SHEET TS-5
-- decision_id: D-120
+- decision_id: D-113
   origin: graph
   question: Can a Timesheet with a missing clock time or a pending expense be submitted and approved?
   status: open
@@ -1494,7 +1494,7 @@ decisions:
   sources:
   - SHEET TS-7
   - SHEET TS-8
-- decision_id: D-121
+- decision_id: D-114
   origin: graph
   question: What does a Timesheet file sent by a Unit User change?
   status: open
@@ -1505,7 +1505,7 @@ decisions:
   sources:
   - PRD §6 Uploads
   - SHEET TS-5
-- decision_id: D-122
+- decision_id: D-115
   origin: graph
   question: What does a bulk submit or approve do with the Timesheets it cannot process?
   status: open
@@ -1515,7 +1515,7 @@ decisions:
   answer: null
   sources:
   - SHEET TS-8
-- decision_id: D-123
+- decision_id: D-116
   origin: graph
   question: What is the narrowest phone screen every page must work on?
   status: open
@@ -1525,7 +1525,7 @@ decisions:
   answer: null
   sources:
   - SHEET PLT-3
-- decision_id: D-124
+- decision_id: D-117
   origin: graph
   question: Do the sign-in and reset pages reveal whether an email has an account?
   status: open
@@ -1537,7 +1537,7 @@ decisions:
   answer: null
   sources:
   - SHEET PLT-4
-- decision_id: D-125
+- decision_id: D-118
   origin: graph
   question: What does the in-app inbox show?
   status: open
@@ -1549,7 +1549,7 @@ decisions:
   answer: null
   sources:
   - PRD Overview
-- decision_id: D-126
+- decision_id: D-119
   origin: graph
   question: How does a screen show a refused action?
   status: open
@@ -1559,7 +1559,7 @@ decisions:
   answer: null
   sources:
   - PRD §7 When the agent is unsure
-- decision_id: D-127
+- decision_id: D-120
   origin: graph
   question: Are to-dos stored, or worked out each time a page loads?
   status: open
@@ -1569,7 +1569,7 @@ decisions:
   answer: null
   sources:
   - PRD §1 How Todos behave
-- decision_id: D-128
+- decision_id: D-121
   origin: graph
   question: How does a Unit User who covers several Units work across them?
   status: open
@@ -1582,7 +1582,7 @@ decisions:
   sources:
   - SHEET PLT-1
   - SHEET REP-7
-- decision_id: D-129
+- decision_id: D-122
   origin: graph
   question: Which Unit User actions ask for confirmation before they are saved?
   status: open
@@ -1593,7 +1593,7 @@ decisions:
   sources:
   - SHEET WA-3
   - PRD §2 Shift statuses
-- decision_id: D-130
+- decision_id: D-123
   origin: graph
   question: Which screens does an Agency User have?
   status: open
@@ -1607,7 +1607,7 @@ decisions:
   - PRD Pages
   - SHEET PLT-1
   - SHEET RC-16
-- decision_id: D-131
+- decision_id: D-124
   origin: graph
   question: Which screens does an Instawork Admin have?
   status: open
@@ -1617,7 +1617,7 @@ decisions:
   answer: null
   sources:
   - GRAPH the Instawork Admin needs a screen for each kind of reference data it keeps
-- decision_id: D-133
+- decision_id: D-125
   origin: graph
   question: Which weeks, months, and periods do dashboards and reports use?
   status: open
@@ -1631,7 +1631,7 @@ decisions:
   - SHEET REP-7
   - SHEET REP-9
   - SHEET WA-20
-- decision_id: D-134
+- decision_id: D-126
   origin: graph
   question: Which Workers share a Tip Pool?
   status: open
@@ -1643,7 +1643,7 @@ decisions:
   answer: null
   sources:
   - SHEET TS-11
-- decision_id: D-135
+- decision_id: D-127
   origin: graph
   question: Is a tip entered under a cashier PIN split by hours, or does it go whole to that PIN's Worker?
   status: open
@@ -1654,7 +1654,7 @@ decisions:
   sources:
   - SHEET TS-11
   - SHEET 4.4
-- decision_id: D-136
+- decision_id: D-128
   origin: graph
   question: Who keeps the cashier PIN map?
   status: open
@@ -1665,7 +1665,7 @@ decisions:
   answer: null
   sources:
   - SHEET 4.4
-- decision_id: D-137
+- decision_id: D-129
   origin: graph
   question: Until when can an Agency add tips and expenses to a Timesheet?
   status: open
@@ -1679,7 +1679,7 @@ decisions:
   - SHEET TS-11
   - SHEET TS-12
   - SESSIONS Timesheets, Tips & Expenses
-- decision_id: D-138
+- decision_id: D-130
   origin: graph
   question: What does a second SALES or BUDGETS row for the same Unit and dates do?
   status: open
@@ -1692,7 +1692,7 @@ decisions:
   - SHEET REP-4
   - SHEET REP-8
   - PRD §6 Templates
-- decision_id: D-139
+- decision_id: D-131
   origin: graph
   question: Are the sheet's "top operators" Units or people?
   status: open
@@ -1703,7 +1703,7 @@ decisions:
   sources:
   - SHEET REP-9
   - SHEET 6.3
-- decision_id: D-140
+- decision_id: D-132
   origin: graph
   question: Until when can a Unit enter or change tips?
   status: open
@@ -1716,7 +1716,7 @@ decisions:
   sources:
   - SHEET TS-11
   - SHEET TS-9
-- decision_id: D-141
+- decision_id: D-133
   origin: sheet
   question: >-
     Whose Work Week governs when the Units an Agency sends a Worker to start their weeks on different
@@ -1735,7 +1735,7 @@ decisions:
   - SHEET Decisions & Inputs
   - SHEET WA-19
   - SHEET WA-20
-- decision_id: D-142
+- decision_id: D-134
   origin: graph
   question: How are the cents left over from a Tip Pool's split shared?
   status: open
@@ -1747,7 +1747,7 @@ decisions:
   answer: null
   sources:
   - SHEET TS-11
-- decision_id: D-143
+- decision_id: D-135
   origin: graph
   question: Who is told when a tip a Unit entered ends up credited to no Worker?
   status: open
@@ -1759,7 +1759,7 @@ decisions:
   answer: null
   sources:
   - SHEET TS-11
-- decision_id: D-144
+- decision_id: D-136
   origin: graph
   question: What does a no-show Timesheet add to spend?
   status: open
@@ -1770,7 +1770,7 @@ decisions:
   sources:
   - PRD §5 Invoices
   - SHEET TS-12
-- decision_id: D-145
+- decision_id: D-137
   origin: graph
   question: >-
     Does a line on an open invoice follow its Timesheet when hours, tips, or Expenses change after
@@ -1785,7 +1785,7 @@ decisions:
   sources:
   - SHEET INV-3
   - PRD §5 Invoices
-- decision_id: D-146
+- decision_id: D-138
   origin: graph
   question: Which requirement saves a tip typed in the assistant?
   status: open
@@ -1797,7 +1797,7 @@ decisions:
   answer: null
   sources:
   - GRAPH two requirements propose tips, and a Proposal kind has one save step
-- decision_id: D-147
+- decision_id: D-139
   origin: graph
   question: Where does a Unit User give the reason for corrections sent in a Timesheet file?
   status: open
@@ -1810,7 +1810,7 @@ decisions:
   sources:
   - PRD §6 Uploads
   - PRD §7 What the agent checks
-- decision_id: D-150
+- decision_id: D-140
   origin: graph
   question: When does an upload type become available to users?
   status: open
@@ -1823,7 +1823,7 @@ decisions:
   sources:
   - PRD §6 Uploads
   - GRAPH each upload type is built after INTAKE, by the requirement that owns it
-- decision_id: D-151
+- decision_id: D-141
   origin: graph
   question: Who checks and saves a file column that belongs to a requirement other than the upload type's owner?
   status: open
@@ -1836,7 +1836,7 @@ decisions:
   answer: null
   sources:
   - GRAPH one file row can change the records of several requirements
-- decision_id: D-152
+- decision_id: D-142
   origin: graph
   question: Who may read a stored file?
   status: open
@@ -1849,7 +1849,7 @@ decisions:
   sources:
   - SHEET WA-14
   - PRD §4 Professionals
-- decision_id: D-153
+- decision_id: D-143
   origin: graph
   question: How do the rows of a UNITS file become Units and Departments?
   status: open
@@ -1862,7 +1862,7 @@ decisions:
   sources:
   - SHEET PLT-2
   - SESSIONS Shift Creation
-- decision_id: D-155
+- decision_id: D-144
   origin: graph
   question: Does Iris accept phone numbers from outside the United States?
   status: open
@@ -1873,7 +1873,7 @@ decisions:
   sources:
   - SHEET SC-10
   - SHEET PLT-4
-- decision_id: D-156
+- decision_id: D-145
   origin: graph
   question: How often is an Agency warned that a Credential is expiring?
   status: open
@@ -1885,7 +1885,7 @@ decisions:
   answer: null
   sources:
   - SHEET WA-14
-- decision_id: D-157
+- decision_id: D-146
   origin: graph
   question: How does Iris make sure a job runs once?
   status: open
@@ -1898,7 +1898,7 @@ decisions:
   answer: null
   sources:
   - GRAPH daily jobs run in each Unit's timezone, and Units are added after the code is deployed
-- decision_id: D-158
+- decision_id: D-147
   origin: graph
   question: How does a reply by email or text approve a Proposal?
   status: open
@@ -1913,7 +1913,7 @@ decisions:
   - SHEET SC-10
   - SHEET SC-9
   - PRD §7 What the LLM does and what code does
-- decision_id: D-159
+- decision_id: D-148
   origin: graph
   question: What does the voice agent do on a phone call?
   status: open
@@ -1926,7 +1926,7 @@ decisions:
   answer: null
   sources:
   - SHEET SC-10
-- decision_id: D-160
+- decision_id: D-149
   origin: graph
   question: Who at a Unit is told when a Worker is assigned to a Shift or comes off it?
   status: open
@@ -1939,7 +1939,7 @@ decisions:
   sources:
   - PRD §2 Shifts
   - SHEET PLT-1
-- decision_id: D-161
+- decision_id: D-150
   origin: graph
   question: What happens when a User is granted a role and scope they already hold, or held before?
   status: open
@@ -1952,7 +1952,7 @@ decisions:
   sources:
   - SHEET PLT-1
   - SHEET PLT-4
-- decision_id: D-162
+- decision_id: D-151
   origin: graph
   question: What may a new session do before the User has chosen a role?
   status: open
@@ -1962,7 +1962,7 @@ decisions:
   answer: null
   sources:
   - GRAPH a new Session has no context until the User chooses one
-- decision_id: D-170
+- decision_id: D-152
   origin: graph
   question: What happens when an invite names an email a User already holds?
   status: open
@@ -1975,7 +1975,7 @@ decisions:
   answer: null
   sources:
   - SHEET PLT-4
-- decision_id: D-171
+- decision_id: D-153
   origin: graph
   question: How soon after it is approved may a Timesheet lock?
   status: open
@@ -1988,7 +1988,7 @@ decisions:
   sources:
   - SHEET TS-9
   - SHEET TS-7
-- decision_id: D-172
+- decision_id: D-154
   origin: graph
   question: What period does a budget cover?
   status: open
@@ -2001,7 +2001,7 @@ decisions:
   sources:
   - SHEET REP-8
   - SHEET REP-7
-- decision_id: D-173
+- decision_id: D-155
   origin: graph
   question: Who loads budgets?
   status: open
@@ -2011,7 +2011,7 @@ decisions:
   answer: null
   sources:
   - SHEET REP-8
-- decision_id: D-174
+- decision_id: D-156
   origin: graph
   question: How is a Setting's value found for one Unit?
   status: open
@@ -2024,7 +2024,7 @@ decisions:
   sources:
   - FAQ Settings for each sector
   - SHEET WA-19
-- decision_id: D-175
+- decision_id: D-157
   origin: graph
   question: How is a Shift's headcount shared among its Releases?
   status: open
@@ -2039,7 +2039,7 @@ decisions:
   - SHEET SC-7
   - SHEET SC-5
   - PRD Data Model
-- decision_id: D-176
+- decision_id: D-158
   origin: graph
   question: Until when can a Shift be sent to an Agency?
   status: open
@@ -2052,7 +2052,7 @@ decisions:
   sources:
   - SHEET SC-5
   - SHEET SC-7
-- decision_id: D-177
+- decision_id: D-159
   origin: graph
   question: Can an Agency accept part of a Release?
   status: open
@@ -2062,7 +2062,7 @@ decisions:
   answer: null
   sources:
   - SHEET SC-8
-- decision_id: D-178
+- decision_id: D-160
   origin: graph
   question: Can an Agency give back a Release it has accepted?
   status: open
@@ -2072,7 +2072,7 @@ decisions:
   answer: null
   sources:
   - SHEET SC-8
-- decision_id: D-179
+- decision_id: D-161
   origin: graph
   question: What ends a Release that no Agency has answered?
   status: open
@@ -2085,7 +2085,7 @@ decisions:
   sources:
   - SHEET SC-8
   - SHEET SC-7
-- decision_id: D-180
+- decision_id: D-162
   origin: graph
   question: Until when can a Shift be cancelled?
   status: open
@@ -2097,7 +2097,7 @@ decisions:
   answer: null
   sources:
   - PRD §2 Shift statuses
-- decision_id: D-181
+- decision_id: D-163
   origin: graph
   question: Can a Shift be booked for a time that has passed?
   status: open
@@ -2107,7 +2107,7 @@ decisions:
   answer: null
   sources:
   - GRAPH no source says whether a Shift in the past can be booked
-- decision_id: D-182
+- decision_id: D-164
   origin: graph
   question: Can a Worker be added to a Shift after it ends?
   status: open
@@ -2119,7 +2119,7 @@ decisions:
   answer: null
   sources:
   - SHEET SC-5
-- decision_id: D-183
+- decision_id: D-165
   origin: graph
   question: Does a change to a recurring Shift apply to one Shift or to its series?
   status: open
@@ -2130,7 +2130,7 @@ decisions:
   answer: null
   sources:
   - SHEET SC-4
-- decision_id: D-184
+- decision_id: D-166
   origin: graph
   question: Must an Agency accept a chained block as a whole and keep the same Workers on every Shift?
   status: open
@@ -2142,7 +2142,7 @@ decisions:
   answer: null
   sources:
   - SHEET SC-4
-- decision_id: D-185
+- decision_id: D-167
   origin: graph
   question: What does each role's Role Grant cover?
   status: open
@@ -2156,7 +2156,7 @@ decisions:
   - SHEET PLT-1
   - SHEET PLT-2
   - FAQ Who uses Iris day to day?
-- decision_id: D-186
+- decision_id: D-168
   origin: graph
   question: Does MVP need a view-only role?
   status: open
@@ -2166,7 +2166,7 @@ decisions:
   answer: null
   sources:
   - SHEET PLT-1
-- decision_id: D-187
+- decision_id: D-169
   origin: graph
   question: Is a badge request for each Worker at a Unit, or for each Assignment?
   status: open
@@ -2178,7 +2178,7 @@ decisions:
   answer: null
   sources:
   - SHEET WA-17
-- decision_id: D-188
+- decision_id: D-170
   origin: graph
   question: Does a badge that is not yet issued stop a Worker being assigned?
   status: open
@@ -2189,7 +2189,7 @@ decisions:
   answer: null
   sources:
   - SHEET WA-17
-- decision_id: D-189
+- decision_id: D-171
   origin: graph
   question: What is the shortest password Iris accepts?
   status: open
@@ -2199,7 +2199,7 @@ decisions:
   answer: null
   sources:
   - SHEET PLT-4
-- decision_id: D-190
+- decision_id: D-172
   origin: graph
   question: Which of their own details can a User change?
   status: open
@@ -2211,7 +2211,7 @@ decisions:
   answer: null
   sources:
   - SHEET PLT-4
-- decision_id: D-191
+- decision_id: D-173
   origin: graph
   question: Does an open Proposal expire?
   status: open
@@ -2223,7 +2223,7 @@ decisions:
   answer: null
   sources:
   - PRD §7 Agent Chat
-- decision_id: D-192
+- decision_id: D-174
   origin: graph
   question: Are a Proposal's accepted items saved together or one by one?
   status: open
@@ -2237,7 +2237,7 @@ decisions:
   sources:
   - PRD §6 Uploads
   - PRD §7 Agent Chat
-- decision_id: D-193
+- decision_id: D-175
   origin: graph
   question: Can anyone change or remove an Audit Trail entry?
   status: open
@@ -2248,7 +2248,7 @@ decisions:
   sources:
   - SHEET RC-5
   - SHEET WA-16
-- decision_id: D-194
+- decision_id: D-176
   origin: graph
   question: Who is left out of a notification?
   status: open
@@ -2260,7 +2260,7 @@ decisions:
   answer: null
   sources:
   - SHEET SC-8
-- decision_id: D-195
+- decision_id: D-177
   origin: graph
   question: Which ways of writing a date, a time, or an amount does Iris read in a file?
   status: open
@@ -2273,7 +2273,7 @@ decisions:
   answer: null
   sources:
   - PRD §6 Templates
-- decision_id: D-196
+- decision_id: D-178
   origin: graph
   question: How is no-show rate computed?
   status: open
@@ -2284,7 +2284,7 @@ decisions:
   sources:
   - SHEET RC-16
   - PRD §1 Metric definitions
-- decision_id: D-197
+- decision_id: D-179
   origin: graph
   question: Which hours do reports count?
   status: open
@@ -2297,7 +2297,7 @@ decisions:
   sources:
   - PRD §1 Detailed requirements
   - SHEET WA-19
-- decision_id: D-198
+- decision_id: D-180
   origin: graph
   question: Which Shifts count toward headcount requested?
   status: open
@@ -2307,7 +2307,7 @@ decisions:
   answer: null
   sources:
   - PRD §1 Detailed requirements
-- decision_id: D-199
+- decision_id: D-181
   origin: graph
   question: How is an Agency's average Bill Rate computed?
   status: open
@@ -2318,7 +2318,7 @@ decisions:
   sources:
   - SHEET REP-7
   - PRD §1 Detailed requirements
-- decision_id: D-200
+- decision_id: D-182
   origin: graph
   question: What does a rate or percentage show when it has nothing to divide by?
   status: open
@@ -2328,7 +2328,7 @@ decisions:
   answer: null
   sources:
   - GRAPH a rate over nothing is not a rate of zero
-- decision_id: D-201
+- decision_id: D-183
   origin: graph
   question: >-
     Which Position and Department does a measure group by when a Timesheet was split to another?
@@ -2342,7 +2342,7 @@ decisions:
   sources:
   - SHEET REP-2
   - SHEET TS-10
-- decision_id: D-202
+- decision_id: D-184
   origin: graph
   question: Does labor cost include Compass's own employees?
   status: open
@@ -2353,7 +2353,7 @@ decisions:
   sources:
   - SHEET REP-3
   - FAQ Iris covers the agency side of staffing
-- decision_id: D-203
+- decision_id: D-185
   origin: graph
   question: Who can open a Saved Report?
   status: open
@@ -2365,7 +2365,7 @@ decisions:
   answer: null
   sources:
   - SHEET REP-1
-- decision_id: D-204
+- decision_id: D-186
   origin: graph
   question: In Phase 2, which Compass User sends overbilled hours back?
   status: open
@@ -2375,19 +2375,19 @@ decisions:
   answer: null
   sources:
   - SHEET INV-11
-- decision_id: D-205
+- decision_id: D-187
   origin: graph
   question: Can a Shifts file cancel a Shift?
   status: open
   assumption: >-
     No. A file creates and changes Shifts and assigns Workers. It never cancels a Shift or changes its
-    Unit, Position, or Department (C-45).
+    Unit, Position, or Department (C-39).
   blocking: false
   answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - PRD §6 Templates
-- decision_id: D-206
+- decision_id: D-188
   origin: graph
   question: How does a Shifts file send a new Shift to an Agency?
   status: open
@@ -2402,7 +2402,7 @@ decisions:
   - SHEET SC-2
   - SHEET SC-7
   - PRD §6 Templates
-- decision_id: D-207
+- decision_id: D-189
   origin: graph
   question: Can an Agency change or deactivate its Workers?
   status: open
@@ -2414,7 +2414,7 @@ decisions:
   answer: null
   sources:
   - SHEET WA-1
-- decision_id: D-208
+- decision_id: D-190
   origin: graph
   question: Which Workers can a Unit request by name?
   status: open
@@ -2427,7 +2427,7 @@ decisions:
   sources:
   - SHEET WA-2
   - SHEET 3.2
-- decision_id: D-209
+- decision_id: D-191
   origin: graph
   question: Can an org node, Unit, Department, Agency, Position, or Credential Type be deleted?
   status: open
@@ -2439,7 +2439,7 @@ decisions:
   sources:
   - SHEET PLT-2
   - SHEET WA-13
-- decision_id: D-210
+- decision_id: D-192
   origin: graph
   question: What happens when a new Rate Line repeats the rates already in effect?
   status: open
@@ -2449,7 +2449,7 @@ decisions:
   answer: null
   sources:
   - SHEET RC-5
-- decision_id: D-211
+- decision_id: D-193
   origin: graph
   question: Does a Release follow a Rate Line that changes after the Shift was sent?
   status: open
@@ -2461,7 +2461,7 @@ decisions:
   sources:
   - SHEET SC-1
   - SHEET RC-10
-- decision_id: D-212
+- decision_id: D-194
   origin: graph
   question: Which check results verify or reject a Credential without a person?
   status: open
@@ -2475,7 +2475,7 @@ decisions:
   sources:
   - SHEET WA-15
   - SHEET WA-16
-- decision_id: D-213
+- decision_id: D-195
   origin: graph
   question: Can a Credential be changed once it is uploaded or decided?
   status: open
@@ -2487,7 +2487,7 @@ decisions:
   sources:
   - SHEET WA-15
   - SESSIONS Worker Assignment & Compliance
-- decision_id: D-214
+- decision_id: D-196
   origin: graph
   question: Through which date does a Credential or an Attestation count?
   status: open
@@ -2500,7 +2500,7 @@ decisions:
   sources:
   - SHEET WA-14
   - SHEET WA-16
-- decision_id: D-215
+- decision_id: D-197
   origin: graph
   question: Can a Credential file add a Worker who is not yet in Iris?
   status: open
@@ -2510,7 +2510,7 @@ decisions:
   answer: null
   sources:
   - PRD §4 How the system matches a professional
-- decision_id: D-216
+- decision_id: D-198
   origin: graph
   question: Are paid rest breaks checked?
   status: open
@@ -2522,7 +2522,7 @@ decisions:
   answer: null
   sources:
   - SHEET WA-18
-- decision_id: D-217
+- decision_id: D-199
   origin: graph
   question: Which labor rules apply where none is loaded?
   status: open
@@ -2534,7 +2534,7 @@ decisions:
   answer: null
   sources:
   - SHEET WA-18
-- decision_id: D-218
+- decision_id: D-200
   origin: graph
   question: Is the minimum wage checked when the Agency has no Rate Line?
   status: open
@@ -2544,7 +2544,7 @@ decisions:
   answer: null
   sources:
   - SHEET WA-18
-- decision_id: D-219
+- decision_id: D-201
   origin: graph
   question: In what order are a Worker's minutes classified?
   status: open
@@ -2558,7 +2558,7 @@ decisions:
   sources:
   - SHEET WA-19
   - SHEET TS-9
-- decision_id: D-220
+- decision_id: D-202
   origin: graph
   question: Which minutes count toward overtime before a Timesheet has hours?
   status: open
@@ -2570,7 +2570,7 @@ decisions:
   answer: null
   sources:
   - SHEET WA-19
-- decision_id: D-221
+- decision_id: D-203
   origin: graph
   question: Which start day applies to past weeks after a Unit's Work Week start changes?
   status: open
@@ -2580,7 +2580,7 @@ decisions:
   answer: null
   sources:
   - SHEET WA-20
-- decision_id: D-222
+- decision_id: D-204
   origin: graph
   question: Are the parts of a split Timesheet checked for exceptions one by one or together?
   status: open
@@ -2593,7 +2593,7 @@ decisions:
   sources:
   - SHEET TS-10
   - SHEET TS-7
-- decision_id: D-223
+- decision_id: D-205
   origin: graph
   question: Which tasks are on an Agency User's to-do list?
   status: open
@@ -2611,7 +2611,7 @@ decisions:
   - SHEET WA-14
   - SHEET RC-12
   - SHEET WA-4
-- decision_id: D-224
+- decision_id: D-206
   origin: graph
   question: Which tasks are on a Program User's to-do list?
   status: open
@@ -2625,7 +2625,7 @@ decisions:
   - PRD §1 Dashboard / Profile
   - SHEET WA-15
   - SHEET RC-12
-- decision_id: D-225
+- decision_id: D-207
   origin: graph
   question: What does a to-do line show beside its count?
   status: open
@@ -2638,7 +2638,7 @@ decisions:
   answer: null
   sources:
   - PRD §1 How Todos behave
-- decision_id: D-226
+- decision_id: D-208
   origin: graph
   question: What does each Home show below its to-do list?
   status: open
@@ -2652,7 +2652,7 @@ decisions:
   - PRD §1 Detailed requirements
   - PRD §1 Dashboard / Profile
   - SHEET RC-16
-- decision_id: D-227
+- decision_id: D-209
   origin: graph
   question: Which changes to a Shift can a typed request or a message make?
   status: open
@@ -2667,7 +2667,7 @@ decisions:
   - PRD §7 Agent Chat
   - PRD §7 Who uses it
   - SHEET SC-10
-- decision_id: D-228
+- decision_id: D-210
   origin: graph
   question: What does the assistant do with a typed request that no requirement owns?
   status: open
@@ -2677,7 +2677,7 @@ decisions:
   answer: null
   sources:
   - PRD §7 When the agent is unsure
-- decision_id: D-229
+- decision_id: D-211
   origin: graph
   question: Is a conversation with the assistant kept?
   status: open
@@ -2689,7 +2689,7 @@ decisions:
   answer: null
   sources:
   - PRD §7 Agent Chat
-- decision_id: D-230
+- decision_id: D-212
   origin: graph
   question: Does a reporting answer say how the question was read?
   status: open
@@ -2700,7 +2700,7 @@ decisions:
   sources:
   - PRD §7 What the LLM does and what code does
   - SESSIONS Reporting
-- decision_id: D-231
+- decision_id: D-213
   origin: graph
   question: >-
     Which timezone does Iris use for things that belong to no Unit, such as a Credential's expiry or a
@@ -2714,7 +2714,7 @@ decisions:
   answer: null
   sources:
   - SHEET Decisions & Inputs
-- decision_id: D-232
+- decision_id: D-214
   origin: graph
   question: Who may clear a no-show mark?
   status: open
@@ -2726,7 +2726,7 @@ decisions:
   answer: null
   sources:
   - PRD §2 Shifts
-- decision_id: D-233
+- decision_id: D-215
   origin: graph
   question: How does an Agency add one expense to several Workers of a Shift?
   status: open
@@ -2738,7 +2738,7 @@ decisions:
   answer: null
   sources:
   - SESSIONS Timesheets, Tips & Expenses
-- decision_id: D-234
+- decision_id: D-216
   origin: graph
   question: How is an expense file row matched to a Timesheet?
   status: open
@@ -2751,7 +2751,7 @@ decisions:
   sources:
   - SHEET TS-12
   - SESSIONS Timesheets, Tips & Expenses
-- decision_id: D-235
+- decision_id: D-217
   origin: graph
   question: When is a rate flagged as above its peers?
   status: open
@@ -2762,7 +2762,7 @@ decisions:
   answer: null
   sources:
   - SHEET RC-12
-- decision_id: D-236
+- decision_id: D-218
   origin: graph
   question: What does changing a Unit's time zone do to its Shifts and Timesheets?
   status: open
@@ -2774,7 +2774,7 @@ decisions:
   answer: null
   sources:
   - DEMO lib/types.ts
-- decision_id: D-237
+- decision_id: D-219
   origin: graph
   question: Does a Unit's Market follow later changes to a Market's ZIP codes?
   status: open
@@ -2786,7 +2786,7 @@ decisions:
   answer: null
   sources:
   - PRD §3 Supplier Rates
-- decision_id: D-238
+- decision_id: D-220
   origin: graph
   question: What becomes of a request for a Worker by name when the Agency's Release closes?
   status: open
@@ -2798,7 +2798,7 @@ decisions:
   answer: null
   sources:
   - SHEET WA-2
-- decision_id: D-239
+- decision_id: D-221
   origin: graph
   question: Where is the role a User is acting in kept?
   status: open
@@ -2810,7 +2810,7 @@ decisions:
   answer: null
   sources:
   - GRAPH the acting role and context need a place the platform does not read
-- decision_id: D-240
+- decision_id: D-222
   origin: graph
   question: What do the before and after of an Audit Trail entry hold?
   status: open
@@ -2822,7 +2822,7 @@ decisions:
   answer: null
   sources:
   - PRD §2 Shifts
-- decision_id: D-241
+- decision_id: D-223
   origin: graph
   question: Where is an invite or reset link kept until its email is sent?
   status: open
@@ -2834,7 +2834,7 @@ decisions:
   answer: null
   sources:
   - SHEET PLT-4
-- decision_id: D-242
+- decision_id: D-224
   origin: graph
   question: How does a person settle the problems on a Proposal item?
   status: open
@@ -2848,7 +2848,7 @@ decisions:
   sources:
   - PRD §6 Uploads
   - PRD §4 How the system matches a professional
-- decision_id: D-243
+- decision_id: D-225
   origin: graph
   question: Which names does Iris offer when a name matches no record, or several?
   status: open
@@ -2861,7 +2861,7 @@ decisions:
   sources:
   - PRD §7 File attached
   - PRD §4 How the system matches a professional
-- decision_id: D-244
+- decision_id: D-226
   origin: graph
   question: How large may a file be?
   status: open
@@ -2871,7 +2871,7 @@ decisions:
   answer: null
   sources:
   - GRAPH no source gives a limit
-- decision_id: D-245
+- decision_id: D-227
   origin: graph
   question: Which part of a workbook is read?
   status: open
@@ -2883,7 +2883,7 @@ decisions:
   answer: null
   sources:
   - GRAPH no source says which sheet is read
-- decision_id: D-246
+- decision_id: D-228
   origin: graph
   question: What does Iris do with a file column that matches no catalog column?
   status: open
@@ -2893,7 +2893,7 @@ decisions:
   answer: null
   sources:
   - PRD §7 What the LLM does and what code does
-- decision_id: D-247
+- decision_id: D-229
   origin: graph
   question: How are a Timesheet's clock times and worked minutes kept?
   status: open
@@ -2906,7 +2906,7 @@ decisions:
   answer: null
   sources:
   - PRD §2 Shifts
-- decision_id: D-248
+- decision_id: D-230
   origin: graph
   question: How is a clock time read when a file gives it with no date?
   status: open
@@ -2919,7 +2919,7 @@ decisions:
   sources:
   - SHEET TS-5
   - PRD §6 Templates
-- decision_id: D-249
+- decision_id: D-231
   origin: graph
   question: What does a list show when it has no rows?
   status: open
@@ -2929,7 +2929,7 @@ decisions:
   answer: null
   sources:
   - DEMO components/shifts/shifts-page.tsx
-- decision_id: D-250
+- decision_id: D-232
   origin: graph
   question: In which timezone does a screen show the times of a Shift?
   status: open
@@ -2939,7 +2939,7 @@ decisions:
   answer: null
   sources:
   - GRAPH a date or time at a Unit is in that Unit's timezone
-- decision_id: D-251
+- decision_id: D-233
   origin: graph
   question: What is a period to date compared with?
   status: open
@@ -2949,7 +2949,7 @@ decisions:
   answer: null
   sources:
   - SHEET REP-7
-- decision_id: D-252
+- decision_id: D-234
   origin: graph
   question: What happens to a PIN tip that cannot be placed?
   status: open
@@ -2962,7 +2962,7 @@ decisions:
   sources:
   - SHEET 4.4
   - SHEET TS-11
-- decision_id: D-253
+- decision_id: D-235
   origin: graph
   question: When is an expense decided?
   status: open
@@ -2975,7 +2975,7 @@ decisions:
   sources:
   - SHEET TS-12
   - SESSIONS Timesheets, Tips & Expenses
-- decision_id: D-254
+- decision_id: D-236
   origin: graph
   question: Can a requirement store a file that is not an Upload?
   status: open
@@ -2988,7 +2988,7 @@ decisions:
   sources:
   - SHEET WA-14
   - PRD §4 Professionals
-- decision_id: D-255
+- decision_id: D-237
   origin: graph
   question: Which thread does an inbound email or text join?
   status: open
@@ -3002,7 +3002,7 @@ decisions:
   sources:
   - SHEET SC-10
   - SHEET SC-9
-- decision_id: D-256
+- decision_id: D-238
   origin: graph
   question: In which role does the sender of an email, text, or call act?
   status: open
@@ -3014,7 +3014,7 @@ decisions:
   answer: null
   sources:
   - SHEET SC-10
-- decision_id: D-257
+- decision_id: D-239
   origin: graph
   question: Is a timed job checked against a role?
   status: open

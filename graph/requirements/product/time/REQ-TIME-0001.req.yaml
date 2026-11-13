@@ -17,8 +17,8 @@ requirement_rules:
   rule_sources:
   - PRD §2 Shift statuses
   rule_decisions:
-  - D-118
-  - D-68
+  - D-111
+  - D-67
 - rule_id: R2
   rule_statement: >-
     A new Timesheet takes the Shift's Position and Department and the Release's regular, overtime, and
@@ -53,7 +53,7 @@ requirement_rules:
   rule_statement: Clock times are kept to the whole minute, with seconds dropped.
   rule_sources: []
   rule_decisions:
-  - D-247
+  - D-229
 - rule_id: R7
   rule_statement: >-
     worked_minutes is clock_out minus clock_in minus break_minutes, and is 0 while either clock time
@@ -61,7 +61,7 @@ requirement_rules:
   rule_sources:
   - PRD §2 Shifts
   rule_decisions:
-  - D-247
+  - D-229
 - rule_id: R8
   rule_statement: >-
     Whenever worked_minutes changes, Iris reclassifies through REQ-LABOR-0005 every Timesheet of that
@@ -71,7 +71,7 @@ requirement_rules:
   - SHEET WA-19
   rule_decisions:
   - D-4
-  - D-141
+  - D-133
 - rule_id: R9
   rule_statement: >-
     After that, Iris gives REQ-LABOR-0003 the Worker's Shifts in the Work Week of the changed
@@ -80,7 +80,7 @@ requirement_rules:
   - SHEET WA-19
   rule_decisions:
   - D-4
-  - D-141
+  - D-133
 - rule_id: R10
   rule_statement: >-
     Nobody enters or changes a Bill Rate on a Timesheet: its three rates stay those of R2, or of the
@@ -89,7 +89,7 @@ requirement_rules:
   - PRD §7 What the agent accepts
   - SESSIONS Timesheets, Tips & Expenses
   rule_decisions:
-  - D-69
+  - D-68
 - rule_id: R11
   rule_statement: >-
     A Timesheet's amount for each hour class is computed from its Bill Rate and minutes whenever it
@@ -112,14 +112,14 @@ requirement_rules:
   rule_sources:
   - PRD §2 Shift statuses
   rule_decisions:
-  - D-182
+  - D-164
 - rule_id: R14
   rule_statement: >-
     A clock time is a local date and time at the Unit; one that does not exist on a daylight-saving
     change is refused, and one that occurs twice means the occurrence nearest the scheduled time.
   rule_sources: []
   rule_decisions:
-  - D-119
+  - D-112
 - rule_id: R15
   rule_statement: >-
     Each change to a Timesheet's hours or no-show is published as an event; REQ-TIPS-0004 re-splits
@@ -137,13 +137,13 @@ requirement_decisions:
 - D-4
 - D-33
 - D-41
+- D-67
 - D-68
-- D-69
-- D-118
-- D-119
-- D-141
-- D-182
-- D-247
+- D-111
+- D-112
+- D-133
+- D-164
+- D-229
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

@@ -17,15 +17,15 @@ requirement_rules:
   rule_sources:
   - SHEET REP-1
   rule_decisions:
-  - D-203
-  - D-109
+  - D-185
+  - D-108
 - rule_id: R2
   rule_statement: >-
     Opening one calls REQ-REPORTING-0003 and shows the recomputed chart, table, or dashboard.
   rule_sources:
   - SHEET REP-1
   rule_decisions:
-  - D-203
+  - D-185
 - rule_id: R3
   rule_statement: >-
     A report with a relative period, one of the RelativePeriod values, shows that period in words and the
@@ -33,8 +33,8 @@ requirement_rules:
   rule_sources:
   - SHEET REP-1
   rule_decisions:
-  - D-133
-  - D-75
+  - D-125
+  - D-74
 - rule_id: R4
   rule_statement: >-
     The list is embedded in the Reports screens of REQ-UNIT-WEB-0006 and REQ-PROGRAM-WEB-0005, and a User
@@ -42,22 +42,22 @@ requirement_rules:
   rule_sources:
   - SESSIONS Reporting
   rule_decisions:
-  - D-249
+  - D-231
 - rule_id: R5
   rule_statement: >-
     Each Saved Report offers Rename, which takes a new name, and Delete, both through REQ-REPORTING-0003.R13.
   rule_sources: []
   rule_decisions:
-  - D-203
+  - D-185
 requirement_sources:
 - SHEET REP-1
 - SESSIONS Reporting
 requirement_decisions:
-- D-75
-- D-109
-- D-133
-- D-203
-- D-249
+- D-74
+- D-108
+- D-125
+- D-185
+- D-231
 requirement_features:
 - REP-1
 edges:

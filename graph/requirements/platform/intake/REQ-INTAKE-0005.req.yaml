@@ -20,7 +20,7 @@ requirement_rules:
   - PRD §6 Uploads
   - GRAPH platform reads no product records, so the caller supplies them
   rule_decisions:
-  - D-107
+  - D-106
 - rule_id: R2
   rule_statement: >-
     The file has one header row with the table's column names, then one line per row, with the table's
@@ -34,7 +34,7 @@ requirement_rules:
   rule_sources:
   - PRD §6 Templates
   rule_decisions:
-  - D-195
+  - D-177
 - rule_id: R4
   rule_statement: A download creates no Upload and changes no record.
   rule_sources:
@@ -47,12 +47,12 @@ requirement_rules:
   rule_sources:
   - PRD §6 Templates
   rule_decisions:
-  - D-195
+  - D-177
 requirement_sources:
 - PRD §6 Uploads
 requirement_decisions:
-- D-107
-- D-195
+- D-106
+- D-177
 requirement_features: []
 edges: []
 data_model:

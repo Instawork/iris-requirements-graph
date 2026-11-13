@@ -25,7 +25,7 @@ requirement_rules:
   rule_sources:
   - GRAPH data model BadgeRequest
   rule_decisions:
-  - D-187
+  - D-169
 - rule_id: R3
   rule_statement: >-
     A Unit User whose scope covers the Unit marks a REQUESTED BadgeRequest ISSUED, which sets issued_by
@@ -48,7 +48,7 @@ requirement_rules:
   rule_sources:
   - GRAPH no source ties badges to assignment
   rule_decisions:
-  - D-188
+  - D-170
 - rule_id: R6
   rule_statement: >-
     Unit Users see the BadgeRequest status of each Worker assigned to Shifts at their secured Units.
@@ -59,8 +59,8 @@ requirement_sources:
 - SHEET WA-17
 requirement_decisions:
 - D-27
-- D-187
-- D-188
+- D-169
+- D-170
 requirement_features:
 - WA-17
 edges:

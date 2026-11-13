@@ -76,7 +76,7 @@ entities:
   - {name: instructions_sent_at, type: timestamp, nullable: true}
   constraints:
   - A Worker has at most one ASSIGNED Assignment per Shift.
-  - A Release has at most as many ASSIGNED Assignments as its headcount, except Assignments made from a Timesheet after the Shift ended (D-182, D-19).
+  - A Release has at most as many ASSIGNED Assignments as its headcount, except Assignments made from a Timesheet after the Shift ended (D-164, D-19).
 - entity: WorkerRequest
   phase: MVP
   description: A Unit asking for a specific Worker on a Shift. Withdrawing the request deletes the row.

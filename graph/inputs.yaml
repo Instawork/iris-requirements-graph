@@ -25,7 +25,7 @@ inputs:
   origin: sheet
   ask: Rate data and the Agency list for the pilot market (Atlanta, per the rates working session).
   sources: [SHEET Decisions & Inputs]
-  decisions: [D-79]
+  decisions: [D-78]
 - input_id: I-6
   origin: graph
   ask: Which providers Compass relies on for background checks and certificates.

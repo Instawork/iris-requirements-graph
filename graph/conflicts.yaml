@@ -22,7 +22,7 @@ conflicts:
     The Agency submits and the Unit approves by exception (sessions, demo); Timesheets lock after a window
     (sheet TS-7 to TS-9; D-33). A Unit User's Timesheet file is saved as corrections to submitted and
     approved Timesheets. The PRD's no-show by the Unit on shift day is kept, because no higher source
-    removes it: a Unit User can mark a no-show on a Draft Timesheet (D-70).
+    removes it: a Unit User can mark a no-show on a Draft Timesheet (D-69).
   drop: >-
     Either side edits hours freely like a shared document, and a Unit can enter hours before the Agency
     submits (PRD). Its change history and its rule that each change notifies the other party by email are
@@ -161,7 +161,7 @@ conflicts:
     Email and phone are optional on a Worker. The sessions show an Agency scanning a paper sign-in sheet
     that Iris matches to Workers (Timesheets, Tips & Expenses), and the PRD's own Shift template makes
     the phone optional; that such a sheet carries only names is the graph's inference. The Agency is told
-    when an assigned Worker has neither, so site instructions still reach the Worker (sheet SC-6; D-89).
+    when an assigned Worker has neither, so site instructions still reach the Worker (sheet SC-6; D-88).
   drop: Email and phone required on every Professional row (PRD).
 - conflict_id: C-31
   topic: Which Workers a Unit can rate and request
@@ -210,16 +210,16 @@ conflicts:
     Five columns, parking, entrance, directions, site_contact, and attire, one for each structured site
     instruction field (sheet SC-6).
   drop: One free-text instructions column on the Shift template (PRD).
-- conflict_id: C-44
+- conflict_id: C-38
   topic: Shift times after the Shift ends
   keep: >-
     A Shift's scheduled times are fixed once it ends. Hours are corrected on the Timesheet, which is
     auto-approved against the schedule (sheet TS-7; D-18).
   drop: Buyer and Supplier can change shift times while the shift is Worked or Confirming hours (PRD).
-- conflict_id: C-45
+- conflict_id: C-39
   topic: Cancelling a Shift by file
   keep: >-
     A SHIFTS file creates and changes Shifts and assigns Workers, as the PRD's own Shift template does,
     which has no column that cancels. A Shift is cancelled on its page, by a typed request, or by a
-    message (D-205).
+    message (D-187).
   drop: The Buyer cancels shifts by CSV (PRD, who sees what on Shifts).

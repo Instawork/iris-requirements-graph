@@ -18,7 +18,7 @@ requirement_rules:
   - SESSIONS Rate Cards & Supplier Sourcing
   rule_decisions:
   - D-10
-  - D-66
+  - D-65
 - rule_id: R2
   rule_statement: >-
     Each queued line shows the APPROVED line it would replace, when there is one, the change in each rate,
@@ -77,7 +77,7 @@ requirement_rules:
     Reviews list REQUESTED ones first, then newest first, and filter by status and Agency.
   rule_sources: []
   rule_decisions:
-  - D-109
+  - D-108
 - rule_id: R10
   rule_statement: >-
     This requirement adds to the Rates screen of REQ-PROGRAM-WEB-0003 the Peer Rate of each Market Rate
@@ -88,7 +88,7 @@ requirement_rules:
   - FEEDBACK A lot of vendors side by side
   rule_decisions:
   - D-12
-  - D-108
+  - D-107
 - rule_id: R11
   rule_statement: >-
     A line that REQ-RATES-0008.R2 gives no Peer Rate shows none and is never highlighted.
@@ -112,9 +112,9 @@ requirement_decisions:
 - D-10
 - D-12
 - D-55
-- D-66
+- D-65
+- D-107
 - D-108
-- D-109
 requirement_features:
 - RC-12
 edges:

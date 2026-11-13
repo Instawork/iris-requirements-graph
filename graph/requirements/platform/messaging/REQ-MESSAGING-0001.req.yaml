@@ -29,7 +29,7 @@ requirement_rules:
   - SHEET SC-6
   - GRAPH platform reads no product records, so the caller supplies them
   rule_decisions:
-  - D-107
+  - D-106
 - rule_id: R3
   rule_statement: >-
     One Notification is created with status QUEUED for each recipient on each channel the catalog lists
@@ -46,7 +46,7 @@ requirement_rules:
   rule_sources:
   - SHEET SC-8
   rule_decisions:
-  - D-194
+  - D-176
 - rule_id: R5
   rule_statement: An IN_APP Notification is created only for a User.
   rule_sources:
@@ -58,19 +58,19 @@ requirement_rules:
     and INBOUND_REPLY name no such User, because they answer that person.
   rule_sources: []
   rule_decisions:
-  - D-194
+  - D-176
 - rule_id: R7
   rule_statement: No Notification is created for a User whose active flag is false.
   rule_sources: []
   rule_decisions:
-  - D-194
+  - D-176
 - rule_id: R8
   rule_statement: >-
     A secret the caller passes, such as a link, is stored in the secret field, never in body, added to
     the message when it is sent, and erased when the Notification becomes SENT or FAILED.
   rule_sources: []
   rule_decisions:
-  - D-241
+  - D-223
 - rule_id: R9
   rule_statement: >-
     An IN_APP Notification becomes SENT, with sent_at, as soon as it is stored.
@@ -92,7 +92,7 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-38
-  - D-68
+  - D-67
 - rule_id: R12
   rule_statement: >-
     A FAILED Notification never undoes or blocks the change that caused it.
@@ -112,7 +112,7 @@ requirement_rules:
   rule_sources:
   - GRAPH no source gives the wording of any notification
   rule_decisions:
-  - D-101
+  - D-100
 - rule_id: R15
   rule_statement: >-
     A try the provider does not answer counts as a refusal, and failure_reason then says the provider
@@ -127,19 +127,19 @@ requirement_rules:
   rule_sources:
   - SHEET SC-10
   rule_decisions:
-  - D-255
+  - D-237
 requirement_sources:
 - SHEET SC-8
 - SHEET SC-6
 - PRD Overview
 requirement_decisions:
 - D-38
-- D-68
-- D-101
-- D-107
-- D-194
-- D-241
-- D-255
+- D-67
+- D-100
+- D-106
+- D-176
+- D-223
+- D-237
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

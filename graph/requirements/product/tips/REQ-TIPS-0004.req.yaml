@@ -19,7 +19,7 @@ requirement_rules:
   - SHEET TS-11
   rule_decisions:
   - D-28
-  - D-134
+  - D-126
 - rule_id: R2
   rule_statement: >-
     A pool is entered in the app, from a TIPS file, or in the assistant as a Proposal of kind TIP_ENTRY
@@ -35,7 +35,7 @@ requirement_rules:
   rule_sources:
   - SHEET TS-11
   rule_decisions:
-  - D-134
+  - D-126
 - rule_id: R4
   rule_statement: >-
     A pool's open amount is its amount less its shares on locked Timesheets, each of which keeps the
@@ -54,14 +54,14 @@ requirement_rules:
   - SHEET TS-11
   rule_decisions:
   - D-60
-  - D-142
+  - D-134
 - rule_id: R6
   rule_statement: >-
     Cents left over go one each to the shares with the largest dropped fractions, ties to the lowest
     Timesheet id, so the shares add up to the open amount exactly.
   rule_sources: []
   rule_decisions:
-  - D-142
+  - D-134
 - rule_id: R7
   rule_statement: >-
     A covered Timesheet with no hours entered, or marked a no-show, has worked_minutes of 0 under
@@ -97,14 +97,14 @@ requirement_rules:
     the amount.
   rule_sources: []
   rule_decisions:
-  - D-143
+  - D-135
 - rule_id: R12
   rule_statement: >-
     A Unit User can change or delete a Tip Pool or a PIN tip of a Unit in their scope.
   rule_sources: []
   rule_decisions:
   - D-28
-  - D-140
+  - D-132
 - rule_id: R13
   rule_statement: >-
     Entering, changing, or deleting a Tip Pool is refused when a Timesheet it covers or would cover is
@@ -112,7 +112,7 @@ requirement_rules:
   rule_sources:
   - SHEET TS-9
   rule_decisions:
-  - D-140
+  - D-132
 - rule_id: R14
   rule_statement: >-
     A Unit User maps a cashier PIN at a Unit in their scope to one Worker from valid_from until an optional
@@ -120,14 +120,14 @@ requirement_rules:
   rule_sources:
   - SHEET 4.4
   rule_decisions:
-  - D-136
+  - D-128
 - rule_id: R15
   rule_statement: >-
     A mapping is refused when the same PIN at that Unit is already mapped on any of its dates.
   rule_sources:
   - SHEET 4.4
   rule_decisions:
-  - D-136
+  - D-128
 - rule_id: R16
   rule_statement: >-
     A Unit User may set or change the valid_to of a cashier PIN mapping in their scope, and its PIN,
@@ -135,7 +135,7 @@ requirement_rules:
   rule_sources:
   - SHEET 4.4
   rule_decisions:
-  - D-136
+  - D-128
 - rule_id: R17
   rule_statement: >-
     A tip entered with a cashier PIN creates one TipAllocation, with cashier_pin_id set, for the whole
@@ -143,29 +143,29 @@ requirement_rules:
   rule_sources:
   - SHEET TS-11
   rule_decisions:
-  - D-135
+  - D-127
 - rule_id: R18
   rule_statement: >-
     When that Worker has several Timesheets there on that date, the tip goes to the one on the
     earliest Shift among those neither a no-show nor locked, and to its first part if split.
   rule_sources: []
   rule_decisions:
-  - D-252
+  - D-234
 - rule_id: R19
   rule_statement: >-
     A PIN tip is refused when no CashierPin is valid for that PIN, Unit, and date, or its Worker has
     no Timesheet there on that date that is neither a no-show nor locked.
   rule_sources: []
   rule_decisions:
-  - D-252
+  - D-234
 - rule_id: R20
   rule_statement: >-
     When a Timesheet that holds a PIN tip becomes a no-show, the tip stays on it and counts as zero,
     and Iris sends TIP_NOT_CREDITED to the Unit Users R11 names.
   rule_sources: []
   rule_decisions:
-  - D-143
-  - D-144
+  - D-135
+  - D-136
 - rule_id: R21
   rule_statement: >-
     In a TIPS file, a row with a cashier PIN is a PIN tip and every other row is a Tip Pool.
@@ -180,7 +180,7 @@ requirement_rules:
   rule_sources:
   - PRD §7 What the agent checks
   rule_decisions:
-  - D-72
+  - D-71
 requirement_sources:
 - SHEET TS-11
 - SHEET 4.4
@@ -188,15 +188,15 @@ requirement_sources:
 requirement_decisions:
 - D-28
 - D-60
-- D-72
+- D-71
+- D-126
+- D-127
+- D-128
+- D-132
 - D-134
 - D-135
 - D-136
-- D-140
-- D-142
-- D-143
-- D-144
-- D-252
+- D-234
 requirement_features:
 - TS-11
 edges:

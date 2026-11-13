@@ -34,7 +34,7 @@ requirement_rules:
     asks to send it again before it is accepted, which creates a new INVITE link.
   rule_sources: []
   rule_decisions:
-  - D-170
+  - D-152
 - rule_id: R4
   rule_statement: >-
     Each new link is emailed to its User as USER_INVITED for an invite or PASSWORD_RESET for a reset,
@@ -43,7 +43,7 @@ requirement_rules:
   - SHEET PLT-4
   rule_decisions:
   - D-34
-  - D-241
+  - D-223
 - rule_id: R5
   rule_statement: >-
     An AccessLink works once, expires 72 hours after it is created, and stores only a hash of its token;
@@ -51,7 +51,7 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-34
-  - D-241
+  - D-223
 - rule_id: R6
   rule_statement: >-
     Creating a link expires the User's earlier unused links of the same purpose.
@@ -72,7 +72,7 @@ requirement_rules:
   - SHEET PLT-4
   rule_decisions:
   - D-34
-  - D-189
+  - D-171
 - rule_id: R9
   rule_statement: >-
     Anyone can ask for a reset by entering an email; if it belongs to an active User a PASSWORD_RESET
@@ -80,19 +80,19 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-4
   rule_decisions:
-  - D-124
+  - D-117
 - rule_id: R10
   rule_statement: >-
     The reset screen shows the same message whether or not the email belongs to a User.
   rule_sources: []
   rule_decisions:
-  - D-124
+  - D-117
 - rule_id: R11
   rule_statement: >-
     Setting a password with a PASSWORD_RESET link sets ended_at on each of that User's open Sessions.
   rule_sources: []
   rule_decisions:
-  - D-99
+  - D-98
 - rule_id: R12
   rule_statement: >-
     Invites, accepted invites, and password changes are recorded in the Audit Trail, never with the password
@@ -106,11 +106,11 @@ requirement_decisions:
 - D-25
 - D-34
 - D-37
-- D-99
-- D-124
-- D-170
-- D-189
-- D-241
+- D-98
+- D-117
+- D-152
+- D-171
+- D-223
 requirement_features:
 - PLT-4
 edges:

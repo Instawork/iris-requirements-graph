@@ -23,7 +23,7 @@ entities:
   - [email]
 - entity: Session
   phase: MVP
-  description: One sign-in of one User, from the sign-in until it ends (D-99).
+  description: One sign-in of one User, from the sign-in until it ends (D-98).
   fields:
   - {name: user_id, type: ref:User}
   - {name: token_hash, type: text, note: The token itself is never stored}

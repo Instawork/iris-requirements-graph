@@ -18,7 +18,7 @@ requirement_rules:
   - GRAPH hours must match the spend they sit behind
   rule_decisions:
   - D-29
-  - D-197
+  - D-179
 - rule_id: R2
   rule_statement: >-
     OVERTIME_HOURS is the overtime and double-time minutes within HOURS, and scheduled minutes with no
@@ -27,7 +27,7 @@ requirement_rules:
   - SHEET WA-19
   - 'GRAPH data model: Measure.OVERTIME_HOURS'
   rule_decisions:
-  - D-197
+  - D-179
 - rule_id: R3
   rule_statement: >-
     HEADCOUNT_REQUESTED is the sum of headcount on Shifts that are not CANCELLED.
@@ -35,7 +35,7 @@ requirement_rules:
   - PRD §1 Detailed requirements
   - GRAPH a cancelled Shift adds nothing, as with spend
   rule_decisions:
-  - D-198
+  - D-180
 - rule_id: R4
   rule_statement: >-
     FILL_RATE is ASSIGNED Assignments divided by headcount, over Shifts that have started.
@@ -61,13 +61,13 @@ requirement_rules:
   - PRD §1 Metric definitions
   - SHEET RC-16
   rule_decisions:
-  - D-196
+  - D-178
 - rule_id: R7
   rule_statement: >-
     A rate whose denominator is zero shows as not available, never as zero.
   rule_sources: []
   rule_decisions:
-  - D-200
+  - D-182
 - rule_id: R8
   rule_statement: >-
     Every measure groups and filters by Sector, Region, District, Unit, Department, Cost Center, Agency,
@@ -78,7 +78,7 @@ requirement_rules:
   - PRD §1 Detailed requirements
   - SHEET WA-20
   rule_decisions:
-  - D-133
+  - D-125
 - rule_id: R9
   rule_statement: >-
     For spend and hours, the Position and Department are the Timesheet's, which differ from the Shift's
@@ -95,7 +95,7 @@ requirement_rules:
   - SHEET REP-2
   - 'GRAPH data model: Shift.event_id, Shift.position_id, Shift.department_id'
   rule_decisions:
-  - D-201
+  - D-183
 - rule_id: R11
   rule_statement: >-
     Grouping by Work Week puts each work date in the Work Week of its own Unit, and a month is a calendar
@@ -103,7 +103,7 @@ requirement_rules:
   rule_sources:
   - SHEET WA-20
   rule_decisions:
-  - D-133
+  - D-125
 requirement_sources:
 - PRD §1 Metric definitions
 - SHEET RC-16
@@ -111,12 +111,12 @@ requirement_sources:
 requirement_decisions:
 - D-29
 - D-42
-- D-133
-- D-196
-- D-197
-- D-198
-- D-200
-- D-201
+- D-125
+- D-178
+- D-179
+- D-180
+- D-182
+- D-183
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

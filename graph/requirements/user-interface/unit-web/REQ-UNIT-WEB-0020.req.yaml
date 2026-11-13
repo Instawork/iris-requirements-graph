@@ -17,13 +17,13 @@ requirement_rules:
   - SHEET RC-12
   rule_decisions:
   - D-12
-  - D-108
+  - D-107
 requirement_sources:
 - SHEET 1.4
 - SHEET RC-12
 requirement_decisions:
 - D-12
-- D-108
+- D-107
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

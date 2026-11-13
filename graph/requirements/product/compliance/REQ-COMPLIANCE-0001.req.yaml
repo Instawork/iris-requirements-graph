@@ -69,7 +69,7 @@ requirement_rules:
   rule_sources:
   - GRAPH data model CredentialType.active
   rule_decisions:
-  - D-209
+  - D-191
 - rule_id: R9
   rule_statement: >-
     Adding, changing, or removing a type or a requirement changes no stored Credential or Attestation and
@@ -95,7 +95,7 @@ requirement_decisions:
 - D-3
 - D-51
 - D-56
-- D-209
+- D-191
 requirement_features:
 - WA-13
 edges:

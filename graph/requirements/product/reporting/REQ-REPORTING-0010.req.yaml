@@ -65,7 +65,7 @@ requirement_rules:
   rule_sources:
   - SHEET REP-10
   rule_decisions:
-  - D-76
+  - D-75
 requirement_sources:
 - SHEET REP-10
 - SHEET 6.3
@@ -73,7 +73,7 @@ requirement_decisions:
 - D-13
 - D-16
 - D-22
-- D-76
+- D-75
 requirement_features:
 - REP-10
 edges:

@@ -17,7 +17,7 @@ requirement_rules:
   - PRD §4 Professionals
   - SHEET WA-2
   rule_decisions:
-  - D-97
+  - D-96
 - rule_id: R2
   rule_statement: >-
     Each row shows the Worker's name, photo, Agency, Shifts worked at the Unit, the Unit's rating and
@@ -26,7 +26,7 @@ requirement_rules:
   - PRD §4 Professionals
   - SHEET WA-3
   rule_decisions:
-  - D-109
+  - D-108
 - rule_id: R3
   rule_statement: The roster filters by Unit, Agency, rating, and Worker name.
   rule_sources:
@@ -48,7 +48,7 @@ requirement_rules:
   - SHEET WA-3
   rule_decisions:
   - D-51
-  - D-129
+  - D-122
 - rule_id: R6
   rule_statement: >-
     Add a Worker finds any active Worker by Agency and name, so a Unit can rate them before their first
@@ -57,7 +57,7 @@ requirement_rules:
   - SHEET WA-2
   - SHEET 3.2
   rule_decisions:
-  - D-97
+  - D-96
 - rule_id: R7
   rule_statement: >-
     Rate is offered on every roster row at any time, so a Worker can be rated straight after a Shift or
@@ -66,7 +66,7 @@ requirement_rules:
   - SHEET WA-3
   - SHEET WA-2
   rule_decisions:
-  - D-97
+  - D-96
 - rule_id: R8
   rule_statement: >-
     Report an issue takes the category, description, and optional Shift that REQ-WORKFORCE-0006.R1 defines,
@@ -90,17 +90,17 @@ requirement_rules:
   - SHEET WA-3
   - SHEET WA-4
   rule_decisions:
-  - D-108
+  - D-107
 requirement_sources:
 - SHEET WA-3
 - SHEET WA-4
 - PRD §4 Professionals
 requirement_decisions:
 - D-51
-- D-97
+- D-96
+- D-107
 - D-108
-- D-109
-- D-129
+- D-122
 requirement_features:
 - WA-3
 - WA-4

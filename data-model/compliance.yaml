@@ -69,7 +69,7 @@ entities:
   - {name: review_note, type: text, nullable: true}
   - {name: uploaded_by, type: ref:User}
   - {name: replaces_id, type: ref:Credential, nullable: true, note: The credential this renewal replaces}
-  - {name: expiry_warned_at, type: timestamp, nullable: true, note: When CREDENTIAL_EXPIRING was sent for it; empty until then (D-156)}
+  - {name: expiry_warned_at, type: timestamp, nullable: true, note: When CREDENTIAL_EXPIRING was sent for it; empty until then (D-145)}
 - entity: Attestation
   phase: MVP
   description: An Agency's statement that a Worker meets a Credential Type. Append-only; the latest wins.
@@ -82,7 +82,7 @@ entities:
   - {name: attested_at, type: timestamp}
 - entity: BadgeRequest
   phase: MVP
-  description: 'Badge and system access for one Worker at one secured Unit (D-187). One row per Worker and Unit, reused for every Assignment there.'
+  description: 'Badge and system access for one Worker at one secured Unit (D-169). One row per Worker and Unit, reused for every Assignment there.'
   fields:
   - {name: worker_id, type: ref:Worker}
   - {name: unit_id, type: ref:Unit}

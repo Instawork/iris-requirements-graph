@@ -32,7 +32,7 @@ requirement_rules:
   - SHEET WA-14
   rule_decisions:
   - D-16
-  - D-67
+  - D-66
 - rule_id: R4
   rule_statement: >-
     Upload Credential takes an active Credential Type, the document file, an optional issuer, number,
@@ -53,7 +53,7 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-3
-  - D-213
+  - D-195
 - rule_id: R7
   rule_statement: >-
     Attestations are listed by Credential Type, newest first, with statement, valid_until, who attested,
@@ -101,8 +101,8 @@ requirement_rules:
   - SHEET WA-14
   rule_decisions:
   - D-16
-  - D-67
-  - D-108
+  - D-66
+  - D-107
 - rule_id: R13
   rule_statement: >-
     Each roster row also shows how many of the Worker's Credentials are PENDING_CHECK or NEEDS_REVIEW,
@@ -111,15 +111,15 @@ requirement_rules:
   - SHEET WA-14
   - SESSIONS Worker Assignment & Compliance
   rule_decisions:
-  - D-67
-  - D-108
+  - D-66
+  - D-107
 - rule_id: R14
   rule_statement: >-
     Selecting a Worker on the roster opens this page.
   rule_sources:
   - PRD §4 Professionals
   rule_decisions:
-  - D-108
+  - D-107
 - rule_id: R15
   rule_statement: >-
     Upload Credentials on the roster opens the Uploads send step of REQ-SHELL-0008 with CREDENTIALS
@@ -127,7 +127,7 @@ requirement_rules:
   rule_sources:
   - SHEET WA-14
   rule_decisions:
-  - D-108
+  - D-107
 requirement_sources:
 - SHEET WA-14
 - SHEET WA-16
@@ -135,9 +135,9 @@ requirement_sources:
 requirement_decisions:
 - D-3
 - D-16
-- D-67
-- D-108
-- D-213
+- D-66
+- D-107
+- D-195
 requirement_features:
 - WA-14
 - WA-16

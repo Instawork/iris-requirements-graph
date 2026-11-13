@@ -32,7 +32,7 @@ requirement_rules:
   - SHEET REP-3
   rule_decisions:
   - D-43
-  - D-200
+  - D-182
 - rule_id: R4
   rule_statement: >-
     A Timesheet compliance section shows, from REQ-REPORTING-0010, the Timesheets with a missed break
@@ -46,13 +46,13 @@ requirement_rules:
   rule_sources:
   - SHEET WA-20
   rule_decisions:
-  - D-133
+  - D-125
 - rule_id: R6
   rule_statement: The screen embeds the Saved Reports list of REQ-SHELL-0012.
   rule_sources:
   - SHEET REP-1
   rule_decisions:
-  - D-203
+  - D-185
 - rule_id: R7
   rule_statement: >-
     Ask a question opens the assistant of REQ-ASSISTANT-0001, where REQ-ASSISTANT-0004 answers a typed
@@ -68,9 +68,9 @@ requirement_sources:
 - SHEET 6.3
 requirement_decisions:
 - D-43
-- D-133
-- D-200
-- D-203
+- D-125
+- D-182
+- D-185
 requirement_features:
 - REP-3
 - REP-7

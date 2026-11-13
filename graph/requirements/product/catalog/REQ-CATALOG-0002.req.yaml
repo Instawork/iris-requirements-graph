@@ -38,7 +38,7 @@ requirement_rules:
   rule_sources:
   - PRD §3 Supplier Rates
   rule_decisions:
-  - D-237
+  - D-219
 requirement_sources:
 - SHEET RC-3
 - PRD §3 Supplier Rates
@@ -46,7 +46,7 @@ requirement_decisions:
 - D-8
 - D-21
 - D-26
-- D-237
+- D-219
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

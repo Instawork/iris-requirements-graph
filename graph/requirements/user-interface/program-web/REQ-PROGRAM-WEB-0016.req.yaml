@@ -17,7 +17,7 @@ requirement_rules:
   - SHEET RC-4
   - FEEDBACK Rate Cards needs to be its own CRM
   rule_decisions:
-  - D-108
+  - D-107
 - rule_id: R2
   rule_statement: >-
     The rows name the Agency, and REQ-RATES-0002 saves each accepted row as an APPROVED line.
@@ -31,7 +31,7 @@ requirement_sources:
 - FEEDBACK Rate Cards needs to be its own CRM
 requirement_decisions:
 - D-10
-- D-108
+- D-107
 requirement_features:
 - RC-4
 edges:

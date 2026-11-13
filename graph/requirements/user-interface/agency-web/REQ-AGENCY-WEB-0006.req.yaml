@@ -49,7 +49,7 @@ requirement_rules:
   rule_sources:
   - DEMO components/shifts/assign-pros-dialog.tsx
   rule_decisions:
-  - D-175
+  - D-157
 - rule_id: R6
   rule_statement: >-
     Confirming calls REQ-WORKFORCE-0003 once for each picked Worker, and a Worker it then refuses stays
@@ -95,14 +95,14 @@ requirement_rules:
   rule_sources:
   - SHEET SC-6
   rule_decisions:
-  - D-89
+  - D-88
 - rule_id: R12
   rule_statement: >-
     After the Shift ends, the Release lists its Workers with no Assign, Swap, or Remove.
   rule_sources:
   - PRD §2 Shift statuses
   rule_decisions:
-  - D-182
+  - D-164
 - rule_id: R13
   rule_statement: >-
     When an assigned Worker has neither an email nor a phone, the screen shows the answer of
@@ -110,16 +110,16 @@ requirement_rules:
   rule_sources:
   - SHEET SC-6
   rule_decisions:
-  - D-89
+  - D-88
 requirement_sources:
 - SHEET WA-1
 - SESSIONS Worker Assignment & Compliance
 requirement_decisions:
 - D-4
 - D-51
-- D-89
-- D-175
-- D-182
+- D-88
+- D-157
+- D-164
 requirement_features:
 - WA-1
 edges:

@@ -47,7 +47,7 @@ requirement_rules:
   rule_sources:
   - SHEET SC-10
   rule_decisions:
-  - D-94
+  - D-93
 - rule_id: R6
   rule_statement: >-
     A matched Unit User's message that asks to change or cancel a Shift is drafted as REQ-ORDERING-0003
@@ -56,7 +56,7 @@ requirement_rules:
   - SHEET SC-3
   - SESSIONS Shift Creation
   rule_decisions:
-  - D-227
+  - D-209
 - rule_id: R7
   rule_statement: >-
     A message has no session: its sender acts as UNIT_USER across their unrevoked UNIT_USER grants, which
@@ -64,7 +64,7 @@ requirement_rules:
   rule_sources:
   - SHEET SC-10
   rule_decisions:
-  - D-256
+  - D-238
 - rule_id: R8
   rule_statement: >-
     The Agency is filled only when every Release of that Shift went to the same Agency, and otherwise
@@ -85,9 +85,9 @@ requirement_sources:
 requirement_decisions:
 - D-17
 - D-48
-- D-94
-- D-227
-- D-256
+- D-93
+- D-209
+- D-238
 requirement_features:
 - SC-10
 edges:

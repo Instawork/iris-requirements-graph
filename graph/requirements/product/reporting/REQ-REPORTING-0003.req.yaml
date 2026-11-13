@@ -33,7 +33,7 @@ requirement_rules:
   rule_sources:
   - SHEET 6.1
   rule_decisions:
-  - D-76
+  - D-75
 - rule_id: R4
   rule_statement: >-
     An answer can be grouped or filtered by any dimension REQ-REPORTING-0002 lists, down to one Event.
@@ -48,7 +48,7 @@ requirement_rules:
   rule_sources:
   - SHEET REP-1
   rule_decisions:
-  - D-74
+  - D-73
 - rule_id: R6
   rule_statement: >-
     An answer holds only records inside the asking User's scope, as REQ-ORG-0009 checks: the Units under
@@ -56,14 +56,14 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-1
   rule_decisions:
-  - D-185
+  - D-167
 - rule_id: R7
   rule_statement: >-
     No measure uses a Pay Rate or a Markup, so no answer shows either one to any User.
   rule_sources:
   - PRD §3 Supplier Rates
   rule_decisions:
-  - D-76
+  - D-75
 - rule_id: R8
   rule_statement: >-
     When Iris cannot tell which measure or period a question means, it asks the User instead of guessing.
@@ -84,28 +84,28 @@ requirement_rules:
   - SHEET REP-1
   - SESSIONS Reporting
   rule_decisions:
-  - D-203
+  - D-185
 - rule_id: R11
   rule_statement: >-
     A Saved Report's period is either fixed start and end dates or one relative period, never both.
   rule_sources:
   - SHEET REP-1
   rule_decisions:
-  - D-133
-  - D-75
+  - D-125
+  - D-74
 - rule_id: R12
   rule_statement: >-
     Only the User who saved a Saved Report can reopen it, and reopening recomputes it from current records
     within that User's current scope.
   rule_sources: []
   rule_decisions:
-  - D-203
+  - D-185
 - rule_id: R13
   rule_statement: >-
     Only the User who saved a Saved Report can rename or delete it.
   rule_sources: []
   rule_decisions:
-  - D-203
+  - D-185
 - rule_id: R14
   rule_statement: >-
     The relative periods are THIS_WORK_WEEK, LAST_WORK_WEEK, LAST_4_WORK_WEEKS, THIS_MONTH, and
@@ -113,25 +113,25 @@ requirement_rules:
     Week.
   rule_sources: []
   rule_decisions:
-  - D-75
+  - D-74
 - rule_id: R15
   rule_statement: >-
     An answer with several measures is a dashboard that shows each measure as R5 would show it alone.
   rule_sources:
   - SHEET REP-1
   rule_decisions:
-  - D-74
+  - D-73
 requirement_sources:
 - SHEET REP-1
 - SHEET 6.1
 - SESSIONS Reporting
 requirement_decisions:
+- D-73
 - D-74
 - D-75
-- D-76
-- D-133
+- D-125
+- D-167
 - D-185
-- D-203
 requirement_features:
 - REP-1
 edges:

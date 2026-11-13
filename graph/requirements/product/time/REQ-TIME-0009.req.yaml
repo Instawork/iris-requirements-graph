@@ -20,7 +20,7 @@ requirement_rules:
   - GRAPH a Unit User's change to a Timesheet carries a reason, which the PRD's pill does not ask for
   rule_decisions:
   - D-33
-  - D-70
+  - D-69
 - rule_id: R2
   rule_statement: >-
     Marking sets no_show to true and no_show_by to the acting role, and clears clock_in, clock_out,
@@ -28,7 +28,7 @@ requirement_rules:
   rule_sources:
   - PRD §2 Shifts
   rule_decisions:
-  - D-70
+  - D-69
 - rule_id: R3
   rule_statement: >-
     An Agency User clears a mark only if an Agency User set it and the Timesheet is DRAFT or REJECTED;
@@ -38,7 +38,7 @@ requirement_rules:
   - GRAPH a Unit User's change to a Timesheet carries a reason, which the PRD's pill does not ask for
   rule_decisions:
   - D-33
-  - D-232
+  - D-214
 - rule_id: R4
   rule_statement: >-
     A no-show Timesheet has no hours amount and counts no tips, so only an approved Expense on it adds
@@ -46,7 +46,7 @@ requirement_rules:
   rule_sources:
   - PRD §5 Invoices
   rule_decisions:
-  - D-144
+  - D-136
 - rule_id: R5
   rule_statement: >-
     Setting or clearing the mark notifies the other party through REQ-TIME-0006: always when a Unit
@@ -54,7 +54,7 @@ requirement_rules:
   rule_sources:
   - PRD §2 Shifts
   rule_decisions:
-  - D-70
+  - D-69
 - rule_id: R6
   rule_statement: >-
     The mark opens no Worker issue; a Unit User reports a no-show as a Worker issue of category
@@ -68,22 +68,22 @@ requirement_rules:
   rule_sources:
   - PRD §2 Shifts
   rule_decisions:
-  - D-232
+  - D-214
 - rule_id: R8
   rule_statement: >-
     While no_show is true, a change to clock_in, clock_out, or break_minutes is refused until the mark
     is cleared.
   rule_sources: []
   rule_decisions:
-  - D-70
+  - D-69
 requirement_sources:
 - PRD §2 Shifts
 - PRD §5 Invoices
 requirement_decisions:
 - D-33
-- D-70
-- D-144
-- D-232
+- D-69
+- D-136
+- D-214
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

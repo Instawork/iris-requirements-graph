@@ -37,7 +37,7 @@ requirement_rules:
     When no date in the period has revenue, the measure shows as not available, never as zero.
   rule_sources: []
   rule_decisions:
-  - D-200
+  - D-182
 - rule_id: R5
   rule_statement: >-
     Labor cost here is Spend under REQ-REPORTING-0001, the agency labor held in Iris, and excludes
@@ -46,7 +46,7 @@ requirement_rules:
   - SHEET REP-3
   - FAQ Iris covers the agency side of staffing
   rule_decisions:
-  - D-202
+  - D-184
 - rule_id: R6
   rule_statement: >-
     A Unit User sees the measure for the Units in their scope, and a Program User for any Unit.
@@ -59,8 +59,8 @@ requirement_sources:
 - SHEET 6.1
 requirement_decisions:
 - D-43
-- D-200
-- D-202
+- D-182
+- D-184
 requirement_features:
 - REP-3
 edges:

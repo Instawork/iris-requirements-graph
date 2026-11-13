@@ -31,7 +31,7 @@ requirement_rules:
   rule_sources:
   - SHEET SC-7
   rule_decisions:
-  - D-175
+  - D-157
 - rule_id: R4
   rule_statement: >-
     The list filters by Unit, date range, Position, Agency, status, and Shifts with unsent headcount.
@@ -59,7 +59,7 @@ requirement_sources:
 - PRD §2 Shifts
 - SHEET SC-2
 requirement_decisions:
-- D-175
+- D-157
 requirement_features:
 - SC-2
 edges:

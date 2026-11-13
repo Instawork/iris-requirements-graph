@@ -17,7 +17,7 @@ requirement_rules:
   rule_sources:
   - SHEET REP-1
   rule_decisions:
-  - D-74
+  - D-73
 - rule_id: R2
   rule_statement: >-
     Each answer states the measures, groupings, filters, and dates it used, so the User can see how the
@@ -25,7 +25,7 @@ requirement_rules:
   rule_sources:
   - PRD §7 What the LLM does and what code does
   rule_decisions:
-  - D-230
+  - D-212
 - rule_id: R3
   rule_statement: >-
     When REQ-REPORTING-0003 asks which measure or period is meant, the question appears in the conversation
@@ -40,7 +40,7 @@ requirement_rules:
   - SHEET REP-1
   - SESSIONS Reporting
   rule_decisions:
-  - D-203
+  - D-185
 - rule_id: R5
   rule_statement: A table in an answer downloads through REQ-SHELL-0010.
   rule_sources:
@@ -59,16 +59,16 @@ requirement_rules:
     blank.
   rule_sources: []
   rule_decisions:
-  - D-200
+  - D-182
 requirement_sources:
 - SHEET REP-1
 - SESSIONS Reporting
 requirement_decisions:
 - D-45
-- D-74
-- D-200
-- D-203
-- D-230
+- D-73
+- D-182
+- D-185
+- D-212
 requirement_features:
 - REP-1
 edges:

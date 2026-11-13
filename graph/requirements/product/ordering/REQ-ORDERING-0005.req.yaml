@@ -46,13 +46,13 @@ requirement_rules:
   rule_sources:
   - SHEET SC-5
   rule_decisions:
-  - D-175
+  - D-157
 requirement_sources:
 - SHEET SC-5
 requirement_decisions:
 - D-18
 - D-19
-- D-175
+- D-157
 requirement_features:
 - SC-5
 edges:

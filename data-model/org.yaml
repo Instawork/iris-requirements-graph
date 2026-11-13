@@ -17,7 +17,7 @@ enums:
   - {value: SUN, meaning: Sunday}
 - enum: Role
   values:
-  - {value: INSTAWORK_ADMIN, meaning: 'Instawork staff who load reference data and invite the first Program User (D-26, D-83). Has no scope.'}
+  - {value: INSTAWORK_ADMIN, meaning: 'Instawork staff who load reference data and invite the first Program User (D-26, D-82). Has no scope.'}
   - {value: PROGRAM_USER, meaning: The Compass program office. Covers the whole program.}
   - {value: UNIT_USER, meaning: 'A Compass operator who books Shifts and approves hours, granted at an org node.'}
   - {value: AGENCY_USER, meaning: Staff of one Agency who staff Shifts and submit hours.}
@@ -56,8 +56,8 @@ entities:
   - {name: city, type: text}
   - {name: state, type: text, note: Two-letter code; labor rules resolve from this and city}
   - {name: zip, type: text, note: Five digits}
-  - {name: timezone, type: text, note: 'IANA zone, such as America/Chicago; every Shift time at the Unit is in this zone. Filled from zip when not given (D-86)'}
-  - {name: market_id, type: ref:Market, note: 'The Market that holds zip; set when the Unit is saved and again when its ZIP code is added to a Market (D-237)'}
+  - {name: timezone, type: text, note: 'IANA zone, such as America/Chicago; every Shift time at the Unit is in this zone. Filled from zip when not given (D-85)'}
+  - {name: market_id, type: ref:Market, note: 'The Market that holds zip; set when the Unit is saved and again when its ZIP code is added to a Market (D-219)'}
   - {name: cost_center_id, type: ref:CostCenter}
   - {name: work_week_start, type: enum:Weekday}
   - {name: is_secured_site, type: bool, note: Workers need a badge request here}
@@ -99,7 +99,7 @@ entities:
   description: An override of one Setting at one org node, or a new program default. Unset keys use the catalog default.
   fields:
   - {name: key, type: enum:SettingKey}
-  - {name: value, type: text, note: 'Parsed by the type the settings catalog gives the key; a whole number is 0 or more (D-80)'}
+  - {name: value, type: text, note: 'Parsed by the type the settings catalog gives the key; a whole number is 0 or more (D-79)'}
   - {name: org_node_id, type: ref:OrgNode, nullable: true, note: Empty means the program default}
   unique:
   - [key, org_node_id]

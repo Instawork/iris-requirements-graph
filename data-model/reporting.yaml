@@ -38,7 +38,7 @@ enums:
 entities:
 - entity: Budget
   phase: MVP
-  description: A Unit's labor budget for a date range (D-14, D-172).
+  description: A Unit's labor budget for a date range (D-14, D-154).
   fields:
   - {name: unit_id, type: ref:Unit}
   - {name: period_start, type: date}

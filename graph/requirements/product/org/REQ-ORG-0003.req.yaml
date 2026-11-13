@@ -34,7 +34,7 @@ requirement_rules:
   - DEMO lib/types.ts
   - SHEET WA-17
   rule_decisions:
-  - D-86
+  - D-85
 - rule_id: R4
   rule_statement: >-
     Each row is checked and saved by the rules of REQ-ORG-0002, so a ZIP code in no Market is a row
@@ -66,7 +66,7 @@ requirement_rules:
   - SESSIONS Shift Creation
   - SHEET PLT-2
   rule_decisions:
-  - D-153
+  - D-143
 - rule_id: R8
   rule_statement: >-
     A row whose unit is already a Unit in Iris is a row problem whose fix drops the row, because a UNITS
@@ -75,7 +75,7 @@ requirement_rules:
   - PRD §6 Uploads
   rule_decisions:
   - D-54
-  - D-153
+  - D-143
 requirement_sources:
 - SESSIONS Shift Creation
 - SHEET PLT-2
@@ -83,8 +83,8 @@ requirement_decisions:
 - D-21
 - D-53
 - D-54
-- D-86
-- D-153
+- D-85
+- D-143
 requirement_features:
 - PLT-2
 edges:

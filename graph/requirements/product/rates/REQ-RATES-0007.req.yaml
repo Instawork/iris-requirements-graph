@@ -91,14 +91,14 @@ requirement_rules:
   - SHEET RC-10
   - SHEET RC-11
   rule_decisions:
-  - D-69
+  - D-68
 requirement_sources:
 - SHEET RC-11
 requirement_decisions:
 - D-9
 - D-16
 - D-24
-- D-69
+- D-68
 requirement_features:
 - RC-11
 edges:

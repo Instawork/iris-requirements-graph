@@ -25,7 +25,7 @@ requirement_rules:
   rule_sources:
   - PRD §6 Uploads
   rule_decisions:
-  - D-103
+  - D-102
 - rule_id: R3
   rule_statement: >-
     On each such item the User accepts the fix, edits the values, or rejects the item, and one action
@@ -39,7 +39,7 @@ requirement_rules:
   rule_sources:
   - PRD §7 Typed request
   rule_decisions:
-  - D-242
+  - D-224
 - rule_id: R5
   rule_statement: >-
     A card shows values as the owning requirement priced or checked them, such as each Shift line's Agency
@@ -55,7 +55,7 @@ requirement_rules:
   rule_sources:
   - PRD §6 Uploads
   rule_decisions:
-  - D-242
+  - D-224
 - rule_id: R7
   rule_statement: >-
     Reject all calls REQ-AGENT-0002 to reject the Proposal, and nothing is saved.
@@ -70,15 +70,15 @@ requirement_rules:
   rule_sources:
   - PRD §7 After the user approves
   rule_decisions:
-  - D-192
-  - D-108
+  - D-174
+  - D-107
 - rule_id: R9
   rule_statement: >-
     A decided Proposal's card is read-only, and it says that a failed item is retried by sending the file
     or request again.
   rule_sources: []
   rule_decisions:
-  - D-191
+  - D-173
 - rule_id: R10
   rule_statement: >-
     Only the User the Proposal was made for can open its card; anyone else is shown the refusal of REQ-AGENT-0002.
@@ -93,17 +93,17 @@ requirement_rules:
   rule_sources:
   - PRD §4 How the system matches a professional
   rule_decisions:
-  - D-242
+  - D-224
 requirement_sources:
 - PRD §7 Agent Chat
 - PRD §6 Uploads
 requirement_decisions:
 - D-36
-- D-103
-- D-108
-- D-191
-- D-192
-- D-242
+- D-102
+- D-107
+- D-173
+- D-174
+- D-224
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

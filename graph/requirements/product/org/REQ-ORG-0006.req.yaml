@@ -17,19 +17,19 @@ requirement_rules:
   - FAQ Settings for each sector
   - SHEET WA-19
   rule_decisions:
-  - D-174
+  - D-156
 - rule_id: R2
   rule_statement: >-
     When no node on that path has a row, the value is the program default row, which names no org node.
   rule_sources: []
   rule_decisions:
-  - D-174
+  - D-156
 - rule_id: R3
   rule_statement: >-
     When there is no program default row, the value is the key's default in the settings catalog.
   rule_sources: []
   rule_decisions:
-  - D-174
+  - D-156
 - rule_id: R4
   rule_statement: >-
     A key the catalog scopes as program needs no Unit and resolves only from the program default row,
@@ -37,7 +37,7 @@ requirement_rules:
   rule_sources:
   - GRAPH a program-wide Setting has no Unit to resolve from
   rule_decisions:
-  - D-174
+  - D-156
 - rule_id: R5
   rule_statement: >-
     The value is returned in the key's catalog type: a whole number, true or false, or a gate mode of
@@ -45,14 +45,14 @@ requirement_rules:
   rule_sources:
   - GRAPH the settings catalog gives each key a type
   rule_decisions:
-  - D-174
+  - D-156
 requirement_sources:
 - FAQ Settings for each sector
 - SHEET TS-9
 - SHEET WA-19
 - SHEET RC-11
 requirement_decisions:
-- D-174
+- D-156
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

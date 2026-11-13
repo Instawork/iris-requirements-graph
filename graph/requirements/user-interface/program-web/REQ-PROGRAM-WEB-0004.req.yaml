@@ -18,7 +18,7 @@ requirement_rules:
   - SHEET WA-13
   rule_decisions:
   - D-3
-  - D-66
+  - D-65
 - rule_id: R2
   rule_statement: >-
     Add type and Edit type take a name, the proof, and whether the type expires, and save through REQ-COMPLIANCE-0001.
@@ -32,7 +32,7 @@ requirement_rules:
     required and keeps its Credentials and Attestations.
   rule_sources: []
   rule_decisions:
-  - D-209
+  - D-191
 - rule_id: R4
   rule_statement: >-
     Credential Requirements are listed with their Credential Type, the org node or every Unit, and the
@@ -77,8 +77,8 @@ requirement_decisions:
 - D-3
 - D-51
 - D-56
-- D-66
-- D-209
+- D-65
+- D-191
 requirement_features:
 - WA-13
 edges:

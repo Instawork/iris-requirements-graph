@@ -41,7 +41,7 @@ requirement_rules:
   rule_sources:
   - SHEET SC-7
   rule_decisions:
-  - D-175
+  - D-157
 - rule_id: R5
   rule_statement: >-
     Each ASSIGNED Worker shows whether REQ-COMPLIANCE-0005 finds them eligible before the Shift starts,
@@ -65,7 +65,7 @@ requirement_rules:
   - SHEET SC-5
   rule_decisions:
   - D-18
-  - D-95
+  - D-94
 - rule_id: R10
   rule_statement: >-
     Until the Shift starts, Cancel calls REQ-ORDERING-0003 once the User confirms, and the page then shows
@@ -73,14 +73,14 @@ requirement_rules:
   rule_sources:
   - PRD §2 Shift statuses
   rule_decisions:
-  - D-180
-  - D-129
+  - D-162
+  - D-122
 - rule_id: R12
   rule_statement: A PENDING Release offers Withdraw, which calls REQ-DISPATCH-0001.
   rule_sources:
   - SHEET SC-8
   rule_decisions:
-  - D-179
+  - D-161
 - rule_id: R14
   rule_statement: Once the Shift has ended, Edit, Cancel, and Send are gone.
   rule_sources:
@@ -100,11 +100,11 @@ requirement_sources:
 - SHEET WA-1
 requirement_decisions:
 - D-18
-- D-95
-- D-129
-- D-175
-- D-179
-- D-180
+- D-94
+- D-122
+- D-157
+- D-161
+- D-162
 requirement_features:
 - SC-3
 - SC-5

@@ -61,7 +61,7 @@ requirement_rules:
   rule_sources:
   - PRD §6 Templates
   rule_decisions:
-  - D-195
+  - D-177
 - rule_id: R8
   rule_statement: >-
     A value that cannot be read as its column's kind in the catalog is a problem.
@@ -77,8 +77,8 @@ requirement_rules:
   - PRD §7 File attached
   - GRAPH platform reads no product records, so the caller supplies them
   rule_decisions:
-  - D-243
-  - D-107
+  - D-225
+  - D-106
 - rule_id: R10
   rule_statement: >-
     Checks across columns, across rows, or against stored records belong to the type's owner, which is
@@ -87,7 +87,7 @@ requirement_rules:
   - PRD §7 What the agent checks
   - GRAPH platform reads no product records, so the caller supplies them
   rule_decisions:
-  - D-107
+  - D-106
 - rule_id: R11
   rule_statement: >-
     A row the type's owner reports as a duplicate of an earlier row has a problem whose fix is to drop
@@ -103,7 +103,7 @@ requirement_rules:
   rule_sources:
   - PRD §6 Uploads
   rule_decisions:
-  - D-103
+  - D-102
 - rule_id: R13
   rule_statement: >-
     No value from the file is changed unless the uploader accepts a fix for it, picks a candidate, or
@@ -126,8 +126,8 @@ requirement_rules:
   - PRD §7 Agent Chat
   - GRAPH platform reads no product records, so the caller supplies them
   rule_decisions:
-  - D-107
-  - D-151
+  - D-106
+  - D-141
 - rule_id: R16
   rule_statement: >-
     When the Proposal becomes APPLIED or PARTLY_APPLIED the Upload becomes SAVED, and when it becomes
@@ -143,7 +143,7 @@ requirement_rules:
   - PRD §7 What the LLM does and what code does
   - GRAPH files arrive with columns the template does not have
   rule_decisions:
-  - D-246
+  - D-228
 - rule_id: R18
   rule_statement: >-
     Rows the type's owner says make one record together, such as the Shifts of one Request, get one group_key
@@ -151,7 +151,7 @@ requirement_rules:
   rule_sources:
   - GRAPH one Proposal of many rows can make one record
   rule_decisions:
-  - D-192
+  - D-174
 - rule_id: R19
   rule_statement: >-
     A text value is kept as written, an int value is a whole number written in digits, and a yes_no
@@ -159,7 +159,7 @@ requirement_rules:
   rule_sources:
   - PRD §6 Templates
   rule_decisions:
-  - D-195
+  - D-177
 - rule_id: R20
   rule_statement: >-
     The type's owner may add a fix to any problem, including one INTAKE found, such as a missing date
@@ -168,20 +168,20 @@ requirement_rules:
   - PRD §7 File attached
   - PRD §6 Uploads
   rule_decisions:
-  - D-103
+  - D-102
 requirement_sources:
 - PRD §6 Uploads
 - PRD §6 Templates
 - PRD §7 What the agent checks
 requirement_decisions:
 - D-37
-- D-103
-- D-107
-- D-151
-- D-192
-- D-195
-- D-243
-- D-246
+- D-102
+- D-106
+- D-141
+- D-174
+- D-177
+- D-225
+- D-228
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

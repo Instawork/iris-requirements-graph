@@ -17,12 +17,12 @@ requirement_rules:
   - SHEET WA-1
   - PRD §4 Professionals
   rule_decisions:
-  - D-108
+  - D-107
 requirement_sources:
 - SHEET WA-1
 - PRD §4 Professionals
 requirement_decisions:
-- D-108
+- D-107
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

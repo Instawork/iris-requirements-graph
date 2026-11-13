@@ -19,7 +19,7 @@ requirement_rules:
   rule_sources:
   - PRD Overview
   rule_decisions:
-  - D-125
+  - D-118
 - rule_id: R2
   rule_statement: >-
     The inbox lists only the signed-in User's IN_APP notifications, newest first, each with its body,
@@ -34,25 +34,25 @@ requirement_rules:
   rule_sources:
   - PRD Overview
   rule_decisions:
-  - D-125
+  - D-118
 - rule_id: R4
   rule_statement: >-
     EMAIL and SMS notifications are never listed, and an inbox with nothing in it says so.
   rule_sources:
   - 'GRAPH data model: only IN_APP notifications are shown in the inbox'
   rule_decisions:
-  - D-125
+  - D-118
 - rule_id: R5
   rule_statement: >-
     The inbox holds the notifications of every context the User has, whichever one they are acting in.
   rule_sources:
   - PRD Overview
   rule_decisions:
-  - D-125
+  - D-118
 requirement_sources:
 - PRD Overview
 requirement_decisions:
-- D-125
+- D-118
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

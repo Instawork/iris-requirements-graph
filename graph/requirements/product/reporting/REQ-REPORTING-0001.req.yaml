@@ -45,7 +45,7 @@ requirement_rules:
   - SESSIONS Timesheets, Tips & Expenses
   rule_decisions:
   - D-29
-  - D-144
+  - D-136
 - rule_id: R6
   rule_statement: >-
     A tip allocation counts at its amount, with no markup, once its Timesheet is APPROVED, and counts
@@ -55,7 +55,7 @@ requirement_rules:
   - PRD §5 Invoices
   rule_decisions:
   - D-29
-  - D-144
+  - D-136
 - rule_id: R7
   rule_statement: >-
     PENDING_SPEND covers each Timesheet not yet APPROVED on a Shift whose end time has passed, at the
@@ -94,7 +94,7 @@ requirement_rules:
   - PRD §5 Invoices
   - PRD §2 Shifts
   rule_decisions:
-  - D-144
+  - D-136
 - rule_id: R12
   rule_statement: A CANCELLED Shift adds nothing to spend.
   rule_sources:
@@ -136,7 +136,7 @@ requirement_rules:
     one decimal place, and an average Bill Rate half up to the cent.
   rule_sources: []
   rule_decisions:
-  - D-77
+  - D-76
 requirement_sources:
 - PRD §1 Detailed requirements
 - SHEET REP-7
@@ -147,8 +147,8 @@ requirement_decisions:
 - D-29
 - D-33
 - D-41
-- D-77
-- D-144
+- D-76
+- D-136
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

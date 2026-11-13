@@ -15,7 +15,7 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-26
-  - D-131
+  - D-124
 - rule_id: R2
   rule_statement: >-
     Home has no to-do list; it shows how many active Positions, how many Markets, and how many Labor Rules
@@ -23,36 +23,36 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-26
-  - D-131
-  - D-231
+  - D-124
+  - D-213
 - rule_id: R3
   rule_statement: >-
     While REQ-ORG-0005.R6 allows a grant, Home offers Invite a Program User, which embeds the invite
     form of REQ-PROGRAM-WEB-0007 with the role fixed to PROGRAM_USER.
   rule_sources: []
   rule_decisions:
-  - D-83
+  - D-82
 - rule_id: R4
   rule_statement: >-
     Below the invite, Home lists each User REQ-ORG-0005.R16 lets the Instawork Admin see, with their
     name, email, and invite date, and offers Send invite again and Revoke under REQ-ORG-0005.R15.
   rule_sources: []
   rule_decisions:
-  - D-83
+  - D-82
 - rule_id: R5
   rule_statement: >-
     While REQ-ORG-0005.R6 refuses a grant, Home says a Program User is in place and offers neither the
     invite nor that list.
   rule_sources: []
   rule_decisions:
-  - D-83
+  - D-82
 requirement_sources:
 - SHEET PLT-1
 requirement_decisions:
 - D-26
-- D-83
-- D-131
-- D-231
+- D-82
+- D-124
+- D-213
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

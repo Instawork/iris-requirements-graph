@@ -32,7 +32,7 @@ requirement_rules:
   - PRD §6 Uploads
   - GRAPH platform reads no product records, so the caller supplies them
   rule_decisions:
-  - D-107
+  - D-106
 - rule_id: R4
   rule_statement: >-
     When that role is not among the type's uploaders, such as a Unit User sending a RATE_CARD, Iris names
@@ -48,7 +48,7 @@ requirement_rules:
   - PRD §7 When the agent is unsure
   - GRAPH platform reads no product records, so the caller supplies them
   rule_decisions:
-  - D-107
+  - D-106
 - rule_id: R6
   rule_statement: >-
     A question or a refusal is given on the channel the file or message arrived on.
@@ -63,12 +63,12 @@ requirement_rules:
   rule_sources:
   - GRAPH platform reads no product records, so the caller supplies them
   rule_decisions:
-  - D-107
+  - D-106
 requirement_sources:
 - PRD §7 When the agent is unsure
 - PRD §6 Uploads
 requirement_decisions:
-- D-107
+- D-106
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

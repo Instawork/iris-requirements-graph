@@ -20,7 +20,7 @@ requirement_rules:
   - SHEET PLT-4
   - SHEET PLT-1
   rule_decisions:
-  - D-108
+  - D-107
 - rule_id: R2
   rule_statement: >-
     The User changes their first name, last name, and phone through REQ-IDENTITY-0003, and the email is
@@ -28,7 +28,7 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-4
   rule_decisions:
-  - D-190
+  - D-172
 - rule_id: R4
   rule_statement: >-
     Change password sends the User a reset link through REQ-IDENTITY-0002 and says it was emailed; the
@@ -36,7 +36,7 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-4
   rule_decisions:
-  - D-189
+  - D-171
 - rule_id: R5
   rule_statement: >-
     The page offers no change to the User's own Role Grants or active flag.
@@ -48,9 +48,9 @@ requirement_sources:
 - SHEET PLT-4
 requirement_decisions:
 - D-25
-- D-108
-- D-189
-- D-190
+- D-107
+- D-171
+- D-172
 requirement_features:
 - PLT-4
 edges:

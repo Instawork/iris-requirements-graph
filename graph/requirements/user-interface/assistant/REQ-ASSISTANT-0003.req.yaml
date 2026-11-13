@@ -104,7 +104,7 @@ requirement_rules:
   rule_sources:
   - PRD §7 When the agent is unsure
   rule_decisions:
-  - D-228
+  - D-210
 requirement_sources:
 - PRD §7 Agent Chat
 - SHEET SC-9
@@ -113,7 +113,7 @@ requirement_sources:
 requirement_decisions:
 - D-28
 - D-45
-- D-228
+- D-210
 requirement_features:
 - SC-9
 - TS-6

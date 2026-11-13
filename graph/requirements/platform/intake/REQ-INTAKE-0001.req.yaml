@@ -27,7 +27,7 @@ requirement_rules:
     The original file is kept unchanged in private storage, and file_url is never a public link.
   rule_sources: []
   rule_decisions:
-  - D-152
+  - D-142
 - rule_id: R3
   rule_statement: >-
     CSV and Excel files are accepted for every upload type except CREDENTIALS, and PDF and image files
@@ -54,7 +54,7 @@ requirement_rules:
   - PRD §6 Uploads
   - PRD §7 Agent Chat
   rule_decisions:
-  - D-104
+  - D-103
 - rule_id: R6
   rule_statement: >-
     When detection chooses one type, the Upload's type is set; when no type fits or the best ones tie,
@@ -91,7 +91,7 @@ requirement_rules:
   - PRD §7 When the agent is unsure
   - GRAPH several upload types share column names
   rule_decisions:
-  - D-104
+  - D-103
 - rule_id: R11
   rule_statement: >-
     For a PDF or an image, the LLM names the one upload type the OCR text holds, among the registered
@@ -100,7 +100,7 @@ requirement_rules:
   - SHEET TS-5
   - GRAPH a PDF or an image has no column names
   rule_decisions:
-  - D-104
+  - D-103
 - rule_id: R12
   rule_statement: >-
     A file larger than 10 MB is refused when it is sent and creates no Upload, and a file with more than
@@ -108,7 +108,7 @@ requirement_rules:
   rule_sources:
   - GRAPH no source gives a limit
   rule_decisions:
-  - D-244
+  - D-226
 - rule_id: R13
   rule_statement: >-
     Excel means an .xlsx workbook and an image a JPEG or PNG file; the first row that holds a value is
@@ -116,7 +116,7 @@ requirement_rules:
   rule_sources:
   - GRAPH no source says which sheet is read
   rule_decisions:
-  - D-245
+  - D-227
 - rule_id: R14
   rule_statement: >-
     The requirement that owns an upload type registers it, with its check step and its save step, when
@@ -124,7 +124,7 @@ requirement_rules:
   rule_sources:
   - GRAPH an upload type is built after INTAKE, by the requirement that owns it
   rule_decisions:
-  - D-150
+  - D-140
 - rule_id: R15
   rule_statement: >-
     Among the types that fit a file, the one that covers the most of the file's columns is chosen.
@@ -132,7 +132,7 @@ requirement_rules:
   - PRD §7 When the agent is unsure
   - GRAPH several upload types share column names
   rule_decisions:
-  - D-104
+  - D-103
 - rule_id: R16
   rule_statement: >-
     A requirement may store a PDF, JPEG, or PNG file of at most 10 MB without creating an Upload, such
@@ -140,8 +140,8 @@ requirement_rules:
   rule_sources:
   - GRAPH a photo or a document entered on a form is a file but not an Upload
   rule_decisions:
-  - D-254
-  - D-244
+  - D-236
+  - D-226
 - rule_id: R17
   rule_statement: >-
     A stored file, an Upload's or not, is read only through this requirement, by the requirement that
@@ -149,21 +149,21 @@ requirement_rules:
   rule_sources:
   - GRAPH platform reads no product records, so the caller supplies them
   rule_decisions:
-  - D-107
-  - D-152
+  - D-106
+  - D-142
 requirement_sources:
 - PRD §6 Uploads
 - PRD §7 Agent Chat
 - SHEET TS-5
 requirement_decisions:
 - D-40
-- D-104
-- D-107
-- D-150
-- D-152
-- D-244
-- D-245
-- D-254
+- D-103
+- D-106
+- D-140
+- D-142
+- D-226
+- D-227
+- D-236
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

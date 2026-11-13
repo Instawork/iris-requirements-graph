@@ -20,7 +20,7 @@ requirement_rules:
   - SHEET PLT-2
   - FAQ Who uses Iris day to day?
   rule_decisions:
-  - D-185
+  - D-167
 - rule_id: R2
   rule_statement: An AGENCY_USER grant names one Agency and no org node.
   rule_sources:
@@ -33,7 +33,7 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-1
   rule_decisions:
-  - D-185
+  - D-167
 - rule_id: R4
   rule_statement: >-
     A Program User may grant UNIT_USER, AGENCY_USER, and PROGRAM_USER to any User.
@@ -41,7 +41,7 @@ requirement_rules:
   - SHEET PLT-1
   rule_decisions:
   - D-25
-  - D-186
+  - D-168
 - rule_id: R5
   rule_statement: >-
     An Agency User may grant only AGENCY_USER, and only for the Agency of their own grant.
@@ -54,7 +54,7 @@ requirement_rules:
     invite holds an unrevoked PROGRAM_USER grant.
   rule_sources: []
   rule_decisions:
-  - D-83
+  - D-82
 - rule_id: R7
   rule_statement: >-
     At every start, when the User with the configured Instawork Admin email holds no INSTAWORK_ADMIN
@@ -62,7 +62,7 @@ requirement_rules:
   rule_sources:
   - GRAPH the first grant has nobody to grant it
   rule_decisions:
-  - D-98
+  - D-97
 - rule_id: R8
   rule_statement: >-
     The grantee is an existing User, or a new one invited through REQ-IDENTITY-0002 in the same action;
@@ -78,7 +78,7 @@ requirement_rules:
   rule_sources:
   - GRAPH a User may hold more than one Role Grant
   rule_decisions:
-  - D-161
+  - D-150
 - rule_id: R10
   rule_statement: >-
     Whoever may grant a role and scope may revoke it; revoking sets revoked_at and ends that grant's access
@@ -110,7 +110,7 @@ requirement_rules:
   - SHEET PLT-4
   rule_decisions:
   - D-25
-  - D-170
+  - D-152
 - rule_id: R14
   rule_statement: >-
     A Program User sees every User and their Role Grants, and an Agency User sees only the Users who
@@ -125,33 +125,33 @@ requirement_rules:
     has not accepted their invite, and only while R6 would allow a grant.
   rule_sources: []
   rule_decisions:
-  - D-83
+  - D-82
 - rule_id: R16
   rule_statement: >-
     An Instawork Admin sees only the Users who hold an unrevoked PROGRAM_USER grant and have not
     accepted their invite.
   rule_sources: []
   rule_decisions:
-  - D-83
+  - D-82
 - rule_id: R17
   rule_statement: >-
     No User grants or revokes INSTAWORK_ADMIN.
   rule_sources: []
   rule_decisions:
   - D-26
-  - D-98
+  - D-97
 requirement_sources:
 - SHEET PLT-1
 - SHEET PLT-4
 requirement_decisions:
 - D-25
 - D-26
-- D-83
-- D-98
-- D-161
-- D-170
-- D-185
-- D-186
+- D-82
+- D-97
+- D-150
+- D-152
+- D-167
+- D-168
 requirement_features:
 - PLT-1
 edges:

@@ -19,7 +19,7 @@ requirement_rules:
   - PRD §2 Shift statuses
   rule_decisions:
   - D-18
-  - D-95
+  - D-94
 - rule_id: R2
   rule_statement: >-
     An edit is refused unless the changed Shift still passes every check a new Shift must pass.
@@ -33,7 +33,7 @@ requirement_rules:
   rule_sources:
   - SHEET SC-3
   rule_decisions:
-  - D-175
+  - D-157
   - D-19
 - rule_id: R4
   rule_statement: >-
@@ -50,7 +50,7 @@ requirement_rules:
   rule_sources:
   - PRD §2 Shift statuses
   rule_decisions:
-  - D-180
+  - D-162
 - rule_id: R6
   rule_statement: >-
     A cancel calls REQ-DISPATCH-0001, which cancels the Shift's PENDING and ACCEPTED Releases, and
@@ -59,7 +59,7 @@ requirement_rules:
   rule_sources:
   - PRD §2 Shift statuses
   rule_decisions:
-  - D-180
+  - D-162
 - rule_id: R7
   rule_statement: A CANCELLED Shift cannot be edited, sent to an Agency, or staffed.
   rule_sources:
@@ -68,7 +68,7 @@ requirement_rules:
 - rule_id: R8
   rule_statement: >-
     After its ends_at a Shift cannot be edited or cancelled, and changes to the hours worked are made on
-    Timesheets (C-44).
+    Timesheets (C-38).
   rule_sources:
   - SHEET TS-7
   - PRD §2 Shift statuses
@@ -77,19 +77,19 @@ requirement_rules:
 - rule_id: R9
   rule_statement: >-
     An edit may come from the Shift's page, a SHIFTS file row, a typed request, or a message, and a
-    cancel from any of these except a file (C-45).
+    cancel from any of these except a file (C-39).
   rule_sources:
   - PRD §2 Shifts
   rule_decisions:
-  - D-205
-  - D-227
+  - D-187
+  - D-209
 - rule_id: R10
   rule_statement: >-
     A Shift's Unit, Position, and Department never change once it is created; a Shift booked for the
     wrong one is cancelled and booked again.
   rule_sources: []
   rule_decisions:
-  - D-95
+  - D-94
 - rule_id: R11
   rule_statement: >-
     A Unit User's typed request to change a Shift's headcount or times, or to cancel it, becomes a Proposal
@@ -98,7 +98,7 @@ requirement_rules:
   - PRD §7 Who uses it
   - PRD §2 Shifts
   rule_decisions:
-  - D-227
+  - D-209
 - rule_id: R12
   rule_statement: >-
     Iris finds each Shift the request means among the Shifts in the User's scope that have not ended,
@@ -106,7 +106,7 @@ requirement_rules:
   rule_sources:
   - PRD §7 What the agent checks
   rule_decisions:
-  - D-227
+  - D-209
 - rule_id: R13
   rule_statement: >-
     When no Shift or several match, or the new headcount or time is missing, Iris asks under REQ-AGENT-0003
@@ -129,7 +129,7 @@ requirement_rules:
   rule_sources:
   - PRD §7 Agent Chat
   rule_decisions:
-  - D-227
+  - D-209
 - rule_id: R16
   rule_statement: >-
     When an edit is saved, REQ-ORDERING-0006 reacts to changed site instructions, REQ-ORDERING-0008 to
@@ -138,7 +138,7 @@ requirement_rules:
   - SHEET SC-6
   - PRD §2 Shift statuses
   rule_decisions:
-  - D-91
+  - D-90
 requirement_sources:
 - SHEET SC-3
 - PRD §2 Shift statuses
@@ -146,12 +146,12 @@ requirement_sources:
 requirement_decisions:
 - D-18
 - D-19
-- D-91
-- D-95
-- D-175
-- D-180
-- D-205
-- D-227
+- D-90
+- D-94
+- D-157
+- D-162
+- D-187
+- D-209
 requirement_features:
 - SC-3
 edges:

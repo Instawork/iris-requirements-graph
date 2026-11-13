@@ -30,7 +30,7 @@ requirement_rules:
   rule_sources:
   - DEMO components/rates/rates-page.tsx
   rule_decisions:
-  - D-109
+  - D-108
 - rule_id: R7
   rule_statement: >-
     Add rate opens the form of REQ-RATES-0013 with an Agency field, and the saved line is listed as APPROVED
@@ -62,7 +62,7 @@ requirement_rules:
   rule_sources:
   - SHEET RC-5
   rule_decisions:
-  - D-78
+  - D-77
 requirement_sources:
 - FEEDBACK A lot of vendors side by side
 - FEEDBACK Rate Cards needs to be its own CRM
@@ -70,8 +70,8 @@ requirement_sources:
 requirement_decisions:
 - D-10
 - D-11
-- D-78
-- D-109
+- D-77
+- D-108
 requirement_features:
 - RC-3
 - RC-5

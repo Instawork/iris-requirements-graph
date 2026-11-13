@@ -18,14 +18,14 @@ requirement_rules:
   - SHEET WA-1
   - PRD §2 Shift statuses
   rule_decisions:
-  - D-182
+  - D-164
 - rule_id: R2
   rule_statement: >-
     A Release never holds more ASSIGNED Workers than its headcount, and a Worker has at most one ASSIGNED
     Assignment on a Shift.
   rule_sources: []
   rule_decisions:
-  - D-175
+  - D-157
 - rule_id: R3
   rule_statement: >-
     An assignment is refused, with the reason shown, when the Worker is inactive, belongs to another Agency,
@@ -51,7 +51,7 @@ requirement_rules:
   - SHEET WA-19
   rule_decisions:
   - D-4
-  - D-141
+  - D-133
 - rule_id: R6
   rule_statement: >-
     When REQ-LABOR-0003 answers to refuse, as it does for overtime while OVERTIME_HARD_BLOCK is true for
@@ -95,7 +95,7 @@ requirement_rules:
   rule_sources:
   - PRD §2 Shifts
   rule_decisions:
-  - D-160
+  - D-149
 - rule_id: R17
   rule_statement: >-
     Unit Users over the Shift's Unit see each ASSIGNED Worker's name and Agency.
@@ -116,7 +116,7 @@ requirement_rules:
     no Assignment on it, and that Assignment may exceed the Release's headcount.
   rule_sources: []
   rule_decisions:
-  - D-182
+  - D-164
   - D-19
 - rule_id: R21
   rule_statement: >-
@@ -126,8 +126,8 @@ requirement_rules:
   - SHEET WA-19
   rule_decisions:
   - D-4
-  - D-73
-  - D-194
+  - D-72
+  - D-176
 - rule_id: R22
   rule_statement: >-
     For BLOCKED_BY_UNIT, WORKER_REMOVED also goes to every active Agency User of the Worker's Agency,
@@ -142,10 +142,10 @@ requirement_rules:
     such a removal sets removed_at, leaves removed_by empty, and follows R16 and R22.
   rule_sources: []
   rule_decisions:
-  - D-178
-  - D-180
+  - D-160
+  - D-162
   - D-51
-  - D-90
+  - D-89
 - rule_id: R24
   rule_statement: >-
     When the assigned Worker has neither an email nor a phone, the answer to the assigning User says
@@ -153,8 +153,8 @@ requirement_rules:
   rule_sources:
   - SHEET SC-6
   rule_decisions:
-  - D-194
-  - D-89
+  - D-176
+  - D-88
 - rule_id: R25
   rule_statement: >-
     When an Assignment becomes ASSIGNED, REQ-ORDERING-0006, REQ-ORDERING-0008, and REQ-COMPLIANCE-0006
@@ -181,16 +181,16 @@ requirement_decisions:
 - D-19
 - D-27
 - D-51
-- D-73
+- D-72
+- D-88
 - D-89
-- D-90
-- D-141
+- D-133
+- D-149
+- D-157
 - D-160
-- D-175
-- D-178
-- D-180
-- D-182
-- D-194
+- D-162
+- D-164
+- D-176
 requirement_features:
 - WA-1
 edges:

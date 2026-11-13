@@ -54,7 +54,7 @@ upload_types:
   uploaders: [UNIT_USER, AGENCY_USER]
   owner: REQ-ORDERING-0014
   sources: [SHEET SC-2, SHEET SC-6, PRD §6 Templates]
-  decisions: [D-49, D-205, D-206]
+  decisions: [D-49, D-187, D-188]
   identified_by:
   - [shift_id]
   - [unit, position, date, start_time, end_time]
@@ -121,7 +121,7 @@ upload_types:
   uploaders: [AGENCY_USER]
   owner: REQ-TIPS-0002
   sources: [SHEET TS-12, 'SESSIONS Timesheets, Tips & Expenses']
-  decisions: [D-71, D-234]
+  decisions: [D-70, D-216]
   columns:
   - {column: shift_id, kind: text, required: 'unless unit, date, and position identify the Shift', maps_to: Expense.timesheet_id}
   - {column: unit, kind: text, required: 'no', maps_to: Expense.timesheet_id, lookup: Unit name}
@@ -156,7 +156,7 @@ upload_types:
   uploaders: [PROGRAM_USER]
   owner: REQ-ORG-0003
   sources: [SHEET PLT-2, SESSIONS Shift Creation]
-  decisions: [D-153]
+  decisions: [D-143]
   columns:
   - {column: sector, kind: text, required: 'yes', maps_to: OrgNode.parent_id, lookup: OrgNode.name at SECTOR, note: 'A Sector, Region, or District not in the tree is a row problem whose fix adds it'}
   - {column: region, kind: text, required: 'yes', maps_to: OrgNode.parent_id, lookup: OrgNode.name at REGION under the sector}
@@ -166,7 +166,7 @@ upload_types:
   - {column: city, kind: text, required: 'yes', maps_to: Unit.city}
   - {column: state, kind: text, required: 'yes', maps_to: Unit.state}
   - {column: zip, kind: text, required: 'yes', maps_to: Unit.zip}
-  - {column: timezone, kind: text, required: 'no', maps_to: Unit.timezone, note: 'An IANA zone; filled from the ZIP code if empty (D-86)'}
+  - {column: timezone, kind: text, required: 'no', maps_to: Unit.timezone, note: 'An IANA zone; filled from the ZIP code if empty (D-85)'}
   - {column: unit_cost_center, kind: text, required: 'yes', maps_to: Unit.cost_center_id, lookup: CostCenter.code}
   - {column: work_week_start, kind: text, required: 'yes', maps_to: Unit.work_week_start, note: 'A day as MON, TUE, WED, THU, FRI, SAT, or SUN, or its full name such as Monday, in any letter case'}
   - {column: secured_site, kind: yes_no, required: 'no', maps_to: Unit.is_secured_site, note: Empty means not secured}
@@ -191,7 +191,7 @@ upload_types:
   uploaders: [PROGRAM_USER]
   owner: REQ-REPORTING-0007
   sources: [SHEET REP-8]
-  decisions: [D-14, D-172, D-173]
+  decisions: [D-14, D-154, D-155]
   columns:
   - {column: unit, kind: text, required: 'yes', maps_to: Budget.unit_id, lookup: Unit name}
   - {column: period_start, kind: date, required: 'yes', maps_to: Budget.period_start}

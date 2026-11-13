@@ -41,7 +41,7 @@ requirement_rules:
   rule_sources:
   - PRD §2 Shifts
   rule_decisions:
-  - D-240
+  - D-222
 - rule_id: R5
   rule_statement: >-
     The channel says how the change reached Iris: APP, FILE_UPLOAD, ASSISTANT, EMAIL, SMS, PHONE, API,
@@ -71,7 +71,7 @@ requirement_rules:
   - SHEET RC-5
   - SHEET WA-16
   rule_decisions:
-  - D-193
+  - D-175
 - rule_id: R9
   rule_statement: >-
     Proposals, Uploads, Notifications, InboundMessages, AccessLinks, Sessions, and sign-in times are not
@@ -94,16 +94,16 @@ requirement_rules:
   rule_sources:
   - GRAPH data model AuditAction meanings
   rule_decisions:
-  - D-100
+  - D-99
 requirement_sources:
 - SHEET RC-5
 - SHEET WA-16
 - PRD §2 Shifts
 requirement_decisions:
 - D-37
-- D-100
-- D-193
-- D-240
+- D-99
+- D-175
+- D-222
 requirement_features: []
 edges: []
 data_model:

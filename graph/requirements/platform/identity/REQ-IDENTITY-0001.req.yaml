@@ -27,20 +27,20 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-4
   rule_decisions:
-  - D-190
+  - D-172
 - rule_id: R3
   rule_statement: >-
     A phone is accepted when exactly 10 digits remain after spaces, dashes, dots, parentheses, and a leading
     +1 or 1 are removed; any other value is refused.
   rule_sources: []
   rule_decisions:
-  - D-155
+  - D-144
 - rule_id: R4
   rule_statement: A password has at least 12 characters, and only its hash is stored.
   rule_sources:
   - SHEET PLT-4
   rule_decisions:
-  - D-189
+  - D-171
 - rule_id: R5
   rule_statement: >-
     Sign-in succeeds only when the email matches an active User and the password matches that User's hash;
@@ -55,7 +55,7 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-4
   rule_decisions:
-  - D-99
+  - D-98
 - rule_id: R7
   rule_statement: >-
     A Session is open from sign-in until the User signs out, which sets ended_at, or until 12 hours have
@@ -63,14 +63,14 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-4
   rule_decisions:
-  - D-99
+  - D-98
 - rule_id: R8
   rule_statement: >-
     A request that needs a signed-in User is accepted only with the token of an open Session whose User
     is active, which sets last_active_at; otherwise it is refused.
   rule_sources: []
   rule_decisions:
-  - D-99
+  - D-98
 - rule_id: R10
   rule_statement: >-
     At each start, when no User holds the deployment configuration's email, Iris creates the first Instawork
@@ -78,7 +78,7 @@ requirement_rules:
   rule_sources:
   - GRAPH the first User has nobody to invite them
   rule_decisions:
-  - D-98
+  - D-97
 - rule_id: R11
   rule_statement: >-
     Creating or changing a User is recorded in the Audit Trail without the password hash, and Sessions
@@ -93,7 +93,7 @@ requirement_rules:
   rule_sources:
   - GRAPH the acting role and context belong to REQ-ORG-0009, which platform may not read
   rule_decisions:
-  - D-239
+  - D-221
 - rule_id: R13
   rule_statement: >-
     A start never changes or reactivates a User who already holds the configured email, and REQ-ORG-0005
@@ -101,7 +101,7 @@ requirement_rules:
   rule_sources:
   - GRAPH the first User has nobody to invite them
   rule_decisions:
-  - D-98
+  - D-97
 - rule_id: R14
   rule_statement: Every other User is created by an invite through REQ-IDENTITY-0002.
   rule_sources:
@@ -114,12 +114,12 @@ requirement_sources:
 requirement_decisions:
 - D-25
 - D-37
+- D-97
 - D-98
-- D-99
-- D-155
-- D-189
-- D-190
-- D-239
+- D-144
+- D-171
+- D-172
+- D-221
 requirement_features:
 - PLT-4
 edges:

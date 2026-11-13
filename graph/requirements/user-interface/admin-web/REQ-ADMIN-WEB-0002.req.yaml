@@ -16,7 +16,7 @@ requirement_rules:
   - SHEET RC-2
   rule_decisions:
   - D-26
-  - D-109
+  - D-108
 - rule_id: R2
   rule_statement: >-
     Add Position and Rename take a name and save through REQ-CATALOG-0001, which refuses a name another
@@ -36,7 +36,7 @@ requirement_sources:
 - SHEET RC-2
 requirement_decisions:
 - D-26
-- D-109
+- D-108
 requirement_features:
 - RC-2
 edges:

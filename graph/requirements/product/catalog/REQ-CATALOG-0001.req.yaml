@@ -29,7 +29,7 @@ requirement_rules:
   - PRD §6 Position list
   - SHEET RC-2
   rule_decisions:
-  - D-98
+  - D-97
 - rule_id: R4
   rule_statement: >-
     An inactive Position cannot be chosen for a new Shift or a new Rate Line, and records that already
@@ -37,7 +37,7 @@ requirement_rules:
   rule_sources:
   - GRAPH a retired Position stays on past records
   rule_decisions:
-  - D-209
+  - D-191
 - rule_id: R5
   rule_statement: >-
     Unit Users and Agency Users choose Positions from the catalog and cannot add one.
@@ -57,8 +57,8 @@ requirement_sources:
 - PRD §6 Position list
 requirement_decisions:
 - D-26
-- D-98
-- D-209
+- D-97
+- D-191
 requirement_features:
 - RC-2
 edges:

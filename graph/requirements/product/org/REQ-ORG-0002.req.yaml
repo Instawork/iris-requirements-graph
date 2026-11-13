@@ -52,7 +52,7 @@ requirement_rules:
   - DEMO lib/types.ts
   - GRAPH every Shift time at a Unit is read in its time zone
   rule_decisions:
-  - D-86
+  - D-85
 - rule_id: R6
   rule_statement: >-
     A Cost Center code not yet on file is added as a new Cost Center, and a code already on file is reused.
@@ -102,8 +102,8 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-53
-  - D-209
-  - D-81
+  - D-191
+  - D-80
 - rule_id: R12
   rule_statement: >-
     When REQ-CATALOG-0002 adds a ZIP code to a Market, every Unit with that ZIP code takes that Market;
@@ -111,14 +111,14 @@ requirement_rules:
   rule_sources:
   - PRD §3 Supplier Rates
   rule_decisions:
-  - D-237
+  - D-219
 - rule_id: R13
   rule_statement: >-
     Changing a Unit's time zone moves no stored instant, so the local times and work dates of that Unit's
     Shifts and Timesheets are read in the new zone from then on.
   rule_sources: []
   rule_decisions:
-  - D-236
+  - D-218
 requirement_sources:
 - SESSIONS Shift Creation
 - SHEET PLT-2
@@ -127,11 +127,11 @@ requirement_decisions:
 - D-21
 - D-53
 - D-54
-- D-81
-- D-86
-- D-209
-- D-236
-- D-237
+- D-80
+- D-85
+- D-191
+- D-218
+- D-219
 requirement_features:
 - PLT-2
 edges:

@@ -2,7 +2,7 @@
 # Recipients never include the User whose action caused the notification. PASSWORD_RESET and
 # INBOUND_REPLY are the exceptions: they answer that person.
 # channels: every channel a type may use. An owner may name fewer for one send (REQ-MESSAGING-0001.R3).
-# No source gives the wording: the owner writes each title and body from the facts its rule names (D-101).
+# No source gives the wording: the owner writes each title and body from the facts its rule names (D-100).
 notifications:
 - type: RELEASE_NEW
   trigger: A Release is sent to an Agency, or more headcount is added to its Release.
@@ -16,7 +16,7 @@ notifications:
   channels: [EMAIL, IN_APP]
   owner: REQ-DISPATCH-0001
   sources: [SHEET SC-8]
-  decisions: [D-179, D-180]
+  decisions: [D-161, D-162]
 - type: RELEASE_ANSWERED
   trigger: An Agency accepts or declines a Release, including a decline after accepting.
   recipients: The User who sent the Release.
@@ -36,7 +36,7 @@ notifications:
   channels: [IN_APP]
   owner: REQ-WORKFORCE-0003
   sources: [PRD §2 Shifts]
-  decisions: [D-160]
+  decisions: [D-149]
 - type: WORKER_REMOVED
   trigger: >-
     A Worker is removed from a Shift for any reason except its cancellation, which RELEASE_WITHDRAWN
@@ -47,7 +47,7 @@ notifications:
   channels: [EMAIL, IN_APP]
   owner: REQ-WORKFORCE-0003
   sources: [PRD §2 Shifts, SHEET WA-3]
-  decisions: [D-51, D-160]
+  decisions: [D-51, D-149]
 - type: SITE_INSTRUCTIONS
   trigger: A Worker is assigned to a Shift, or its site instructions change while Workers are assigned.
   recipients: The Worker, at their email or phone.
@@ -60,14 +60,14 @@ notifications:
   channels: [IN_APP]
   owner: REQ-ORDERING-0006
   sources: [SHEET SC-6]
-  decisions: [D-89]
+  decisions: [D-88]
 - type: WORKER_NOT_ELIGIBLE
   trigger: An assigned Worker stops being eligible for an upcoming Shift.
   recipients: Every active Agency User of the Worker's Agency, and every active Unit User over the Shift's Unit.
   channels: [EMAIL, IN_APP]
   owner: REQ-COMPLIANCE-0005
   sources: [SHEET WA-14, "FAQ What happens if a worker doesn't meet the requirements?"]
-  decisions: [D-51, D-160]
+  decisions: [D-51, D-149]
 - type: CREDENTIAL_EXPIRING
   trigger: >-
     A verified credential's expiry is CREDENTIAL_EXPIRY_WARNING_DAYS away or less. Sent once for each credential,
@@ -76,7 +76,7 @@ notifications:
   channels: [EMAIL, IN_APP]
   owner: REQ-COMPLIANCE-0002
   sources: [SHEET WA-14]
-  decisions: [D-16, D-156]
+  decisions: [D-16, D-145]
 - type: CREDENTIAL_DECIDED
   trigger: A credential is verified or rejected.
   recipients: The User who uploaded it.
@@ -91,7 +91,7 @@ notifications:
   channels: [EMAIL, IN_APP]
   owner: REQ-TIME-0006
   sources: [PRD §2 How hour changes work, PRD §2 Shifts]
-  decisions: [D-70]
+  decisions: [D-69]
 - type: TIMESHEET_REJECTED
   trigger: A Unit User rejects a Timesheet.
   recipients: Every active Agency User of the Agency.
@@ -106,7 +106,7 @@ notifications:
   channels: [IN_APP]
   owner: REQ-LABOR-0003
   sources: [SHEET WA-19]
-  decisions: [D-4, D-141, D-73]
+  decisions: [D-4, D-133, D-72]
 - type: TIP_NOT_CREDITED
   trigger: >-
     A change to a Timesheet leaves part of a Tip Pool unallocated, or makes a Timesheet that holds a cashier
@@ -115,7 +115,7 @@ notifications:
   channels: [IN_APP]
   owner: REQ-TIPS-0004
   sources: [SHEET TS-11]
-  decisions: [D-143]
+  decisions: [D-135]
 - type: RATE_LINE_PENDING
   trigger: An Agency User submits a Rate Line.
   recipients: Every active Program User.

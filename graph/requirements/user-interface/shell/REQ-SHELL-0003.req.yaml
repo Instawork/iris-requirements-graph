@@ -64,11 +64,11 @@ requirement_rules:
   rule_sources:
   - GRAPH to-dos are queries over other records
   rule_decisions:
-  - D-127
+  - D-120
 requirement_sources:
 - PRD §1 How Todos behave
 requirement_decisions:
-- D-127
+- D-120
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

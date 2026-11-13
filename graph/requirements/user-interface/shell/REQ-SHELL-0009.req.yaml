@@ -27,10 +27,10 @@ requirement_rules:
   - PRD Pages
   - SHEET PLT-1
   rule_decisions:
+  - D-64
   - D-65
-  - D-66
-  - D-130
-  - D-131
+  - D-123
+  - D-124
 - rule_id: R3
   rule_statement: >-
     Opening a screen or record the User's Role Grants do not cover shows the refusal of REQ-ORG-0009 and
@@ -38,7 +38,7 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-1
   rule_decisions:
-  - D-185
+  - D-167
 - rule_id: R4
   rule_statement: >-
     The account menu shows the User's first name, last name, and email, and offers sign out.
@@ -59,25 +59,25 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-4
   rule_decisions:
-  - D-99
+  - D-98
 - rule_id: R7
   rule_statement: >-
     Each screen's requirement adds its own item to its role's menu, so the menu shows an item only once
     that screen is delivered.
   rule_sources: []
   rule_decisions:
-  - D-108
+  - D-107
 requirement_sources:
 - PRD Pages
 - SHEET PLT-1
 requirement_decisions:
+- D-64
 - D-65
-- D-66
-- D-99
-- D-108
-- D-130
-- D-131
-- D-185
+- D-98
+- D-107
+- D-123
+- D-124
+- D-167
 requirement_features:
 - PLT-1
 edges:

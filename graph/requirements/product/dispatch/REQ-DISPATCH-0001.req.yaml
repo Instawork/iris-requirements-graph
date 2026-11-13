@@ -24,7 +24,7 @@ requirement_rules:
     a Release's headcount is at least 1 and never more than the unsent headcount.
   rule_sources: []
   rule_decisions:
-  - D-175
+  - D-157
 - rule_id: R3
   rule_statement: >-
     A new Release can be sent until the Shift starts; from then until its ends_at, headcount can only
@@ -32,7 +32,7 @@ requirement_rules:
   rule_sources:
   - SHEET SC-5
   rule_decisions:
-  - D-176
+  - D-158
 - rule_id: R4
   rule_statement: >-
     Sending more headcount to an Agency that already holds a PENDING or ACCEPTED Release on the Shift
@@ -41,7 +41,7 @@ requirement_rules:
   rule_sources:
   - SHEET SC-5
   rule_decisions:
-  - D-175
+  - D-157
 - rule_id: R5
   rule_statement: >-
     The Release stores rate_line_id and the regular, overtime, and double-time Bill Rates of the contracted
@@ -88,7 +88,7 @@ requirement_rules:
   rule_sources:
   - SHEET SC-1
   rule_decisions:
-  - D-211
+  - D-193
 - rule_id: R11
   rule_statement: >-
     Creating a Release, or raising its headcount, sends RELEASE_NEW to the Agency's active Agency Users.
@@ -101,7 +101,7 @@ requirement_rules:
     and sends RELEASE_WITHDRAWN to the Agency's active Agency Users.
   rule_sources: []
   rule_decisions:
-  - D-179
+  - D-161
 - rule_id: R13
   rule_statement: >-
     When REQ-ORDERING-0003 cancels a Shift, it calls this requirement, which sets each of the Shift's
@@ -110,14 +110,14 @@ requirement_rules:
   rule_sources:
   - PRD §2 Shift statuses
   rule_decisions:
-  - D-180
+  - D-162
 - rule_id: R14
   rule_statement: >-
     The headcount of a DECLINED, WITHDRAWN, or EXPIRED Release is unsent again and can be sent in a new
     Release.
   rule_sources: []
   rule_decisions:
-  - D-179
+  - D-161
 - rule_id: R15
   rule_statement: >-
     Several Shifts of one Request, such as a block, can be sent to one Agency in one step, and each
@@ -125,7 +125,7 @@ requirement_rules:
   rule_sources:
   - SHEET SC-4
   rule_decisions:
-  - D-184
+  - D-166
 - rule_id: R16
   rule_statement: >-
     A send asked for by a SHIFTS file row or an approved assistant draft is saved by this requirement
@@ -143,12 +143,12 @@ requirement_decisions:
 - D-9
 - D-17
 - D-24
-- D-175
-- D-176
-- D-179
-- D-180
-- D-184
-- D-211
+- D-157
+- D-158
+- D-161
+- D-162
+- D-166
+- D-193
 requirement_features:
 - SC-7
 - SC-1

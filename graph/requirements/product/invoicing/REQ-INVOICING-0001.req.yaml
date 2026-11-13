@@ -38,7 +38,7 @@ requirement_rules:
   - SHEET INV-3
   - SESSIONS Invoicing & Accruals
   rule_decisions:
-  - D-68
+  - D-67
 - rule_id: R4
   rule_statement: >-
     The invoice opens on a summary: one total for the week, each Agency's total, and totals by Cost Center.
@@ -76,7 +76,7 @@ requirement_rules:
   rule_sources:
   - PRD §5 Invoices
   rule_decisions:
-  - D-145
+  - D-137
 requirement_sources:
 - SHEET INV-1
 - SHEET 5.1
@@ -85,8 +85,8 @@ requirement_sources:
 requirement_decisions:
 - D-31
 - D-35
-- D-68
-- D-145
+- D-67
+- D-137
 requirement_features:
 - INV-1
 edges:

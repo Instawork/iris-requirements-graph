@@ -19,7 +19,7 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-1
   rule_decisions:
-  - D-82
+  - D-81
 - rule_id: R2
   rule_statement: >-
     Only unrevoked Role Grants give a context, and a User with none sees a page that says they have no
@@ -60,14 +60,14 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-1
   rule_decisions:
-  - D-239
+  - D-221
 requirement_sources:
 - SHEET PLT-1
 - FEEDBACK show visually that we're talking like supplier vs buyer vs corporate
 requirement_decisions:
 - D-61
-- D-82
-- D-239
+- D-81
+- D-221
 requirement_features:
 - PLT-1
 edges:

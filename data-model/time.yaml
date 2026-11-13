@@ -46,7 +46,7 @@ entities:
   - {name: regular_minutes, type: int}
   - {name: overtime_minutes, type: int}
   - {name: double_time_minutes, type: int}
-  - {name: regular_bill_rate, type: money, note: "The Release's rate, or the Rate Line's for a part split to another Position; nobody edits it (D-69)"}
+  - {name: regular_bill_rate, type: money, note: "The Release's rate, or the Rate Line's for a part split to another Position; nobody edits it (D-68)"}
   - {name: overtime_bill_rate, type: money}
   - {name: double_time_bill_rate, type: money}
   - {name: no_show, type: bool}

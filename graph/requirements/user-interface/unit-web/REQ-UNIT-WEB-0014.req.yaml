@@ -26,7 +26,7 @@ requirement_rules:
   rule_decisions:
   - D-13
   - D-62
-  - D-225
+  - D-207
 - rule_id: R3
   rule_statement: >-
     Headcount to send counts Shifts in scope that have not started and have unsent headcount, shows the
@@ -36,7 +36,7 @@ requirement_rules:
   - SHEET SC-8
   rule_decisions:
   - D-62
-  - D-225
+  - D-207
 - rule_id: R4
   rule_statement: >-
     Badge requests to issue counts REQUESTED BadgeRequests at secured Units in scope, shows the age of
@@ -45,7 +45,7 @@ requirement_rules:
   - SHEET WA-17
   rule_decisions:
   - D-62
-  - D-225
+  - D-207
 - rule_id: R5
   rule_statement: >-
     The second section is the spend summary from REQ-REPORTING-0008: the month to date against budget
@@ -54,8 +54,8 @@ requirement_rules:
   - SHEET REP-7
   - PRD §1 Detailed requirements
   rule_decisions:
-  - D-251
-  - D-226
+  - D-233
+  - D-208
 - rule_id: R6
   rule_statement: >-
     Each spend figure shows its APPROVED_SPEND and PENDING_SPEND parts, and the summary links to the Reports
@@ -72,9 +72,9 @@ requirement_decisions:
 - D-13
 - D-29
 - D-62
-- D-225
-- D-226
-- D-251
+- D-207
+- D-208
+- D-233
 requirement_features:
 - REP-7
 edges:

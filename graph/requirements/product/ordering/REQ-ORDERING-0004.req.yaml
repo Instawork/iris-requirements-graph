@@ -36,14 +36,14 @@ requirement_rules:
   rule_statement: Shifts created from the same line share its line_no and form a series.
   rule_sources: []
   rule_decisions:
-  - D-183
+  - D-165
 - rule_id: R5
   rule_statement: >-
     A Unit User may apply an edit or a cancel to one Shift or to its whole series, and a series change
     applies only to the Shifts that have not started.
   rule_sources: []
   rule_decisions:
-  - D-183
+  - D-165
 - rule_id: R6
   rule_statement: >-
     A chained block, a multi-week assignment, is booked as one recurring Request; Iris stores nothing
@@ -51,7 +51,7 @@ requirement_rules:
   rule_sources:
   - SHEET SC-4
   rule_decisions:
-  - D-184
+  - D-166
 - rule_id: R7
   rule_statement: >-
     A line's date must fall on one of the recurrence_weekdays, and recurrence_ends_on is included, is on
@@ -63,8 +63,8 @@ requirement_sources:
 - SHEET SC-4
 requirement_decisions:
 - D-20
-- D-183
-- D-184
+- D-165
+- D-166
 requirement_features:
 - SC-4
 edges:

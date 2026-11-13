@@ -16,8 +16,8 @@ requirement_rules:
   rule_sources:
   - GRAPH seven MVP requirements act when a time passes, and none provides the clock
   rule_decisions:
-  - D-68
-  - D-157
+  - D-67
+  - D-146
 - rule_id: R2
   rule_statement: >-
     An interval job runs every five minutes, and a daily job runs once for each of its timezones and
@@ -25,8 +25,8 @@ requirement_rules:
   rule_sources:
   - GRAPH the factory needs one precision for timed work
   rule_decisions:
-  - D-68
-  - D-157
+  - D-67
+  - D-146
 - rule_id: R3
   rule_statement: >-
     A timed rule takes effect at the first run at or after its time, so it is at most five minutes late;
@@ -34,7 +34,7 @@ requirement_rules:
   rule_sources:
   - GRAPH the factory needs one precision for timed work
   rule_decisions:
-  - D-68
+  - D-67
 - rule_id: R4
   rule_statement: >-
     Only one run of a job is in progress at a time, even with several servers, and a run repeated for the
@@ -42,7 +42,7 @@ requirement_rules:
   rule_sources:
   - GRAPH the factory needs one precision for timed work
   rule_decisions:
-  - D-157
+  - D-146
 - rule_id: R6
   rule_statement: >-
     A daily job for something that belongs to no Unit, such as a Credential, uses the program timezone,
@@ -50,7 +50,7 @@ requirement_rules:
   rule_sources:
   - GRAPH Credentials and Rate Reviews belong to no Unit
   rule_decisions:
-  - D-231
+  - D-213
 - rule_id: R7
   rule_statement: >-
     On a day the clocks skip a daily job's local time the job runs at the first run after the skip, and
@@ -58,7 +58,7 @@ requirement_rules:
   rule_sources:
   - GRAPH a local time can be missing or occur twice on a day the clocks change
   rule_decisions:
-  - D-157
+  - D-146
 - rule_id: R8
   rule_statement: >-
     Each daily run saves a JobRun for its job, timezone, and local date together with the run's changes,
@@ -66,7 +66,7 @@ requirement_rules:
   rule_sources:
   - GRAPH a restart must not repeat or lose the day's run
   rule_decisions:
-  - D-157
+  - D-146
 - rule_id: R9
   rule_statement: >-
     A job's timezone step is called at every run, so a timezone that Units newly have is covered from
@@ -74,11 +74,11 @@ requirement_rules:
   rule_sources:
   - GRAPH platform reads no product records, so the caller supplies them
   rule_decisions:
-  - D-107
-  - D-157
+  - D-106
+  - D-146
 requirement_sources:
 - GRAPH seven MVP requirements act when a time passes, and none provides the clock
-requirement_decisions: [D-68, D-107, D-157, D-231]
+requirement_decisions: [D-67, D-106, D-146, D-213]
 requirement_features: []
 edges: []
 data_model:

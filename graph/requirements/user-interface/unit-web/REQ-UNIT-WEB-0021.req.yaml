@@ -18,8 +18,8 @@ requirement_rules:
   - SHEET WA-2
   - FEEDBACK a single agency, then request worker as a nested feature
   rule_decisions:
-  - D-208
-  - D-108
+  - D-190
+  - D-107
 - rule_id: R2
   rule_statement: >-
     After Send saves the Release, the step calls REQ-WORKFORCE-0004 for each Worker named, and a refused
@@ -35,7 +35,7 @@ requirement_rules:
   rule_sources:
   - SHEET WA-2
   rule_decisions:
-  - D-208
+  - D-190
 - rule_id: R4
   rule_statement: >-
     The Shift's page lists Workers requested by name as REQUESTED or UNAVAILABLE, with the Agency's
@@ -44,15 +44,15 @@ requirement_rules:
   - SHEET WA-2
   rule_decisions:
   - D-52
-  - D-96
+  - D-95
 requirement_sources:
 - SHEET WA-2
 - FEEDBACK a single agency, then request worker as a nested feature
 requirement_decisions:
 - D-52
-- D-96
-- D-108
-- D-208
+- D-95
+- D-107
+- D-190
 requirement_features:
 - WA-2
 edges:

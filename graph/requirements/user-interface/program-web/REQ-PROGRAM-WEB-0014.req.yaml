@@ -17,12 +17,12 @@ requirement_rules:
   - SESSIONS Shift Creation
   - SHEET PLT-2
   rule_decisions:
-  - D-108
+  - D-107
 requirement_sources:
 - SESSIONS Shift Creation
 - SHEET PLT-2
 requirement_decisions:
-- D-108
+- D-107
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

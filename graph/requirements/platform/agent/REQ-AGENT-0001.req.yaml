@@ -54,7 +54,7 @@ requirement_rules:
   rule_sources:
   - GRAPH the rules need one place that enforces them
   rule_decisions:
-  - D-102
+  - D-101
 - rule_id: R7
   rule_statement: >-
     A reading returns a value for each field asked for, empty where the text or file gives none; output
@@ -62,7 +62,7 @@ requirement_rules:
   rule_sources:
   - GRAPH the rules need one place that enforces them
   rule_decisions:
-  - D-102
+  - D-101
 - rule_id: R8
   rule_statement: >-
     This requirement can read and change no record, so whatever the LLM returns reaches a record only
@@ -70,7 +70,7 @@ requirement_rules:
   rule_sources:
   - PRD §7 What the LLM does and what code does
   rule_decisions:
-  - D-102
+  - D-101
 - rule_id: R9
   rule_statement: >-
     A caller passes a text, or a PDF or image file, and the fields to read from it, or the facts to put
@@ -79,13 +79,13 @@ requirement_rules:
   - SHEET WA-15
   - GRAPH signs of editing show in a document file and not in its OCR text
   rule_decisions:
-  - D-102
+  - D-101
 requirement_sources:
 - PRD §7 What the LLM does and what code does
 - SHEET WA-15
 requirement_decisions:
 - D-3
-- D-102
+- D-101
 requirement_features: []
 edges: []
 data_model:

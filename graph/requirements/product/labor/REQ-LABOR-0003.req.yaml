@@ -18,7 +18,7 @@ requirement_rules:
   - SHEET WA-19
   rule_decisions:
   - D-4
-  - D-141
+  - D-133
 - rule_id: R2
   rule_statement: >-
     The caller gives the Worker's counted Shifts whose work dates fall in that Work Week, each with
@@ -26,7 +26,7 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-4
-  - D-220
+  - D-202
 - rule_id: R3
   rule_statement: >-
     When Timesheet hours are saved, REQ-TIME-0001 counts a Shift at its Timesheets' worked_minutes once
@@ -34,14 +34,14 @@ requirement_rules:
   rule_sources:
   - SHEET WA-19
   rule_decisions:
-  - D-220
+  - D-202
 - rule_id: R4
   rule_statement: >-
     When a Worker is assigned, REQ-WORKFORCE-0003 counts every Shift at its scheduled minutes less the
     planned break, because it cannot read Timesheets.
   rule_sources: []
   rule_decisions:
-  - D-220
+  - D-202
 - rule_id: R5
   rule_statement: >-
     A change adds overtime when that Work Week's overtime plus double-time minutes, classified as in
@@ -73,16 +73,16 @@ requirement_rules:
   rule_sources:
   - SHEET WA-19
   rule_decisions:
-  - D-73
+  - D-72
 requirement_sources:
 - SHEET WA-19
 requirement_decisions:
 - D-4
 - D-16
 - D-58
-- D-73
-- D-141
-- D-220
+- D-72
+- D-133
+- D-202
 requirement_features:
 - WA-19
 edges:

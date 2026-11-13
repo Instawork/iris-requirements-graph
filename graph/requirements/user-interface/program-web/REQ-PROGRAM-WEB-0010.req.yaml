@@ -17,7 +17,7 @@ requirement_rules:
   - SHEET WA-15
   rule_decisions:
   - D-3
-  - D-66
+  - D-65
 - rule_id: R2
   rule_statement: >-
     Opening one shows the document, opened under REQ-COMPLIANCE-0002.R14, beside the issuer, number,
@@ -39,7 +39,7 @@ requirement_rules:
     Before the Program User confirms, the page says the decision is final and cannot be changed later.
   rule_sources: []
   rule_decisions:
-  - D-213
+  - D-195
 - rule_id: R5
   rule_statement: >-
     An Attestations tab lists every Attestation, including replaced ones, with Worker, Agency, Credential
@@ -55,7 +55,7 @@ requirement_rules:
   rule_sources:
   - SHEET WA-16
   rule_decisions:
-  - D-214
+  - D-196
 - rule_id: R7
   rule_statement: >-
     The Attestations tab offers no way to add, change, or remove an Attestation.
@@ -68,9 +68,9 @@ requirement_sources:
 - SHEET WA-16
 requirement_decisions:
 - D-3
-- D-66
-- D-213
-- D-214
+- D-65
+- D-195
+- D-196
 requirement_features:
 - WA-15
 - WA-16

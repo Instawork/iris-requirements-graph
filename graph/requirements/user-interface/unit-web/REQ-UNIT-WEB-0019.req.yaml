@@ -16,12 +16,12 @@ requirement_rules:
   - PRD §2 Shifts
   - PRD §6 Templates
   rule_decisions:
-  - D-108
+  - D-107
 requirement_sources:
 - PRD §2 Shifts
 - PRD §6 Templates
 requirement_decisions:
-- D-108
+- D-107
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

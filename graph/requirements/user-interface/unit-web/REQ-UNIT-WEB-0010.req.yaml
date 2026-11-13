@@ -16,7 +16,7 @@ requirement_rules:
   rule_sources:
   - SHEET REP-2
   rule_decisions:
-  - D-109
+  - D-108
 - rule_id: R2
   rule_statement: >-
     Actual cost shows its APPROVED_SPEND and PENDING_SPEND parts, with the estimated part of PENDING_SPEND
@@ -59,7 +59,7 @@ requirement_rules:
   rule_sources:
   - SHEET REP-2
   rule_decisions:
-  - D-108
+  - D-107
 - rule_id: R8
   rule_statement: >-
     This requirement adds each Shift's Event to the rows and the filters of the Shifts list of
@@ -67,7 +67,7 @@ requirement_rules:
   rule_sources:
   - SHEET REP-2
   rule_decisions:
-  - D-108
+  - D-107
 - rule_id: R9
   rule_statement: >-
     This requirement adds to the Shift's page of REQ-UNIT-WEB-0008 the Shift's Event and a control that
@@ -76,13 +76,13 @@ requirement_rules:
   rule_sources:
   - SHEET REP-2
   rule_decisions:
-  - D-108
+  - D-107
 requirement_sources:
 - SHEET REP-2
 requirement_decisions:
 - D-29
+- D-107
 - D-108
-- D-109
 requirement_features:
 - REP-2
 edges:

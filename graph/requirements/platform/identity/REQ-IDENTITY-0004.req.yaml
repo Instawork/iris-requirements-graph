@@ -17,7 +17,7 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-25
-  - D-99
+  - D-98
 - rule_id: R2
   rule_statement: >-
     The caller checks who may deactivate or reactivate whom, as REQ-ORG-0005 states, and this requirement
@@ -26,7 +26,7 @@ requirement_rules:
   - GRAPH platform reads no product records, so the caller supplies them
   rule_decisions:
   - D-25
-  - D-107
+  - D-106
 - rule_id: R3
   rule_statement: >-
     Reactivating sets active to true and restores no Session, so the User signs in again with the password
@@ -54,15 +54,15 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-37
-  - D-100
+  - D-99
 requirement_sources:
 - SHEET PLT-4
 requirement_decisions:
 - D-25
 - D-37
+- D-98
 - D-99
-- D-100
-- D-107
+- D-106
 requirement_features:
 - PLT-4
 edges:

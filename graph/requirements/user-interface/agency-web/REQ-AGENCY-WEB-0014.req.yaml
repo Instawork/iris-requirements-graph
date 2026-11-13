@@ -17,7 +17,7 @@ requirement_rules:
   - SHEET WA-2
   rule_decisions:
   - D-52
-  - D-108
+  - D-107
 - rule_id: R2
   rule_statement: >-
     Each REQUESTED Worker in that list offers Mark unavailable, which takes a reason and calls
@@ -35,12 +35,12 @@ requirement_rules:
   - DEMO components/shifts/assign-pros-dialog.tsx
   rule_decisions:
   - D-52
-  - D-108
+  - D-107
 requirement_sources:
 - SHEET WA-2
 requirement_decisions:
 - D-52
-- D-108
+- D-107
 requirement_features:
 - WA-2
 edges:

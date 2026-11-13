@@ -61,7 +61,7 @@ requirement_rules:
   rule_sources:
   - SHEET WA-1
   rule_decisions:
-  - D-207
+  - D-189
 - rule_id: R8
   rule_statement: >-
     A Worker's Positions are informational and do not limit the Shifts the Worker can be assigned to.
@@ -82,14 +82,14 @@ requirement_rules:
   - PRD §2 Shifts
   - PRD §4 Professionals
   rule_decisions:
-  - D-92
+  - D-91
 - rule_id: R11
   rule_statement: >-
     When a Worker is made inactive, REQ-WORKFORCE-0016 reacts by taking them off the Shifts they are
     assigned to that have not started; this requirement changes no Assignment.
   rule_sources: []
   rule_decisions:
-  - D-90
+  - D-89
 - rule_id: R12
   rule_statement: >-
     Two WORKERS rows are duplicates when they share an email or share a phone, and the later row is the
@@ -103,33 +103,33 @@ requirement_rules:
   rule_sources:
   - PRD §6 Templates
   rule_decisions:
-  - D-155
+  - D-144
 - rule_id: R14
   rule_statement: >-
     A photo is a JPEG or PNG file stored through REQ-INTAKE-0001, and photo_url holds its reference.
   rule_sources: []
   rule_decisions:
-  - D-254
+  - D-236
 - rule_id: R15
   rule_statement: >-
     A Worker's photo may be opened only by an Agency User of the Worker's Agency, a Program User, and
     a Unit User who sees the Worker under R10.
   rule_sources: []
   rule_decisions:
-  - D-92
-  - D-152
+  - D-91
+  - D-142
 requirement_sources:
 - SHEET WA-1
 - PRD §4 Professionals
 - PRD §6 Templates
 requirement_decisions:
 - D-50
-- D-90
-- D-92
-- D-152
-- D-155
-- D-207
-- D-254
+- D-89
+- D-91
+- D-142
+- D-144
+- D-189
+- D-236
 requirement_features:
 - WA-1
 edges:

@@ -17,7 +17,7 @@ requirement_rules:
   rule_sources:
   - PRD §1 Who sees what
   rule_decisions:
-  - D-223
+  - D-205
 - rule_id: R2
   rule_statement: >-
     Releases to answer counts the Agency's PENDING Releases, shows the time until the earliest of their
@@ -25,8 +25,8 @@ requirement_rules:
   rule_sources:
   - SHEET SC-8
   rule_decisions:
-  - D-223
-  - D-225
+  - D-205
+  - D-207
 - rule_id: R3
   rule_statement: >-
     Releases to staff counts ACCEPTED Releases with open headcount on Shifts that have not ended, shows
@@ -34,8 +34,8 @@ requirement_rules:
   rule_sources:
   - SHEET WA-1
   rule_decisions:
-  - D-223
-  - D-225
+  - D-205
+  - D-207
 - rule_id: R4
   rule_statement: >-
     Timesheets to submit counts the Agency's DRAFT Timesheets, shows the age of the oldest since its Shift
@@ -45,8 +45,8 @@ requirement_rules:
   - SHEET TS-9
   rule_decisions:
   - D-13
-  - D-223
-  - D-225
+  - D-205
+  - D-207
 - rule_id: R5
   rule_statement: >-
     Timesheets sent back counts the Agency's REJECTED Timesheets, shows the same two figures, and opens
@@ -55,8 +55,8 @@ requirement_rules:
   - SESSIONS Timesheets, Tips & Expenses
   rule_decisions:
   - D-13
-  - D-223
-  - D-225
+  - D-205
+  - D-207
 - rule_id: R6
   rule_statement: >-
     Credentials to renew counts the Credentials of the Agency's active Workers that need action under
@@ -67,9 +67,9 @@ requirement_rules:
   - PRD §1 Who sees what
   rule_decisions:
   - D-16
-  - D-223
-  - D-225
-  - D-67
+  - D-205
+  - D-207
+  - D-66
 - rule_id: R7
   rule_statement: >-
     Rate Reviews to answer counts the Agency's REQUESTED Rate Reviews, shows the age of the oldest, and
@@ -77,8 +77,8 @@ requirement_rules:
   rule_sources:
   - SHEET RC-12
   rule_decisions:
-  - D-223
-  - D-225
+  - D-205
+  - D-207
 - rule_id: R8
   rule_statement: >-
     Worker issues to resolve counts OPEN Worker issues on the Agency's Workers, shows the age of the oldest,
@@ -86,8 +86,8 @@ requirement_rules:
   rule_sources:
   - SHEET WA-4
   rule_decisions:
-  - D-223
-  - D-225
+  - D-205
+  - D-207
 - rule_id: R9
   rule_statement: >-
     The Agency Home has no second section in MVP (C-21), so it shows the to-do list even when no line
@@ -95,7 +95,7 @@ requirement_rules:
   rule_sources:
   - SHEET RC-16
   rule_decisions:
-  - D-226
+  - D-208
 requirement_sources:
 - PRD §1 How Todos behave
 - PRD §1 Who sees what
@@ -103,10 +103,10 @@ requirement_sources:
 requirement_decisions:
 - D-13
 - D-16
-- D-67
-- D-223
-- D-225
-- D-226
+- D-66
+- D-205
+- D-207
+- D-208
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

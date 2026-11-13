@@ -35,7 +35,7 @@ entities:
   - {name: double_time_pay_rate, type: money}
   - {name: double_time_bill_rate, type: money}
   - {name: effective_from, type: date}
-  - {name: effective_to, type: date, nullable: true, note: 'Exclusive; set when a later approved line for the same key takes effect, or when a Program User ends the line (D-78). Equal to effective_from means the line never prices work'}
+  - {name: effective_to, type: date, nullable: true, note: 'Exclusive; set when a later approved line for the same key takes effect, or when a Program User ends the line (D-77). Equal to effective_from means the line never prices work'}
   - {name: replaces_id, type: ref:RateLine, nullable: true, note: The approved line this one supersedes}
   - {name: change_reason, type: text, nullable: true, note: 'Why the rate changed; required when an APPROVED line for the same key existed when this line was submitted'}
   - {name: end_reason, type: text, nullable: true, note: Why a Program User ended the line; empty when a later line replaced it}

@@ -17,7 +17,7 @@ requirement_rules:
   - SHEET INV-3
   - SHEET INV-5
   rule_decisions:
-  - D-145
+  - D-137
 - rule_id: R2
   rule_statement: >-
     Each invoice shows its adjustment lines in their own section with their own total, apart from the
@@ -36,7 +36,7 @@ requirement_rules:
 requirement_sources:
 - SHEET INV-3
 requirement_decisions:
-- D-145
+- D-137
 requirement_features:
 - INV-3
 edges:

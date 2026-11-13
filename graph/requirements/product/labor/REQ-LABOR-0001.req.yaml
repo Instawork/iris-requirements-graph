@@ -45,7 +45,7 @@ requirement_rules:
     the earlier one is ended.
   rule_sources: []
   rule_decisions:
-  - D-217
+  - D-199
 - rule_id: R6
   rule_statement: >-
     The rule in effect for a Unit, kind, and date has the Unit's state and covers the date; a rule
@@ -59,13 +59,13 @@ requirement_rules:
     no built-in default rules.
   rule_sources: []
   rule_decisions:
-  - D-217
+  - D-199
 requirement_sources:
 - SHEET WA-18
 requirement_decisions:
 - D-26
 - D-57
-- D-217
+- D-199
 requirement_features:
 - WA-18
 edges:

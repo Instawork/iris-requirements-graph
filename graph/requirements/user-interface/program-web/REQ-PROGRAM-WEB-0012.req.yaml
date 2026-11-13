@@ -16,7 +16,7 @@ requirement_rules:
   rule_sources:
   - PRD §4 Professionals
   rule_decisions:
-  - D-109
+  - D-108
 - rule_id: R2
   rule_statement: >-
     Each Worker's row counts their Credentials needing action (REJECTED, expired, or expiring within CREDENTIAL_EXPIRY_WARNING_DAYS,
@@ -26,7 +26,7 @@ requirement_rules:
   - SHEET WA-14
   rule_decisions:
   - D-16
-  - D-67
+  - D-66
 - rule_id: R3
   rule_statement: >-
     It filters by Agency, by Credential Type, by those two counts, and by active or inactive, and searches
@@ -60,8 +60,8 @@ requirement_sources:
 requirement_decisions:
 - D-3
 - D-16
-- D-67
-- D-109
+- D-66
+- D-108
 requirement_features:
 - WA-14
 edges:

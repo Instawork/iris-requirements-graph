@@ -42,13 +42,13 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-53
-  - D-81
+  - D-80
 requirement_sources:
 - SHEET PLT-2
 requirement_decisions:
 - D-53
 - D-54
-- D-81
+- D-80
 requirement_features:
 - PLT-2
 edges:

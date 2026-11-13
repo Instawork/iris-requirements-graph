@@ -16,7 +16,7 @@ requirement_rules:
   rule_sources:
   - FEEDBACK Creating an agency in bulk
   rule_decisions:
-  - D-108
+  - D-107
 - rule_id: R2
   rule_statement: >-
     REQ-AGENCIES-0010 saves the Agencies, contacts, and approvals of the accepted rows.
@@ -26,7 +26,7 @@ requirement_rules:
 requirement_sources:
 - FEEDBACK Creating an agency in bulk
 requirement_decisions:
-- D-108
+- D-107
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

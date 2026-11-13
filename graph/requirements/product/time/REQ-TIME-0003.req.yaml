@@ -62,7 +62,7 @@ requirement_rules:
   rule_sources:
   - PRD §6 Templates
   rule_decisions:
-  - D-248
+  - D-230
 - rule_id: R8
   rule_statement: >-
     When an Agency User's line names a Worker with no Assignment on the Shift, the Proposal offers to
@@ -70,7 +70,7 @@ requirement_rules:
   rule_sources:
   - PRD §4 Professionals
   rule_decisions:
-  - D-182
+  - D-164
 - rule_id: R9
   rule_statement: >-
     An Agency User's accepted lines save clock_in, clock_out, and break_minutes to DRAFT and REJECTED
@@ -88,8 +88,8 @@ requirement_rules:
   - PRD §6 Uploads
   rule_decisions:
   - D-33
-  - D-121
-  - D-147
+  - D-114
+  - D-139
 - rule_id: R11
   rule_statement: >-
     A line for a Timesheet the uploader may not change in its current status is reported as a problem
@@ -131,7 +131,7 @@ requirement_rules:
   rule_sources:
   - PRD §7 What the agent checks
   rule_decisions:
-  - D-147
+  - D-139
 requirement_sources:
 - SHEET TS-5
 - FEEDBACK OCR to match paper timesheets
@@ -141,10 +141,10 @@ requirement_sources:
 requirement_decisions:
 - D-5
 - D-33
-- D-121
-- D-147
-- D-182
-- D-248
+- D-114
+- D-139
+- D-164
+- D-230
 requirement_features:
 - TS-5
 edges:

@@ -79,7 +79,7 @@ requirement_rules:
   - FAQ What happens if a worker doesn't meet the requirements?
   rule_decisions:
   - D-51
-  - D-160
+  - D-149
 - rule_id: R10
   rule_statement: >-
     This requirement never reads or changes Assignments; removing the Worker with NOT_ELIGIBLE is done by
@@ -97,7 +97,7 @@ requirement_sources:
 requirement_decisions:
 - D-3
 - D-51
-- D-160
+- D-149
 requirement_features:
 - WA-13
 - WA-14

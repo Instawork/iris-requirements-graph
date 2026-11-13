@@ -16,7 +16,7 @@ requirement_rules:
   rule_sources:
   - PRD Pages
   rule_decisions:
-  - D-65
+  - D-64
 - rule_id: R2
   rule_statement: >-
     A Unit User whose scope covers several Units sees them together and can narrow every Unit screen to
@@ -25,7 +25,7 @@ requirement_rules:
   - SHEET PLT-1
   - SHEET REP-7
   rule_decisions:
-  - D-128
+  - D-121
 - rule_id: R9
   rule_statement: >-
     Home is the page a Unit User lands on, first in the menu; it holds only the sections other requirements
@@ -33,15 +33,15 @@ requirement_rules:
   rule_sources:
   - PRD §1 Dashboard / Profile
   rule_decisions:
-  - D-108
+  - D-107
 requirement_sources:
 - PRD Pages
 - PRD §1 Dashboard / Profile
 - SHEET PLT-1
 requirement_decisions:
-- D-65
-- D-108
-- D-128
+- D-64
+- D-107
+- D-121
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

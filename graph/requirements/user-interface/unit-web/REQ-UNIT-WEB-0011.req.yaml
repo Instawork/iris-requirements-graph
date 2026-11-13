@@ -16,7 +16,7 @@ requirement_rules:
   rule_sources:
   - SHEET SC-11
   rule_decisions:
-  - D-65
+  - D-64
 - rule_id: R2
   rule_statement: >-
     Request templates lists the Unit's templates by name with their lines, and creates, changes, and deletes
@@ -71,7 +71,7 @@ requirement_rules:
   rule_sources:
   - SHEET SC-11
   rule_decisions:
-  - D-108
+  - D-107
 - rule_id: R9
   rule_statement: >-
     On that form, picking a Position that has a default Department at the Unit fills the Department in.
@@ -79,14 +79,14 @@ requirement_rules:
   - SHEET SC-11
   - FEEDBACK Departments within venues
   rule_decisions:
-  - D-108
+  - D-107
 requirement_sources:
 - SHEET SC-11
 - SHEET SC-6
 requirement_decisions:
 - D-53
-- D-65
-- D-108
+- D-64
+- D-107
 requirement_features:
 - SC-11
 edges:

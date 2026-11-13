@@ -53,8 +53,8 @@ requirement_rules:
   - PRD §2 Shifts
   rule_decisions:
   - D-33
-  - D-70
-  - D-232
+  - D-69
+  - D-214
 - rule_id: R6
   rule_statement: >-
     Upload corrections opens the Uploads send step of REQ-SHELL-0008 with TIMESHEETS picked; REQ-TIME-0003
@@ -62,7 +62,7 @@ requirement_rules:
   rule_sources:
   - PRD §6 Uploads
   rule_decisions:
-  - D-121
+  - D-114
 requirement_sources:
 - SHEET TS-10
 - SHEET TS-7
@@ -71,9 +71,9 @@ requirement_sources:
 requirement_decisions:
 - D-5
 - D-33
-- D-70
-- D-121
-- D-232
+- D-69
+- D-114
+- D-214
 requirement_features:
 - TS-10
 edges:

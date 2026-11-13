@@ -17,7 +17,7 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-1
   rule_decisions:
-  - D-82
+  - D-81
 - rule_id: R2
   rule_statement: >-
     A Unit User acts only on Units at or beneath the org node of one of their UNIT_USER grants, and on
@@ -26,7 +26,7 @@ requirement_rules:
   - SHEET PLT-1
   - PRD §1 Who sees what
   rule_decisions:
-  - D-185
+  - D-167
 - rule_id: R3
   rule_statement: >-
     An Agency User acts only on the records of the Agency in their acting context: Releases sent to it,
@@ -35,7 +35,7 @@ requirement_rules:
   - SHEET PLT-1
   - PRD §1 Who sees what
   rule_decisions:
-  - D-82
+  - D-81
 - rule_id: R4
   rule_statement: >-
     A Program User's scope is the whole program, so no Unit or Agency is outside it.
@@ -43,7 +43,7 @@ requirement_rules:
   - SHEET PLT-1
   - PRD §1 Who sees what
   rule_decisions:
-  - D-185
+  - D-167
 - rule_id: R5
   rule_statement: >-
     An Instawork Admin acts only on reference data (Positions, Markets, Market ZIP codes, and labor
@@ -51,7 +51,7 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-26
-  - D-83
+  - D-82
 - rule_id: R6
   rule_statement: >-
     A revoked Role Grant allows nothing, and no grant of an inactive User allows anything.
@@ -66,7 +66,7 @@ requirement_rules:
   - PRD §6 Uploads
   - PRD §1 Who sees what
   rule_decisions:
-  - D-82
+  - D-81
 - rule_id: R8
   rule_statement: >-
     A refused action saves nothing, and the User is told that their role or scope does not allow it.
@@ -80,7 +80,7 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-1
   rule_decisions:
-  - D-82
+  - D-81
 - rule_id: R10
   rule_statement: >-
     A User sets or switches their acting context only to one that an unrevoked Role Grant of theirs gives,
@@ -88,8 +88,8 @@ requirement_rules:
   rule_sources:
   - GRAPH the session holds the context, so every request carries it
   rule_decisions:
-  - D-82
-  - D-239
+  - D-81
+  - D-221
 - rule_id: R11
   rule_statement: >-
     Every request is checked against the acting context of its session, and is refused once the User holds
@@ -97,7 +97,7 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-1
   rule_decisions:
-  - D-82
+  - D-81
 - rule_id: R12
   rule_statement: >-
     A session with no acting context yet may only list the contexts the User's unrevoked grants give,
@@ -105,7 +105,7 @@ requirement_rules:
   rule_sources:
   - GRAPH a new session has no context until the User chooses one
   rule_decisions:
-  - D-162
+  - D-151
 - rule_id: R13
   rule_statement: >-
     A request with no session, such as an inbound message, is checked against the acting context that
@@ -113,27 +113,27 @@ requirement_rules:
   rule_sources:
   - GRAPH a message has no session to carry a context
   rule_decisions:
-  - D-256
+  - D-238
 - rule_id: R14
   rule_statement: >-
     A timed job acts as SYSTEM for no User, so this requirement does not check it.
   rule_sources:
   - GRAPH a job runs with no User
   rule_decisions:
-  - D-257
+  - D-239
 requirement_sources:
 - SHEET PLT-1
 - PRD §1 Who sees what
 requirement_decisions:
 - D-25
 - D-26
+- D-81
 - D-82
-- D-83
-- D-162
-- D-185
+- D-151
+- D-167
+- D-221
+- D-238
 - D-239
-- D-256
-- D-257
 requirement_features:
 - PLT-1
 edges:

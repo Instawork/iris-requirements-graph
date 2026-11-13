@@ -142,13 +142,13 @@ These hold everywhere unless a rule says otherwise, so rules do not repeat them.
   trimming, collapsing inner spaces, and ignoring case, among the records the sender may see. No match
   or several matches is a problem on the row. No match offers the three closest names, with the
   closest as the suggested fix when one is closest alone, and several matches offers every matching
-  record, for the sender to pick (`REQ-AGENT-0002.R19`, `R24`; D-243).
-- **Emails and phones.** Emails are stored trimmed and in lower case. Phones are US numbers (D-155),
+  record, for the sender to pick (`REQ-AGENT-0002.R19`, `R24`; D-225).
+- **Emails and phones.** Emails are stored trimmed and in lower case. Phones are US numbers (D-144),
   stored as `+1` followed by 10 digits; `REQ-IDENTITY-0001.R3` says which typed forms are accepted.
 - **Screens.** A screen that opens another screen names it by requirement id. A screen changes
   records only through the product requirements it depends on. What a screen built earlier shows of a
   feature built later, such as a link, a tab, a field, or an upload button, is added by the later
-  requirement (D-108).
+  requirement (D-107).
 - **Stack and providers.** The graph does not choose the stack or the email, SMS, voice, language
   model, OCR, or verification providers; Instawork engineering does. Each provider sits behind the
   one platform requirement that uses it, so the choice changes one requirement.

@@ -16,14 +16,14 @@ requirement_rules:
   rule_sources:
   - PRD §2 Shift statuses
   rule_decisions:
-  - D-180
+  - D-162
 - rule_id: R2
   rule_statement: >-
     When REQ-DISPATCH-0002 declines an ACCEPTED Release, each of its ASSIGNED Assignments is removed with
     RELEASE_DECLINED.
   rule_sources: []
   rule_decisions:
-  - D-178
+  - D-160
 - rule_id: R3
   rule_statement: >-
     When REQ-WORKFORCE-0005 saves a BLOCK rating, the Worker's ASSIGNED Assignments on that Unit's Shifts
@@ -38,22 +38,22 @@ requirement_rules:
     have not started are removed with WORKER_INACTIVE.
   rule_sources: []
   rule_decisions:
-  - D-90
+  - D-89
 - rule_id: R5
   rule_statement: >-
     A daily job of REQ-JOBS-0001, at 06:00 in each Unit's timezone, asks REQ-COMPLIANCE-0005 again about
     every ASSIGNED Worker on that Unit's Shifts that have not started.
   rule_sources: []
   rule_decisions:
-  - D-68
-  - D-91
+  - D-67
+  - D-90
 - rule_id: R6
   rule_statement: >-
     When REQ-ORDERING-0003 changes the date or times of a Shift that has not started, REQ-COMPLIANCE-0005
     is asked again at once about every ASSIGNED Worker on it.
   rule_sources: []
   rule_decisions:
-  - D-91
+  - D-90
 - rule_id: R7
   rule_statement: >-
     When either recheck finds an ASSIGNED Worker not eligible, the Assignment is removed with NOT_ELIGIBLE,
@@ -77,18 +77,18 @@ requirement_rules:
   rule_sources:
   - PRD §1 Metric definitions
   rule_decisions:
-  - D-68
+  - D-67
 requirement_sources:
 - SHEET WA-3
 - PRD §2 Shift statuses
 - SESSIONS Worker Assignment & Compliance
 requirement_decisions:
 - D-51
-- D-68
+- D-67
+- D-89
 - D-90
-- D-91
-- D-178
-- D-180
+- D-160
+- D-162
 requirement_features:
 - WA-3
 edges:

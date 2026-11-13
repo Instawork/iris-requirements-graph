@@ -55,7 +55,7 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-22
-  - D-69
+  - D-68
 - rule_id: R7
   rule_statement: >-
     A Timesheet that bills its Release's Bill Rates never carries RATE_VARIANCE; only a part split to
@@ -64,7 +64,7 @@ requirement_rules:
   - SHEET RC-10
   rule_decisions:
   - D-22
-  - D-69
+  - D-68
 - rule_id: R8
   rule_statement: PENDING_EXPENSE applies when any Expense on the Timesheet is PENDING.
   rule_sources:
@@ -86,7 +86,7 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-22
-  - D-222
+  - D-204
 - rule_id: R11
   rule_statement: >-
     A SUBMITTED Timesheet with any reason stays SUBMITTED and appears, with its reasons, on the exception
@@ -110,7 +110,7 @@ requirement_rules:
   - SHEET RC-10
   rule_decisions:
   - D-22
-  - D-117
+  - D-110
 - rule_id: R14
   rule_statement: >-
     Each Timesheet also shows the rate variance REQ-RATES-0006 finds between its three Bill Rates and
@@ -152,7 +152,7 @@ requirement_rules:
   - SHEET TS-7
   rule_decisions:
   - D-22
-  - D-182
+  - D-164
 - rule_id: R19
   rule_statement: >-
     SHORT_BREAK applies when no_show is false, both clock times are set, and break_minutes, counting
@@ -170,7 +170,7 @@ requirement_rules:
   - SHEET WA-20
   rule_decisions:
   - D-22
-  - D-141
+  - D-133
 requirement_sources:
 - SHEET TS-7
 - SHEET RC-10
@@ -180,11 +180,11 @@ requirement_decisions:
 - D-22
 - D-28
 - D-33
-- D-69
-- D-117
-- D-141
-- D-182
-- D-222
+- D-68
+- D-110
+- D-133
+- D-164
+- D-204
 requirement_features:
 - TS-7
 edges:

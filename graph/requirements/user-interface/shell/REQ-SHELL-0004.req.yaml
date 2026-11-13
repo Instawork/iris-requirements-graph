@@ -27,14 +27,14 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-4
   rule_decisions:
-  - D-124
+  - D-117
 - rule_id: R3
   rule_statement: >-
     Opening any signed-in page without a session shows the sign-in page instead.
   rule_sources:
   - SHEET PLT-4
   rule_decisions:
-  - D-99
+  - D-98
 - rule_id: R4
   rule_statement: >-
     The page links to the password reset request of REQ-SHELL-0005 and has no way to create an account,
@@ -56,8 +56,8 @@ requirement_sources:
 requirement_decisions:
 - D-25
 - D-61
-- D-99
-- D-124
+- D-98
+- D-117
 requirement_features:
 - PLT-4
 edges:

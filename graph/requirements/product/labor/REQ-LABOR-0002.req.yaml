@@ -31,7 +31,7 @@ requirement_rules:
     check is not made.
   rule_sources: []
   rule_decisions:
-  - D-218
+  - D-200
 - rule_id: R4
   rule_statement: >-
     REST_BREAK rules and a second meal break in one Shift are not checked in MVP, because Shifts and
@@ -39,7 +39,7 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-57
-  - D-216
+  - D-198
 - rule_id: R5
   rule_statement: >-
     At booking, the check uses the Shift's scheduled start, end, and planned break, and a rule not met
@@ -69,8 +69,8 @@ requirement_decisions:
 - D-22
 - D-23
 - D-57
-- D-216
-- D-218
+- D-198
+- D-200
 requirement_features:
 - WA-18
 edges:

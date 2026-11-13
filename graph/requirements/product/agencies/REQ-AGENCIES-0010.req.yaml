@@ -33,7 +33,7 @@ requirement_rules:
   - PRD §6 Uploads
   - PRD §7 What the agent checks
   rule_decisions:
-  - D-151
+  - D-141
 - rule_id: R4
   rule_statement: >-
     A row that repeats an earlier row's agency is reported as a duplicate of that row.
@@ -57,7 +57,7 @@ requirement_rules:
   - FEEDBACK Creating an agency in bulk
   rule_decisions:
   - D-25
-  - D-151
+  - D-141
 requirement_sources:
 - FEEDBACK Creating an agency in bulk
 - PRD §6 Uploads
@@ -66,7 +66,7 @@ requirement_decisions:
 - D-25
 - D-53
 - D-54
-- D-151
+- D-141
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

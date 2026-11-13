@@ -19,7 +19,7 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-4
   rule_decisions:
-  - D-124
+  - D-117
 - rule_id: R2
   rule_statement: >-
     A link REQ-IDENTITY-0002 accepts opens a page that shows the User's email, which cannot be changed,
@@ -35,7 +35,7 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-4
   rule_decisions:
-  - D-189
+  - D-171
 - rule_id: R4
   rule_statement: >-
     A link that is unknown, used, expired, or belongs to a deactivated User shows that it no longer works,
@@ -56,8 +56,8 @@ requirement_sources:
 - SHEET PLT-4
 requirement_decisions:
 - D-34
-- D-124
-- D-189
+- D-117
+- D-171
 requirement_features:
 - PLT-4
 edges:
