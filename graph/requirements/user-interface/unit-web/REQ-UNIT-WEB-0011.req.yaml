@@ -34,7 +34,7 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R4
   rule_statement: >-
-    Each template offers Book, which opens the booking form with that template picked.
+    Each template offers Book, which opens the booking form of REQ-UNIT-WEB-0002 with that template picked.
   rule_sources:
   - SHEET SC-11
   rule_decisions: []
@@ -72,6 +72,10 @@ requirement_decisions:
 requirement_features:
 - SC-11
 edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-UNIT-WEB-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-UNIT-WEB-0002
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0009
 - edge_type: DEPENDS_ON

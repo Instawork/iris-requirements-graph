@@ -11,8 +11,8 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    The Badges tab of the Workers screen shows when a Unit in scope is a secured site, and lists its BadgeRequests
-    with Worker, Agency, status, and requested time.
+    The Badges tab of the Workers screen of REQ-UNIT-WEB-0004 shows when a Unit in scope is a secured
+    site, and lists its BadgeRequests with Worker, Agency, status, and requested time.
   rule_sources:
   - SHEET WA-17
   rule_decisions:

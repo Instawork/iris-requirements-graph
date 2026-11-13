@@ -46,7 +46,8 @@ requirement_rules:
   - D-34
 - rule_id: R5
   rule_statement: >-
-    Once the password is saved, the page says so and leads to the sign-in page; it starts no session.
+    Once the password is saved, the page says so and leads to the sign-in page of REQ-SHELL-0004; it starts
+    no session.
   rule_sources:
   - SHEET PLT-4
   rule_decisions:
@@ -59,6 +60,8 @@ requirement_features:
 - PLT-4
 edges:
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0004
+- edge_type: DEPENDS_ON
   requirement_id: REQ-IDENTITY-0002
 data_model:
   status: covered
@@ -66,7 +69,7 @@ data_model:
   - User.email
   writes: []
   detail: null
-requirement_starting_flow: false
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

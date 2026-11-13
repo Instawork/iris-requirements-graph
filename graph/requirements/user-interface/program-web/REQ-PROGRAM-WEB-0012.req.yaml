@@ -45,7 +45,7 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R5
   rule_statement: >-
-    A NEEDS_REVIEW Credential there links to the review queue on the Credentials screen.
+    A NEEDS_REVIEW Credential there links to the review queue of REQ-PROGRAM-WEB-0010.
   rule_sources:
   - SHEET WA-15
   rule_decisions:
@@ -66,6 +66,10 @@ requirement_decisions:
 requirement_features:
 - WA-14
 edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-PROGRAM-WEB-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-PROGRAM-WEB-0010
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0009
 - edge_type: DEPENDS_ON

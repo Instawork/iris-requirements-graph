@@ -198,7 +198,7 @@ data_model:
   - Timesheet.status
   - Timesheet.exception_reasons
   detail: null
-requirement_starting_flow: true
+requirement_starting_flow: false
 requirement_review:
   status: draft
   by: null

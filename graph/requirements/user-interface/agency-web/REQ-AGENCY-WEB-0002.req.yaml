@@ -112,8 +112,8 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R14
   rule_statement: >-
-    The CSV download of the Releases list, through REQ-SHELL-0010, carries each Shift's shift_id, so the
-    Agency can name Workers on its rows and send them back as a SHIFTS file.
+    The CSV download of the Releases list, through REQ-SHELL-0010, carries each Shift's shift_id as REQ-ORDERING-0014.R14
+    requires, so the Agency can name Workers on its rows and send them back.
   rule_sources:
   - PRD §6 Templates
   rule_decisions: []
@@ -131,6 +131,8 @@ requirement_features:
 - SC-8
 - WA-2
 edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCY-WEB-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0009
 - edge_type: DEPENDS_ON

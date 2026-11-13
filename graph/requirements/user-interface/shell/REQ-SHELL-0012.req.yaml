@@ -2,10 +2,10 @@ requirement_id: REQ-SHELL-0012
 requirement_target_layer: user-interface
 requirement_target_module: SHELL
 requirement_phase: MVP
-requirement_title: List and reopen Saved Reports
+requirement_title: List, reopen, rename, and delete Saved Reports
 requirement_statement: >-
-  A Unit User or a Program User sees the reports they saved and reopens any of them. A reopened report
-  is computed again from current records.
+  A Unit User or a Program User sees the reports they saved, reopens any of them, and renames or deletes
+  them. A reopened report is computed again from current records.
 requirement_actors:
 - UNIT_USER
 - PROGRAM_USER
@@ -36,12 +36,18 @@ requirement_rules:
   - D-14
 - rule_id: R4
   rule_statement: >-
-    The list sits on each persona's reports screen, and a User with no Saved Report is told that an answer
-    in the assistant can be saved.
+    The list is embedded in the Reports screens of REQ-UNIT-WEB-0006 and REQ-PROGRAM-WEB-0005, and a User
+    with no Saved Report is told that an answer in the assistant can be saved.
   rule_sources:
   - SESSIONS Reporting
   rule_decisions:
   - D-61
+- rule_id: R5
+  rule_statement: >-
+    Each Saved Report offers Rename, which takes a new name, and Delete, both through REQ-REPORTING-0003.R13.
+  rule_sources: []
+  rule_decisions:
+  - D-45
 requirement_sources:
 - SHEET REP-1
 - SESSIONS Reporting

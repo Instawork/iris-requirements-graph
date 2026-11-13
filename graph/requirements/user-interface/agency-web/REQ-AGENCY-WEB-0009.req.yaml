@@ -104,21 +104,38 @@ requirement_rules:
   rule_sources:
   - PRD §2 Shifts
   rule_decisions: []
+- rule_id: R13
+  rule_statement: >-
+    The page opens from a row of the Timesheets screen of REQ-AGENCY-WEB-0004 and from each Worker of
+    an ended Release on REQ-AGENCY-WEB-0006.
+  rule_sources:
+  - PRD §2 Shift statuses
+  rule_decisions:
+  - D-18
+  - D-110
 requirement_sources:
 - PRD §2 Shifts
 - SHEET 4.4
 - SESSIONS Timesheets, Tips & Expenses
 requirement_decisions:
+- D-18
 - D-22
 - D-28
 - D-33
 - D-59
 - D-60
+- D-110
 requirement_features:
 - TS-10
 - TS-11
 - TS-12
 edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCY-WEB-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCY-WEB-0004
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCY-WEB-0006
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0009
 - edge_type: DEPENDS_ON

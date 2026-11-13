@@ -12,13 +12,13 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    The Workers screen has a roster tab and an Issues tab, and the roster lists the Agency's Workers by
-    last name with name, email, phone, city, Positions, and whether active.
+    The Workers screen lists the Agency's Workers by last name with name, email, phone, city, Positions,
+    and whether active.
   rule_sources:
   - SHEET WA-1
   - PRD §4 Professionals
   rule_decisions:
-  - D-66
+  - D-63
 - rule_id: R2
   rule_statement: >-
     Each row shows how many of the Worker's Credentials are REJECTED, expired, or within CREDENTIAL_EXPIRY_WARNING_DAYS
@@ -70,7 +70,7 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R8
   rule_statement: >-
-    Selecting a Worker opens that Worker's page, with their Credentials and Attestations.
+    Selecting a Worker opens that Worker's page of REQ-AGENCY-WEB-0007, with their Credentials and Attestations.
   rule_sources:
   - PRD §4 Professionals
   rule_decisions: []
@@ -81,12 +81,13 @@ requirement_decisions:
 - D-16
 - D-50
 - D-63
-- D-66
 - D-67
 requirement_features:
 - WA-1
 - WA-14
 edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCY-WEB-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0009
 - edge_type: DEPENDS_ON

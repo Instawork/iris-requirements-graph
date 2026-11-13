@@ -19,11 +19,12 @@ requirement_rules:
 - rule_id: R2
   rule_statement: >-
     Home has no to-do list; it shows how many active Positions, how many Markets, and how many Labor Rules
-    in effect today are loaded.
+    in effect today, in the program timezone, are loaded.
   rule_sources: []
   rule_decisions:
   - D-26
   - D-66
+  - D-68
 - rule_id: R3
   rule_statement: >-
     While no unrevoked PROGRAM_USER grant exists, Home offers Invite the first Program User, which embeds
@@ -42,6 +43,7 @@ requirement_sources:
 requirement_decisions:
 - D-26
 - D-66
+- D-68
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

@@ -881,8 +881,9 @@ decisions:
   status: open
   assumption: >-
     A User acts in one context at a time: Unit User across all their Unit User grants, Agency User for one
-    Agency, Program User, or Instawork Admin. A User with several contexts chooses one after sign-in and
-    can switch without signing out; switching changes the menu and no record. A User with no unrevoked
+    Agency, Program User, or Instawork Admin. A User with several contexts chooses one at each sign-in and
+    can switch without signing out; the choice is kept on the session, so every request carries it, and
+    switching changes the menu and no record. A User with no unrevoked
     grant can only sign out. Every page works at a width of 360 px. A refused sign-in does not say which
     part was wrong. The inbox shows an unread count, holds the notifications of every context, and opening
     one opens its record. A refused action shows its reason and keeps what was typed, Shift times show in
@@ -943,8 +944,8 @@ decisions:
     An Agency's Releases show pending and accepted ones on Shifts not yet ended, soonest first, and the
     rest on a second tab, newest first. Its Timesheets open on Draft and Rejected ones, oldest work date
     first. Worker issues and Rate Reviews show the open ones first. Rate Lines open on approved lines in
-    effect. Rosters sort by last name, and the program-wide Worker list by Agency first. Each list
-    filters by the fields its requirement names.
+    effect. Rosters sort by last name, a Unit's roster with its Favorite Workers first, and the
+    program-wide Worker list by Agency first. Each list filters by the fields its requirement names.
   blocking: false
   answer: null
   sources:
@@ -984,7 +985,8 @@ decisions:
   assumption: >-
     The Unit menu is Home, Shifts, Timesheets, Tips, Workers, Agencies, Events, Reports, Uploads, and
     Setup; invoices join in Phase 2. A Unit User over several Units sees them together and can narrow
-    every screen to one Unit. Setup holds Request templates, Position defaults, and default site
+    every screen to one Unit, a choice that lasts until they change it or sign out. Setup holds Request
+    templates, Position defaults, and default site
     instructions. A report period is a Work Week, a calendar month, or a range of dates. Cancelling a
     Shift asks for confirmation, and choosing Block first warns what it removes.
   blocking: false
@@ -1620,3 +1622,36 @@ decisions:
   sources:
   - SHEET WA-2
   - SHEET 3.2
+- decision_id: D-110
+  origin: graph
+  question: >-
+    In which order are a role's menu, Home, and screens built, and what does a User see before every
+    screen exists?
+  status: open
+  assumption: >-
+    Each role's menu and Home page are one requirement, built before that role's other screens. A menu
+    shows an item once the screen it opens is delivered. Home holds the sections other requirements add
+    to it, and says there is nothing to do when none has anything to show. Where a screen built earlier
+    leads to one built later, such as a tab, a link, or a menu item, the later screen's requirement adds
+    it. So the first slice can be used end to end before the other screens exist.
+  blocking: false
+  answer: null
+  sources:
+  - GRAPH the starting flow must be usable before every screen is built
+  - PRD Pages
+- decision_id: D-111
+  origin: graph
+  question: >-
+    May an Agency User enter tips by chat or by file? The PRD gives Agencies a "Submit hours and tips"
+    starter in the assistant, and the sheet keeps tips as their own upload (C-17).
+  status: open
+  assumption: >-
+    No. In MVP an Agency User enters a Worker's own tip only on that Worker's Timesheet page (D-28).
+    Tips by file and by chat are a Unit User's Tip Pools and cashier PIN tips. So the Agency starter in
+    the assistant reads "submit hours", and it submits Timesheets.
+  blocking: false
+  answer: null
+  sources:
+  - PRD §7 Opening screen
+  - SHEET TS-11
+  - PRD §2 Shifts

@@ -70,6 +70,8 @@ requirement_decisions:
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-UNIT-WEB-0001
+- edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0009
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AGENCIES-0002

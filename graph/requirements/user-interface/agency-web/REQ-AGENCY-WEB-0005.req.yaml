@@ -82,8 +82,8 @@ requirement_rules:
   - D-12
 - rule_id: R10
   rule_statement: >-
-    The Agency User answers a review through REQ-RATES-0008 with a reason to keep the rate, or with a
-    new line for the same Position and Market at a lower regular Bill Rate.
+    Each REQUESTED review offers Keep the rate, which takes a reason, and Lower the rate, which opens
+    the form of REQ-RATES-0013 for the new line, as REQ-RATES-0008.R8 allows.
   rule_sources:
   - SHEET RC-12
   rule_decisions: []
@@ -110,6 +110,8 @@ requirement_features:
 - RC-5
 - RC-12
 edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCY-WEB-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0009
 - edge_type: DEPENDS_ON

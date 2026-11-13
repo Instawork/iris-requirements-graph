@@ -11,8 +11,9 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    The approval queue, a tab of the Rates screen, lists PENDING Rate Lines, oldest first, each with its
-    Agency, Position, Market or Unit, six rates, effective_from, and who submitted it.
+    The approval queue, a tab of the Rates screen of REQ-PROGRAM-WEB-0003, lists PENDING Rate Lines, oldest
+    first, each with its Agency, Position, Market or Unit, six rates, effective_from, and who submitted
+    it.
   rule_sources:
   - SESSIONS Rate Cards & Supplier Sourcing
   rule_decisions:
@@ -89,6 +90,10 @@ requirement_decisions:
 requirement_features:
 - RC-12
 edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-PROGRAM-WEB-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-PROGRAM-WEB-0003
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0009
 - edge_type: DEPENDS_ON

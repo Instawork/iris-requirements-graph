@@ -25,8 +25,8 @@ requirement_rules:
   rule_sources:
   - PRD §4 Professionals
   - SHEET WA-3
-  - 'GRAPH data model: a FAVORITE Worker is listed first'
-  rule_decisions: []
+  rule_decisions:
+  - D-63
 - rule_id: R3
   rule_statement: The roster filters by Unit, Agency, rating, and Worker name.
   rule_sources:
@@ -70,8 +70,8 @@ requirement_rules:
   - D-52
 - rule_id: R8
   rule_statement: >-
-    Report an issue takes a category of CONDUCT, SAFETY, QUALITY, or NO_SHOW, a description, and optionally
-    a Shift of the Unit, and saves through REQ-WORKFORCE-0006.
+    Report an issue takes the category, description, and optional Shift that REQ-WORKFORCE-0006.R1 defines,
+    and saves through that requirement.
   rule_sources:
   - SHEET WA-4
   rule_decisions: []
@@ -81,14 +81,6 @@ requirement_rules:
     category, description, status, and the Agency's resolution.
   rule_sources:
   - SHEET WA-4
-  rule_decisions: []
-- rule_id: R10
-  rule_statement: >-
-    Reporting a NO_SHOW issue changes no Timesheet, and the form says the no-show itself is marked on
-    the Timesheet.
-  rule_sources:
-  - >-
-    GRAPH data model: IssueCategory NO_SHOW is separate from the Timesheet mark
   rule_decisions: []
 requirement_sources:
 - SHEET WA-3
@@ -103,6 +95,8 @@ requirement_features:
 - WA-3
 - WA-4
 edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-UNIT-WEB-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0009
 - edge_type: DEPENDS_ON
@@ -135,7 +129,7 @@ data_model:
   - WorkerIssue.*
   writes: []
   detail: null
-requirement_starting_flow: false
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

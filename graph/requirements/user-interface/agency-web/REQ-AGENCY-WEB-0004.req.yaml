@@ -99,6 +99,8 @@ requirement_features:
 - TS-8
 edges:
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCY-WEB-0001
+- edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0009
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0008

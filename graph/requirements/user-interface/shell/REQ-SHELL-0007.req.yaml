@@ -14,7 +14,7 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    The frame of every page has an inbox control that shows how many of the User's IN_APP notifications
+    The frame of REQ-SHELL-0009 has an inbox control that shows how many of the User's IN_APP notifications
     have no read_at.
   rule_sources:
   - PRD Overview

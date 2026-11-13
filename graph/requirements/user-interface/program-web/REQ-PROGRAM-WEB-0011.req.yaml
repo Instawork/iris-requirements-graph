@@ -45,7 +45,7 @@ requirement_rules:
 - rule_id: R5
   rule_statement: >-
     The Shift's page lists each ASSIGNED Worker with their Agency, and each Timesheet with its hours,
-    status, exception_reasons, and the rate variance REQ-RATES-0006 reports.
+    amount, tips, Expenses, status, exception_reasons, and the rate variance REQ-RATES-0006 reports.
   rule_sources:
   - PRD §2 Shifts
   - SHEET RC-10
@@ -67,6 +67,8 @@ requirement_decisions:
 requirement_features:
 - RC-10
 edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-PROGRAM-WEB-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0009
 - edge_type: DEPENDS_ON
@@ -91,6 +93,10 @@ edges:
   requirement_id: REQ-AGENCIES-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIPS-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIPS-0002
 data_model:
   status: covered
   reads:
@@ -110,6 +116,12 @@ data_model:
   - Worker.first_name
   - Worker.last_name
   - Timesheet.*
+  - TipAllocation.timesheet_id
+  - TipAllocation.amount
+  - Expense.timesheet_id
+  - Expense.kind
+  - Expense.amount
+  - Expense.status
   writes: []
   detail: null
 requirement_starting_flow: false

@@ -83,18 +83,26 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R10
   rule_statement: >-
-    A request no owner takes, such as changing or cancelling a Shift, creates no Proposal; the assistant
-    says so and names the screen where it is done.
+    A Unit User's request to change a Shift's headcount or times, or to cancel it, goes to REQ-ORDERING-0003,
+    which returns a Proposal of kind SHIFT_CHANGE.
   rule_sources:
-  - PRD §7 When the agent is unsure
-  rule_decisions:
-  - D-64
+  - PRD §7 Who uses it
+  - SHEET SC-3
+  rule_decisions: []
 - rule_id: R11
   rule_statement: >-
     Each Proposal an owner returns is shown as the card of REQ-ASSISTANT-0002 in the conversation.
   rule_sources:
   - PRD §7 Typed request
   rule_decisions: []
+- rule_id: R12
+  rule_statement: >-
+    A request that no owner above takes creates no Proposal, and the assistant says it cannot make that
+    change.
+  rule_sources:
+  - PRD §7 When the agent is unsure
+  rule_decisions:
+  - D-64
 requirement_sources:
 - PRD §7 Agent Chat
 - SHEET SC-9
@@ -127,6 +135,8 @@ edges:
   requirement_id: REQ-WORKFORCE-0003
 - edge_type: DEPENDS_ON
   requirement_id: REQ-REPORTING-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0003
 data_model:
   status: covered
   reads:
