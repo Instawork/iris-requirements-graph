@@ -59,7 +59,7 @@ type Term = { term: string; definition: string; avoid: string[]; source_words?: 
 type Capability = { capability_id: string; area: string; name: string; description: string; phase: Phase };
 type Feature = { feature_id: string; capability_id: string; feature: string; why: string };
 type Setting = { key: string; type: string; default: string | number | boolean; scope: string; meaning: string; owner: string; sources?: string[]; decisions?: string[] };
-type Notification = { type: string; trigger: string; recipients: string; channels: string[]; owner: string; sources?: string[]; decisions?: string[] };
+type Notification = { type: string; subject: string; trigger: string; recipients: string; channels: string[]; owner: string; sources?: string[]; decisions?: string[] };
 type UploadColumn = { column: string; kind: string; required: string; maps_to: string; lookup?: string; saved_by?: string; note?: string };
 type UploadType = { type: string; phase: Phase; meaning: string; uploaders: string[]; owner: string; columns: UploadColumn[]; identified_by?: string[][]; sources?: string[]; decisions?: string[] };
 type Check = { name: string; suite: string; problems: string[] };
@@ -674,8 +674,8 @@ function CatalogsView({ nav }: { nav: Nav }) {
       <Stack gap={8}>
         <H2>Notifications</H2>
         <Table
-          headers={["Type", "Sent when", "To", "Channels", "Owner"]}
-          rows={G.notifications.map((n) => [<Mono key="k">{n.type}</Mono>, <Text key="t" size="small">{n.trigger}</Text>, <Text key="r" size="small" tone="secondary">{n.recipients}</Text>, <Mono key="c" tone="secondary">{n.channels.join(", ")}</Mono>, <ReqLink key="o" id={n.owner} nav={nav} />])}
+          headers={["Type", "About", "Sent when", "To", "Channels", "Owner"]}
+          rows={G.notifications.map((n) => [<Mono key="k">{n.type}</Mono>, <Mono key="s" tone="secondary">{n.subject}</Mono>, <Text key="t" size="small">{n.trigger}</Text>, <Text key="r" size="small" tone="secondary">{n.recipients}</Text>, <Mono key="c" tone="secondary">{n.channels.join(", ")}</Mono>, <ReqLink key="o" id={n.owner} nav={nav} />])}
         />
       </Stack>
       <Stack gap={8}>
