@@ -139,6 +139,14 @@ requirement_rules:
   - SHEET RC-11
   rule_decisions:
   - D-49
+- rule_id: R18
+  rule_statement: >-
+    A row with no date, where every other row of the file for the same Event gives one date, is a problem
+    whose fix is that date.
+  rule_sources:
+  - PRD §7 File attached
+  rule_decisions:
+  - D-103
 requirement_sources:
 - SHEET SC-2
 - SHEET SC-6
@@ -147,6 +155,7 @@ requirement_sources:
 requirement_decisions:
 - D-17
 - D-49
+- D-103
 requirement_features:
 - SC-2
 edges:

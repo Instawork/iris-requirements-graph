@@ -31,11 +31,12 @@ requirement_rules:
   - D-34
 - rule_id: R3
   rule_statement: >-
-    An invite for a User who has not yet accepted creates a new INVITE link and sends it; for a User who
-    has accepted, it changes nothing and returns that User.
+    An invite for an email a User already holds changes nothing and returns that User, unless the inviter
+    asks to send it again before it is accepted, which creates a new INVITE link.
   rule_sources: []
   rule_decisions:
   - D-34
+  - D-170
 - rule_id: R4
   rule_statement: >-
     Each new link is emailed to its User as USER_INVITED for an invite or PASSWORD_RESET for a reset,
@@ -110,6 +111,7 @@ requirement_decisions:
 - D-37
 - D-99
 - D-101
+- D-170
 requirement_features:
 - PLT-4
 edges:

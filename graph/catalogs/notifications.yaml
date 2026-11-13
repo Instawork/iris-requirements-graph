@@ -63,10 +63,11 @@ notifications:
   decisions: [D-89]
 - type: WORKER_NOT_ELIGIBLE
   trigger: An assigned Worker stops being eligible for an upcoming Shift.
-  recipients: Every active Agency User of the Worker's Agency, and the User who created the Request.
+  recipients: Every active Agency User of the Worker's Agency, and every active Unit User over the Shift's Unit.
   channels: [EMAIL, IN_APP]
   owner: REQ-COMPLIANCE-0005
   sources: [SHEET WA-14, "FAQ What happens if a worker doesn't meet the requirements?"]
+  decisions: [D-51, D-160]
 - type: CREDENTIAL_EXPIRING
   trigger: >-
     A verified credential's expiry is CREDENTIAL_EXPIRY_WARNING_DAYS away or less. Sent once for each credential,

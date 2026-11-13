@@ -99,21 +99,35 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R13
   rule_statement: >-
-    A Worker's phone typed with punctuation, spaces, or a leading 1 is saved in the stored form, whether
-    it comes from the form or a WORKERS row.
+    A Worker's phone is accepted in the forms REQ-IDENTITY-0001.R3 accepts.
   rule_sources:
   - PRD §6 Templates
   rule_decisions:
-  - D-39
+  - D-155
+- rule_id: R14
+  rule_statement: >-
+    A photo is a JPEG or PNG file stored through REQ-INTAKE-0001, and photo_url holds its reference.
+  rule_sources: []
+  rule_decisions:
+  - D-152
+- rule_id: R15
+  rule_statement: >-
+    A Worker's photo may be opened only by an Agency User of the Worker's Agency, a Program User, and
+    a Unit User who sees the Worker under R10.
+  rule_sources: []
+  rule_decisions:
+  - D-92
+  - D-152
 requirement_sources:
 - SHEET WA-1
 - PRD §4 Professionals
 - PRD §6 Templates
 requirement_decisions:
-- D-39
 - D-50
 - D-90
 - D-92
+- D-152
+- D-155
 requirement_features:
 - WA-1
 edges:
@@ -123,6 +137,8 @@ edges:
   requirement_id: REQ-CATALOG-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-WORKFORCE-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INTAKE-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-INTAKE-0002
 - edge_type: DEPENDS_ON

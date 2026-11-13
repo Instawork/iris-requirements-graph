@@ -20,8 +20,9 @@ requirement_rules:
   - D-66
 - rule_id: R2
   rule_statement: >-
-    Opening one shows the document beside the issuer, number, issued_on, and expires_on the Agency gave,
-    each check that failed or could not finish, and any verification_reference.
+    Opening one shows the document, opened under REQ-COMPLIANCE-0002.R14, beside the issuer, number,
+    issued_on, and expires_on the Agency gave, each check that failed or could not finish, and any
+    verification_reference.
   rule_sources:
   - SHEET WA-15
   rule_decisions: []

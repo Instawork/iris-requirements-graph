@@ -19,7 +19,7 @@ requirement_rules:
 - rule_id: R2
   rule_statement: >-
     Credentials are listed by Credential Type, newest first, each with issuer, number, issued_on, expires_on,
-    status, the status_reason or review_note, and a link to the document.
+    status, the status_reason or review_note, and a link that opens the document under REQ-COMPLIANCE-0002.R14.
   rule_sources:
   - SHEET WA-14
   - SHEET WA-15
@@ -42,8 +42,8 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R5
   rule_statement: >-
-    When a document is sent without details, the page shows what Iris read from it for the Agency User
-    to confirm or correct before REQ-COMPLIANCE-0002 saves it.
+    A document sent without details goes as a CREDENTIALS Upload, and the page shows its Proposal in
+    the card of REQ-ASSISTANT-0002 for the Agency User to confirm or correct.
   rule_sources:
   - PRD §6 Uploads
   rule_decisions: []
@@ -172,6 +172,8 @@ edges:
   requirement_id: REQ-ORG-0009
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ASSISTANT-0002
 data_model:
   status: covered
   reads:

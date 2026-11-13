@@ -25,6 +25,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/python tools/validate.py --suite data-model   # one suite
 .venv/bin/python tools/get_requirement.py REQ-TIME-0005 # a requirement with everything it needs
 .venv/bin/python tools/list_requirements.py --ready     # what can be built next
+.venv/bin/python tools/list_requirements.py --blocking  # what each blocking decision stops
 .venv/bin/python tools/build_canvas.py                  # write canvas/ (git ignores it)
 .venv/bin/python tools/set_starting_flow.py --add REQ-UNIT-WEB-0007   # change the flow's seeds
 .venv/bin/python tools/next_requirement_id.py TIME      # the next unused id for a module
@@ -138,13 +139,15 @@ These hold everywhere unless a rule says otherwise, so rules do not repeat them.
   Rules that say "the acting role" read it from the request.
 - **Names.** A name in a file or a typed request matches a stored name when the two are equal after
   trimming, collapsing inner spaces, and ignoring case, among the records the sender may see. No match
-  or several matches is a problem on the row. No match offers the three closest names, and several
-  matches offers every matching record, for the sender to pick (`REQ-AGENT-0002.R19`).
+  or several matches is a problem on the row. No match offers the three closest names, with the
+  closest as the suggested fix when one is closest alone, and several matches offers every matching
+  record, for the sender to pick (`REQ-AGENT-0002.R19`, `R24`).
 - **Emails and phones.** Emails are stored trimmed and in lower case. Phones are stored as `+1`
   followed by 10 digits; anything else is refused.
 - **Screens.** A screen that opens another screen names it by requirement id. A screen changes
-  records only through the product requirements it depends on. Where a screen built earlier leads to
-  one built later, the later screen's requirement adds the link (D-108).
+  records only through the product requirements it depends on. What a screen built earlier shows of a
+  feature built later, such as a link, a tab, a field, or an upload button, is added by the later
+  requirement (D-108).
 - **Stack and providers.** The graph does not choose the stack or the email, SMS, voice, language
   model, OCR, or verification providers; Instawork engineering does. Each provider sits behind the
   one platform requirement that uses it, so the choice changes one requirement.

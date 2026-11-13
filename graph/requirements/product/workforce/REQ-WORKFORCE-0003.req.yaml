@@ -51,6 +51,7 @@ requirement_rules:
   - SHEET WA-19
   rule_decisions:
   - D-4
+  - D-141
 - rule_id: R6
   rule_statement: >-
     When REQ-LABOR-0003 answers to refuse, as it does for overtime while OVERTIME_HARD_BLOCK is true for
@@ -185,6 +186,7 @@ requirement_decisions:
 - D-51
 - D-89
 - D-90
+- D-141
 - D-160
 requirement_features:
 - WA-1

@@ -169,6 +169,7 @@ requirement_rules:
   - SHEET WA-19
   - SHEET WA-20
   rule_decisions:
+  - D-22
   - D-141
 requirement_sources:
 - SHEET TS-7

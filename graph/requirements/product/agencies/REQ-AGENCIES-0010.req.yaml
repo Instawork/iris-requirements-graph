@@ -90,7 +90,7 @@ data_model:
   detail: >-
     Saves nothing itself: REQ-AGENCIES-0001 saves the Agency, REQ-IDENTITY-0002 the contact, and REQ-AGENCIES-0002
     the approvals, as saved_by says for each AGENCIES column in the catalog.
-requirement_starting_flow: true
+requirement_starting_flow: false
 requirement_review:
   status: draft
   by: null

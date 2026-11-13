@@ -299,8 +299,9 @@ decisions:
     A missing clock time, a time outside tolerance, a billed break shorter than the planned break, a
     missed required break, a Pay Rate below the minimum wage, a part split to a Position whose
     contracted rate differs or is missing, a pending expense, a tip an Agency User entered, a
-    submission after the Lock Window closed, and a Worker assigned after the Shift ended. Overtime
-    alone does not, and a no-show Timesheet can be held only by a pending expense.
+    submission after the Lock Window closed, a Worker assigned after the Shift ended, and a Worker with
+    another Timesheet within seven days at a Unit whose Work Week starts on another day. Overtime alone
+    does not, and a no-show Timesheet can be held only by a pending expense.
   blocking: false
   answer_from: COMPASS_OPERATIONS
   answer: null
@@ -2332,3 +2333,16 @@ decisions:
   answer: null
   sources:
   - GRAPH a new Session has no context, and a message or a job has no Session
+- decision_id: D-170
+  origin: graph
+  question: What happens when an invite names an email a User already holds?
+  status: open
+  assumption: >-
+    Nothing: the invite returns that User, and a new link goes out only when the inviter asks to send
+    the invite again before it is accepted. So two rows of one file, or two requests, that name the same
+    new person send one invite, and its link keeps working.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - SHEET PLT-4

@@ -21,7 +21,7 @@ requirement_rules:
 - rule_id: R2
   rule_statement: >-
     New Tip Pool takes a Unit, a work date, an amount, and optionally one Shift or one Event, never both,
-    and saves through REQ-TIPS-0001.
+    and saves through REQ-TIPS-0004.
   rule_sources:
   - SHEET TS-11
   rule_decisions:
@@ -29,8 +29,8 @@ requirement_rules:
   - D-134
 - rule_id: R3
   rule_statement: >-
-    Opening a pool shows its Shift or Event when set and each share with its Worker, Agency, worked minutes,
-    and amount, or says that shares appear once hours are entered.
+    Opening a pool shows its Shift or Event when set, each share with its Worker, Agency, worked minutes,
+    and amount, and any unallocated amount, or says that shares appear once hours are entered.
   rule_sources:
   - SHEET TS-11
   rule_decisions:
@@ -43,11 +43,11 @@ requirement_rules:
   - SHEET TS-11
   rule_decisions:
   - D-28
-  - D-60
+  - D-140
 - rule_id: R5
   rule_statement: >-
     New PIN tip takes a Unit, a work date, a cashier PIN, and an amount, and saves the whole amount to
-    that PIN's Worker through REQ-TIPS-0001.
+    that PIN's Worker through REQ-TIPS-0004.
   rule_sources:
   - SHEET TS-11
   rule_decisions:
@@ -55,7 +55,7 @@ requirement_rules:
 - rule_id: R6
   rule_statement: >-
     The PIN map tab lists each cashier PIN with its Unit, Worker, valid_from, and valid_to, and adds a
-    mapping through REQ-TIPS-0001.
+    mapping through REQ-TIPS-0004.
   rule_sources:
   - SHEET 4.4
   rule_decisions:
@@ -70,7 +70,7 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R8
   rule_statement: >-
-    Each mapping offers End, which sets or changes its valid_to through REQ-TIPS-0001; its PIN, Worker,
+    Each mapping offers End, which sets or changes its valid_to through REQ-TIPS-0004; its PIN, Worker,
     and valid_from cannot be changed.
   rule_sources:
   - SHEET 4.4
@@ -78,12 +78,12 @@ requirement_rules:
   - D-136
 - rule_id: R9
   rule_statement: >-
-    A new pool, a change to one, or a PIN tip that REQ-TIPS-0001.R17 refuses shows that a Timesheet it
+    A new pool, a change to one, or a PIN tip that REQ-TIPS-0004.R13 refuses shows that a Timesheet it
     would cover is locked.
   rule_sources:
   - SHEET TS-9
   rule_decisions:
-  - D-60
+  - D-140
 requirement_sources:
 - SHEET TS-11
 - SHEET 4.4
@@ -95,6 +95,7 @@ requirement_decisions:
 - D-134
 - D-135
 - D-136
+- D-140
 requirement_features:
 - TS-11
 edges:

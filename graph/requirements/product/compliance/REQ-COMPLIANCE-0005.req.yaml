@@ -73,12 +73,13 @@ requirement_rules:
 - rule_id: R9
   rule_statement: >-
     WORKER_NOT_ELIGIBLE goes by email and in the app to every active Agency User of the Worker's Agency
-    and to the User who created the Request, with the reasons.
+    and every active Unit User over the Shift's Unit, with the reasons.
   rule_sources:
   - SHEET WA-14
   - FAQ What happens if a worker doesn't meet the requirements?
   rule_decisions:
   - D-51
+  - D-160
 - rule_id: R10
   rule_statement: >-
     This requirement never reads or changes Assignments; removing the Worker with NOT_ELIGIBLE is done by
@@ -96,6 +97,7 @@ requirement_sources:
 requirement_decisions:
 - D-3
 - D-51
+- D-160
 requirement_features:
 - WA-13
 - WA-14
@@ -131,13 +133,13 @@ data_model:
   - Shift.position_id
   - Shift.starts_at
   - Request.unit_id
-  - Request.created_by
   - Unit.org_node_id
   - Unit.timezone
   - OrgNode.parent_id
   - RoleGrant.user_id
   - RoleGrant.role
   - RoleGrant.agency_id
+  - RoleGrant.org_node_id
   - RoleGrant.revoked_at
   writes: []
   detail: Reads only. The answer is computed and not stored.
