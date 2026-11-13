@@ -17,6 +17,7 @@ requirement_rules:
     on any Timesheet that is not locked, including a DRAFT one.
   rule_sources:
   - PRD §2 Shifts
+  - GRAPH a Unit User's change to a Timesheet carries a reason, which the PRD's pill does not ask for
   rule_decisions:
   - D-33
   - D-70
@@ -34,6 +35,7 @@ requirement_rules:
     a Unit User clears any mark, with a reason, until the Timesheet locks.
   rule_sources:
   - PRD §2 Shifts
+  - GRAPH a Unit User's change to a Timesheet carries a reason, which the PRD's pill does not ask for
   rule_decisions:
   - D-33
   - D-70
@@ -44,8 +46,7 @@ requirement_rules:
   rule_sources:
   - PRD §5 Invoices
   rule_decisions:
-  - D-60
-  - D-137
+  - D-144
 - rule_id: R5
   rule_statement: >-
     Setting or clearing the mark notifies the other party through REQ-TIME-0006: always when a Unit
@@ -80,9 +81,8 @@ requirement_sources:
 - PRD §5 Invoices
 requirement_decisions:
 - D-33
-- D-60
 - D-70
-- D-137
+- D-144
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

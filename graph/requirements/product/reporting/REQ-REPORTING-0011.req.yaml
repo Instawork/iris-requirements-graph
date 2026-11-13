@@ -12,7 +12,7 @@ requirement_rules:
 - rule_id: R1
   rule_statement: >-
     A job of REQ-JOBS-0001 checks spend and fill against each threshold, such as SPEND passing BUDGET,
-    and sends an alert by email or chat when one is first crossed.
+    and sends an alert by email or chat when one is crossed.
   rule_sources:
   - SHEET REP-5
   - SHEET 6.2

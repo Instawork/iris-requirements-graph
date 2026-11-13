@@ -29,6 +29,7 @@ enums:
   - {value: SHORT_BREAK, meaning: The billed break is shorter than the Shift's planned break.}
   - {value: LATE_SUBMISSION, meaning: It was submitted after its Lock Window closed.}
   - {value: ADDED_AFTER_SHIFT, meaning: 'Its Worker was assigned after the Shift ended, possibly beyond the headcount.'}
+  - {value: MIXED_WORK_WEEKS, meaning: 'Its Worker has another Timesheet within seven days at a Unit whose Work Week starts on another day, so which Work Week governs its overtime is open.'}
 entities:
 - entity: Timesheet
   phase: MVP
@@ -57,7 +58,7 @@ entities:
   - {name: approved_by, type: ref:User, nullable: true, note: Empty when Iris auto-approved it}
   - {name: approved_at, type: timestamp, nullable: true}
   - {name: rejected_reason, type: text, nullable: true}
-  - {name: locked_at, type: timestamp, nullable: true, note: 'Set when it locks; it cannot change after. Timesheets one Tip Pool covers lock together'}
+  - {name: locked_at, type: timestamp, nullable: true, note: 'Set when it locks, each Timesheet on its own lock time; it cannot change after'}
   constraints:
   - regular_minutes plus overtime_minutes plus double_time_minutes equals worked_minutes.
   - An Assignment has one Timesheet, or one per part when split.

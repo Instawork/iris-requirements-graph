@@ -14,7 +14,7 @@ settings:
   type: int
   default: 48
   scope: any
-  meaning: Hours after a Shift ends, or after a later approval, that an Approved Timesheet locks.
+  meaning: Hours after a Shift ends that an Approved Timesheet locks, and never sooner than 24 hours after its approval.
   owner: REQ-TIME-0007
   sources: [SHEET TS-9]
   decisions: [D-16, D-13]

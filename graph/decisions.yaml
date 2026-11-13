@@ -46,15 +46,11 @@ decisions:
 - decision_id: D-4
   origin: sheet
   question: >-
-    Whose Work Week governs, and who owes overtime when a Worker spans Units or Agencies? Needs HR,
-    legal, and payroll.
+    Who owes overtime when a Worker spans Units or Agencies? Needs HR, legal, and payroll.
   status: open
   assumption: >-
-    Overtime is counted per Worker per Agency, across every Unit that Agency sends the Worker to. Each
-    Timesheet is classified within the Work Week of its own Unit, under that Unit's Labor Rules,
-    counting the Worker's minutes at every Unit on work dates in that week. Hours with other Agencies
-    are not combined in MVP. Whose Work Week should govern when Units differ, and who owes overtime
-    across Agencies, stay open.
+    Overtime is counted per Worker per Agency: hours at every Unit that Agency sends the Worker to
+    count together. Hours with other Agencies are not combined in MVP.
   blocking: false
   answer_from: COMPASS_HR_LEGAL_PAYROLL
   answer: null
@@ -161,11 +157,10 @@ decisions:
     block invoicing?
   status: open
   assumption: >-
-    Only an Approved Timesheet locks. An unapproved one stays open after the window and shows as late
-    on the Unit's and the Agency's to-dos. A Timesheet approved after its window has closed locks one
-    Lock Window after it is approved, not at approval, so a Unit User can still review and correct it.
-    Lateness is worked out with the Lock Window in effect when it is asked, so changing the Setting
-    changes which past Timesheets count as late.
+    Only an Approved Timesheet locks, and never sooner than 24 hours after it is approved, so a Unit
+    User can review every approval. An unapproved one stays open after the window and shows as late
+    on the Unit's and the Agency's to-dos. Lateness is worked out with the Lock Window in effect when
+    it is asked, so changing the Setting changes which past Timesheets count as late.
   blocking: false
   answer_from: COMPASS_OPERATIONS
   answer: null
@@ -882,17 +877,13 @@ decisions:
   - SHEET TS-7
 - decision_id: D-60
   origin: graph
-  question: How are a Tip Pool's leftover cents shared, and until when is its split recomputed?
+  question: How is a Tip Pool split when the Timesheets it covers lock at different times?
   status: open
   assumption: >-
-    Shares are rounded down to the cent, and leftover cents go one each to the shares with the largest
-    dropped fractions. A pool covers every Timesheet on its Shifts and is split across those with hours;
-    a pool entered before any hours has no shares until hours are entered. It is split again whenever
-    covered hours change, until its Timesheets lock. They lock together, only once every one of them is
-    approved and past its Lock Window, so the split always follows hours worked; one Timesheet that is
-    never approved keeps the others open. A Tip Pool or PIN tip that would cover a locked Timesheet is
-    refused, so tips that arrive after the lock cannot be entered in MVP. Tips on a no-show Timesheet
-    count as zero.
+    Each Timesheet locks on its own time and keeps the share it has then. The rest of the pool is split
+    by worked minutes across the covered Timesheets not yet locked, again whenever their hours change,
+    so one with no hours entered, or a no-show, gets none. An amount no unlocked Timesheet can take
+    stays on the pool, unallocated and billed to nobody.
   blocking: false
   answer_from: COMPASS_HR_LEGAL_PAYROLL
   answer: null
@@ -1075,8 +1066,9 @@ decisions:
     Can a Unit record a no-show before the Agency submits the Timesheet, and who may undo it?
   status: open
   assumption: >-
-    Yes. A Unit User can mark a no-show, with a reason, on any Timesheet that is not locked, including
-    a Draft, and the Agency is told each time. An Agency User can clear only a mark an Agency User
+    Yes. A Unit User can mark a no-show on any Timesheet that is not locked, including a Draft, and the
+    Agency is told each time. The mark needs a reason, as every change a Unit User makes to a Timesheet
+    does, though the PRD's pill asks for none. An Agency User can clear only a mark an Agency User
     set; a mark a Unit User set is cleared only by a Unit User. While the mark is set, no hours can be
     entered.
   blocking: false
@@ -1110,10 +1102,10 @@ decisions:
     What stops a tips or expense file sent twice from doubling the money?
   status: open
   assumption: >-
-    A tip that repeats a saved tip or an earlier row in Unit, work date, Shift, Event, PIN, and
-    amount, and an expense that repeats one in Timesheet, kind, and amount, is shown as a duplicate
-    whose suggested fix is to reject it. The sender decides, because two equal tips or expenses can
-    both be real.
+    A Tip Pool or PIN tip that repeats a saved one or an earlier row in Unit, work date, Shift, Event,
+    PIN, and amount, an Agency User's tip that repeats one in Timesheet and amount, and an expense
+    that repeats one in Timesheet, kind, and amount, is shown as a duplicate whose suggested fix is to
+    reject it. The sender decides, because two equal tips or expenses can both be real.
   blocking: false
   answer_from: INSTAWORK_PRODUCT
   answer: null
@@ -2006,7 +1998,7 @@ decisions:
   assumption: >-
     A Tip Pool is for one Unit and work date and can be narrowed to one Shift or one Event there. A pool
     splits across every covered Timesheet, whatever the Agency.
-  blocking: true
+  blocking: false
   answer_from: COMPASS_HR_LEGAL_PAYROLL
   answer: null
   sources:
@@ -2016,7 +2008,7 @@ decisions:
   question: Is a tip entered under a cashier PIN split by hours, or does it go whole to that PIN's Worker?
   status: open
   assumption: A tip under a cashier PIN goes to that PIN's Worker and is not split.
-  blocking: true
+  blocking: false
   answer_from: COMPASS_HR_LEGAL_PAYROLL
   answer: null
   sources:
@@ -2042,8 +2034,7 @@ decisions:
   assumption: >-
     Agency Users add tips and expenses only on Draft and Rejected Timesheets. A tip they enter keeps its
     Timesheet from being approved automatically, so a Unit User sees it before it is billed. A Unit User
-    decides each expense on a Submitted Timesheet, and a decided expense does not change; an approved
-    expense counts even on a no-show Timesheet.
+    decides each expense on a Submitted Timesheet, and a decided expense does not change.
   blocking: false
   answer_from: COMPASS_OPERATIONS
   answer: null
@@ -2073,3 +2064,110 @@ decisions:
   sources:
   - SHEET REP-9
   - SHEET 6.3
+- decision_id: D-140
+  origin: graph
+  question: Until when can a Unit enter or change tips?
+  status: open
+  assumption: >-
+    Until the first Timesheet the tip would cover locks. A Tip Pool, a change to one, or a PIN tip that
+    would cover a locked Timesheet is refused, so tips that arrive later cannot be entered in MVP.
+  blocking: false
+  answer_from: COMPASS_OPERATIONS
+  answer: null
+  sources:
+  - SHEET TS-11
+  - SHEET TS-9
+- decision_id: D-141
+  origin: sheet
+  question: >-
+    Whose Work Week governs when the Units an Agency sends a Worker to start their weeks on different
+    days? Needs HR, legal, and payroll.
+  status: open
+  assumption: >-
+    Each Timesheet is classified within the Work Week of its own Unit, counting the Worker's minutes at
+    every Unit on dates in that week. Example, with overtime after 40 hours a week: Unit A's week starts
+    Monday and Unit B's Thursday. Ten hours a day Monday to Wednesday at A and Thursday to Saturday at
+    B bill no overtime; the same days with the Units swapped bill 20 hours of it. Such Timesheets carry
+    the exception reason MIXED_WORK_WEEKS, so a Unit User sees them before approval.
+  blocking: false
+  answer_from: COMPASS_HR_LEGAL_PAYROLL
+  answer: null
+  sources:
+  - SHEET Decisions & Inputs
+  - SHEET WA-19
+  - SHEET WA-20
+- decision_id: D-142
+  origin: graph
+  question: How are the cents left over from a Tip Pool's split shared?
+  status: open
+  assumption: >-
+    Shares are rounded down to the cent, and leftover cents go one each to the shares with the largest
+    dropped fractions, ties to the lowest Timesheet id.
+  blocking: false
+  answer_from: COMPASS_FINANCE
+  answer: null
+  sources:
+  - SHEET TS-11
+- decision_id: D-143
+  origin: graph
+  question: Who is told when a tip a Unit entered ends up credited to no Worker?
+  status: open
+  assumption: >-
+    The Unit Users over the Unit, in the app, when a change to a Timesheet leaves part of a Tip Pool
+    unallocated or makes a Timesheet that holds a PIN tip a no-show.
+  blocking: false
+  answer_from: COMPASS_OPERATIONS
+  answer: null
+  sources:
+  - SHEET TS-11
+- decision_id: D-144
+  origin: graph
+  question: What does a no-show Timesheet add to spend?
+  status: open
+  assumption: No hours amount and no tips. An approved Expense on it still counts.
+  blocking: false
+  answer_from: COMPASS_FINANCE
+  answer: null
+  sources:
+  - PRD §5 Invoices
+  - SHEET TS-12
+- decision_id: D-145
+  origin: graph
+  question: >-
+    Does a line on an open invoice follow its Timesheet when hours, tips, or Expenses change after
+    approval?
+  status: open
+  assumption: >-
+    Yes. Until the invoice is issued, the line's amounts are computed again on each change. After that,
+    the difference is an adjustment on a later invoice.
+  blocking: false
+  answer_from: COMPASS_FINANCE
+  answer: null
+  sources:
+  - SHEET INV-3
+  - PRD §5 Invoices
+- decision_id: D-146
+  origin: graph
+  question: Which requirement saves a tip typed in the assistant?
+  status: open
+  assumption: >-
+    REQ-TIPS-0001 registers the one save step of the TIP_ENTRY kind. It saves an Agency User's tip
+    itself and hands a Tip Pool to REQ-TIPS-0004, as file intake hands a row to its upload type's owner.
+  blocking: false
+  answer_from: INSTAWORK_ENGINEERING
+  answer: null
+  sources:
+  - GRAPH two requirements propose tips, and a Proposal kind has one save step
+- decision_id: D-147
+  origin: graph
+  question: Where does a Unit User give the reason for corrections sent in a Timesheet file?
+  status: open
+  assumption: >-
+    In a reason column, one reason for each line. A Unit User's line without one is a problem the
+    uploader completes or drops.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - PRD §6 Uploads
+  - PRD §7 What the agent checks

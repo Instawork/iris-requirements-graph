@@ -105,7 +105,7 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0008
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-TIPS-0001
+  requirement_id: REQ-TIPS-0004
 data_model:
   status: covered
   reads:

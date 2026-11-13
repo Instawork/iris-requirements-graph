@@ -133,6 +133,8 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-TIPS-0001
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-TIPS-0004
+- edge_type: DEPENDS_ON
   requirement_id: REQ-TIPS-0002
 - edge_type: DEPENDS_ON
   requirement_id: REQ-WORKFORCE-0003

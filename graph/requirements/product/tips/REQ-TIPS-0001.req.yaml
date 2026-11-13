@@ -2,117 +2,14 @@ requirement_id: REQ-TIPS-0001
 requirement_target_layer: product
 requirement_target_module: TIPS
 requirement_phase: MVP
-requirement_title: Enter tips in bulk or by chat and split them by hours
+requirement_title: Hold each Timesheet's tips and take the tips an Agency enters
 requirement_statement: >-
-  A Unit User enters a Tip Pool for a Unit and date, or one Shift or Event on it, and Iris splits it across
-  Workers by minutes worked. Tips pass through at cost.
+  Every tip is an allocation on one Timesheet and passes through at cost. An Agency User enters a Worker's
+  own tip on the Timesheet, in the app or by chat. No tip changes once its Timesheet locks.
 requirement_actors:
-- UNIT_USER
 - AGENCY_USER
 - SYSTEM
 requirement_rules:
-- rule_id: R1
-  rule_statement: >-
-    A Unit User enters a Tip Pool for a Unit in their scope and a work date, with an amount above zero,
-    optionally narrowed to one Shift or to one Event, never both.
-  rule_sources:
-  - SHEET TS-11
-  rule_decisions:
-  - D-28
-  - D-134
-- rule_id: R2
-  rule_statement: >-
-    A pool is entered in the app, from a TIPS file, or in the assistant as a Proposal of kind TIP_ENTRY
-    that shows each share before anything is saved.
-  rule_sources:
-  - SHEET TS-11
-  - SESSIONS Timesheets, Tips & Expenses
-  rule_decisions: []
-- rule_id: R3
-  rule_statement: >-
-    A pool covers every Timesheet on a Shift at that Unit on that work date, narrowed to its Shift or
-    Event when set, whatever the Agency or the Timesheet's status.
-  rule_sources:
-  - SHEET TS-11
-  rule_decisions:
-  - D-134
-- rule_id: R4
-  rule_statement: >-
-    Each covered Timesheet with worked_minutes above 0 gets a share: the pool amount times its
-    worked_minutes divided by the covered worked_minutes in total, rounded down to the cent.
-  rule_sources:
-  - SHEET TS-11
-  rule_decisions: []
-- rule_id: R5
-  rule_statement: >-
-    Cents left over go one each to the shares with the largest dropped fractions, ties to the lowest Timesheet
-    id, so the shares add up to the pool amount exactly.
-  rule_sources: []
-  rule_decisions:
-  - D-60
-- rule_id: R6
-  rule_statement: >-
-    Each share is a TipAllocation with tip_pool_id set; a pool whose covered Timesheets have no
-    worked_minutes yet has no shares until hours are entered.
-  rule_sources:
-  - SHEET TS-11
-  rule_decisions:
-  - D-60
-- rule_id: R7
-  rule_statement: >-
-    Iris recomputes a pool's shares whenever a covered Timesheet's worked_minutes change or the pool
-    changes, until its Timesheets lock together under REQ-TIME-0007; a Timesheet created after that
-    gets no share.
-  rule_sources:
-  - SHEET TS-11
-  rule_decisions:
-  - D-33
-  - D-60
-- rule_id: R8
-  rule_statement: >-
-    A Unit User can change or delete a Tip Pool or a PIN tip in their scope until a Timesheet it covers
-    locks.
-  rule_sources: []
-  rule_decisions:
-  - D-28
-  - D-60
-- rule_id: R9
-  rule_statement: >-
-    A Unit User maps a cashier PIN at a Unit in their scope to one Worker from valid_from until an optional
-    valid_to; a PIN already mapped on any of those dates is refused.
-  rule_sources:
-  - SHEET 4.4
-  rule_decisions:
-  - D-136
-- rule_id: R10
-  rule_statement: >-
-    A tip entered with a cashier PIN creates one TipAllocation, with cashier_pin_id set, for the whole
-    amount on the Timesheet of that PIN's Worker at that Unit on that date.
-  rule_sources:
-  - SHEET TS-11
-  rule_decisions:
-  - D-135
-- rule_id: R11
-  rule_statement: >-
-    When that Worker has several Timesheets there on that date, the tip goes to the one on the
-    earliest Shift among those neither a no-show nor locked, and to its first part if split.
-  rule_sources: []
-  rule_decisions:
-  - D-136
-- rule_id: R12
-  rule_statement: >-
-    A PIN tip is refused when no CashierPin is valid for that PIN, Unit, and date, or its Worker has
-    no Timesheet there on that date that is neither a no-show nor locked.
-  rule_sources: []
-  rule_decisions:
-  - D-136
-- rule_id: R13
-  rule_statement: >-
-    In a TIPS file, a row with a cashier PIN is a PIN tip and every other row is a Tip Pool.
-  rule_sources:
-  - SHEET TS-11
-  - PRD §6 Templates
-  rule_decisions: []
 - rule_id: R14
   rule_statement: >-
     An Agency User enters, changes, or removes a tip for a Worker of their own Agency on a DRAFT or REJECTED
@@ -131,54 +28,52 @@ requirement_rules:
   - PRD §5 Invoices
   - SESSIONS Timesheets, Tips & Expenses
   rule_decisions:
-  - D-60
-- rule_id: R16
-  rule_statement: >-
-    A Unit User may set or change the valid_to of a cashier PIN mapping in their scope; its PIN,
-    Worker, and valid_from never change.
-  rule_sources:
-  - SHEET 4.4
-  rule_decisions:
-  - D-136
+  - D-144
 - rule_id: R17
   rule_statement: >-
-    A Tip Pool, or a change to one, is refused when a Timesheet it would cover is locked, and a PIN
-    tip when its Timesheet is locked.
+    No TipAllocation is added to, changed on, or removed from a locked Timesheet, and any action that
+    would do so is refused.
   rule_sources:
   - SHEET TS-9
   rule_decisions:
-  - D-60
+  - D-33
 - rule_id: R18
   rule_statement: >-
-    A TIPS row or typed tip that repeats a saved tip or an earlier row in Unit, work date, Shift,
-    Event, PIN, and amount is a duplicate, whose suggested fix is to reject it.
+    A typed tip that repeats a tip an Agency User already saved on the same Timesheet for the same
+    amount is a duplicate, whose suggested fix is to reject it.
   rule_sources:
   - PRD §7 What the agent checks
   rule_decisions:
   - D-72
 - rule_id: R19
   rule_statement: >-
-    An Agency User can also ask the assistant to enter such a tip; the TIP_ENTRY Proposal lists each
-    Timesheet and amount, and accepted items are saved under the same rule.
+    An Agency User can also ask the assistant to enter a Worker's tip; the TIP_ENTRY Proposal lists
+    each Timesheet and amount, and accepted items are saved under R14.
   rule_sources:
   - SHEET TS-11
   - PRD §7 Who uses it
   rule_decisions:
   - D-28
+- rule_id: R20
+  rule_statement: >-
+    This requirement registers the TIP_ENTRY save step, which saves an Agency User's tip under R14 and
+    hands a Tip Pool item to REQ-TIPS-0004 once that requirement registers for it.
+  rule_sources:
+  - GRAPH two requirements propose tips, and a Proposal kind has one save step
+  rule_decisions:
+  - D-146
 requirement_sources:
 - SHEET TS-11
-- SHEET 4.4
-- SESSIONS Timesheets, Tips & Expenses
+- PRD §2 Shifts
 - PRD §5 Invoices
+- SESSIONS Timesheets, Tips & Expenses
 requirement_decisions:
 - D-28
 - D-33
-- D-60
 - D-72
-- D-134
-- D-136
-- D-135
 - D-137
+- D-144
+- D-146
 requirement_features:
 - TS-11
 edges:
@@ -187,13 +82,9 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORDERING-0001
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-ORDERING-0011
-- edge_type: DEPENDS_ON
   requirement_id: REQ-WORKFORCE-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0002
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-INTAKE-0002
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AGENT-0002
 - edge_type: DEPENDS_ON
@@ -209,31 +100,24 @@ data_model:
   reads:
   - Timesheet.assignment_id
   - Timesheet.split_from_id
-  - Timesheet.worked_minutes
-  - Timesheet.clock_in
   - Timesheet.status
   - Timesheet.locked_at
+  - Timesheet.no_show
   - Assignment.worker_id
   - Assignment.release_id
   - Release.shift_id
   - Shift.request_id
   - Shift.starts_at
-  - Shift.event_id
   - Request.unit_id
-  - Event.unit_id
-  - Event.name
   - Unit.org_node_id
   - Unit.timezone
   - OrgNode.name
   - Worker.agency_id
-  - Timesheet.no_show
+  - Worker.first_name
+  - Worker.last_name
   writes:
-  - TipPool.*
-  - CashierPin.*
   - TipAllocation.*
-  detail: >-
-    Timesheet.locked_at is set by REQ-TIME-0007, which depends on this requirement and is built after
-    it; until then it is always empty, and the lock rules here have nothing to refuse.
+  detail: null
 requirement_starting_flow: false
 requirement_review:
   status: draft

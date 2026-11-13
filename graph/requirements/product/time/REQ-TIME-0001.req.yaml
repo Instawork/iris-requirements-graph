@@ -73,6 +73,7 @@ requirement_rules:
   - SHEET WA-19
   rule_decisions:
   - D-4
+  - D-141
 - rule_id: R9
   rule_statement: >-
     After that, Iris gives REQ-LABOR-0003 the Worker's Shifts in the Work Week of the changed
@@ -81,6 +82,7 @@ requirement_rules:
   - SHEET WA-19
   rule_decisions:
   - D-4
+  - D-141
 - rule_id: R10
   rule_statement: >-
     Nobody enters or changes a Bill Rate on a Timesheet: its three rates stay those of R2, or of the
@@ -92,8 +94,8 @@ requirement_rules:
   - D-69
 - rule_id: R11
   rule_statement: >-
-    The amount for each hour class is its Bill Rate times its minutes divided by 60, rounded half up to
-    the cent; it is computed, not stored.
+    A Timesheet's amount for each hour class is computed from its Bill Rate and minutes whenever it
+    is asked for, and is never stored on the Timesheet.
   rule_sources:
   - PRD §3 Supplier Rates
   rule_decisions:
@@ -122,7 +124,7 @@ requirement_rules:
   - D-119
 - rule_id: R15
   rule_statement: >-
-    Each change to a Timesheet's hours or no-show is published as an event; REQ-TIPS-0001 re-splits
+    Each change to a Timesheet's hours or no-show is published as an event; REQ-TIPS-0004 re-splits
     its Tip Pools and REQ-TIME-0005 rechecks it while it is SUBMITTED.
   rule_sources:
   - SHEET TS-11
@@ -142,6 +144,7 @@ requirement_decisions:
 - D-69
 - D-118
 - D-119
+- D-141
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

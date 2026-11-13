@@ -104,7 +104,16 @@ notifications:
   channels: [IN_APP]
   owner: REQ-LABOR-0003
   sources: [SHEET WA-19]
-  decisions: [D-4, D-73]
+  decisions: [D-4, D-141, D-73]
+- type: TIP_NOT_CREDITED
+  trigger: >-
+    A change to a Timesheet leaves part of a Tip Pool unallocated, or makes a Timesheet that holds a cashier
+    PIN tip a no-show.
+  recipients: Every active Unit User whose scope covers the Unit.
+  channels: [IN_APP]
+  owner: REQ-TIPS-0004
+  sources: [SHEET TS-11]
+  decisions: [D-143]
 - type: RATE_LINE_PENDING
   trigger: An Agency User submits a Rate Line.
   recipients: Every active Program User.

@@ -27,13 +27,6 @@ requirement_rules:
   - PRD §1 Detailed requirements
   - PRD §5 Invoices
   - PRD §3 Supplier Rates
-  rule_decisions: []
-- rule_id: R3
-  rule_statement: >-
-    Every amount for hours is a Bill Rate times minutes, divided by 60, rounded half up to the cent, per
-    Timesheet and per hour class.
-  rule_sources:
-  - PRD §5 Invoices
   rule_decisions:
   - D-41
 - rule_id: R4
@@ -50,7 +43,9 @@ requirement_rules:
   rule_sources:
   - SHEET TS-12
   - SESSIONS Timesheets, Tips & Expenses
-  rule_decisions: []
+  rule_decisions:
+  - D-29
+  - D-144
 - rule_id: R6
   rule_statement: >-
     A tip allocation counts at its amount, with no markup, once its Timesheet is APPROVED, and counts
@@ -58,7 +53,9 @@ requirement_rules:
   rule_sources:
   - SHEET TS-11
   - PRD §5 Invoices
-  rule_decisions: []
+  rule_decisions:
+  - D-29
+  - D-144
 - rule_id: R7
   rule_statement: >-
     PENDING_SPEND covers each Timesheet not yet APPROVED on a Shift whose end time has passed, at the
@@ -74,15 +71,13 @@ requirement_rules:
     entered when the clock-in or the clock-out is missing.
   rule_sources:
   - SESSIONS Timesheets, Tips & Expenses
-  - GRAPH pricing detail the pending-spend assumption leaves open
   rule_decisions:
   - D-29
 - rule_id: R9
   rule_statement: >-
     Scheduled hours are the Shift's end minus its start minus its planned break, priced at the
     Timesheet's regular Bill Rate.
-  rule_sources:
-  - GRAPH pricing detail the pending-spend assumption leaves open
+  rule_sources: []
   rule_decisions:
   - D-29
 - rule_id: R10
@@ -98,7 +93,8 @@ requirement_rules:
   rule_sources:
   - PRD §5 Invoices
   - PRD §2 Shifts
-  rule_decisions: []
+  rule_decisions:
+  - D-144
 - rule_id: R12
   rule_statement: A CANCELLED Shift adds nothing to spend.
   rule_sources:
@@ -152,6 +148,7 @@ requirement_decisions:
 - D-33
 - D-41
 - D-77
+- D-144
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON
