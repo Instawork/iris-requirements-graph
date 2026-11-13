@@ -4,8 +4,7 @@ requirement_target_module: INTEGRATIONS
 requirement_phase: P3
 requirement_title: Connect Agencies by API
 requirement_statement: >-
-  Agencies with their own platforms connect to Iris by API. Every other Agency keeps using file upload,
-  and a connected Agency can use both.
+  Agencies with their own platforms connect to Iris by API, and every other Agency keeps using file upload.
 requirement_actors:
 - AGENCY_USER
 - SYSTEM
@@ -16,14 +15,8 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-5
   rule_decisions: []
-- rule_id: R2
-  rule_statement: An Agency connected by API can still upload files.
-  rule_sources:
-  - FEEDBACK
-  rule_decisions: []
 requirement_sources:
 - SHEET PLT-5
-- FEEDBACK
 requirement_decisions: []
 requirement_features:
 - PLT-5
@@ -32,10 +25,12 @@ data_model:
   status: pending
   reads: []
   writes: []
-  detail: Designed when Phase 3 is scoped.
+  detail: >-
+    Designed when Phase 3 is scoped. Whether a connected Agency may also upload files is decided then:
+    R2 said so on a feedback line ("Why do I need to pick? Can it be both?") whose subject cannot be confirmed.
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

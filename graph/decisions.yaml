@@ -431,8 +431,8 @@ decisions:
   status: open
   assumption: >-
     Email is the sign-in name, unique, stored lowercase, and not editable in MVP. Invite and reset links
-    work once, expire after 72 hours, and a new link expires the earlier ones; only a hash of the token
-    is stored. Passwords have at least 12 characters. A session ends after 12 hours without activity,
+    work once, expire after 72 hours, and a new link expires the earlier ones; the link stores only a
+    hash of its token. Passwords have at least 12 characters. A session ends after 12 hours without activity,
     and at once when the User is deactivated or resets their password. A reset request shows the same
     message whether or not the email matched. An invite can be sent again until it is accepted.
   blocking: false
@@ -484,9 +484,10 @@ decisions:
   question: How quickly is a notification sent, how often is a failed send retried, and who is skipped?
   status: open
   assumption: >-
-    The first attempt is made within one minute. A refused email or text is tried three times in all and
-    then marked failed, without undoing the change that caused it. A channel the recipient has no address
-    for is skipped, and deactivated Users and the User who caused the notification get none.
+    The first attempt is made as soon as the change that caused the notification is saved. A refused or
+    unanswered email or text is tried again by a job that runs every five minutes, three times in all,
+    and is then marked failed, without undoing the change that caused it. A channel the recipient has
+    no address for is skipped, and deactivated Users and the User who caused the notification get none.
   blocking: false
   answer: null
   sources:
@@ -499,9 +500,11 @@ decisions:
     how are phone numbers compared?
   status: open
   assumption: >-
-    Iris stores the message, creates no Upload or Proposal, and answers once that it does not recognize
-    the sender. Phones are US numbers stored as 10 digits, and a number that matches several Users counts
-    as no match. A matched User can approve a Proposal by replying in the same conversation.
+    Iris stores the message, creates no Upload or Proposal, and answers that it does not recognize the
+    sender, at most once in 24 hours for one address or number. Phones are US numbers: 10 digits, typed
+    with or without formatting and a leading 1, and stored in the form the README gives. A number that
+    matches several Users counts as no match. A matched User can approve a Proposal by replying in the
+    same conversation.
   blocking: false
   answer: null
   sources:
@@ -513,7 +516,8 @@ decisions:
     an Upload fail, and who sees it?
   status: open
   assumption: >-
-    CSV and Excel for every type, and PDF and image files for Timesheets, tips, expenses, and Credentials.
+    CSV and Excel for every type except Credentials, which are documents, and PDF and image files for
+    Timesheets, tips, expenses, and Credentials.
     Month-first slash dates, 12-hour and 24-hour times, and money with a dollar sign or thousands commas
     become suggested fixes. An unreadable, unsupported, or empty file fails. Files are stored privately,
     downloads use the template formats, and each User sees only their own Uploads.
@@ -993,3 +997,174 @@ decisions:
   answer: null
   sources:
   - GRAPH seven MVP requirements act when a time passes, and none provides the clock
+- decision_id: D-100
+  origin: graph
+  question: >-
+    Where do the first Instawork Admin's email and password come from, and are the User and its Role
+    Grant created in one step?
+  status: open
+  assumption: >-
+    The deployment configuration holds the first Instawork Admin's email, first name, last name, and
+    password. When Iris starts and no User exists, it creates that User, active, with the password's hash
+    and no inviter, and REQ-ORG-0005 grants it INSTAWORK_ADMIN with no granting User, both in one step.
+    A later start changes nothing, so a changed configuration is ignored once a User exists, and the
+    password is changed afterwards by a reset link. No screen adds another Instawork Admin in MVP.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET PLT-4
+  - GRAPH the first User has nobody to invite them
+- decision_id: D-101
+  origin: graph
+  question: How is a sign-in kept, when does it end, and where is the role a User is acting in kept?
+  status: open
+  assumption: >-
+    Each sign-in is a stored Session holding its User, a hash of its token, and the time of its last
+    accepted request. It is open until the User signs out, is deactivated, or resets their password,
+    or until 12 hours pass without a request, which is checked when a request arrives. A User may have
+    several open Sessions. The Session also holds the acting role and context, which REQ-ORG-0009 defines
+    and the screens set; IDENTITY stores it without reading it, and a new Session starts with none. Sessions
+    are not written to the Audit Trail.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET PLT-4
+  - GRAPH the acting role and context need a place the platform does not read
+- decision_id: D-102
+  origin: graph
+  question: >-
+    What does the Audit Trail record when a record is deactivated, revoked, or cancelled, and what do
+    before and after hold?
+  status: open
+  assumption: >-
+    Any change that keeps the record, including deactivating, reactivating, revoking, and cancelling it,
+    is an UPDATE whose before and after hold only the fields that changed. DELETE is recorded only when
+    the record is removed from Iris, with the whole record in before. CREATE holds the whole new record
+    in after. The record type is the entity's name in the data model.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET RC-5
+  - PRD §2 Shifts
+- decision_id: D-103
+  origin: graph
+  question: >-
+    Who words each notification, what is an email's subject line, and where is an invite or reset link
+    kept until its email is sent?
+  status: open
+  assumption: >-
+    No source gives the wording. The requirement that owns a notification type passes a title and a body
+    in plain text, worded by its builder from the facts its rule names. The title is the email's subject
+    line and the inbox heading, and a text carries the body only. A link the message needs is kept apart
+    from the body, on the Notification and only while it is queued; it is erased once the message is
+    sent or has failed, and is never shown in the app or written to the Audit Trail.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET SC-8
+  - SHEET PLT-4
+- decision_id: D-104
+  origin: graph
+  question: What does REQ-AGENT-0001 deliver, when its rules bind every flow that uses the LLM?
+  status: open
+  assumption: >-
+    One gateway that makes every LLM call. A caller passes a text and the fields to read from it, or the
+    facts to put into words, and gets back a value for each field, or a failure when the output has another
+    shape or the LLM does not answer. The gateway can read and change no record. The model and its provider
+    are Instawork engineering's choice.
+  blocking: false
+  answer: null
+  sources:
+  - PRD §7 What the LLM does and what code does
+- decision_id: D-105
+  origin: graph
+  question: >-
+    What does a Proposal item carry, how does a person settle each problem on it, and how are items that
+    make one record together saved?
+  status: open
+  assumption: >-
+    An item's values are one flat set of names and values: the catalog's column names for a file row,
+    and names its proposing requirement chooses otherwise. Each problem names its field, says what is
+    wrong, and carries a fix (a new value, dropping the item, or a step its owner takes on save), candidates
+    to pick from, or neither. An item is accepted only when every problem has a fix or a pick; otherwise
+    it is edited or rejected. Editing saves the values as the person leaves them, changed or not, so
+    it also keeps a row whose fix was to drop it. For a name that matches nothing the candidates are the three closest stored
+    names by single-character edits, and for a name that matches several records they are all of those
+    records; Iris never picks one itself. Each Proposal kind has one save step, registered by the requirement
+    that proposes it. Each item saves whole or not at all, and items that share a group key go to their
+    owner in one call so they can make one record, such as one Request.
+  blocking: false
+  answer: null
+  sources:
+  - PRD §6 Uploads
+  - PRD §7 Agent Chat
+  - PRD §4 How the system matches a professional
+- decision_id: D-106
+  origin: graph
+  question: >-
+    How does Iris tell which upload type a file is, how large may a file be, and which part of a workbook
+    is read?
+  status: open
+  assumption: >-
+    The LLM maps the file's column names to each upload type's catalog columns. A type fits when the file
+    has every column the catalog marks required yes, the fitting type that covers the most of the file's
+    columns is chosen, and none or a tie asks the uploader. A PDF or image is read by OCR and the LLM names
+    the one type its text holds, among the four that take them, or none. A file column that maps to no
+    catalog column is left out and named in the Proposal's summary. A file over 10 MB is refused and
+    one with more than 5,000 rows fails. Excel means .xlsx and an image JPEG or PNG, the first row with
+    a value is the header, and a workbook may hold rows on one sheet only.
+  blocking: false
+  answer: null
+  sources:
+  - PRD §6 Uploads
+  - PRD §7 When the agent is unsure
+  - SHEET TS-5
+- decision_id: D-107
+  origin: graph
+  question: Which issuers and public registries does MVP check a Credential against (WA-15)?
+  status: open
+  assumption: >-
+    None. MVP checks each document itself for its expiry date, its issuer, and signs of editing. No issuer
+    or public registry is connected until Compass names the providers it relies on (I-6), so every issuer
+    or registry check returns not available, and a Credential rests on the document checks and a Program
+    User's review.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET WA-15
+  - SESSIONS Worker Assignment & Compliance
+  - DEMO run-of-show
+- decision_id: D-108
+  origin: graph
+  question: >-
+    How do conversations by email, text, and phone work where the sheet is silent: who takes the request,
+    what makes a thread, what counts as approval, and what the voice agent does?
+  status: open
+  assumption: >-
+    REQ-ORDERING-0010 is the one requirement that takes requests by message in MVP; it supplies the sender's
+    acting role and context, and anything it refuses is answered with its reason. An email reply joins
+    the thread of the message it answers, a text joins the sender's last text thread when that had a message
+    in the past 24 hours, and each call is one thread. The LLM reads a reply as approval, refusal, or
+    neither. Approval applies the thread's one open Proposal when every item can be accepted as proposed;
+    otherwise Iris asks the User to finish it in the app. On a call the voice agent asks the questions
+    aloud, reads the Proposal's summary, and takes a spoken yes or no; the caller is known by their number
+    alone, and the transcript is stored when the call ends. The voice, speech, and telephony providers
+    are Instawork engineering's choice.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET SC-10
+  - SHEET SC-9
+- decision_id: D-109
+  origin: graph
+  question: How does a platform requirement use product records, which it may not read?
+  status: open
+  assumption: >-
+    It never reads them. The product or screen requirement that calls it supplies what it needs: the acting
+    role, the recipients of a notification, the rows of a table, the result of a lookup or a check, and
+    whether a User may make a change. The caller also keeps anything that must outlast the call, such
+    as a question waiting for an answer.
+  blocking: false
+  answer: null
+  sources:
+  - GRAPH platform requirements may depend only on platform requirements

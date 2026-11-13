@@ -253,3 +253,20 @@ terms:
   avoid: []
   source_words: [Todos]
   sources: [PRD §1 How Todos behave]
+- term: User
+  definition: A person with an account in Iris. What they may see and do comes from their Role Grants.
+  avoid: []
+  sources: [SHEET PLT-4]
+- term: Session
+  definition: One sign-in of one User, from the sign-in until it ends. It carries the acting role. A graph term.
+  avoid: []
+  sources: [SHEET PLT-4]
+  decisions: [D-101]
+- term: Upload
+  definition: A file a User sent to Iris, and what became of it.
+  avoid: []
+  sources: [PRD §6 Uploads]
+- term: Channel
+  definition: How a change reached Iris, such as the app, a file, the assistant, an email, a text, or a call.
+  avoid: []
+  sources: [SHEET SC-10, PRD §7 Agent Chat]

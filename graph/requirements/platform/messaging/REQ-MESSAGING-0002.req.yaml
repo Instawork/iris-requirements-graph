@@ -4,8 +4,9 @@ requirement_target_module: MESSAGING
 requirement_phase: MVP
 requirement_title: Receive requests by email, SMS, and phone
 requirement_statement: >-
-  Iris has an email address, an SMS number, and a phone line answered by an AI agent. It matches each
-  sender to a User, turns what they ask into a Proposal for that User, and answers on the same channel.
+  Iris has an email address, an SMS number, and a phone line answered by an AI voice agent. It matches
+  each sender to a User, passes what they ask to the requirement that takes requests by message, and answers
+  on the same channel.
 requirement_actors:
 - PROGRAM_USER
 - UNIT_USER
@@ -21,68 +22,136 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    A call is answered by an AI agent, and what was said on the call is stored as the body.
+    A call is answered by an AI voice agent, and one InboundMessage is stored when the call ends, with
+    the transcript of both sides as its body.
   rule_sources:
   - SHEET SC-10
-  rule_decisions: []
+  rule_decisions:
+  - D-108
 - rule_id: R3
   rule_statement: >-
-    An email matches the active User whose email equals the sender's address in lowercase; a text or call
-    matches the active User whose phone equals the sender's 10 digits.
+    An email matches the active User whose email equals the sender's address, and a text or call the active
+    User whose phone equals the sender's number, each compared in its stored form.
   rule_sources:
   - SHEET SC-10
   rule_decisions:
   - D-39
 - rule_id: R4
   rule_statement: >-
-    When exactly one User matches, user_id is set; when none or several match, it stays empty, no Upload
-    or Proposal is created, and Iris answers once that it does not recognize the sender.
+    When exactly one User matches, user_id is set; otherwise it stays empty, no Upload or Proposal is created,
+    and Iris tells that sender, at most once in 24 hours, that it does not recognize them.
   rule_sources: []
   rule_decisions:
   - D-39
 - rule_id: R5
   rule_statement: >-
-    Each attachment from a matched sender becomes an Upload sent by that User on the message's channel,
-    and its id is added to attachment_upload_ids.
+    Each attachment of a message the handling requirement accepts becomes an Upload through REQ-INTAKE-0001,
+    sent by the matched User in the acting role it supplies, on the message's channel, and listed in attachment_upload_ids.
   rule_sources:
   - SHEET SC-10
   - SHEET Decisions & Inputs
-  rule_decisions: []
+  rule_decisions:
+  - D-108
 - rule_id: R6
   rule_statement: >-
-    A matched message is read under the agent rules, and any change it asks for becomes a Proposal made
-    for the matched User on the message's channel, stored in proposal_id.
+    Each matched message that decides no Proposal goes to the handling requirement, REQ-ORDERING-0010
+    in MVP, which supplies the sender's acting role and context and returns a question, a Proposal, or
+    a refusal.
   rule_sources:
   - SHEET SC-10
   - PRD §7 Agent Chat
-  rule_decisions: []
+  - GRAPH platform reads no product records, so the caller supplies them
+  rule_decisions:
+  - D-108
+  - D-109
 - rule_id: R7
   rule_statement: >-
-    Messages in one conversation share a thread_key, so a question, its answer, and the Proposal they
-    lead to stay together.
+    An email replying to a stored message joins its thread, a text joins the sender's last text thread
+    if that had a message in the past 24 hours, and anything else starts one.
   rule_sources:
   - SHEET SC-10
   - SHEET SC-9
-  rule_decisions: []
+  rule_decisions:
+  - D-108
 - rule_id: R8
   rule_statement: >-
-    A reply in the thread from the User a Proposal was made for can accept or reject that Proposal, under
-    the same rules as in the app.
+    A reply in a thread, from the User its one OPEN Proposal was made for, applies that Proposal when the
+    LLM reads the reply as approval and rejects it when read as refusal.
   rule_sources:
   - SHEET SC-10
   rule_decisions:
   - D-39
+  - D-108
 - rule_id: R9
   rule_statement: >-
-    Iris answers each email or text with an INBOUND_REPLY notification to the sender on the channel they
-    used; on a call the AI agent answers aloud and no Notification is created.
+    Iris answers each email or text with an INBOUND_REPLY to the sender, naming the message's channel so
+    it goes out on that channel only; on a call the voice agent answers aloud instead.
   rule_sources:
   - SHEET SC-10
   rule_decisions: []
+- rule_id: R10
+  rule_statement: >-
+    The Proposal a message's words lead to is stored in its proposal_id, and a thread's Proposals are those
+    of its messages and of the Uploads attached to them.
+  rule_sources:
+  - GRAPH a message with attachments leads to several Proposals
+  rule_decisions:
+  - D-108
+- rule_id: R11
+  rule_statement: >-
+    Approval by reply accepts every item and applies the Proposal through REQ-AGENT-0002; when an item
+    cannot be ACCEPTED, or the thread has several OPEN Proposals, Iris answers that it is decided in the
+    app.
+  rule_sources:
+  - SHEET SC-10
+  rule_decisions:
+  - D-108
+- rule_id: R12
+  rule_statement: >-
+    A reply read as neither approval nor refusal is passed on as a new message in the thread, so it can
+    answer a question or change the request.
+  rule_sources:
+  - SHEET SC-9
+  rule_decisions:
+  - D-108
+- rule_id: R13
+  rule_statement: >-
+    On a call the voice agent says only what these rules produce: it asks each question aloud, reads a
+    Proposal's summary aloud, and takes a spoken yes or no as the reply.
+  rule_sources:
+  - SHEET SC-10
+  rule_decisions:
+  - D-108
+- rule_id: R14
+  rule_statement: >-
+    A Proposal still OPEN when a call ends or a thread goes quiet stays OPEN, and its User decides it in
+    the app or by a later reply.
+  rule_sources: []
+  rule_decisions:
+  - D-36
+  - D-108
+- rule_id: R15
+  rule_statement: >-
+    When the handling requirement refuses the sender or the request, Iris answers with its reason and creates
+    no Upload and no Proposal.
+  rule_sources:
+  - PRD §7 When the agent is unsure
+  rule_decisions:
+  - D-108
+- rule_id: R16
+  rule_statement: >-
+    An unmatched caller is told aloud, on every call, that Iris does not recognize the number, and the
+    call then ends.
+  rule_sources: []
+  rule_decisions:
+  - D-39
 requirement_sources:
 - SHEET SC-10
 requirement_decisions:
+- D-36
 - D-39
+- D-108
+- D-109
 requirement_features:
 - SC-10
 edges:
@@ -90,6 +159,8 @@ edges:
   requirement_id: REQ-MESSAGING-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-INTAKE-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INTAKE-0002
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AGENT-0002
 - edge_type: DEPENDS_ON
@@ -101,11 +172,16 @@ data_model:
   - User.phone
   - User.active
   - Upload.id
+  - Upload.proposal_id
   - Proposal.id
   - Proposal.status
+  - Proposal.created_for
+  - ProposalItem.problems
   writes:
   - InboundMessage.*
-  detail: null
+  detail: >-
+    The voice, speech-to-text, and telephony providers sit behind this requirement. It reads no Role Grant:
+    the handling requirement supplies the acting role and context.
 requirement_starting_flow: false
 requirement_review:
   status: draft

@@ -25,13 +25,13 @@ enums:
   - {value: DELETE, meaning: Remove or cancel a record.}
 - enum: ItemDecision
   values:
-  - {value: ACCEPTED, meaning: 'Accepted as proposed, with the suggested fix applied when there is one.'}
-  - {value: EDITED, meaning: Accepted after the person changed values.}
-  - {value: REJECTED, meaning: Not to be saved.}
+  - {value: ACCEPTED, meaning: 'Accepted as proposed, with each fix applied and each picked candidate used.'}
+  - {value: EDITED, meaning: 'Accepted with the values as the person left them, changed or not, and no fix applied.'}
+  - {value: REJECTED, meaning: 'Not to be saved. Also set by accepting a fix that drops the item.'}
 - enum: ItemResult
   values:
-  - {value: SAVED, meaning: Saved through the owning requirement.}
-  - {value: FAILED_RECHECK, meaning: 'The owning requirement refused it on save; result_message says why.'}
+  - {value: SAVED, meaning: Saved by the requirement that proposed it.}
+  - {value: FAILED_RECHECK, meaning: 'The requirement that proposed it refused it on save; result_message says why.'}
 entities:
 - entity: Proposal
   phase: MVP
@@ -46,16 +46,28 @@ entities:
   - {name: decided_at, type: timestamp, nullable: true}
 - entity: ProposalItem
   phase: MVP
-  description: One change in a Proposal, with any problem found and the person's decision.
+  description: One change in a Proposal, with any problems found and the person's decision.
   fields:
   - {name: proposal_id, type: ref:Proposal}
   - {name: row_no, type: int, nullable: true, note: The file row it came from}
+  - {name: group_key, type: text, nullable: true, note: 'Items with the same key make one record together, such as the Shifts of one Request'}
   - {name: action, type: enum:ItemAction}
-  - {name: record_type, type: text, note: The entity it changes}
-  - {name: record_id, type: uuid, nullable: true, note: Empty for CREATE}
-  - {name: values, type: json, note: Field values as proposed or as edited}
-  - {name: problem, type: text, nullable: true}
-  - {name: suggested_fix, type: json, nullable: true}
+  - {name: record_type, type: text, note: 'The entity it changes; the main one when an item makes several records'}
+  - {name: record_id, type: uuid, nullable: true, note: 'Empty for CREATE until the item is saved, then the record it made'}
+  - {name: values, type: json, note: 'Names and values as proposed, with accepted fixes applied, or as edited'}
+  - {name: problems, type: json, nullable: true, note: 'One entry for each problem a check found; empty when there is none'}
   - {name: decision, type: enum:ItemDecision, nullable: true}
   - {name: result, type: enum:ItemResult, nullable: true}
   - {name: result_message, type: text, nullable: true}
+  constraints:
+  - >-
+    values is one flat object of name to value. For a FILE_ROWS item the names are the upload type's catalog
+    columns and each value is the file's text; for any other kind the requirement that proposes the item
+    names them.
+  - >-
+    Each entry of problems has field (a name in values, or empty when the problem is with the whole item),
+    message (what is wrong), fix (what accepting does, in words, or empty when there is no fix), fix_value
+    (the value that replaces the field's value when accepted, or empty when the fix changes no value),
+    drops_item (true when the fix is to reject the item), candidates (empty, or a list of label and value
+    the person may pick from), and picked (empty, or the value of the candidate picked).
+  - An item is ACCEPTED only when each of its problems has a fix or a picked candidate.

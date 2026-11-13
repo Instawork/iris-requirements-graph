@@ -1,0 +1,91 @@
+requirement_id: REQ-IDENTITY-0004
+requirement_target_layer: platform
+requirement_target_module: IDENTITY
+requirement_phase: MVP
+requirement_title: Deactivate and reactivate a User
+requirement_statement: >-
+  A User who should no longer use Iris is deactivated, which ends their access at once and keeps their
+  records. Reactivating gives the same User their access back.
+requirement_actors:
+- PROGRAM_USER
+- AGENCY_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Deactivating a User sets active to false and sets ended_at on each of their open Sessions, so their
+    next request is refused.
+  rule_sources: []
+  rule_decisions:
+  - D-25
+  - D-34
+- rule_id: R2
+  rule_statement: >-
+    The caller checks who may deactivate or reactivate whom, as REQ-ORG-0005 states, and this requirement
+    makes no such check.
+  rule_sources:
+  - GRAPH platform reads no product records, so the caller supplies them
+  rule_decisions:
+  - D-25
+  - D-109
+- rule_id: R3
+  rule_statement: >-
+    Reactivating sets active to true and restores no Session, so the User signs in again with the password
+    they had.
+  rule_sources: []
+  rule_decisions:
+  - D-25
+- rule_id: R4
+  rule_statement: >-
+    Neither action changes anything else: the User's password, invite, Role Grants, and other records
+    stay as they were.
+  rule_sources: []
+  rule_decisions:
+  - D-25
+- rule_id: R5
+  rule_statement: >-
+    Deactivating an inactive User, or reactivating an active one, changes nothing and records nothing.
+  rule_sources: []
+  rule_decisions:
+  - D-25
+- rule_id: R6
+  rule_statement: >-
+    Each deactivation and reactivation is recorded in the Audit Trail as an UPDATE of active made by the
+    acting User.
+  rule_sources: []
+  rule_decisions:
+  - D-37
+  - D-102
+requirement_sources:
+- SHEET PLT-4
+requirement_decisions:
+- D-25
+- D-34
+- D-37
+- D-102
+- D-109
+requirement_features:
+- PLT-4
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-IDENTITY-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
+data_model:
+  status: covered
+  reads:
+  - User.active
+  - Session.user_id
+  - Session.ended_at
+  writes:
+  - User.active
+  - Session.ended_at
+  detail: Split from REQ-IDENTITY-0001, where it was R8.
+requirement_starting_flow: true
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

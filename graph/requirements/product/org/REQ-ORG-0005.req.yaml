@@ -135,6 +135,8 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-IDENTITY-0002
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-IDENTITY-0004
+- edge_type: DEPENDS_ON
   requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered

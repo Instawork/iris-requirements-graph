@@ -20,11 +20,11 @@ requirement_rules:
   rule_statement: >-
     Until the MyStaff connection is in place, a scheduled file export can carry open Shifts into Iris.
   rule_sources:
-  - FAQ
+  - FAQ How does Iris receive open shifts from MySTAFF?
   rule_decisions: []
 requirement_sources:
 - SHEET PLT-11
-- FAQ
+- FAQ How does Iris receive open shifts from MySTAFF?
 requirement_decisions:
 - D-6
 requirement_features:
@@ -37,7 +37,7 @@ data_model:
   detail: Waiting on MyStaff API documentation (I-1).
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

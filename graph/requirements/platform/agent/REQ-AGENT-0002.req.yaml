@@ -24,11 +24,12 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    Each ProposalItem holds its action, record type, and values and, when a check found a problem, the
-    problem and a suggested fix if there is one.
+    Each ProposalItem holds its action, record type, and values, and one entry for each problem a check
+    found: the field it is on, a message, and any fix or candidates.
   rule_sources:
   - PRD §6 Uploads
-  rule_decisions: []
+  rule_decisions:
+  - D-105
 - rule_id: R3
   rule_statement: >-
     While a Proposal is OPEN it has changed no record other than itself and its ProposalItems.
@@ -46,18 +47,19 @@ requirement_rules:
   - D-36
 - rule_id: R5
   rule_statement: >-
-    That User sets each item's decision to ACCEPTED, to EDITED after changing its values, or to REJECTED,
-    and can accept every undecided item at once.
+    That User sets each item's decision to ACCEPTED, to EDITED with the values as they leave them, or
+    to REJECTED, and can accept at once every undecided item that can be ACCEPTED.
   rule_sources:
   - PRD §6 Uploads
   rule_decisions: []
 - rule_id: R6
   rule_statement: >-
-    ACCEPTED saves the item's values with its suggested fix applied, and EDITED saves the values as the
-    User changed them.
+    ACCEPTED puts each fix's value into values and is refused while a problem has neither a fix nor a
+    picked candidate; EDITED applies no fix and keeps the User's values, changed or not.
   rule_sources:
   - PRD §6 Uploads
-  rule_decisions: []
+  rule_decisions:
+  - D-105
 - rule_id: R7
   rule_statement: >-
     The User then applies the Proposal: an undecided item with no problem counts as ACCEPTED, and applying
@@ -68,16 +70,17 @@ requirement_rules:
   - D-36
 - rule_id: R8
   rule_statement: >-
-    On apply, each ACCEPTED or EDITED item is saved, in list order, through the requirement that owns
-    its record type, which rechecks it against its own rules at that moment.
+    On apply, the ACCEPTED and EDITED items are handed, in list order, to the save step of the Proposal's
+    kind, whose owner rechecks each item against its own rules at that moment.
   rule_sources:
   - PRD §7 Agent Chat
   rule_decisions:
   - D-36
+  - D-105
 - rule_id: R9
   rule_statement: >-
-    An item its owner saves gets result SAVED; an item its owner refuses is not saved and gets FAILED_RECHECK
-    with the owner's reason in result_message.
+    An item its owner saves gets result SAVED and the saved record's id in record_id; an item its owner
+    refuses is not saved and gets FAILED_RECHECK with the owner's reason in result_message.
   rule_sources: []
   rule_decisions:
   - D-36
@@ -127,12 +130,73 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-36
+  - D-64
+- rule_id: R17
+  rule_statement: >-
+    Accepting an item that has a fix which drops it, such as a duplicate row, sets its decision to REJECTED,
+    and setting it EDITED keeps it.
+  rule_sources:
+  - PRD §6 Uploads
+  rule_decisions:
+  - D-105
+- rule_id: R18
+  rule_statement: >-
+    An item's values are one flat set of names and values: for FILE_ROWS the names are the upload type's
+    catalog columns, and for any other kind the requirement that proposes it names them.
+  rule_sources:
+  - GRAPH two requirements build and read each item, so its shape is fixed here
+  rule_decisions:
+  - D-105
+- rule_id: R19
+  rule_statement: >-
+    Candidates for a name are every stored record that matches it or, when none does, the three stored
+    names closest to it by single-character edits, with ties in alphabetical order.
+  rule_sources:
+  - PRD §7 File attached
+  - GRAPH the Names convention offers closest names and does not say how they are chosen
+  rule_decisions:
+  - D-105
+- rule_id: R20
+  rule_statement: >-
+    The User picks at most one candidate for a problem, which stores that candidate's value in picked,
+    and the owner saves the item against the record picked.
+  rule_sources:
+  - PRD §4 How the system matches a professional
+  rule_decisions:
+  - D-105
+- rule_id: R21
+  rule_statement: >-
+    Items that share a group_key make one record together, such as the Shifts of one Request, and are
+    handed to the save step in one call.
+  rule_sources:
+  - GRAPH one Proposal of many rows can make one record
+  rule_decisions:
+  - D-105
+- rule_id: R22
+  rule_statement: >-
+    Each item saves whole or not at all, with its Audit Trail entries and Notifications, and an item that
+    is refused leaves every other item saved, in its group or outside it.
+  rule_sources:
+  - GRAPH the Saving together convention would otherwise make one file one transaction
+  rule_decisions:
+  - D-36
+  - D-105
+- rule_id: R23
+  rule_statement: >-
+    Each Proposal kind has one save step, registered by the requirement that proposes that kind; for FILE_ROWS
+    it is REQ-INTAKE-0002, which hands each row to its upload type's owner.
+  rule_sources:
+  - GRAPH platform cannot call a product requirement, so the owner registers its save step
+  rule_decisions:
+  - D-105
 requirement_sources:
 - PRD §6 Uploads
 - PRD §7 Agent Chat
 requirement_decisions:
 - D-36
 - D-37
+- D-64
+- D-105
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON
@@ -144,7 +208,9 @@ data_model:
   writes:
   - Proposal.*
   - ProposalItem.*
-  detail: null
+  detail: >-
+    The requirement that proposes a change passes the items, with their problems, fixes, candidates, and
+    group keys; AGENT stores them and reads no other module's records.
 requirement_starting_flow: true
 requirement_review:
   status: draft
