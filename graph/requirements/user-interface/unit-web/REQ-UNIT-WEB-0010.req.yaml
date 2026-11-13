@@ -1,0 +1,98 @@
+requirement_id: REQ-UNIT-WEB-0010
+requirement_target_layer: user-interface
+requirement_target_module: UNIT-WEB
+requirement_phase: MVP
+requirement_title: Name Events and see each Event's projected and actual cost
+requirement_statement: >-
+  A Unit User names Events for a Unit, attaches Shifts to them, and sees each Event's projected cost beside
+  its actual cost.
+requirement_actors:
+- UNIT_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The Events screen lists the Events of the Units in scope, latest Shift date first, each with its Unit,
+    dates, number of Shifts, projected cost, actual cost, and difference from REQ-REPORTING-0004.
+  rule_sources:
+  - SHEET REP-2
+  rule_decisions:
+  - D-63
+- rule_id: R2
+  rule_statement: >-
+    Actual cost shows its APPROVED_SPEND and PENDING_SPEND parts, so a cost shows as soon as the Event's
+    Shifts end.
+  rule_sources:
+  - SHEET REP-2
+  rule_decisions:
+  - D-29
+- rule_id: R3
+  rule_statement: >-
+    New Event takes a Unit and a name, and Rename changes the name, both through REQ-ORDERING-0011.
+  rule_sources:
+  - SHEET REP-2
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    Opening an Event lists its Shifts with Position, start and end, headcount, and Agencies, and each
+    row opens the Shift's page.
+  rule_sources:
+  - SHEET REP-2
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    From an Event the User attaches Shifts of the same Unit that have no Event and detaches Shifts, through
+    REQ-ORDERING-0011.
+  rule_sources:
+  - SHEET REP-2
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    Approve Timesheets opens the Timesheets screen filtered to the Event, where they are approved in one
+    step.
+  rule_sources:
+  - SHEET TS-8
+  rule_decisions: []
+requirement_sources:
+- SHEET REP-2
+requirement_decisions:
+- D-29
+- D-63
+requirement_features:
+- REP-2
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0011
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-REPORTING-0004
+data_model:
+  status: covered
+  reads:
+  - Event.unit_id
+  - Event.name
+  - Shift.event_id
+  - Shift.position_id
+  - Shift.starts_at
+  - Shift.ends_at
+  - Shift.headcount
+  - Shift.status
+  - Release.shift_id
+  - Release.agency_id
+  - Release.headcount
+  - Release.status
+  - Release.regular_bill_rate
+  - Agency.name
+  - Position.name
+  - OrgNode.name
+  writes: []
+  detail: null
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

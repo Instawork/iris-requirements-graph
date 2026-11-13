@@ -56,10 +56,20 @@ requirement_rules:
   - SHEET PLT-2
   rule_decisions:
   - D-25
+- rule_id: R7
+  rule_statement: >-
+    Each Unit also shows how many of its Releases for work dates in the period carry a
+    bill_rate_reason or are non_contracted.
+  rule_sources:
+  - SHEET RC-11
+  - PRD §1 Compass view
+  rule_decisions:
+  - D-2
 requirement_sources:
 - SHEET REP-9
 - SHEET 6.3
 requirement_decisions:
+- D-2
 - D-14
 - D-25
 - D-30
@@ -77,6 +87,9 @@ edges:
 data_model:
   status: covered
   reads:
+  - Release.bill_rate_reason
+  - Release.non_contracted
+  - Release.shift_id
   - Agency.name
   - Event.name
   - Event.unit_id

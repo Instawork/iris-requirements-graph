@@ -1,0 +1,100 @@
+requirement_id: REQ-PROGRAM-WEB-0008
+requirement_target_layer: user-interface
+requirement_target_module: PROGRAM-WEB
+requirement_phase: MVP
+requirement_title: Change Settings for the program and for parts of the org
+requirement_statement: >-
+  On the Settings screen a Program User sees every Setting with its program default and its overrides
+  down the org tree, and changes or removes them.
+requirement_actors:
+- PROGRAM_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The Settings screen lists every key of the settings catalog with its meaning, its program default,
+    and whether that default is the catalog's or was set by a Program User.
+  rule_sources:
+  - FAQ
+  rule_decisions:
+  - D-16
+- rule_id: R2
+  rule_statement: >-
+    A key the catalog scopes as any lists its overrides, each with its Sector, Region, District, or Unit
+    and its value, and offers Add override at a node picked from the org tree.
+  rule_sources:
+  - FAQ
+  - SHEET WA-19
+  - SHEET TS-9
+  rule_decisions:
+  - D-16
+- rule_id: R3
+  rule_statement: >-
+    PEER_RATE_THRESHOLD_PCT and CREDENTIAL_EXPIRY_WARNING_DAYS are program-wide, so they show a program
+    default only and offer no override.
+  rule_sources:
+  - SHEET RC-12
+  - SHEET WA-14
+  rule_decisions:
+  - D-16
+- rule_id: R4
+  rule_statement: >-
+    A value is entered as the key's type, a whole number, on or off, or SOFT or HARD, and saved through
+    REQ-ORG-0010.
+  rule_sources:
+  - SHEET RC-11
+  rule_decisions:
+  - D-16
+- rule_id: R5
+  rule_statement: >-
+    Remove, offered on an override and on a program default a Program User set, calls REQ-ORG-0010, and
+    the screen then shows the value that applies instead.
+  rule_sources: []
+  rule_decisions:
+  - D-16
+- rule_id: R6
+  rule_statement: >-
+    Picking a Unit shows, for every key, the value in force there as REQ-ORG-0006 resolves it.
+  rule_sources:
+  - FAQ
+  rule_decisions:
+  - D-16
+requirement_sources:
+- FAQ
+- SHEET TS-9
+- SHEET RC-11
+- SHEET WA-19
+requirement_decisions:
+- D-16
+requirement_features:
+- TS-9
+- RC-11
+- WA-19
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0010
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+data_model:
+  status: covered
+  reads:
+  - Setting.*
+  - OrgNode.name
+  - OrgNode.level
+  - OrgNode.parent_id
+  writes: []
+  detail: null
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

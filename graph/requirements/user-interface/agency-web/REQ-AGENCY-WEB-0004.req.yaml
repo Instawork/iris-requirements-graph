@@ -2,36 +2,154 @@ requirement_id: REQ-AGENCY-WEB-0004
 requirement_target_layer: user-interface
 requirement_target_module: AGENCY-WEB
 requirement_phase: MVP
-requirement_title: Submit Timesheets, tips, and expenses
+requirement_title: List the Agency's Timesheets and submit them
 requirement_statement: >-
-  An Agency User submits hours by form, file, or the assistant, and adds tips and expenses to them.
-requirement_actors: []
+  On the Timesheets screen an Agency User sees a Timesheet for each of the Agency's Workers on Shifts
+  that have ended. They load hours and Expenses from files and submit Timesheets one at a time, or by
+  Shift, Event, or work date.
+requirement_actors:
+- AGENCY_USER
 requirement_rules:
 - rule_id: R1
-  rule_statement: Rejected and corrected Timesheets show the Unit's reason.
+  rule_statement: >-
+    The Timesheets screen lists each Timesheet of the Agency's Workers with Worker, Unit, Position, work
+    date, clock_in, clock_out, break, worked hours, tips, Expenses, and status, grouped by Shift.
+  rule_sources:
+  - PRD §2 Shifts
+  - SHEET TS-8
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    It opens on DRAFT and REJECTED Timesheets, oldest work date first, and filters by status, Unit, Event,
+    and work date range.
+  rule_sources:
+  - DEMO components/shifts/shifts-page.tsx
+  rule_decisions:
+  - D-63
+- rule_id: R3
+  rule_statement: A REJECTED Timesheet shows the Unit's rejected_reason in its row.
+  rule_sources:
+  - SESSIONS Timesheets, Tips & Expenses
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    A Timesheet not APPROVED when its Lock Window closed is marked late in the Agency's list until it
+    is approved, as REQ-TIME-0007 defines.
+  rule_sources:
+  - SHEET TS-9
+  rule_decisions:
+  - D-13
+- rule_id: R5
+  rule_statement: >-
+    A SUBMITTED or APPROVED Timesheet shows its exception_reasons, an APPROVED one shows whether Iris
+    or a Unit User approved it, and a locked one shows a lock mark.
+  rule_sources:
+  - SHEET TS-7
+  - SHEET TS-9
+  - SESSIONS Timesheets, Tips & Expenses
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    Each DRAFT or REJECTED Timesheet offers Submit, which calls REQ-TIME-0002; one with a missing clock
+    time is marked but can still be submitted.
+  rule_sources:
+  - SHEET TS-8
+  rule_decisions:
+  - D-59
+- rule_id: R7
+  rule_statement: >-
+    Submit all, offered for one Shift, one Event, or one work date at a Unit, calls REQ-TIME-0002 for
+    every DRAFT and REJECTED Timesheet of the Agency there.
+  rule_sources:
+  - SHEET TS-8
+  rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    After a bulk submit, the screen lists each Timesheet left unsubmitted with the reason.
   rule_sources: []
+  rule_decisions:
+  - D-59
+- rule_id: R9
+  rule_statement: >-
+    Upload hours opens the Uploads send step of REQ-SHELL-0008 with TIMESHEETS picked, for a template,
+    PDF, or photo of a sign-in sheet; REQ-TIME-0003 saves accepted lines without submitting any Timesheet.
+  rule_sources:
+  - SHEET TS-5
+  - FEEDBACK
+  - SESSIONS Timesheets, Tips & Expenses
+  rule_decisions: []
+- rule_id: R10
+  rule_statement: >-
+    Upload expenses opens that step with EXPENSES picked, and REQ-TIPS-0002 adds each accepted row to
+    its Timesheet as a PENDING Expense.
+  rule_sources:
+  - SHEET TS-12
+  - SESSIONS Timesheets, Tips & Expenses
   rule_decisions: []
 requirement_sources:
 - SHEET 4.3
-requirement_decisions: []
-requirement_features: []
+- SHEET TS-5
+- SESSIONS Timesheets, Tips & Expenses
+requirement_decisions:
+- D-13
+- D-59
+- D-63
+requirement_features:
+- TS-5
+- TS-8
 edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0010
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-TIME-0002
 - edge_type: DEPENDS_ON
   requirement_id: REQ-TIME-0003
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-TIME-0004
+  requirement_id: REQ-TIME-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0007
 - edge_type: DEPENDS_ON
   requirement_id: REQ-TIPS-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-TIPS-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0011
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
-  status: not_applicable
-  reads: []
+  status: covered
+  reads:
+  - Timesheet.*
+  - Assignment.release_id
+  - Assignment.worker_id
+  - Worker.first_name
+  - Worker.last_name
+  - Release.agency_id
+  - Release.shift_id
+  - Shift.request_id
+  - Shift.starts_at
+  - Shift.ends_at
+  - Shift.event_id
+  - Request.unit_id
+  - Unit.org_node_id
+  - OrgNode.name
+  - Event.name
+  - Position.name
+  - TipAllocation.timesheet_id
+  - TipAllocation.amount
+  - Expense.timesheet_id
+  - Expense.amount
+  - Expense.status
   writes: []
   detail: null
-  migration_entities: []
 requirement_starting_flow: false
 requirement_review:
   status: draft

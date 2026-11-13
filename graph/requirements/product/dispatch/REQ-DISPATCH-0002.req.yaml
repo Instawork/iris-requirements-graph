@@ -66,6 +66,15 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-20
+- rule_id: R9
+  rule_statement: >-
+    An Agency User sees the Shift's whole headcount beside the headcount of their own Release, and
+    never which other Agencies hold the Shift.
+  rule_sources:
+  - SESSIONS Shift Creation
+  - PRD §2 Shifts
+  rule_decisions:
+  - D-17
 requirement_sources:
 - SHEET SC-8
 requirement_decisions:
@@ -85,6 +94,7 @@ edges:
 data_model:
   status: covered
   reads:
+  - Shift.headcount
   - Release.shift_id
   - Release.agency_id
   - Release.status
@@ -97,7 +107,7 @@ data_model:
   - Release.decline_reason
   - Release.closed_at
   detail: null
-requirement_starting_flow: false
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

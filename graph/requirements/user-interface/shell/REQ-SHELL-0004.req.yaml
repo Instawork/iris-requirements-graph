@@ -1,0 +1,79 @@
+requirement_id: REQ-SHELL-0004
+requirement_target_layer: user-interface
+requirement_target_module: SHELL
+requirement_phase: MVP
+requirement_title: Sign in with email and password
+requirement_statement: >-
+  A User of any role signs in on one page with their email and password. The page leads to a password
+  reset and offers no sign-up.
+requirement_actors:
+- INSTAWORK_ADMIN
+- PROGRAM_USER
+- UNIT_USER
+- AGENCY_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The sign-in page takes an email and a password, calls REQ-IDENTITY-0001, and on success opens Home,
+    or the context choice of REQ-SHELL-0002 when the User has several contexts.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    A refused sign-in shows one message that does not say whether the email, the password, or a deactivated
+    User was the cause, and keeps the email typed.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-61
+- rule_id: R3
+  rule_statement: >-
+    Opening any signed-in page without a session shows the sign-in page instead.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-34
+- rule_id: R4
+  rule_statement: >-
+    The page links to the password reset request and has no way to create an account, because a User exists
+    only by invite.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-26
+  - D-34
+- rule_id: R5
+  rule_statement: >-
+    One page serves Unit Users, Agency Users, Program Users, and Instawork Admins, and never asks for
+    a role.
+  rule_sources:
+  - SHEET PLT-1
+  - SHEET PLT-4
+  rule_decisions: []
+requirement_sources:
+- SHEET PLT-4
+requirement_decisions:
+- D-26
+- D-34
+- D-61
+requirement_features:
+- PLT-4
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-IDENTITY-0001
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: >-
+    Shows no stored record. REQ-IDENTITY-0001 checks the email and password.
+requirement_starting_flow: true
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

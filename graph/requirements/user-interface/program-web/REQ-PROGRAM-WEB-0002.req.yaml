@@ -2,39 +2,126 @@ requirement_id: REQ-PROGRAM-WEB-0002
 requirement_target_layer: user-interface
 requirement_target_module: PROGRAM-WEB
 requirement_phase: MVP
-requirement_title: Manage the org, Agencies, and access
+requirement_title: Manage the org tree, Units, and Departments
 requirement_statement: >-
-  A Program User manages the org tree, Units, Agencies, Agency approvals, Users, Role Grants, and Settings.
-requirement_actors: []
-requirement_rules: []
+  On the Org screen a Program User browses the Compass org as a tree and adds, changes, and deactivates
+  Sectors, Regions, Districts, Units, and Departments. They can also load Units and Departments from a
+  UNITS file.
+requirement_actors:
+- PROGRAM_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The Org screen shows the org as a tree of Sectors, Regions, Districts, and Units, each node with its
+    name and whether it is active.
+  rule_sources:
+  - SHEET PLT-2
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    A Program User adds a Sector, a Region under a Sector, or a District under a Region, and renames,
+    deactivates, or reactivates one, each through REQ-ORG-0008.
+  rule_sources:
+  - SHEET PLT-2
+  rule_decisions:
+  - D-53
+- rule_id: R3
+  rule_statement: >-
+    Deactivate is offered on a Sector, Region, or District only when every node beneath it is inactive.
+  rule_sources: []
+  rule_decisions:
+  - D-53
+- rule_id: R4
+  rule_statement: >-
+    Add Unit, offered under an active District, takes a name, address line, city, state, ZIP code, Cost
+    Center code, Work Week start day, and optional time zone, and saves through REQ-ORG-0002.
+  rule_sources:
+  - SESSIONS Shift Creation
+  - SHEET PLT-2
+  - SHEET WA-20
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    The Unit form also takes whether the Unit is a secured site and its default parking, entrance, directions,
+    site contact, and attire.
+  rule_sources:
+  - SHEET WA-17
+  - SHEET SC-6
+  - SHEET SC-11
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    A saved Unit's page shows the Market and the time zone Iris set from its ZIP code.
+  rule_sources:
+  - PRD §3 Supplier Rates
+  - DEMO lib/types.ts
+  rule_decisions:
+  - D-21
+- rule_id: R7
+  rule_statement: >-
+    A Unit's page lists its Departments with their Cost Center codes and whether active, and the Program
+    User adds, renames, or deactivates one through REQ-ORG-0002.
+  rule_sources:
+  - FEEDBACK
+  - SHEET PLT-2
+  rule_decisions:
+  - D-53
+- rule_id: R8
+  rule_statement: >-
+    The Program User can change any field of a Unit and deactivate it through REQ-ORG-0002, and an inactive
+    Unit is marked as taking no new Request.
+  rule_sources: []
+  rule_decisions:
+  - D-53
+- rule_id: R9
+  rule_statement: >-
+    Upload Units opens the Uploads send step of REQ-SHELL-0008 with UNITS picked, and REQ-ORG-0003 saves
+    the Units and Departments of its accepted rows.
+  rule_sources:
+  - SESSIONS Shift Creation
+  - SHEET PLT-2
+  rule_decisions: []
 requirement_sources:
 - SHEET 7.1
-requirement_decisions: []
-requirement_features: []
+- SHEET PLT-2
+- SESSIONS Shift Creation
+requirement_decisions:
+- D-21
+- D-53
+requirement_features:
+- PLT-2
 edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0010
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0002
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0003
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-IDENTITY-0001
+  requirement_id: REQ-ORG-0008
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-ORG-0005
+  requirement_id: REQ-CATALOG-0002
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-ORG-0006
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-AGENCIES-0001
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-AGENCIES-0002
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-LABOR-0004
+  requirement_id: REQ-ORG-0009
 data_model:
-  status: not_applicable
-  reads: []
+  status: covered
+  reads:
+  - OrgNode.*
+  - Unit.*
+  - Department.*
+  - CostCenter.code
+  - CostCenter.name
+  - Market.name
+  - Market.state
   writes: []
   detail: null
-  migration_entities: []
-requirement_starting_flow: false
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

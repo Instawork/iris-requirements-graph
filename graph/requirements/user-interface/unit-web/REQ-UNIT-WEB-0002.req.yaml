@@ -2,61 +2,175 @@ requirement_id: REQ-UNIT-WEB-0002
 requirement_target_layer: user-interface
 requirement_target_module: UNIT-WEB
 requirement_phase: MVP
-requirement_title: Book and manage Requests
+requirement_title: Book a Request by form or from a template
 requirement_statement: >-
-  A Unit User books Requests with a form, from a template, from a file, or in the assistant, and follows
-  each Shift until it is worked.
-requirement_actors: []
+  A Unit User books a Request on a form with one line for each Position, or starts from a saved template.
+  Each line can be sent to an Agency at its contracted rate as it is booked.
+requirement_actors:
+- UNIT_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    The Shifts list groups Shifts by date and shows each one's headcount filled, Agencies, and status.
-  rule_sources: []
+    The form takes one Unit and one or more lines, each with a Position, date, start time, end time, and
+    headcount, and optionally a planned break and a Department.
+  rule_sources:
+  - SHEET SC-2
+  - PRD §2 Shifts
+  - FEEDBACK
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    A Shift's page shows each assigned Worker's name and Agency, and Open for unfilled headcount.
-  rule_sources: []
+    Unit, Position, and Department are picked from active records in the User's scope, and a Position
+    with a default Department at the Unit fills it in.
+  rule_sources:
+  - PRD Data Model
+  - SHEET SC-11
+  - FEEDBACK
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    From a Shift, the user edits it, cancels it, sends it to another Agency, or requests Workers by name.
-  rule_sources: []
+    The five site instruction fields start filled with the Unit's defaults and can be changed for this
+    Request.
+  rule_sources:
+  - SHEET SC-6
+  - SHEET SC-11
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    An end time earlier than the start asks the User to confirm that the Shift ends the next day before
+    the form can be submitted.
+  rule_sources:
+  - PRD §7 What the agent checks
+  - PRD §7 File attached
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    Start from template lists the Unit's Request templates; picking one and a date fills the lines through
+    REQ-ORDERING-0007, and the User may change any line.
+  rule_sources:
+  - SHEET SC-11
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    A repeat option takes weekdays, an interval in weeks, and an end date, and can mark the Request as
+    a block, under REQ-ORDERING-0004.
+  rule_sources:
+  - SHEET SC-4
+  rule_decisions:
+  - D-20
+- rule_id: R7
+  rule_statement: >-
+    A line can state a needed headcount below its headcount, which REQ-ORDERING-0005 records as overbooking.
+  rule_sources:
+  - SHEET SC-5
+  rule_decisions:
+  - D-19
+- rule_id: R8
+  rule_statement: >-
+    A line may name an Event of the Unit, and after the Request is created its Shift is attached through
+    REQ-ORDERING-0011.
+  rule_sources:
+  - SHEET REP-2
+  rule_decisions: []
+- rule_id: R9
+  rule_statement: >-
+    Each line embeds the send step of REQ-UNIT-WEB-0009 to pick an Agency, or is left unsent.
+  rule_sources:
+  - SHEET SC-7
+  - SHEET SC-1
+  rule_decisions:
+  - D-17
+- rule_id: R10
+  rule_statement: >-
+    A line shows the break and minimum-wage flags REQ-ORDERING-0002 returns for its times and picked Agency,
+    and a flag never stops the booking.
+  rule_sources:
+  - SHEET WA-18
+  rule_decisions:
+  - D-23
+- rule_id: R11
+  rule_statement: >-
+    Submit creates the Request through REQ-ORDERING-0001, then sends each line that has an Agency through
+    REQ-DISPATCH-0001, and opens the Shifts list on the new Shifts.
+  rule_sources:
+  - SHEET SC-2
+  - SHEET SC-7
+  - PRD §7 Typed request
+  rule_decisions: []
+- rule_id: R12
+  rule_statement: >-
+    When REQ-ORDERING-0001 refuses a line, nothing is created and the form marks that line with the check
+    that failed.
+  rule_sources:
+  - PRD §7 What the agent checks
+  rule_decisions: []
+- rule_id: R13
+  rule_statement: >-
+    When the Request is created but REQ-DISPATCH-0001 refuses a send, that Shift stays unsent and the
+    form names the gate or check that refused it.
+  rule_sources:
+  - SHEET RC-11
   rule_decisions: []
 requirement_sources:
 - PRD §2 Shifts
-- SESSIONS Shift creation
-requirement_decisions: []
-requirement_features: []
+- SHEET SC-2
+- SHEET SC-11
+- SESSIONS Shift Creation
+requirement_decisions:
+- D-17
+- D-19
+- D-20
+- D-23
+requirement_features:
+- SC-2
+- SC-4
+- SC-5
+- SC-11
 edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-UNIT-WEB-0009
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORDERING-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORDERING-0002
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-ORDERING-0003
-- edge_type: DEPENDS_ON
   requirement_id: REQ-ORDERING-0004
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORDERING-0005
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-ORDERING-0006
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORDERING-0007
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORDERING-0011
 - edge_type: DEPENDS_ON
   requirement_id: REQ-DISPATCH-0001
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-WORKFORCE-0004
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-INTAKE-0001
 data_model:
-  status: not_applicable
-  reads: []
+  status: covered
+  reads:
+  - Unit.org_node_id
+  - Unit.default_parking
+  - Unit.default_entrance
+  - Unit.default_directions
+  - Unit.default_site_contact
+  - Unit.default_attire
+  - OrgNode.name
+  - OrgNode.active
+  - Position.name
+  - Position.active
+  - Department.unit_id
+  - Department.name
+  - Department.active
+  - UnitPositionDefault.unit_id
+  - UnitPositionDefault.position_id
+  - UnitPositionDefault.department_id
+  - RequestTemplate.unit_id
+  - RequestTemplate.name
+  - RequestTemplateLine.*
+  - Event.unit_id
+  - Event.name
   writes: []
   detail: null
-  migration_entities: []
 requirement_starting_flow: true
 requirement_review:
   status: draft

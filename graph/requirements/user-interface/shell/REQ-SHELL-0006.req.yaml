@@ -1,0 +1,97 @@
+requirement_id: REQ-SHELL-0006
+requirement_target_layer: user-interface
+requirement_target_module: SHELL
+requirement_phase: MVP
+requirement_title: See and change your own profile
+requirement_statement: >-
+  A signed-in User sees their own profile and Role Grants, and changes their name and phone. They change
+  their password by an emailed reset link.
+requirement_actors:
+- INSTAWORK_ADMIN
+- PROGRAM_USER
+- UNIT_USER
+- AGENCY_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The profile page, opened from the account menu, shows the User's first name, last name, email, phone,
+    and each unrevoked Role Grant with its role and scope.
+  rule_sources:
+  - SHEET PLT-4
+  - SHEET PLT-1
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    The User changes their first name, last name, and phone through REQ-IDENTITY-0001, and the email is
+    shown but cannot be changed.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-34
+- rule_id: R3
+  rule_statement: >-
+    A phone that REQ-IDENTITY-0001 refuses for not having 10 digits is shown with that reason, and nothing
+    is saved.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-39
+- rule_id: R4
+  rule_statement: >-
+    Change password sends the User a reset link through REQ-IDENTITY-0002 and says it was emailed; the
+    page has no password field.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-34
+- rule_id: R5
+  rule_statement: >-
+    The page offers no change to the User's own Role Grants or active flag.
+  rule_sources:
+  - SHEET PLT-1
+  rule_decisions:
+  - D-25
+requirement_sources:
+- SHEET PLT-4
+requirement_decisions:
+- D-25
+- D-34
+- D-39
+requirement_features:
+- PLT-4
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-IDENTITY-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-IDENTITY-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCIES-0001
+data_model:
+  status: covered
+  reads:
+  - User.first_name
+  - User.last_name
+  - User.email
+  - User.phone
+  - RoleGrant.user_id
+  - RoleGrant.role
+  - RoleGrant.org_node_id
+  - RoleGrant.agency_id
+  - RoleGrant.revoked_at
+  - OrgNode.name
+  - Agency.name
+  writes: []
+  detail: null
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

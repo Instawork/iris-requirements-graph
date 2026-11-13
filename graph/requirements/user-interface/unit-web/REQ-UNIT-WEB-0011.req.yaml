@@ -1,0 +1,106 @@
+requirement_id: REQ-UNIT-WEB-0011
+requirement_target_layer: user-interface
+requirement_target_module: UNIT-WEB
+requirement_phase: MVP
+requirement_title: Keep Request templates and the Unit's booking defaults
+requirement_statement: >-
+  On the Setup screen a Unit User keeps a Unit's Request templates, the default Department for each Position,
+  and its default site instructions.
+requirement_actors:
+- UNIT_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The Setup screen is for one Unit and has three sections: Request templates, Position defaults, and
+    default site instructions.
+  rule_sources:
+  - SHEET SC-11
+  rule_decisions:
+  - D-65
+- rule_id: R2
+  rule_statement: >-
+    Request templates lists the Unit's templates by name with their lines, and creates, changes, and deletes
+    a template through REQ-ORDERING-0007.
+  rule_sources:
+  - SHEET SC-11
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    A template line takes a Position, headcount, start time, and end time, and optionally a Department
+    and a planned break; an end before the start must be confirmed as next day.
+  rule_sources:
+  - SHEET SC-11
+  - PRD §7 What the agent checks
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    Each template offers Book, which opens the booking form with that template picked.
+  rule_sources:
+  - SHEET SC-11
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    Position defaults lists each Position with its default Department at the Unit and sets or changes
+    it through REQ-ORDERING-0007.
+  rule_sources:
+  - SHEET SC-11
+  - FEEDBACK
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    Default site instructions shows the Unit's default parking, entrance, directions, site contact, and
+    attire, and saves changes through REQ-ORG-0002.
+  rule_sources:
+  - SHEET SC-6
+  - SHEET SC-11
+  rule_decisions:
+  - D-53
+- rule_id: R7
+  rule_statement: >-
+    The Unit's address, timezone, Cost Center, Work Week start, secured-site flag, and Departments are
+    shown read-only, because only a Program User changes them.
+  rule_sources:
+  - SHEET PLT-2
+  rule_decisions:
+  - D-53
+requirement_sources:
+- SHEET SC-11
+- SHEET SC-6
+requirement_decisions:
+- D-53
+- D-65
+requirement_features:
+- SC-11
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0007
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0002
+data_model:
+  status: covered
+  reads:
+  - RequestTemplate.unit_id
+  - RequestTemplate.name
+  - RequestTemplateLine.*
+  - UnitPositionDefault.*
+  - Unit.*
+  - Department.unit_id
+  - Department.name
+  - Department.cost_center_id
+  - Department.active
+  - CostCenter.code
+  - Position.name
+  - OrgNode.name
+  writes: []
+  detail: null
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

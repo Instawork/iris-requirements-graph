@@ -123,7 +123,7 @@ data_model:
   - Credential.reviewed_at
   - Credential.review_note
   detail: null
-requirement_starting_flow: false
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

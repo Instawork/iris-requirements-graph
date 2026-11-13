@@ -1,0 +1,77 @@
+requirement_id: REQ-SHELL-0005
+requirement_target_layer: user-interface
+requirement_target_module: SHELL
+requirement_phase: MVP
+requirement_title: Set a password from an invite or reset link
+requirement_statement: >-
+  A User opens the single-use link from an invite or a reset email and sets a password. Anyone can ask
+  for a reset link by entering an email.
+requirement_actors:
+- INSTAWORK_ADMIN
+- PROGRAM_USER
+- UNIT_USER
+- AGENCY_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The reset request page takes an email, calls REQ-IDENTITY-0002, and then shows the same message whether
+    or not that email belongs to a User.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-34
+- rule_id: R2
+  rule_statement: >-
+    A link REQ-IDENTITY-0002 accepts opens a page that shows the User's email, which cannot be changed,
+    and a field for a new password.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-34
+- rule_id: R3
+  rule_statement: >-
+    A password shorter than 12 characters is refused on the page with that reason, and the link can still
+    be used.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-34
+- rule_id: R4
+  rule_statement: >-
+    A link that is unknown, used, expired, or belongs to a deactivated User shows that it no longer works,
+    offers the reset request, and shows no password field.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-34
+- rule_id: R5
+  rule_statement: >-
+    Once the password is saved, the page says so and leads to the sign-in page; it starts no session.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-34
+requirement_sources:
+- SHEET PLT-4
+requirement_decisions:
+- D-34
+requirement_features:
+- PLT-4
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-IDENTITY-0002
+data_model:
+  status: covered
+  reads:
+  - User.email
+  writes: []
+  detail: null
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

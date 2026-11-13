@@ -101,10 +101,28 @@ requirement_rules:
   - PRD §7 When the agent is unsure
   rule_decisions:
   - D-25
+- rule_id: R13
+  rule_statement: >-
+    Whoever may grant a User's role and scope may send that User's invite again through REQ-
+    IDENTITY-0002 until it is accepted.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-25
+  - D-34
+- rule_id: R14
+  rule_statement: >-
+    A Program User sees every User and their Role Grants, and an Agency User sees only the Users who
+    hold an AGENCY_USER grant for their own Agency.
+  rule_sources:
+  - SHEET PLT-1
+  rule_decisions:
+  - D-25
 requirement_sources:
 - SHEET PLT-1
 - SHEET PLT-4
 requirement_decisions:
+- D-34
 - D-25
 - D-26
 requirement_features:
@@ -130,7 +148,7 @@ data_model:
     The caller gives agency_id; Agency records are not read here. User records change only through REQ-IDENTITY-0001
     and REQ-IDENTITY-0002. REQ-ORG-0009 depends on this requirement, so these rules themselves state who
     may invite, grant, and deactivate.
-requirement_starting_flow: false
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

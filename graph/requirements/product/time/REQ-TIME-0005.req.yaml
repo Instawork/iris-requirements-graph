@@ -124,6 +124,13 @@ requirement_rules:
   rule_decisions:
   - D-22
   - D-28
+- rule_id: R16
+  rule_statement: >-
+    Agency Users see the exception_reasons on the Timesheets of their own Agency's Workers.
+  rule_sources:
+  - 'SESSIONS Timesheets, Tips & Expenses'
+  rule_decisions:
+  - D-22
 requirement_sources:
 - SHEET TS-7
 - SHEET RC-10

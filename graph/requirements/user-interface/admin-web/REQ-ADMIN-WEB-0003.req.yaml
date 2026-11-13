@@ -1,0 +1,66 @@
+requirement_id: REQ-ADMIN-WEB-0003
+requirement_target_layer: user-interface
+requirement_target_module: ADMIN-WEB
+requirement_phase: MVP
+requirement_title: Keep Markets and their ZIP codes
+requirement_statement: >-
+  On the Markets screen an Instawork Admin adds and renames Markets and keeps the ZIP codes that belong
+  to each.
+requirement_actors:
+- INSTAWORK_ADMIN
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The Markets screen lists every Market by state and city, with the number of its ZIP codes.
+  rule_sources:
+  - PRD §3 Supplier Rates
+  rule_decisions:
+  - D-21
+  - D-26
+  - D-63
+- rule_id: R2
+  rule_statement: >-
+    Add Market and Rename take a city name and a two-letter state and save through REQ-CATALOG-0002.
+  rule_sources:
+  - PRD §6 Templates
+  rule_decisions:
+  - D-21
+- rule_id: R3
+  rule_statement: >-
+    Opening a Market lists its ZIP codes, and Add ZIP code and Remove save through REQ-CATALOG-0002, which
+    refuses a ZIP code another Market holds.
+  rule_sources: []
+  rule_decisions:
+  - D-21
+requirement_sources:
+- PRD §3 Supplier Rates
+requirement_decisions:
+- D-21
+- D-26
+- D-63
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0010
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-CATALOG-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+data_model:
+  status: covered
+  reads:
+  - Market.*
+  - MarketZip.*
+  writes: []
+  detail: null
+requirement_starting_flow: true
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

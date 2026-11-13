@@ -52,7 +52,7 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R7
   rule_statement: >-
-    A Program User renames or deactivates an Agency; an inactive Agency keeps its records and receives
+    A Program User renames, deactivates, or reactivates an Agency; an inactive Agency keeps its records and receives
     no new Release.
   rule_sources: []
   rule_decisions:
@@ -84,7 +84,7 @@ data_model:
   writes:
   - Agency.*
   detail: null
-requirement_starting_flow: false
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

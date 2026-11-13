@@ -62,7 +62,7 @@ data_model:
   writes: []
   detail: >-
     Returns a result to the caller and stores nothing; REQ-COMPLIANCE-0003 saves it on the Credential.
-requirement_starting_flow: false
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

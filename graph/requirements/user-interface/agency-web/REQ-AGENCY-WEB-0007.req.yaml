@@ -1,0 +1,171 @@
+requirement_id: REQ-AGENCY-WEB-0007
+requirement_target_layer: user-interface
+requirement_target_module: AGENCY-WEB
+requirement_phase: MVP
+requirement_title: Manage one Worker's Credentials and Attestations
+requirement_statement: >-
+  A Worker's page shows their details, every Credential and Attestation with its state, and what Units
+  say about them. An Agency User uploads Credentials and records Attestations there.
+requirement_actors:
+- AGENCY_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The page shows the Worker's name, contact details, photo, Positions, and the number of WORKED Shifts
+    they were assigned to.
+  rule_sources:
+  - PRD §4 Professionals
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    Credentials are listed by Credential Type, newest first, each with issuer, number, issued_on, expires_on,
+    status, the status_reason or review_note, and a link to the document.
+  rule_sources:
+  - SHEET WA-14
+  - SHEET WA-15
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    A VERIFIED Credential past its expires_on is labelled expired, one within CREDENTIAL_EXPIRY_WARNING_DAYS
+    of it is labelled expiring, and one with a newer Credential of its type is labelled replaced.
+  rule_sources:
+  - SHEET WA-14
+  rule_decisions:
+  - D-16
+  - D-67
+- rule_id: R4
+  rule_statement: >-
+    Upload Credential takes an active Credential Type, the document file, an optional issuer, number,
+    and issued_on, and expires_on when the type expires, and saves through REQ-COMPLIANCE-0002.
+  rule_sources:
+  - SHEET WA-14
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    When a document is sent without details, the page shows what Iris read from it for the Agency User
+    to confirm or correct before REQ-COMPLIANCE-0002 saves it.
+  rule_sources:
+  - FAQ
+  - PRD §6 Uploads
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    A saved Credential offers no edit or delete; a correction or a renewal is uploaded as a new Credential.
+  rule_sources: []
+  rule_decisions:
+  - D-3
+  - D-56
+- rule_id: R7
+  rule_statement: >-
+    Attestations are listed by Credential Type, newest first, with statement, valid_until, who attested,
+    and when, and only the latest of each type is marked current or lapsed.
+  rule_sources:
+  - SHEET WA-16
+  rule_decisions:
+  - D-3
+- rule_id: R8
+  rule_statement: >-
+    Attest takes an active Credential Type, a statement, and an optional valid_until, and records a new
+    Attestation through REQ-COMPLIANCE-0004, leaving earlier ones listed.
+  rule_sources:
+  - SHEET WA-16
+  - SESSIONS Worker Assignment & Compliance
+  rule_decisions: []
+- rule_id: R9
+  rule_statement: >-
+    For a Credential Type whose proof is VERIFIED_DOCUMENT, the page says an Attestation alone does not
+    make the Worker eligible.
+  rule_sources:
+  - SESSIONS Worker Assignment & Compliance
+  rule_decisions:
+  - D-3
+- rule_id: R10
+  rule_statement: >-
+    The page lists each Unit's rating of the Worker, FAVORITE, OKAY_TO_RETURN, or BLOCK, with its review,
+    and offers the Agency User no way to change it.
+  rule_sources:
+  - PRD §4 Professionals
+  - SHEET WA-3
+  rule_decisions: []
+- rule_id: R11
+  rule_statement: >-
+    It lists the issues Units reported on the Worker, each with its category and status.
+  rule_sources:
+  - SHEET WA-4
+  rule_decisions: []
+requirement_sources:
+- SHEET WA-14
+- SHEET WA-16
+- PRD §4 Professionals
+requirement_decisions:
+- D-3
+- D-16
+- D-56
+- D-67
+requirement_features:
+- WA-14
+- WA-16
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-COMPLIANCE-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-COMPLIANCE-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-COMPLIANCE-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-COMPLIANCE-0004
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+data_model:
+  status: covered
+  reads:
+  - Worker.*
+  - Position.name
+  - Credential.*
+  - CredentialType.name
+  - CredentialType.proof
+  - CredentialType.has_expiry
+  - CredentialType.active
+  - Attestation.*
+  - User.first_name
+  - User.last_name
+  - WorkerRating.worker_id
+  - WorkerRating.unit_id
+  - WorkerRating.rating
+  - WorkerRating.review
+  - WorkerRating.rated_at
+  - Unit.org_node_id
+  - OrgNode.name
+  - WorkerIssue.worker_id
+  - WorkerIssue.category
+  - WorkerIssue.status
+  - Assignment.worker_id
+  - Assignment.release_id
+  - Assignment.status
+  - Release.shift_id
+  - Shift.status
+  writes: []
+  detail: null
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

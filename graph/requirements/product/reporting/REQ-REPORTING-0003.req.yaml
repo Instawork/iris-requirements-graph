@@ -98,6 +98,12 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-45
+- rule_id: R13
+  rule_statement: >-
+    Only the User who saved a Saved Report can rename or delete it.
+  rule_sources: []
+  rule_decisions:
+  - D-45
 requirement_sources:
 - SHEET REP-1
 - SHEET 6.1

@@ -2,34 +2,156 @@ requirement_id: REQ-AGENCY-WEB-0005
 requirement_target_layer: user-interface
 requirement_target_module: AGENCY-WEB
 requirement_phase: MVP
-requirement_title: Manage the Agency's Rate Card
+requirement_title: Manage the Agency's Rate Card and answer Rate Reviews
 requirement_statement: >-
-  An Agency User sees its own Rate Lines, submits changes, and answers Rate Reviews.
-requirement_actors: []
+  On the Rate Card screen an Agency User sees the Agency's Rate Lines with their Pay Rates, Bill Rates,
+  and Markup. They submit new or changed lines by form or file, and answer Rate Reviews.
+requirement_actors:
+- AGENCY_USER
 requirement_rules:
 - rule_id: R1
-  rule_statement: Submitted changes show as pending until a Program User approves them.
+  rule_statement: >-
+    The Rate Card screen lists the Agency's Rate Lines by Market or Unit and Position, each with its six
+    rates, the Markup of each pair as a percentage, effective_from, effective_to, and status.
+  rule_sources:
+  - PRD §3 Supplier Rates
+  - FEEDBACK
+  rule_decisions:
+  - D-11
+- rule_id: R2
+  rule_statement: >-
+    It opens on APPROVED lines not yet ended, filters by status, Market or Unit, and Position, and searches
+    by Position name.
+  rule_sources:
+  - DEMO components/rates/rates-page.tsx
+  rule_decisions:
+  - D-63
+- rule_id: R3
+  rule_statement: The screen never shows the Peer Rate or another Agency's rates (C-15).
+  rule_sources:
+  - PRD §3 Supplier Rates
+  rule_decisions:
+  - D-12
+- rule_id: R4
+  rule_statement: >-
+    Add rate opens the form of REQ-RATES-0013 with no Agency field, and the saved line is listed as PENDING
+    until a Program User approves it or sends it back.
+  rule_sources:
+  - FEEDBACK
+  - SESSIONS Rate Cards & Supplier Sourcing
+  rule_decisions:
+  - D-10
+- rule_id: R5
+  rule_statement: >-
+    An APPROVED line with no effective_to offers Change, which opens that form filled from the line; saving
+    submits a new line through REQ-RATES-0009 and leaves the old one as it was.
+  rule_sources:
+  - SHEET RC-5
+  rule_decisions:
+  - D-10
+- rule_id: R6
+  rule_statement: >-
+    A SENT_BACK line shows the Program User's reason and offers Submit again, which opens the form filled
+    from it to submit a new line.
   rule_sources: []
+  rule_decisions:
+  - D-10
+- rule_id: R7
+  rule_statement: >-
+    Upload rates opens the Uploads send step of REQ-SHELL-0008 with RATE_CARD picked, and REQ-RATES-0002
+    submits each accepted row as a PENDING line.
+  rule_sources:
+  - SHEET RC-4
+  - PRD §3 Supplier Rates
+  rule_decisions:
+  - D-10
+- rule_id: R8
+  rule_statement: >-
+    A History tab lists every line the Agency ever submitted, as REQ-RATES-0003 keeps them, and each line
+    opens its change history through REQ-SHELL-0011, shown to that Agency's Agency Users.
+  rule_sources:
+  - SHEET RC-5
   rule_decisions: []
+- rule_id: R9
+  rule_statement: >-
+    REQUESTED Rate Reviews show above the list, each with the line under review and a statement that its
+    rate is above its peers.
+  rule_sources:
+  - SHEET RC-12
+  rule_decisions:
+  - D-12
+- rule_id: R10
+  rule_statement: >-
+    The Agency User answers a review through REQ-RATES-0008 with a reason to keep the rate, or with a
+    new line for the same Position and Market at a lower regular Bill Rate.
+  rule_sources:
+  - SHEET RC-12
+  rule_decisions: []
+- rule_id: R11
+  rule_statement: >-
+    A review answered with a reason shows as KEPT; one answered with a lower line stays REQUESTED until
+    that line is APPROVED, then shows as LOWERED.
+  rule_sources:
+  - SHEET RC-12
+  rule_decisions:
+  - D-10
 requirement_sources:
-- PRD §3 Supplier rates
-requirement_decisions: []
-requirement_features: []
+- PRD §3 Supplier Rates
+- SHEET RC-3
+- SHEET RC-12
+requirement_decisions:
+- D-10
+- D-11
+- D-12
+- D-63
+requirement_features:
+- RC-3
+- RC-4
+- RC-5
+- RC-12
 edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0010
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0011
 - edge_type: DEPENDS_ON
   requirement_id: REQ-RATES-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-RATES-0002
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0003
+- edge_type: DEPENDS_ON
   requirement_id: REQ-RATES-0008
 - edge_type: DEPENDS_ON
   requirement_id: REQ-RATES-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0013
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
-  status: not_applicable
-  reads: []
+  status: covered
+  reads:
+  - RateLine.*
+  - RateReview.rate_line_id
+  - RateReview.status
+  - RateReview.requested_at
+  - RateReview.answer
+  - RateReview.proposed_rate_line_id
+  - RateReview.answered_by
+  - RateReview.answered_at
+  - Position.name
+  - Market.name
+  - Market.state
+  - Unit.org_node_id
+  - OrgNode.name
+  - User.first_name
+  - User.last_name
   writes: []
   detail: null
-  migration_entities: []
 requirement_starting_flow: false
 requirement_review:
   status: draft

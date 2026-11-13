@@ -1,0 +1,82 @@
+requirement_id: REQ-SHELL-0012
+requirement_target_layer: user-interface
+requirement_target_module: SHELL
+requirement_phase: MVP
+requirement_title: List and reopen Saved Reports
+requirement_statement: >-
+  A Unit User or a Program User sees the reports they saved and reopens any of them. A reopened report
+  is computed again from current records.
+requirement_actors:
+- UNIT_USER
+- PROGRAM_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The Saved Reports list shows only the reports the signed-in User saved, newest first, each with its
+    name, measures, groupings, and period.
+  rule_sources:
+  - SHEET REP-1
+  rule_decisions:
+  - D-45
+  - D-63
+- rule_id: R2
+  rule_statement: >-
+    Opening one calls REQ-REPORTING-0003 and shows the recomputed chart, table, or dashboard.
+  rule_sources:
+  - SHEET REP-1
+  rule_decisions:
+  - D-45
+- rule_id: R3
+  rule_statement: >-
+    A report with a relative period shows the dates it covers today, and one with fixed dates shows those
+    dates.
+  rule_sources:
+  - 'GRAPH data model: SavedReport holds fixed dates or a relative period'
+  rule_decisions:
+  - D-14
+- rule_id: R4
+  rule_statement: >-
+    The list sits on each persona's reports screen, and a User with no Saved Report is told that an answer
+    in the assistant can be saved.
+  rule_sources:
+  - SESSIONS Reporting
+  rule_decisions:
+  - D-61
+requirement_sources:
+- SHEET REP-1
+- SESSIONS Reporting
+requirement_decisions:
+- D-14
+- D-45
+- D-61
+- D-63
+requirement_features:
+- REP-1
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-REPORTING-0003
+data_model:
+  status: covered
+  reads:
+  - SavedReport.owner_id
+  - SavedReport.name
+  - SavedReport.measures
+  - SavedReport.group_by
+  - SavedReport.filters
+  - SavedReport.period_start
+  - SavedReport.period_end
+  - SavedReport.relative_period
+  - SavedReport.created_at
+  writes: []
+  detail: null
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

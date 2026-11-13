@@ -2,40 +2,209 @@ requirement_id: REQ-UNIT-WEB-0003
 requirement_target_layer: user-interface
 requirement_target_module: UNIT-WEB
 requirement_phase: MVP
-requirement_title: Review and approve Timesheets
+requirement_title: Review Timesheets by exception and approve them
 requirement_statement: >-
-  A Unit User sees submitted Timesheets with exceptions first, and resolves each one from the same screen.
-requirement_actors: []
+  A Unit User sees the Timesheets of their Units with the exception list first and resolves each one on
+  the same screen. They approve, correct, reject, split, mark a no-show, and decide Expenses.
+requirement_actors:
+- UNIT_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Each exception shows what the Agency billed beside the schedule, with the reason and Iris's proposed
-    fix.
-  rule_sources: []
-  rule_decisions: []
+    The Timesheets screen opens on the exception list of REQ-TIME-0005: every SUBMITTED Timesheet in scope,
+    those with OUTSIDE_TOLERANCE first, then the oldest Shift first.
+  rule_sources:
+  - SHEET TS-7
+  - SESSIONS Timesheets, Tips & Expenses
+  rule_decisions:
+  - D-63
 - rule_id: R2
   rule_statement: >-
-    From a Timesheet, the user approves, corrects times, rejects, splits by role, marks a no-show, or
-    adds tips and expenses.
-  rule_sources: []
-  rule_decisions: []
+    Other tabs list the Timesheets in scope that are DRAFT or REJECTED with the Agency, APPROVED, and
+    locked; every tab filters by Unit, work date, Shift, Event, Agency, and Worker.
+  rule_sources:
+  - SHEET TS-8
+  rule_decisions:
+  - D-63
 - rule_id: R3
   rule_statement: >-
-    When auto-approval is off, the user approves all clean Timesheets in one action.
-  rule_sources: []
+    Each row shows the Worker, Agency, Shift, Position, Department, the scheduled start and end beside
+    the billed clock times, break, hours by class, Bill Rates, tips, Expenses, and amount.
+  rule_sources:
+  - PRD §2 Shifts
+  - SHEET TS-7
   rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    Each exception reason is shown in words with what caused it, such as the minutes outside tolerance
+    or the Release's rate beside the billed rate.
+  rule_sources:
+  - SHEET TS-7
+  - SHEET RC-10
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    A Timesheet whose Bill Rates differ from the contracted Rate Line shows the flag of REQ-RATES-0006
+    with both rates and the difference, before and after approval.
+  rule_sources:
+  - SHEET RC-10
+  rule_decisions:
+  - D-22
+- rule_id: R6
+  rule_statement: >-
+    The parts of a split Timesheet are shown together in time order, each with its own Position, Department,
+    and Bill Rates.
+  rule_sources:
+  - SHEET TS-10
+  rule_decisions:
+  - D-59
+- rule_id: R7
+  rule_statement: >-
+    A Timesheet still unapproved after its Lock Window closed is marked late on every tab, as REQ-TIME-0007
+    defines.
+  rule_sources:
+  - SHEET TS-9
+  rule_decisions:
+  - D-13
+- rule_id: R8
+  rule_statement: >-
+    Approve calls REQ-TIME-0002 for one SUBMITTED Timesheet and is disabled, with the reason, while it
+    carries MISSING_TIMES or PENDING_EXPENSE.
+  rule_sources:
+  - SHEET TS-8
+  rule_decisions:
+  - D-22
+  - D-59
+- rule_id: R9
+  rule_statement: >-
+    Approve all approves in one step every SUBMITTED Timesheet shown for one Shift, one Event, or one
+    work date at a Unit, then lists those left unapproved with the reason.
+  rule_sources:
+  - SHEET TS-8
+  - SESSIONS Timesheets, Tips & Expenses
+  rule_decisions:
+  - D-59
+- rule_id: R10
+  rule_statement: >-
+    Correct opens the clock_in, clock_out, and break_minutes of a SUBMITTED or APPROVED Timesheet that
+    is not locked, requires a reason, and saves through REQ-TIME-0006.
+  rule_sources:
+  - SHEET TS-7
+  - PRD §2 Shifts
+  rule_decisions:
+  - D-33
+- rule_id: R11
+  rule_statement: >-
+    On a Timesheet with OUTSIDE_TOLERANCE, Use scheduled times applies the Shift's start and end in one
+    step through REQ-TIME-0006, still with a reason.
+  rule_sources:
+  - SESSIONS Timesheets, Tips & Expenses
+  rule_decisions:
+  - D-5
+- rule_id: R12
+  rule_statement: >-
+    Reject returns a SUBMITTED Timesheet to the Agency through REQ-TIME-0006 with a required reason, and
+    is not offered on an APPROVED one.
+  rule_sources:
+  - SESSIONS Timesheets, Tips & Expenses
+  rule_decisions:
+  - D-33
+- rule_id: R13
+  rule_statement: >-
+    Split by role takes a switch time, a new Position, Department, or both, any break minutes to move,
+    and a reason, and saves through REQ-TIME-0008.
+  rule_sources:
+  - SHEET TS-10
+  - FEEDBACK
+  - SESSIONS Timesheets, Tips & Expenses
+  rule_decisions:
+  - D-33
+- rule_id: R14
+  rule_statement: >-
+    No-show sets or clears the mark on a SUBMITTED or APPROVED Timesheet that is not locked, with a reason,
+    through REQ-TIME-0009.
+  rule_sources:
+  - PRD §2 Shifts
+  rule_decisions:
+  - D-33
+- rule_id: R15
+  rule_statement: >-
+    Each PENDING Expense on a SUBMITTED Timesheet shows its kind, amount, and note with Approve and Reject,
+    which call REQ-TIPS-0002; Reject requires a reason.
+  rule_sources:
+  - SHEET TS-12
+  - SESSIONS Timesheets, Tips & Expenses
+  rule_decisions:
+  - D-60
+- rule_id: R16
+  rule_statement: >-
+    Tips show as each TipAllocation with its source: a Tip Pool share, a cashier PIN tip, or a tip the
+    Agency entered, which is why the Timesheet carries AGENCY_TIP.
+  rule_sources:
+  - SHEET TS-11
+  rule_decisions:
+  - D-22
+  - D-28
+  - D-60
+- rule_id: R17
+  rule_statement: A locked Timesheet shows when it locked and offers no action.
+  rule_sources:
+  - SHEET TS-9
+  rule_decisions:
+  - D-33
+- rule_id: R18
+  rule_statement: >-
+    Each Timesheet opens its change history through REQ-SHELL-0011, shown to Unit Users whose scope covers
+    its Unit.
+  rule_sources:
+  - PRD §2 Shifts
+  rule_decisions: []
+- rule_id: R19
+  rule_statement: >-
+    Upload corrections opens the Uploads send step with TIMESHEETS picked; REQ-TIME-0003 saves the accepted
+    rows as corrections with one reason for the file.
+  rule_sources:
+  - PRD §6 Uploads
+  rule_decisions:
+  - D-59
 requirement_sources:
 - SHEET 4.3
-- SESSIONS Timesheets
-requirement_decisions: []
-requirement_features: []
+- SHEET TS-7
+- SESSIONS Timesheets, Tips & Expenses
+requirement_decisions:
+- D-5
+- D-13
+- D-22
+- D-28
+- D-33
+- D-59
+- D-60
+- D-63
+requirement_features:
+- TS-7
+- TS-8
+- TS-9
+- TS-10
+- TS-12
 edges:
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0011
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0001
+- edge_type: DEPENDS_ON
   requirement_id: REQ-TIME-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0003
 - edge_type: DEPENDS_ON
   requirement_id: REQ-TIME-0005
 - edge_type: DEPENDS_ON
   requirement_id: REQ-TIME-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0007
 - edge_type: DEPENDS_ON
   requirement_id: REQ-TIME-0008
 - edge_type: DEPENDS_ON
@@ -44,12 +213,40 @@ edges:
   requirement_id: REQ-TIPS-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-TIPS-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0006
 data_model:
-  status: not_applicable
-  reads: []
+  status: covered
+  reads:
+  - Timesheet.*
+  - Assignment.worker_id
+  - Assignment.release_id
+  - Worker.first_name
+  - Worker.last_name
+  - Worker.agency_id
+  - Agency.name
+  - Release.shift_id
+  - Release.rate_line_id
+  - Release.regular_bill_rate
+  - Release.overtime_bill_rate
+  - Release.double_time_bill_rate
+  - Shift.request_id
+  - Shift.event_id
+  - Shift.starts_at
+  - Shift.ends_at
+  - Shift.break_minutes
+  - Request.unit_id
+  - OrgNode.name
+  - Position.name
+  - Department.name
+  - Event.name
+  - Expense.*
+  - TipAllocation.*
+  - RateLine.regular_bill_rate
+  - RateLine.overtime_bill_rate
+  - RateLine.double_time_bill_rate
   writes: []
   detail: null
-  migration_entities: []
 requirement_starting_flow: false
 requirement_review:
   status: draft

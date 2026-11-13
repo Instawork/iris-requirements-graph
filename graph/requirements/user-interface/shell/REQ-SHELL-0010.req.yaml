@@ -1,0 +1,60 @@
+requirement_id: REQ-SHELL-0010
+requirement_target_layer: user-interface
+requirement_target_module: SHELL
+requirement_phase: MVP
+requirement_title: Download any table as CSV
+requirement_statement: >-
+  Every table on every screen can be downloaded as a CSV file that holds exactly what that User sees in
+  it.
+requirement_actors:
+- INSTAWORK_ADMIN
+- PROGRAM_USER
+- UNIT_USER
+- AGENCY_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Every table on every screen has a download control that calls REQ-INTAKE-0005 with the rows and columns
+    the User sees in that table.
+  rule_sources:
+  - PRD §6 Uploads
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    The screen passes the table's current filters and sort and every page of rows, not only the page on
+    screen.
+  rule_sources:
+  - PRD §6 Uploads
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    A column the acting role may not see, such as a Pay Rate for a Unit User, is never passed and so is
+    never in the file.
+  rule_sources:
+  - PRD §6 Uploads
+  - PRD §3 Supplier Rates
+  rule_decisions: []
+requirement_sources:
+- PRD §6 Uploads
+requirement_decisions: []
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INTAKE-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: >-
+    It passes on the rows of the table it sits on. That table's requirement lists what is read.
+requirement_starting_flow: true
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

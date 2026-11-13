@@ -110,7 +110,7 @@ data_model:
   detail: >-
     Reads only. The caller supplies the week's minutes; this requirement reads neither Assignments nor
     Timesheets.
-requirement_starting_flow: false
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

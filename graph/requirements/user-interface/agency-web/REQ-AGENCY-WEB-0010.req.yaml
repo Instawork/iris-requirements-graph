@@ -1,0 +1,93 @@
+requirement_id: REQ-AGENCY-WEB-0010
+requirement_target_layer: user-interface
+requirement_target_module: AGENCY-WEB
+requirement_phase: MVP
+requirement_title: Manage the Agency's own Users
+requirement_statement: >-
+  On the Users screen an Agency User sees who has access to their Agency, invites colleagues, and revokes
+  access or deactivates a User, within the limits REQ-ORG-0005 sets.
+requirement_actors:
+- AGENCY_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The Users screen lists every User holding an AGENCY_USER Role Grant for the Agency, with name, email,
+    phone, whether the invite was accepted, last sign-in, and whether the grant is revoked or the User
+    inactive.
+  rule_sources:
+  - SHEET PLT-1
+  - SHEET PLT-4
+  rule_decisions:
+  - D-25
+- rule_id: R2
+  rule_statement: >-
+    Invite takes an email, first name, last name, and optional phone and calls REQ-ORG-0005 to grant AGENCY_USER
+    for this Agency; the form offers no other role and no other Agency.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-25
+- rule_id: R3
+  rule_statement: >-
+    A User who has not accepted their invite offers Send invite again, which sends a new link through
+    REQ-IDENTITY-0002.
+  rule_sources: []
+  rule_decisions:
+  - D-34
+- rule_id: R4
+  rule_statement: >-
+    Each unrevoked grant offers Revoke and each revoked grant offers Restore, both through REQ-ORG-0005.
+  rule_sources: []
+  rule_decisions:
+  - D-25
+- rule_id: R5
+  rule_statement: >-
+    Deactivate and Reactivate call REQ-ORG-0005, which refuses them for a User who holds any Role Grant
+    other than AGENCY_USER for this Agency.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-25
+requirement_sources:
+- SHEET PLT-1
+- SHEET PLT-4
+requirement_decisions:
+- D-25
+- D-34
+requirement_features:
+- PLT-1
+- PLT-4
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-IDENTITY-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-IDENTITY-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+data_model:
+  status: covered
+  reads:
+  - User.email
+  - User.first_name
+  - User.last_name
+  - User.phone
+  - User.active
+  - User.invited_at
+  - User.invite_accepted_at
+  - User.last_signed_in_at
+  - RoleGrant.*
+  writes: []
+  detail: null
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

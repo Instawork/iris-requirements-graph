@@ -107,6 +107,13 @@ requirement_rules:
   rule_sources:
   - PRD §7 What the agent checks
   rule_decisions: []
+- rule_id: R14
+  rule_statement: >-
+    A list of Shifts or Releases downloaded through REQ-INTAKE-0005 carries each Shift's shift_id,
+    so its rows can be changed and uploaded again as a SHIFTS file.
+  rule_sources:
+  - PRD §6 Templates
+  rule_decisions: []
 requirement_sources:
 - SHEET SC-2
 - PRD §6 Templates
@@ -164,7 +171,7 @@ data_model:
   - Shift.headcount
   - Shift.directions
   detail: null
-requirement_starting_flow: false
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

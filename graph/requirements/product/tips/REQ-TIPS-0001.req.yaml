@@ -128,6 +128,14 @@ requirement_rules:
   - PRD §5 Invoices
   - SESSIONS Timesheets, Tips & Expenses
   rule_decisions: []
+- rule_id: R16
+  rule_statement: >-
+    A Unit User may set or change the valid_to of a cashier PIN mapping in their scope; its PIN,
+    Worker, and valid_from never change.
+  rule_sources:
+  - SHEET 4.4
+  rule_decisions:
+  - D-60
 requirement_sources:
 - SHEET TS-11
 - SHEET 4.4

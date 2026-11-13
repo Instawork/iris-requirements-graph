@@ -4,31 +4,128 @@ requirement_target_module: ASSISTANT
 requirement_phase: MVP
 requirement_title: Show every Proposal as a card to approve
 requirement_statement: >-
-  The assistant shows each Proposal as a card with rows ready, rows to review, and the suggested fixes.
-requirement_actors: []
+  Wherever a Proposal is shown it is one card: the items ready, the items that need review with each problem
+  and suggested fix, and the actions to decide it. After apply, the card shows what was saved.
+requirement_actors:
+- PROGRAM_USER
+- UNIT_USER
+- AGENCY_USER
 requirement_rules:
 - rule_id: R1
-  rule_statement: The card offers accept all, review each, and edit.
-  rule_sources: []
+  rule_statement: >-
+    The card shows the Proposal's summary, how many items have no problem, and how many need review.
+  rule_sources:
+  - PRD §6 Uploads
+  - PRD §7 File attached
   rule_decisions: []
 - rule_id: R2
-  rule_statement: After approval, the reply says what changed and links to it.
+  rule_statement: >-
+    Each item that needs review shows its row number when it came from a file, the field, the problem,
+    and the suggested fix when there is one.
+  rule_sources:
+  - PRD §6 Uploads
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    On each such item the User accepts the fix, edits the values, or rejects the item, and one action
+    accepts every undecided item; each calls REQ-AGENT-0002.
+  rule_sources:
+  - PRD §6 Uploads
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    An item with no problem can also be opened, edited, or rejected, and is otherwise saved as proposed.
+  rule_sources:
+  - PRD §7 Typed request
+  rule_decisions:
+  - D-36
+- rule_id: R5
+  rule_statement: >-
+    A card shows values as the owning requirement priced or checked them, such as each Shift line's Agency
+    and Bill Rate on a REQUEST_DRAFT or each share on a TIP_ENTRY.
+  rule_sources:
+  - PRD §7 Typed request
+  - SHEET TS-11
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    The apply action states how many items it will save and is disabled while an item with a problem has
+    no decision.
+  rule_sources:
+  - PRD §6 Uploads
+  rule_decisions:
+  - D-36
+- rule_id: R7
+  rule_statement: >-
+    Reject all calls REQ-AGENT-0002 to reject the Proposal, and nothing is saved.
+  rule_sources:
+  - PRD §6 Uploads
+  - PRD §7 When the agent is unsure
+  rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    After apply, the card says how many items were saved, lists each FAILED_RECHECK item with its result_message,
+    and links to the screen that shows the saved records.
+  rule_sources:
+  - PRD §7 After the user approves
+  rule_decisions:
+  - D-36
+- rule_id: R9
+  rule_statement: >-
+    A decided Proposal's card is read-only, and it says that a failed item is retried by sending the file
+    or request again.
   rule_sources: []
+  rule_decisions:
+  - D-36
+- rule_id: R10
+  rule_statement: >-
+    Only the User the Proposal was made for can open its card; anyone else is shown the refusal of REQ-AGENT-0002.
+  rule_sources:
+  - PRD §7 When the agent is unsure
+  rule_decisions:
+  - D-36
+- rule_id: R11
+  rule_statement: >-
+    Where the owner offers several possible matches, such as Workers with the same name, the item lists
+    them and the User picks one or none.
+  rule_sources:
+  - PRD §4 How the system matches a professional
   rule_decisions: []
 requirement_sources:
-- PRD §7 Agent chat
-requirement_decisions: []
+- PRD §7 Agent Chat
+- PRD §6 Uploads
+requirement_decisions:
+- D-36
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AGENT-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0013
 data_model:
-  status: not_applicable
-  reads: []
+  status: covered
+  reads:
+  - Proposal.kind
+  - Proposal.channel
+  - Proposal.created_for
+  - Proposal.summary
+  - Proposal.status
+  - Proposal.decided_by
+  - Proposal.decided_at
+  - ProposalItem.proposal_id
+  - ProposalItem.row_no
+  - ProposalItem.action
+  - ProposalItem.record_type
+  - ProposalItem.record_id
+  - ProposalItem.values
+  - ProposalItem.problem
+  - ProposalItem.suggested_fix
+  - ProposalItem.decision
+  - ProposalItem.result
+  - ProposalItem.result_message
   writes: []
   detail: null
-  migration_entities: []
-requirement_starting_flow: false
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

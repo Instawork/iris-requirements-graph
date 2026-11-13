@@ -1,0 +1,123 @@
+requirement_id: REQ-PROGRAM-WEB-0011
+requirement_target_layer: user-interface
+requirement_target_module: PROGRAM-WEB
+requirement_phase: MVP
+requirement_title: See every Shift, Release, and Timesheet across the program
+requirement_statement: >-
+  On the Shifts screen a Program User sees every Shift at every Unit, with its Releases, assigned Workers,
+  Timesheets, and rate flags. The screen is read-only.
+requirement_actors:
+- PROGRAM_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The Program Shifts screen lists every Shift with its Unit, Position, work date, times, headcount,
+    ASSIGNED count, status, and the Agencies holding its Releases, grouped by work date.
+  rule_sources:
+  - PRD §2 Shifts
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    It filters by Sector, Region, District, or Unit, by Agency, by status, and by date range, and opens
+    on Shifts that have not ended, soonest first.
+  rule_sources:
+  - PRD §2 Shifts
+  - DEMO components/shifts/shifts-page.tsx
+  rule_decisions:
+  - D-63
+- rule_id: R3
+  rule_statement: >-
+    A flags filter keeps Shifts with a Release sent off-contract or to a non-contracted Agency, or with
+    a Timesheet carrying RATE_VARIANCE.
+  rule_sources:
+  - SHEET RC-10
+  - SHEET RC-11
+  rule_decisions:
+  - D-2
+- rule_id: R4
+  rule_statement: >-
+    Opening a Shift shows each Release with its Agency, headcount, status, and three Bill Rates, the contracted
+    rate and difference REQ-RATES-0006 reports, any bill_rate_reason, and whether it was non-contracted.
+  rule_sources:
+  - SHEET RC-10
+  rule_decisions:
+  - D-2
+- rule_id: R5
+  rule_statement: >-
+    The Shift's page lists each ASSIGNED Worker with their Agency, and each Timesheet with its hours,
+    status, exception_reasons, and the rate variance REQ-RATES-0006 reports.
+  rule_sources:
+  - PRD §2 Shifts
+  - SHEET RC-10
+  rule_decisions:
+  - D-2
+- rule_id: R6
+  rule_statement: >-
+    The screen offers no action: a Program User cannot book, change, send, cancel, staff, or approve anything
+    here.
+  rule_sources:
+  - PRD §2 Shifts
+  rule_decisions: []
+requirement_sources:
+- PRD §2 Shifts
+- SHEET RC-10
+requirement_decisions:
+- D-2
+- D-63
+requirement_features:
+- RC-10
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0010
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-DISPATCH-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-DISPATCH-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCIES-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+data_model:
+  status: covered
+  reads:
+  - Shift.*
+  - Request.unit_id
+  - Unit.org_node_id
+  - OrgNode.name
+  - OrgNode.level
+  - OrgNode.parent_id
+  - Position.name
+  - Release.*
+  - Agency.name
+  - RateLine.regular_bill_rate
+  - Assignment.release_id
+  - Assignment.worker_id
+  - Assignment.status
+  - Worker.first_name
+  - Worker.last_name
+  - Timesheet.*
+  writes: []
+  detail: null
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

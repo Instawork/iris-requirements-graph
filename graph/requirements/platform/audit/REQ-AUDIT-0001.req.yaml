@@ -102,7 +102,7 @@ data_model:
   detail: >-
     The caller passes the actor, the Proposal, and the before and after values; AUDIT reads no other module's
     records.
-requirement_starting_flow: false
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

@@ -1,0 +1,74 @@
+requirement_id: REQ-ADMIN-WEB-0004
+requirement_target_layer: user-interface
+requirement_target_module: ADMIN-WEB
+requirement_phase: MVP
+requirement_title: Keep state and local Labor Rules
+requirement_statement: >-
+  On the Labor rules screen an Instawork Admin adds, changes, and ends the state and city rules for breaks,
+  minimum wage, and overtime.
+requirement_actors:
+- INSTAWORK_ADMIN
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The Labor rules screen lists every Labor Rule by state, city, and kind, with its threshold_minutes,
+    break_minutes, or minimum_wage, effective_from, and effective_to, and filters by state and kind.
+  rule_sources:
+  - SHEET WA-18
+  rule_decisions:
+  - D-26
+  - D-63
+- rule_id: R2
+  rule_statement: >-
+    Add rule takes a state, an optional city, a kind, the values that kind needs, and effective_from,
+    and saves through REQ-LABOR-0001.
+  rule_sources:
+  - SHEET WA-18
+  rule_decisions:
+  - D-26
+- rule_id: R3
+  rule_statement: >-
+    Each rule offers Change, and End, which sets its effective_to, both through REQ-LABOR-0001.
+  rule_sources:
+  - SHEET WA-18
+  rule_decisions:
+  - D-26
+- rule_id: R4
+  rule_statement: >-
+    The form says that a new rule for a state, city, and kind is refused until the earlier rule for them
+    is ended.
+  rule_sources: []
+  rule_decisions:
+  - D-57
+requirement_sources:
+- SHEET WA-18
+requirement_decisions:
+- D-26
+- D-57
+- D-63
+requirement_features:
+- WA-18
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0010
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-LABOR-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+data_model:
+  status: covered
+  reads:
+  - LaborRule.*
+  writes: []
+  detail: null
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

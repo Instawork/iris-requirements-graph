@@ -1,0 +1,135 @@
+requirement_id: REQ-PROGRAM-WEB-0009
+requirement_target_layer: user-interface
+requirement_target_module: PROGRAM-WEB
+requirement_phase: MVP
+requirement_title: Approve Agency rate changes and follow Rate Reviews
+requirement_statement: >-
+  On the Rates screen a Program User approves or sends back each Rate Line an Agency submitted, and follows
+  the Rate Reviews sent to Agencies until each is answered.
+requirement_actors:
+- PROGRAM_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The approval queue, a tab of the Rates screen, lists PENDING Rate Lines, oldest first, each with its
+    Agency, Position, Market or Unit, six rates, effective_from, and who submitted it.
+  rule_sources:
+  - SESSIONS Rate Cards & Supplier Sourcing
+  rule_decisions:
+  - D-10
+  - D-66
+- rule_id: R2
+  rule_statement: >-
+    Each queued line shows the APPROVED line it would replace, when there is one, and the change in each
+    rate.
+  rule_sources:
+  - SHEET RC-5
+  rule_decisions:
+  - D-10
+- rule_id: R3
+  rule_statement: >-
+    A queued Market line also shows the Peer Rate for its Position and Market, when there is one, and
+    whether REQ-RATES-0008 would flag its regular Bill Rate.
+  rule_sources:
+  - SHEET RC-12
+  rule_decisions:
+  - D-12
+- rule_id: R4
+  rule_statement: >-
+    Approve calls REQ-RATES-0009, and the line then leaves the queue and shows as APPROVED in the Rate
+    Lines list.
+  rule_sources:
+  - SESSIONS Rate Cards & Supplier Sourcing
+  rule_decisions:
+  - D-10
+- rule_id: R5
+  rule_statement: >-
+    Send back takes a reason and calls REQ-RATES-0009, and the line leaves the queue as SENT_BACK.
+  rule_sources:
+  - DEMO lib/types.ts
+  rule_decisions:
+  - D-10
+- rule_id: R6
+  rule_statement: >-
+    A queued line whose effective_from is before that of the APPROVED line it would replace is marked
+    as one that cannot be approved, and offers only Send back.
+  rule_sources: []
+  rule_decisions:
+  - D-55
+- rule_id: R7
+  rule_statement: >-
+    A Rate Reviews tab lists each review with its Agency, the line, the Peer Rate when it was requested,
+    who requested it, when, and its status.
+  rule_sources:
+  - SHEET RC-12
+  rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    A KEPT review shows the Agency's reason, and a review answered with a lower line links to that line
+    and shows LOWERED once the line is APPROVED.
+  rule_sources:
+  - SHEET RC-12
+  rule_decisions:
+  - D-10
+- rule_id: R9
+  rule_statement: >-
+    Reviews list REQUESTED ones first, then newest first, and filter by status and Agency.
+  rule_sources: []
+  rule_decisions:
+  - D-63
+requirement_sources:
+- SESSIONS Rate Cards & Supplier Sourcing
+- SHEET RC-12
+requirement_decisions:
+- D-10
+- D-12
+- D-55
+- D-63
+- D-66
+requirement_features:
+- RC-12
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0010
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCIES-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-CATALOG-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-CATALOG-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+data_model:
+  status: covered
+  reads:
+  - RateLine.*
+  - RateReview.*
+  - Agency.name
+  - Position.name
+  - Market.name
+  - Market.state
+  - Unit.org_node_id
+  - OrgNode.name
+  - User.first_name
+  - User.last_name
+  writes: []
+  detail: null
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

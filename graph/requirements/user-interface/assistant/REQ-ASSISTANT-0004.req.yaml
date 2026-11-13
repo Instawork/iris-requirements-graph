@@ -1,0 +1,102 @@
+requirement_id: REQ-ASSISTANT-0004
+requirement_target_layer: user-interface
+requirement_target_module: ASSISTANT
+requirement_phase: MVP
+requirement_title: Answer reporting questions in the assistant and save the answer
+requirement_statement: >-
+  A Unit User or a Program User asks a question about spend or labor in the assistant and sees the answer
+  there as a chart, a table, or a dashboard. They can save it as a Saved Report.
+requirement_actors:
+- UNIT_USER
+- PROGRAM_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The answer REQ-REPORTING-0003 returns appears in the conversation as a chart or a table for one measure,
+    and as a dashboard for several.
+  rule_sources:
+  - SHEET REP-1
+  rule_decisions:
+  - D-45
+- rule_id: R2
+  rule_statement: >-
+    Each answer states the measures, groupings, filters, and dates it used, so the User can see how the
+    question was read.
+  rule_sources:
+  - PRD §7 What the LLM does and what code does
+  rule_decisions:
+  - D-64
+- rule_id: R3
+  rule_statement: >-
+    When REQ-REPORTING-0003 asks which measure or period is meant, the question appears in the conversation
+    and no number is shown until the User answers.
+  rule_sources:
+  - PRD §7 Agent Chat
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    Each answer offers Save, which asks for a name and keeps it as a Saved Report through REQ-REPORTING-0003.
+  rule_sources:
+  - SHEET REP-1
+  - SESSIONS Reporting
+  rule_decisions:
+  - D-45
+- rule_id: R5
+  rule_statement: A table in an answer downloads through REQ-SHELL-0010.
+  rule_sources:
+  - PRD §6 Uploads
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    An Agency User who asks such a question is told that reports are for Unit Users and Program Users,
+    and gets no numbers.
+  rule_sources: []
+  rule_decisions:
+  - D-45
+- rule_id: R7
+  rule_statement: >-
+    A measure REQ-REPORTING-0003 returns as not available is shown in those words, never as zero or a
+    blank.
+  rule_sources: []
+  rule_decisions:
+  - D-42
+  - D-43
+requirement_sources:
+- SHEET REP-1
+- SESSIONS Reporting
+requirement_decisions:
+- D-42
+- D-43
+- D-45
+- D-64
+requirement_features:
+- REP-1
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ASSISTANT-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-REPORTING-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0010
+data_model:
+  status: covered
+  reads:
+  - SavedReport.owner_id
+  - SavedReport.name
+  - SavedReport.measures
+  - SavedReport.group_by
+  - SavedReport.filters
+  - SavedReport.period_start
+  - SavedReport.period_end
+  - SavedReport.relative_period
+  writes: []
+  detail: null
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

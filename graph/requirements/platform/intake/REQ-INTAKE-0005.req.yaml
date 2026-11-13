@@ -51,7 +51,7 @@ data_model:
   writes: []
   detail: >-
     Writes out the rows the caller passes; it reads and stores nothing itself.
-requirement_starting_flow: false
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

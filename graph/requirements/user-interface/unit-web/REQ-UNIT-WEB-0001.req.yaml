@@ -2,41 +2,149 @@ requirement_id: REQ-UNIT-WEB-0001
 requirement_target_layer: user-interface
 requirement_target_module: UNIT-WEB
 requirement_phase: MVP
-requirement_title: Unit home
-requirement_statement: A Unit User's home lists their to-dos and a summary of their spend.
-requirement_actors: []
+requirement_title: 'Unit home: to-dos, a spend summary, and the Unit menu'
+requirement_statement: >-
+  A Unit User's home lists their to-dos and a summary of spend for the Units in their scope. It also names
+  the Unit menu and lets them narrow every screen to one Unit.
+requirement_actors:
+- UNIT_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    To-dos are Timesheet exceptions to review, declined Releases to resend, and Shifts starting soon with
-    open headcount.
-  rule_sources: []
-  rule_decisions: []
+    The Unit User menu lists Home, Shifts, Timesheets, Tips, Workers, Agencies, Events, Reports, Uploads,
+    and Setup, in that order.
+  rule_sources:
+  - PRD Pages
+  rule_decisions:
+  - D-65
 - rule_id: R2
   rule_statement: >-
-    Spend shows this week and this month against the prior period, against budget, and by Agency.
-  rule_sources: []
-  rule_decisions: []
+    A Unit User whose scope covers several Units sees them together and can narrow every Unit screen to
+    one Unit, a choice kept from screen to screen.
+  rule_sources:
+  - SHEET PLT-1
+  - SHEET REP-7
+  rule_decisions:
+  - D-65
+- rule_id: R3
+  rule_statement: >-
+    Home shows the to-do list of REQ-SHELL-0003 with three lines: Timesheets to review, headcount to send,
+    and badge requests to issue.
+  rule_sources:
+  - PRD §1 Detailed requirements
+  rule_decisions:
+  - D-62
+- rule_id: R4
+  rule_statement: >-
+    Timesheets to review counts every SUBMITTED Timesheet in scope, shows their total billed amount and
+    how many are late, and opens the exception list.
+  rule_sources:
+  - SHEET TS-7
+  - PRD §1 Detailed requirements
+  rule_decisions:
+  - D-13
+  - D-62
+- rule_id: R5
+  rule_statement: >-
+    Headcount to send counts Shifts in scope that have not started and have unsent headcount, shows the
+    time until the earliest starts, and opens the Shifts list filtered to them.
+  rule_sources:
+  - SHEET SC-7
+  - SHEET SC-8
+  rule_decisions:
+  - D-17
+  - D-62
+- rule_id: R6
+  rule_statement: >-
+    Badge requests to issue counts REQUESTED BadgeRequests at secured Units in scope, shows the age of
+    the oldest, and opens the Badges tab.
+  rule_sources:
+  - SHEET WA-17
+  rule_decisions:
+  - D-27
+  - D-62
+- rule_id: R7
+  rule_statement: >-
+    The second section is the spend summary from REQ-REPORTING-0008: the month to date against budget
+    and the prior month, and the Work Week to date against the prior Work Week.
+  rule_sources:
+  - SHEET REP-7
+  - PRD §1 Detailed requirements
+  rule_decisions:
+  - D-14
+- rule_id: R8
+  rule_statement: >-
+    Each spend figure shows its APPROVED_SPEND and PENDING_SPEND parts, and the summary links to the Reports
+    screen for the breakdowns.
+  rule_sources:
+  - PRD §1 Detailed requirements
+  rule_decisions:
+  - D-29
 requirement_sources:
-- PRD §1 Buyer view
+- PRD §1 Dashboard / Profile
+- PRD §1 Detailed requirements
 - SHEET REP-7
-requirement_decisions: []
-requirement_features: []
+requirement_decisions:
+- D-13
+- D-14
+- D-17
+- D-27
+- D-29
+- D-62
+- D-65
+requirement_features:
+- REP-7
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0003
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0001
+- edge_type: DEPENDS_ON
   requirement_id: REQ-TIME-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0007
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-DISPATCH-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-DISPATCH-0002
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-COMPLIANCE-0006
+- edge_type: DEPENDS_ON
   requirement_id: REQ-REPORTING-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0002
 data_model:
-  status: not_applicable
-  reads: []
+  status: covered
+  reads:
+  - Timesheet.assignment_id
+  - Timesheet.status
+  - Timesheet.regular_minutes
+  - Timesheet.overtime_minutes
+  - Timesheet.double_time_minutes
+  - Timesheet.regular_bill_rate
+  - Timesheet.overtime_bill_rate
+  - Timesheet.double_time_bill_rate
+  - Shift.request_id
+  - Shift.starts_at
+  - Shift.ends_at
+  - Shift.headcount
+  - Shift.status
+  - Request.unit_id
+  - Release.shift_id
+  - Release.headcount
+  - Release.status
+  - BadgeRequest.unit_id
+  - BadgeRequest.status
+  - BadgeRequest.requested_at
+  - Unit.org_node_id
+  - Unit.is_secured_site
+  - OrgNode.name
+  - Budget.unit_id
+  - Budget.period_start
+  - Budget.period_end
+  - Budget.amount
   writes: []
   detail: null
-  migration_entities: []
 requirement_starting_flow: false
 requirement_review:
   status: draft

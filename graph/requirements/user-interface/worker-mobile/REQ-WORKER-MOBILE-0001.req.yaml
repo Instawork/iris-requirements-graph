@@ -4,31 +4,45 @@ requirement_target_module: WORKER-MOBILE
 requirement_phase: P3
 requirement_title: Show Workers their Shifts on their phone
 requirement_statement: >-
-  A Worker from any Agency sees their Shift details, site instructions, and credential status on their
-  phone, and checks in there.
-requirement_actors: []
-requirement_rules: []
+  A Worker from any Agency sees their Shift details, site instructions, and Credential status on their
+  phone.
+requirement_actors:
+- WORKER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    On their phone, a Worker of any Agency sees each Shift they are assigned to, its site instructions,
+    and the status of the Credentials it requires, and clocks in through REQ-TIME-0010.
+  rule_sources:
+  - SHEET TS-2
+  - SHEET TS-1
+  rule_decisions:
+  - D-5
 requirement_sources:
-- SHEET
-requirement_decisions: []
+- SHEET TS-2
+requirement_decisions:
+- D-5
 requirement_features:
 - TS-2
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORDERING-0006
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0003
+- edge_type: DEPENDS_ON
   requirement_id: REQ-COMPLIANCE-0005
 - edge_type: DEPENDS_ON
   requirement_id: REQ-TIME-0010
 data_model:
-  status: not_applicable
+  status: pending
   reads: []
   writes: []
-  detail: null
-  migration_entities: []
+  detail: >-
+    Phase 3. A Worker has no sign-in, no Role, and no link from a User to a Worker in the MVP data model;
+    those arrive with clock-in (D-5).
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

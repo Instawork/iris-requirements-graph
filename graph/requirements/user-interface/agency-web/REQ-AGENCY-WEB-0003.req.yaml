@@ -2,39 +2,121 @@ requirement_id: REQ-AGENCY-WEB-0003
 requirement_target_layer: user-interface
 requirement_target_module: AGENCY-WEB
 requirement_phase: MVP
-requirement_title: Manage Workers and their credentials
+requirement_title: Keep the Agency's Worker roster
 requirement_statement: >-
-  An Agency User adds Workers one at a time or from a file, uploads their credentials, and records attestations.
-requirement_actors: []
+  On the Workers screen an Agency User lists the Agency's Workers, adds them one at a time or from a file,
+  changes their details, and deactivates them. The roster shows which Workers have Credentials that need
+  action.
+requirement_actors:
+- AGENCY_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Each Worker shows whether they are compliant, what is missing or expiring, and their ratings from
-    Units.
-  rule_sources: []
+    The Workers screen has a roster tab and an Issues tab, and the roster lists the Agency's Workers by
+    last name with name, email, phone, city, Positions, and whether active.
+  rule_sources:
+  - SHEET WA-1
+  - PRD §4 Professionals
+  rule_decisions:
+  - D-66
+- rule_id: R2
+  rule_statement: >-
+    Each row shows how many of the Worker's Credentials are REJECTED, expired, or within CREDENTIAL_EXPIRY_WARNING_DAYS
+    of expiry and not replaced by a newer one, and how many are PENDING_CHECK or NEEDS_REVIEW.
+  rule_sources:
+  - SHEET WA-14
+  rule_decisions:
+  - D-16
+  - D-67
+- rule_id: R3
+  rule_statement: >-
+    The roster filters to active or inactive Workers, to Workers with a Credential counted in either group,
+    and by Position, and searches by name, email, or phone.
+  rule_sources:
+  - SESSIONS Worker Assignment & Compliance
+  - DEMO components/pros/professionals-page.tsx
+  rule_decisions:
+  - D-63
+- rule_id: R4
+  rule_statement: >-
+    Add Worker takes a first and last name and, optionally, an email, phone, city, Positions from the
+    catalog, and a photo, and saves through REQ-WORKFORCE-0001.
+  rule_sources:
+  - SHEET WA-1
+  rule_decisions:
+  - D-50
+- rule_id: R5
+  rule_statement: >-
+    Each Worker offers Edit for the same fields, and Deactivate or Reactivate; an inactive Worker is marked
+    as one who cannot be assigned.
+  rule_sources:
+  - SHEET WA-1
+  rule_decisions:
+  - D-50
+- rule_id: R6
+  rule_statement: >-
+    Upload Workers opens the Uploads send step of REQ-SHELL-0008 with WORKERS picked, and REQ-WORKFORCE-0001
+    saves the accepted rows.
+  rule_sources:
+  - SHEET WA-1
+  - PRD §4 Professionals
+  rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    Upload Credentials opens that step with CREDENTIALS picked, for the documents of many Workers at once,
+    and REQ-COMPLIANCE-0002 saves them.
+  rule_sources:
+  - SHEET WA-14
+  rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    Selecting a Worker opens that Worker's page, with their Credentials and Attestations.
+  rule_sources:
+  - PRD §4 Professionals
   rule_decisions: []
 requirement_sources:
 - SHEET WA-1
-- SESSIONS Worker compliance
-requirement_decisions: []
-requirement_features: []
+- PRD §4 Professionals
+requirement_decisions:
+- D-16
+- D-50
+- D-63
+- D-66
+- D-67
+requirement_features:
+- WA-1
+- WA-14
 edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0010
 - edge_type: DEPENDS_ON
   requirement_id: REQ-WORKFORCE-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-COMPLIANCE-0002
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-COMPLIANCE-0004
+  requirement_id: REQ-COMPLIANCE-0003
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-COMPLIANCE-0005
+  requirement_id: REQ-CATALOG-0001
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-WORKFORCE-0005
+  requirement_id: REQ-ORG-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
-  status: not_applicable
-  reads: []
+  status: covered
+  reads:
+  - Worker.*
+  - Position.name
+  - Credential.worker_id
+  - Credential.credential_type_id
+  - Credential.status
+  - Credential.expires_on
+  - Credential.replaces_id
   writes: []
   detail: null
-  migration_entities: []
 requirement_starting_flow: true
 requirement_review:
   status: draft

@@ -1,0 +1,80 @@
+requirement_id: REQ-ADMIN-WEB-0001
+requirement_target_layer: user-interface
+requirement_target_module: ADMIN-WEB
+requirement_phase: MVP
+requirement_title: 'Instawork Admin home: reference data and the first Program User'
+requirement_statement: >-
+  An Instawork Admin's home shows what reference data is loaded and lets them invite the first Program
+  User. It also names the Instawork Admin menu.
+requirement_actors:
+- INSTAWORK_ADMIN
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The Instawork Admin menu lists Home, Positions, Markets, and Labor rules, in that order.
+  rule_sources: []
+  rule_decisions:
+  - D-26
+  - D-66
+- rule_id: R2
+  rule_statement: >-
+    Home has no to-do list; it shows how many active Positions, how many Markets, and how many Labor Rules
+    in effect today are loaded.
+  rule_sources: []
+  rule_decisions:
+  - D-26
+  - D-66
+- rule_id: R3
+  rule_statement: >-
+    While no unrevoked PROGRAM_USER grant exists, Home offers Invite the first Program User, which embeds
+    the invite form of REQ-PROGRAM-WEB-0007 with the role fixed to PROGRAM_USER.
+  rule_sources: []
+  rule_decisions:
+  - D-26
+- rule_id: R4
+  rule_statement: >-
+    Once a Program User exists, Home says so and no longer offers the invite.
+  rule_sources: []
+  rule_decisions:
+  - D-26
+requirement_sources:
+- SHEET PLT-1
+requirement_decisions:
+- D-26
+- D-66
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-PROGRAM-WEB-0007
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-CATALOG-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-CATALOG-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-LABOR-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+data_model:
+  status: covered
+  reads:
+  - Position.active
+  - Market.name
+  - LaborRule.effective_from
+  - LaborRule.effective_to
+  - RoleGrant.role
+  - RoleGrant.revoked_at
+  writes: []
+  detail: null
+requirement_starting_flow: true
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

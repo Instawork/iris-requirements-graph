@@ -149,7 +149,7 @@ data_model:
   - Shift.site_contact
   - Shift.attire
   detail: null
-requirement_starting_flow: false
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

@@ -66,7 +66,7 @@ data_model:
   - Unit.org_node_id
   writes: []
   detail: Reads only. Setting rows are saved by REQ-ORG-0010.
-requirement_starting_flow: false
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

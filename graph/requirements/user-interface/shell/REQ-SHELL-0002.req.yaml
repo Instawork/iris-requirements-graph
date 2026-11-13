@@ -2,26 +2,99 @@ requirement_id: REQ-SHELL-0002
 requirement_target_layer: user-interface
 requirement_target_module: SHELL
 requirement_phase: MVP
-requirement_title: Show who the user is acting as
+requirement_title: Show who the User is acting as and let them switch
 requirement_statement: >-
-  Every page shows the signed-in User's persona and scope, such as an Agency or a Unit, so it is always
-  clear whose view this is.
-requirement_actors: []
-requirement_rules: []
+  Every page shows the role the signed-in User is acting in and its scope, such as an Agency or a Unit.
+  A User whose Role Grants give more than one context chooses which to act in.
+requirement_actors:
+- INSTAWORK_ADMIN
+- PROGRAM_USER
+- UNIT_USER
+- AGENCY_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    A User acts in one context at a time: UNIT_USER across all their UNIT_USER grants, AGENCY_USER for
+    one Agency, PROGRAM_USER, or INSTAWORK_ADMIN.
+  rule_sources:
+  - SHEET PLT-1
+  rule_decisions:
+  - D-25
+  - D-61
+- rule_id: R2
+  rule_statement: >-
+    Only unrevoked Role Grants give a context, and a User with none sees a page that says they have no
+    access and offers only sign out.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-25
+  - D-61
+- rule_id: R3
+  rule_statement: >-
+    A User with one context starts in it after sign-in; a User with several is asked to choose one, and
+    can switch from any page without signing out.
+  rule_sources:
+  - DEMO components/shell/sidebar.tsx
+  rule_decisions:
+  - D-25
+  - D-61
+- rule_id: R4
+  rule_statement: >-
+    Every page shows the acting role and its scope: the org nodes of the UNIT_USER grants, the Agency's
+    name, or the whole program.
+  rule_sources:
+  - FEEDBACK
+  - SHEET PLT-1
+  rule_decisions:
+  - D-61
+- rule_id: R5
+  rule_statement: >-
+    Switching opens the Home of the chosen context, changes the menu to that role's screens, and changes
+    no record.
+  rule_sources:
+  - DEMO hooks/use-switch-workspace.ts
+  rule_decisions:
+  - D-61
+- rule_id: R6
+  rule_statement: >-
+    The acting role is the role the screens give REQ-INTAKE-0001, REQ-INTAKE-0003, and REQ-AGENT-0003
+    when those ask which role the User is acting in.
+  rule_sources:
+  - PRD §6 Uploads
+  rule_decisions:
+  - D-61
 requirement_sources:
+- SHEET PLT-1
 - FEEDBACK
-requirement_decisions: []
-requirement_features: []
+requirement_decisions:
+- D-25
+- D-61
+requirement_features:
+- PLT-1
 edges:
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-IDENTITY-0001
+- edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCIES-0001
 data_model:
-  status: not_applicable
-  reads: []
+  status: covered
+  reads:
+  - RoleGrant.user_id
+  - RoleGrant.role
+  - RoleGrant.org_node_id
+  - RoleGrant.agency_id
+  - RoleGrant.revoked_at
+  - OrgNode.name
+  - OrgNode.level
+  - Agency.name
   writes: []
   detail: null
-  migration_entities: []
-requirement_starting_flow: false
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

@@ -4,35 +4,110 @@ requirement_target_module: ASSISTANT
 requirement_phase: MVP
 requirement_title: Open the Iris assistant from any page
 requirement_statement: >-
-  Every page opens the assistant, where users attach files or type requests. It offers starters for the
-  user's persona.
-requirement_actors: []
+  Every signed-in page opens the assistant, a chat panel where a User types a request or attaches a file.
+  It opens with starters for the role the User is acting in.
+requirement_actors:
+- PROGRAM_USER
+- UNIT_USER
+- AGENCY_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Unit starters are book a shift, upload shifts, download a template, and approve recent hours.
-  rule_sources: []
+    The frame of every signed-in page has a control that opens the assistant as a panel over the page,
+    without leaving it.
+  rule_sources:
+  - PRD §7 Agent Chat
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    Agency starters are upload a rate card, upload workers, download a template, assign workers to open
-    shifts, and submit hours and tips.
-  rule_sources: []
+    The panel has one input for typed text and attached files, and shows the User's messages and Iris's
+    answers in order.
+  rule_sources:
+  - PRD §7 Opening screen
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    Files sent in the assistant appear in the upload log like any other upload.
-  rule_sources: []
+    For a Unit User it opens with four starters: book a Shift, upload Shifts, download the Shifts template,
+    and approve recent Timesheets.
+  rule_sources:
+  - PRD §7 Opening screen
+  - SESSIONS Timesheets, Tips & Expenses
   rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    For an Agency User the starters are upload a Rate Card, upload Workers, download a template, assign
+    Workers to Shifts, and submit hours and tips.
+  rule_sources:
+  - PRD §7 Opening screen
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    For a Program User the starters are ask a spend question, upload Units, upload Agencies, upload a
+    Rate Card, and download a template.
+  rule_sources:
+  - SESSIONS Reporting
+  - FEEDBACK
+  rule_decisions:
+  - D-64
+- rule_id: R6
+  rule_statement: >-
+    A starter opens the file chooser for an upload, gives the template through REQ-INTAKE-0003 for a download,
+    or begins that request in the conversation.
+  rule_sources:
+  - PRD §7 Opening screen
+  - PRD §7 How it works
+  rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    A file attached in the panel is sent through REQ-INTAKE-0001 with channel ASSISTANT, and its status
+    and its Proposal card appear in the conversation.
+  rule_sources:
+  - PRD §7 How it connects
+  - PRD §7 File attached
+  rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    When Iris cannot tell an attached file's upload type, the panel asks the User to pick one of the types
+    the acting role may send.
+  rule_sources:
+  - PRD §7 When the agent is unsure
+  rule_decisions: []
+- rule_id: R9
+  rule_statement: >-
+    When the acting role may not send the file's type, the panel names the roles that may, and nothing
+    is saved.
+  rule_sources:
+  - PRD §7 When the agent is unsure
+  rule_decisions: []
+- rule_id: R10
+  rule_statement: >-
+    Each time it opens, the panel lists the User's OPEN Proposals, oldest first, whichever channel they
+    came through, each as the card of REQ-ASSISTANT-0002.
+  rule_sources: []
+  rule_decisions:
+  - D-36
+  - D-64
+- rule_id: R11
+  rule_statement: >-
+    The conversation lasts for the session only; after sign-out the User still finds their Uploads in
+    the upload log and their OPEN Proposals in the panel.
+  rule_sources: []
+  rule_decisions:
+  - D-36
+  - D-64
 requirement_sources:
-- PRD §7 Agent chat
-requirement_decisions: []
+- PRD §7 Agent Chat
+requirement_decisions:
+- D-36
+- D-64
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-AGENT-0001
+  requirement_id: REQ-SHELL-0009
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-AGENT-0002
+  requirement_id: REQ-ASSISTANT-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AGENT-0003
 - edge_type: DEPENDS_ON
@@ -42,11 +117,21 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-INTAKE-0004
 data_model:
-  status: not_applicable
-  reads: []
+  status: covered
+  reads:
+  - Proposal.kind
+  - Proposal.channel
+  - Proposal.created_for
+  - Proposal.summary
+  - Proposal.status
+  - Upload.file_name
+  - Upload.type
+  - Upload.status
+  - Upload.failure_reason
+  - Upload.proposal_id
+  - RoleGrant.role
   writes: []
   detail: null
-  migration_entities: []
 requirement_starting_flow: false
 requirement_review:
   status: draft

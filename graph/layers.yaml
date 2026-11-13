@@ -7,7 +7,8 @@ layers:
   - module_id: SHELL
     module_name: Web shell
     about: >-
-      What every signed-in page shares: phone-ready layout, persona context, and to-do home pages.
+      What every persona shares: sign-in, the page frame and menu, persona context, to-do home pages, the
+      inbox, the Uploads page, table downloads, change history, and Saved Reports.
   - module_id: UNIT-WEB
     module_name: Unit app
     about: >-
@@ -19,10 +20,14 @@ layers:
   - module_id: PROGRAM-WEB
     module_name: Program app
     about: Screens for Program Users, the Compass program office that runs Iris.
+  - module_id: ADMIN-WEB
+    module_name: Instawork admin
+    about: Screens for Instawork Admins, who load reference data and invite the first Program User.
   - module_id: ASSISTANT
     module_name: Iris assistant
     about: >-
-      The chat panel on every page that takes files and plain-language requests.
+      The chat panel on every page that takes files and plain-language requests, the Proposal card, and
+      reporting answers.
   - module_id: WORKER-MOBILE
     module_name: Worker phone
     about: What a Worker from any Agency sees on their phone. Phase 3.

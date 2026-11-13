@@ -151,7 +151,7 @@ data_model:
   - Upload.rows_to_review
   - Upload.proposal_id
   detail: null
-requirement_starting_flow: false
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

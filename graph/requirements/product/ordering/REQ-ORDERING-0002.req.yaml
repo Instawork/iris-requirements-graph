@@ -94,7 +94,7 @@ data_model:
   - RateLine.regular_pay_rate
   writes: []
   detail: null
-requirement_starting_flow: false
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

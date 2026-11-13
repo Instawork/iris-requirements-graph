@@ -1,0 +1,118 @@
+requirement_id: REQ-SHELL-0008
+requirement_target_layer: user-interface
+requirement_target_module: SHELL
+requirement_phase: MVP
+requirement_title: Send files, get templates, and follow uploads on the Uploads page
+requirement_statement: >-
+  On the Uploads page a User sends a file, downloads the templates their role may use, and follows their
+  own Uploads. An Upload waiting for review opens its Proposal.
+requirement_actors:
+- PROGRAM_USER
+- UNIT_USER
+- AGENCY_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The page has an upload type picker, a template download, and a file chooser, and offers only the upload
+    types whose uploaders include the acting role.
+  rule_sources:
+  - PRD §6 Uploads
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    Download template gives the picked type's template, as CSV or Excel, through REQ-INTAKE-0003.
+  rule_sources:
+  - PRD §6 Templates
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    Sending a file calls REQ-INTAKE-0001 with the picked type, or with none so that Iris detects it, and
+    the new Upload shows at the top of the log.
+  rule_sources:
+  - PRD §6 Uploads
+  - PRD §7 Agent Chat
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    Below, the page shows the upload log as REQ-INTAKE-0004 defines it, including files the User sent
+    in the assistant or by email or text.
+  rule_sources:
+  - PRD §6 Uploads
+  - PRD §7 How it connects
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    An IN_REVIEW line opens its Proposal in the card of REQ-ASSISTANT-0002, and a SAVED or DISCARDED line
+    opens the same card read-only.
+  rule_sources:
+  - PRD §6 Uploads
+  - DEMO components/uploads/uploads-page.tsx
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    A NEEDS_TYPE line asks the User to pick the type, which calls REQ-INTAKE-0001 again, and a FAILED
+    line shows its failure_reason.
+  rule_sources:
+  - PRD §7 When the agent is unsure
+  rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    A RECEIVED line says the file is being read, and a DISCARDED line says the User rejected every row.
+  rule_sources:
+  - 'GRAPH data model: UploadStatus meanings'
+  rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    Another screen can open the send step with one upload type already picked, such as SHIFTS from the
+    Shifts list.
+  rule_sources:
+  - PRD §2 Shifts
+  - PRD §3 Supplier Rates
+  rule_decisions: []
+- rule_id: R9
+  rule_statement: >-
+    The Uploads item of the menu shows how many of the User's Uploads are IN_REVIEW or NEEDS_TYPE.
+  rule_sources:
+  - DEMO components/shell/nav-config.ts
+  rule_decisions:
+  - D-61
+requirement_sources:
+- PRD §6 Uploads
+requirement_decisions:
+- D-61
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INTAKE-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INTAKE-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INTAKE-0004
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ASSISTANT-0002
+data_model:
+  status: covered
+  reads:
+  - Upload.file_name
+  - Upload.type
+  - Upload.uploaded_by
+  - Upload.channel
+  - Upload.status
+  - Upload.total_rows
+  - Upload.rows_to_review
+  - Upload.proposal_id
+  - Upload.failure_reason
+  - Upload.created_at
+  writes: []
+  detail: null
+requirement_starting_flow: true
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

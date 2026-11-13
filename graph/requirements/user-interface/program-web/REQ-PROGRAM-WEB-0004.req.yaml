@@ -2,28 +2,106 @@ requirement_id: REQ-PROGRAM-WEB-0004
 requirement_target_layer: user-interface
 requirement_target_module: PROGRAM-WEB
 requirement_phase: MVP
-requirement_title: Manage credential requirements and reviews
+requirement_title: Manage Credential Types and Credential Requirements
 requirement_statement: >-
-  A Program User sets credential requirements, reviews documents Iris could not verify, and audits attestations.
-requirement_actors: []
-requirement_rules: []
+  On the Credentials screen a Program User defines Credential Types and sets where each is required, by
+  org node, by Position, or by both.
+requirement_actors:
+- PROGRAM_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The Credentials screen has a setup tab that lists Credential Types with name, proof of ATTESTATION
+    or VERIFIED_DOCUMENT, whether they expire, whether active, and how many Credential Requirements name
+    each.
+  rule_sources:
+  - SHEET WA-13
+  rule_decisions:
+  - D-3
+  - D-66
+- rule_id: R2
+  rule_statement: >-
+    Add type and Edit type take a name, the proof, and whether the type expires, and save through REQ-COMPLIANCE-0001.
+  rule_sources:
+  - SHEET WA-13
+  rule_decisions:
+  - D-3
+- rule_id: R3
+  rule_statement: >-
+    A type offers Deactivate and Reactivate but no delete, and the page says an inactive type stops being
+    required and keeps its Credentials and Attestations.
+  rule_sources: []
+  rule_decisions:
+  - D-3
+- rule_id: R4
+  rule_statement: >-
+    Credential Requirements are listed with their Credential Type, the org node or every Unit, and the
+    Position or every Position, and filter by each of the three.
+  rule_sources:
+  - SHEET WA-13
+  rule_decisions:
+  - D-56
+- rule_id: R5
+  rule_statement: >-
+    Add requirement picks an active Credential Type, an org node from the tree or none, and a Position
+    or none, and saves through REQ-COMPLIANCE-0001.
+  rule_sources:
+  - SHEET WA-13
+  rule_decisions:
+  - D-56
+- rule_id: R6
+  rule_statement: >-
+    Each requirement offers Remove, which deletes it through REQ-COMPLIANCE-0001.
+  rule_sources:
+  - SHEET WA-13
+  rule_decisions:
+  - D-56
+- rule_id: R7
+  rule_statement: >-
+    Before a requirement is added or removed, the page says eligibility is checked again, so Workers already
+    assigned may come off Shifts that have not started.
+  rule_sources:
+  - SHEET WA-13
+  rule_decisions:
+  - D-51
+- rule_id: R8
+  rule_statement: >-
+    Picking a Unit and a Position shows every Credential Type a Shift there would require under REQ-COMPLIANCE-0001.
+  rule_sources:
+  - SHEET WA-13
+  rule_decisions: []
 requirement_sources:
-- SHEET 3.5
-requirement_decisions: []
-requirement_features: []
+- SHEET 3.4
+- SHEET WA-13
+requirement_decisions:
+- D-3
+- D-51
+- D-56
+- D-66
+requirement_features:
+- WA-13
 edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
 - edge_type: DEPENDS_ON
   requirement_id: REQ-COMPLIANCE-0001
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-COMPLIANCE-0003
+  requirement_id: REQ-ORG-0001
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-COMPLIANCE-0004
+  requirement_id: REQ-CATALOG-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
-  status: not_applicable
-  reads: []
+  status: covered
+  reads:
+  - CredentialType.*
+  - CredentialRequirement.*
+  - OrgNode.name
+  - OrgNode.level
+  - OrgNode.parent_id
+  - Position.name
   writes: []
   detail: null
-  migration_entities: []
 requirement_starting_flow: false
 requirement_review:
   status: draft

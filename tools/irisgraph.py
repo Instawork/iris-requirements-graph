@@ -15,7 +15,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 
 LAYER_ORDER = ["user-interface", "product", "platform"]
 PHASES = ["MVP", "P2", "P3"]
-ROLES = ["INSTAWORK_ADMIN", "PROGRAM_USER", "UNIT_USER", "AGENCY_USER", "SYSTEM"]
+ROLES = ["INSTAWORK_ADMIN", "PROGRAM_USER", "UNIT_USER", "AGENCY_USER", "WORKER", "SYSTEM"]
 SCALAR_TYPES = {"uuid", "text", "int", "decimal", "money", "date", "time", "timestamp", "bool", "json"}
 IMPLICIT_FIELDS = {"id": "uuid", "created_at": "timestamp", "updated_at": "timestamp"}
 CATALOG_ENUMS = {"settings": "SettingKey", "notifications": "NotificationType", "upload-types": "UploadType"}

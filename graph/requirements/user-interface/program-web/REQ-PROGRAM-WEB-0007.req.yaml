@@ -1,0 +1,136 @@
+requirement_id: REQ-PROGRAM-WEB-0007
+requirement_target_layer: user-interface
+requirement_target_module: PROGRAM-WEB
+requirement_phase: MVP
+requirement_title: Manage Users and their Role Grants
+requirement_statement: >-
+  On the Users screen a Program User sees every User with their Role Grants, invites Users, grants and
+  revokes roles, and deactivates or reactivates Users, within the limits REQ-ORG-0005 sets. An Instawork
+  Admin uses the same screen to invite the first Program User.
+requirement_actors:
+- PROGRAM_USER
+- INSTAWORK_ADMIN
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The Users screen lists every User with name, email, phone, whether active, whether the invite was
+    accepted, last sign-in, and each Role Grant's role, scope, and whether it is revoked.
+  rule_sources:
+  - SHEET PLT-1
+  - SHEET PLT-4
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    It filters by role, Agency, org node, and active or inactive, and searches by name or email.
+  rule_sources: []
+  rule_decisions:
+  - D-63
+- rule_id: R3
+  rule_statement: >-
+    Invite takes an email, first name, last name, optional phone, and one role with its scope, and calls
+    REQ-ORG-0005.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-25
+- rule_id: R4
+  rule_statement: >-
+    The role is PROGRAM_USER with no scope, UNIT_USER at an org node picked from the tree, or AGENCY_USER
+    for one Agency; the form offers no INSTAWORK_ADMIN role.
+  rule_sources:
+  - SHEET PLT-1
+  rule_decisions:
+  - D-25
+  - D-26
+- rule_id: R5
+  rule_statement: >-
+    When a UNIT_USER scope is picked, the form says it covers every Unit at or beneath that node.
+  rule_sources:
+  - SHEET PLT-2
+  - FAQ
+  rule_decisions:
+  - D-25
+- rule_id: R6
+  rule_statement: >-
+    An existing User offers Add role, and each of their grants offers Revoke, or Restore once revoked,
+    all through REQ-ORG-0005.
+  rule_sources: []
+  rule_decisions:
+  - D-25
+- rule_id: R7
+  rule_statement: >-
+    Send invite again, offered until a User accepts their invite, has REQ-IDENTITY-0002 email them a new
+    link.
+  rule_sources: []
+  rule_decisions:
+  - D-34
+- rule_id: R8
+  rule_statement: >-
+    Deactivate and Reactivate call REQ-ORG-0005 and are not offered for a User who holds an INSTAWORK_ADMIN
+    grant.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-25
+- rule_id: R9
+  rule_statement: >-
+    An Instawork Admin sees only the invite form with the role fixed to PROGRAM_USER, and REQ-ORG-0005
+    refuses it once an unrevoked PROGRAM_USER grant exists.
+  rule_sources: []
+  rule_decisions:
+  - D-26
+requirement_sources:
+- SHEET PLT-1
+- SHEET PLT-4
+requirement_decisions:
+- D-25
+- D-26
+- D-34
+- D-63
+requirement_features:
+- PLT-1
+- PLT-4
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0010
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-IDENTITY-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-IDENTITY-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCIES-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+data_model:
+  status: covered
+  reads:
+  - User.email
+  - User.first_name
+  - User.last_name
+  - User.phone
+  - User.active
+  - User.invited_at
+  - User.invite_accepted_at
+  - User.last_signed_in_at
+  - RoleGrant.*
+  - OrgNode.name
+  - OrgNode.level
+  - OrgNode.parent_id
+  - Agency.name
+  writes: []
+  detail: null
+requirement_starting_flow: true
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

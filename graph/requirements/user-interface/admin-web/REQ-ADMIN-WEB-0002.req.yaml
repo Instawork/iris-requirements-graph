@@ -1,0 +1,65 @@
+requirement_id: REQ-ADMIN-WEB-0002
+requirement_target_layer: user-interface
+requirement_target_module: ADMIN-WEB
+requirement_phase: MVP
+requirement_title: Keep the Compass Position catalog
+requirement_statement: >-
+  On the Positions screen an Instawork Admin adds, renames, and deactivates the Positions that every Shift,
+  Rate Line, and Credential Requirement names.
+requirement_actors:
+- INSTAWORK_ADMIN
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The Positions screen lists every Position by name, with whether it is active.
+  rule_sources:
+  - SHEET RC-2
+  rule_decisions:
+  - D-26
+  - D-63
+- rule_id: R2
+  rule_statement: >-
+    Add Position and Rename take a name and save through REQ-CATALOG-0001, which refuses a name another
+    Position has.
+  rule_sources:
+  - SHEET RC-2
+  rule_decisions:
+  - D-26
+- rule_id: R3
+  rule_statement: >-
+    Deactivate calls REQ-CATALOG-0001 after the screen says the Position can no longer be chosen for a
+    new Shift or Rate Line and stays on existing records.
+  rule_sources: []
+  rule_decisions:
+  - D-26
+requirement_sources:
+- SHEET RC-2
+requirement_decisions:
+- D-26
+- D-63
+requirement_features:
+- RC-2
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0010
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-CATALOG-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+data_model:
+  status: covered
+  reads:
+  - Position.*
+  writes: []
+  detail: null
+requirement_starting_flow: true
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

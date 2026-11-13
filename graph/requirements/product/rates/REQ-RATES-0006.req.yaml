@@ -84,7 +84,7 @@ data_model:
   detail: >-
     Reads only and returns its result to the caller. The rates and reasons it compares are passed in by
     the caller and kept on Release and Timesheet by the requirements that own them.
-requirement_starting_flow: false
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

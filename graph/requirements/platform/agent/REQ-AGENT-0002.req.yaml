@@ -121,6 +121,12 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-36
+- rule_id: R16
+  rule_statement: >-
+    A User can list the Proposals made for them, OPEN ones first, and no one else's.
+  rule_sources: []
+  rule_decisions:
+  - D-36
 requirement_sources:
 - PRD §6 Uploads
 - PRD §7 Agent Chat
@@ -139,7 +145,7 @@ data_model:
   - Proposal.*
   - ProposalItem.*
   detail: null
-requirement_starting_flow: false
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

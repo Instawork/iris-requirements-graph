@@ -1,0 +1,90 @@
+requirement_id: REQ-SHELL-0011
+requirement_target_layer: user-interface
+requirement_target_module: SHELL
+requirement_phase: MVP
+requirement_title: Show a record's change history
+requirement_statement: >-
+  A screen can show the change history of one record from the Audit Trail: who changed what, when, through
+  which channel, and why. The screen that embeds it decides who may see it.
+requirement_actors:
+- PROGRAM_USER
+- UNIT_USER
+- AGENCY_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The history lists the AuditEvents of one record, newest first, as REQ-AUDIT-0001 returns them.
+  rule_sources:
+  - PRD §2 Shifts
+  - SHEET RC-5
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    Each entry shows the time, the User who made the change or Iris for a system change, the channel,
+    each changed field with its old and new value, and any reason.
+  rule_sources:
+  - PRD §2 Shifts
+  - SHEET RC-5
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    An entry saved from a Proposal says so and names the channel the Proposal came through.
+  rule_sources:
+  - PRD §7 Agent Chat
+  rule_decisions:
+  - D-37
+- rule_id: R4
+  rule_statement: >-
+    The history only reads, and has no control that changes or removes an entry.
+  rule_sources:
+  - SHEET RC-5
+  - SHEET WA-16
+  rule_decisions:
+  - D-37
+- rule_id: R5
+  rule_statement: >-
+    The embedding screen names the record and the roles that see its history, and a field such a role
+    may not see, such as a Pay Rate, is left out.
+  rule_sources:
+  - PRD §2 Shifts
+  - PRD §3 Supplier Rates
+  rule_decisions: []
+requirement_sources:
+- PRD §2 Shifts
+- SHEET RC-5
+requirement_decisions:
+- D-37
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-IDENTITY-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+data_model:
+  status: covered
+  reads:
+  - AuditEvent.record_type
+  - AuditEvent.record_id
+  - AuditEvent.action
+  - AuditEvent.actor_id
+  - AuditEvent.channel
+  - AuditEvent.proposal_id
+  - AuditEvent.before
+  - AuditEvent.after
+  - AuditEvent.reason
+  - AuditEvent.created_at
+  - User.first_name
+  - User.last_name
+  writes: []
+  detail: null
+requirement_starting_flow: true
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

@@ -210,7 +210,7 @@ data_model:
   - Release.released_at
   - Release.closed_at
   detail: null
-requirement_starting_flow: false
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

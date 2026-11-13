@@ -171,3 +171,33 @@ conflicts:
     ZIP codes belong to the Market, which Instawork loads; a rate card row names a city and state, or a
     Unit (D-21; D-1).
   drop: Each Agency lists ZIP codes on its own rate card rows, filled in when empty (PRD).
+- conflict_id: C-34
+  topic: Unit home and pages
+  keep: >-
+    The Unit home shows to-dos and the spend summary (sheet REP-7). Timesheets, Tips, Events, Reports, and
+    Setup are their own screens, and invoices wait for Phase 2 (sheet 5.1).
+  drop: >-
+    The same six pages for every user, a Suppliers subtab where the Buyer approves and ranks Suppliers,
+    and an outstanding-invoices to-do (PRD).
+- conflict_id: C-35
+  topic: Compliance status on the Unit's Worker roster
+  keep: >-
+    A Worker is eligible for one Shift at a time, so a Unit User sees eligibility on each assigned Worker
+    of a Shift (sheet 3.1). Credentials stay with the Agency and Program Users.
+  drop: A compliance status for each professional on the Buyer's, Agency's, and program's Worker lists (PRD).
+- conflict_id: C-36
+  topic: Agency and Program homes
+  keep: >-
+    The Agency home lists to-dos only, and Agency performance waits for scorecards in Phase 3 (sheet
+    RC-16; C-21). The Program home lists Credentials to review, rate changes to approve, and rates above
+    their peers, then ranks Units by spend against their normal level (D-30) with a count of off-contract
+    and non-contracted Releases (D-2).
+  drop: >-
+    A Supplier to-do for professionals who need onboarding and a Shift performance subtab; a Compass
+    to-do for anomalous invoices and a Buyers table flagged by anomalous invoices (PRD).
+- conflict_id: C-37
+  topic: Changing a Shift by typed request
+  keep: >-
+    Typed requests and messages book Shifts (sheet SC-10). A Shift is changed or cancelled on its page, and
+    the assistant names that page (D-64).
+  drop: Typed shift requests create or edit Shifts (PRD).

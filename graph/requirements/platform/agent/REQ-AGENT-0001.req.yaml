@@ -60,7 +60,7 @@ data_model:
   reads: []
   writes: []
   detail: A rule set that every AI-assisted flow follows; it stores nothing.
-requirement_starting_flow: false
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

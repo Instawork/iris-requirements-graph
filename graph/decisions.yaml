@@ -826,3 +826,155 @@ decisions:
   - SHEET TS-11
   - SHEET TS-12
   - SESSIONS Timesheets, Tips & Expenses
+- decision_id: D-61
+  origin: graph
+  question: >-
+    What do the screens every persona shares do where no source says: which Role Grant a User acts in,
+    the smallest phone width, what a refused sign-in says, and what the inbox shows?
+  status: open
+  assumption: >-
+    A User acts in one context at a time: Unit User across all their Unit User grants, Agency User for one
+    Agency, Program User, or Instawork Admin. A User with several contexts chooses one after sign-in and
+    can switch without signing out; switching changes the menu and no record. A User with no unrevoked
+    grant can only sign out. Every page works at a width of 360 px. A refused sign-in does not say which
+    part was wrong. The inbox shows an unread count, holds the notifications of every context, and opening
+    one opens its record. A refused action shows its reason and keeps what was typed, Shift times show in
+    the Unit's timezone, and to-dos are computed, never stored.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET PLT-1
+  - SHEET PLT-3
+  - SHEET PLT-4
+  - FEEDBACK
+  - PRD Overview
+- decision_id: D-62
+  origin: graph
+  question: Which tasks are on each persona's to-do list, and what is at stake on each?
+  status: open
+  assumption: >-
+    A to-do is work the User can do themselves. A Unit User has three: Timesheets to review, which is
+    every Submitted Timesheet in scope, with their total billed amount and how many are late; headcount to
+    send, which is Shifts not yet started that have unsent headcount, with the time until the earliest
+    starts; and badge requests to issue at secured Units, with the age of the oldest. Outstanding invoices
+    join in Phase 2.
+    An Agency User has seven: pending Releases to answer and accepted Releases with open headcount, each
+    with the time until the earliest Shift starts; Draft Timesheets and Rejected Timesheets, each with
+    the age of the oldest and how many are late; Credentials that need action, with the earliest expiry
+    date; requested Rate Reviews and open Worker issues, each with the age of the oldest. A Program User
+    has three: Credentials needing review and pending Rate Lines, each with the age of the oldest, and
+    Rate Lines flagged above the Peer Rate that never had a Rate Review, with the largest gap in dollars.
+    The Agency home has no second section in MVP, and the Program home's is Units ranked by spend.
+    Anomalous invoices join in Phase 2.
+  blocking: false
+  answer: null
+  sources:
+  - PRD §1 How Todos behave
+  - PRD §1 Detailed requirements
+  - SHEET TS-7
+  - SHEET SC-7
+  - SHEET WA-17
+  - PRD §1 Who sees what
+  - SHEET SC-8
+  - SHEET WA-1
+  - SHEET TS-8
+  - SHEET WA-14
+  - SHEET WA-15
+  - SHEET RC-12
+  - SHEET WA-4
+- decision_id: D-63
+  origin: graph
+  question: How is each list ordered and filtered, and what does it show when it is empty?
+  status: open
+  assumption: >-
+    Lists of Shifts show those not yet ended first, soonest first, then ended ones, newest first. The
+    Unit's exception list shows times outside tolerance first, then the oldest Shift. Agencies offered for
+    a Shift show approved ones first, lowest contracted rate first. Badge requests show Requested ones
+    first, oldest first. Tip Pools, Events, and Saved Reports show the newest first. Each list filters by
+    the fields its requirement names, says in words when it is empty, and offers to clear filters that
+    hide everything.
+    An Agency's Releases show pending and accepted ones on Shifts not yet ended, soonest first, and the
+    rest on a second tab, newest first. Its Timesheets open on Draft and Rejected ones, oldest work date
+    first. Worker issues and Rate Reviews show the open ones first. Rate Lines open on approved lines in
+    effect. Rosters sort by last name, and the program-wide Worker list by Agency first. Each list
+    filters by the fields its requirement names.
+  blocking: false
+  answer: null
+  sources:
+  - PRD §2 Shifts
+  - SESSIONS Timesheets, Tips & Expenses
+  - DEMO components/shifts/shifts-page.tsx
+  - PRD §3 Supplier Rates
+  - PRD §4 Professionals
+  - DEMO components/pros/professionals-page.tsx
+  - DEMO components/rates/rates-page.tsx
+- decision_id: D-64
+  origin: graph
+  question: >-
+    What does the assistant do where the PRD is silent: Program User starters, typed requests no
+    requirement owns, and whether a conversation is kept?
+  status: open
+  assumption: >-
+    Program Users get starters for a spend question and for their uploads. A typed request that no product
+    requirement owns, such as changing or cancelling a Shift, creates no Proposal, and the assistant names
+    the screen where it is done. A conversation lasts for the session only. The assistant lists the
+    User's open Proposals each time it opens, whichever channel they came through. Each reporting answer
+    states the measures, groupings, filters, and dates it used.
+  blocking: false
+  answer: null
+  sources:
+  - PRD §7 Agent Chat
+  - SESSIONS Reporting
+  - SHEET SC-10
+- decision_id: D-65
+  origin: graph
+  question: Which screens does a Unit User have, and how do they work across several Units?
+  status: open
+  assumption: >-
+    The Unit menu is Home, Shifts, Timesheets, Tips, Workers, Agencies, Events, Reports, Uploads, and
+    Setup; invoices join in Phase 2. A Unit User over several Units sees them together and can narrow
+    every screen to one Unit. Setup holds Request templates, Position defaults, and default site
+    instructions. A report period is a Work Week, a calendar month, or a range of dates. Cancelling a
+    Shift asks for confirmation, and choosing Block first warns what it removes.
+  blocking: false
+  answer: null
+  sources:
+  - PRD Pages
+  - SHEET PLT-1
+  - SHEET SC-11
+  - SHEET WA-3
+- decision_id: D-66
+  origin: graph
+  question: Which screens do an Agency User, a Program User, and an Instawork Admin have?
+  status: open
+  assumption: >-
+    The Agency menu is Home, Shifts, Workers, Timesheets, Rate Card, Uploads, and Users, and Worker
+    issues are a tab of Workers. The Program menu is Home, Shifts, Workers, Rates, Credentials, Agencies,
+    Org, Users, Reports, Uploads, and Settings; the rate approval queue and Rate Reviews are tabs of
+    Rates, and Credential setup, the review queue, and Attestations are tabs of Credentials. The Instawork
+    Admin menu is Home, Positions, Markets, and Labor rules. Invoices join the Agency and Program menus
+    in Phase 2 and Agency performance in Phase 3.
+  blocking: false
+  answer: null
+  sources:
+  - PRD Pages
+  - SHEET PLT-1
+  - SHEET RC-16
+- decision_id: D-67
+  origin: graph
+  question: >-
+    What does a roster show as a Worker's compliance, when Credential Requirements differ by Unit and
+    Position? The PRD shows one compliance status for each person.
+  status: open
+  assumption: >-
+    Rosters show the state of a Worker's Credentials, not one compliant flag. A Credential needs action
+    when it is rejected, or verified and expired or within the expiry warning days, and no newer
+    Credential of the same Worker and type exists. It is in review while it is being checked or waits
+    for a Program User. Whether a Worker meets one Shift's requirements is shown only where a Shift is
+    chosen, by the eligibility check.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET WA-13
+  - SHEET WA-14
+  - PRD §4 Professionals

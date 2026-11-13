@@ -1,0 +1,76 @@
+requirement_id: REQ-UNIT-WEB-0013
+requirement_target_layer: user-interface
+requirement_target_module: UNIT-WEB
+requirement_phase: MVP
+requirement_title: Issue and revoke badges at secured Units
+requirement_statement: >-
+  At a secured Unit, a Unit User sees each Worker's badge and system access request and marks it issued
+  or revoked.
+requirement_actors:
+- UNIT_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The Badges tab of the Workers screen shows when a Unit in scope is a secured site, and lists its BadgeRequests
+    with Worker, Agency, status, and requested time.
+  rule_sources:
+  - SHEET WA-17
+  rule_decisions:
+  - D-27
+- rule_id: R2
+  rule_statement: >-
+    REQUESTED rows come first, oldest first, followed by ISSUED and then REVOKED rows.
+  rule_sources: []
+  rule_decisions:
+  - D-27
+  - D-63
+- rule_id: R3
+  rule_statement: >-
+    Mark issued is offered on a REQUESTED row and Revoke on a REQUESTED or ISSUED row, both through REQ-COMPLIANCE-0006;
+    a REVOKED row offers nothing.
+  rule_sources:
+  - SHEET WA-17
+  rule_decisions:
+  - D-27
+- rule_id: R4
+  rule_statement: An ISSUED or REVOKED row shows who marked it and when.
+  rule_sources:
+  - 'GRAPH data model: BadgeRequest records who issued or revoked it'
+  rule_decisions:
+  - D-27
+requirement_sources:
+- SHEET WA-17
+requirement_decisions:
+- D-27
+- D-63
+requirement_features:
+- WA-17
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-UNIT-WEB-0004
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-COMPLIANCE-0006
+data_model:
+  status: covered
+  reads:
+  - BadgeRequest.*
+  - Worker.first_name
+  - Worker.last_name
+  - Worker.agency_id
+  - Agency.name
+  - Unit.org_node_id
+  - Unit.is_secured_site
+  - OrgNode.name
+  - User.first_name
+  - User.last_name
+  writes: []
+  detail: null
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

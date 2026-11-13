@@ -1,0 +1,119 @@
+requirement_id: REQ-PROGRAM-WEB-0010
+requirement_target_layer: user-interface
+requirement_target_module: PROGRAM-WEB
+requirement_phase: MVP
+requirement_title: Review Credentials Iris could not settle and audit Attestations
+requirement_statement: >-
+  On the Credentials screen a Program User decides each Credential that the document checks could not
+  settle. They also audit every Agency's Attestations, including replaced ones.
+requirement_actors:
+- PROGRAM_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The review queue, a tab of the Credentials screen, lists NEEDS_REVIEW Credentials, oldest upload first,
+    with Worker, Agency, Credential Type, expires_on, and status_reason.
+  rule_sources:
+  - SHEET WA-15
+  rule_decisions:
+  - D-3
+  - D-66
+- rule_id: R2
+  rule_statement: >-
+    Opening one shows the document beside the issuer, number, issued_on, and expires_on the Agency gave,
+    each check that failed or could not finish, and any verification_reference.
+  rule_sources:
+  - SHEET WA-15
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    Verify and Reject each take a review_note and call REQ-COMPLIANCE-0003, and the Credential then leaves
+    the queue.
+  rule_sources:
+  - SHEET WA-16
+  rule_decisions:
+  - D-3
+- rule_id: R4
+  rule_statement: >-
+    Before the Program User confirms, the page says the decision is final and cannot be changed later.
+  rule_sources: []
+  rule_decisions:
+  - D-56
+- rule_id: R5
+  rule_statement: >-
+    An Attestations tab lists every Attestation, including replaced ones, with Worker, Agency, Credential
+    Type, statement, valid_until, who attested, and when, newest first, as REQ-COMPLIANCE-0004 keeps them.
+  rule_sources:
+  - SHEET WA-16
+  rule_decisions:
+  - D-3
+- rule_id: R6
+  rule_statement: >-
+    It marks the latest Attestation of each Worker and Credential Type as current, or as lapsed after
+    its valid_until, and filters by Agency, Worker, and Credential Type.
+  rule_sources:
+  - SHEET WA-16
+  rule_decisions:
+  - D-56
+  - D-63
+- rule_id: R7
+  rule_statement: >-
+    The Attestations tab offers no way to add, change, or remove an Attestation.
+  rule_sources:
+  - SHEET WA-16
+  rule_decisions: []
+requirement_sources:
+- SHEET 3.4
+- SHEET WA-15
+- SHEET WA-16
+requirement_decisions:
+- D-3
+- D-56
+- D-63
+- D-66
+requirement_features:
+- WA-15
+- WA-16
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0010
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-COMPLIANCE-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-COMPLIANCE-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-COMPLIANCE-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-COMPLIANCE-0004
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCIES-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+data_model:
+  status: covered
+  reads:
+  - Credential.*
+  - Attestation.*
+  - CredentialType.name
+  - CredentialType.proof
+  - Worker.first_name
+  - Worker.last_name
+  - Worker.agency_id
+  - Agency.name
+  - User.first_name
+  - User.last_name
+  writes: []
+  detail: null
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

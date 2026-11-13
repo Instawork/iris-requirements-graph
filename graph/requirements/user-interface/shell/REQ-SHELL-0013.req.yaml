@@ -1,0 +1,87 @@
+requirement_id: REQ-SHELL-0013
+requirement_target_layer: user-interface
+requirement_target_module: SHELL
+requirement_phase: MVP
+requirement_title: >-
+  Show refusals, empty lists, and Unit times the same way on every screen
+requirement_statement: >-
+  Every screen handles a refused action, an empty list, a required reason, and Unit dates and times in
+  the same way. Persona screens state only what differs.
+requirement_actors:
+- INSTAWORK_ADMIN
+- PROGRAM_USER
+- UNIT_USER
+- AGENCY_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    When a requirement refuses an action, the screen shows the reason it returned beside that action,
+    keeps what the User typed, and shows no change.
+  rule_sources:
+  - PRD §7 When the agent is unsure
+  rule_decisions:
+  - D-61
+- rule_id: R2
+  rule_statement: >-
+    A screen offers an action only to a role that may take it, and only while the record's status allows
+    it.
+  rule_sources:
+  - SHEET PLT-1
+  - PRD §2 Shift statuses
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    Where the owning requirement requires a reason, the action cannot be confirmed while the reason is
+    empty.
+  rule_sources:
+  - SHEET RC-5
+  - SHEET RC-11
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    A list or table with nothing to show says so in words, says when filters are the cause, and then offers
+    to clear them.
+  rule_sources:
+  - DEMO components/shifts/shifts-page.tsx
+  rule_decisions:
+  - D-63
+- rule_id: R5
+  rule_statement: >-
+    Every date and time of a Shift, Release, Timesheet, or Tip Pool is shown in the timezone of its Unit.
+  rule_sources:
+  - 'GRAPH data model: a date or time at a Unit is in that Unit''s timezone'
+  rule_decisions:
+  - D-61
+- rule_id: R6
+  rule_statement: >-
+    Money is shown in US dollars to the cent, exactly as the owning requirement computed it, and is never
+    rounded again on a screen.
+  rule_sources:
+  - 'GRAPH data model: money is USD to the cent'
+  rule_decisions:
+  - D-41
+requirement_sources:
+- PRD §7 When the agent is unsure
+- SHEET PLT-1
+requirement_decisions:
+- D-41
+- D-61
+- D-63
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: Conventions for other screens. It shows no record of its own.
+requirement_starting_flow: true
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

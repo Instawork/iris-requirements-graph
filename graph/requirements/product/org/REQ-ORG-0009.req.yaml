@@ -94,7 +94,7 @@ data_model:
   detail: >-
     Reads only. The caller says which Unit or Agency a record belongs to, so no other module's records
     are read.
-requirement_starting_flow: false
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

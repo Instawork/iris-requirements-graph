@@ -1,0 +1,120 @@
+requirement_id: REQ-PROGRAM-WEB-0012
+requirement_target_layer: user-interface
+requirement_target_module: PROGRAM-WEB
+requirement_phase: MVP
+requirement_title: See every Worker across the program with their Credentials
+requirement_statement: >-
+  On the Workers screen a Program User sees every Worker of every Agency with the state of their Credentials
+  and Attestations and each Unit's rating. The screen is read-only.
+requirement_actors:
+- PROGRAM_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The Program Workers screen lists every Worker with name, Agency, Positions, and whether active, sorted
+    by Agency and then last name.
+  rule_sources:
+  - PRD §4 Professionals
+  rule_decisions:
+  - D-63
+- rule_id: R2
+  rule_statement: >-
+    Each Worker's row counts their Credentials needing action (REJECTED, expired, or expiring within CREDENTIAL_EXPIRY_WARNING_DAYS,
+    unless a newer one of that type exists) and those in review.
+  rule_sources:
+  - PRD §4 Professionals
+  - SHEET WA-14
+  rule_decisions:
+  - D-16
+  - D-67
+- rule_id: R3
+  rule_statement: >-
+    It filters by Agency, by Credential Type, by those two counts, and by active or inactive, and searches
+    by name.
+  rule_sources:
+  - DEMO components/pros/professionals-page.tsx
+  rule_decisions:
+  - D-63
+- rule_id: R4
+  rule_statement: >-
+    Opening a Worker lists each Credential with its type, expiry, status, status_reason or review_note,
+    and document, and each Attestation, with no upload, attest, or edit action.
+  rule_sources:
+  - PRD §4 Professionals
+  - SHEET WA-16
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    A NEEDS_REVIEW Credential there links to the review queue on the Credentials screen.
+  rule_sources:
+  - SHEET WA-15
+  rule_decisions:
+  - D-3
+- rule_id: R6
+  rule_statement: >-
+    The Worker's page also lists each Unit's rating of the Worker with its review.
+  rule_sources:
+  - PRD §4 Professionals
+  rule_decisions: []
+requirement_sources:
+- PRD §4 Professionals
+requirement_decisions:
+- D-3
+- D-16
+- D-63
+- D-67
+requirement_features:
+- WA-14
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0010
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-COMPLIANCE-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-COMPLIANCE-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-COMPLIANCE-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-COMPLIANCE-0004
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCIES-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-CATALOG-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+data_model:
+  status: covered
+  reads:
+  - Worker.*
+  - Agency.name
+  - Position.name
+  - Credential.*
+  - CredentialType.name
+  - Attestation.*
+  - WorkerRating.worker_id
+  - WorkerRating.unit_id
+  - WorkerRating.rating
+  - WorkerRating.review
+  - Unit.org_node_id
+  - OrgNode.name
+  writes: []
+  detail: null
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

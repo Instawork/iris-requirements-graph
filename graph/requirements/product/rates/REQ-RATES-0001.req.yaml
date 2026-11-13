@@ -98,7 +98,7 @@ data_model:
   writes: []
   detail: >-
     Holds the checks every Rate Line must pass and who may see which rate. Lines are saved by REQ-RATES-0009.
-requirement_starting_flow: false
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

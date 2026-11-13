@@ -4,21 +4,60 @@ requirement_target_module: SHELL
 requirement_phase: MVP
 requirement_title: Work in a phone browser
 requirement_statement: >-
-  Every page works in a phone browser, because operators and agencies work on the go.
-requirement_actors: []
-requirement_rules: []
+  Every Iris page works in a phone browser as well as on a desktop, because Unit Users and Agency Users
+  work on the go.
+requirement_actors:
+- INSTAWORK_ADMIN
+- PROGRAM_USER
+- UNIT_USER
+- AGENCY_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Every page, including sign-in and the password link pages, works in a phone browser with no app to
+    install.
+  rule_sources:
+  - SHEET PLT-3
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    At a width of 360 px no page scrolls sideways, and a table too wide for the screen scrolls inside
+    its own area.
+  rule_sources:
+  - SHEET PLT-3
+  rule_decisions:
+  - D-61
+- rule_id: R3
+  rule_statement: >-
+    On a phone the menu collapses behind one button, and every action a desktop offers is also offered
+    there.
+  rule_sources:
+  - SHEET PLT-3
+  - DEMO components/shell/app-shell.tsx
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    A file can be sent from a phone, including a photo taken with its camera, such as a paper sign-in
+    sheet.
+  rule_sources:
+  - SHEET PLT-3
+  - SHEET TS-5
+  - FEEDBACK
+  rule_decisions: []
 requirement_sources:
-- SHEET
-requirement_decisions: []
+- SHEET PLT-3
+requirement_decisions:
+- D-61
 requirement_features:
 - PLT-3
-edges: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
 data_model:
   status: not_applicable
   reads: []
   writes: []
-  detail: null
-  migration_entities: []
+  detail: Layout only. It shows no record of its own.
 requirement_starting_flow: false
 requirement_review:
   status: draft

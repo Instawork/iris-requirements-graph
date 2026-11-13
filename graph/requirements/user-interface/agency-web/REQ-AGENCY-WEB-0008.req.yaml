@@ -1,0 +1,81 @@
+requirement_id: REQ-AGENCY-WEB-0008
+requirement_target_layer: user-interface
+requirement_target_module: AGENCY-WEB
+requirement_phase: MVP
+requirement_title: See and resolve Worker issues reported by Units
+requirement_statement: >-
+  On the Issues tab of the Workers screen, an Agency User sees each issue a Unit reported on one of the
+  Agency's Workers. They resolve it with a note the Unit can read.
+requirement_actors:
+- AGENCY_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The Issues tab lists each issue on the Agency's Workers with the Worker, Unit, category, description,
+    the Shift when one was named, the report date, and status.
+  rule_sources:
+  - SHEET WA-4
+  rule_decisions:
+  - D-66
+- rule_id: R2
+  rule_statement: >-
+    OPEN issues come first, oldest first, then RESOLVED ones, newest first, and the list filters by status,
+    category, Worker, and Unit.
+  rule_sources:
+  - SHEET WA-4
+  rule_decisions:
+  - D-63
+- rule_id: R3
+  rule_statement: >-
+    An OPEN issue offers Resolve, which takes a resolution note and calls REQ-WORKFORCE-0006.
+  rule_sources:
+  - SHEET WA-4
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    A RESOLVED issue shows its resolution, who resolved it, and when, and offers no further action.
+  rule_sources:
+  - SHEET WA-4
+  rule_decisions: []
+requirement_sources:
+- SHEET WA-4
+requirement_decisions:
+- D-63
+- D-66
+requirement_features:
+- WA-4
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0010
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+data_model:
+  status: covered
+  reads:
+  - WorkerIssue.*
+  - Worker.first_name
+  - Worker.last_name
+  - Unit.org_node_id
+  - OrgNode.name
+  - Shift.starts_at
+  - Shift.position_id
+  - Position.name
+  - User.first_name
+  - User.last_name
+  writes: []
+  detail: null
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

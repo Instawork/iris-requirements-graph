@@ -1,0 +1,119 @@
+requirement_id: REQ-UNIT-WEB-0012
+requirement_target_layer: user-interface
+requirement_target_module: UNIT-WEB
+requirement_phase: MVP
+requirement_title: Enter Tip Pools and cashier PIN tips, and keep the PIN map
+requirement_statement: >-
+  A Unit User enters Tip Pools and cashier PIN tips for their Units and sees how each pool was split.
+  They also keep the map of cashier PINs to Workers.
+requirement_actors:
+- UNIT_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The Tips screen lists the Tip Pools and cashier PIN tips of the Units in scope, newest work date first,
+    each with its Unit, work date, amount, and who entered it.
+  rule_sources:
+  - SHEET TS-11
+  rule_decisions:
+  - D-28
+  - D-63
+- rule_id: R2
+  rule_statement: >-
+    New Tip Pool takes a Unit, a work date, an amount, and optionally one Shift or one Event, never both,
+    and saves through REQ-TIPS-0001.
+  rule_sources:
+  - SHEET TS-11
+  rule_decisions:
+  - D-28
+- rule_id: R3
+  rule_statement: >-
+    Opening a pool shows its Shift or Event when set and each share with its Worker, Agency, worked minutes,
+    and amount, or says that shares appear once hours are entered.
+  rule_sources:
+  - SHEET TS-11
+  - 'GRAPH data model: a share is a TipAllocation'
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    Change and Delete are offered on a pool or a PIN tip until a Timesheet it covers locks; after that
+    the row says it is fixed.
+  rule_sources:
+  - SHEET TS-11
+  rule_decisions:
+  - D-28
+  - D-60
+- rule_id: R5
+  rule_statement: >-
+    New PIN tip takes a Unit, a work date, a cashier PIN, and an amount, and saves the whole amount to
+    that PIN's Worker through REQ-TIPS-0001.
+  rule_sources:
+  - SHEET TS-11
+  rule_decisions:
+  - D-28
+- rule_id: R6
+  rule_statement: >-
+    The PIN map tab lists each cashier PIN with its Unit, Worker, valid_from, and valid_to, and adds a
+    mapping through REQ-TIPS-0001.
+  rule_sources:
+  - SHEET 4.4
+  rule_decisions:
+  - D-28
+  - D-60
+- rule_id: R7
+  rule_statement: >-
+    Upload tips opens the Uploads send step with TIPS picked, and a pool typed in the assistant becomes
+    a Proposal that shows each share.
+  rule_sources:
+  - SHEET TS-11
+  - SESSIONS Timesheets, Tips & Expenses
+  rule_decisions: []
+requirement_sources:
+- SHEET TS-11
+- SHEET 4.4
+- SESSIONS Timesheets, Tips & Expenses
+requirement_decisions:
+- D-28
+- D-60
+- D-63
+requirement_features:
+- TS-11
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIPS-0001
+data_model:
+  status: covered
+  reads:
+  - TipPool.*
+  - TipAllocation.*
+  - CashierPin.*
+  - Timesheet.assignment_id
+  - Timesheet.worked_minutes
+  - Timesheet.locked_at
+  - Assignment.worker_id
+  - Worker.first_name
+  - Worker.last_name
+  - Worker.agency_id
+  - Agency.name
+  - Shift.position_id
+  - Shift.starts_at
+  - Position.name
+  - Event.name
+  - OrgNode.name
+  - User.first_name
+  - User.last_name
+  writes: []
+  detail: null
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

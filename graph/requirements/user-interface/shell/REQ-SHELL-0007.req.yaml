@@ -1,0 +1,83 @@
+requirement_id: REQ-SHELL-0007
+requirement_target_layer: user-interface
+requirement_target_module: SHELL
+requirement_phase: MVP
+requirement_title: Read in-app notifications in an inbox
+requirement_statement: >-
+  Every page leads to an inbox of the User's in-app notifications, newest first. Opening one marks it
+  read and leads to the record it is about.
+requirement_actors:
+- INSTAWORK_ADMIN
+- PROGRAM_USER
+- UNIT_USER
+- AGENCY_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The frame of every page has an inbox control that shows how many of the User's IN_APP notifications
+    have no read_at.
+  rule_sources:
+  - PRD Overview
+  rule_decisions:
+  - D-61
+- rule_id: R2
+  rule_statement: >-
+    The inbox lists only the signed-in User's IN_APP notifications, newest first, each with its body,
+    when it was sent, and whether it is read.
+  rule_sources:
+  - PRD Overview
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    Opening a notification marks it read through REQ-MESSAGING-0001 and opens the record it is about when
+    the acting role has a screen for that record.
+  rule_sources:
+  - PRD Overview
+  rule_decisions:
+  - D-61
+- rule_id: R4
+  rule_statement: >-
+    EMAIL and SMS notifications are never listed, and an inbox with nothing in it says so.
+  rule_sources:
+  - 'GRAPH data model: only IN_APP notifications are shown in the inbox'
+  rule_decisions:
+  - D-61
+- rule_id: R5
+  rule_statement: >-
+    The inbox holds the notifications of every context the User has, whichever one they are acting in.
+  rule_sources:
+  - PRD Overview
+  rule_decisions:
+  - D-61
+requirement_sources:
+- PRD Overview
+requirement_decisions:
+- D-61
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-MESSAGING-0001
+data_model:
+  status: covered
+  reads:
+  - Notification.type
+  - Notification.channel
+  - Notification.user_id
+  - Notification.subject_type
+  - Notification.subject_id
+  - Notification.body
+  - Notification.sent_at
+  - Notification.read_at
+  writes: []
+  detail: null
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

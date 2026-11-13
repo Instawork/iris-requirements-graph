@@ -2,31 +2,150 @@ requirement_id: REQ-PROGRAM-WEB-0005
 requirement_target_layer: user-interface
 requirement_target_module: PROGRAM-WEB
 requirement_phase: MVP
-requirement_title: See program dashboards and load business data
+requirement_title: See program reports and the data they use
 requirement_statement: >-
-  A Program User sees the program owner views and the timecard compliance report, and loads sales data
-  and budgets.
-requirement_actors: []
-requirement_rules: []
+  On the Reports screen a Program User sees the top Agencies, Events, and Units with trends, the Timesheet
+  compliance report, labor cost as a percentage of sales, and Event costs. They load and check the Budgets
+  and sales data behind them.
+requirement_actors:
+- PROGRAM_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    For a period the Program User picks, the Reports screen ranks Agencies, Events, and Units by SPEND,
+    highest first, as REQ-REPORTING-0009 computes them.
+  rule_sources:
+  - SHEET REP-9
+  rule_decisions:
+  - D-45
+- rule_id: R2
+  rule_statement: >-
+    Each Agency row shows its FILL_RATE and NO_SHOW_RATE beside its SPEND, and a rate with nothing to
+    divide by shows as not available (C-21).
+  rule_sources:
+  - SHEET REP-9
+  - SHEET RC-16
+  rule_decisions:
+  - D-42
+- rule_id: R3
+  rule_statement: >-
+    A trend chart shows SPEND, or another measure the Program User picks, per Work Week or per calendar
+    month across the period.
+  rule_sources:
+  - SHEET REP-9
+  rule_decisions:
+  - D-14
+- rule_id: R4
+  rule_statement: >-
+    Every view on the screen can be narrowed to one Sector, Region, or District.
+  rule_sources:
+  - SHEET REP-9
+  - SHEET PLT-2
+  rule_decisions:
+  - D-25
+- rule_id: R5
+  rule_statement: >-
+    The Timesheet compliance view counts Timesheets with a missed break and late Timesheets for the period,
+    by Unit or by Agency, as REQ-REPORTING-0010 defines them.
+  rule_sources:
+  - SHEET REP-10
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    The labor cost view shows LABOR_PCT_OF_SALES from REQ-REPORTING-0006 for each Unit and for the Units
+    together, and not available where no date in the period has revenue.
+  rule_sources:
+  - SHEET REP-3
+  rule_decisions:
+  - D-43
+- rule_id: R7
+  rule_statement: >-
+    The Events view lists each Event with its projected cost, its actual cost as APPROVED_SPEND and PENDING_SPEND,
+    and the difference, from REQ-REPORTING-0004.
+  rule_sources:
+  - SHEET REP-2
+  rule_decisions:
+  - D-44
+- rule_id: R8
+  rule_statement: >-
+    A data view lists the Budgets and Sales Records loaded, by Unit and date, each with the file it came
+    from.
+  rule_sources:
+  - SHEET REP-8
+  - SHEET REP-4
+  - PRD §6 Uploads
+  rule_decisions: []
+- rule_id: R9
+  rule_statement: >-
+    Upload sales and Upload budgets open the Uploads send step of REQ-SHELL-0008 with SALES or BUDGETS
+    picked, and REQ-REPORTING-0005 and REQ-REPORTING-0007 save the accepted rows.
+  rule_sources:
+  - SHEET REP-4
+  - SHEET REP-8
+  rule_decisions: []
+- rule_id: R10
+  rule_statement: >-
+    The Reports screen holds the Program User's Saved Reports list from REQ-SHELL-0012, and Ask a question
+    opens the assistant, where an answer can be saved.
+  rule_sources:
+  - SHEET REP-1
+  - SESSIONS Reporting
+  rule_decisions:
+  - D-45
 requirement_sources:
 - SHEET 6.3
-requirement_decisions: []
-requirement_features: []
+- SHEET 6.1
+requirement_decisions:
+- D-14
+- D-25
+- D-42
+- D-43
+- D-44
+- D-45
+requirement_features:
+- REP-2
+- REP-3
+- REP-4
+- REP-8
+- REP-9
+- REP-10
 edges:
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0010
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0012
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-REPORTING-0004
+- edge_type: DEPENDS_ON
   requirement_id: REQ-REPORTING-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-REPORTING-0006
 - edge_type: DEPENDS_ON
   requirement_id: REQ-REPORTING-0007
 - edge_type: DEPENDS_ON
   requirement_id: REQ-REPORTING-0009
 - edge_type: DEPENDS_ON
   requirement_id: REQ-REPORTING-0010
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
-  status: not_applicable
-  reads: []
+  status: covered
+  reads:
+  - Budget.*
+  - SalesRecord.*
+  - Upload.file_name
+  - Event.name
+  - Agency.name
+  - Unit.org_node_id
+  - OrgNode.name
+  - OrgNode.level
+  - OrgNode.parent_id
   writes: []
   detail: null
-  migration_entities: []
 requirement_starting_flow: false
 requirement_review:
   status: draft

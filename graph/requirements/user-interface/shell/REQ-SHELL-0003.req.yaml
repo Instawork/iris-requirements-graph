@@ -4,33 +4,83 @@ requirement_target_module: SHELL
 requirement_phase: MVP
 requirement_title: Lead each home page with to-dos
 requirement_statement: >-
-  Each persona's home page opens on its to-dos: one line per kind of task, with a count and what is at
-  stake.
-requirement_actors: []
+  Each persona's home page opens on its to-dos: one line for each kind of task, with a count and what
+  is at stake. Each persona's home requirement names its tasks.
+requirement_actors:
+- PROGRAM_USER
+- UNIT_USER
+- AGENCY_USER
 requirement_rules:
 - rule_id: R1
-  rule_statement: Each to-do line opens the exact filtered view where that work is done.
-  rule_sources: []
+  rule_statement: >-
+    The to-do list has one line per kind of task, with the number waiting and what is at stake: a dollar
+    amount, the oldest one's age, or the nearest deadline.
+  rule_sources:
+  - PRD §1 How Todos behave
   rule_decisions: []
 - rule_id: R2
-  rule_statement: The total to-do count shows on the home tab in the navigation.
-  rule_sources: []
+  rule_statement: >-
+    Each line opens the screen where that work is done, filtered to exactly the records the line counts.
+  rule_sources:
+  - PRD §1 How Todos behave
   rule_decisions: []
 - rule_id: R3
-  rule_statement: A task leaves the list as soon as it is done.
-  rule_sources: []
+  rule_statement: >-
+    A line counts only records still in the state that defines its task, so a record leaves the count
+    as soon as its task is done.
+  rule_sources:
+  - PRD §1 How Todos behave
   rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    A task with nothing waiting shows no line, and a list with no line says there is nothing to do.
+  rule_sources:
+  - PRD §1 How Todos behave
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    On every page, the Home item of the menu shows the total of all lines, and shows no number when the
+    total is zero.
+  rule_sources:
+  - PRD §1 How Todos behave
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    Home opens on the to-do list when the total is above zero, and otherwise on the second section its
+    persona's home requirement names, when it names one.
+  rule_sources:
+  - PRD §1 How Todos behave
+  rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    Every count covers only records inside the scope of the acting role, as REQ-ORG-0009 limits each list.
+  rule_sources:
+  - PRD §1 Who sees what
+  - SHEET PLT-1
+  rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    Counts and stakes are computed from current records each time a page loads, and no to-do is stored.
+  rule_sources:
+  - GRAPH to-dos are queries over other records
+  rule_decisions:
+  - D-61
 requirement_sources:
-- PRD §1 How to-dos behave
-requirement_decisions: []
+- PRD §1 How Todos behave
+requirement_decisions:
+- D-61
 requirement_features: []
-edges: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
   status: not_applicable
   reads: []
   writes: []
-  detail: To-dos are queries over other records; nothing extra is stored.
-  migration_entities: []
+  detail: >-
+    To-dos are counts over other records. Each persona's home requirement lists what it reads.
 requirement_starting_flow: false
 requirement_review:
   status: draft

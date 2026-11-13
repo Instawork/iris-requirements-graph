@@ -117,7 +117,7 @@ data_model:
   writes: []
   detail: >-
     Reads only and returns its result to the caller, which keeps the reason and the flags on the Release.
-requirement_starting_flow: false
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

@@ -2,28 +2,139 @@ requirement_id: REQ-UNIT-WEB-0004
 requirement_target_layer: user-interface
 requirement_target_module: UNIT-WEB
 requirement_phase: MVP
-requirement_title: Rate Workers and report issues
+requirement_title: Keep the Unit's Worker roster, rate Workers, and report issues
 requirement_statement: >-
-  After a Shift is worked, a Unit User rates each Worker and can report an issue to the Agency from the
-  same list.
-requirement_actors: []
-requirement_rules: []
+  A Unit User sees the Workers assigned to or who have worked at their Units, with each Unit's rating
+  of them. From the roster they rate a Worker and report an issue to the Agency.
+requirement_actors:
+- UNIT_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The Workers screen lists every Worker with an Assignment at a Unit in scope, past or upcoming, and
+    every Worker a Unit in scope has rated.
+  rule_sources:
+  - PRD §4 Professionals
+  - SHEET WA-2
+  rule_decisions:
+  - D-52
+- rule_id: R2
+  rule_statement: >-
+    Each row shows the Worker's name, photo, Agency, Shifts worked at the Unit, the Unit's rating and
+    review, and open issues, with FAVORITE Workers listed first.
+  rule_sources:
+  - PRD §4 Professionals
+  - SHEET WA-3
+  - 'GRAPH data model: a FAVORITE Worker is listed first'
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: The roster filters by Unit, Agency, rating, and Worker name.
+  rule_sources:
+  - DEMO components/pros/professionals-page.tsx
+  rule_decisions:
+  - D-63
+- rule_id: R4
+  rule_statement: >-
+    Rate sets FAVORITE, OKAY_TO_RETURN, or BLOCK for one Unit, with an optional review, through REQ-WORKFORCE-0005,
+    and replaces that Unit's earlier rating.
+  rule_sources:
+  - SHEET WA-3
+  - PRD §4 Professionals
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    Choosing BLOCK first warns that the Worker comes off that Unit's Shifts that have not started and
+    can no longer be assigned or requested there.
+  rule_sources:
+  - SHEET WA-3
+  rule_decisions:
+  - D-51
+  - D-65
+- rule_id: R6
+  rule_statement: >-
+    Add a Worker finds any active Worker by Agency and name, so a Unit can rate them before their first
+    Shift there.
+  rule_sources:
+  - SHEET WA-2
+  - SHEET 3.2
+  rule_decisions:
+  - D-52
+- rule_id: R7
+  rule_statement: >-
+    Rate is offered on every roster row at any time, so a Worker can be rated straight after a Shift or
+    before their first one.
+  rule_sources:
+  - SHEET WA-3
+  - SHEET WA-2
+  rule_decisions:
+  - D-52
+- rule_id: R8
+  rule_statement: >-
+    Report an issue takes a category of CONDUCT, SAFETY, QUALITY, or NO_SHOW, a description, and optionally
+    a Shift of the Unit, and saves through REQ-WORKFORCE-0006.
+  rule_sources:
+  - SHEET WA-4
+  rule_decisions: []
+- rule_id: R9
+  rule_statement: >-
+    The Issues tab lists the issues reported for Units in scope, OPEN first, each with its Worker, Agency,
+    category, description, status, and the Agency's resolution.
+  rule_sources:
+  - SHEET WA-4
+  rule_decisions: []
+- rule_id: R10
+  rule_statement: >-
+    Reporting a NO_SHOW issue changes no Timesheet, and the form says the no-show itself is marked on
+    the Timesheet.
+  rule_sources:
+  - >-
+    GRAPH data model: IssueCategory NO_SHOW is separate from the Timesheet mark
+  rule_decisions: []
 requirement_sources:
 - SHEET WA-3
 - SHEET WA-4
-requirement_decisions: []
-requirement_features: []
+- PRD §4 Professionals
+requirement_decisions:
+- D-51
+- D-52
+- D-63
+- D-65
+requirement_features:
+- WA-3
+- WA-4
 edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0003
 - edge_type: DEPENDS_ON
   requirement_id: REQ-WORKFORCE-0005
 - edge_type: DEPENDS_ON
   requirement_id: REQ-WORKFORCE-0006
 data_model:
-  status: not_applicable
-  reads: []
+  status: covered
+  reads:
+  - Worker.first_name
+  - Worker.last_name
+  - Worker.photo_url
+  - Worker.agency_id
+  - Worker.active
+  - Agency.name
+  - Assignment.worker_id
+  - Assignment.release_id
+  - Assignment.status
+  - Release.shift_id
+  - Shift.request_id
+  - Shift.starts_at
+  - Shift.status
+  - Request.unit_id
+  - OrgNode.name
+  - WorkerRating.*
+  - WorkerIssue.*
   writes: []
   detail: null
-  migration_entities: []
 requirement_starting_flow: false
 requirement_review:
   status: draft

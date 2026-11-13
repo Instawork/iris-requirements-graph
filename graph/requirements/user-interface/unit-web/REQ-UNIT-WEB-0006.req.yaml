@@ -2,29 +2,106 @@ requirement_id: REQ-UNIT-WEB-0006
 requirement_target_layer: user-interface
 requirement_target_module: UNIT-WEB
 requirement_phase: MVP
-requirement_title: See operator dashboards
+requirement_title: See spend, labor cost, and Timesheet compliance reports for the Unit
 requirement_statement: >-
-  A Unit User opens the operator dashboard, Event costs, and labor cost as a share of sales for their
-  Units.
-requirement_actors: []
-requirement_rules: []
+  On the Reports screen a Unit User opens the spend dashboard, labor cost as a percentage of sales, and
+  the Timesheet compliance report for their Units. Their Saved Reports are listed there too.
+requirement_actors:
+- UNIT_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The Reports screen opens on the dashboard of REQ-REPORTING-0008 for the Units in scope, or for the
+    one Unit picked.
+  rule_sources:
+  - SHEET REP-7
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    The dashboard shows every figure REQ-REPORTING-0008 defines, with its breakdowns by Agency, by Position,
+    and by Unit as tables.
+  rule_sources:
+  - SHEET REP-7
+  - PRD §1 Detailed requirements
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    A labor cost section shows LABOR_PCT_OF_SALES from REQ-REPORTING-0006 for a chosen period, and says
+    not available when no date in it has revenue.
+  rule_sources:
+  - SHEET REP-3
+  rule_decisions:
+  - D-43
+- rule_id: R4
+  rule_statement: >-
+    A Timesheet compliance section shows, from REQ-REPORTING-0010, the Timesheets with a missed break
+    and the late Timesheets for a chosen period, grouped by Unit or by Agency.
+  rule_sources:
+  - SHEET REP-10
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: A period is one Work Week, one calendar month, or a range of dates.
+  rule_sources:
+  - SHEET WA-20
+  rule_decisions:
+  - D-14
+  - D-65
+- rule_id: R6
+  rule_statement: The screen embeds the Saved Reports list of REQ-SHELL-0012.
+  rule_sources:
+  - SHEET REP-1
+  rule_decisions:
+  - D-45
+- rule_id: R7
+  rule_statement: >-
+    Ask a question opens the assistant, where a typed question is answered and can be saved.
+  rule_sources:
+  - SHEET REP-1
+  - SESSIONS Reporting
+  rule_decisions: []
 requirement_sources:
+- SHEET REP-7
+- SHEET REP-3
+- SHEET REP-10
 - SHEET 6.3
-requirement_decisions: []
-requirement_features: []
+requirement_decisions:
+- D-14
+- D-43
+- D-45
+- D-65
+requirement_features:
+- REP-3
+- REP-7
+- REP-10
 edges:
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-REPORTING-0004
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0012
 - edge_type: DEPENDS_ON
   requirement_id: REQ-REPORTING-0006
 - edge_type: DEPENDS_ON
   requirement_id: REQ-REPORTING-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-REPORTING-0010
 data_model:
-  status: not_applicable
-  reads: []
+  status: covered
+  reads:
+  - Budget.unit_id
+  - Budget.period_start
+  - Budget.period_end
+  - Budget.amount
+  - SalesRecord.unit_id
+  - SalesRecord.date
+  - SalesRecord.revenue
+  - Timesheet.status
+  - Timesheet.exception_reasons
+  - Timesheet.approved_at
+  - OrgNode.name
+  - Agency.name
+  - Position.name
   writes: []
   detail: null
-  migration_entities: []
 requirement_starting_flow: false
 requirement_review:
   status: draft

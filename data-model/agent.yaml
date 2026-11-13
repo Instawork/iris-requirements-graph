@@ -7,7 +7,6 @@ enums:
   - {value: TIMESHEET_EDITS, meaning: Timesheet changes asked for in plain language.}
   - {value: TIP_ENTRY, meaning: Tips entered by chat.}
   - {value: WORKER_ASSIGNMENT, meaning: Workers named in chat for a Release.}
-  - {value: RECORD_EDIT, meaning: Any other change asked for in the assistant.}
 - enum: ProposalStatus
   values:
   - {value: OPEN, meaning: Waiting for the person it was made for.}

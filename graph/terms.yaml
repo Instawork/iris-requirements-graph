@@ -241,3 +241,15 @@ terms:
   avoid: []
   sources: [SHEET SC-4]
   decisions: [D-20]
+- term: Acting role
+  definition: >-
+    The role whose screens a signed-in User is using, and for an Agency User the one Agency. A User whose
+    Role Grants give several chooses one at a time. A graph term.
+  avoid: []
+  sources: [SHEET PLT-1]
+  decisions: [D-61]
+- term: To-do
+  definition: One kind of work waiting for a User, shown on their home page with a count and what is at stake.
+  avoid: []
+  source_words: [Todos]
+  sources: [PRD §1 How Todos behave]

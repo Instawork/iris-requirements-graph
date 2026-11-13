@@ -1,0 +1,110 @@
+requirement_id: REQ-PROGRAM-WEB-0006
+requirement_target_layer: user-interface
+requirement_target_module: PROGRAM-WEB
+requirement_phase: MVP
+requirement_title: Manage Agencies and where each is approved
+requirement_statement: >-
+  On the Agencies screen a Program User adds Agencies by form or from an AGENCIES file, renames or deactivates
+  them, and approves each one at Sectors, Regions, Districts, or Units.
+requirement_actors:
+- PROGRAM_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The Agencies screen lists every Agency with its name, whether it is active, and the number of org
+    nodes it is approved at, and searches by name.
+  rule_sources:
+  - FEEDBACK
+  rule_decisions:
+  - D-9
+  - D-63
+- rule_id: R2
+  rule_statement: >-
+    Add Agency takes the Agency's name and a first contact's first name, last name, email, and optional
+    phone, and calls REQ-AGENCIES-0001, which invites the contact as the first Agency User.
+  rule_sources:
+  - FEEDBACK
+  rule_decisions:
+  - D-25
+- rule_id: R3
+  rule_statement: >-
+    Each Agency offers Rename and Deactivate through REQ-AGENCIES-0001, and an inactive Agency is marked
+    as receiving no new Release.
+  rule_sources: []
+  rule_decisions:
+  - D-53
+- rule_id: R4
+  rule_statement: >-
+    An Agency's page lists its approvals with the org node, its level, who approved it, and when, and
+    removed approvals with who removed them and when.
+  rule_sources:
+  - SHEET RC-11
+  rule_decisions:
+  - D-9
+- rule_id: R5
+  rule_statement: >-
+    Approve picks a Sector, Region, District, or Unit from the org tree where the Agency has no unremoved
+    approval, and calls REQ-AGENCIES-0002.
+  rule_sources:
+  - SHEET RC-11
+  rule_decisions:
+  - D-9
+- rule_id: R6
+  rule_statement: >-
+    Remove approval calls REQ-AGENCIES-0002 after the page says that Releases already sent do not change.
+  rule_sources: []
+  rule_decisions:
+  - D-9
+- rule_id: R7
+  rule_statement: >-
+    Upload Agencies opens the Uploads send step of REQ-SHELL-0008 with AGENCIES picked, and REQ-AGENCIES-0001
+    and REQ-AGENCIES-0002 save the Agencies, contacts, and approvals of its accepted rows.
+  rule_sources:
+  - FEEDBACK
+  rule_decisions: []
+requirement_sources:
+- FEEDBACK
+- SHEET RC-11
+requirement_decisions:
+- D-9
+- D-25
+- D-53
+- D-63
+requirement_features:
+- RC-11
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0010
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCIES-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCIES-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+data_model:
+  status: covered
+  reads:
+  - Agency.*
+  - AgencyApproval.*
+  - OrgNode.name
+  - OrgNode.level
+  - OrgNode.parent_id
+  - User.first_name
+  - User.last_name
+  writes: []
+  detail: null
+requirement_starting_flow: true
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

@@ -2,32 +2,108 @@ requirement_id: REQ-UNIT-WEB-0005
 requirement_target_layer: user-interface
 requirement_target_module: UNIT-WEB
 requirement_phase: MVP
-requirement_title: See approved Agencies and their Bill Rates
+requirement_title: See Agencies and their Bill Rates for the Unit
 requirement_statement: >-
-  A Unit User sees the Agencies approved for their Units, with each Agency's Bill Rates for their Markets.
-requirement_actors: []
+  A Unit User sees the Agencies their Unit can send Shifts to, whether each is approved for it, and each
+  Agency's Bill Rates for the Unit. The screen is view only.
+requirement_actors:
+- UNIT_USER
 requirement_rules:
 - rule_id: R1
-  rule_statement: Pay Rates and markups are never shown to Unit Users.
-  rule_sources: []
+  rule_statement: >-
+    For one Unit at a time, the Agencies screen lists every active Agency, those with an approval covering
+    the Unit first, each marked approved or non-contracted.
+  rule_sources:
+  - PRD §3 Supplier Rates
+  - SHEET RC-11
+  rule_decisions:
+  - D-9
+- rule_id: R2
+  rule_statement: >-
+    Opening an Agency shows, by Position, its APPROVED Rate Lines in effect today or later that price
+    the Unit: Unit lines and lines for the Unit's Market, with the three Bill Rates and effective dates.
+  rule_sources:
+  - PRD §3 Supplier Rates
+  - SHEET RC-6
+  rule_decisions:
+  - D-1
+- rule_id: R3
+  rule_statement: >-
+    Where a Unit line and a Market line both price a Position, the Unit line is marked as the contracted
+    rate, as REQ-RATES-0005 finds it.
+  rule_sources:
+  - SHEET RC-6
+  rule_decisions:
+  - D-1
+- rule_id: R4
+  rule_statement: >-
+    The table has Bill Rate columns only, with no Pay Rate or Markup, and no PENDING or SENT_BACK line,
+    as REQ-RATES-0001 limits a Unit User.
+  rule_sources:
+  - PRD §3 Supplier Rates
   rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    A Position view lists each Agency's contracted regular Bill Rate for the Unit today, lowest first,
+    and shows no rate for an Agency without one.
+  rule_sources:
+  - PRD §3 Supplier Rates
+  - SHEET SC-1
+  rule_decisions:
+  - D-63
+- rule_id: R6
+  rule_statement: >-
+    A Unit User cannot change a rate or an approval here; the screen has no edit control.
+  rule_sources:
+  - PRD §3 Supplier Rates
+  rule_decisions:
+  - D-9
+  - D-10
 requirement_sources:
-- PRD §3 Supplier rates
-requirement_decisions: []
+- PRD §3 Supplier Rates
+- SHEET RC-11
+requirement_decisions:
+- D-1
+- D-9
+- D-10
+- D-63
 requirement_features: []
 edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0009
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AGENCIES-0002
 - edge_type: DEPENDS_ON
   requirement_id: REQ-RATES-0001
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-ORG-0005
+  requirement_id: REQ-RATES-0005
 data_model:
-  status: not_applicable
-  reads: []
+  status: covered
+  reads:
+  - Agency.name
+  - Agency.active
+  - AgencyApproval.agency_id
+  - AgencyApproval.org_node_id
+  - AgencyApproval.removed_at
+  - RateLine.agency_id
+  - RateLine.position_id
+  - RateLine.market_id
+  - RateLine.unit_id
+  - RateLine.regular_bill_rate
+  - RateLine.overtime_bill_rate
+  - RateLine.double_time_bill_rate
+  - RateLine.effective_from
+  - RateLine.effective_to
+  - RateLine.status
+  - Position.name
+  - Unit.org_node_id
+  - Unit.market_id
+  - Market.name
+  - Market.state
+  - OrgNode.name
+  - OrgNode.parent_id
   writes: []
   detail: null
-  migration_entities: []
 requirement_starting_flow: false
 requirement_review:
   status: draft
