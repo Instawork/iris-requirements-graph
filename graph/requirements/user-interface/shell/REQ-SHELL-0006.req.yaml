@@ -14,12 +14,13 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    The profile page, opened from the account menu, shows the User's first name, last name, email, phone,
-    and each unrevoked Role Grant with its role and scope.
+    The account menu of REQ-SHELL-0009 offers Profile, a page that shows the User's first name, last name,
+    email, phone, and each unrevoked Role Grant with its role and scope.
   rule_sources:
   - SHEET PLT-4
   - SHEET PLT-1
-  rule_decisions: []
+  rule_decisions:
+  - D-110
 - rule_id: R2
   rule_statement: >-
     The User changes their first name, last name, and phone through REQ-IDENTITY-0001, and the email is
@@ -28,14 +29,6 @@ requirement_rules:
   - SHEET PLT-4
   rule_decisions:
   - D-34
-- rule_id: R3
-  rule_statement: >-
-    A phone that REQ-IDENTITY-0001 refuses for not having 10 digits is shown with that reason, and nothing
-    is saved.
-  rule_sources:
-  - SHEET PLT-4
-  rule_decisions:
-  - D-39
 - rule_id: R4
   rule_statement: >-
     Change password sends the User a reset link through REQ-IDENTITY-0002 and says it was emailed; the
@@ -56,7 +49,7 @@ requirement_sources:
 requirement_decisions:
 - D-25
 - D-34
-- D-39
+- D-110
 requirement_features:
 - PLT-4
 edges:

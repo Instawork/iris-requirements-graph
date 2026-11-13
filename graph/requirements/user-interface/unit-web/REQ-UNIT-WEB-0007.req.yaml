@@ -20,7 +20,8 @@ requirement_rules:
 - rule_id: R2
   rule_statement: >-
     Each row shows the Position, Unit, Department, Event, start and end, ASSIGNED Workers over headcount,
-    the Agencies holding a PENDING or ACCEPTED Release, and the status, and opens the Shift's page.
+    the Agencies holding a PENDING or ACCEPTED Release, and the status, and opens the Shift's page of
+    REQ-UNIT-WEB-0008.
   rule_sources:
   - PRD §2 Shifts
   rule_decisions: []
@@ -47,16 +48,16 @@ requirement_rules:
   - D-20
 - rule_id: R6
   rule_statement: >-
-    New Shift opens the booking form, and Upload Shifts opens the Uploads send step with SHIFTS picked,
-    whose rows REQ-ORDERING-0014 checks and saves.
+    New Shift opens the booking form of REQ-UNIT-WEB-0002, and Upload Shifts opens the Uploads send step
+    of REQ-SHELL-0008 with SHIFTS picked, whose rows REQ-ORDERING-0014 checks and saves.
   rule_sources:
   - PRD §2 Shifts
   - PRD §6 Templates
   rule_decisions: []
 - rule_id: R7
   rule_statement: >-
-    The list's CSV download carries each Shift's shift_id, so a downloaded row can be changed and uploaded
-    again as a SHIFTS file.
+    The list's CSV download, through REQ-SHELL-0010, carries each Shift's shift_id as REQ-ORDERING-0014.R14
+    requires.
   rule_sources:
   - PRD §6 Templates
   rule_decisions: []
@@ -75,6 +76,8 @@ requirement_decisions:
 requirement_features:
 - SC-2
 edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-UNIT-WEB-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0009
 - edge_type: DEPENDS_ON
@@ -125,7 +128,7 @@ data_model:
   - Assignment.status
   writes: []
   detail: null
-requirement_starting_flow: false
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

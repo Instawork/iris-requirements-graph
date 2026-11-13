@@ -13,8 +13,8 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    The frame of every signed-in page has a control that opens the assistant as a panel over the page,
-    without leaving it.
+    The frame of REQ-SHELL-0009 has a control that opens the assistant as a panel over the page, without
+    leaving it.
   rule_sources:
   - PRD §7 Agent Chat
   rule_decisions: []
@@ -36,10 +36,11 @@ requirement_rules:
 - rule_id: R4
   rule_statement: >-
     For an Agency User the starters are upload a Rate Card, upload Workers, download a template, assign
-    Workers to Shifts, and submit hours and tips.
+    Workers to Shifts, and submit hours.
   rule_sources:
   - PRD §7 Opening screen
-  rule_decisions: []
+  rule_decisions:
+  - D-111
 - rule_id: R5
   rule_statement: >-
     For a Program User the starters are ask a spend question, upload Units, upload Agencies, upload a
@@ -100,6 +101,7 @@ requirement_sources:
 requirement_decisions:
 - D-36
 - D-64
+- D-111
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

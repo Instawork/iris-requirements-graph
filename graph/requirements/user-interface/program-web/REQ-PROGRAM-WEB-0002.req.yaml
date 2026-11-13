@@ -92,6 +92,8 @@ requirement_features:
 - PLT-2
 edges:
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-PROGRAM-WEB-0001
+- edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0009
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0008
@@ -116,7 +118,6 @@ data_model:
   - Unit.*
   - Department.*
   - CostCenter.code
-  - CostCenter.name
   - Market.name
   - Market.state
   writes: []

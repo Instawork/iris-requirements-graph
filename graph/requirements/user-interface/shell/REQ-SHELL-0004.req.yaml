@@ -14,11 +14,12 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    The sign-in page takes an email and a password, calls REQ-IDENTITY-0001, and on success opens Home,
-    or the context choice of REQ-SHELL-0002 when the User has several contexts.
+    The sign-in page takes an email and a password, calls REQ-IDENTITY-0001, and on success hands the
+    User to REQ-SHELL-0002, which sets their context and opens its Home.
   rule_sources:
   - SHEET PLT-4
-  rule_decisions: []
+  rule_decisions:
+  - D-61
 - rule_id: R2
   rule_statement: >-
     A refused sign-in shows one message that does not say whether the email, the password, or a deactivated
@@ -36,8 +37,8 @@ requirement_rules:
   - D-34
 - rule_id: R4
   rule_statement: >-
-    The page links to the password reset request and has no way to create an account, because a User exists
-    only by invite.
+    The page links to the password reset request of REQ-SHELL-0005 and has no way to create an account,
+    because a User exists only by invite.
   rule_sources:
   - SHEET PLT-4
   rule_decisions:
@@ -62,6 +63,8 @@ requirement_features:
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-IDENTITY-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0002
 data_model:
   status: not_applicable
   reads: []

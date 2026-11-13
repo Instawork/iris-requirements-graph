@@ -1,0 +1,109 @@
+requirement_id: REQ-UNIT-WEB-0015
+requirement_target_layer: user-interface
+requirement_target_module: UNIT-WEB
+requirement_phase: MVP
+requirement_title: >-
+  Correct, reject, split, or mark a no-show on a Timesheet as a Unit User
+requirement_statement: >-
+  On the Timesheets screen a Unit User corrects a Timesheet's hours, rejects it to the Agency, splits
+  it by role, or marks a no-show, each with a reason. They can also load corrections from a file.
+requirement_actors:
+- UNIT_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    On the Timesheets screen of REQ-UNIT-WEB-0003, Correct opens the clock_in, clock_out, and break_minutes
+    of a SUBMITTED or APPROVED Timesheet that is not locked, requires a reason, and saves through REQ-TIME-0006.
+  rule_sources:
+  - SHEET TS-7
+  - PRD §2 Shifts
+  rule_decisions:
+  - D-33
+- rule_id: R2
+  rule_statement: >-
+    On a Timesheet with OUTSIDE_TOLERANCE, Use scheduled times makes the one-step correction of REQ-TIME-0006.R5,
+    still with a reason.
+  rule_sources:
+  - SESSIONS Timesheets, Tips & Expenses
+  rule_decisions:
+  - D-5
+- rule_id: R3
+  rule_statement: >-
+    Reject returns a SUBMITTED Timesheet to the Agency through REQ-TIME-0006 with a required reason, and
+    is not offered on an APPROVED one.
+  rule_sources:
+  - SESSIONS Timesheets, Tips & Expenses
+  rule_decisions:
+  - D-33
+- rule_id: R4
+  rule_statement: >-
+    Split by role takes a switch time, a new Position, Department, or both, any break minutes to move,
+    and a reason, and saves through REQ-TIME-0008.
+  rule_sources:
+  - SHEET TS-10
+  - FEEDBACK
+  - SESSIONS Timesheets, Tips & Expenses
+  rule_decisions:
+  - D-33
+- rule_id: R5
+  rule_statement: >-
+    No-show sets or clears the mark on a SUBMITTED or APPROVED Timesheet that is not locked, with a reason,
+    through REQ-TIME-0009.
+  rule_sources:
+  - PRD §2 Shifts
+  rule_decisions:
+  - D-33
+- rule_id: R6
+  rule_statement: >-
+    Upload corrections opens the Uploads send step of REQ-SHELL-0008 with TIMESHEETS picked; REQ-TIME-0003
+    saves the accepted rows as corrections with one reason for the file.
+  rule_sources:
+  - PRD §6 Uploads
+  rule_decisions:
+  - D-59
+requirement_sources:
+- SHEET TS-10
+- SHEET TS-7
+- SESSIONS Timesheets, Tips & Expenses
+- PRD §2 Shifts
+requirement_decisions:
+- D-5
+- D-33
+- D-59
+requirement_features:
+- TS-10
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-UNIT-WEB-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0009
+data_model:
+  status: covered
+  reads:
+  - Timesheet.*
+  - Shift.starts_at
+  - Shift.ends_at
+  - Position.name
+  - Position.active
+  - Department.unit_id
+  - Department.name
+  - Department.active
+  writes: []
+  detail: null
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

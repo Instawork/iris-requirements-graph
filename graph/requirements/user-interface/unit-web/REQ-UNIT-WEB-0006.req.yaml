@@ -35,7 +35,8 @@ requirement_rules:
 - rule_id: R4
   rule_statement: >-
     A Timesheet compliance section shows, from REQ-REPORTING-0010, the Timesheets with a missed break
-    and the late Timesheets for a chosen period, grouped by Unit or by Agency.
+    and the late Timesheets for a chosen period, grouped by a dimension picked from those REQ-REPORTING-0002
+    lists.
   rule_sources:
   - SHEET REP-10
   rule_decisions: []
@@ -54,7 +55,8 @@ requirement_rules:
   - D-45
 - rule_id: R7
   rule_statement: >-
-    Ask a question opens the assistant, where a typed question is answered and can be saved.
+    Ask a question opens the assistant of REQ-ASSISTANT-0001, where REQ-ASSISTANT-0004 answers a typed
+    question and can save it.
   rule_sources:
   - SHEET REP-1
   - SESSIONS Reporting
@@ -75,6 +77,8 @@ requirement_features:
 - REP-10
 edges:
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-UNIT-WEB-0001
+- edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0009
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0012
@@ -84,6 +88,8 @@ edges:
   requirement_id: REQ-REPORTING-0008
 - edge_type: DEPENDS_ON
   requirement_id: REQ-REPORTING-0010
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ASSISTANT-0004
 data_model:
   status: covered
   reads:

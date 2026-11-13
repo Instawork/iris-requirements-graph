@@ -43,7 +43,7 @@ requirement_rules:
   - D-12
 - rule_id: R5
   rule_statement: >-
-    A line with no other Agency's line to compare with, and every Unit Rate Line, shows no Peer Rate.
+    A line that REQ-RATES-0008.R2 gives no Peer Rate shows none and is never highlighted.
   rule_sources: []
   rule_decisions:
   - D-12
@@ -106,6 +106,8 @@ requirement_features:
 - RC-6
 - RC-12
 edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-PROGRAM-WEB-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0009
 - edge_type: DEPENDS_ON

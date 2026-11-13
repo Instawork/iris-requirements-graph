@@ -1,0 +1,178 @@
+requirement_id: REQ-AGENCY-WEB-0011
+requirement_target_layer: user-interface
+requirement_target_module: AGENCY-WEB
+requirement_phase: MVP
+requirement_title: 'Agency Home: to-dos'
+requirement_statement: >-
+  An Agency User's Home lists what the Agency must do next: Releases to answer and staff, Timesheets to
+  submit or fix, Credentials to renew, Rate Reviews, and Worker issues.
+requirement_actors:
+- AGENCY_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Home (REQ-AGENCY-WEB-0001) shows the to-do list of REQ-SHELL-0003 with seven lines: Releases to answer,
+    Releases to staff, Timesheets to submit, Timesheets sent back, Credentials to renew, Rate Reviews
+    to answer, and Worker issues to resolve.
+  rule_sources:
+  - PRD §1 Who sees what
+  rule_decisions:
+  - D-62
+- rule_id: R2
+  rule_statement: >-
+    Releases to answer counts the Agency's PENDING Releases, shows the time until the earliest of their
+    Shifts starts, and opens the Shifts screen of REQ-AGENCY-WEB-0002 filtered to them.
+  rule_sources:
+  - SHEET SC-8
+  rule_decisions:
+  - D-17
+  - D-62
+- rule_id: R3
+  rule_statement: >-
+    Releases to staff counts ACCEPTED Releases with open headcount on Shifts that have not ended, shows
+    the time until the earliest starts, and opens them on the Shifts screen of REQ-AGENCY-WEB-0002.
+  rule_sources:
+  - SHEET WA-1
+  rule_decisions:
+  - D-62
+- rule_id: R4
+  rule_statement: >-
+    Timesheets to submit counts the Agency's DRAFT Timesheets, shows the age of the oldest since its Shift
+    ended and how many are late under REQ-TIME-0007, and opens them on REQ-AGENCY-WEB-0004.
+  rule_sources:
+  - SHEET TS-8
+  - SHEET TS-9
+  rule_decisions:
+  - D-13
+  - D-62
+- rule_id: R5
+  rule_statement: >-
+    Timesheets sent back counts the Agency's REJECTED Timesheets, shows the same two figures, and opens
+    them on REQ-AGENCY-WEB-0004.
+  rule_sources:
+  - SESSIONS Timesheets, Tips & Expenses
+  rule_decisions:
+  - D-13
+  - D-62
+- rule_id: R6
+  rule_statement: >-
+    Credentials to renew counts the Credentials of the Agency's active Workers that need action under
+    REQ-COMPLIANCE-0002, shows the earliest expiry date among them, and opens the Workers screen of REQ-AGENCY-WEB-0003
+    filtered to those Workers.
+  rule_sources:
+  - SHEET WA-14
+  - PRD §1 Who sees what
+  rule_decisions:
+  - D-16
+  - D-62
+  - D-67
+- rule_id: R7
+  rule_statement: >-
+    Rate Reviews to answer counts the Agency's REQUESTED Rate Reviews, shows the age of the oldest, and
+    opens them on the Rate Card screen of REQ-AGENCY-WEB-0005.
+  rule_sources:
+  - SHEET RC-12
+  rule_decisions:
+  - D-62
+- rule_id: R8
+  rule_statement: >-
+    Worker issues to resolve counts OPEN Worker issues on the Agency's Workers, shows the age of the oldest,
+    and opens the Issues tab of REQ-AGENCY-WEB-0008.
+  rule_sources:
+  - SHEET WA-4
+  rule_decisions:
+  - D-62
+- rule_id: R9
+  rule_statement: >-
+    The Agency Home has no second section in MVP (C-21), so it shows the to-do list even when no line
+    has a count.
+  rule_sources:
+  - SHEET RC-16
+  rule_decisions:
+  - D-62
+requirement_sources:
+- PRD §1 How Todos behave
+- PRD §1 Who sees what
+- SHEET PLT-1
+requirement_decisions:
+- D-13
+- D-16
+- D-17
+- D-62
+- D-67
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCY-WEB-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCY-WEB-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCY-WEB-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCY-WEB-0004
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCY-WEB-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCY-WEB-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-DISPATCH-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0007
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-COMPLIANCE-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-COMPLIANCE-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+data_model:
+  status: covered
+  reads:
+  - Release.agency_id
+  - Release.shift_id
+  - Release.status
+  - Release.headcount
+  - Shift.starts_at
+  - Shift.ends_at
+  - Assignment.release_id
+  - Assignment.status
+  - Timesheet.assignment_id
+  - Timesheet.status
+  - Worker.agency_id
+  - Worker.active
+  - Credential.worker_id
+  - Credential.credential_type_id
+  - Credential.status
+  - Credential.expires_on
+  - Credential.replaces_id
+  - RateLine.agency_id
+  - RateReview.rate_line_id
+  - RateReview.status
+  - RateReview.requested_at
+  - WorkerIssue.worker_id
+  - WorkerIssue.status
+  - WorkerIssue.created_at
+  writes: []
+  detail: null
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

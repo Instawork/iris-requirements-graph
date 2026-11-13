@@ -46,7 +46,8 @@ requirement_rules:
 - rule_id: R5
   rule_statement: >-
     The Timesheet compliance view counts Timesheets with a missed break and late Timesheets for the period,
-    by Unit or by Agency, as REQ-REPORTING-0010 defines them.
+    grouped by a dimension the Program User picks from those REQ-REPORTING-0002 lists, as REQ-REPORTING-0010
+    defines them.
   rule_sources:
   - SHEET REP-10
   rule_decisions: []
@@ -86,7 +87,7 @@ requirement_rules:
 - rule_id: R10
   rule_statement: >-
     The Reports screen holds the Program User's Saved Reports list from REQ-SHELL-0012, and Ask a question
-    opens the assistant, where an answer can be saved.
+    opens the assistant of REQ-ASSISTANT-0001, where REQ-ASSISTANT-0004 can save an answer.
   rule_sources:
   - SHEET REP-1
   - SESSIONS Reporting
@@ -111,6 +112,8 @@ requirement_features:
 - REP-10
 edges:
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-PROGRAM-WEB-0001
+- edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0009
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0008
@@ -132,6 +135,8 @@ edges:
   requirement_id: REQ-REPORTING-0010
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ASSISTANT-0004
 data_model:
   status: covered
   reads:

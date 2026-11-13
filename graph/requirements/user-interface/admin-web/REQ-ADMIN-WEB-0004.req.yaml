@@ -50,6 +50,8 @@ requirement_features:
 - WA-18
 edges:
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-ADMIN-WEB-0001
+- edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0009
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0010
@@ -63,7 +65,7 @@ data_model:
   - LaborRule.*
   writes: []
   detail: null
-requirement_starting_flow: false
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

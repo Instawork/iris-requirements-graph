@@ -34,7 +34,7 @@ requirement_rules:
 - rule_id: R4
   rule_statement: >-
     Opening an Event lists its Shifts with Position, start and end, headcount, and Agencies, and each
-    row opens the Shift's page.
+    row opens the Shift's page of REQ-UNIT-WEB-0008.
   rule_sources:
   - SHEET REP-2
   rule_decisions: []
@@ -47,8 +47,8 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R6
   rule_statement: >-
-    Approve Timesheets opens the Timesheets screen filtered to the Event, where they are approved in one
-    step.
+    Approve Timesheets opens the Timesheets screen of REQ-UNIT-WEB-0003 filtered to the Event, where they
+    are approved in one step.
   rule_sources:
   - SHEET TS-8
   rule_decisions: []
@@ -60,6 +60,12 @@ requirement_decisions:
 requirement_features:
 - REP-2
 edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-UNIT-WEB-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-UNIT-WEB-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-UNIT-WEB-0008
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0009
 - edge_type: DEPENDS_ON

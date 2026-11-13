@@ -5,7 +5,7 @@ requirement_phase: MVP
 requirement_title: Lead each home page with to-dos
 requirement_statement: >-
   Each persona's home page opens on its to-dos: one line for each kind of task, with a count and what
-  is at stake. Each persona's home requirement names its tasks.
+  is at stake. Each persona's to-do requirement names its tasks.
 requirement_actors:
 - PROGRAM_USER
 - UNIT_USER
@@ -47,7 +47,7 @@ requirement_rules:
 - rule_id: R6
   rule_statement: >-
     Home opens on the to-do list when the total is above zero, and otherwise on the second section its
-    persona's home requirement names, when it names one.
+    persona's to-do requirement names, when it names one.
   rule_sources:
   - PRD §1 How Todos behave
   rule_decisions: []
@@ -80,7 +80,7 @@ data_model:
   reads: []
   writes: []
   detail: >-
-    To-dos are counts over other records. Each persona's home requirement lists what it reads.
+    To-dos are counts over other records. Each persona's to-do requirement lists what it reads.
 requirement_starting_flow: false
 requirement_review:
   status: draft

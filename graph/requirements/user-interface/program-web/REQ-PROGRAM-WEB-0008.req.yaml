@@ -71,6 +71,8 @@ requirement_features:
 - WA-19
 edges:
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-PROGRAM-WEB-0001
+- edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0009
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0010

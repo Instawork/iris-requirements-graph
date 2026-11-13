@@ -55,12 +55,6 @@ requirement_rules:
   rule_sources:
   - PRD §7 When the agent is unsure
   rule_decisions: []
-- rule_id: R7
-  rule_statement: >-
-    A RECEIVED line says the file is being read, and a DISCARDED line says the User rejected every row.
-  rule_sources:
-  - 'GRAPH data model: UploadStatus meanings'
-  rule_decisions: []
 - rule_id: R8
   rule_statement: >-
     Another screen can open the send step with one upload type already picked, such as SHIFTS from the

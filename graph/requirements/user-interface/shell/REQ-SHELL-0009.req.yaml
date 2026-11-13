@@ -21,11 +21,14 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    The menu lists only the screens of the role the User is acting in, with Home first.
+    The menu lists only the screens of the acting role, in the order its menu requirement gives (REQ-UNIT-WEB-0001,
+    REQ-AGENCY-WEB-0001, REQ-PROGRAM-WEB-0001, or REQ-ADMIN-WEB-0001), with Home first.
   rule_sources:
   - PRD Pages
   - SHEET PLT-1
-  rule_decisions: []
+  rule_decisions:
+  - D-65
+  - D-66
 - rule_id: R3
   rule_statement: >-
     Opening a screen or record the User's Role Grants do not cover shows the refusal of REQ-ORG-0009 and
@@ -36,32 +39,41 @@ requirement_rules:
   - D-25
 - rule_id: R4
   rule_statement: >-
-    The account menu shows the User's first name, last name, and email, and offers their profile and sign
-    out.
+    The account menu shows the User's first name, last name, and email, and offers sign out.
   rule_sources:
   - SHEET PLT-4
   - DEMO components/shell/sidebar.tsx
   rule_decisions: []
 - rule_id: R5
   rule_statement: >-
-    Sign out ends the session through REQ-IDENTITY-0001 and shows the sign-in page.
+    Sign out ends the session through REQ-IDENTITY-0001 and shows the sign-in page of REQ-SHELL-0004.
   rule_sources:
   - SHEET PLT-4
   rule_decisions: []
 - rule_id: R6
   rule_statement: >-
     When REQ-IDENTITY-0001 refuses a request because the session ended or the User was deactivated, the
-    sign-in page replaces the frame.
+    sign-in page of REQ-SHELL-0004 replaces the frame.
   rule_sources:
   - SHEET PLT-4
   rule_decisions:
   - D-34
+- rule_id: R7
+  rule_statement: >-
+    Each screen's requirement adds its own item to its role's menu, so the menu shows an item only once
+    that screen is delivered.
+  rule_sources: []
+  rule_decisions:
+  - D-110
 requirement_sources:
 - PRD Pages
 - SHEET PLT-1
 requirement_decisions:
 - D-25
 - D-34
+- D-65
+- D-66
+- D-110
 requirement_features:
 - PLT-1
 edges:
@@ -73,6 +85,8 @@ edges:
   requirement_id: REQ-IDENTITY-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0004
 data_model:
   status: covered
   reads:

@@ -32,8 +32,8 @@ requirement_rules:
     and amount, or says that shares appear once hours are entered.
   rule_sources:
   - SHEET TS-11
-  - 'GRAPH data model: a share is a TipAllocation'
-  rule_decisions: []
+  rule_decisions:
+  - D-60
 - rule_id: R4
   rule_statement: >-
     Change and Delete are offered on a pool or a PIN tip until a Timesheet it covers locks; after that
@@ -62,12 +62,20 @@ requirement_rules:
   - D-60
 - rule_id: R7
   rule_statement: >-
-    Upload tips opens the Uploads send step with TIPS picked, and a pool typed in the assistant becomes
-    a Proposal that shows each share.
+    Upload tips opens the Uploads send step of REQ-SHELL-0008 with TIPS picked, and a pool typed in the
+    assistant becomes a Proposal that shows each share.
   rule_sources:
   - SHEET TS-11
   - SESSIONS Timesheets, Tips & Expenses
   rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    Each mapping offers End, which sets or changes its valid_to through REQ-TIPS-0001; its PIN, Worker,
+    and valid_from cannot be changed.
+  rule_sources:
+  - SHEET 4.4
+  rule_decisions:
+  - D-60
 requirement_sources:
 - SHEET TS-11
 - SHEET 4.4
@@ -79,6 +87,8 @@ requirement_decisions:
 requirement_features:
 - TS-11
 edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-UNIT-WEB-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0009
 - edge_type: DEPENDS_ON

@@ -11,8 +11,8 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    An ACCEPTED Release whose Shift has not ended shows its ASSIGNED Workers and its open headcount, and
-    offers Assign while any headcount is open.
+    The Release page of REQ-AGENCY-WEB-0002 shows, for an ACCEPTED Release whose Shift has not ended,
+    its ASSIGNED Workers and open headcount, and offers Assign while any headcount is open.
   rule_sources:
   - SHEET WA-1
   - PRD §2 Shifts
@@ -97,8 +97,7 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R12
   rule_statement: >-
-    After the Shift ends, the Release lists its Workers with no Assign, Swap, or Remove, and each links
-    to that Worker's Timesheet.
+    After the Shift ends, the Release lists its Workers with no Assign, Swap, or Remove.
   rule_sources:
   - PRD §2 Shift statuses
   rule_decisions:
@@ -117,6 +116,10 @@ requirement_features:
 - WA-2
 edges:
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCY-WEB-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCY-WEB-0002
+- edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0009
 - edge_type: DEPENDS_ON
   requirement_id: REQ-WORKFORCE-0001
@@ -134,8 +137,6 @@ edges:
   requirement_id: REQ-DISPATCH-0002
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORDERING-0006
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-TIME-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0009
 data_model:
@@ -156,7 +157,6 @@ data_model:
   - WorkerRating.worker_id
   - WorkerRating.unit_id
   - WorkerRating.rating
-  - Timesheet.assignment_id
   writes: []
   detail: null
 requirement_starting_flow: true

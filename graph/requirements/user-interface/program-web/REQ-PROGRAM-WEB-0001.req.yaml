@@ -2,10 +2,9 @@ requirement_id: REQ-PROGRAM-WEB-0001
 requirement_target_layer: user-interface
 requirement_target_module: PROGRAM-WEB
 requirement_phase: MVP
-requirement_title: 'Program home: to-dos, Units ranked by spend, and the Program menu'
+requirement_title: Program menu and Home page
 requirement_statement: >-
-  A Program User's home lists their to-dos: Credentials to review, rate changes to approve, and rates
-  above their peers. Its second section ranks every Unit by spend, and it names the Program menu.
+  The Program menu lists a Program User's screens, and Home is the page they land on.
 requirement_actors:
 - PROGRAM_USER
 requirement_rules:
@@ -17,138 +16,34 @@ requirement_rules:
   - PRD Pages
   rule_decisions:
   - D-66
-- rule_id: R2
+- rule_id: R11
   rule_statement: >-
-    Home shows the to-do list of REQ-SHELL-0003 with three lines: Credentials to review, rate changes
-    to approve, and rates above their peers.
+    Home is the page a Program User lands on, first in the menu; it holds only the sections other requirements
+    add, and says there is nothing to do when none has anything to show.
   rule_sources:
   - PRD §1 Dashboard / Profile
   rule_decisions:
-  - D-62
-- rule_id: R3
-  rule_statement: >-
-    Credentials to review counts NEEDS_REVIEW Credentials, shows the age of the oldest since it was uploaded,
-    and opens the review queue on the Credentials screen.
-  rule_sources:
-  - SHEET WA-15
-  rule_decisions:
-  - D-3
-  - D-62
-- rule_id: R4
-  rule_statement: >-
-    Rate changes to approve counts PENDING Rate Lines, shows the age of the oldest since it was submitted,
-    and opens the approval queue on the Rates screen.
-  rule_sources:
-  - SESSIONS Rate Cards & Supplier Sourcing
-  rule_decisions:
-  - D-10
-  - D-62
-- rule_id: R5
-  rule_statement: >-
-    Rates above their peers counts Rate Lines flagged above the Peer Rate under REQ-RATES-0008 that have
-    never had a Rate Review, shows the largest gap in dollars, and opens the Rates screen filtered to
-    them.
-  rule_sources:
-  - SHEET RC-12
-  rule_decisions:
-  - D-2
-  - D-62
-- rule_id: R6
-  rule_statement: >-
-    The second section is the Units view, which ranks every Unit by SPEND for the current calendar month,
-    highest first, and shows each Unit's APPROVED_SPEND and PENDING_SPEND.
-  rule_sources:
-  - PRD §1 Compass view
-  - SHEET REP-9
-  rule_decisions:
-  - D-29
-- rule_id: R7
-  rule_statement: >-
-    Each Unit shows this month's SPEND against its normal level as the percentage REQ-REPORTING-0009 computes,
-    with no flag, and shows no comparison where that requirement gives none.
-  rule_sources:
-  - PRD §1 Dashboard / Profile
-  rule_decisions:
-  - D-30
-- rule_id: R8
-  rule_statement: >-
-    Each Unit also shows how many of its Releases for work dates this month carry a bill_rate_reason,
-    meaning an off-contract rate, or are marked non_contracted.
-  rule_sources:
-  - SHEET RC-11
-  - PRD §1 Compass view
-  rule_decisions:
-  - D-2
-- rule_id: R9
-  rule_statement: The Units view can be narrowed to one Sector, Region, or District.
-  rule_sources:
-  - SHEET REP-9
-  - SHEET PLT-2
-  rule_decisions:
-  - D-25
-- rule_id: R10
-  rule_statement: >-
-    Selecting a Unit opens the Program Shifts screen filtered to that Unit.
-  rule_sources:
-  - PRD §1 Who sees what
-  rule_decisions: []
+  - D-110
 requirement_sources:
-- PRD §1 Compass view
-- PRD §1 How Todos behave
-- SHEET REP-9
+- PRD Pages
+- PRD §1 Dashboard / Profile
+- SHEET PLT-1
 requirement_decisions:
-- D-2
-- D-3
-- D-10
-- D-25
-- D-29
-- D-30
-- D-62
 - D-66
-requirement_features:
-- REP-9
-- RC-12
+- D-110
+requirement_features: []
 edges:
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-SHELL-0003
+  requirement_id: REQ-SHELL-0009
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-COMPLIANCE-0003
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-RATES-0008
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-RATES-0009
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-REPORTING-0001
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-REPORTING-0009
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-DISPATCH-0001
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-ORG-0002
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-ORG-0009
+  requirement_id: REQ-SHELL-0002
 data_model:
-  status: covered
-  reads:
-  - Credential.status
-  - Credential.created_at
-  - RateLine.status
-  - RateLine.created_at
-  - RateLine.regular_bill_rate
-  - RateReview.rate_line_id
-  - OrgNode.name
-  - OrgNode.level
-  - OrgNode.parent_id
-  - Unit.org_node_id
-  - Release.shift_id
-  - Release.non_contracted
-  - Release.bill_rate_reason
-  - Shift.request_id
-  - Shift.starts_at
-  - Request.unit_id
+  status: not_applicable
+  reads: []
   writes: []
-  detail: null
-requirement_starting_flow: false
+  detail: >-
+    Shows no record of its own. The screens and Home sections other requirements add list what they read.
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

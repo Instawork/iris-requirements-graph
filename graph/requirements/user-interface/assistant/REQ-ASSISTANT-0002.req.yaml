@@ -65,11 +65,12 @@ requirement_rules:
 - rule_id: R8
   rule_statement: >-
     After apply, the card says how many items were saved, lists each FAILED_RECHECK item with its result_message,
-    and links to the screen that shows the saved records.
+    and links to the menu screen that lists the saved records, when the menu has one.
   rule_sources:
   - PRD §7 After the user approves
   rule_decisions:
   - D-36
+  - D-110
 - rule_id: R9
   rule_statement: >-
     A decided Proposal's card is read-only, and it says that a failed item is retried by sending the file
@@ -96,6 +97,7 @@ requirement_sources:
 - PRD §6 Uploads
 requirement_decisions:
 - D-36
+- D-110
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

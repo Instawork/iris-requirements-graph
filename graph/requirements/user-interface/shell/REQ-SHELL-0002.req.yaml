@@ -32,8 +32,8 @@ requirement_rules:
   - D-61
 - rule_id: R3
   rule_statement: >-
-    A User with one context starts in it after sign-in; a User with several is asked to choose one, and
-    can switch from any page without signing out.
+    A User with one context starts in it after sign-in; a User with several is asked to choose one at
+    each sign-in, and can switch from any page without signing out.
   rule_sources:
   - DEMO components/shell/sidebar.tsx
   rule_decisions:
@@ -50,18 +50,18 @@ requirement_rules:
   - D-61
 - rule_id: R5
   rule_statement: >-
-    Switching opens the Home of the chosen context, changes the menu to that role's screens, and changes
-    no record.
+    Entering a context, at sign-in or by switching, opens its Home under REQ-UNIT-WEB-0001, REQ-AGENCY-WEB-0001,
+    REQ-PROGRAM-WEB-0001, or REQ-ADMIN-WEB-0001, shows that role's menu, and changes no product record.
   rule_sources:
   - DEMO hooks/use-switch-workspace.ts
   rule_decisions:
   - D-61
 - rule_id: R6
   rule_statement: >-
-    The acting role is the role the screens give REQ-INTAKE-0001, REQ-INTAKE-0003, and REQ-AGENT-0003
-    when those ask which role the User is acting in.
+    The chosen role and context are saved on the User's session through REQ-IDENTITY-0001, in the form
+    REQ-ORG-0009 defines, so every request carries them.
   rule_sources:
-  - PRD §6 Uploads
+  - SHEET PLT-1
   rule_decisions:
   - D-61
 requirement_sources:

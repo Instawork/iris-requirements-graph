@@ -91,7 +91,7 @@ requirement_rules:
 - rule_id: R11
   rule_statement: >-
     Submit creates the Request through REQ-ORDERING-0001, then sends each line that has an Agency through
-    REQ-DISPATCH-0001, and opens the Shifts list on the new Shifts.
+    REQ-DISPATCH-0001, and opens the Shifts list of REQ-UNIT-WEB-0007 on the new Shifts.
   rule_sources:
   - SHEET SC-2
   - SHEET SC-7
@@ -127,6 +127,10 @@ requirement_features:
 - SC-5
 - SC-11
 edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-UNIT-WEB-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-UNIT-WEB-0007
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0009
 - edge_type: DEPENDS_ON

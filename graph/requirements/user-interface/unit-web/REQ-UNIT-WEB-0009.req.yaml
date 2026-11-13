@@ -20,8 +20,8 @@ requirement_rules:
   - D-63
 - rule_id: R2
   rule_statement: >-
-    Active Agencies with no approval covering the Unit follow, marked non-contracted, and an Agency with
-    no contracted rate shows no rate.
+    The Agencies REQ-ORDERING-0002.R2 marks non-contracted follow the approved ones, and an Agency it
+    gives no contracted rate shows none.
   rule_sources:
   - SHEET RC-11
   rule_decisions:
@@ -45,8 +45,8 @@ requirement_rules:
   - D-24
 - rule_id: R5
   rule_statement: >-
-    Before sending, the step shows what REQ-RATES-0007 requires for that Agency and rate: nothing, a reason,
-    or that the send is refused, naming the gate.
+    Before sending, the step shows what REQ-ORDERING-0002.R4 returns for the picked Agency and rate, and
+    names the gate when the send would be refused.
   rule_sources:
   - SHEET RC-11
   rule_decisions:
@@ -120,6 +120,8 @@ requirement_features:
 - SC-7
 - WA-2
 edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-UNIT-WEB-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0013
 - edge_type: DEPENDS_ON
