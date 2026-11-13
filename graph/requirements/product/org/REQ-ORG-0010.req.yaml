@@ -11,9 +11,9 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: Only a Program User sets, changes, or removes a Setting value.
-  rule_sources:
-  - GRAPH who maintains program setup is not stated
-  rule_decisions: []
+  rule_sources: []
+  rule_decisions:
+  - D-53
 - rule_id: R2
   rule_statement: >-
     A key the catalog scopes as any takes a program default and an override at any Sector, Region, District,
@@ -53,6 +53,7 @@ requirement_sources:
 - SHEET WA-19
 requirement_decisions:
 - D-16
+- D-53
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

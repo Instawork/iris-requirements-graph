@@ -1,4 +1,4 @@
-# Every Setting Iris resolves. Values in data-model Setting rows override these defaults (REQ-ORG-0006).
+# Every Setting Iris resolves (REQ-ORG-0006). Setting rows saved by REQ-ORG-0010 override these defaults.
 # scope: any = can be overridden at any org node; program = one program-wide value only.
 # owner: the requirement whose behavior the Setting changes.
 settings:
@@ -38,7 +38,7 @@ settings:
   type: int
   default: 15
   scope: program
-  meaning: How far above the Peer Rate a regular Bill Rate may be before it is flagged.
+  meaning: How far above the Peer Rate, in percent, a regular Bill Rate must be to be flagged.
   owner: REQ-RATES-0008
   sources: [SHEET RC-12]
   decisions: [D-16, D-12]

@@ -30,14 +30,14 @@ requirement_rules:
 - rule_id: R3
   rule_statement: Each Bill Rate is at least the Pay Rate for the same class of hours.
   rule_sources:
-  - PRD §7 Agent Chat
+  - PRD §7 What the agent checks
   rule_decisions: []
 - rule_id: R4
   rule_statement: >-
     Overtime rates are at least the regular rates and double-time rates at least the overtime rates, for
     Pay Rates and for Bill Rates.
   rule_sources:
-  - PRD §7 Agent Chat
+  - PRD §7 What the agent checks
   rule_decisions: []
 - rule_id: R5
   rule_statement: >-
@@ -57,7 +57,7 @@ requirement_rules:
   rule_statement: >-
     A line that fails any of these checks is not saved, and the submitter is told which check failed.
   rule_sources:
-  - PRD §7 Agent Chat
+  - PRD §7 What the agent checks
   rule_decisions: []
 - rule_id: R8
   rule_statement: >-

@@ -20,8 +20,8 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    An Agency User's rows are for their own Agency, and a Program User's rows must name the Agency in
-    the agency column (C-13).
+    An Agency User's rows are for their own Agency, so a row that names another Agency is a row problem;
+    a Program User's rows must name the Agency (C-13).
   rule_sources:
   - FEEDBACK
   rule_decisions:
@@ -41,7 +41,7 @@ requirement_rules:
     An agency, a city and state, a unit, or a position that does not match exactly one record is a row
     problem and never creates one.
   rule_sources:
-  - PRD §7 Agent Chat
+  - PRD §7 What the agent checks
   rule_decisions:
   - D-21
 - rule_id: R5
@@ -58,13 +58,14 @@ requirement_rules:
     Each row is checked against REQ-RATES-0001 before the Proposal is shown, and a failing row lists the
     check it failed.
   rule_sources:
-  - PRD §7 Agent Chat
+  - PRD §7 What the agent checks
   rule_decisions: []
 - rule_id: R7
   rule_statement: >-
-    Rows in one file with the same Agency, Position, Market or Unit, and effective_from are all row problems.
+    A row that repeats an earlier row's Agency, Position, Market or Unit, and effective_from is reported
+    as a duplicate of that row.
   rule_sources:
-  - PRD §7 Agent Chat
+  - PRD §7 What the agent checks
   rule_decisions: []
 - rule_id: R8
   rule_statement: >-

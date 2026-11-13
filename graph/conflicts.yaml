@@ -163,3 +163,9 @@ conflicts:
   topic: Double-booking inside one Agency
   keep: Conflict detection across Shifts and Agencies is Phase 3 (sheet WA-6).
   drop: A Worker booked elsewhere that day is held back at assignment in MVP (demo).
+- conflict_id: C-33
+  topic: ZIP codes on a rate card
+  keep: >-
+    ZIP codes belong to the Market, which Instawork loads; a rate card row names a city and state, or a
+    Unit (D-21; D-1).
+  drop: Each Agency lists ZIP codes on its own rate card rows, filled in when empty (PRD).

@@ -89,6 +89,11 @@ requirement_rules:
   - SHEET SC-7
   rule_decisions:
   - D-17
+- rule_id: R12
+  rule_statement: A Request cannot be created for a Unit whose org node is inactive.
+  rule_sources: []
+  rule_decisions:
+  - D-53
 requirement_sources:
 - SHEET SC-2
 - PRD §2 Shifts
@@ -112,6 +117,8 @@ edges:
 data_model:
   status: covered
   reads:
+  - Unit.org_node_id
+  - OrgNode.active
   - Unit.timezone
   - Unit.default_parking
   - Unit.default_entrance

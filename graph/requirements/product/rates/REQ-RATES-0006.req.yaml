@@ -37,19 +37,27 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R5
   rule_statement: >-
+    For a Timesheet, the caller also passes the Bill Rates its Shift was sent at, and a billed rate that
+    differs from those is reported as a variance from the Release.
+  rule_sources:
+  - SHEET RC-10
+  rule_decisions:
+  - D-22
+- rule_id: R6
+  rule_statement: >-
     The check uses the work date both when a Shift is sent and on its Timesheets, and a variance stays
     flagged after the Timesheet is approved.
   rule_sources:
   - SHEET RC-10
   rule_decisions: []
-- rule_id: R6
+- rule_id: R7
   rule_statement: >-
     A flag raised when a Shift is sent shows the reason the Unit User gave for the rate (C-16).
   rule_sources:
   - SHEET RC-10
   - SHEET SC-1
   rule_decisions: []
-- rule_id: R7
+- rule_id: R8
   rule_statement: >-
     Program Users see every rate variance flag, and a Unit User sees the flags on Shifts and Timesheets
     of the Units their grant covers.
@@ -74,8 +82,8 @@ data_model:
   - RateLine.*
   writes: []
   detail: >-
-    Reads only and returns its result to the caller. The rates and reasons it compares are kept on Release
-    and Timesheet by the requirements that own them.
+    Reads only and returns its result to the caller. The rates and reasons it compares are passed in by
+    the caller and kept on Release and Timesheet by the requirements that own them.
 requirement_starting_flow: false
 requirement_review:
   status: draft

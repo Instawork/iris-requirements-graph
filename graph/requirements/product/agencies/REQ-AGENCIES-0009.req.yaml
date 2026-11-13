@@ -21,12 +21,16 @@ requirement_features:
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-REPORTING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-REPORTING-0002
 data_model:
   status: pending
   reads: []
   writes: []
   detail: >-
-    Designed when Phase 3 is scoped, including its edges to the REPORTING data it will read.
+    Designed when Phase 3 is scoped.
 requirement_starting_flow: false
 requirement_review:
   status: placeholder

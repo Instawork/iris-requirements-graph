@@ -64,7 +64,8 @@ requirement_rules:
   - D-26
 - rule_id: R8
   rule_statement: >-
-    The grantee is an existing User, or a new one invited through REQ-IDENTITY-0001 in the same action.
+    The grantee is an existing User, or a new one invited through REQ-IDENTITY-0002 in the same action;
+    nobody is invited without a grant.
   rule_sources:
   - SHEET PLT-4
   rule_decisions:
@@ -86,9 +87,18 @@ requirement_rules:
   - D-25
 - rule_id: R11
   rule_statement: >-
-    A grant or revoke outside these limits is refused, nothing is saved, and the User is told why.
+    Through REQ-IDENTITY-0001, a Program User may deactivate or reactivate any User who is not an Instawork
+    Admin, and an Agency User only one whose every grant is AGENCY_USER for their own Agency.
   rule_sources:
-  - PRD §7 Agent Chat
+  - SHEET PLT-4
+  rule_decisions:
+  - D-25
+- rule_id: R12
+  rule_statement: >-
+    An invite, grant, revoke, or deactivation outside these limits is refused, nothing is saved, and the
+    User is told why.
+  rule_sources:
+  - PRD §7 When the agent is unsure
   rule_decisions:
   - D-25
 requirement_sources:
@@ -105,6 +115,8 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-IDENTITY-0001
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-IDENTITY-0002
+- edge_type: DEPENDS_ON
   requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
@@ -115,8 +127,9 @@ data_model:
   writes:
   - RoleGrant.*
   detail: >-
-    The caller gives agency_id; Agency records are not read here. REQ-ORG-0009 depends on this requirement,
-    so these rules themselves state who may grant.
+    The caller gives agency_id; Agency records are not read here. User records change only through REQ-IDENTITY-0001
+    and REQ-IDENTITY-0002. REQ-ORG-0009 depends on this requirement, so these rules themselves state who
+    may invite, grant, and deactivate.
 requirement_starting_flow: false
 requirement_review:
   status: draft

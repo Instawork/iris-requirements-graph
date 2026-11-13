@@ -40,12 +40,13 @@ entities:
   - {name: status, type: enum:RateLineStatus}
   - {name: submitted_by, type: ref:User}
   - {name: submitted_via, type: enum:Channel}
-  - {name: reviewed_by, type: ref:User, nullable: true}
+  - {name: reviewed_by, type: ref:User, nullable: true, note: Empty for a line a Program User submitted}
   - {name: reviewed_at, type: timestamp, nullable: true}
   - {name: sent_back_reason, type: text, nullable: true}
   constraints:
   - Exactly one of market_id and unit_id is set.
   - Two APPROVED lines with the same Agency, Position, and Market or Unit never cover the same date.
+  - A line is approved only if its effective_from is on or after that of every APPROVED line with the same Agency, Position, and Market or Unit.
 - entity: RateReview
   phase: MVP
   description: A request that an Agency lower or justify a regular Bill Rate above the Peer Rate.

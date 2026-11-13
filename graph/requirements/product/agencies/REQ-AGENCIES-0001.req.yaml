@@ -17,9 +17,9 @@ requirement_rules:
 - rule_id: R2
   rule_statement: >-
     An Agency needs a name that no other Agency has, and a duplicate name is refused.
-  rule_sources:
-  - GRAPH files and forms find a record by its name
-  rule_decisions: []
+  rule_sources: []
+  rule_decisions:
+  - D-54
 - rule_id: R3
   rule_statement: >-
     Each new Agency needs a first contact with a first name, last name, and email; a phone number is optional.
@@ -29,7 +29,7 @@ requirement_rules:
   - D-25
 - rule_id: R4
   rule_statement: >-
-    The contact is invited through REQ-IDENTITY-0001 and granted AGENCY_USER for the new Agency through
+    The contact is invited through REQ-IDENTITY-0002 and granted AGENCY_USER for the new Agency through
     REQ-ORG-0005.
   rule_sources:
   - FEEDBACK
@@ -44,8 +44,8 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R6
   rule_statement: >-
-    File rows are checked by the same rules as the form and become a Proposal; a row is saved only when
-    the Program User accepts it.
+    File rows are checked by the same rules as the form and become a Proposal; nothing is saved until
+    the Program User applies it.
   rule_sources:
   - PRD §6 Uploads
   - FEEDBACK
@@ -54,17 +54,19 @@ requirement_rules:
   rule_statement: >-
     A Program User renames or deactivates an Agency; an inactive Agency keeps its records and receives
     no new Release.
-  rule_sources:
-  - GRAPH who maintains program setup is not stated
-  rule_decisions: []
+  rule_sources: []
+  rule_decisions:
+  - D-53
 requirement_sources:
 - FEEDBACK
 requirement_decisions:
 - D-25
+- D-53
+- D-54
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-IDENTITY-0001
+  requirement_id: REQ-IDENTITY-0002
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0005
 - edge_type: DEPENDS_ON

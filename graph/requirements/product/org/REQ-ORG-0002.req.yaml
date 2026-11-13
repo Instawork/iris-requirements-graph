@@ -17,8 +17,8 @@ requirement_rules:
   rule_sources:
   - SESSIONS Shift Creation
   - SHEET PLT-2
-  - GRAPH who maintains program setup is not stated
-  rule_decisions: []
+  rule_decisions:
+  - D-53
 - rule_id: R2
   rule_statement: >-
     In MVP a Unit enters Iris only by this form or a UNITS file, never by sync from another system (C-8).
@@ -64,8 +64,8 @@ requirement_rules:
   rule_sources:
   - FEEDBACK
   - SHEET PLT-2
-  - GRAPH who maintains program setup is not stated
-  rule_decisions: []
+  rule_decisions:
+  - D-53
 - rule_id: R8
   rule_statement: >-
     The Program User may mark the Unit a secured site and set its default parking, entrance, directions,
@@ -82,29 +82,30 @@ requirement_rules:
   rule_sources:
   - SHEET SC-11
   - SHEET SC-6
-  - GRAPH who maintains program setup is not stated
-  rule_decisions: []
+  rule_decisions:
+  - D-53
 - rule_id: R10
   rule_statement: >-
     A Program User may later change any Unit field, and changing the ZIP code sets the Market again by
     the same rule.
-  rule_sources:
-  - GRAPH who maintains program setup is not stated
+  rule_sources: []
   rule_decisions:
   - D-21
+  - D-53
 - rule_id: R11
   rule_statement: >-
     A Program User deactivates a Unit by making its node inactive; an inactive Unit keeps its records
     and accepts no new Request.
-  rule_sources:
-  - GRAPH who maintains program setup is not stated
-  rule_decisions: []
+  rule_sources: []
+  rule_decisions:
+  - D-53
 requirement_sources:
 - SESSIONS Shift Creation
 - SHEET PLT-2
 - FEEDBACK
 requirement_decisions:
 - D-21
+- D-53
 requirement_features:
 - PLT-2
 edges:

@@ -14,7 +14,7 @@ upload_types:
   - {column: agency, required: Program Users only, maps_to: RateLine.agency_id, lookup: Agency.name}
   - {column: city, required: unless unit is set, maps_to: RateLine.market_id, lookup: Market.name and Market.state}
   - {column: state, required: unless unit is set, maps_to: RateLine.market_id}
-  - {column: unit, required: 'no', maps_to: RateLine.unit_id, lookup: Unit name}
+  - {column: unit, required: 'no', maps_to: RateLine.unit_id, lookup: Unit name, note: 'Must match exactly one Unit; a row gives a unit, or a city and state, never both'}
   - {column: position, required: 'yes', maps_to: RateLine.position_id, lookup: Position.name}
   - {column: regular_pay_rate, required: 'yes', maps_to: RateLine.regular_pay_rate}
   - {column: regular_bill_rate, required: 'yes', maps_to: RateLine.regular_bill_rate}
@@ -128,7 +128,7 @@ upload_types:
   owner: REQ-ORG-0003
   sources: [SHEET PLT-2, SESSIONS Shift Creation]
   columns:
-  - {column: sector, required: 'yes', maps_to: OrgNode.parent_id, lookup: OrgNode.name at SECTOR}
+  - {column: sector, required: 'yes', maps_to: OrgNode.parent_id, lookup: OrgNode.name at SECTOR, note: 'A Sector, Region, or District not in the tree is a row problem whose fix adds it'}
   - {column: region, required: 'yes', maps_to: OrgNode.parent_id, lookup: OrgNode.name at REGION under the sector}
   - {column: district, required: 'yes', maps_to: OrgNode.parent_id, lookup: OrgNode.name at DISTRICT under the region}
   - {column: unit, required: 'yes', maps_to: OrgNode.name}

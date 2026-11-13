@@ -35,7 +35,7 @@ entities:
   - {name: level, type: enum:OrgLevel}
   - {name: name, type: text}
   - {name: parent_id, type: ref:OrgNode, nullable: true, note: Empty only for a Sector; otherwise a node one level up}
-  - {name: active, type: bool}
+  - {name: active, type: bool, note: 'An inactive node takes no new child, and an inactive UNIT node takes no new Request'}
   unique:
   - [parent_id, name]
 - entity: CostCenter

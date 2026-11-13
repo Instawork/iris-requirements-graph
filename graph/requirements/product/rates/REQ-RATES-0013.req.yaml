@@ -44,7 +44,7 @@ requirement_rules:
   rule_statement: >-
     When a check in REQ-RATES-0001 fails, nothing is submitted and the form names the check.
   rule_sources:
-  - PRD §7 Agent Chat
+  - PRD §7 What the agent checks
   rule_decisions: []
 - rule_id: R6
   rule_statement: >-

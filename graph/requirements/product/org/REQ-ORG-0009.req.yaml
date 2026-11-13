@@ -28,7 +28,7 @@ requirement_rules:
 - rule_id: R3
   rule_statement: >-
     An Agency User acts only on their own Agency's records: Releases sent to it, its Workers, its Timesheets,
-    and its Rate Lines.
+    its Rate Lines, and the records attached to these.
   rule_sources:
   - SHEET PLT-1
   - PRD §1 Who sees what
@@ -66,7 +66,7 @@ requirement_rules:
   rule_statement: >-
     A refused action saves nothing, and the User is told that their role or scope does not allow it.
   rule_sources:
-  - PRD §7 Agent Chat
+  - PRD §7 When the agent is unsure
   rule_decisions: []
 requirement_sources:
 - SHEET PLT-1

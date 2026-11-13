@@ -16,8 +16,8 @@ requirement_rules:
   rule_sources:
   - SESSIONS Shift Creation
   - SHEET PLT-2
-  - GRAPH who maintains program setup is not stated
-  rule_decisions: []
+  rule_decisions:
+  - D-53
 - rule_id: R2
   rule_statement: >-
     Each row must give sector, region, district, unit, address_line, city, state, zip, unit_cost_center,
@@ -44,10 +44,10 @@ requirement_rules:
   - D-21
 - rule_id: R5
   rule_statement: >-
-    Rows that repeat a Unit must agree on every Unit column, and a Department appears once per Unit; rows
-    that break this are row problems.
+    A row that repeats an earlier row's Unit and Department is reported as a duplicate, and rows for one
+    Unit that disagree on a Unit column are row problems.
   rule_sources:
-  - PRD §7 Agent Chat
+  - PRD §7 What the agent checks
   - GRAPH one row per Department repeats the Unit columns
   rule_decisions: []
 - rule_id: R6
@@ -62,6 +62,7 @@ requirement_sources:
 - SHEET PLT-2
 requirement_decisions:
 - D-21
+- D-53
 requirement_features:
 - PLT-2
 edges:

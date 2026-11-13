@@ -301,7 +301,8 @@ decisions:
   assumption: >-
     A changed regular rate scales the contracted overtime and double-time rates by the same ratio. With no
     Rate Line, overtime is 1.5 times and double time 2 times the regular rate the Unit enters. A Release
-    keeps the rates it was sent at when Rate Lines change later.
+    keeps the rates it was sent at when Rate Lines change later. Derived rates are rounded half up to the
+    cent.
   blocking: false
   answer: null
   sources:
@@ -685,3 +686,46 @@ decisions:
   - SHEET WA-2
   - SHEET 3.2
   - FEEDBACK
+- decision_id: D-53
+  origin: graph
+  question: >-
+    Who keeps the program's setup after launch: the org tree, Units, Departments, Agencies, and Settings?
+  status: open
+  assumption: >-
+    Only Program Users add, change, and deactivate org nodes, Units, Departments, and Agencies, and only
+    they change Settings. A Unit User may change the default site instructions of a Unit they cover and
+    nothing else. Nothing is deleted: a node, Unit, Department, or Agency is made inactive instead.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET PLT-1
+  - SHEET PLT-2
+  - SESSIONS Shift Creation
+  - FEEDBACK
+- decision_id: D-54
+  origin: graph
+  question: Which names identify a record when a file or a form refers to it?
+  status: open
+  assumption: >-
+    An org node's name is unique under its parent, and a Sector's name across the program. An Agency's
+    name is unique across the program. A file value that matches no record, or more than one, is a row
+    problem.
+  blocking: false
+  answer: null
+  sources:
+  - PRD §6 Templates
+  - SHEET PLT-2
+- decision_id: D-55
+  origin: graph
+  question: >-
+    May a Rate Line take effect on a past date, and may it start before a line that is already approved?
+  status: open
+  assumption: >-
+    A Rate Line may take effect on any date, past or future, that is on or after the start of every
+    approved line for the same Agency, Position, and Market or Unit. It ends the line before it on that
+    date. Work already sent or billed keeps the rates stored on it and is flagged by the variance check.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET RC-5
+  - DEMO lib/types.ts

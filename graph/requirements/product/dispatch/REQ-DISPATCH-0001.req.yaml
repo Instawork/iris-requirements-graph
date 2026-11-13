@@ -132,6 +132,15 @@ requirement_rules:
   rule_sources:
   - PRD §7 After the user approves
   rule_decisions: []
+- rule_id: R17
+  rule_statement: >-
+    Before a Release is sent, the Unit User sees whether its regular Bill Rate is above the Peer Rate, as
+    REQ-RATES-0008 judges it.
+  rule_sources:
+  - SHEET 1.4
+  - SHEET RC-12
+  rule_decisions:
+  - D-12
 requirement_sources:
 - SHEET SC-7
 - SHEET SC-1
@@ -156,6 +165,8 @@ edges:
   requirement_id: REQ-RATES-0005
 - edge_type: DEPENDS_ON
   requirement_id: REQ-RATES-0007
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0008
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0005
 - edge_type: DEPENDS_ON

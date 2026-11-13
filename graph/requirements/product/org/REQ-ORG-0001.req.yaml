@@ -26,9 +26,9 @@ requirement_rules:
 - rule_id: R3
   rule_statement: >-
     Two nodes under the same parent never share a name, and two Sectors never share a name.
-  rule_sources:
-  - GRAPH files and forms find a record by its name
-  rule_decisions: []
+  rule_sources: []
+  rule_decisions:
+  - D-54
 - rule_id: R4
   rule_statement: >-
     The ancestors of a node are its parent and each parent above that, up to its Sector.
@@ -58,7 +58,8 @@ requirement_rules:
 requirement_sources:
 - SHEET PLT-2
 - FEEDBACK
-requirement_decisions: []
+requirement_decisions:
+- D-54
 requirement_features:
 - PLT-2
 edges:
