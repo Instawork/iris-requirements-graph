@@ -20,11 +20,10 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    The amounts are the Timesheet's approved spend amounts under REQ-REPORTING-0001, so invoices and dashboards
-    agree.
+    The amounts are the Timesheet's approved spend amounts under REQ-REPORTING-0001, so invoices and
+    dashboards agree.
   rule_sources:
   - PRD §5 Invoices
-  - GRAPH one spend definition for every screen
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
@@ -35,7 +34,8 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R4
   rule_statement: >-
-    The invoice lists tips as one line per Unit and work date, passed through with no markup.
+    When shown, the invoice groups tips into one line per Unit and work date, passed through with no
+    markup; this is a view of the lines' tips_amount, not a stored line.
   rule_sources:
   - SESSIONS Invoicing & Accruals
   - PRD §5 Invoices
@@ -73,14 +73,9 @@ data_model:
   - Expense.timesheet_id
   - Expense.amount
   - Expense.status
-  writes:
-  - InvoiceLine.timesheet_id
-  - InvoiceLine.regular_amount
-  - InvoiceLine.overtime_amount
-  - InvoiceLine.double_time_amount
-  - InvoiceLine.tips_amount
-  - InvoiceLine.expenses_amount
-  detail: null
+  writes: []
+  detail: >-
+    Calculates only. REQ-INVOICING-0001 stores the amounts on each line it creates.
 requirement_starting_flow: false
 requirement_review:
   status: draft

@@ -4,23 +4,24 @@ requirement_target_module: LABOR
 requirement_phase: MVP
 requirement_title: Track overtime within each Agency and alert
 requirement_statement: >-
-  Iris adds up a Worker's minutes at a Unit in its Work Week and alerts when an Assignment or Timesheet
-  hours add overtime. Where OVERTIME_HARD_BLOCK is on, an Assignment that adds overtime is refused instead.
+  Iris adds up the minutes a Worker works for one Agency, across Units, in a Work Week, and alerts
+  when an Assignment or Timesheet hours add overtime. Where OVERTIME_HARD_BLOCK is on, an Assignment
+  that adds overtime is refused instead.
 requirement_actors:
 - SYSTEM
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Overtime is tracked for one Worker at one Unit within one Work Week of that Unit; minutes at other
-    Units or with other Agencies are not counted.
+    Overtime is tracked for one Worker of one Agency across every Unit, within the Work Week of the
+    Unit whose Shift is being checked; minutes with other Agencies are not counted.
   rule_sources:
   - SHEET WA-19
   rule_decisions:
   - D-4
 - rule_id: R2
   rule_statement: >-
-    The caller gives the Worker's counted Shifts in that week, each with its work date, start time, and
-    minutes, both before and after the change being checked.
+    The caller gives the Worker's counted Shifts whose work dates fall in that Work Week, each with
+    its Unit, work date, start time, and minutes, both before and after the change being checked.
   rule_sources: []
   rule_decisions:
   - D-4
@@ -43,8 +44,8 @@ requirement_rules:
   - D-58
 - rule_id: R5
   rule_statement: >-
-    A change adds overtime when the week's overtime plus double-time minutes, classified as in REQ-LABOR-0005,
-    are greater after the change than before it.
+    A change adds overtime when that Work Week's overtime plus double-time minutes, classified as in
+    REQ-LABOR-0005, are greater after the change than before it.
   rule_sources:
   - SHEET WA-19
   rule_decisions:
@@ -52,8 +53,8 @@ requirement_rules:
   - D-58
 - rule_id: R6
   rule_statement: >-
-    When an Assignment would add overtime and OVERTIME_HARD_BLOCK is true for the Unit, the answer is
-    to refuse it, and no alert is sent.
+    When an Assignment would add overtime and OVERTIME_HARD_BLOCK is true for the Unit of the Shift
+    being assigned, the answer is to refuse it, and no alert is sent.
   rule_sources:
   - SHEET WA-19
   rule_decisions:
@@ -67,17 +68,20 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R8
   rule_statement: >-
-    OVERTIME_ALERT goes in the app to every active Agency User of the Worker's Agency and to the User
-    who created the Shift's Request, naming the Worker, the Work Week, and the overtime minutes.
+    OVERTIME_ALERT goes in the app to each active Agency User of the Worker's Agency and each active
+    Unit User over the changed Shift's Unit, naming the Worker, the Work Week, and the overtime
+    minutes.
   rule_sources:
   - SHEET WA-19
-  rule_decisions: []
+  rule_decisions:
+  - D-73
 requirement_sources:
 - SHEET WA-19
 requirement_decisions:
 - D-4
 - D-16
 - D-58
+- D-73
 requirement_features:
 - WA-19
 edges:
@@ -101,11 +105,13 @@ data_model:
   - Worker.agency_id
   - Shift.request_id
   - Request.unit_id
-  - Request.created_by
   - RoleGrant.user_id
   - RoleGrant.role
   - RoleGrant.agency_id
   - RoleGrant.revoked_at
+  - RoleGrant.org_node_id
+  - Unit.org_node_id
+  - OrgNode.parent_id
   writes: []
   detail: >-
     Reads only. The caller supplies the week's minutes; this requirement reads neither Assignments nor

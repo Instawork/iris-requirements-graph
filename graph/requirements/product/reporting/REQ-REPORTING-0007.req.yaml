@@ -11,11 +11,10 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Only a Program User uploads a BUDGETS file, and each row gives a Unit, a period start date, a period
-    end date, and an amount, all required.
+    Only a Program User uploads a BUDGETS file, and each row gives a Unit, a period start date, a
+    period end date, and an amount, all required.
   rule_sources:
   - SHEET REP-8
-  - 'GRAPH upload-types catalog: Program Users upload BUDGETS'
   rule_decisions:
   - D-14
 - rule_id: R2
@@ -30,9 +29,10 @@ requirement_rules:
     A BUDGETS row is reported as a problem when its unit matches no Unit or more than one, or its end
     date is before its start date.
   rule_sources:
-  - PRD §7 Agent Chat
-  - 'GRAPH data model: Budget.period_end is inclusive'
-  rule_decisions: []
+  - PRD §7 What the agent checks
+  rule_decisions:
+  - D-14
+  - D-54
 - rule_id: R4
   rule_statement: >-
     A row whose dates overlap another Budget of the same Unit, saved or in the same file, is reported
@@ -58,13 +58,14 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R7
   rule_statement: >-
-    BUDGET for a Unit and a period is the sum of its Budgets' amounts, each prorated by the share of its
-    days that fall in the period, rounded half up to the cent.
+    BUDGET for a Unit and period is the sum of its Budgets' amounts, each prorated by the share of its
+    days in the period and rounded half up to the cent before summing.
   rule_sources:
   - SHEET REP-7
   - GRAPH proration, because each Budget carries its own dates
   rule_decisions:
   - D-14
+  - D-77
 - rule_id: R8
   rule_statement: >-
     A period in which a Unit has no Budget day shows no budget rather than zero.
@@ -76,6 +77,8 @@ requirement_sources:
 - SHEET REP-8
 requirement_decisions:
 - D-14
+- D-54
+- D-77
 requirement_features:
 - REP-8
 edges:

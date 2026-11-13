@@ -179,7 +179,7 @@ terms:
   avoid: []
   sources: [SHEET TS-7]
 - term: Lock Window
-  definition: How long after a Shift ends that its Approved Timesheet locks.
+  definition: How long after a Shift ends, or after a later approval, that its Approved Timesheet locks.
   avoid: [hours deadline]
   source_words: [hours deadline]
   sources: [SHEET TS-9]

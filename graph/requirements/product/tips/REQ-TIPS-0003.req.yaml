@@ -2,16 +2,25 @@ requirement_id: REQ-TIPS-0003
 requirement_target_layer: product
 requirement_target_module: TIPS
 requirement_phase: MVP
-requirement_title: Apply tip tax rules by state
+requirement_title: Apply tip tax rules by state once Compass names them
 requirement_statement: >-
-  Iris will apply each state's tip tax rules, such as New York's, to tips. No rule is applied until Compass
-  names the rules under D-15.
+  Iris will apply each state's tip tax rules, such as New York's, to tips. Sheet feature TS-13 is not
+  delivered: no rule is applied until Compass names the rules under D-15 and supplies them as input
+  I-11.
 requirement_actors:
 - SYSTEM
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
     Until Compass names the tip tax rules, Iris applies none, and tips pass through at the amounts entered.
+  rule_sources:
+  - SHEET TS-13
+  rule_decisions:
+  - D-15
+- rule_id: R2
+  rule_statement: >-
+    This requirement adds no behavior, and TS-13 counts as not delivered, until D-15 is answered and
+    input I-11 arrives; it is not approved or built before then.
   rule_sources:
   - SHEET TS-13
   rule_decisions:
@@ -30,7 +39,8 @@ data_model:
   reads: []
   writes: []
   detail: >-
-    Waiting on which tip tax rules apply, and in which states first (D-15).
+    Waiting on which tip tax rules apply, and in which states first (D-15), and on the rules
+    themselves (I-11). Nothing is delivered for TS-13 until then.
 requirement_starting_flow: false
 requirement_review:
   status: draft

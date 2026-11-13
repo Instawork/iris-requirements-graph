@@ -36,12 +36,12 @@ edges:
 data_model:
   status: covered
   reads:
-  - InvoiceLine.adjusts_line_id
-  - Shift.starts_at
-  - Unit.timezone
-  writes:
   - InvoiceLine.work_date
-  detail: null
+  - InvoiceLine.adjusts_line_id
+  writes: []
+  detail: >-
+    Adds no field. REQ-INVOICING-0001 and REQ-INVOICING-0004 set work_date when they create a line,
+    and this requirement refuses any later change to it.
 requirement_starting_flow: false
 requirement_review:
   status: draft

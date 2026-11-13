@@ -58,11 +58,13 @@ requirement_rules:
   - D-59
 - rule_id: R7
   rule_statement: >-
-    RATE_VARIANCE applies when regular_bill_rate differs from the Release's regular_bill_rate.
+    A Timesheet that bills its Release's Bill Rates never carries RATE_VARIANCE; only a part split to
+    another Position can, as R13 says.
   rule_sources:
   - SHEET RC-10
   rule_decisions:
   - D-22
+  - D-69
 - rule_id: R8
   rule_statement: PENDING_EXPENSE applies when any Expense on the Timesheet is PENDING.
   rule_sources:
@@ -79,7 +81,8 @@ requirement_rules:
 - rule_id: R10
   rule_statement: >-
     For a split Timesheet, the first part's clock_in, the last part's clock_out, and the parts' total
-    break are compared with the schedule and the break rule, and every part carries the result.
+    break are compared with the schedule, the planned break, and the break rule, and every part
+    carries the result.
   rule_sources: []
   rule_decisions:
   - D-22
@@ -131,11 +134,45 @@ requirement_rules:
   - 'SESSIONS Timesheets, Tips & Expenses'
   rule_decisions:
   - D-22
+- rule_id: R17
+  rule_statement: >-
+    LATE_SUBMISSION applies when submitted_at is later than LOCK_WINDOW_HOURS hours, resolved for the
+    Shift's Unit, after the Shift's ends_at.
+  rule_sources:
+  - SHEET TS-7
+  - SHEET TS-9
+  rule_decisions:
+  - D-22
+  - D-16
+- rule_id: R18
+  rule_statement: >-
+    ADDED_AFTER_SHIFT applies when the Timesheet's Assignment has an assigned_at later than the
+    Shift's ends_at, which REQ-WORKFORCE-0003 allows even beyond the Release's headcount.
+  rule_sources:
+  - SHEET TS-7
+  rule_decisions:
+  - D-22
+  - D-18
+- rule_id: R19
+  rule_statement: >-
+    SHORT_BREAK applies when no_show is false, both clock times are set, and break_minutes, counting
+    empty as 0, are fewer than the Shift's planned break_minutes.
+  rule_sources:
+  - SHEET TS-7
+  rule_decisions:
+  - D-22
 requirement_sources:
 - SHEET TS-7
 - SHEET RC-10
 - SHEET WA-18
-requirement_decisions: [D-16, D-22, D-28, D-33, D-59]
+requirement_decisions:
+- D-16
+- D-18
+- D-22
+- D-28
+- D-33
+- D-59
+- D-69
 requirement_features:
 - TS-7
 edges:
@@ -180,6 +217,8 @@ data_model:
   - Shift.position_id
   - Expense.timesheet_id
   - Expense.status
+  - Assignment.assigned_at
+  - Shift.break_minutes
   writes:
   - Timesheet.status
   - Timesheet.exception_reasons

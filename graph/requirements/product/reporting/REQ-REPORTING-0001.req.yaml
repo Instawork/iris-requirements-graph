@@ -46,14 +46,15 @@ requirement_rules:
 - rule_id: R5
   rule_statement: >-
     An Expense counts at its amount, with no markup, only when the Expense and its Timesheet are both
-    APPROVED.
+    APPROVED, even if that Timesheet is a no-show.
   rule_sources:
   - SHEET TS-12
   - SESSIONS Timesheets, Tips & Expenses
   rule_decisions: []
 - rule_id: R6
   rule_statement: >-
-    A tip allocation counts at its amount, with no markup, once its Timesheet is APPROVED.
+    A tip allocation counts at its amount, with no markup, once its Timesheet is APPROVED, and counts
+    as zero while that Timesheet is a no-show.
   rule_sources:
   - SHEET TS-11
   - PRD §5 Invoices
@@ -69,16 +70,17 @@ requirement_rules:
   - D-29
 - rule_id: R8
   rule_statement: >-
-    Entered hours are priced by hour class at the Release's Bill Rates, and hours count as not entered
-    when the clock-in or the clock-out is missing.
+    Entered hours are priced by hour class at the Timesheet's Bill Rates, and hours count as not
+    entered when the clock-in or the clock-out is missing.
   rule_sources:
+  - SESSIONS Timesheets, Tips & Expenses
   - GRAPH pricing detail the pending-spend assumption leaves open
   rule_decisions:
   - D-29
 - rule_id: R9
   rule_statement: >-
-    Scheduled hours are the Shift's end minus its start minus its planned break, priced at the Release's
-    regular Bill Rate.
+    Scheduled hours are the Shift's end minus its start minus its planned break, priced at the
+    Timesheet's regular Bill Rate.
   rule_sources:
   - GRAPH pricing detail the pending-spend assumption leaves open
   rule_decisions:
@@ -91,7 +93,8 @@ requirement_rules:
   - D-29
 - rule_id: R11
   rule_statement: >-
-    A Timesheet marked as a no-show adds nothing to APPROVED_SPEND or PENDING_SPEND.
+    A Timesheet marked as a no-show adds no hours amount and no tips to APPROVED_SPEND or
+    PENDING_SPEND; an APPROVED Expense on it still counts under R5.
   rule_sources:
   - PRD §5 Invoices
   - PRD §2 Shifts
@@ -105,8 +108,7 @@ requirement_rules:
   rule_statement: >-
     The work date of spend is the date its Shift starts, in the Unit's timezone.
   rule_sources:
-  - >-
-    GRAPH data model: the work date is the date of Shift.starts_at at the Unit
+  - SHEET INV-5
   rule_decisions: []
 - rule_id: R14
   rule_statement: >-
@@ -114,7 +116,7 @@ requirement_rules:
     the Timesheet has no Department.
   rule_sources:
   - SHEET PLT-2
-  - FEEDBACK
+  - FEEDBACK Departments have their own cost centers
   - SESSIONS Worker Assignment & Compliance
   rule_decisions: []
 - rule_id: R15
@@ -124,6 +126,21 @@ requirement_rules:
   - SHEET PLT-2
   - SHEET 7.1
   rule_decisions: []
+- rule_id: R16
+  rule_statement: >-
+    PENDING_SPEND has two parts, entered and estimated; the estimated part is what R9 prices from
+    scheduled hours, and any answer can give the two parts apart.
+  rule_sources:
+  - SHEET REP-2
+  rule_decisions:
+  - D-29
+- rule_id: R17
+  rule_statement: >-
+    Every percentage or rate a report shows is computed from unrounded totals and rounded half up to
+    one decimal place, and an average Bill Rate half up to the cent.
+  rule_sources: []
+  rule_decisions:
+  - D-77
 requirement_sources:
 - PRD §1 Detailed requirements
 - SHEET REP-7
@@ -134,6 +151,7 @@ requirement_decisions:
 - D-29
 - D-33
 - D-41
+- D-77
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON
@@ -180,9 +198,6 @@ data_model:
   - Expense.status
   - Assignment.release_id
   - Release.shift_id
-  - Release.regular_bill_rate
-  - Release.overtime_bill_rate
-  - Release.double_time_bill_rate
   - Shift.request_id
   - Shift.starts_at
   - Shift.ends_at
@@ -196,7 +211,8 @@ data_model:
   - OrgNode.parent_id
   - OrgNode.level
   writes: []
-  detail: Computed on demand; nothing is stored.
+  detail: >-
+    Computed on demand; nothing is stored.
 requirement_starting_flow: false
 requirement_review:
   status: draft

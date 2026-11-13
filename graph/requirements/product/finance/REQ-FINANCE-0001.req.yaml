@@ -35,12 +35,13 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R4
   rule_statement: >-
-    Amounts are approved spend and pending spend under REQ-REPORTING-0001, so accruals use the entered
-    hours and the actual Bill Rates.
+    Amounts are approved spend and pending spend under REQ-REPORTING-0001, so accruals use each
+    Timesheet's entered hours and Bill Rates, and scheduled hours only where none are entered.
   rule_sources:
   - SHEET INV-12
-  - GRAPH one spend definition for every screen
-  rule_decisions: []
+  - SHEET 5.3
+  rule_decisions:
+  - D-29
 - rule_id: R5
   rule_statement: A snapshot never changes after it is taken.
   rule_sources:
@@ -52,6 +53,7 @@ requirement_sources:
 - SESSIONS Invoicing & Accruals
 requirement_decisions:
 - D-7
+- D-29
 requirement_features:
 - INV-12
 edges:

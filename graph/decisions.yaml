@@ -45,8 +45,11 @@ decisions:
     legal, and payroll.
   status: open
   assumption: >-
-    Overtime is counted per Worker per Agency within the Work Week of the Unit where the hours are
-    worked. Hours at other Units and other Agencies are not combined in MVP.
+    Overtime is counted per Worker per Agency, across every Unit that Agency sends the Worker to. Each
+    Timesheet is classified within the Work Week of its own Unit, under that Unit's Labor Rules,
+    counting the Worker's minutes at every Unit on work dates in that week. Hours with other Agencies
+    are not combined in MVP. Whose Work Week should govern when Units differ, and who owes overtime
+    across Agencies, stay open.
   blocking: false
   answer: null
   sources:
@@ -144,9 +147,11 @@ decisions:
     block invoicing?
   status: open
   assumption: >-
-    Only an Approved Timesheet locks. An unapproved one stays open after the window and shows as late on
-    the Unit's and the Agency's to-dos. A Timesheet approved after its window has closed locks when it is
-    approved.
+    Only an Approved Timesheet locks. An unapproved one stays open after the window and shows as late
+    on the Unit's and the Agency's to-dos. A Timesheet approved after its window has closed locks one
+    Lock Window after it is approved, not at approval, so a Unit User can still review and correct it.
+    Lateness is worked out with the Lock Window in effect when it is asked, so changing the Setting
+    changes which past Timesheets count as late.
   blocking: false
   answer: null
   sources:
@@ -159,15 +164,16 @@ decisions:
   status: open
   assumption: >-
     In MVP each Budget row is for one Unit and carries its own start and end dates; rows for one Unit
-    never overlap, and a budget for any other period is prorated by days. A dashboard week is the Unit's
-    Work Week and a dashboard month is a calendar month. The period so far is set against the whole
-    prior period and against the whole month's budget. The invoice questions wait for Phase 2.
+    never overlap, and a budget for any other period is prorated by days. A Program User loads
+    budgets. A dashboard week is the Unit's Work Week and a dashboard month is a calendar month. The
+    period so far is set against the whole prior period and against the whole month's budget. The
+    invoice questions wait for Phase 2.
   blocking: false
   answer: null
   sources:
   - SHEET INV-1
   - SHEET REP-8
-  - FAQ
+  - FAQ One consolidated invoice
 - decision_id: D-15
   origin: graph
   question: Which tip tax rules must Iris apply, and in which states first (TS-13)?
@@ -274,9 +280,11 @@ decisions:
   question: Which conditions besides schedule tolerance stop a Timesheet from being auto-approved?
   status: open
   assumption: >-
-    A missing clock time, a time outside tolerance, a missed required break, a Pay Rate below the minimum
-    wage, a billed rate that differs from the Release, a pending expense, and a tip an Agency User
-    entered. Overtime alone does not.
+    A missing clock time, a time outside tolerance, a billed break shorter than the planned break, a
+    missed required break, a Pay Rate below the minimum wage, a part split to a Position whose
+    contracted rate differs or is missing, a pending expense, a tip an Agency User entered, a
+    submission after the Lock Window closed, and a Worker assigned after the Shift ended. Overtime
+    alone does not, and a no-show Timesheet can be held only by a pending expense.
   blocking: false
   answer: null
   sources:
@@ -304,7 +312,7 @@ decisions:
     A changed regular rate scales the contracted overtime and double-time rates by the same ratio. With no
     Rate Line, overtime is 1.5 times and double time 2 times the regular rate the Unit enters. A Release
     keeps the rates it was sent at when Rate Lines change later. Derived rates are rounded half up to the
-    cent. The same scaling applies when an Agency bills another regular rate on a Timesheet.
+    cent.
   blocking: false
   answer: null
   sources:
@@ -353,9 +361,10 @@ decisions:
   question: Who enters tips, how do cashier-PIN tips combine with the hours split, and which Workers share a pool?
   status: open
   assumption: >-
-    Unit Users enter Tip Pools, and Agency Users enter each Worker's own tips on their Timesheets. A tip
-    under a cashier PIN goes to that PIN's Worker and is not split. A pool splits across every covered
-    Timesheet, whatever the Agency.
+    Unit Users enter Tip Pools, and Agency Users enter each Worker's own tips on their Timesheets, in
+    the app or by chat. A Tip Pool is for one Unit and work date and can be narrowed to one Shift or
+    one Event there. A tip under a cashier PIN goes to that PIN's Worker and is not split. A pool
+    splits across every covered Timesheet, whatever the Agency.
   blocking: false
   answer: null
   sources:
@@ -367,10 +376,12 @@ decisions:
   question: What counts as pending spend?
   status: open
   assumption: >-
-    Hours worked on Shifts that have ended but whose Timesheets are not yet approved, at the hours entered
-    or the scheduled hours when none are entered. Both are priced at the Release's Bill Rates: entered
-    hours by hour class, and scheduled hours (end minus start minus the planned break) at the regular
-    rate. Pending spend holds hours only; tips and expenses count once their Timesheet is approved.
+    Hours worked on Shifts that have ended but whose Timesheets are not yet approved, at the hours
+    entered or the scheduled hours when none are entered. Both are priced at the Timesheet's own Bill
+    Rates, which start as the Release's: entered hours by hour class, and scheduled hours (end minus
+    start minus the planned break) at the regular rate. The part priced from scheduled hours is an
+    estimate and is shown as one. Pending spend holds hours only; tips and expenses count once their
+    Timesheet is approved.
   blocking: false
   answer: null
   sources:
@@ -399,7 +410,7 @@ decisions:
   answer: null
   sources:
   - START
-  - FAQ
+  - FAQ One consolidated invoice
   - SHEET INV-7
 - decision_id: D-32
   origin: graph
@@ -418,7 +429,8 @@ decisions:
   status: open
   assumption: >-
     An Agency User edits Draft and Rejected Timesheets. A Unit User corrects Submitted and Approved ones
-    until lock, and an Approved Timesheet stays Approved. Nobody edits a locked Timesheet.
+    until lock, and an Approved Timesheet stays Approved. Nobody edits a locked Timesheet. The one thing a
+    Unit User may change on a Draft or Rejected Timesheet is the no-show mark (D-70).
   blocking: false
   answer: null
   sources:
@@ -544,8 +556,11 @@ decisions:
   status: open
   assumption: >-
     Fill rate is assigned Workers over headcount on Shifts that started; for one Agency, over the
-    headcount of the Releases sent to it, leaving out withdrawn ones. No-show rate is no-show Timesheets
-    over assigned Workers on worked Shifts. Hours are the minutes behind spend. An Agency's average Bill
+    headcount of the Releases sent to it, leaving out withdrawn ones. No-show rate is no-show
+    Timesheets over assigned Workers on worked Shifts. Hours are the minutes behind spend, and
+    overtime hours are the overtime and double-time minutes within them. Headcount requested leaves
+    out cancelled Shifts. Headcount and fill rate group by the Shift's Position and Department, spend
+    and hours by the Timesheet's, and every measure by the Shift's Event. An Agency's average Bill
     Rate is its spend on hours over its hours. A rate over nothing shows as not available.
   blocking: false
   answer: null
@@ -759,10 +774,11 @@ decisions:
   status: open
   assumption: >-
     A meal break is missed when the minutes worked are more than the rule's threshold and the unpaid
-    break is shorter than the rule requires. Paid rest breaks are not recorded, so rest-break rules are
-    held for reference and not checked in MVP. Without a Rate Line there is no Pay Rate, so the
-    minimum-wage check is skipped. Iris applies only the rules loaded for a state or city, one per kind
-    on any date, and has no built-in defaults.
+    break is shorter than the rule requires. Only one meal break is checked for a Shift. Paid rest
+    breaks are not recorded, so rest-break rules are held for reference and not checked in MVP.
+    Without a Rate Line there is no Pay Rate, so the minimum-wage check is skipped. Each rule carries
+    the values its kind needs: a threshold in minutes, a break length, or a minimum wage. Iris applies
+    only the rules loaded for a state or city, one per kind on any date, and has no built-in defaults.
   blocking: false
   answer: null
   sources:
@@ -774,12 +790,15 @@ decisions:
     count before a Timesheet has hours?
   status: open
   assumption: >-
-    Minutes are classified in clock-in order, each Timesheet on its Shift's work date. Daily double time
-    and daily overtime apply first, and only minutes they leave regular count toward the weekly
-    threshold. A Shift counts at its Timesheet minutes once hours are entered and at its scheduled
-    minutes less the planned break before that; when a Worker is assigned, only scheduled minutes are
-    counted. A change adds overtime when the week's overtime and double-time minutes rise. The Work Week
-    of any date follows the Unit's current start day.
+    Minutes are classified in clock-in order, each Timesheet on its Shift's work date, and a day's and
+    a week's minutes are counted across Units. Daily double time and daily overtime apply first, and
+    only minutes they leave regular count toward the weekly threshold; minutes no rule moves are
+    regular. Locked Timesheets keep their classes, and their regular minutes count first toward the
+    weekly threshold, so hours entered late still carry the overtime the week owes. A Shift counts at
+    its Timesheet minutes once hours are entered and at its scheduled minutes less the planned break
+    before that; when a Worker is assigned, only scheduled minutes are counted. A change adds overtime
+    when the week's overtime and double-time minutes rise. The Work Week of any date follows the
+    Unit's current start day.
   blocking: false
   answer: null
   sources:
@@ -792,13 +811,18 @@ decisions:
     decisions leave open?
   status: open
   assumption: >-
-    A Draft Timesheet is created when its Shift ends, and clock times are kept to the minute. A Timesheet
-    with a missing clock time or a pending expense can be submitted, but a Unit User cannot approve it
-    until that is settled. A Unit User's file is saved only as corrections to Submitted and Approved
-    Timesheets, and a file time with no date is read as the one nearest the scheduled time. A split part
-    starts in the status of the Timesheet it came from, the parts of one Assignment are checked together,
-    and a part in a Position with no Rate Line keeps the original rates and is an exception. A bulk step
-    skips what it cannot do and lists it.
+    A Draft Timesheet is created when its Shift ends, and clock times are kept to the minute. A clock
+    time is local to the Unit: one that does not exist on a daylight-saving change is refused, and one
+    that occurs twice is read as the one nearest the schedule. Worked minutes are zero until both
+    clock times are entered, and every path that changes hours saves them through the one requirement
+    that recomputes the minutes. A Timesheet with a missing clock time or a pending expense can be
+    submitted, but a Unit User cannot approve it until that is settled. Submitting a Rejected
+    Timesheet again clears its rejection reason. A Unit User's file is saved only as corrections to
+    Submitted and Approved Timesheets, and a file time with no date is read as the one nearest the
+    scheduled time. A split part starts in the status of the Timesheet it came from, the break stays
+    on the first part unless the user moves minutes, and a part can be split again. The parts of one
+    Assignment are checked together, and a part in a Position with no Rate Line keeps the original
+    rates and is an exception. A bulk step skips what it cannot do and lists it.
   blocking: false
   answer: null
   sources:
@@ -815,11 +839,18 @@ decisions:
   status: open
   assumption: >-
     Shares are rounded down to the cent, and leftover cents go one each to the shares with the largest
-    dropped fractions. A pool is split again when covered hours change, until any covered Timesheet
-    locks. Unit Users keep the cashier PIN map, and a PIN tip goes to one Timesheet of that Worker.
-    Agency Users add tips and expenses only on Draft and Rejected Timesheets. A tip they enter keeps its
-    Timesheet from being approved automatically, so a Unit User sees it before it is billed. A Unit User
-    decides each expense on a Submitted Timesheet, and a decided expense does not change.
+    dropped fractions. A pool covers every Timesheet on its Shifts and is split across those with
+    hours; a pool entered before any hours has no shares until hours are entered. It is split again
+    whenever covered hours change, until its Timesheets lock. They lock together, only once every one
+    of them is approved and past its Lock Window, so the split always follows hours worked; one
+    Timesheet that is never approved keeps the others open. A Tip Pool or PIN tip that would cover a
+    locked Timesheet is refused, so tips that arrive after the lock cannot be entered in MVP. Unit
+    Users keep the cashier PIN map, and a PIN tip goes to one Timesheet of that Worker; it is refused
+    when the PIN is not mapped or the Worker has no open Timesheet there that day. Tips on a no-show
+    Timesheet count as zero. Agency Users add tips and expenses only on Draft and Rejected Timesheets.
+    A tip they enter keeps its Timesheet from being approved automatically, so a Unit User sees it
+    before it is billed. A Unit User decides each expense on a Submitted Timesheet, and a decided
+    expense does not change; an approved expense counts even on a no-show Timesheet.
   blocking: false
   answer: null
   sources:
@@ -993,3 +1024,139 @@ decisions:
   answer: null
   sources:
   - GRAPH seven MVP requirements act when a time passes, and none provides the clock
+- decision_id: D-69
+  origin: graph
+  question: >-
+    May an Agency bill a Bill Rate on a Timesheet other than the rate its Shift was sent at?
+  status: open
+  assumption: >-
+    No. A Timesheet takes its Bill Rates from the Release, or from the Rate Line for a part split to
+    another Position, and nobody edits them. The reason behind an off-contract rate is the one the
+    Unit User gave when sending the Shift. A wrong rate on work already done is corrected with
+    invoicing in Phase 2.
+  blocking: false
+  answer: null
+  sources:
+  - PRD §7 What the agent accepts
+  - SESSIONS Timesheets, Tips & Expenses
+  - SHEET RC-10
+  - SHEET INV-10
+- decision_id: D-70
+  origin: graph
+  question: >-
+    Can a Unit record a no-show before the Agency submits the Timesheet, and who may undo it?
+  status: open
+  assumption: >-
+    Yes. A Unit User can mark a no-show, with a reason, on any Timesheet that is not locked, including
+    a Draft, and the Agency is told each time. An Agency User can clear only a mark an Agency User
+    set; a mark a Unit User set is cleared only by a Unit User. While the mark is set, no hours can be
+    entered.
+  blocking: false
+  answer: null
+  sources:
+  - PRD §2 Shifts
+  - SHEET TS-7
+- decision_id: D-71
+  origin: graph
+  question: >-
+    How are expenses added by chat, which expense kinds exist, and how is an expense file row matched
+    to a Shift?
+  status: open
+  assumption: >-
+    An Agency User can ask the assistant to add one expense to several Workers of a Shift. Everyone
+    who worked means each Draft or Rejected Timesheet of that Agency's Workers on the Shift that is
+    not a no-show; Timesheets in any other status are left out and named. The kinds are parking and
+    background check, from the sessions, and other, which needs a note. A file row finds its Shift by
+    shift id, or else by Unit, date, and Position, and its Worker by the Worker matching rule, as a
+    Timesheet row does. An expense for a split Timesheet goes to its first part.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET TS-12
+  - SESSIONS Timesheets, Tips & Expenses
+- decision_id: D-72
+  origin: graph
+  question: >-
+    What stops a tips or expense file sent twice from doubling the money?
+  status: open
+  assumption: >-
+    A tip that repeats a saved tip or an earlier row in Unit, work date, Shift, Event, PIN, and
+    amount, and an expense that repeats one in Timesheet, kind, and amount, is shown as a duplicate
+    whose suggested fix is to reject it. The sender decides, because two equal tips or expenses can
+    both be real.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET TS-11
+  - SHEET TS-12
+  - PRD §7 What the agent checks
+- decision_id: D-73
+  origin: graph
+  question: >-
+    Who is told when a change adds overtime, and how?
+  status: open
+  assumption: >-
+    The Worker's Agency Users and the Unit Users over the Unit of the Shift that added the overtime,
+    in the app only. The User whose action caused it is told in the answer to that action instead.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET WA-19
+- decision_id: D-74
+  origin: graph
+  question: >-
+    How is the answer to a reporting question displayed?
+  status: open
+  assumption: >-
+    The display follows from the shape of the answer, so a Saved Report stores no display choice. One
+    measure grouped by one dimension is a bar chart, or a line chart when the dimension is work date,
+    Work Week, or month. Any other answer with one measure is a table, and several measures form a
+    dashboard of those.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET REP-1
+- decision_id: D-75
+  origin: graph
+  question: >-
+    Which relative periods can a Saved Report use?
+  status: open
+  assumption: >-
+    This Work Week and this month, both to date, the last full Work Week, the last four full Work
+    Weeks, and the last full month. Each is resolved on the day the report is opened, for each Unit in
+    its own timezone and Work Week.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET REP-1
+  - SHEET REP-7
+- decision_id: D-76
+  origin: graph
+  question: >-
+    Which measures and dimensions can a question or a report use?
+  status: open
+  assumption: >-
+    Only those in the data model's Measure and Dimension lists, which include Timesheets with a missed
+    break. Tips, expenses, and overtime dollars are part of spend and are not separate measures, and
+    there is no Worker dimension. Pay Rates and Markups are not measures, so no report shows them;
+    Program Users see them on the Rate Card screens.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET 6.1
+  - SHEET REP-10
+  - PRD §3 Supplier Rates
+- decision_id: D-77
+  origin: graph
+  question: >-
+    How are percentages, average rates, and prorated budgets rounded?
+  status: open
+  assumption: >-
+    A percentage or rate is computed from unrounded totals and rounded half up to one decimal place.
+    An average Bill Rate is rounded half up to the cent. Each prorated Budget is rounded half up to
+    the cent before the Budgets are added.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET REP-7
+  - PRD §1 Detailed requirements

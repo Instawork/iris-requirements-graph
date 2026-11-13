@@ -24,21 +24,24 @@ requirement_rules:
   - D-14
 - rule_id: R2
   rule_statement: >-
-    A Consolidated Invoice starts OPEN, and a Timesheet's line joins the OPEN invoice when the Timesheet
-    becomes APPROVED.
+    When a Timesheet becomes APPROVED, this requirement adds its line to the current week's
+    Consolidated Invoice, which starts OPEN, creating that invoice and the Agency's Agency Invoice in
+    it when missing.
   rule_sources:
   - SESSIONS Invoicing & Accruals
-  - DEMO InvoiceStatus
-  rule_decisions: []
-- rule_id: R3
-  rule_statement: >-
-    When its week closes, the Consolidated Invoice and its Agency Invoices become ISSUED, and their lines
-    change only through adjustments on a later invoice.
-  rule_sources:
-  - SHEET INV-3
-  - DEMO InvoiceStatus
   rule_decisions:
   - D-14
+- rule_id: R3
+  rule_statement: >-
+    A daily job of REQ-JOBS-0001 makes a Consolidated Invoice and its Agency Invoices ISSUED once its
+    week has closed and sets issued_at; their lines then change only through adjustments on a later
+    invoice.
+  rule_sources:
+  - SHEET INV-3
+  - SESSIONS Invoicing & Accruals
+  rule_decisions:
+  - D-14
+  - D-68
 - rule_id: R4
   rule_statement: >-
     The invoice opens on a summary: one total for the week, each Agency's total, and totals by Cost Center.
@@ -59,6 +62,16 @@ requirement_rules:
   rule_sources:
   - PRD §5 Invoices
   rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    A new line stores its Timesheet, the work date of its Shift, and the five amounts
+    REQ-INVOICING-0002 computes; a new Agency Invoice starts OPEN with paid_amount 0 and no contract
+    type.
+  rule_sources:
+  - SHEET INV-4
+  - SHEET INV-5
+  rule_decisions:
+  - D-35
 requirement_sources:
 - SHEET INV-1
 - SHEET 5.1
@@ -67,6 +80,8 @@ requirement_sources:
 requirement_decisions:
 - D-14
 - D-31
+- D-35
+- D-68
 requirement_features:
 - INV-1
 edges:
@@ -80,6 +95,8 @@ edges:
   requirement_id: REQ-ORG-0009
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AUDIT-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-JOBS-0001
 data_model:
   status: covered
   reads:
@@ -88,6 +105,11 @@ data_model:
   - Timesheet.assignment_id
   - Assignment.release_id
   - Release.agency_id
+  - Release.shift_id
+  - Shift.starts_at
+  - Shift.request_id
+  - Request.unit_id
+  - Unit.timezone
   - InvoiceLine.*
   writes:
   - ConsolidatedInvoice.week_start
@@ -96,8 +118,18 @@ data_model:
   - AgencyInvoice.consolidated_invoice_id
   - AgencyInvoice.agency_id
   - AgencyInvoice.status
+  - AgencyInvoice.paid_amount
   - InvoiceLine.agency_invoice_id
-  detail: The day the invoice week starts and closes waits on D-14.
+  - InvoiceLine.timesheet_id
+  - InvoiceLine.work_date
+  - InvoiceLine.regular_amount
+  - InvoiceLine.overtime_amount
+  - InvoiceLine.double_time_amount
+  - InvoiceLine.tips_amount
+  - InvoiceLine.expenses_amount
+  detail: >-
+    Creates every invoice record with all its required fields. The day the invoice week starts and
+    closes waits on D-14.
 requirement_starting_flow: false
 requirement_review:
   status: draft

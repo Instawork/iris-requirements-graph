@@ -10,7 +10,8 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Iris emails a summary, such as a Saved Report, to its recipients on a regular schedule.
+    A job of REQ-JOBS-0001 emails a summary, such as a Saved Report, to its recipients on a regular
+    schedule.
   rule_sources:
   - SHEET REP-6
   - SESSIONS Reporting
@@ -26,6 +27,8 @@ edges:
   requirement_id: REQ-REPORTING-0003
 - edge_type: DEPENDS_ON
   requirement_id: REQ-MESSAGING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-JOBS-0001
 data_model:
   status: pending
   reads: []

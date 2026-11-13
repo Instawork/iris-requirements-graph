@@ -11,11 +11,11 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    A correction to a line on an ISSUED invoice becomes an adjustment line on the OPEN invoice, pointing
-    to the line it adjusts.
+    A correction to a line on an ISSUED invoice becomes an adjustment line on the OPEN invoice,
+    pointing to the line it adjusts and carrying that line's Timesheet and work date.
   rule_sources:
   - SHEET INV-3
-  - DEMO InvoiceStatus
+  - SHEET INV-5
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
@@ -23,6 +23,14 @@ requirement_rules:
     current week's charges.
   rule_sources:
   - SHEET INV-3
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    A line whose work date is before its invoice's week, such as a Timesheet approved late, is shown
+    in that section as well.
+  rule_sources:
+  - SHEET INV-3
+  - SHEET INV-5
   rule_decisions: []
 requirement_sources:
 - SHEET INV-3
@@ -39,9 +47,13 @@ data_model:
   reads:
   - InvoiceLine.agency_invoice_id
   - AgencyInvoice.status
+  - InvoiceLine.work_date
+  - ConsolidatedInvoice.week_start
   writes:
-  - InvoiceLine.adjusts_line_id
-  detail: null
+  - InvoiceLine.*
+  detail: >-
+    Creates each adjustment line with every required field; the caller gives the amounts of the
+    difference.
 requirement_starting_flow: false
 requirement_review:
   status: draft

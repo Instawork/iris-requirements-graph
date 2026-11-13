@@ -50,15 +50,15 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R6
   rule_statement: >-
-    A Unit User can ask to approve the Timesheets of a period; the Proposal lists each SUBMITTED one with
-    its exception_reasons, and accepted ones are approved through REQ-TIME-0002.
+    A Unit User can ask to approve the Timesheets of a period; the TIMESHEET_EDITS Proposal lists each
+    SUBMITTED one with its exception_reasons, and accepted ones are approved through REQ-TIME-0002.
   rule_sources:
   - SESSIONS Timesheets, Tips & Expenses
   rule_decisions: []
 - rule_id: R7
   rule_statement: >-
-    An Agency User can ask to submit their DRAFT and REJECTED Timesheets for a period, and accepted ones
-    are submitted through REQ-TIME-0002.
+    An Agency User can ask to submit their DRAFT and REJECTED Timesheets for a period, also as a
+    TIMESHEET_EDITS Proposal, and accepted ones are submitted through REQ-TIME-0002.
   rule_sources:
   - PRD §7 Agent Chat
   rule_decisions: []

@@ -97,11 +97,16 @@ upload_types:
   meaning: Costs an Agency paid for Workers on Shifts.
   uploaders: [AGENCY_USER]
   owner: REQ-TIPS-0002
-  sources: [SHEET TS-12]
+  sources: [SHEET TS-12, 'SESSIONS Timesheets, Tips & Expenses']
+  decisions: [D-71]
   columns:
-  - {column: shift_id, required: 'yes', maps_to: Expense.timesheet_id}
-  - {column: worker_first_name, required: 'yes', maps_to: Expense.timesheet_id, lookup: A Worker of the uploader's Agency assigned to that Shift}
+  - {column: shift_id, required: 'unless unit, date, and position identify the Shift', maps_to: Expense.timesheet_id}
+  - {column: unit, required: 'no', maps_to: Expense.timesheet_id, lookup: Unit name}
+  - {column: date, required: 'no', maps_to: Expense.timesheet_id}
+  - {column: position, required: 'no', maps_to: Expense.timesheet_id, lookup: Position.name, note: Used only to find the Shift}
+  - {column: worker_first_name, required: 'yes', maps_to: Expense.timesheet_id, lookup: Worker match by REQ-WORKFORCE-0002}
   - {column: worker_last_name, required: 'yes', maps_to: Expense.timesheet_id}
+  - {column: worker_email, required: 'no', maps_to: Expense.timesheet_id}
   - {column: kind, required: 'yes', maps_to: Expense.kind, note: 'PARKING, BACKGROUND_CHECK, or OTHER'}
   - {column: amount, required: 'yes', maps_to: Expense.amount}
   - {column: note, required: when kind is OTHER, maps_to: Expense.note}

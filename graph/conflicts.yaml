@@ -21,11 +21,12 @@ conflicts:
   keep: >-
     The Agency submits and the Unit approves by exception (sessions, demo); Timesheets lock after a window
     (sheet TS-7 to TS-9; D-33). A Unit User's Timesheet file is saved as corrections to submitted and
-    approved Timesheets.
+    approved Timesheets. The PRD's no-show by the Unit on shift day is kept, because no higher source
+    removes it: a Unit User can mark a no-show on a Draft Timesheet (D-70).
   drop: >-
-    Either side edits hours freely like a shared document, and a Unit can enter hours or mark a no-show
-    before the Agency submits (PRD). Its change history and its rule that each change notifies the other
-    party by email are kept.
+    Either side edits hours freely like a shared document, and a Unit can enter hours before the Agency
+    submits (PRD). Its change history and its rule that each change notifies the other party by email are
+    kept.
 - conflict_id: C-5
   topic: Hours deadline
   keep: Approved Timesheets lock 24 to 48 hours after the Shift, 48 by default (sheet TS-9; D-16).

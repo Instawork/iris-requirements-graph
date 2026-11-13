@@ -48,3 +48,10 @@ inputs:
   ask: The break, minimum wage, and overtime rules for each pilot state and city, reviewed by Compass HR and legal.
   sources: [SHEET WA-18, SHEET Decisions & Inputs]
   decisions: [D-4]
+- input_id: I-11
+  origin: graph
+  ask: >-
+    The tip tax rules Iris must apply, by state, starting with the pilot's states (the sheet names New York),
+    reviewed by Compass tax or payroll. Until they arrive, sheet feature TS-13 is not delivered.
+  sources: [SHEET TS-13]
+  decisions: [D-15]

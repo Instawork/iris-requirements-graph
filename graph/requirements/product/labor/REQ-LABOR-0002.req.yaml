@@ -34,7 +34,8 @@ requirement_rules:
   - D-57
 - rule_id: R4
   rule_statement: >-
-    REST_BREAK rules are not checked in MVP, because Shifts and Timesheets record only unpaid break minutes.
+    REST_BREAK rules and a second meal break in one Shift are not checked in MVP, because Shifts and
+    Timesheets record only one total of unpaid break minutes.
   rule_sources: []
   rule_decisions:
   - D-57
