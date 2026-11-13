@@ -59,13 +59,14 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R7
   rule_statement: >-
-    When an assignment adds overtime and REQ-LABOR-0003 allows it, the screen shows the answer of
-    REQ-WORKFORCE-0003.R21: the Worker now has overtime in that Work Week, counting every Unit the Agency
-    sends them to.
+    When REQ-LABOR-0003 allows an assignment that adds overtime, the screen shows the answer of
+    REQ-WORKFORCE-0003.R21: each Unit and Work Week in which the Worker now has more overtime, counting
+    their Shifts at every Unit.
   rule_sources:
   - SHEET WA-19
   rule_decisions:
   - D-4
+  - D-133
 - rule_id: R8
   rule_statement: >-
     Until the Shift ends, each ASSIGNED Worker offers Remove, which calls REQ-WORKFORCE-0003 and reopens
@@ -118,6 +119,7 @@ requirement_decisions:
 - D-4
 - D-51
 - D-88
+- D-133
 - D-157
 - D-164
 requirement_features:

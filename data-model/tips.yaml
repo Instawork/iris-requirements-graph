@@ -28,6 +28,7 @@ entities:
   - {name: amount, type: money}
   - {name: entered_by, type: ref:User}
   - {name: entered_via, type: enum:Channel}
+  - {name: hours_missing_notified_at, type: timestamp, nullable: true, note: When TIP_HOURS_MISSING was sent for it; empty until then}
   constraints:
   - At most one of shift_id and event_id is set.
   - No Timesheet the pool covers was locked when the pool was entered or last changed.
@@ -53,7 +54,7 @@ entities:
   - {name: entered_by, type: ref:User}
   constraints:
   - At most one of tip_pool_id and cashier_pin_id is set.
-  - A Tip Pool's allocations add up to its amount, or to less only while no Timesheet it covers that is not locked has worked minutes.
+  - A Tip Pool's allocations add up to its amount, or to less only while no Timesheet it covers that is not locked has counted minutes (REQ-TIPS-0004.R7).
   - An allocation on a locked Timesheet never changes.
 - entity: Expense
   phase: MVP

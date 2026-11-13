@@ -100,13 +100,15 @@ notifications:
   sources: ['SESSIONS Timesheets, Tips & Expenses']
 - type: OVERTIME_ALERT
   trigger: >-
-    An Assignment or saved Timesheet hours add overtime for a Worker of one Agency, counting every Unit, in
-    the Work Week of the Shift's Unit.
-  recipients: Every active Agency User of the Agency, and every active Unit User over the Unit of the Shift that added it.
+    An Assignment or saved Timesheet hours add overtime for a Worker of one Agency at a Unit, counting
+    the Worker's Shifts at every Unit in that Unit's Work Week. Sent once for each Unit that gains overtime.
+  recipients: >-
+    Every active Agency User of the Agency, and every active Unit User over the Unit that gains the overtime
+    or over the Unit of the Shift that added it.
   channels: [IN_APP]
   owner: REQ-LABOR-0003
   sources: [SHEET WA-19]
-  decisions: [D-4, D-133, D-72]
+  decisions: [D-4, D-133, D-72, D-243]
 - type: TIP_NOT_CREDITED
   trigger: >-
     A change to a Timesheet leaves part of a Tip Pool unallocated, or makes a Timesheet that holds a cashier
@@ -116,6 +118,15 @@ notifications:
   owner: REQ-TIPS-0004
   sources: [SHEET TS-11]
   decisions: [D-135]
+- type: TIP_HOURS_MISSING
+  trigger: >-
+    A Timesheet that a Tip Pool covers locks while another covered Timesheet, not a no-show, has no hours
+    entered. Sent once for each pool and recorded in TipPool.hours_missing_notified_at.
+  recipients: Every active Unit User whose scope covers the Unit.
+  channels: [IN_APP]
+  owner: REQ-TIPS-0004
+  sources: [SHEET TS-11, SHEET TS-9]
+  decisions: [D-60, D-135]
 - type: RATE_LINE_PENDING
   trigger: An Agency User submits a Rate Line.
   recipients: Every active Program User.

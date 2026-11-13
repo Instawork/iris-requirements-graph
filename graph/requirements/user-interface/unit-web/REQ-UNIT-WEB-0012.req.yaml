@@ -29,16 +29,17 @@ requirement_rules:
   - D-126
 - rule_id: R3
   rule_statement: >-
-    Opening a pool shows its Shift or Event when set, each share with its Worker, Agency, worked minutes,
-    and amount, and any unallocated amount, or says that shares appear once hours are entered.
+    Opening a pool shows its Shift or Event when set, any unallocated amount, and every covered Timesheet
+    with its Worker, Agency, share, and counted minutes (REQ-TIPS-0004.R7), marked as scheduled where
+    hours are not entered.
   rule_sources:
   - SHEET TS-11
   rule_decisions:
   - D-60
 - rule_id: R4
   rule_statement: >-
-    Change and Delete are offered on a pool or a PIN tip until a Timesheet it covers locks; after that
-    the row says it is fixed.
+    Change and Delete are offered on a pool or a PIN tip until a Timesheet it covers or holds a share
+    on locks; after that the row says it is fixed.
   rule_sources:
   - SHEET TS-11
   rule_decisions:
@@ -63,7 +64,7 @@ requirement_rules:
 - rule_id: R7
   rule_statement: >-
     Upload tips opens the Uploads send step of REQ-SHELL-0008 with TIPS picked, and a pool typed in the
-    assistant becomes a Proposal that shows each share.
+    assistant becomes a Proposal whose summary lists each share.
   rule_sources:
   - SHEET TS-11
   - SESSIONS Timesheets, Tips & Expenses
@@ -80,6 +81,14 @@ requirement_rules:
   rule_statement: >-
     A new pool, a change to one, or a PIN tip that REQ-TIPS-0004.R13 refuses shows that a Timesheet it
     would cover is locked.
+  rule_sources:
+  - SHEET TS-9
+  rule_decisions:
+  - D-132
+- rule_id: R10
+  rule_statement: >-
+    An opened pool shows the earliest lock time, as REQ-TIME-0007.R1 defines it, among its covered APPROVED
+    Timesheets as the last time it can be changed, or says that none is approved yet.
   rule_sources:
   - SHEET TS-9
   rule_decisions:
@@ -115,8 +124,20 @@ data_model:
   - CashierPin.*
   - Timesheet.assignment_id
   - Timesheet.worked_minutes
+  - Timesheet.clock_in
+  - Timesheet.clock_out
+  - Timesheet.no_show
+  - Timesheet.status
+  - Timesheet.approved_at
   - Timesheet.locked_at
   - Assignment.worker_id
+  - Assignment.release_id
+  - Release.shift_id
+  - Shift.request_id
+  - Shift.event_id
+  - Shift.ends_at
+  - Shift.break_minutes
+  - Request.unit_id
   - Worker.first_name
   - Worker.last_name
   - Worker.agency_id

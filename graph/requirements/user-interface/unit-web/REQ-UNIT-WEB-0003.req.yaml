@@ -105,6 +105,16 @@ requirement_rules:
   - PRD §2 Shift statuses
   rule_decisions:
   - D-107
+- rule_id: R21
+  rule_statement: >-
+    MIXED_WORK_WEEKS is shown with each other Unit's name and the weekday its Work Week starts, beside
+    this Unit's, and with nothing else of the other Timesheet, even when that Unit is outside the User's
+    scope.
+  rule_sources:
+  - SHEET WA-20
+  rule_decisions:
+  - D-133
+  - D-244
 requirement_sources:
 - SHEET 4.3
 - SHEET TS-7
@@ -118,7 +128,9 @@ requirement_decisions:
 - D-108
 - D-113
 - D-115
+- D-133
 - D-204
+- D-244
 requirement_features:
 - TS-7
 - TS-8
@@ -163,6 +175,8 @@ data_model:
   - Shift.ends_at
   - Shift.break_minutes
   - Request.unit_id
+  - Unit.org_node_id
+  - Unit.work_week_start
   - OrgNode.name
   - Position.name
   - Department.name

@@ -44,9 +44,9 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R5
   rule_statement: >-
-    Before an assignment is saved, REQ-LABOR-0003 is given the Worker's ASSIGNED Shifts at every Unit in
-    the Work Week of this Shift's Unit, at scheduled minutes less planned breaks, with and without this
-    Shift.
+    Before an assignment is saved, REQ-LABOR-0003 is given the Worker's ASSIGNED Shifts at every Unit
+    with work dates within six days of this Shift's, at scheduled minutes less planned breaks, with and
+    without this Shift.
   rule_sources:
   - SHEET WA-19
   rule_decisions:
@@ -54,8 +54,8 @@ requirement_rules:
   - D-133
 - rule_id: R6
   rule_statement: >-
-    When REQ-LABOR-0003 answers to refuse, as it does for overtime while OVERTIME_HARD_BLOCK is true for
-    the Unit, the assignment is not saved; otherwise it is saved.
+    When REQ-LABOR-0003 answers to refuse, as REQ-LABOR-0003.R6 says it does for overtime under
+    OVERTIME_HARD_BLOCK, the assignment is not saved; otherwise it is saved.
   rule_sources:
   - SHEET WA-19
   rule_decisions: []
@@ -120,13 +120,15 @@ requirement_rules:
   - D-19
 - rule_id: R21
   rule_statement: >-
-    When REQ-LABOR-0003 allows an assignment that adds overtime, the answer to the assigning User
-    says so, because OVERTIME_ALERT is not sent to the User whose action caused it.
+    When REQ-LABOR-0003 allows an assignment that adds overtime, the answer to the assigning User names
+    each Unit and Work Week it adds overtime in, because OVERTIME_ALERT is not sent to the User who
+    caused it.
   rule_sources:
   - SHEET WA-19
   rule_decisions:
   - D-4
   - D-72
+  - D-133
   - D-176
 - rule_id: R22
   rule_statement: >-

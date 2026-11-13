@@ -54,7 +54,9 @@ settings:
   type: bool
   default: false
   scope: any
-  meaning: When true, an Assignment that would put a Worker into overtime is refused instead of flagged.
+  meaning: >-
+    When true for a Unit, an Assignment there that would add overtime at any Unit, or an Assignment anywhere
+    that would add overtime at this Unit, is refused instead of flagged.
   owner: REQ-LABOR-0003
   sources: [SHEET WA-19]
-  decisions: [D-16]
+  decisions: [D-16, D-243]

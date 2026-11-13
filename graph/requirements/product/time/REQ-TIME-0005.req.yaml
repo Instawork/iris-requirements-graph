@@ -13,7 +13,7 @@ requirement_rules:
 - rule_id: R1
   rule_statement: >-
     Iris checks a Timesheet each time it becomes SUBMITTED, and again whenever its hours, no-show, or
-    Expenses change while it is SUBMITTED.
+    Expenses change while it is SUBMITTED, or while it is APPROVED and not locked, as R12 says.
   rule_sources:
   - SHEET TS-7
   rule_decisions:
@@ -96,8 +96,8 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R12
   rule_statement: >-
-    exception_reasons are kept after approval, and are recomputed without changing the status when an
-    APPROVED Timesheet is corrected.
+    exception_reasons are kept after approval, and a check of an APPROVED Timesheet replaces them without
+    changing its status, approved_by, or approved_at.
   rule_sources:
   - SHEET RC-10
   rule_decisions:

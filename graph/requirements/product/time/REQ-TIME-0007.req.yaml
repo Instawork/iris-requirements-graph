@@ -21,8 +21,7 @@ requirement_rules:
   - D-16
 - rule_id: R2
   rule_statement: >-
-    A job of REQ-JOBS-0001 runs every five minutes and sets locked_at on each APPROVED Timesheet whose
-    lock time has passed.
+    An interval job of REQ-JOBS-0001 sets locked_at on each APPROVED Timesheet whose lock time has passed.
   rule_sources:
   - SHEET TS-9
   rule_decisions:
@@ -60,6 +59,14 @@ requirement_rules:
   - SHEET TS-9
   rule_decisions:
   - D-60
+- rule_id: R8
+  rule_statement: >-
+    Each lock is published as an event, to which REQ-TIPS-0004 reacts under its own rules.
+  rule_sources:
+  - SHEET TS-9
+  - SHEET TS-11
+  rule_decisions:
+  - D-135
 requirement_sources:
 - SHEET TS-9
 requirement_decisions:
@@ -68,6 +75,7 @@ requirement_decisions:
 - D-33
 - D-60
 - D-67
+- D-135
 - D-153
 requirement_features:
 - TS-9
