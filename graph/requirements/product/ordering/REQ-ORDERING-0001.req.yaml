@@ -98,11 +98,7 @@ requirement_sources:
 - SHEET SC-2
 - PRD §2 Shifts
 - PRD Data Model
-requirement_decisions:
-- D-6
-- D-17
-- D-18
-- D-20
+requirement_decisions: [D-6, D-17, D-18, D-20, D-53]
 requirement_features:
 - SC-2
 edges:

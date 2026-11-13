@@ -60,9 +60,7 @@ requirement_sources:
 - SHEET SC-1
 - SHEET RC-3
 - SHEET RC-6
-requirement_decisions:
-- D-1
-- D-11
+requirement_decisions: [D-1, D-10, D-11, D-21]
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

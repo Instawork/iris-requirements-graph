@@ -1,0 +1,74 @@
+requirement_id: REQ-JOBS-0001
+requirement_target_layer: platform
+requirement_target_module: JOBS
+requirement_phase: MVP
+requirement_title: Run scheduled work on time and once
+requirement_statement: >-
+  Iris runs the work requirements schedule, such as a sweep after a Shift starts or a daily check, at
+  most five minutes late and never twice at once. The requirement that schedules a job owns what it does.
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    A requirement registers a job with a name and either a five-minute interval or a daily local time and
+    the timezone the caller supplies.
+  rule_sources:
+  - GRAPH seven MVP requirements act when a time passes, and none provides the clock
+  rule_decisions:
+  - D-68
+- rule_id: R2
+  rule_statement: >-
+    An interval job runs every five minutes, and a daily job runs at its local time each day, including on
+    days a daylight-saving change skips or repeats that time.
+  rule_sources:
+  - GRAPH the factory needs one precision for timed work
+  rule_decisions:
+  - D-68
+- rule_id: R3
+  rule_statement: >-
+    A timed rule takes effect at the first run at or after its time, so it is at most five minutes late;
+    a run that fails is retried at the next run.
+  rule_sources:
+  - GRAPH the factory needs one precision for timed work
+  rule_decisions:
+  - D-68
+- rule_id: R4
+  rule_statement: >-
+    Only one run of a job is in progress at a time, even with several servers, and a run repeated for the
+    same time changes nothing the first run already changed.
+  rule_sources:
+  - GRAPH the factory needs one precision for timed work
+  rule_decisions:
+  - D-68
+- rule_id: R5
+  rule_statement: >-
+    A rule that refuses an action once a time has passed checks the clock when the action is made; a job
+    only changes stored state that the time makes stale.
+  rule_sources:
+  - GRAPH the factory needs one precision for timed work
+  rule_decisions:
+  - D-68
+- rule_id: R6
+  rule_statement: >-
+    A daily job for something that belongs to no Unit, such as a Credential, uses the program timezone,
+    America/New_York.
+  rule_sources:
+  - GRAPH Credentials and Rate Reviews belong to no Unit
+  rule_decisions:
+  - D-68
+requirement_sources:
+- GRAPH seven MVP requirements act when a time passes, and none provides the clock
+requirement_decisions: [D-68]
+requirement_features: []
+edges: []
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: >-
+    Keeps no records of its own. Each job's requirement reads and writes its own records, and the job
+    registry is code.
+requirement_starting_flow: false
+requirement_review: {status: draft, by: null, at: null, notes: null}
+requirement_delivery: {status: not_started, pull_requests: []}

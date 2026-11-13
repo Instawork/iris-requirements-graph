@@ -10,12 +10,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
       - run: python -m unittest discover tools/tests
       - run: python tools/validate.py
-      - name: Canvas is up to date
-        run: |
-          python tools/build_canvas.py --check
+      - name: Approvals are kept
+        if: github.event_name == 'pull_request'
+        run: python tools/check_approvals_kept.py --base origin/${{ github.base_ref }}
+      - name: Canvas builds
+        run: python tools/build_canvas.py

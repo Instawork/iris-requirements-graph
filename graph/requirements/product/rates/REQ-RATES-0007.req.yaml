@@ -92,10 +92,7 @@ requirement_rules:
   - D-22
 requirement_sources:
 - SHEET RC-11
-requirement_decisions:
-- D-9
-- D-16
-- D-24
+requirement_decisions: [D-9, D-16, D-22, D-24]
 requirement_features:
 - RC-11
 edges:

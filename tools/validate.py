@@ -338,6 +338,35 @@ def every_rule_grounded(graph: Graph):
 
 
 @check("citations")
+def graph_citations_have_decisions(graph: Graph):
+    """A rule the graph supplies cites the decision that records the assumption."""
+    problems = []
+    for requirement_id, doc in graph.requirements.items():
+        for rule in doc.get("requirement_rules") or []:
+            if not isinstance(rule, dict):
+                continue
+            graph_cited = any(str(source).startswith("GRAPH") for source in rule.get("rule_sources") or [])
+            if graph_cited and not rule.get("rule_decisions"):
+                problems.append((where(graph, requirement_id), f"rule {rule.get('rule_id')} cites GRAPH but no decision"))
+    return problems
+
+
+@check("citations")
+def rule_decisions_listed(graph: Graph):
+    """requirement_decisions lists every decision a rule cites, so a reader of the header sees them all."""
+    problems = []
+    for requirement_id, doc in graph.requirements.items():
+        listed = set(doc.get("requirement_decisions") or [])
+        for rule in doc.get("requirement_rules") or []:
+            if not isinstance(rule, dict):
+                continue
+            for decision_id in rule.get("rule_decisions") or []:
+                if decision_id not in listed:
+                    problems.append((where(graph, requirement_id), f"rule {rule.get('rule_id')} cites {decision_id}, which requirement_decisions does not list"))
+    return problems
+
+
+@check("citations")
 def decisions_well_formed(graph: Graph):
     problems = []
     used = set()
@@ -560,16 +589,54 @@ def edges_acyclic(graph: Graph):
 @check("edges")
 def starting_flow_closed(graph: Graph):
     problems = []
-    flagged = [rid for rid, doc in graph.requirements.items() if doc.get("requirement_starting_flow") is True]
-    if not flagged:
-        problems.append(("graph/requirements", "no requirement is marked requirement_starting_flow"))
-    for requirement_id in flagged:
-        for target in graph.depends_on(requirement_id):
-            target_doc = graph.requirements.get(target)
-            if target_doc and target_doc.get("requirement_starting_flow") is not True:
-                problems.append((where(graph, requirement_id), f"is in the starting flow but depends on {target}, which is not"))
-        if graph.requirements[requirement_id].get("requirement_phase") != "MVP":
+    if not graph.starting_flow_seeds:
+        problems.append(("graph/starting-flow.yaml", "lists no seeds"))
+    for seed in graph.starting_flow_seeds:
+        if seed not in graph.requirements:
+            problems.append(("graph/starting-flow.yaml", f"seed {seed} is not a requirement"))
+    flow = graph.starting_flow()
+    for requirement_id, doc in graph.requirements.items():
+        flagged = doc.get("requirement_starting_flow") is True
+        if flagged != (requirement_id in flow):
+            state = "is flagged but is not" if flagged else "is not flagged but is"
+            problems.append((where(graph, requirement_id), f"{state} in the starting flow; run tools/set_starting_flow.py"))
+        if requirement_id in flow and doc.get("requirement_phase") != "MVP":
             problems.append((where(graph, requirement_id), "only MVP requirements are in the starting flow"))
+    return problems
+
+
+@check("edges")
+def starting_flow_names_in_flow(graph: Graph):
+    """A starting-flow screen that names an MVP requirement needs it in the flow, or the slice dead-ends."""
+    problems = []
+    flow = graph.starting_flow()
+    for requirement_id in sorted(flow):
+        if graph.requirements[requirement_id].get("requirement_target_layer") != "user-interface":
+            continue
+        for rule in graph.requirements[requirement_id].get("requirement_rules") or []:
+            if not isinstance(rule, dict):
+                continue
+            for named in sorted(set(REQUIREMENT_ID_IN_TEXT.findall(rule.get("rule_statement") or ""))):
+                doc = graph.requirements.get(named)
+                if doc and doc.get("requirement_phase") == "MVP" and named not in flow:
+                    problems.append((where(graph, requirement_id), f"{rule.get('rule_id')} names {named}, which is not in the starting flow"))
+    return problems
+
+
+@check("edges")
+def named_requirements_connected(graph: Graph):
+    """A rule that names another requirement depends on it, directly or not, or is depended on by it."""
+    problems = []
+    closures = {rid: graph.dependency_closure(rid) for rid in graph.requirements}
+    for requirement_id, doc in graph.requirements.items():
+        for rule in doc.get("requirement_rules") or []:
+            if not isinstance(rule, dict):
+                continue
+            for named in sorted(set(REQUIREMENT_ID_IN_TEXT.findall(rule.get("rule_statement") or ""))):
+                if named == requirement_id or named not in graph.requirements:
+                    continue
+                if named not in closures[requirement_id] and requirement_id not in closures[named]:
+                    problems.append((where(graph, requirement_id), f"{rule.get('rule_id')} names {named}, but neither depends on the other"))
     return problems
 
 
@@ -935,6 +1002,17 @@ def upload_types_catalog(graph: Graph):
 
 
 # ---------------------------------------------------------------- review and delivery
+
+
+@check("review")
+def removed_ids_retired(graph: Graph):
+    """A requirement id that ever had a file in git history is still a requirement or is retired."""
+    from next_requirement_id import history_ids
+
+    if not (graph.root / ".git").exists():
+        return []
+    gone = history_ids(graph.root) - set(graph.requirements) - set(graph.retired)
+    return [("graph/retired.yaml", f"{requirement_id} was removed without being retired") for requirement_id in sorted(gone)]
 
 
 @check("review")

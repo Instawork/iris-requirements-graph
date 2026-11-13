@@ -1,0 +1,17 @@
+# The first end-to-end slice: a unit posts a shift, then flips to the agency side to create and
+# assign a worker (SHEET Read Me). The flow is these seeds and everything they depend on.
+# tools/set_starting_flow.py writes requirement_starting_flow from this list; the validator
+# fails when the flags and the list disagree.
+seeds:
+- REQ-SHELL-0004
+- REQ-ADMIN-WEB-0001
+- REQ-ADMIN-WEB-0002
+- REQ-ADMIN-WEB-0003
+- REQ-PROGRAM-WEB-0002
+- REQ-PROGRAM-WEB-0003
+- REQ-PROGRAM-WEB-0006
+- REQ-PROGRAM-WEB-0007
+- REQ-UNIT-WEB-0002
+- REQ-AGENCY-WEB-0002
+- REQ-AGENCY-WEB-0003
+- REQ-AGENCY-WEB-0006

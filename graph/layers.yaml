@@ -87,8 +87,8 @@ layers:
 - layer: platform
   layer_name: Platform
   about: >-
-    Shared services every product module uses: sign-in, the agent runtime, file intake, messaging, audit, and
-    integrations.
+    Shared services every product module uses: sign-in, the agent runtime, file intake, messaging, audit,
+    scheduled work, and integrations.
   modules:
   - module_id: IDENTITY
     module_name: Sign-in
@@ -107,6 +107,9 @@ layers:
   - module_id: AUDIT
     module_name: Audit trail
     about: Append-only history of who changed what.
+  - module_id: JOBS
+    module_name: Scheduled work
+    about: Runs the work that happens when a time passes or each day, on time and once.
   - module_id: INTEGRATIONS
     module_name: Integrations
     about: Connections to Compass, Agency, and verification systems.

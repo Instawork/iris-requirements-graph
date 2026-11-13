@@ -978,3 +978,18 @@ decisions:
   - SHEET WA-13
   - SHEET WA-14
   - PRD §4 Professionals
+- decision_id: D-68
+  origin: graph
+  question: >-
+    How late may work that happens when a time passes run, and which timezone is "each day" for things
+    that belong to no Unit?
+  status: open
+  assumption: >-
+    Timed work runs every five minutes, so a timed rule takes effect at most five minutes late. A daily
+    job runs at the local time its requirement names, in the Unit's timezone, or in America/New_York
+    for things that belong to no Unit, such as Credentials. Refusing an action once a time has passed is
+    checked when the action is made, not by the job.
+  blocking: false
+  answer: null
+  sources:
+  - GRAPH seven MVP requirements act when a time passes, and none provides the clock

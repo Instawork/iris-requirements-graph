@@ -79,8 +79,7 @@ requirement_sources:
 - SHEET RC-4
 - PRD §6 Templates
 - FEEDBACK
-requirement_decisions:
-- D-10
+requirement_decisions: [D-1, D-10, D-11, D-21]
 requirement_features:
 - RC-4
 edges:

@@ -7,6 +7,7 @@ the named check to report it.
 from __future__ import annotations
 
 import shutil
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -186,6 +187,50 @@ class MutationTests(unittest.TestCase):
         target = self.g.depends_on(flagged[0])[0]
         self.copy.edit_requirement(target, lambda d: d.update(requirement_starting_flow=False))
         self.assertCaught("starting_flow_closed", "not")
+
+    def test_starting_flow_closed__unknown_seed(self):
+        self.copy.edit_yaml("graph/starting-flow.yaml", lambda d: d["seeds"].append("REQ-NOPE-0001"))
+        self.assertCaught("starting_flow_closed", "REQ-NOPE-0001")
+
+    def test_starting_flow_names_in_flow(self):
+        screen, outside = next(
+            (screen, r)
+            for screen in sorted(self.g.starting_flow())
+            if self.g.requirements[screen]["requirement_target_layer"] == "user-interface"
+            for r, d in sorted(self.g.requirements.items())
+            if d["requirement_phase"] == "MVP" and not d["requirement_starting_flow"] and screen in self.g.dependency_closure(r)
+        )
+        self.copy.edit_requirement(screen, lambda d: d["requirement_rules"][0].update(rule_statement=f"Saving opens {outside}."))
+        self.assertCaught("starting_flow_names_in_flow", outside)
+
+    def test_named_requirements_connected(self):
+        rid = pick(self.g, layer="platform", phase="MVP")
+        other = next(
+            r
+            for r in sorted(self.g.requirements)
+            if r != rid and r not in self.g.dependency_closure(rid) and rid not in self.g.dependency_closure(r)
+        )
+        self.copy.edit_requirement(rid, lambda d: d["requirement_rules"][0].update(rule_statement=f"{other} does the rest."))
+        self.assertCaught("named_requirements_connected", other)
+
+    def test_graph_citations_have_decisions(self):
+        rid = pick(self.g, phase="MVP")
+        self.copy.edit_requirement(rid, lambda d: d["requirement_rules"][0].update(rule_sources=["GRAPH a guess"], rule_decisions=[]))
+        self.assertCaught("graph_citations_have_decisions", "cites GRAPH")
+
+    def test_rule_decisions_listed(self):
+        rid = next(r for r, d in sorted(self.g.requirements.items()) if any(rule.get("rule_decisions") for rule in d["requirement_rules"]))
+        self.copy.edit_requirement(rid, lambda d: d.update(requirement_decisions=[]))
+        self.assertCaught("rule_decisions_listed", "does not list")
+
+    def test_removed_ids_retired(self):
+        rid = pick(self.g, phase="P3")
+        git = ["git", "-c", "user.email=t@example.com", "-c", "user.name=t"]
+        subprocess.run([*git, "init", "-q"], cwd=self.copy.dir, check=True)
+        subprocess.run([*git, "add", "-A"], cwd=self.copy.dir, check=True)
+        subprocess.run([*git, "commit", "-qm", "base"], cwd=self.copy.dir, check=True)
+        self.copy.requirement_path(rid).unlink()
+        self.assertCaught("removed_ids_retired", rid)
 
     def test_data_model_schema(self):
         def broken(doc):

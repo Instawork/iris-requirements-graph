@@ -67,8 +67,7 @@ requirement_rules:
   - D-2
 requirement_sources:
 - SHEET RC-10
-requirement_decisions:
-- D-2
+requirement_decisions: [D-2, D-22]
 requirement_features:
 - RC-10
 edges:

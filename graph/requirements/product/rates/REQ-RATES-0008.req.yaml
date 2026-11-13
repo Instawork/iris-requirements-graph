@@ -95,10 +95,7 @@ requirement_rules:
 requirement_sources:
 - SHEET RC-12
 - SESSIONS Invoicing & Accruals
-requirement_decisions:
-- D-2
-- D-12
-- D-16
+requirement_decisions: [D-2, D-10, D-12, D-16]
 requirement_features:
 - RC-12
 edges:

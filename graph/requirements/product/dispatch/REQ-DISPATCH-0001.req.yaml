@@ -147,12 +147,7 @@ requirement_sources:
 - PRD Data Model
 - FEEDBACK
 - SESSIONS Worker Assignment & Compliance
-requirement_decisions:
-- D-9
-- D-17
-- D-18
-- D-20
-- D-24
+requirement_decisions: [D-9, D-12, D-17, D-18, D-20, D-24]
 requirement_features:
 - SC-7
 - SC-1

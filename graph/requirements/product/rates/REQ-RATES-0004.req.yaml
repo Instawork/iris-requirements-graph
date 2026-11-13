@@ -33,8 +33,7 @@ requirement_rules:
   - D-1
 requirement_sources:
 - SHEET RC-6
-requirement_decisions:
-- D-1
+requirement_decisions: [D-1, D-10]
 requirement_features:
 - RC-6
 edges:

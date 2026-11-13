@@ -75,8 +75,7 @@ requirement_sources:
 - SHEET RC-3
 - PRD §3 Supplier Rates
 - FEEDBACK
-requirement_decisions:
-- D-11
+requirement_decisions: [D-1, D-11, D-21]
 requirement_features:
 - RC-3
 edges:

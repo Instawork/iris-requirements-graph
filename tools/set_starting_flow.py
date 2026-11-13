@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""Flag the starting flow: the given requirements and everything they depend on.
+"""Write requirement_starting_flow from graph/starting-flow.yaml: the seeds and everything they depend on.
 
-Every other requirement is unflagged, so the flow is always closed under DEPENDS_ON.
+Pass --add or --remove to change the seed list first. Every other requirement is unflagged, so
+the flow is always closed under DEPENDS_ON.
 """
 
 from __future__ import annotations
@@ -16,21 +17,33 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from irisgraph import REPO_ROOT, load_graph  # noqa: E402
 
 FLAG = re.compile(r"^requirement_starting_flow: (true|false)$", re.M)
+SEED_LINE = re.compile(r"^- (REQ-\S+)\n", re.M)
+
+
+def write_seeds(path: Path, seeds: list[str]) -> None:
+    text = path.read_text()
+    header = text[: SEED_LINE.search(text).start()] if SEED_LINE.search(text) else text.rstrip("\n") + "\n"
+    path.write_text(header + "".join(f"- {seed}\n" for seed in seeds))
 
 
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("seeds", nargs="+", help="requirement ids at the end of the flow, such as screens")
+    parser.add_argument("--add", nargs="*", default=[], help="seed requirement ids to add")
+    parser.add_argument("--remove", nargs="*", default=[], help="seed requirement ids to remove")
     parser.add_argument("--root", default=str(REPO_ROOT))
     args = parser.parse_args(argv)
-    graph = load_graph(Path(args.root))
-    unknown = [s for s in args.seeds if s not in graph.requirements]
+    root = Path(args.root)
+    graph = load_graph(root)
+    seeds = [seed for seed in graph.starting_flow_seeds if seed not in args.remove]
+    seeds += [seed for seed in args.add if seed not in seeds]
+    unknown = [seed for seed in seeds if seed not in graph.requirements]
     if unknown:
         print(f"unknown requirement ids: {', '.join(unknown)}", file=sys.stderr)
         return 1
-    flow = set(args.seeds)
-    for seed in args.seeds:
-        flow |= graph.dependency_closure(seed)
+    if args.add or args.remove:
+        write_seeds(root / "graph" / "starting-flow.yaml", seeds)
+        graph = load_graph(root)
+    flow = graph.starting_flow()
     later = sorted(r for r in flow if graph.requirements[r].get("requirement_phase") != "MVP")
     if later:
         print(f"the flow reaches requirements after MVP: {', '.join(later)}", file=sys.stderr)
@@ -46,7 +59,7 @@ def main(argv=None) -> int:
         if new != text:
             path.write_text(new)
             changed += 1
-    print(f"{len(flow)} requirements in the starting flow; {changed} files changed")
+    print(f"{len(flow)} requirements in the starting flow from {len(seeds)} seeds; {changed} files changed")
     return 0
 
 

@@ -731,7 +731,7 @@ function SourcesView({ nav }: { nav: Nav }) {
     <Stack gap={20}>
       <Stack gap={8}>
         <H2>Source precedence</H2>
-        <Text tone="secondary">When sources disagree, the lower rank wins and the conflict is logged below.</Text>
+        <Text tone="secondary">When sources disagree, the source with the smaller rank number wins (rank 1 is highest) and the conflict is logged below.</Text>
         <Table
           headers={["Rank", "Key", "Source", "Used for"]}
           columnAlign={["center", "left", "left", "left"]}

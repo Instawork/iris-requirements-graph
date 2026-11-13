@@ -135,11 +135,7 @@ requirement_sources:
 - SHEET TS-7
 - SHEET RC-10
 - SHEET WA-18
-requirement_decisions:
-- D-16
-- D-22
-- D-33
-- D-59
+requirement_decisions: [D-16, D-22, D-28, D-33, D-59]
 requirement_features:
 - TS-7
 edges:

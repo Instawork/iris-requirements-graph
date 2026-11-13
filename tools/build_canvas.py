@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Generate the Cursor canvas from the graph files.
 
-Writes canvas/iris-requirements-graph.canvas.tsx. --check fails when that file is out of date.
---install also copies it into a Cursor canvases directory so it opens beside a chat.
+Writes canvas/iris-requirements-graph.canvas.tsx, which git ignores: the canvas is a view of the
+files, so committing it would make every two graph pull requests conflict. --install also copies
+it into a Cursor canvases directory so it opens beside a chat.
 """
 
 from __future__ import annotations
@@ -142,18 +143,11 @@ def render(graph: Graph) -> str:
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--root", default=str(REPO_ROOT))
-    parser.add_argument("--check", action="store_true", help="fail if the committed canvas is out of date")
     parser.add_argument("--install", help="also copy the canvas into this Cursor canvases directory")
     args = parser.parse_args(argv)
     root = Path(args.root)
     output = root / "canvas" / OUTPUT_NAME
     text = render(load_graph(root))
-    if args.check:
-        if not output.exists() or output.read_text() != text:
-            print(f"{output.relative_to(root)} is out of date; run tools/build_canvas.py", file=sys.stderr)
-            return 1
-        print(f"{output.relative_to(root)} is up to date")
-        return 0
     output.parent.mkdir(exist_ok=True)
     output.write_text(text)
     print(f"wrote {output.relative_to(root)} ({len(text) // 1024} KB)")

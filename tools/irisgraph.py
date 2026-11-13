@@ -46,6 +46,7 @@ class Graph:
     upload_types: dict = field(default_factory=dict)
     reviewers: dict = field(default_factory=dict)
     retired: dict = field(default_factory=dict)
+    starting_flow_seeds: list = field(default_factory=list)
     load_errors: list = field(default_factory=list)
 
     def depends_on(self, requirement_id: str) -> list[str]:
@@ -67,6 +68,13 @@ class Graph:
             seen.add(current)
             stack.extend(self.depends_on(current))
         return seen
+
+    def starting_flow(self) -> set[str]:
+        """The seeds of graph/starting-flow.yaml and everything they depend on."""
+        flow = {seed for seed in self.starting_flow_seeds if seed in self.requirements}
+        for seed in list(flow):
+            flow |= self.dependency_closure(seed)
+        return flow
 
     def dependents(self, requirement_id: str) -> list[str]:
         return sorted(rid for rid in self.requirements if requirement_id in self.depends_on(rid))
@@ -215,6 +223,7 @@ def load_graph(root: Path | str = REPO_ROOT) -> Graph:
         graph.reviewers[item.get("reviewer_id")] = item
     for item in _list(_read_yaml(graph_dir / "retired.yaml", graph), "retired"):
         graph.retired[item.get("requirement_id")] = item
+    graph.starting_flow_seeds = _list(_read_yaml(graph_dir / "starting-flow.yaml", graph), "seeds")
 
     catalog_values = {
         "settings": list(graph.settings),
