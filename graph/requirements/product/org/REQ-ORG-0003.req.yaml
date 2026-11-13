@@ -33,22 +33,24 @@ requirement_rules:
   rule_sources:
   - DEMO lib/types.ts
   - SHEET WA-17
-  rule_decisions: []
+  rule_decisions:
+  - D-88
 - rule_id: R4
   rule_statement: >-
-    Each row is checked and saved by the rules of REQ-ORG-0002, so a ZIP code in no Market or a Unit name
-    already used in its District is a row problem.
+    Each row is checked and saved by the rules of REQ-ORG-0002, so a ZIP code in no Market or a name
+    another Unit already has is a row problem.
   rule_sources:
   - PRD §6 Uploads
   rule_decisions:
   - D-21
+  - D-54
 - rule_id: R5
   rule_statement: >-
     A row that repeats an earlier row's Unit and Department is reported as a duplicate, and rows for one
     Unit that disagree on a Unit column are row problems.
   rule_sources:
+  - PRD §6 Uploads
   - PRD §7 What the agent checks
-  - GRAPH one row per Department repeats the Unit columns
   rule_decisions: []
 - rule_id: R6
   rule_statement: >-
@@ -63,6 +65,8 @@ requirement_sources:
 requirement_decisions:
 - D-21
 - D-53
+- D-54
+- D-88
 requirement_features:
 - PLT-2
 edges:

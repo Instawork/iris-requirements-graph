@@ -9,12 +9,12 @@ upload_types:
   meaning: Rate Lines, one row per Agency, Position, and Market or Unit.
   uploaders: [AGENCY_USER, PROGRAM_USER]
   owner: REQ-RATES-0002
-  sources: [SHEET RC-4, PRD §6 Templates, FEEDBACK]
+  sources: [SHEET RC-4, SHEET RC-5, PRD §6 Templates, SESSIONS Rate Cards & Supplier Sourcing]
   columns:
   - {column: agency, required: Program Users only, maps_to: RateLine.agency_id, lookup: Agency.name}
   - {column: city, required: unless unit is set, maps_to: RateLine.market_id, lookup: Market.name and Market.state}
   - {column: state, required: unless unit is set, maps_to: RateLine.market_id}
-  - {column: unit, required: 'no', maps_to: RateLine.unit_id, lookup: Unit name, note: 'Must match exactly one Unit; a row gives a unit, or a city and state, never both'}
+  - {column: unit, required: 'no', maps_to: RateLine.unit_id, lookup: Unit name, note: 'Unit names are unique across the program (D-54); a row gives a unit, or a city and state, never both'}
   - {column: position, required: 'yes', maps_to: RateLine.position_id, lookup: Position.name}
   - {column: regular_pay_rate, required: 'yes', maps_to: RateLine.regular_pay_rate}
   - {column: regular_bill_rate, required: 'yes', maps_to: RateLine.regular_bill_rate}
@@ -23,6 +23,7 @@ upload_types:
   - {column: double_time_pay_rate, required: 'yes', maps_to: RateLine.double_time_pay_rate}
   - {column: double_time_bill_rate, required: 'yes', maps_to: RateLine.double_time_bill_rate}
   - {column: effective_from, required: 'yes', maps_to: RateLine.effective_from}
+  - {column: reason, required: 'when an APPROVED line exists for the same Agency, Position, and Market or Unit', maps_to: RateLine.change_reason, note: Why the rate changed (RC-5)}
 - type: WORKERS
   phase: MVP
   meaning: An Agency's Workers, one row per person.
@@ -107,10 +108,12 @@ upload_types:
   - {column: note, required: when kind is OTHER, maps_to: Expense.note}
 - type: CREDENTIALS
   phase: MVP
-  meaning: Credential documents for Workers, one file per document, or a list of them with their details.
+  meaning: >-
+    Credential documents for Workers, one PDF or image per Credential. The columns are the details Iris reads
+    from each document for the Agency User to confirm; a CSV or Excel list is not accepted.
   uploaders: [AGENCY_USER]
   owner: REQ-COMPLIANCE-0002
-  sources: [SHEET WA-14]
+  sources: [SHEET WA-14, SHEET WA-15, PRD §4 Professionals]
   columns:
   - {column: worker_first_name, required: 'yes', maps_to: Credential.worker_id, lookup: Worker match by REQ-WORKFORCE-0002}
   - {column: worker_last_name, required: 'yes', maps_to: Credential.worker_id}
@@ -120,7 +123,6 @@ upload_types:
   - {column: number, required: 'no', maps_to: Credential.number}
   - {column: issued_on, required: 'no', maps_to: Credential.issued_on}
   - {column: expires_on, required: when the type has an expiry, maps_to: Credential.expires_on}
-  - {column: file_name, required: 'yes', maps_to: Credential.file_url, note: A file attached with the list}
 - type: UNITS
   phase: MVP
   meaning: Units and their Departments, one row per Department, or per Unit when it has none.
@@ -131,12 +133,12 @@ upload_types:
   - {column: sector, required: 'yes', maps_to: OrgNode.parent_id, lookup: OrgNode.name at SECTOR, note: 'A Sector, Region, or District not in the tree is a row problem whose fix adds it'}
   - {column: region, required: 'yes', maps_to: OrgNode.parent_id, lookup: OrgNode.name at REGION under the sector}
   - {column: district, required: 'yes', maps_to: OrgNode.parent_id, lookup: OrgNode.name at DISTRICT under the region}
-  - {column: unit, required: 'yes', maps_to: OrgNode.name}
+  - {column: unit, required: 'yes', maps_to: OrgNode.name, note: Unique across the program (D-54)}
   - {column: address_line, required: 'yes', maps_to: Unit.address_line}
   - {column: city, required: 'yes', maps_to: Unit.city}
   - {column: state, required: 'yes', maps_to: Unit.state}
   - {column: zip, required: 'yes', maps_to: Unit.zip}
-  - {column: timezone, required: 'no', maps_to: Unit.timezone, note: Filled from the ZIP code if empty}
+  - {column: timezone, required: 'no', maps_to: Unit.timezone, note: 'An IANA zone; filled from the ZIP code if empty (D-88)'}
   - {column: unit_cost_center, required: 'yes', maps_to: Unit.cost_center_id, lookup: CostCenter.code}
   - {column: work_week_start, required: 'yes', maps_to: Unit.work_week_start}
   - {column: secured_site, required: 'no', maps_to: Unit.is_secured_site, note: Yes or No}
@@ -147,14 +149,14 @@ upload_types:
   meaning: Agencies, with their first Agency User and the org nodes they are approved for.
   uploaders: [PROGRAM_USER]
   owner: REQ-AGENCIES-0001
-  sources: [FEEDBACK]
+  sources: [FEEDBACK Creating an agency in bulk]
   columns:
   - {column: agency, required: 'yes', maps_to: Agency.name}
   - {column: contact_first_name, required: 'yes', maps_to: User.first_name, saved_by: REQ-IDENTITY-0002}
   - {column: contact_last_name, required: 'yes', maps_to: User.last_name, saved_by: REQ-IDENTITY-0002}
   - {column: contact_email, required: 'yes', maps_to: User.email, saved_by: REQ-IDENTITY-0002}
   - {column: contact_phone, required: 'no', maps_to: User.phone, saved_by: REQ-IDENTITY-0002}
-  - {column: approved_for, required: 'no', maps_to: AgencyApproval.org_node_id, lookup: 'OrgNode.name, separated by semicolons', saved_by: REQ-AGENCIES-0002}
+  - {column: approved_for, required: 'no', maps_to: AgencyApproval.org_node_id, lookup: 'OrgNode.name, separated by semicolons', saved_by: REQ-AGENCIES-0002, note: A name several org nodes share is a row problem that lists each with its path (D-54)}
 - type: BUDGETS
   phase: MVP
   meaning: Labor budgets, one row per Unit and date range.

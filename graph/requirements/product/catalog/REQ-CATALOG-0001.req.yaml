@@ -10,7 +10,7 @@ requirement_actors:
 - INSTAWORK_ADMIN
 requirement_rules:
 - rule_id: R1
-  rule_statement: Only an Instawork Admin adds, renames, or deactivates a Position.
+  rule_statement: Only an Instawork Admin adds, renames, deactivates, or reactivates a Position.
   rule_sources:
   - PRD §6 Position list
   rule_decisions:
@@ -22,9 +22,9 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    Until Compass supplies its catalog (I-7), Positions are Server, Banquet server, Bartender, Barback,
+    At first start the catalog holds, as active Positions, Server, Banquet server, Bartender, Barback,
     Line cook, Prep cook, Dishwasher, Food runner, Busser, Cashier, Barista, Concessions attendant, Event
-    staff, Porter, and Housekeeper.
+    staff, Porter, and Housekeeper (I-7).
   rule_sources:
   - PRD §6 Position list
   - SHEET RC-2

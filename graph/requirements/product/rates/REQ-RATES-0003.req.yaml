@@ -4,8 +4,8 @@ requirement_target_module: RATES
 requirement_phase: MVP
 requirement_title: Keep a history of every rate change
 requirement_statement: >-
-  Every Rate Line ever submitted stays on file with who submitted it, who reviewed it, and when. Program
-  Users and the owning Agency can read and download this history.
+  Every Rate Line ever submitted stays on file with who submitted it, who reviewed it, when, and why it
+  changed. Program Users and the owning Agency can read and download this history.
 requirement_actors:
 - PROGRAM_USER
 - AGENCY_USER
@@ -19,13 +19,13 @@ requirement_rules:
 - rule_id: R2
   rule_statement: >-
     Each history entry shows who made the change, when, through which channel, the values before and after,
-    and the reason when one was given.
+    and the line's change_reason or end_reason.
   rule_sources:
   - SHEET RC-5
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    A superseded line shows its effective_to and the line that replaced it.
+    A superseded or ended line shows its effective_to and the line that replaced it, when one did.
   rule_sources:
   - SHEET RC-5
   rule_decisions: []

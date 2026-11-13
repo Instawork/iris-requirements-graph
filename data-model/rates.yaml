@@ -35,8 +35,10 @@ entities:
   - {name: double_time_pay_rate, type: money}
   - {name: double_time_bill_rate, type: money}
   - {name: effective_from, type: date}
-  - {name: effective_to, type: date, nullable: true, note: Exclusive; set when a later approved line for the same key takes effect}
+  - {name: effective_to, type: date, nullable: true, note: 'Exclusive; set when a later approved line for the same key takes effect, or when a Program User ends the line (D-80). Equal to effective_from means the line never prices work'}
   - {name: replaces_id, type: ref:RateLine, nullable: true, note: The approved line this one supersedes}
+  - {name: change_reason, type: text, nullable: true, note: 'Why the rate changed; required when an APPROVED line for the same key existed when this line was submitted'}
+  - {name: end_reason, type: text, nullable: true, note: Why a Program User ended the line; empty when a later line replaced it}
   - {name: status, type: enum:RateLineStatus}
   - {name: submitted_by, type: ref:User}
   - {name: submitted_via, type: enum:Channel}
@@ -46,19 +48,19 @@ entities:
   constraints:
   - Exactly one of market_id and unit_id is set.
   - Two APPROVED lines with the same Agency, Position, and Market or Unit never cover the same date.
-  - A line is approved only if its effective_from is on or after that of every APPROVED line with the same Agency, Position, and Market or Unit.
+  - A line is approved only if its effective_from is on or after that of every APPROVED line with the same Agency, Position, and Market or Unit that prices at least one date.
 - entity: RateReview
   phase: MVP
   description: A request that an Agency lower or justify a regular Bill Rate above the Peer Rate.
   fields:
   - {name: rate_line_id, type: ref:RateLine}
-  - {name: peer_rate, type: money, note: The Peer Rate when the review was requested}
+  - {name: peer_rate, type: money, note: 'The Peer Rate, rounded half up to the cent, when the review was requested'}
   - {name: status, type: enum:RateReviewStatus}
   - {name: requested_by, type: ref:User}
   - {name: requested_at, type: timestamp}
   - {name: answer, type: text, nullable: true, note: 'The reason to keep, or a note on the lower rate'}
   - {name: proposed_rate_line_id, type: ref:RateLine, nullable: true, note: The lower line the Agency submitted}
-  - {name: answered_by, type: ref:User, nullable: true}
+  - {name: answered_by, type: ref:User, nullable: true, note: The Agency User who gave the reason or submitted the latest lower line}
   - {name: answered_at, type: timestamp, nullable: true}
   constraints:
   - A Rate Line has at most one REQUESTED review.

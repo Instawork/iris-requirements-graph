@@ -11,7 +11,7 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Only a Program User adds or changes Credential Types and Credential Requirements.
+    Only a Program User adds or changes a Credential Type, and adds or removes a Credential Requirement.
   rule_sources:
   - SHEET WA-13
   rule_decisions:
@@ -60,29 +60,40 @@ requirement_rules:
     A second requirement with the same Credential Type, org node, and Position is refused.
   rule_sources:
   - GRAPH data model uniqueness
-  rule_decisions: []
+  rule_decisions:
+  - D-56
 - rule_id: R8
   rule_statement: >-
     A Credential Type is never deleted; setting active to false stops it being required and keeps its
-    Credentials and Attestations.
+    Credentials and Attestations, and it can be made active again.
   rule_sources:
   - GRAPH data model CredentialType.active
   rule_decisions:
   - D-3
 - rule_id: R9
   rule_statement: >-
-    Adding, changing, or removing a type or a requirement applies to every eligibility check made afterward,
-    including for Workers already assigned.
+    Adding, changing, or removing a type or a requirement changes no stored Credential or Attestation and
+    applies to every eligibility check made afterward, including for Workers already assigned.
   rule_sources:
   - SHEET WA-13
   - GRAPH eligibility is computed when asked
-  rule_decisions: []
+  rule_decisions:
+  - D-51
+- rule_id: R10
+  rule_statement: >-
+    Removing a Credential Requirement deletes it, with the removal kept in the Audit Trail, and the same
+    requirement can be added again later.
+  rule_sources:
+  - SHEET WA-13
+  rule_decisions:
+  - D-56
 requirement_sources:
 - SHEET WA-13
 - SESSIONS Worker Assignment & Compliance
-- FAQ
+- FAQ Settings for each sector
 requirement_decisions:
 - D-3
+- D-51
 - D-56
 requirement_features:
 - WA-13

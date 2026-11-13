@@ -26,6 +26,8 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-MESSAGING-0001
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-JOBS-0001
+- edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0009
 data_model:
   status: pending

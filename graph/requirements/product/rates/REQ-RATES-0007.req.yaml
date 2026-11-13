@@ -57,7 +57,8 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R7
   rule_statement: >-
-    Each gate is applied on its own, so a send that trips both goes ahead only if neither is HARD.
+    Each gate is applied on its own and under SOFT needs its own reason, so a send that trips both goes
+    ahead only if neither is HARD.
   rule_sources:
   - SHEET RC-11
   rule_decisions: []

@@ -46,16 +46,18 @@ requirement_rules:
   - D-9
 - rule_id: R6
   rule_statement: >-
-    For an accepted AGENCIES file row, each org node named in approved_for becomes an approval of that
-    row's Agency; a name matching no single org node is a row problem.
+    Each org node named in approved_for on an AGENCIES row becomes an approval of that Agency, saved with
+    the row; a name several org nodes share is a row problem listing each with its path.
   rule_sources:
-  - FEEDBACK
+  - FEEDBACK Creating an agency in bulk
   rule_decisions:
   - D-9
+  - D-54
 requirement_sources:
 - SHEET RC-11
 requirement_decisions:
 - D-9
+- D-54
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

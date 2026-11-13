@@ -13,17 +13,20 @@ requirement_rules:
 - rule_id: R1
   rule_statement: >-
     A RATE_CARD file has one row per Agency, Position, and Market or Unit, and each row must give the
-    position, all six rates, and effective_from.
+    position, all six rates, effective_from, and a reason where REQ-RATES-0009 requires one.
   rule_sources:
   - SHEET RC-4
+  - SHEET RC-5
   - PRD §6 Templates
-  rule_decisions: []
+  rule_decisions:
+  - D-81
 - rule_id: R2
   rule_statement: >-
     An Agency User's rows are for their own Agency, so a row that names another Agency is a row problem;
     a Program User's rows must name the Agency (C-13).
   rule_sources:
-  - FEEDBACK
+  - SHEET RC-4
+  - SESSIONS Rate Cards & Supplier Sourcing
   rule_decisions:
   - D-10
 - rule_id: R3
@@ -44,19 +47,20 @@ requirement_rules:
   - PRD §7 What the agent checks
   rule_decisions:
   - D-21
+  - D-54
 - rule_id: R5
   rule_statement: >-
     Markup and ZIP code columns are ignored, because Markup is computed and ZIP codes belong to the Market
     (C-14).
   rule_sources:
-  - FEEDBACK
+  - FEEDBACK Just do % only
   rule_decisions:
   - D-11
   - D-21
 - rule_id: R6
   rule_statement: >-
-    Each row is checked against REQ-RATES-0001 before the Proposal is shown, and a failing row lists the
-    check it failed.
+    Each row is checked against REQ-RATES-0001 and the submission rules of REQ-RATES-0009 before the Proposal
+    is shown, and a failing row lists the check it failed.
   rule_sources:
   - PRD §7 What the agent checks
   rule_decisions: []
@@ -75,11 +79,19 @@ requirement_rules:
   - PRD §6 Uploads
   rule_decisions:
   - D-10
+- rule_id: R9
+  rule_statement: >-
+    A row that REQ-RATES-0009 would refuse as unchanged is a problem whose suggested fix rejects the row,
+    so loading the same rate card again changes nothing.
+  rule_sources:
+  - SHEET RC-5
+  rule_decisions:
+  - D-55
 requirement_sources:
 - SHEET RC-4
 - PRD §6 Templates
-- FEEDBACK
-requirement_decisions: [D-1, D-10, D-11, D-21]
+- SESSIONS Rate Cards & Supplier Sourcing
+requirement_decisions: [D-1, D-10, D-11, D-21, D-54, D-55, D-81]
 requirement_features:
 - RC-4
 edges:
@@ -118,6 +130,7 @@ data_model:
   - RateLine.double_time_pay_rate
   - RateLine.double_time_bill_rate
   - RateLine.effective_from
+  - RateLine.change_reason
   - RateLine.submitted_via
   detail: null
 requirement_starting_flow: true

@@ -4,18 +4,20 @@ requirement_target_module: ORG
 requirement_phase: MVP
 requirement_title: Allow each action only to its role and scope
 requirement_statement: >-
-  Before a person's action is saved or a record is shown, Iris checks the User's Role Grants. The action
-  goes ahead only when a grant's role allows it and its scope covers the record.
+  Before a person's action is saved or a record is shown, Iris checks the acting context of the request
+  against the User's Role Grants. The action goes ahead only when the acting role allows it and an unrevoked
+  grant for that role covers the record.
 requirement_actors:
 - SYSTEM
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Each requirement names the roles that may take its action; a User with no unrevoked grant of one of
-    those roles is refused.
+    Each requirement names the roles that may take its action; a request whose acting role is not one
+    of them is refused.
   rule_sources:
   - SHEET PLT-1
-  rule_decisions: []
+  rule_decisions:
+  - D-84
 - rule_id: R2
   rule_statement: >-
     A Unit User acts only on Units at or beneath the org node of one of their UNIT_USER grants, and on
@@ -27,12 +29,13 @@ requirement_rules:
   - D-25
 - rule_id: R3
   rule_statement: >-
-    An Agency User acts only on their own Agency's records: Releases sent to it, its Workers, its Timesheets,
-    its Rate Lines, and the records attached to these.
+    An Agency User acts only on the records of the Agency in their acting context: Releases sent to it,
+    its Workers, its Timesheets, its Rate Lines, and the records attached to these.
   rule_sources:
   - SHEET PLT-1
   - PRD §1 Who sees what
-  rule_decisions: []
+  rule_decisions:
+  - D-84
 - rule_id: R4
   rule_statement: >-
     A Program User's scope is the whole program, so no Unit or Agency is outside it.
@@ -44,7 +47,7 @@ requirement_rules:
 - rule_id: R5
   rule_statement: >-
     An Instawork Admin acts only on reference data (Positions, Markets, Market ZIP codes, and labor rules)
-    and on granting the first Program User.
+    and on granting a Program User when REQ-ORG-0005 allows it.
   rule_sources: []
   rule_decisions:
   - D-26
@@ -57,23 +60,49 @@ requirement_rules:
   - D-25
 - rule_id: R7
   rule_statement: >-
-    A list, search, or download returns only the records the User's grants cover.
+    A list, search, or download returns only the records the acting context covers.
   rule_sources:
   - PRD §6 Uploads
   - PRD §1 Who sees what
-  rule_decisions: []
+  rule_decisions:
+  - D-84
 - rule_id: R8
   rule_statement: >-
     A refused action saves nothing, and the User is told that their role or scope does not allow it.
   rule_sources:
   - PRD §7 When the agent is unsure
   rule_decisions: []
+- rule_id: R9
+  rule_statement: >-
+    The acting context is one role and, for AGENCY_USER, one Agency; a UNIT_USER context covers the org
+    nodes of all the User's unrevoked UNIT_USER grants.
+  rule_sources:
+  - SHEET PLT-1
+  rule_decisions:
+  - D-84
+- rule_id: R10
+  rule_statement: >-
+    A User sets or switches their acting context only to one that an unrevoked Role Grant of theirs gives,
+    and it is kept on their session through REQ-IDENTITY-0001.
+  rule_sources:
+  - GRAPH the session holds the context, so every request carries it
+  rule_decisions:
+  - D-84
+- rule_id: R11
+  rule_statement: >-
+    Every request is checked against the acting context of its session, and is refused once the User holds
+    no unrevoked grant for that role and Agency, whatever other grants they hold.
+  rule_sources:
+  - SHEET PLT-1
+  rule_decisions:
+  - D-84
 requirement_sources:
 - SHEET PLT-1
 - PRD §1 Who sees what
 requirement_decisions:
 - D-25
 - D-26
+- D-84
 requirement_features:
 - PLT-1
 edges:
@@ -90,10 +119,13 @@ data_model:
   - OrgNode.parent_id
   - OrgNode.level
   - User.active
+  - Session.context
   writes: []
   detail: >-
-    Reads only. The caller says which Unit or Agency a record belongs to, so no other module's records
-    are read.
+    Reads only. The acting context is saved on Session.context by REQ-IDENTITY-0001, which stores it for
+    this requirement and never reads it; its shape is {role, agency_id}, with role a Role value and agency_id
+    set only for AGENCY_USER. The caller says which Unit or Agency a record belongs to, so no other module's
+    records are read.
 requirement_starting_flow: true
 requirement_review:
   status: draft

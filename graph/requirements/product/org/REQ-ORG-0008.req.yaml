@@ -38,15 +38,17 @@ requirement_rules:
 - rule_id: R5
   rule_statement: >-
     A Program User deactivates a Sector, Region, or District only when every node beneath it is inactive,
-    and may reactivate it.
+    and reactivates one only while its parent is active.
   rule_sources: []
   rule_decisions:
   - D-53
+  - D-83
 requirement_sources:
 - SHEET PLT-2
 requirement_decisions:
 - D-53
 - D-54
+- D-83
 requirement_features:
 - PLT-2
 edges:

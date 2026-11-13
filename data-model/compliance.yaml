@@ -21,12 +21,13 @@ enums:
   values:
   - {value: REQUESTED, meaning: Raised and not yet issued.}
   - {value: ISSUED, meaning: The Unit issued the badge and system access.}
-  - {value: REVOKED, meaning: The Unit revoked them.}
+  - {value: REVOKED, meaning: The Unit revoked them. Raised again as REQUESTED when the Worker is next assigned at the Unit.}
   transitions:
   - {from: null, to: REQUESTED, requirement: REQ-COMPLIANCE-0006}
   - {from: REQUESTED, to: ISSUED, requirement: REQ-COMPLIANCE-0006}
   - {from: ISSUED, to: REVOKED, requirement: REQ-COMPLIANCE-0006}
   - {from: REQUESTED, to: REVOKED, requirement: REQ-COMPLIANCE-0006}
+  - {from: REVOKED, to: REQUESTED, requirement: REQ-COMPLIANCE-0006}
 entities:
 - entity: CredentialType
   phase: MVP
@@ -53,7 +54,7 @@ entities:
   fields:
   - {name: worker_id, type: ref:Worker}
   - {name: credential_type_id, type: ref:CredentialType}
-  - {name: file_url, type: text}
+  - {name: file_url, type: text, note: The stored document of the Upload or form it came from; never a public link}
   - {name: issuer, type: text, nullable: true}
   - {name: number, type: text, nullable: true}
   - {name: issued_on, type: date, nullable: true}
@@ -67,6 +68,7 @@ entities:
   - {name: review_note, type: text, nullable: true}
   - {name: uploaded_by, type: ref:User}
   - {name: replaces_id, type: ref:Credential, nullable: true, note: The credential this renewal replaces}
+  - {name: expiry_warned_at, type: timestamp, nullable: true, note: When CREDENTIAL_EXPIRING was sent for it; empty until then (D-89)}
 - entity: Attestation
   phase: MVP
   description: An Agency's statement that a Worker meets a Credential Type. Append-only; the latest wins.
@@ -79,12 +81,12 @@ entities:
   - {name: attested_at, type: timestamp}
 - entity: BadgeRequest
   phase: MVP
-  description: Badge and system access for one Worker at one secured Unit (D-27).
+  description: 'Badge and system access for one Worker at one secured Unit (D-27). One row per Worker and Unit, reused for every Assignment there.'
   fields:
   - {name: worker_id, type: ref:Worker}
   - {name: unit_id, type: ref:Unit}
   - {name: status, type: enum:BadgeStatus}
-  - {name: requested_at, type: timestamp}
+  - {name: requested_at, type: timestamp, note: Set again when a REVOKED request is raised again}
   - {name: issued_by, type: ref:User, nullable: true}
   - {name: issued_at, type: timestamp, nullable: true}
   - {name: revoked_by, type: ref:User, nullable: true}

@@ -12,12 +12,13 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    The Peer Rate of a Market Rate Line is the simple average of the regular Bill Rates on other Agencies'
-    APPROVED lines in effect today for the same Position and Market.
+    A Market Rate Line's Peer Rate is the simple average, rounded half up to the cent, of the regular Bill
+    Rates on other Agencies' APPROVED lines in effect today for the same Position and Market.
   rule_sources:
   - SHEET RC-12
   rule_decisions:
   - D-12
+  - D-87
 - rule_id: R2
   rule_statement: >-
     A line with no other Agency's line to compare with has no Peer Rate, and a Unit Rate Line has none.
@@ -26,12 +27,13 @@ requirement_rules:
   - D-12
 - rule_id: R3
   rule_statement: >-
-    A line in effect today is flagged when its regular Bill Rate is above the Peer Rate by PEER_RATE_THRESHOLD_PCT
-    percent or more, a program-wide Setting of 15 by default.
+    A line in effect today is flagged when its regular Bill Rate is at least the Peer Rate plus PEER_RATE_THRESHOLD_PCT
+    percent of it, a program-wide Setting of 15 by default.
   rule_sources:
   - SHEET RC-12
   rule_decisions:
   - D-16
+  - D-87
 - rule_id: R4
   rule_statement: >-
     The same comparison is made for any regular Bill Rate, Agency, Position, and Market, so the rate on
@@ -43,12 +45,13 @@ requirement_rules:
   - D-12
 - rule_id: R5
   rule_statement: >-
-    The Peer Rate is shown beside each line to Program Users and is never shown to Agency Users (C-15).
+    The Peer Rate is shown beside each line to Program Users; an Agency User is told only that a rate is
+    above its peers and never sees the Peer Rate (C-15).
   rule_sources:
-  - FEEDBACK
+  - FEEDBACK A lot of vendors side by side
   - PRD §3 Supplier Rates
   rule_decisions:
-  - D-12
+  - D-87
 - rule_id: R6
   rule_statement: >-
     Only a Program User sends a Rate Review, on a flagged line with no REQUESTED review; it is saved as
@@ -79,8 +82,9 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R10
   rule_statement: >-
-    A lower line is submitted through REQ-RATES-0009 and linked to the review, which becomes LOWERED when
-    that line is APPROVED and stays REQUESTED if it is SENT_BACK.
+    A lower line is submitted through REQ-RATES-0009 and linked to the review with answered_by and answered_at;
+    the review becomes LOWERED when the line is APPROVED and stays REQUESTED, open to another answer, if
+    SENT_BACK.
   rule_sources:
   - SHEET RC-12
   rule_decisions:
@@ -92,10 +96,17 @@ requirement_rules:
   rule_sources:
   - SHEET RC-12
   rule_decisions: []
+- rule_id: R12
+  rule_statement: >-
+    Today, for a Rate Line, is the current date in the program timezone that REQ-JOBS-0001 names.
+  rule_sources:
+  - GRAPH a Rate Line belongs to no Unit, so it has no Unit timezone
+  rule_decisions:
+  - D-68
 requirement_sources:
 - SHEET RC-12
 - SESSIONS Invoicing & Accruals
-requirement_decisions: [D-2, D-10, D-12, D-16]
+requirement_decisions: [D-2, D-10, D-12, D-16, D-68, D-87]
 requirement_features:
 - RC-12
 edges:
@@ -107,6 +118,8 @@ edges:
   requirement_id: REQ-ORG-0009
 - edge_type: DEPENDS_ON
   requirement_id: REQ-MESSAGING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-JOBS-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AUDIT-0001
 data_model:

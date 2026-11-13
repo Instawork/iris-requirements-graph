@@ -14,15 +14,14 @@ requirement_rules:
     For a key the catalog scopes as any, the value is the Setting row at the Unit's node, else the row
     at its nearest ancestor that has one.
   rule_sources:
-  - FAQ
+  - FAQ Settings for each sector
   - SHEET WA-19
   rule_decisions:
   - D-16
 - rule_id: R2
   rule_statement: >-
     When no node on that path has a row, the value is the program default row, which names no org node.
-  rule_sources:
-  - FAQ
+  rule_sources: []
   rule_decisions:
   - D-16
 - rule_id: R3
@@ -48,7 +47,7 @@ requirement_rules:
   rule_decisions:
   - D-16
 requirement_sources:
-- FAQ
+- FAQ Settings for each sector
 - SHEET TS-9
 - SHEET WA-19
 - SHEET RC-11
@@ -58,6 +57,8 @@ requirement_features: []
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0002
 data_model:
   status: covered
   reads:
@@ -65,7 +66,10 @@ data_model:
   - OrgNode.parent_id
   - Unit.org_node_id
   writes: []
-  detail: Reads only. Setting rows are saved by REQ-ORG-0010.
+  detail: >-
+    Reads only. Unit rows are saved by REQ-ORG-0002. Setting rows are saved only by REQ-ORG-0010, which
+    depends on this requirement and is built after it; until then the Setting table is empty and every key
+    resolves to its catalog default (R3). Tests of R1 and R2 insert Setting rows directly.
 requirement_starting_flow: true
 requirement_review:
   status: draft

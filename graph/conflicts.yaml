@@ -50,7 +50,9 @@ conflicts:
   drop: Super sector and regional business levels (demo).
 - conflict_id: C-10
   topic: Agency approval
-  keep: Approval belongs to the Program, at an org scope (D-9).
+  keep: >-
+    Approval belongs to the Program, at an org scope (sheet RC-11: gates for non-contracted vendors, because
+    non-compliant spend persists through local relationships; D-9).
   drop: Each Unit approves and ranks its own Agencies (PRD).
 - conflict_id: C-11
   topic: Release notices
@@ -64,7 +66,8 @@ conflicts:
   topic: Who sets up rates
   keep: >-
     Program Users can enter and load Rate Lines for any Agency, as well as Agencies for themselves
-    (feedback; D-10).
+    (sheet RC-4: load pilot-market rates quickly; the sheet's input of pilot-market rate data; sessions on
+    rate cards: master spreadsheets loaded by hand; D-10).
   drop: Only Agencies upload rates; Compass does not set them up (PRD).
 - conflict_id: C-14
   topic: Markup
@@ -169,7 +172,7 @@ conflicts:
   topic: ZIP codes on a rate card
   keep: >-
     ZIP codes belong to the Market, which Instawork loads; a rate card row names a city and state, or a
-    Unit (D-21; D-1).
+    Unit (sheet RC-3: a rate card by position, market and vendor; D-21; D-1).
   drop: Each Agency lists ZIP codes on its own rate card rows, filled in when empty (PRD).
 - conflict_id: C-34
   topic: Unit home and pages

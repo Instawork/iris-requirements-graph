@@ -10,7 +10,7 @@ requirement_actors:
 - SYSTEM
 requirement_rules:
 - rule_id: R1
-  rule_statement: A Unit Rate Line names one Unit that exists and no Market.
+  rule_statement: A Unit Rate Line names one Unit that is active when the line is submitted, and no Market.
   rule_sources:
   - SHEET RC-6
   rule_decisions:
@@ -48,9 +48,11 @@ data_model:
   reads:
   - RateLine.*
   - Unit.org_node_id
+  - OrgNode.active
   writes: []
   detail: >-
-    Adds the Unit case to the Rate Line checks. Lines are saved by REQ-RATES-0009.
+    Adds the Unit case to the Rate Line checks. Lines are saved by REQ-RATES-0009. It is delivered when
+    a Unit Rate Line passes these checks on submission and REQ-RATES-0005 can find it.
 requirement_starting_flow: true
 requirement_review:
   status: draft

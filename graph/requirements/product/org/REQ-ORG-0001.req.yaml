@@ -15,7 +15,8 @@ requirement_rules:
     node under one DISTRICT; the tree has no other levels (C-9).
   rule_sources:
   - SHEET PLT-2
-  rule_decisions: []
+  rule_decisions:
+  - D-86
 - rule_id: R2
   rule_statement: >-
     A node is saved only when its parent exists and is exactly one level above it; otherwise it is refused
@@ -25,7 +26,8 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    Two nodes under the same parent never share a name, and two Sectors never share a name.
+    Two nodes under the same parent never share a name, two Sectors never share a name, and two Units
+    never share a name anywhere in the program.
   rule_sources: []
   rule_decisions:
   - D-54
@@ -39,7 +41,7 @@ requirement_rules:
   rule_statement: A scope set at a node covers that node and every Unit beneath it.
   rule_sources:
   - SHEET PLT-2
-  - FAQ
+  - FAQ Settings for each sector
   rule_decisions: []
 - rule_id: R6
   rule_statement: >-
@@ -49,17 +51,19 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R7
   rule_statement: >-
-    A Department belongs to exactly one Unit and is not an org node; what is charged to it rolls up through
-    its Unit.
+    A Department belongs to one Unit and is the lowest level of the hierarchy; spend charged to it
+    rolls up through its Unit, and no Role Grant, Setting, or Agency approval is scoped to it.
   rule_sources:
   - SHEET PLT-2
-  - FEEDBACK
-  rule_decisions: []
+  - FEEDBACK Departments within venues
+  rule_decisions:
+  - D-86
 requirement_sources:
 - SHEET PLT-2
-- FEEDBACK
+- FEEDBACK Departments within venues
 requirement_decisions:
 - D-54
+- D-86
 requirement_features:
 - PLT-2
 edges:
