@@ -206,7 +206,7 @@ data_model:
   detail: >-
     Every save goes through REQ-ORDERING-0001, REQ-ORDERING-0003, or REQ-ORDERING-0011. The Request and
     Shift fields are listed as writes because the upload-types catalog maps this type's columns to them.
-requirement_starting_flow: true
+requirement_starting_flow: false
 requirement_review:
   status: draft
   by: null

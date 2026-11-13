@@ -68,15 +68,16 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R8
   rule_statement: >-
-    After its ends_at a Shift cannot be edited or cancelled; changes to the hours worked are made on Timesheets.
+    After its ends_at a Shift cannot be edited or cancelled, and changes to the hours worked are made on
+    Timesheets (C-44).
   rule_sources:
   - PRD §2 Shift statuses
   rule_decisions:
   - D-18
 - rule_id: R9
   rule_statement: >-
-    An edit may come from the Shift's page, a SHIFTS file row, a typed request, or a message, and a cancel
-    from any of these except a file; this requirement's rules apply to each.
+    An edit may come from the Shift's page, a SHIFTS file row, a typed request, or a message, and a
+    cancel from any of these except a file (C-45).
   rule_sources:
   - PRD §2 Shifts
   rule_decisions:

@@ -112,7 +112,7 @@ data_model:
   - User.last_name
   writes: []
   detail: null
-requirement_starting_flow: true
+requirement_starting_flow: false
 requirement_review:
   status: draft
   by: null

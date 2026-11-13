@@ -52,10 +52,36 @@ requirement_rules:
   rule_sources:
   - SHEET TS-8
   rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    This requirement adds an Event field to each line of the booking form of REQ-UNIT-WEB-0002, and
+    after the Request is created the line's Shift is attached through REQ-ORDERING-0011.
+  rule_sources:
+  - SHEET REP-2
+  rule_decisions:
+  - D-108
+- rule_id: R8
+  rule_statement: >-
+    This requirement adds each Shift's Event to the rows and the filters of the Shifts list of
+    REQ-UNIT-WEB-0007.
+  rule_sources:
+  - SHEET REP-2
+  rule_decisions:
+  - D-108
+- rule_id: R9
+  rule_statement: >-
+    This requirement adds to the Shift's page of REQ-UNIT-WEB-0008 the Shift's Event and a control that
+    attaches the Shift to an Event of its Unit, moves it to another, or detaches it, through
+    REQ-ORDERING-0011.
+  rule_sources:
+  - SHEET REP-2
+  rule_decisions:
+  - D-108
 requirement_sources:
 - SHEET REP-2
 requirement_decisions:
 - D-29
+- D-108
 - D-115
 requirement_features:
 - REP-2
@@ -72,6 +98,10 @@ edges:
   requirement_id: REQ-ORDERING-0011
 - edge_type: DEPENDS_ON
   requirement_id: REQ-REPORTING-0004
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-UNIT-WEB-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-UNIT-WEB-0007
 data_model:
   status: covered
   reads:

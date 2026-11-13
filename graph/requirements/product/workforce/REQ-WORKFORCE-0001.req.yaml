@@ -97,11 +97,20 @@ requirement_rules:
   rule_sources:
   - PRD §6 Uploads
   rule_decisions: []
+- rule_id: R13
+  rule_statement: >-
+    A Worker's phone typed with punctuation, spaces, or a leading 1 is saved in the stored form, whether
+    it comes from the form or a WORKERS row.
+  rule_sources:
+  - PRD §6 Templates
+  rule_decisions:
+  - D-39
 requirement_sources:
 - SHEET WA-1
 - PRD §4 Professionals
 - PRD §6 Templates
 requirement_decisions:
+- D-39
 - D-50
 - D-90
 - D-92

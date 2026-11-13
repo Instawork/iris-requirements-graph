@@ -2,10 +2,10 @@ requirement_id: REQ-PROGRAM-WEB-0009
 requirement_target_layer: user-interface
 requirement_target_module: PROGRAM-WEB
 requirement_phase: MVP
-requirement_title: Approve Agency rate changes and follow Rate Reviews
+requirement_title: Approve Agency rate changes, show Peer Rates, and follow Rate Reviews
 requirement_statement: >-
-  On the Rates screen a Program User approves or sends back each Rate Line an Agency submitted, and follows
-  the Rate Reviews sent to Agencies until each is answered.
+  On the Rates screen a Program User approves or sends back each Rate Line an Agency submitted. They see
+  each line beside its Peer Rate, send Rate Reviews, and follow each until it is answered.
 requirement_actors:
 - PROGRAM_USER
 requirement_rules:
@@ -79,15 +79,43 @@ requirement_rules:
   rule_decisions:
   - D-114
   - D-63
+- rule_id: R10
+  rule_statement: >-
+    This requirement adds to the Rates screen of REQ-PROGRAM-WEB-0003 the Peer Rate of each Market Rate
+    Line in effect today, and highlights a line REQ-RATES-0008 flags above it with the gap in dollars
+    and percent.
+  rule_sources:
+  - SHEET RC-12
+  - FEEDBACK A lot of vendors side by side
+  rule_decisions:
+  - D-12
+  - D-108
+- rule_id: R11
+  rule_statement: >-
+    A line that REQ-RATES-0008.R2 gives no Peer Rate shows none and is never highlighted.
+  rule_sources: []
+  rule_decisions:
+  - D-12
+- rule_id: R12
+  rule_statement: >-
+    A flagged line with no REQUESTED Rate Review offers Send Rate Review, which calls REQ-RATES-0008,
+    and a line under review shows the review's status instead.
+  rule_sources:
+  - SHEET RC-12
+  - SESSIONS Invoicing & Accruals
+  rule_decisions:
+  - D-2
 requirement_sources:
 - SESSIONS Rate Cards & Supplier Sourcing
 - SHEET RC-12
 requirement_decisions:
+- D-2
 - D-10
 - D-12
 - D-55
 - D-63
 - D-66
+- D-108
 - D-114
 requirement_features:
 - RC-12

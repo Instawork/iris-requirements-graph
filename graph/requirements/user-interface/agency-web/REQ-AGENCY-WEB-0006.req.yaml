@@ -19,29 +19,28 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    The assign list holds the Agency's active Workers, searchable by name, with the Workers the Unit requested
-    by name under REQ-WORKFORCE-0004 marked and listed first.
+    The assign list holds the Agency's active Workers, searchable by name.
   rule_sources:
-  - SHEET WA-2
+  - SHEET WA-1
   - DEMO components/shifts/assign-pros-dialog.tsx
-  rule_decisions:
-  - D-52
+  rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    After requested Workers, those who can be assigned come first; each other Worker cannot be picked
-    and shows why REQ-WORKFORCE-0003 or REQ-COMPLIANCE-0005 would refuse them.
+    Workers who can be assigned are listed first, and each other Worker cannot be picked and shows the
+    reasons REQ-WORKFORCE-0003.R26 returns.
   rule_sources:
   - SESSIONS Worker Assignment & Compliance
   - DEMO components/shifts/assign-pros-dialog.tsx
   rule_decisions: []
 - rule_id: R4
   rule_statement: >-
-    The reasons shown are that the Worker is already on the Shift, is rated BLOCK by the Unit, or lacks
-    named Credential Types, each with why it is not met.
+    The reasons shown are that the Worker is already on the Shift, is rated BLOCK by the Unit, lacks
+    named Credential Types, or would add overtime while OVERTIME_HARD_BLOCK is true.
   rule_sources:
   - SESSIONS Worker Assignment & Compliance
   - SHEET WA-3
   - SHEET WA-13
+  - SHEET WA-19
   rule_decisions: []
 - rule_id: R5
   rule_statement: >-
@@ -53,10 +52,10 @@ requirement_rules:
   - D-17
 - rule_id: R6
   rule_statement: >-
-    Confirming calls REQ-WORKFORCE-0003 once for each picked Worker, and a Worker it refuses, such as
-    for overtime while OVERTIME_HARD_BLOCK is true, stays unassigned with the reason shown.
+    Confirming calls REQ-WORKFORCE-0003 once for each picked Worker, and a Worker it then refuses stays
+    unassigned with the reason shown.
   rule_sources:
-  - SHEET WA-19
+  - SHEET WA-1
   rule_decisions: []
 - rule_id: R7
   rule_statement: >-
@@ -120,11 +119,9 @@ requirement_decisions:
 - D-17
 - D-18
 - D-51
-- D-52
 - D-89
 requirement_features:
 - WA-1
-- WA-2
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AGENCY-WEB-0001
@@ -136,8 +133,6 @@ edges:
   requirement_id: REQ-WORKFORCE-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-WORKFORCE-0003
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-WORKFORCE-0004
 - edge_type: DEPENDS_ON
   requirement_id: REQ-WORKFORCE-0005
 - edge_type: DEPENDS_ON
@@ -165,8 +160,6 @@ data_model:
   - Worker.last_name
   - Worker.active
   - Worker.photo_url
-  - WorkerRequest.worker_id
-  - WorkerRequest.status
   - WorkerRating.worker_id
   - WorkerRating.unit_id
   - WorkerRating.rating

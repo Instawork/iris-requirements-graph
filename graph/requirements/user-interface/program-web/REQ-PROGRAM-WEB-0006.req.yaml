@@ -4,8 +4,8 @@ requirement_target_module: PROGRAM-WEB
 requirement_phase: MVP
 requirement_title: Manage Agencies and where each is approved
 requirement_statement: >-
-  On the Agencies screen a Program User adds Agencies by form or from an AGENCIES file, renames or deactivates
-  them, and approves each one at Sectors, Regions, Districts, or Units.
+  On the Agencies screen a Program User adds Agencies, renames or deactivates them, and approves each
+  one at Sectors, Regions, Districts, or Units.
 requirement_actors:
 - PROGRAM_USER
 requirement_rules:
@@ -55,13 +55,6 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-9
-- rule_id: R7
-  rule_statement: >-
-    Upload Agencies opens the Uploads send step of REQ-SHELL-0008 with AGENCIES picked, and REQ-AGENCIES-0001
-    and REQ-AGENCIES-0002 save the Agencies, contacts, and approvals of its accepted rows.
-  rule_sources:
-  - FEEDBACK Creating an agency in bulk
-  rule_decisions: []
 requirement_sources:
 - FEEDBACK Creating an agency in bulk
 - SHEET RC-11
@@ -77,8 +70,6 @@ edges:
   requirement_id: REQ-PROGRAM-WEB-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0009
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-SHELL-0008
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0010
 - edge_type: DEPENDS_ON

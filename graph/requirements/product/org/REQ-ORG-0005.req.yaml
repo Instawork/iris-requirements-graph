@@ -50,16 +50,16 @@ requirement_rules:
   - D-25
 - rule_id: R6
   rule_statement: >-
-    An Instawork Admin may grant only PROGRAM_USER, and only while no active User holds an unrevoked PROGRAM_USER
-    grant.
+    An Instawork Admin may grant only PROGRAM_USER, and only while no active User who has accepted their
+    invite holds an unrevoked PROGRAM_USER grant.
   rule_sources: []
   rule_decisions:
   - D-26
   - D-83
 - rule_id: R7
   rule_statement: >-
-    When REQ-IDENTITY-0001 seeds an Instawork Admin at first start, Iris saves that User's INSTAWORK_ADMIN
-    grant with no granting User; INSTAWORK_ADMIN is never granted in Iris.
+    At every start, when the User with the configured Instawork Admin email holds no INSTAWORK_ADMIN
+    grant, Iris saves one with no granting User.
   rule_sources:
   - GRAPH the first grant has nobody to grant it
   rule_decisions:
@@ -75,12 +75,12 @@ requirement_rules:
   - D-25
 - rule_id: R9
   rule_statement: >-
-    A User may hold several grants; one that repeats an unrevoked role and scope is refused, and granting
-    a revoked one again clears its revoked_at and records the User who granted it again.
+    A User may hold several grants; one that repeats an unrevoked role and scope is refused, and
+    granting a revoked one again clears its revoked_at and records the User who granted it again.
   rule_sources:
   - GRAPH a User may hold more than one Role Grant
   rule_decisions:
-  - D-83
+  - D-161
 - rule_id: R10
   rule_statement: >-
     Whoever may grant a role and scope may revoke it; revoking sets revoked_at and ends that grant's access
@@ -115,22 +115,43 @@ requirement_rules:
   - D-34
 - rule_id: R14
   rule_statement: >-
-    A Program User sees every User and their Role Grants, an Agency User sees only the Users who hold
-    an AGENCY_USER grant for their own Agency, and an Instawork Admin sees no other User.
+    A Program User sees every User and their Role Grants, and an Agency User sees only the Users who
+    hold an AGENCY_USER grant for their own Agency.
   rule_sources:
   - SHEET PLT-1
   rule_decisions:
   - D-25
+- rule_id: R15
+  rule_statement: >-
+    An Instawork Admin may revoke a PROGRAM_USER grant, or send its invite again, only for a User who
+    has not accepted their invite, and only while R6 would allow a grant.
+  rule_sources: []
+  rule_decisions:
+  - D-83
+- rule_id: R16
+  rule_statement: >-
+    An Instawork Admin sees only the Users who hold an unrevoked PROGRAM_USER grant and have not
+    accepted their invite.
+  rule_sources: []
+  rule_decisions:
+  - D-83
+- rule_id: R17
+  rule_statement: >-
+    No User grants or revokes INSTAWORK_ADMIN.
+  rule_sources: []
+  rule_decisions:
   - D-26
+  - D-98
 requirement_sources:
 - SHEET PLT-1
 - SHEET PLT-4
 requirement_decisions:
-- D-34
 - D-25
 - D-26
+- D-34
 - D-83
 - D-98
+- D-161
 requirement_features:
 - PLT-1
 edges:
@@ -150,13 +171,14 @@ data_model:
   - RoleGrant.*
   - OrgNode.*
   - User.active
+  - User.invite_accepted_at
   writes:
   - RoleGrant.*
   detail: >-
     The caller gives agency_id; Agency records are not read here. User records change only through
-    REQ-IDENTITY-0001, REQ-IDENTITY-0002, and REQ-IDENTITY-0004. REQ-ORG-0009 depends on this requirement,
-    so these rules themselves state who may invite, grant, and deactivate; "a Program User" or "an Agency
-    User" in them means the acting role of the request.
+    REQ-IDENTITY-0001, REQ-IDENTITY-0002, and REQ-IDENTITY-0004. REQ-ORG-0009 depends on this
+    requirement, so these rules themselves state who may invite, grant, and deactivate; "a Program User"
+    or "an Agency User" in them means the acting role of the request.
 requirement_starting_flow: true
 requirement_review:
   status: draft

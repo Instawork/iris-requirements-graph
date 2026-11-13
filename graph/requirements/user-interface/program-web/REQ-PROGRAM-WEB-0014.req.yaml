@@ -1,0 +1,47 @@
+requirement_id: REQ-PROGRAM-WEB-0014
+requirement_target_layer: user-interface
+requirement_target_module: PROGRAM-WEB
+requirement_phase: MVP
+requirement_title: Upload Units from the Org screen
+requirement_statement: >-
+  From the Org screen a Program User uploads a UNITS file to add many Units and Departments at once.
+requirement_actors:
+- PROGRAM_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    This requirement adds Upload Units to the Org screen of REQ-PROGRAM-WEB-0002, which opens the
+    Uploads send step of REQ-SHELL-0008 with UNITS picked, and REQ-ORG-0003 saves the Units and
+    Departments of its accepted rows.
+  rule_sources:
+  - SESSIONS Shift Creation
+  - SHEET PLT-2
+  rule_decisions:
+  - D-108
+requirement_sources:
+- SESSIONS Shift Creation
+- SHEET PLT-2
+requirement_decisions:
+- D-108
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-PROGRAM-WEB-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0003
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: Opens the Uploads send step. It shows no record of its own.
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

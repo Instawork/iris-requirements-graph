@@ -92,6 +92,42 @@ requirement_rules:
   rule_sources:
   - SHEET WA-4
   rule_decisions: []
+- rule_id: R12
+  rule_statement: >-
+    On each row of the roster of REQ-AGENCY-WEB-0003, this requirement shows how many of the Worker's
+    Credentials are REJECTED, expired, or within CREDENTIAL_EXPIRY_WARNING_DAYS of expiry and not
+    replaced by a newer one.
+  rule_sources:
+  - SHEET WA-14
+  rule_decisions:
+  - D-16
+  - D-67
+  - D-108
+- rule_id: R13
+  rule_statement: >-
+    Each roster row also shows how many of the Worker's Credentials are PENDING_CHECK or NEEDS_REVIEW,
+    and the roster filters to Workers counted in either group.
+  rule_sources:
+  - SHEET WA-14
+  - SESSIONS Worker Assignment & Compliance
+  rule_decisions:
+  - D-67
+  - D-108
+- rule_id: R14
+  rule_statement: >-
+    Selecting a Worker on the roster opens this page.
+  rule_sources:
+  - PRD §4 Professionals
+  rule_decisions:
+  - D-108
+- rule_id: R15
+  rule_statement: >-
+    Upload Credentials on the roster opens the Uploads send step of REQ-SHELL-0008 with CREDENTIALS
+    picked, takes one PDF or image for each Credential, and REQ-COMPLIANCE-0002 saves them.
+  rule_sources:
+  - SHEET WA-14
+  rule_decisions:
+  - D-108
 requirement_sources:
 - SHEET WA-14
 - SHEET WA-16
@@ -101,6 +137,7 @@ requirement_decisions:
 - D-16
 - D-56
 - D-67
+- D-108
 requirement_features:
 - WA-14
 - WA-16
@@ -133,6 +170,8 @@ edges:
   requirement_id: REQ-ORG-0006
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0008
 data_model:
   status: covered
   reads:
@@ -163,7 +202,7 @@ data_model:
   - Shift.status
   writes: []
   detail: null
-requirement_starting_flow: true
+requirement_starting_flow: false
 requirement_review:
   status: draft
   by: null

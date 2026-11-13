@@ -88,11 +88,13 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R16
   rule_statement: >-
-    WORKER_ASSIGNED goes to the User who created the Request when an Assignment becomes ASSIGNED, and
-    WORKER_REMOVED when one becomes REMOVED for any reason except SHIFT_CANCELLED or NOT_ELIGIBLE.
+    WORKER_ASSIGNED goes to every active Unit User over the Shift's Unit when an Assignment becomes
+    ASSIGNED, and WORKER_REMOVED when one becomes REMOVED for any reason except SHIFT_CANCELLED or
+    NOT_ELIGIBLE.
   rule_sources:
   - PRD §2 Shifts
-  rule_decisions: []
+  rule_decisions:
+  - D-160
 - rule_id: R17
   rule_statement: >-
     Unit Users over the Shift's Unit see each ASSIGNED Worker's name and Agency.
@@ -127,7 +129,7 @@ requirement_rules:
 - rule_id: R22
   rule_statement: >-
     For BLOCKED_BY_UNIT, WORKER_REMOVED also goes to every active Agency User of the Worker's Agency,
-    so the Agency is told even when the User who blocked also created the Request.
+    because the Agency did not cause that removal.
   rule_sources:
   - SHEET WA-3
   rule_decisions:
@@ -183,6 +185,7 @@ requirement_decisions:
 - D-51
 - D-89
 - D-90
+- D-160
 requirement_features:
 - WA-1
 edges:
@@ -210,7 +213,6 @@ data_model:
   status: covered
   reads:
   - Request.unit_id
-  - Request.created_by
   - Shift.request_id
   - Shift.starts_at
   - Shift.ends_at
@@ -233,11 +235,12 @@ data_model:
   - RoleGrant.role
   - RoleGrant.agency_id
   - RoleGrant.revoked_at
+  - RoleGrant.org_node_id
+  - Unit.org_node_id
+  - OrgNode.parent_id
   writes:
   - Assignment.*
-  detail: >-
-    Rules R11 to R15 and R18, the automatic removals, the daily recheck, and the eligibility record at
-    the Shift's start, moved to REQ-WORKFORCE-0016; their ids are not reused here.
+  detail: null
 requirement_starting_flow: true
 requirement_review:
   status: draft

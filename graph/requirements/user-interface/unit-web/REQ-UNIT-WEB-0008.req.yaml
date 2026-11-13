@@ -4,16 +4,15 @@ requirement_target_module: UNIT-WEB
 requirement_phase: MVP
 requirement_title: Follow one Shift and change it from its page
 requirement_statement: >-
-  A Shift's page shows its details, its Releases with each Agency's answer, and its Workers by name. From
-  it a Unit User edits or cancels the Shift, sends headcount, requests Workers by name, and withdraws
-  a pending Release.
+  A Shift's page shows its details, its Releases with each Agency's answer, and its Workers by name.
+  From it a Unit User edits or cancels the Shift, sends headcount, and withdraws a pending Release.
 requirement_actors:
 - UNIT_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    The page shows the Shift's Position, Unit, Department, Event, start, end, planned break, headcount,
-    needed headcount, status, and its five site instruction fields.
+    The page shows the Shift's Position, Unit, Department, start, end, planned break, headcount, status,
+    and its five site instruction fields.
   rule_sources:
   - PRD §2 Shifts
   - SHEET SC-6
@@ -51,22 +50,6 @@ requirement_rules:
   - PRD §4 Professionals
   - SHEET 3.1
   rule_decisions: []
-- rule_id: R6
-  rule_statement: >-
-    At a secured Unit, each ASSIGNED Worker also shows their BadgeRequest status.
-  rule_sources:
-  - SHEET WA-17
-  rule_decisions:
-  - D-27
-- rule_id: R7
-  rule_statement: >-
-    Workers requested by name are listed as REQUESTED or UNAVAILABLE, with the Agency's
-    unavailable_reason, and each offers Withdraw until the Shift starts, through REQ-WORKFORCE-0004.R7.
-  rule_sources:
-  - SHEET WA-2
-  rule_decisions:
-  - D-52
-  - D-96
 - rule_id: R8
   rule_statement: >-
     Workers removed from the Shift are listed below those assigned, each with the removal reason and time.
@@ -75,8 +58,8 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R9
   rule_statement: >-
-    Until the Shift ends, Edit changes headcount, needed headcount, date, times, planned break, and site
-    instructions through REQ-ORDERING-0003 and REQ-ORDERING-0005.
+    Until the Shift ends, Edit changes headcount, date, times, planned break, and site instructions
+    through REQ-ORDERING-0003.
   rule_sources:
   - SHEET SC-3
   - SHEET SC-5
@@ -92,41 +75,18 @@ requirement_rules:
   rule_decisions:
   - D-18
   - D-129
-- rule_id: R11
-  rule_statement: >-
-    On a Shift in a series, Edit and Cancel ask whether to apply to this Shift or to every Shift of the
-    series not yet started, under REQ-ORDERING-0004.
-  rule_sources:
-  - SHEET SC-4
-  rule_decisions:
-  - D-20
 - rule_id: R12
   rule_statement: A PENDING Release offers Withdraw, which calls REQ-DISPATCH-0001.
   rule_sources:
   - SHEET SC-8
   rule_decisions:
   - D-17
-- rule_id: R13
-  rule_statement: >-
-    The Event control attaches the Shift to an Event of its Unit, moves it to another, or detaches it,
-    through REQ-ORDERING-0011.
-  rule_sources:
-  - SHEET REP-2
-  rule_decisions: []
 - rule_id: R14
   rule_statement: Once the Shift has ended, Edit, Cancel, and Send are gone.
   rule_sources:
   - PRD §2 Shift statuses
   rule_decisions:
   - D-18
-- rule_id: R15
-  rule_statement: >-
-    Each Worker's row offers Rate and Report an issue, which open the forms of REQ-UNIT-WEB-0004.
-  rule_sources:
-  - PRD §2 Shifts
-  - SHEET WA-3
-  - SHEET WA-4
-  rule_decisions: []
 - rule_id: R16
   rule_statement: >-
     The page embeds the Shift's change history through REQ-SHELL-0011, shown to Unit Users whose scope
@@ -134,14 +94,6 @@ requirement_rules:
   rule_sources:
   - PRD §2 Shifts
   rule_decisions: []
-- rule_id: R17
-  rule_statement: >-
-    Each PENDING or ACCEPTED Release offers Request Workers, which lists that Agency's Workers as REQ-UNIT-WEB-0009.R7
-    does and saves each one picked through REQ-WORKFORCE-0004.
-  rule_sources:
-  - SHEET WA-2
-  rule_decisions:
-  - D-52
 requirement_sources:
 - PRD §2 Shifts
 - SHEET SC-3
@@ -149,10 +101,6 @@ requirement_sources:
 requirement_decisions:
 - D-17
 - D-18
-- D-20
-- D-27
-- D-52
-- D-96
 - D-95
 - D-129
 requirement_features:
@@ -171,17 +119,9 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-UNIT-WEB-0009
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-UNIT-WEB-0004
-- edge_type: DEPENDS_ON
   requirement_id: REQ-ORDERING-0003
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-ORDERING-0004
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-ORDERING-0005
-- edge_type: DEPENDS_ON
   requirement_id: REQ-ORDERING-0008
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-ORDERING-0011
 - edge_type: DEPENDS_ON
   requirement_id: REQ-DISPATCH-0001
 - edge_type: DEPENDS_ON
@@ -189,11 +129,7 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-WORKFORCE-0003
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-WORKFORCE-0004
-- edge_type: DEPENDS_ON
   requirement_id: REQ-COMPLIANCE-0005
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-COMPLIANCE-0006
 - edge_type: DEPENDS_ON
   requirement_id: REQ-RATES-0006
 - edge_type: DEPENDS_ON
@@ -205,7 +141,6 @@ data_model:
   - Request.unit_id
   - Request.created_by
   - Request.created_via
-  - Request.recurrence_weekdays
   - Release.*
   - Assignment.*
   - Worker.first_name
@@ -213,16 +148,10 @@ data_model:
   - Worker.photo_url
   - Worker.agency_id
   - Agency.name
-  - WorkerRequest.*
-  - BadgeRequest.worker_id
-  - BadgeRequest.unit_id
-  - BadgeRequest.status
   - Unit.org_node_id
-  - Unit.is_secured_site
   - OrgNode.name
   - Position.name
   - Department.name
-  - Event.name
   writes: []
   detail: null
 requirement_starting_flow: true

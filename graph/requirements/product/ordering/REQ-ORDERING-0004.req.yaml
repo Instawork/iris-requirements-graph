@@ -90,7 +90,7 @@ data_model:
   detail: >-
     Shifts are created through REQ-ORDERING-0001 and changed or cancelled through REQ-ORDERING-0003; this
     requirement writes only the recurrence fields.
-requirement_starting_flow: true
+requirement_starting_flow: false
 requirement_review:
   status: draft
   by: null

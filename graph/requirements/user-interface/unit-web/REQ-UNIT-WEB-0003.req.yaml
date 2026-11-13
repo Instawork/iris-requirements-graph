@@ -46,11 +46,12 @@ requirement_rules:
 - rule_id: R5
   rule_statement: >-
     A Timesheet whose Bill Rates differ from the contracted Rate Line shows the flag of REQ-RATES-0006
-    with both rates and the difference, before and after approval.
+    with both rates, the difference, and the Release's bill_rate_reason, before and after approval.
   rule_sources:
   - SHEET RC-10
   rule_decisions:
   - D-22
+  - D-69
 - rule_id: R6
   rule_statement: >-
     The parts of a split Timesheet are shown together in time order, each with its own Position, Department,
@@ -117,6 +118,7 @@ requirement_decisions:
 - D-33
 - D-59
 - D-63
+- D-69
 - D-108
 - D-110
 - D-120
@@ -172,6 +174,7 @@ data_model:
   - RateLine.regular_bill_rate
   - RateLine.overtime_bill_rate
   - RateLine.double_time_bill_rate
+  - Release.bill_rate_reason
   writes: []
   detail: null
 requirement_starting_flow: false

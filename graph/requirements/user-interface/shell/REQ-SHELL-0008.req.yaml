@@ -13,14 +13,15 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    The page has an upload type picker, a template download, and a file chooser, and offers only the upload
-    types whose uploaders include the acting role.
+    The page has an upload type picker, a template download, and a file chooser, and offers only the
+    upload types registered under REQ-INTAKE-0001 whose uploaders include the acting role.
   rule_sources:
   - PRD §6 Uploads
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    Download template gives the picked type's template, as CSV or Excel, through REQ-INTAKE-0003.
+    Download template gives the picked type's template, as CSV or Excel, through REQ-INTAKE-0003, and is
+    not offered for a type that has none.
   rule_sources:
   - PRD §6 Templates
   rule_decisions: []
@@ -99,7 +100,7 @@ data_model:
   - Upload.created_at
   writes: []
   detail: null
-requirement_starting_flow: true
+requirement_starting_flow: false
 requirement_review:
   status: draft
   by: null
