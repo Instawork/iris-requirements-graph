@@ -18,25 +18,28 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    The status is worked out again whenever an Assignment on the Shift becomes ASSIGNED or REMOVED and
-    whenever the Shift's headcount changes.
+    When REQ-WORKFORCE-0003 makes an Assignment ASSIGNED or REMOVED, or REQ-ORDERING-0003 changes a Shift's
+    headcount, the status of that Shift, if it has not ended, is set again under R1.
   rule_sources:
   - PRD §2 Shift statuses
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    When ends_at passes, a PARTIALLY_FILLED or FILLED Shift becomes WORKED.
+    An interval job of REQ-JOBS-0001 sets each PARTIALLY_FILLED or FILLED Shift whose ends_at has passed
+    to WORKED.
   rule_sources:
   - PRD §2 Shift statuses
-  rule_decisions: []
+  rule_decisions:
+  - D-68
 - rule_id: R4
-  rule_statement: When ends_at passes, an OPEN Shift becomes UNFILLED.
+  rule_statement: The same job sets each OPEN Shift whose ends_at has passed to UNFILLED.
   rule_sources: []
   rule_decisions:
   - D-47
+  - D-68
 - rule_id: R5
   rule_statement: >-
-    An UNFILLED Shift becomes WORKED when a Worker is assigned to it from a Timesheet.
+    When REQ-WORKFORCE-0003 assigns a Worker from a Timesheet to an UNFILLED Shift, the Shift becomes WORKED.
   rule_sources: []
   rule_decisions:
   - D-18
@@ -56,12 +59,17 @@ requirement_sources:
 requirement_decisions:
 - D-18
 - D-47
+- D-68
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORDERING-0001
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0003
+- edge_type: DEPENDS_ON
   requirement_id: REQ-WORKFORCE-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-JOBS-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AUDIT-0001
 data_model:

@@ -43,20 +43,26 @@ upload_types:
     released to it.
   uploaders: [UNIT_USER, AGENCY_USER]
   owner: REQ-ORDERING-0014
-  sources: [SHEET SC-2, PRD §6 Templates]
+  sources: [SHEET SC-2, SHEET SC-6, PRD §6 Templates]
+  decisions: [D-49]
   columns:
   - {column: shift_id, required: to change or staff an existing Shift, maps_to: Shift.id, note: Filled by Iris on download}
   - {column: event, required: 'no', maps_to: Shift.event_id, lookup: Event.name at the Unit}
-  - {column: unit, required: 'yes', maps_to: Request.unit_id, lookup: Unit name}
+  - {column: unit, required: unless shift_id is given, maps_to: Request.unit_id, lookup: Unit name}
   - {column: department, required: 'no', maps_to: Shift.department_id, lookup: Department.name at the Unit}
-  - {column: position, required: 'yes', maps_to: Shift.position_id, lookup: Position.name}
-  - {column: date, required: 'yes', maps_to: Shift.starts_at}
-  - {column: start_time, required: 'yes', maps_to: Shift.starts_at}
-  - {column: end_time, required: 'yes', maps_to: Shift.ends_at}
+  - {column: position, required: unless shift_id is given, maps_to: Shift.position_id, lookup: Position.name}
+  - {column: date, required: unless shift_id is given, maps_to: Shift.starts_at}
+  - {column: start_time, required: unless shift_id is given, maps_to: Shift.starts_at}
+  - {column: end_time, required: unless shift_id is given, maps_to: Shift.ends_at}
   - {column: break_minutes, required: 'no', maps_to: Shift.break_minutes}
   - {column: headcount, required: for a new Shift, maps_to: Shift.headcount}
-  - {column: agency, required: 'no', maps_to: Release.agency_id, lookup: Agency.name, saved_by: REQ-DISPATCH-0001, note: Sends the new Shift to this Agency}
-  - {column: instructions, required: 'no', maps_to: Shift.directions}
+  - {column: agency, required: 'no', maps_to: Release.agency_id, lookup: Agency.name, saved_by: REQ-DISPATCH-0001, note: Sends the new Shift to this Agency at the contracted rate; read only on a row that creates a Shift}
+  - {column: non_contracted_reason, required: when the agency has no approval covering the Unit, maps_to: Release.non_contracted_reason, saved_by: REQ-DISPATCH-0001}
+  - {column: parking, required: 'no', maps_to: Shift.parking}
+  - {column: entrance, required: 'no', maps_to: Shift.entrance}
+  - {column: directions, required: 'no', maps_to: Shift.directions}
+  - {column: site_contact, required: 'no', maps_to: Shift.site_contact}
+  - {column: attire, required: 'no', maps_to: Shift.attire}
   - {column: worker_email, required: 'to assign a Worker, unless phone or name matches', maps_to: Assignment.worker_id, lookup: Worker match by REQ-WORKFORCE-0002, saved_by: REQ-WORKFORCE-0003}
   - {column: worker_first_name, required: to assign a Worker, maps_to: Assignment.worker_id, saved_by: REQ-WORKFORCE-0003}
   - {column: worker_last_name, required: to assign a Worker, maps_to: Assignment.worker_id, saved_by: REQ-WORKFORCE-0003}

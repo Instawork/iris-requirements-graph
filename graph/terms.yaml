@@ -237,7 +237,9 @@ terms:
   sources: [SHEET SC-4]
   decisions: [D-20]
 - term: Chained block
-  definition: A recurring Request booked as one multi-week assignment. Not the same as blocking a Worker.
+  definition: >-
+    A multi-week assignment booked as one recurring Request. Iris treats it as any recurring Request in
+    MVP (D-20). Not the same as blocking a Worker.
   avoid: []
   sources: [SHEET SC-4]
   decisions: [D-20]

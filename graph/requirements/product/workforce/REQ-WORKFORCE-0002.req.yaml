@@ -22,7 +22,8 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    Otherwise, a named person with the same phone number, comparing digits only, is that Worker.
+    Otherwise, a named person with the same phone number as a Worker, once it is put in the stored form,
+    is that Worker.
   rule_sources:
   - PRD §4 How the system matches a professional
   rule_decisions: []

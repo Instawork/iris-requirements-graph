@@ -19,15 +19,15 @@ requirement_rules:
   - D-19
 - rule_id: R2
   rule_statement: >-
-    needed_headcount is at least 1 and at most headcount, and a change to either number that would break
-    this is refused.
+    needed_headcount is at least 1 and at most headcount; setting it outside that range is refused here,
+    and lowering headcount below it is refused by REQ-ORDERING-0003.
   rule_sources: []
   rule_decisions:
   - D-19
 - rule_id: R3
   rule_statement: >-
-    needed_headcount is kept for reporting only: Shift status and Releases use headcount, and every Worker
-    who works counts toward spend.
+    needed_headcount is a record only: Shift status and Releases use headcount, every Worker who works
+    counts toward spend, and no MVP report reads it.
   rule_sources:
   - SHEET SC-5
   rule_decisions:
@@ -70,7 +70,8 @@ data_model:
   - Shift.status
   writes:
   - Shift.needed_headcount
-  detail: null
+  detail: >-
+    Headcount itself is raised through REQ-ORDERING-0003, which writes it.
 requirement_starting_flow: true
 requirement_review:
   status: draft

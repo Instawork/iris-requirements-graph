@@ -55,6 +55,14 @@ requirement_rules:
   - PRD Data Model
   rule_decisions:
   - D-17
+- rule_id: R7
+  rule_statement: >-
+    The caller gives each line's Unit, Position, date, times, and planned break, so a line is priced the
+    same before its Request is saved and after.
+  rule_sources:
+  - SHEET SC-1
+  - PRD §2 Shifts
+  rule_decisions: []
 requirement_sources:
 - SHEET SC-1
 - PRD §2 Shifts
@@ -80,11 +88,6 @@ edges:
 data_model:
   status: covered
   reads:
-  - Request.unit_id
-  - Shift.position_id
-  - Shift.starts_at
-  - Shift.ends_at
-  - Shift.break_minutes
   - Agency.name
   - Agency.active
   - AgencyApproval.agency_id
@@ -93,7 +96,9 @@ data_model:
   - RateLine.regular_bill_rate
   - RateLine.regular_pay_rate
   writes: []
-  detail: null
+  detail: >-
+    Reads no Request or Shift: the caller passes the line's values (R7), so a line of a booking form or
+    a draft is priced before anything is saved.
 requirement_starting_flow: true
 requirement_review:
   status: draft

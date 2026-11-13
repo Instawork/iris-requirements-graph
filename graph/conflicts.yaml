@@ -151,8 +151,9 @@ conflicts:
 - conflict_id: C-30
   topic: Worker contact details
   keep: >-
-    Email and phone are optional on a Worker (feedback on paper timesheets and OCR; the PRD's own Shift
-    template makes the phone optional).
+    Email and phone are optional on a Worker, because a paper sign-in sheet carries only names (sessions,
+    Timesheets, Tips & Expenses; the PRD's own Shift template makes the phone optional). The Agency is
+    told when an assigned Worker has neither, so site instructions still reach the Worker (sheet SC-6; D-91).
   drop: Email and phone required on every Professional row (PRD).
 - conflict_id: C-31
   topic: Which Workers a Unit can rate and request
@@ -195,9 +196,9 @@ conflicts:
   drop: >-
     A Supplier to-do for professionals who need onboarding and a Shift performance subtab; a Compass
     to-do for anomalous invoices and a Buyers table flagged by anomalous invoices (PRD).
-- conflict_id: C-37
-  topic: Changing a Shift by typed request
+- conflict_id: C-45
+  topic: Site instructions in a Shifts file
   keep: >-
-    Typed requests and messages book Shifts (sheet SC-10). A Shift is changed or cancelled on its page, and
-    the assistant names that page (D-64).
-  drop: Typed shift requests create or edit Shifts (PRD).
+    Five columns, parking, entrance, directions, site_contact, and attire, one for each structured site
+    instruction field (sheet SC-6).
+  drop: One free-text instructions column on the Shift template (PRD).

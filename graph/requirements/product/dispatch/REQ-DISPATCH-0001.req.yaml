@@ -37,7 +37,8 @@ requirement_rules:
 - rule_id: R4
   rule_statement: >-
     Sending more headcount to an Agency that already holds a PENDING or ACCEPTED Release on the Shift
-    raises that Release's headcount and keeps its status and rates.
+    raises that Release's headcount and keeps its status and rates, so an ACCEPTED Release is not answered
+    again.
   rule_sources:
   - SHEET SC-5
   rule_decisions:
@@ -78,7 +79,7 @@ requirement_rules:
 - rule_id: R9
   rule_statement: >-
     non_contracted is set true when REQ-RATES-0007 finds no approval covering the Unit, and the reason
-    the Unit User gives for such a send is stored in the Audit Trail.
+    it then requires is stored in non_contracted_reason, apart from any bill_rate_reason.
   rule_sources:
   - SHEET RC-11
   rule_decisions:
@@ -104,8 +105,9 @@ requirement_rules:
   - D-17
 - rule_id: R13
   rule_statement: >-
-    When a Shift becomes CANCELLED, each of its PENDING and ACCEPTED Releases becomes CANCELLED with closed_at
-    set, and RELEASE_WITHDRAWN is sent to that Agency's active Agency Users.
+    When REQ-ORDERING-0003 cancels a Shift, it calls this requirement, which sets each of the Shift's
+    PENDING and ACCEPTED Releases to CANCELLED with closed_at and sends RELEASE_WITHDRAWN to each Agency's
+    active Agency Users.
   rule_sources:
   - PRD §2 Shift statuses
   rule_decisions:
@@ -145,7 +147,7 @@ requirement_sources:
 - SHEET SC-7
 - SHEET SC-1
 - PRD Data Model
-- FEEDBACK
+- FEEDBACK a single agency, then request worker as a nested feature
 - SESSIONS Worker Assignment & Compliance
 requirement_decisions: [D-9, D-12, D-17, D-18, D-20, D-24]
 requirement_features:
@@ -180,6 +182,11 @@ data_model:
   - Shift.starts_at
   - Shift.ends_at
   - Shift.status
+  - Unit.timezone
+  - Release.shift_id
+  - Release.agency_id
+  - Release.headcount
+  - Release.status
   - Agency.active
   - AgencyApproval.agency_id
   - AgencyApproval.org_node_id
@@ -187,6 +194,7 @@ data_model:
   - RateLine.regular_bill_rate
   - RateLine.overtime_bill_rate
   - RateLine.double_time_bill_rate
+  - RoleGrant.user_id
   - RoleGrant.role
   - RoleGrant.agency_id
   - RoleGrant.revoked_at
@@ -200,6 +208,7 @@ data_model:
   - Release.double_time_bill_rate
   - Release.bill_rate_reason
   - Release.non_contracted
+  - Release.non_contracted_reason
   - Release.status
   - Release.released_by
   - Release.released_at

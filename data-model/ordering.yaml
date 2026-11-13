@@ -39,11 +39,11 @@ entities:
   - {name: unit_id, type: ref:Unit}
   - {name: created_by, type: ref:User}
   - {name: created_via, type: enum:Channel}
-  - {name: template_id, type: ref:RequestTemplate, nullable: true}
   - {name: recurrence_weekdays, type: 'list:enum:Weekday', nullable: true, note: Set for a recurring Request}
   - {name: recurrence_every_weeks, type: int, nullable: true}
-  - {name: recurrence_ends_on, type: date, nullable: true}
-  - {name: is_block, type: bool, note: A chained multi-week assignment booked as one block}
+  - {name: recurrence_ends_on, type: date, nullable: true, note: The last date a Shift may fall on}
+  constraints:
+  - recurrence_weekdays, recurrence_every_weeks, and recurrence_ends_on are all set or all empty.
 - entity: Shift
   phase: MVP
   description: 'One Position at one Unit, from a start time to an end time, for a headcount.'
@@ -57,7 +57,7 @@ entities:
   - {name: ends_at, type: timestamp, note: Later than starts_at}
   - {name: break_minutes, type: int, nullable: true, note: Planned unpaid break}
   - {name: headcount, type: int, note: At least 1; Workers the Unit asks Agencies for}
-  - {name: needed_headcount, type: int, nullable: true, note: Set only when overbooking; at most headcount (D-19)}
+  - {name: needed_headcount, type: int, nullable: true, note: Set only when overbooking; at most headcount; a record only (D-19)}
   - {name: status, type: enum:ShiftStatus, note: Set only by the system}
   - {name: parking, type: text, nullable: true}
   - {name: entrance, type: text, nullable: true}

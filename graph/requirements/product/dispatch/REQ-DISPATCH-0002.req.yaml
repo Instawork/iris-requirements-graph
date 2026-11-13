@@ -12,15 +12,15 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    An Agency User of the Release's Agency may accept a PENDING Release, which becomes ACCEPTED with responded_by
-    and responded_at.
+    Before the Shift starts, an Agency User of the Release's Agency may accept a PENDING Release, which
+    becomes ACCEPTED with responded_by and responded_at.
   rule_sources:
   - SHEET SC-8
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    An Agency User of the Release's Agency may decline a PENDING Release with a decline_reason, which
-    becomes DECLINED with responded_by and responded_at.
+    Before the Shift starts, an Agency User of the Release's Agency may decline a PENDING Release with
+    a decline_reason, which becomes DECLINED with responded_by and responded_at.
   rule_sources:
   - SHEET SC-8
   rule_decisions:
@@ -34,16 +34,19 @@ requirement_rules:
 - rule_id: R4
   rule_statement: >-
     Until the Shift starts, an Agency User may decline an ACCEPTED Release with a decline_reason; it becomes
-    DECLINED, and its ASSIGNED Workers come off the Shift.
+    DECLINED with responded_by and responded_at set again, and REQ-WORKFORCE-0016 then removes its ASSIGNED
+    Workers.
   rule_sources: []
   rule_decisions:
   - D-17
 - rule_id: R5
   rule_statement: >-
-    A Release still PENDING when its Shift starts becomes EXPIRED with closed_at set.
+    An interval job of REQ-JOBS-0001 sets each Release still PENDING once its Shift's starts_at has passed
+    to EXPIRED with closed_at set.
   rule_sources: []
   rule_decisions:
   - D-17
+  - D-68
 - rule_id: R6
   rule_statement: >-
     Only an answer, a withdrawal, a cancellation, or the Shift's start ends a PENDING Release; release
@@ -68,18 +71,27 @@ requirement_rules:
   - D-20
 - rule_id: R9
   rule_statement: >-
-    An Agency User sees the Shift's whole headcount beside the headcount of their own Release, and
-    never which other Agencies hold the Shift.
+    An Agency User sees the Shift's whole headcount, their own Release's headcount, whether any other
+    Agency holds a PENDING or ACCEPTED Release on the Shift, and the total headcount those hold.
   rule_sources:
   - SESSIONS Shift Creation
   - PRD §2 Shifts
   rule_decisions:
-  - D-17
+  - D-90
+- rule_id: R10
+  rule_statement: >-
+    An Agency User never sees which other Agencies hold the Shift, or their rates, answers, or Workers.
+  rule_sources: []
+  rule_decisions:
+  - D-90
 requirement_sources:
 - SHEET SC-8
+- SESSIONS Shift Creation
 requirement_decisions:
 - D-17
 - D-20
+- D-68
+- D-90
 requirement_features:
 - SC-8
 edges:
@@ -87,6 +99,8 @@ edges:
   requirement_id: REQ-DISPATCH-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-MESSAGING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-JOBS-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AUDIT-0001
 - edge_type: DEPENDS_ON
@@ -97,6 +111,7 @@ data_model:
   - Shift.headcount
   - Release.shift_id
   - Release.agency_id
+  - Release.headcount
   - Release.status
   - Release.released_by
   - Shift.starts_at

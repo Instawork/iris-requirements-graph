@@ -4,29 +4,30 @@ requirement_target_module: ORDERING
 requirement_phase: MVP
 requirement_title: Book recurring and chained Shifts
 requirement_statement: >-
-  One Request can repeat its Shift lines on a weekly pattern, or book a multi-week assignment as one block,
-  so recurring needs are not entered again.
+  One Request can repeat its Shift lines on a weekly pattern until an end date, so recurring needs are
+  not entered again. A multi-week assignment, a chained block, is booked as one such Request.
 requirement_actors:
 - UNIT_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
     A recurring Request states recurrence_weekdays, recurrence_every_weeks of at least 1, and recurrence_ends_on,
-    and each line creates one Shift for every matching date up to that end date.
+    and each line creates one Shift for every matching date from its own date through that end date.
   rule_sources:
   - SHEET SC-4
   rule_decisions:
   - D-20
 - rule_id: R2
   rule_statement: >-
-    Weeks are counted in seven-day spans starting on each line's first date.
+    A date matches when it is one of the recurrence_weekdays and falls in a counted seven-day span: the
+    first starts on the line's date, and then every recurrence_every_weeks-th span counts.
   rule_sources: []
   rule_decisions:
   - D-20
 - rule_id: R3
   rule_statement: >-
-    Every occurrence is created as a Shift when the Request is created, passes the checks of a new Shift,
-    and has its own status, Releases, and Assignments.
+    Every occurrence is created as a Shift through REQ-ORDERING-0001 when the Request is created, passes
+    the checks of a new Shift, and has its own status, Releases, and Assignments.
   rule_sources:
   - SHEET SC-4
   rule_decisions:
@@ -46,10 +47,17 @@ requirement_rules:
   - D-18
 - rule_id: R6
   rule_statement: >-
-    A chained Request is a recurring Request with is_block true, which books a multi-week assignment as
-    one block.
+    A chained block, a multi-week assignment, is booked as one recurring Request; Iris stores nothing
+    more for it and treats its Shifts as any series.
   rule_sources:
   - SHEET SC-4
+  rule_decisions:
+  - D-20
+- rule_id: R7
+  rule_statement: >-
+    A line's date must fall on one of the recurrence_weekdays, and recurrence_ends_on is included, is on
+    or after that date, and is at most 52 weeks after it.
+  rule_sources: []
   rule_decisions:
   - D-20
 requirement_sources:
@@ -79,8 +87,9 @@ data_model:
   - Request.recurrence_weekdays
   - Request.recurrence_every_weeks
   - Request.recurrence_ends_on
-  - Request.is_block
-  detail: null
+  detail: >-
+    Shifts are created through REQ-ORDERING-0001 and changed or cancelled through REQ-ORDERING-0003; this
+    requirement writes only the recurrence fields.
 requirement_starting_flow: true
 requirement_review:
   status: draft

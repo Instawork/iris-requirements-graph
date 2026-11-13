@@ -15,11 +15,11 @@ requirement_rules:
     is sent to an Agency until it is approved.
   rule_sources:
   - SHEET SC-15
-  - FEEDBACK
+  - FEEDBACK skip this approval feature unless we hear that it is an issue
   rule_decisions: []
 requirement_sources:
 - SHEET SC-15
-- FEEDBACK
+- FEEDBACK skip this approval feature unless we hear that it is an issue
 requirement_decisions: []
 requirement_features:
 - SC-15

@@ -15,6 +15,7 @@ enums:
   - {value: RELEASE_DECLINED, meaning: The Agency declined the Release after accepting it.}
   - {value: NOT_ELIGIBLE, meaning: The Worker stopped being eligible for the Shift before it started.}
   - {value: BLOCKED_BY_UNIT, meaning: The Unit blocked the Worker.}
+  - {value: WORKER_INACTIVE, meaning: The Agency made the Worker inactive.}
 - enum: WorkerRequestStatus
   values:
   - {value: REQUESTED, meaning: The Unit asked for this Worker on the Shift.}
@@ -48,8 +49,8 @@ entities:
   - {name: agency_id, type: ref:Agency}
   - {name: first_name, type: text}
   - {name: last_name, type: text}
-  - {name: email, type: text, nullable: true, note: Stored lowercase}
-  - {name: phone, type: text, nullable: true, note: Digits only}
+  - {name: email, type: text, nullable: true}
+  - {name: phone, type: text, nullable: true}
   - {name: city, type: text, nullable: true}
   - {name: position_ids, type: 'list:ref:Position', nullable: true, note: Positions the Worker works; informational in MVP}
   - {name: photo_url, type: text, nullable: true}
@@ -67,18 +68,18 @@ entities:
   - {name: assigned_by, type: ref:User}
   - {name: assigned_via, type: enum:Channel}
   - {name: assigned_at, type: timestamp}
-  - {name: removed_by, type: ref:User, nullable: true, note: Empty when the system removed the Worker}
+  - {name: removed_by, type: ref:User, nullable: true, note: The Agency User who removed or swapped the Worker; empty when Iris took the Worker off}
   - {name: removed_at, type: timestamp, nullable: true}
   - {name: removal_reason, type: enum:RemovalReason, nullable: true}
   - {name: replaced_by_id, type: ref:Assignment, nullable: true, note: Set on a swap}
-  - {name: eligible_at_start, type: bool, nullable: true, note: Recorded when the Shift starts}
+  - {name: eligible_at_start, type: bool, nullable: true, note: 'Recorded once by a job after the Shift starts, or after a later Assignment'}
   - {name: instructions_sent_at, type: timestamp, nullable: true}
   constraints:
   - A Worker has at most one ASSIGNED Assignment per Shift.
   - A Release has at most as many ASSIGNED Assignments as its headcount, except Assignments made from a Timesheet after the Shift ended (D-18, D-19).
 - entity: WorkerRequest
   phase: MVP
-  description: A Unit asking for a specific Worker on a Shift.
+  description: A Unit asking for a specific Worker on a Shift. Withdrawing the request deletes the row.
   fields:
   - {name: shift_id, type: ref:Shift}
   - {name: worker_id, type: ref:Worker}
