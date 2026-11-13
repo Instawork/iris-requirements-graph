@@ -4,21 +4,70 @@ requirement_target_module: TIME
 requirement_phase: MVP
 requirement_title: Edit Timesheets in plain language
 requirement_statement: >-
-  A user describes a change, such as “Grace moved to bartender at 3:45”, and Iris proposes the exact Timesheet
-  edits for approval.
-requirement_actors: []
+  A user describes a Timesheet change in the assistant, such as “Grace moved to bartender at 3:45”. Iris
+  proposes the exact edits, and saves only those the user approves.
+requirement_actors:
+- AGENCY_USER
+- UNIT_USER
 requirement_rules:
 - rule_id: R1
-  rule_statement: Iris applies only the edits the user approves.
-  rule_sources: []
+  rule_statement: >-
+    Iris turns the request into a Proposal of kind TIMESHEET_EDITS that lists each Timesheet with the
+    field, its current value, and the new value.
+  rule_sources:
+  - SHEET TS-6
+  - PRD §7 Agent Chat
   rule_decisions: []
 - rule_id: R2
-  rule_statement: A mid-shift role change becomes a Timesheet split.
-  rule_sources: []
+  rule_statement: >-
+    Iris proposes only changes the user could make by hand in the Timesheet's current status, and explains
+    any it leaves out.
+  rule_sources:
+  - PRD §7 When the agent is unsure
+  rule_decisions:
+  - D-33
+- rule_id: R3
+  rule_statement: >-
+    When a name or a Shift in the request fits more than one Timesheet, Iris asks which one before proposing
+    anything.
+  rule_sources:
+  - PRD §7 When the agent is unsure
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    A change of Position or Department partway through a Shift is proposed as a split at the stated time,
+    saved through REQ-TIME-0008.
+  rule_sources:
+  - SHEET TS-6
+  - SHEET TS-10
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    Accepted items are saved through the requirement that owns each change: REQ-TIME-0001 or REQ-TIME-0006
+    for hours, REQ-TIME-0008 for a split, and REQ-TIME-0009 for a no-show.
+  rule_sources:
+  - PRD §7 Agent Chat
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    A Unit User can ask to approve the Timesheets of a period; the Proposal lists each SUBMITTED one with
+    its exception_reasons, and accepted ones are approved through REQ-TIME-0002.
+  rule_sources:
+  - SESSIONS Timesheets, Tips & Expenses
+  rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    An Agency User can ask to submit their DRAFT and REJECTED Timesheets for a period, and accepted ones
+    are submitted through REQ-TIME-0002.
+  rule_sources:
+  - PRD §7 Agent Chat
   rule_decisions: []
 requirement_sources:
-- SHEET
-requirement_decisions: []
+- SHEET TS-6
+- SESSIONS Timesheets, Tips & Expenses
+- PRD §7 Agent Chat
+requirement_decisions:
+- D-33
 requirement_features:
 - TS-6
 edges:
@@ -27,16 +76,36 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AGENT-0002
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0002
+- edge_type: DEPENDS_ON
   requirement_id: REQ-TIME-0006
 - edge_type: DEPENDS_ON
   requirement_id: REQ-TIME-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
   status: covered
-  reads: []
+  reads:
+  - Timesheet.*
+  - Assignment.worker_id
+  - Assignment.release_id
+  - Release.shift_id
+  - Shift.request_id
+  - Request.unit_id
+  - Worker.agency_id
+  - Worker.first_name
+  - Worker.last_name
+  - Shift.starts_at
+  - Shift.position_id
   writes: []
-  detail: null
-  migration_entities:
-  - Proposal
+  detail: >-
+    Saves nothing itself. Each accepted item is saved by the requirement that owns the change.
 requirement_starting_flow: false
 requirement_review:
   status: draft

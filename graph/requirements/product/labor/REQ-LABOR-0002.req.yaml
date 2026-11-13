@@ -2,40 +2,87 @@ requirement_id: REQ-LABOR-0002
 requirement_target_layer: product
 requirement_target_module: LABOR
 requirement_phase: MVP
-requirement_title: Check labor rules at booking and on Timesheets
+requirement_title: Check break and minimum-wage rules at booking and on Timesheets
 requirement_statement: >-
-  Iris checks each Shift against its Unit's state and city rules when it is booked, and each Timesheet
-  when it is submitted. These checks flag, not block.
-requirement_actors: []
+  Given a Unit, a work date, start and end times, break minutes, and a Pay Rate, Iris says which break
+  and minimum-wage rules are not met. The checks flag and never block.
+requirement_actors:
+- SYSTEM
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    At booking, a Shift long enough to need a break with none planned is flagged.
-  rule_sources: []
-  rule_decisions: []
+    A break is missed when the minutes from start to end, less the break minutes, are more than the MEAL_BREAK
+    rule's threshold_minutes and the break minutes are fewer than its break_minutes.
+  rule_sources:
+  - SHEET WA-18
+  - GRAPH data model LaborRuleKind
+  rule_decisions:
+  - D-57
 - rule_id: R2
   rule_statement: >-
-    At booking, a Bill Rate whose Pay Rate is below the local minimum wage is flagged.
-  rule_sources: []
+    The Pay Rate is below minimum wage when it is less than the MINIMUM_WAGE rule's minimum_wage in effect
+    on the work date.
+  rule_sources:
+  - SHEET WA-18
   rule_decisions: []
 - rule_id: R3
-  rule_statement: On a Timesheet, a missed required break is flagged as an exception.
+  rule_statement: >-
+    The caller gives the regular Pay Rate of the Agency's Rate Line; when there is no Rate Line, the minimum-wage
+    check is not made.
   rule_sources: []
+  rule_decisions:
+  - D-57
+- rule_id: R4
+  rule_statement: >-
+    REST_BREAK rules are not checked in MVP, because Shifts and Timesheets record only unpaid break minutes.
+  rule_sources: []
+  rule_decisions:
+  - D-57
+- rule_id: R5
+  rule_statement: >-
+    At booking, the check uses the Shift's scheduled start, end, and planned break, and a rule not met
+    is shown as a flag that does not stop the booking.
+  rule_sources:
+  - SHEET WA-18
+  rule_decisions:
+  - D-23
+- rule_id: R6
+  rule_statement: >-
+    On a Timesheet, the check uses the billed clock_in, clock_out, and break_minutes, and returns MISSED_BREAK
+    or BELOW_MINIMUM_WAGE for REQ-TIME-0005 to store.
+  rule_sources:
+  - SHEET WA-18
+  rule_decisions:
+  - D-22
+- rule_id: R7
+  rule_statement: >-
+    Each check uses the Labor Rule in effect for the Unit on the work date, and passes when no rule of
+    that kind is in effect.
+  rule_sources:
+  - SHEET WA-18
   rule_decisions: []
 requirement_sources:
-- SHEET
-requirement_decisions: []
+- SHEET WA-18
+requirement_decisions:
+- D-22
+- D-23
+- D-57
 requirement_features:
 - WA-18
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-LABOR-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0002
 data_model:
-  status: not_applicable
-  reads: []
+  status: covered
+  reads:
+  - LaborRule.*
+  - Unit.state
+  - Unit.city
   writes: []
-  detail: Flags are computed from LaborRule; not stored.
-  migration_entities: []
+  detail: >-
+    Reads only. The caller supplies the times, the break, and the Pay Rate, and stores any flag.
 requirement_starting_flow: false
 requirement_review:
   status: draft

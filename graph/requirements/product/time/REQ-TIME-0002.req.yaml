@@ -4,39 +4,117 @@ requirement_target_module: TIME
 requirement_phase: MVP
 requirement_title: Submit and approve Timesheets daily or per Event
 requirement_statement: >-
-  An Agency submits Timesheets as soon as a Shift is worked, and the Unit approves them the same day or
-  per Event, not only at week end.
-requirement_actors: []
+  An Agency User submits Timesheets as soon as a Shift ends, and a Unit User approves them the same day
+  or per Event. Nothing waits for the end of the week.
+requirement_actors:
+- AGENCY_USER
+- UNIT_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    An Agency User submits one Timesheet, or every Timesheet for a Shift or an Event, at once.
-  rule_sources: []
-  rule_decisions: []
+    An Agency User submits a DRAFT or REJECTED Timesheet of their own Agency's Worker, which makes it
+    SUBMITTED and sets submitted_by and submitted_at.
+  rule_sources:
+  - SHEET TS-8
+  - SESSIONS Timesheets, Tips & Expenses
+  rule_decisions:
+  - D-33
 - rule_id: R2
   rule_statement: >-
-    A Unit User approves, corrects, or rejects each submitted Timesheet that was not auto-approved.
+    Submitting is not refused for a missing clock time; REQ-TIME-0005 then lists the Timesheet with MISSING_TIMES.
+  rule_sources:
+  - SHEET TS-7
+  rule_decisions:
+  - D-22
+- rule_id: R3
+  rule_statement: Submitting a REJECTED Timesheet clears its rejected_reason.
   rule_sources: []
+  rule_decisions:
+  - D-33
+  - D-59
+- rule_id: R4
+  rule_statement: >-
+    An Agency User can submit one Timesheet, or in one step every DRAFT and REJECTED Timesheet of their
+    Agency for one Shift, one Event, or one work date at a Unit.
+  rule_sources:
+  - SHEET TS-8
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    A Unit User whose scope covers the Shift's Unit approves a SUBMITTED Timesheet, which makes it APPROVED
+    and sets approved_by and approved_at.
+  rule_sources:
+  - SHEET TS-8
+  rule_decisions:
+  - D-33
+- rule_id: R6
+  rule_statement: >-
+    Approval is refused while exception_reasons include MISSING_TIMES or PENDING_EXPENSE; the Unit User
+    first corrects the hours or decides the Expense.
+  rule_sources: []
+  rule_decisions:
+  - D-22
+  - D-59
+- rule_id: R7
+  rule_statement: >-
+    A Unit User can approve one Timesheet, or in one step every SUBMITTED Timesheet in their scope for
+    one Shift, one Event, or one work date at a Unit.
+  rule_sources:
+  - SHEET TS-8
+  - SESSIONS Timesheets, Tips & Expenses
+  rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    In a bulk step, Timesheets that cannot be submitted or approved are left as they are and listed with
+    the reason.
+  rule_sources: []
+  rule_decisions:
+  - D-59
+- rule_id: R9
+  rule_statement: >-
+    A Timesheet can be submitted and approved as soon as it exists; neither step waits for the Work Week
+    or any other period to end.
+  rule_sources:
+  - SHEET TS-8
   rule_decisions: []
 requirement_sources:
-- SHEET
-requirement_decisions: []
+- SHEET TS-8
+- SESSIONS Timesheets, Tips & Expenses
+requirement_decisions:
+- D-22
+- D-33
+- D-59
 requirement_features:
 - TS-8
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-TIME-0001
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-TIME-0005
+  requirement_id: REQ-ORDERING-0011
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-TIME-0006
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - Timesheet.*
+  - Assignment.worker_id
+  - Assignment.release_id
+  - Release.shift_id
+  - Shift.request_id
+  - Request.unit_id
+  - Worker.agency_id
+  - Shift.event_id
+  - Shift.starts_at
+  writes:
+  - Timesheet.status
+  - Timesheet.submitted_by
+  - Timesheet.submitted_at
+  - Timesheet.approved_by
+  - Timesheet.approved_at
+  - Timesheet.rejected_reason
   detail: null
-  migration_entities:
-  - Timesheet
 requirement_starting_flow: false
 requirement_review:
   status: draft

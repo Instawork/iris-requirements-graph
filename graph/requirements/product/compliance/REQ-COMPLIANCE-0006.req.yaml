@@ -2,36 +2,87 @@ requirement_id: REQ-COMPLIANCE-0006
 requirement_target_layer: product
 requirement_target_module: COMPLIANCE
 requirement_phase: MVP
-requirement_title: Request badge and system access for secured sites
+requirement_title: Request badge and system access at secured Units
 requirement_statement: >-
-  At a Unit marked as a secured site, assigning a Worker raises a badge and system access request that
-  Iris tracks until it is issued.
-requirement_actors: []
+  At a Unit marked as a secured site, Iris raises one badge and system access request for each Worker
+  at their first Assignment there. A Unit User marks it issued or revoked.
+requirement_actors:
+- SYSTEM
+- UNIT_USER
 requirement_rules:
 - rule_id: R1
-  rule_statement: A badge request is Requested, Issued, or Revoked.
-  rule_sources: []
-  rule_decisions: []
+  rule_statement: >-
+    When a Worker is assigned to a Shift at a Unit whose is_secured_site is true and has no BadgeRequest
+    for that Unit, Iris creates one as REQUESTED with requested_at set.
+  rule_sources:
+  - SHEET WA-17
+  rule_decisions:
+  - D-27
 - rule_id: R2
-  rule_statement: The Unit sees which assigned Workers still lack a badge.
-  rule_sources: []
+  rule_statement: >-
+    A Worker has at most one BadgeRequest for a Unit, and later Assignments there reuse it whatever its
+    status.
+  rule_sources:
+  - GRAPH data model BadgeRequest
+  rule_decisions:
+  - D-27
+- rule_id: R3
+  rule_statement: >-
+    A Unit User whose scope covers the Unit marks a REQUESTED BadgeRequest ISSUED, which sets issued_by
+    and issued_at.
+  rule_sources:
+  - SHEET WA-17
+  rule_decisions:
+  - D-27
+- rule_id: R4
+  rule_statement: >-
+    A Unit User whose scope covers the Unit marks a REQUESTED or ISSUED BadgeRequest REVOKED, which sets
+    revoked_by and revoked_at; REVOKED is final.
+  rule_sources:
+  - SHEET WA-17
+  rule_decisions:
+  - D-27
+- rule_id: R5
+  rule_statement: >-
+    A BadgeRequest in any status does not stop a Worker being assigned and is not part of eligibility.
+  rule_sources:
+  - GRAPH no source ties badges to assignment
+  rule_decisions:
+  - D-27
+- rule_id: R6
+  rule_statement: >-
+    Unit Users see the BadgeRequest status of each Worker assigned to Shifts at their secured Units.
+  rule_sources:
+  - SHEET WA-17
   rule_decisions: []
 requirement_sources:
-- SHEET
-requirement_decisions: []
+- SHEET WA-17
+requirement_decisions:
+- D-27
 requirement_features:
 - WA-17
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-WORKFORCE-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - Assignment.worker_id
+  - Assignment.release_id
+  - Assignment.status
+  - Release.shift_id
+  - Shift.request_id
+  - Request.unit_id
+  - Unit.is_secured_site
+  writes:
+  - BadgeRequest.*
   detail: null
-  migration_entities:
-  - BadgeRequest
-  - Unit
 requirement_starting_flow: false
 requirement_review:
   status: draft

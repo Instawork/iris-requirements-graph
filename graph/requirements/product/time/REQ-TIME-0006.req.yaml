@@ -4,41 +4,128 @@ requirement_target_module: TIME
 requirement_phase: MVP
 requirement_title: Correct or reject a Timesheet with a reason
 requirement_statement: >-
-  A Unit User can approve a Timesheet at corrected times or reject it back to the Agency. Either way they
-  give a reason, and the Agency sees it.
-requirement_actors: []
+  A Unit User corrects the hours on a submitted or approved Timesheet, or rejects a submitted one back
+  to the Agency, always with a reason. Each change to hours notifies the other party.
+requirement_actors:
+- UNIT_USER
+- SYSTEM
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    A rejected Timesheet returns to the Agency, which fixes and resubmits it.
-  rule_sources: []
-  rule_decisions: []
+    A Unit User whose scope covers the Shift's Unit can correct clock_in, clock_out, and break_minutes
+    on a SUBMITTED or APPROVED Timesheet that is not locked, and must give a reason.
+  rule_sources:
+  - SHEET TS-7
+  - PRD §2 Shifts
+  rule_decisions:
+  - D-33
 - rule_id: R2
   rule_statement: >-
-    The Agency sees each correction and its reason in the Timesheet's history.
-  rule_sources: []
+    Corrected values must pass the same checks as hours entered under REQ-TIME-0001, or the correction
+    is refused.
+  rule_sources:
+  - PRD §7 What the agent checks
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    A correction replaces the billed values; the old values, the new values, who made it, and the reason
+    stay in the Audit Trail, where both parties can see them.
+  rule_sources:
+  - PRD §2 Shifts
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    A corrected APPROVED Timesheet stays APPROVED, and a corrected SUBMITTED Timesheet is checked again
+    by REQ-TIME-0005.
+  rule_sources:
+  - SHEET TS-7
+  rule_decisions:
+  - D-33
+- rule_id: R5
+  rule_statement: >-
+    For a Timesheet with OUTSIDE_TOLERANCE, the Unit User can apply the Shift's scheduled start and end
+    as the correction in one step, still with a reason.
+  rule_sources:
+  - SESSIONS Timesheets, Tips & Expenses
+  rule_decisions:
+  - D-5
+- rule_id: R6
+  rule_statement: >-
+    A Unit User can reject a SUBMITTED Timesheet with a required reason, which makes it REJECTED and sets
+    rejected_reason; an APPROVED Timesheet cannot be rejected.
+  rule_sources:
+  - SESSIONS Timesheets, Tips & Expenses
+  rule_decisions:
+  - D-33
+- rule_id: R7
+  rule_statement: >-
+    On a rejection, Iris sends TIMESHEET_REJECTED with the reason, by email and in the app, to every active
+    Agency User of the Worker's Agency.
+  rule_sources:
+  - SESSIONS Timesheets, Tips & Expenses
+  rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    When hours, breaks, or no-show change on a Timesheet that has been submitted at least once, Iris sends
+    TIMESHEET_CHANGED by email and in the app to the other party.
+  rule_sources:
+  - PRD Overview
+  - PRD §2 Shifts
+  rule_decisions: []
+- rule_id: R9
+  rule_statement: >-
+    For a Unit User's change the other party is every active Agency User of the Worker's Agency; for an
+    Agency User's change it is every active Unit User whose scope covers the Unit.
+  rule_sources:
+  - PRD §2 Shifts
   rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET TS-7
+- PRD Overview
 - PRD §2 Shifts
-- DEMO
-requirement_decisions: []
+- SESSIONS Timesheets, Tips & Expenses
+requirement_decisions:
+- D-5
+- D-33
 requirement_features:
 - TS-7
 edges:
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-TIME-0001
+  requirement_id: REQ-TIME-0005
 - edge_type: DEPENDS_ON
   requirement_id: REQ-MESSAGING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - Timesheet.*
+  - Assignment.worker_id
+  - Assignment.release_id
+  - Release.shift_id
+  - Shift.request_id
+  - Request.unit_id
+  - Worker.agency_id
+  - Shift.starts_at
+  - Shift.ends_at
+  - RoleGrant.user_id
+  - RoleGrant.role
+  - RoleGrant.agency_id
+  - RoleGrant.revoked_at
+  - RoleGrant.org_node_id
+  - Unit.org_node_id
+  - OrgNode.parent_id
+  writes:
+  - Timesheet.clock_in
+  - Timesheet.clock_out
+  - Timesheet.break_minutes
+  - Timesheet.status
+  - Timesheet.rejected_reason
   detail: null
-  migration_entities:
-  - Timesheet
 requirement_starting_flow: false
 requirement_review:
   status: draft

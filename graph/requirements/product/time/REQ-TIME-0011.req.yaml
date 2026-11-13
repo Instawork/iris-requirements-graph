@@ -2,14 +2,22 @@ requirement_id: REQ-TIME-0011
 requirement_target_layer: product
 requirement_target_module: TIME
 requirement_phase: P3
-requirement_title: Reconcile clock-ins across large venues
+requirement_title: Reconcile clock-ins made at several points of a large Unit
 requirement_statement: >-
-  At large venues and campuses, clock-ins at different spots are reconciled into one record per Worker
-  per Shift.
-requirement_actors: []
-requirement_rules: []
+  At large Units and campuses, Workers clock in at different points. Iris reconciles them into one record
+  for each Worker and Shift.
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Clock-ins and clock-outs a Worker makes at different points of one Unit are reconciled into one record
+    for that Worker and Shift.
+  rule_sources:
+  - SHEET TS-3
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET TS-3
 requirement_decisions: []
 requirement_features:
 - TS-3
@@ -20,11 +28,11 @@ data_model:
   status: pending
   reads: []
   writes: []
-  detail: Designed when Phase 3 is scoped.
-  migration_entities: []
+  detail: >-
+    Designed when Phase 3 is scoped; needs the clock record of REQ-TIME-0010.
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

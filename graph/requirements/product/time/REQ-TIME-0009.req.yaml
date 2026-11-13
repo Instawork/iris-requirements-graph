@@ -4,29 +4,81 @@ requirement_target_module: TIME
 requirement_phase: MVP
 requirement_title: Mark a Worker as a no-show
 requirement_statement: >-
-  A Unit or Agency User marks an assigned Worker as a no-show. The Timesheet's hours become zero, so nothing
-  is billed for that Worker.
-requirement_actors: []
+  An Agency User or a Unit User marks an assigned Worker as a no-show on the Timesheet. Its minutes become
+  zero, so nothing is charged for that Worker.
+requirement_actors:
+- AGENCY_USER
+- UNIT_USER
 requirement_rules:
 - rule_id: R1
-  rule_statement: A no-show counts toward the Agency's no-show rate.
-  rule_sources: []
+  rule_statement: >-
+    An Agency User marks a no-show on a DRAFT or REJECTED Timesheet, and a Unit User, with a reason, on
+    a SUBMITTED or APPROVED one that is not locked.
+  rule_sources:
+  - PRD §2 Shifts
+  rule_decisions:
+  - D-33
+- rule_id: R2
+  rule_statement: >-
+    Marking sets no_show to true and clears clock_in, clock_out, and break_minutes, so worked_minutes
+    and every hour class become 0.
+  rule_sources:
+  - PRD §2 Shifts
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    The same Users, in the same statuses, can clear the mark, after which hours are entered again.
+  rule_sources:
+  - PRD §2 Shifts
+  rule_decisions:
+  - D-33
+- rule_id: R4
+  rule_statement: A no-show Timesheet has no hours amount, so it adds nothing to spend.
+  rule_sources:
+  - PRD §5 Invoices
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    Setting or clearing the mark on a Timesheet that has been submitted counts as a change under REQ-TIME-0006,
+    so the other party is notified.
+  rule_sources:
+  - PRD §2 Shifts
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    The mark does not open a Worker issue; a Unit User reports a no-show issue separately through REQ-WORKFORCE-0006.
+  rule_sources:
+  - GRAPH data model IssueCategory
   rule_decisions: []
 requirement_sources:
 - PRD §2 Shifts
-- SHEET WA-4
-requirement_decisions: []
+- PRD §5 Invoices
+requirement_decisions:
+- D-33
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-TIME-0001
+  requirement_id: REQ-TIME-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - Timesheet.*
+  - Assignment.worker_id
+  - Assignment.release_id
+  - Release.shift_id
+  - Shift.request_id
+  - Request.unit_id
+  - Worker.agency_id
+  writes:
+  - Timesheet.no_show
+  - Timesheet.clock_in
+  - Timesheet.clock_out
+  - Timesheet.break_minutes
   detail: null
-  migration_entities:
-  - Timesheet
 requirement_starting_flow: false
 requirement_review:
   status: draft

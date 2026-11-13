@@ -4,44 +4,117 @@ requirement_target_module: TIPS
 requirement_phase: MVP
 requirement_title: Add and approve expenses
 requirement_statement: >-
-  An Agency adds expenses it paid for a Shift, such as parking or a required background check. Expenses
-  are billed at cost and approved with the hours.
-requirement_actors: []
+  An Agency User adds expenses the Agency paid for a Worker on a Shift, such as parking or a required
+  background check. A Unit User approves or rejects each one, and approved expenses pass through at cost.
+requirement_actors:
+- AGENCY_USER
+- UNIT_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    An expense has a kind, an amount, the Timesheet it belongs to, and a note.
-  rule_sources: []
-  rule_decisions: []
+    An Agency User adds an Expense to a DRAFT or REJECTED Timesheet of a Worker of their own Agency.
+  rule_sources:
+  - SHEET TS-12
+  - SESSIONS Timesheets, Tips & Expenses
+  rule_decisions:
+  - D-33
+  - D-60
 - rule_id: R2
   rule_statement: >-
-    Expenses can be added one at a time, for a whole crew in one sentence, or from an expense sheet.
-  rule_sources: []
+    An Expense has a kind of PARKING, BACKGROUND_CHECK, or OTHER, an amount above zero, and a note, which
+    is required when the kind is OTHER.
+  rule_sources:
+  - SESSIONS Timesheets, Tips & Expenses
+  - DEMO ExpenseKind
   rule_decisions: []
 - rule_id: R3
-  rule_statement: The Unit approves or rejects each expense along with its Timesheet.
-  rule_sources: []
+  rule_statement: >-
+    An Expense is added one at a time in the app, in the assistant for every Worker of the Agency who
+    worked a Shift, or from an EXPENSES file.
+  rule_sources:
+  - SESSIONS Timesheets, Tips & Expenses
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    An EXPENSES file row is matched to the Timesheet of the named Worker of the uploader's Agency on the
+    Shift with its shift_id; a row with no single match is a problem.
+  rule_sources:
+  - SHEET TS-12
+  - SESSIONS Timesheets, Tips & Expenses
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    A new Expense is PENDING with added_by set, and the Agency User can change or delete it while it is
+    PENDING and its Timesheet is DRAFT or REJECTED.
+  rule_sources:
+  - GRAPH data model ApprovalStatus
+  rule_decisions:
+  - D-33
+  - D-60
+- rule_id: R6
+  rule_statement: >-
+    A Unit User whose scope covers the Shift's Unit approves or rejects each PENDING Expense on a SUBMITTED
+    Timesheet, which sets decided_by and decided_at.
+  rule_sources:
+  - SHEET TS-12
+  - SESSIONS Timesheets, Tips & Expenses
+  rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    A rejection needs a reason, saved as rejected_reason, and an APPROVED or REJECTED Expense is never
+    changed.
+  rule_sources:
+  - GRAPH data model ApprovalStatus
+  rule_decisions:
+  - D-60
+- rule_id: R8
+  rule_statement: >-
+    An APPROVED Expense passes through at its amount with no markup, and a REJECTED one adds nothing.
+  rule_sources:
+  - SESSIONS Timesheets, Tips & Expenses
   rule_decisions: []
 requirement_sources:
-- SHEET
-- SESSIONS Expenses
-requirement_decisions: []
+- SHEET TS-12
+- SESSIONS Timesheets, Tips & Expenses
+- DEMO ExpenseKind
+requirement_decisions:
+- D-33
+- D-60
 requirement_features:
 - TS-12
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-TIME-0001
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0001
+- edge_type: DEPENDS_ON
   requirement_id: REQ-INTAKE-0002
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AGENT-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - Timesheet.assignment_id
+  - Timesheet.split_from_id
+  - Timesheet.status
+  - Timesheet.no_show
+  - Assignment.worker_id
+  - Assignment.release_id
+  - Release.shift_id
+  - Shift.request_id
+  - Request.unit_id
+  - Worker.agency_id
+  - Worker.first_name
+  - Worker.last_name
+  writes:
+  - Expense.*
   detail: null
-  migration_entities:
-  - Expense
 requirement_starting_flow: false
 requirement_review:
   status: draft

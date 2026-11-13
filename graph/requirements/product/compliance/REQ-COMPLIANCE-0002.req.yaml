@@ -2,49 +2,146 @@ requirement_id: REQ-COMPLIANCE-0002
 requirement_target_layer: product
 requirement_target_module: COMPLIANCE
 requirement_phase: MVP
-requirement_title: Upload a credential with its expiry
+requirement_title: Upload a Credential with its expiry
 requirement_statement: >-
-  An Agency User uploads a Worker's credential document with its type, issuer, number, and expiry date,
-  and Iris tracks the expiry.
-requirement_actors: []
+  An Agency User uploads a Worker's Credential document with its type, issuer, number, and expiry date.
+  Iris warns the Agency before a verified Credential expires.
+requirement_actors:
+- AGENCY_USER
+- SYSTEM
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Iris reads the type, number, and dates from the document and shows them for the user to confirm.
-  rule_sources: []
+    An Agency User uploads a Credential only for a Worker of their own Agency and an active Credential
+    Type, with the document file.
+  rule_sources:
+  - SHEET WA-14
   rule_decisions: []
 - rule_id: R2
-  rule_statement: A credential stops being valid on its expiry date.
-  rule_sources: []
+  rule_statement: >-
+    Issuer, number, and issued_on are optional, and expires_on is required when the Credential Type's
+    has_expiry is true; a Credential missing it is not saved.
+  rule_sources:
+  - SHEET WA-14
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    The Agency is told a set number of days before a credential expires, and again when it lapses.
-  rule_sources: []
+    The CREDENTIALS upload type takes one document file for each Credential, or a list with one row for
+    each Credential that names its attached file.
+  rule_sources:
+  - SHEET WA-14
   rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    For a document sent without details, Iris reads the issuer, number, and dates from it and proposes
+    them for the Agency User to confirm before saving.
+  rule_sources:
+  - FAQ
+  - PRD §6 Uploads
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    Each list row's Worker is matched within the Agency by REQ-WORKFORCE-0002; a row with no matching
+    Worker is a problem and never creates a Worker.
+  rule_sources:
+  - PRD §4 How the system matches a professional
+  rule_decisions:
+  - D-56
+- rule_id: R6
+  rule_statement: >-
+    A saved Credential starts as PENDING_CHECK with uploaded_by set, and is then checked by REQ-COMPLIANCE-0003.
+  rule_sources:
+  - SHEET WA-15
+  rule_decisions:
+  - D-3
+- rule_id: R7
+  rule_statement: >-
+    A new Credential for a Worker and Credential Type that already has one sets replaces_id to the latest
+    earlier one, which is kept unchanged.
+  rule_sources:
+  - SESSIONS Worker Assignment & Compliance
+  - GRAPH data model Credential.replaces_id
+  rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    After upload, an Agency User cannot change a Credential; a correction or a renewal is uploaded as
+    a new Credential.
+  rule_sources: []
+  rule_decisions:
+  - D-3
+  - D-56
+- rule_id: R9
+  rule_statement: >-
+    Each day Iris sends CREDENTIAL_EXPIRING once for each VERIFIED Credential whose expires_on is today
+    or later and at most CREDENTIAL_EXPIRY_WARNING_DAYS days away.
+  rule_sources:
+  - SHEET WA-14
+  rule_decisions:
+  - D-16
+- rule_id: R10
+  rule_statement: >-
+    CREDENTIAL_EXPIRING goes by email and in the app to every active Agency User of the Worker's Agency,
+    and is not sent for a Credential that a newer one replaces.
+  rule_sources:
+  - SHEET WA-14
+  rule_decisions:
+  - D-56
 requirement_sources:
-- SHEET
-- FAQ deck
-- DEMO
-requirement_decisions: []
+- SHEET WA-14
+- FAQ
+- SESSIONS Worker Assignment & Compliance
+requirement_decisions:
+- D-3
+- D-16
+- D-56
 requirement_features:
 - WA-14
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-COMPLIANCE-0001
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-INTAKE-0001
+  requirement_id: REQ-WORKFORCE-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INTAKE-0002
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AGENT-0002
 - edge_type: DEPENDS_ON
   requirement_id: REQ-MESSAGING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - CredentialType.*
+  - Credential.*
+  - Worker.agency_id
+  - Worker.first_name
+  - Worker.last_name
+  - Worker.email
+  - RoleGrant.user_id
+  - RoleGrant.role
+  - RoleGrant.agency_id
+  - RoleGrant.revoked_at
+  writes:
+  - Credential.worker_id
+  - Credential.credential_type_id
+  - Credential.file_url
+  - Credential.issuer
+  - Credential.number
+  - Credential.issued_on
+  - Credential.expires_on
+  - Credential.status
+  - Credential.uploaded_by
+  - Credential.replaces_id
   detail: null
-  migration_entities:
-  - Credential
 requirement_starting_flow: false
 requirement_review:
   status: draft

@@ -13,7 +13,7 @@ enums:
   - {value: SWAPPED, meaning: An Agency User replaced the Worker with another.}
   - {value: SHIFT_CANCELLED, meaning: The Shift was cancelled.}
   - {value: RELEASE_DECLINED, meaning: The Agency declined the Release after accepting it.}
-  - {value: NOT_ELIGIBLE, meaning: 'A required credential lapsed or was rejected before the Shift.'}
+  - {value: NOT_ELIGIBLE, meaning: The Worker stopped being eligible for the Shift before it started.}
   - {value: BLOCKED_BY_UNIT, meaning: The Unit blocked the Worker.}
 - enum: WorkerRequestStatus
   values:

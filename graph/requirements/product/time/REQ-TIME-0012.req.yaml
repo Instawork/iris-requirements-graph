@@ -2,14 +2,22 @@ requirement_id: REQ-TIME-0012
 requirement_target_layer: product
 requirement_target_module: TIME
 requirement_phase: P3
-requirement_title: Audit billed hours against Iris's clock
+requirement_title: Audit billed hours against Iris's own clock
 requirement_statement: >-
   Iris compares billed hours with its own clock, flags missing punches and hours above the clock, proposes
   a fix, and keeps the correction history.
-requirement_actors: []
-requirement_rules: []
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Iris flags a Timesheet with a missing punch or with billed hours above the clock, and proposes a fix
+    that a person approves.
+  rule_sources:
+  - SHEET TS-4
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET TS-4
 requirement_decisions: []
 requirement_features:
 - TS-4
@@ -19,14 +27,14 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-TIME-0006
 data_model:
-  status: not_applicable
+  status: pending
   reads: []
   writes: []
-  detail: null
-  migration_entities: []
+  detail: >-
+    Designed when Phase 3 is scoped; needs the clock record of REQ-TIME-0010.
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

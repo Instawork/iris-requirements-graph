@@ -145,7 +145,8 @@ decisions:
   status: open
   assumption: >-
     Only an Approved Timesheet locks. An unapproved one stays open after the window and shows as late on
-    the Unit's and the Agency's to-dos.
+    the Unit's and the Agency's to-dos. A Timesheet approved after its window has closed locks when it is
+    approved.
   blocking: false
   answer: null
   sources:
@@ -274,7 +275,8 @@ decisions:
   status: open
   assumption: >-
     A missing clock time, a time outside tolerance, a missed required break, a Pay Rate below the minimum
-    wage, a billed rate that differs from the Release, and a pending expense. Overtime alone does not.
+    wage, a billed rate that differs from the Release, a pending expense, and a tip an Agency User
+    entered. Overtime alone does not.
   blocking: false
   answer: null
   sources:
@@ -302,7 +304,7 @@ decisions:
     A changed regular rate scales the contracted overtime and double-time rates by the same ratio. With no
     Rate Line, overtime is 1.5 times and double time 2 times the regular rate the Unit enters. A Release
     keeps the rates it was sent at when Rate Lines change later. Derived rates are rounded half up to the
-    cent.
+    cent. The same scaling applies when an Agency bills another regular rate on a Timesheet.
   blocking: false
   answer: null
   sources:
@@ -341,7 +343,7 @@ decisions:
   status: open
   assumption: >-
     Iris raises one request per Worker per secured Unit at their first Assignment there. A Unit User marks
-    it Issued or Revoked.
+    it Issued or Revoked. A badge request never stops a Worker being assigned.
   blocking: false
   answer: null
   sources:
@@ -729,3 +731,98 @@ decisions:
   sources:
   - SHEET RC-5
   - DEMO lib/types.ts
+- decision_id: D-56
+  origin: graph
+  question: >-
+    How is a Credential Requirement scoped, which check results verify or reject a Credential, and can
+    an uploaded Credential be changed?
+  status: open
+  assumption: >-
+    A Program User sets Credential Types and Credential Requirements, by org node and Position only, not
+    for a single Event. A Credential is rejected when the document's expiry date has passed or the issuer
+    or registry does not confirm it. It is verified when no sign of editing is found, the document
+    matches the details uploaded, and every check that ran passed; anything else goes to a Program User.
+    Verified and rejected are final, so a correction or a renewal is a new Credential. A Credential counts
+    through its expiry date and an Attestation through its valid-until date. A Credential file never
+    creates a Worker.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET WA-13
+  - SHEET WA-15
+  - SHEET WA-16
+- decision_id: D-57
+  origin: graph
+  question: >-
+    How is a required meal break checked, are paid rest breaks checked, and what applies where no rule
+    is loaded?
+  status: open
+  assumption: >-
+    A meal break is missed when the minutes worked are more than the rule's threshold and the unpaid
+    break is shorter than the rule requires. Paid rest breaks are not recorded, so rest-break rules are
+    held for reference and not checked in MVP. Without a Rate Line there is no Pay Rate, so the
+    minimum-wage check is skipped. Iris applies only the rules loaded for a state or city, one per kind
+    on any date, and has no built-in defaults.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET WA-18
+- decision_id: D-58
+  origin: graph
+  question: >-
+    How do daily and weekly overtime combine, in what order are minutes classified, and which minutes
+    count before a Timesheet has hours?
+  status: open
+  assumption: >-
+    Minutes are classified in clock-in order, each Timesheet on its Shift's work date. Daily double time
+    and daily overtime apply first, and only minutes they leave regular count toward the weekly
+    threshold. A Shift counts at its Timesheet minutes once hours are entered and at its scheduled
+    minutes less the planned break before that; when a Worker is assigned, only scheduled minutes are
+    counted. A change adds overtime when the week's overtime and double-time minutes rise. The Work Week
+    of any date follows the Unit's current start day.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET WA-19
+  - SHEET WA-20
+- decision_id: D-59
+  origin: graph
+  question: >-
+    Which details of entering, submitting, approving, and splitting hours do the exception and edit-right
+    decisions leave open?
+  status: open
+  assumption: >-
+    A Draft Timesheet is created when its Shift ends, and clock times are kept to the minute. A Timesheet
+    with a missing clock time or a pending expense can be submitted, but a Unit User cannot approve it
+    until that is settled. A Unit User's file is saved only as corrections to Submitted and Approved
+    Timesheets, and a file time with no date is read as the one nearest the scheduled time. A split part
+    starts in the status of the Timesheet it came from, the parts of one Assignment are checked together,
+    and a part in a Position with no Rate Line keeps the original rates and is an exception. A bulk step
+    skips what it cannot do and lists it.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET TS-5
+  - SHEET TS-7
+  - SHEET TS-8
+  - SHEET TS-10
+  - PRD §2 Shifts
+- decision_id: D-60
+  origin: graph
+  question: >-
+    How are a Tip Pool's leftover cents shared, when is a split recomputed, who keeps cashier PINs, and
+    until when can tips and expenses be added or decided?
+  status: open
+  assumption: >-
+    Shares are rounded down to the cent, and leftover cents go one each to the shares with the largest
+    dropped fractions. A pool is split again when covered hours change, until any covered Timesheet
+    locks. Unit Users keep the cashier PIN map, and a PIN tip goes to one Timesheet of that Worker.
+    Agency Users add tips and expenses only on Draft and Rejected Timesheets. A tip they enter keeps its
+    Timesheet from being approved automatically, so a Unit User sees it before it is billed. A Unit User
+    decides each expense on a Submitted Timesheet, and a decided expense does not change.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET TS-11
+  - SHEET TS-12
+  - SESSIONS Timesheets, Tips & Expenses

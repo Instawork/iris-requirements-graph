@@ -71,12 +71,12 @@ upload_types:
   - {column: shift_id, required: 'unless unit, date, and position identify the Shift', maps_to: Timesheet.assignment_id}
   - {column: unit, required: 'no', maps_to: Timesheet.assignment_id, lookup: Unit name}
   - {column: date, required: 'no', maps_to: Timesheet.assignment_id}
-  - {column: position, required: 'no', maps_to: Timesheet.position_id, lookup: Position.name}
+  - {column: position, required: 'no', maps_to: Timesheet.position_id, lookup: Position.name, note: Used only to find the Shift; an upload never changes a Timesheet's Position}
   - {column: worker_first_name, required: 'yes', maps_to: Timesheet.assignment_id, lookup: Worker match by REQ-WORKFORCE-0002}
   - {column: worker_last_name, required: 'yes', maps_to: Timesheet.assignment_id}
   - {column: worker_email, required: 'no', maps_to: Timesheet.assignment_id}
-  - {column: clock_in, required: unless no_show, maps_to: Timesheet.clock_in}
-  - {column: clock_out, required: unless no_show, maps_to: Timesheet.clock_out}
+  - {column: clock_in, required: unless no_show, maps_to: Timesheet.clock_in, note: A time with no date is read as the one nearest the scheduled start}
+  - {column: clock_out, required: unless no_show, maps_to: Timesheet.clock_out, note: A time with no date is read as the one nearest the scheduled end}
   - {column: break_minutes, required: 'no', maps_to: Timesheet.break_minutes}
   - {column: no_show, required: 'no', maps_to: Timesheet.no_show, note: Yes or No}
 - type: TIPS
@@ -91,7 +91,7 @@ upload_types:
   - {column: shift_id, required: 'no', maps_to: TipPool.shift_id}
   - {column: event, required: 'no', maps_to: TipPool.event_id, lookup: Event.name at the Unit}
   - {column: cashier_pin, required: 'no', maps_to: TipAllocation.cashier_pin_id, lookup: CashierPin valid on the date}
-  - {column: amount, required: 'yes', maps_to: TipPool.amount}
+  - {column: amount, required: 'yes', maps_to: TipPool.amount, note: Saved as TipAllocation.amount on a row with cashier_pin}
 - type: EXPENSES
   phase: MVP
   meaning: Costs an Agency paid for Workers on Shifts.
@@ -100,7 +100,7 @@ upload_types:
   sources: [SHEET TS-12]
   columns:
   - {column: shift_id, required: 'yes', maps_to: Expense.timesheet_id}
-  - {column: worker_first_name, required: 'yes', maps_to: Expense.timesheet_id}
+  - {column: worker_first_name, required: 'yes', maps_to: Expense.timesheet_id, lookup: A Worker of the uploader's Agency assigned to that Shift}
   - {column: worker_last_name, required: 'yes', maps_to: Expense.timesheet_id}
   - {column: kind, required: 'yes', maps_to: Expense.kind, note: 'PARKING, BACKGROUND_CHECK, or OTHER'}
   - {column: amount, required: 'yes', maps_to: Expense.amount}

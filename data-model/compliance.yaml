@@ -57,7 +57,7 @@ entities:
   - {name: issuer, type: text, nullable: true}
   - {name: number, type: text, nullable: true}
   - {name: issued_on, type: date, nullable: true}
-  - {name: expires_on, type: date, nullable: true, note: Required when the type has an expiry}
+  - {name: expires_on, type: date, nullable: true, note: Required when the type has an expiry; the Credential counts through this date}
   - {name: status, type: enum:CredentialStatus}
   - {name: status_reason, type: text, nullable: true}
   - {name: verification_reference, type: text, nullable: true, note: From the issuer or registry}
@@ -74,7 +74,7 @@ entities:
   - {name: worker_id, type: ref:Worker}
   - {name: credential_type_id, type: ref:CredentialType}
   - {name: statement, type: text}
-  - {name: valid_until, type: date, nullable: true}
+  - {name: valid_until, type: date, nullable: true, note: Current through this date; empty means no end}
   - {name: attested_by, type: ref:User}
   - {name: attested_at, type: timestamp}
 - entity: BadgeRequest

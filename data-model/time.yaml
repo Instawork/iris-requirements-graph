@@ -8,6 +8,10 @@ enums:
   - {value: REJECTED, meaning: Sent back to the Agency with a reason.}
   transitions:
   - {from: null, to: DRAFT, requirement: REQ-TIME-0001}
+  - {from: null, to: DRAFT, requirement: REQ-TIME-0008}
+  - {from: null, to: SUBMITTED, requirement: REQ-TIME-0008}
+  - {from: null, to: APPROVED, requirement: REQ-TIME-0008}
+  - {from: null, to: REJECTED, requirement: REQ-TIME-0008}
   - {from: DRAFT, to: SUBMITTED, requirement: REQ-TIME-0002}
   - {from: REJECTED, to: SUBMITTED, requirement: REQ-TIME-0002}
   - {from: SUBMITTED, to: APPROVED, requirement: REQ-TIME-0002}
@@ -16,11 +20,12 @@ enums:
 - enum: ExceptionReason
   values:
   - {value: MISSING_TIMES, meaning: A clock-in or clock-out is missing on a Worker who showed.}
-  - {value: OUTSIDE_TOLERANCE, meaning: A billed time is outside the Approval Tolerance of the schedule.}
+  - {value: OUTSIDE_TOLERANCE, meaning: A billed clock time differs from the scheduled time by more than the Approval Tolerance.}
   - {value: MISSED_BREAK, meaning: A break the labor rules require was not taken.}
   - {value: BELOW_MINIMUM_WAGE, meaning: The Pay Rate on the work date is below the local minimum wage.}
-  - {value: RATE_VARIANCE, meaning: The billed regular Bill Rate differs from the Release.}
+  - {value: RATE_VARIANCE, meaning: 'The billed regular Bill Rate differs from the Release, or for a part split to another Position, from that Position''s contracted rate.'}
   - {value: PENDING_EXPENSE, meaning: An expense on it is not yet approved or rejected.}
+  - {value: AGENCY_TIP, meaning: An Agency User entered a tip on it (D-22).}
 entities:
 - entity: Timesheet
   phase: MVP
@@ -30,14 +35,14 @@ entities:
   - {name: split_from_id, type: ref:Timesheet, nullable: true, note: Set on the later part of a split}
   - {name: position_id, type: ref:Position, note: The Shift's Position unless split}
   - {name: department_id, type: ref:Department, nullable: true, note: The Shift's Department unless split}
-  - {name: clock_in, type: timestamp, nullable: true, note: As billed}
-  - {name: clock_out, type: timestamp, nullable: true, note: As billed}
+  - {name: clock_in, type: timestamp, nullable: true, note: 'As billed, kept to the whole minute'}
+  - {name: clock_out, type: timestamp, nullable: true, note: 'As billed, kept to the whole minute'}
   - {name: break_minutes, type: int, nullable: true}
   - {name: worked_minutes, type: int, note: clock_out minus clock_in minus break_minutes; 0 for a no-show}
   - {name: regular_minutes, type: int}
   - {name: overtime_minutes, type: int}
   - {name: double_time_minutes, type: int}
-  - {name: regular_bill_rate, type: money, note: The Release's rate unless the Agency billed another}
+  - {name: regular_bill_rate, type: money, note: "The Release's rate, or the Rate Line's for a part split to another Position, unless the Agency billed another"}
   - {name: overtime_bill_rate, type: money}
   - {name: double_time_bill_rate, type: money}
   - {name: no_show, type: bool}
@@ -52,3 +57,4 @@ entities:
   constraints:
   - regular_minutes plus overtime_minutes plus double_time_minutes equals worked_minutes.
   - An Assignment has one Timesheet, or one per part when split.
+  - A Timesheet with locked_at set never changes in MVP.

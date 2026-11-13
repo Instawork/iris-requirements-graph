@@ -2,42 +2,104 @@ requirement_id: REQ-LABOR-0005
 requirement_target_layer: product
 requirement_target_module: LABOR
 requirement_phase: MVP
-requirement_title: Classify hours as regular, overtime, or double time
+requirement_title: Classify minutes as regular, overtime, or double time
 requirement_statement: >-
-  Iris splits each Timesheet's hours into regular, overtime, and double time, using the labor rules and
-  the Worker's hours that Work Week at that Agency.
-requirement_actors: []
+  Given one Worker's Timesheets at one Unit in one Work Week, Iris splits each Timesheet's worked minutes
+  into regular, overtime, and double time under the Labor Rules in effect. It only calculates; REQ-TIME-0001
+  saves the result.
+requirement_actors:
+- SYSTEM
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Each class of hours is billed at the matching Bill Rate on the Rate Line.
-  rule_sources: []
-  rule_decisions: []
+    Classification covers one Worker's Timesheets at one Unit in one Work Week; the caller gives each
+    one's work date, clock_in, and worked_minutes.
+  rule_sources:
+  - SHEET WA-19
+  rule_decisions:
+  - D-4
 - rule_id: R2
   rule_statement: >-
-    When a correction changes earlier hours in the week, later Timesheets that week are reclassified.
-  rule_sources: []
+    Timesheets are taken in order of clock_in, and all of a Timesheet's minutes count on its Shift's work
+    date, even past midnight.
+  rule_sources:
+  - GRAPH data model work date
+  rule_decisions:
+  - D-4
+  - D-58
+- rule_id: R3
+  rule_statement: >-
+    On one work date, minutes past the DAILY_DOUBLE_TIME threshold_minutes are double time, and other
+    minutes past the DAILY_OVERTIME threshold_minutes are overtime.
+  rule_sources:
+  - SHEET WA-19
+  - PRD §3 Supplier Rates
+  rule_decisions:
+  - D-4
+  - D-58
+- rule_id: R4
+  rule_statement: >-
+    Minutes that the daily rules leave regular are counted in order through the Work Week, and those past
+    the WEEKLY_OVERTIME threshold_minutes are overtime.
+  rule_sources:
+  - SHEET WA-19
+  rule_decisions:
+  - D-4
+  - D-58
+- rule_id: R5
+  rule_statement: >-
+    Every remaining minute is regular, so each Timesheet's three classes add up to its worked_minutes.
+  rule_sources:
+  - GRAPH data model Timesheet
   rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    Each threshold comes from the Labor Rule in effect for the Unit on the Timesheet's work date, and
+    a kind with no rule in effect is not applied.
+  rule_sources:
+  - SHEET WA-18
+  rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    The whole week is classified each time; REQ-TIME-0001 saves the result only to Timesheets that are
+    not locked, and a locked Timesheet keeps its stored classes.
+  rule_sources:
+  - SHEET TS-9
+  rule_decisions:
+  - D-33
+- rule_id: R8
+  rule_statement: >-
+    REQ-LABOR-0003 uses the same steps on scheduled Shifts, with the scheduled start as clock_in and the
+    scheduled minutes less the planned break as worked_minutes.
+  rule_sources:
+  - SHEET WA-19
+  rule_decisions:
+  - D-4
 requirement_sources:
-- PRD §3 Supplier rates
-- SHEET WA-19, WA-20
+- SHEET WA-19
+- SHEET WA-20
+- PRD §3 Supplier Rates
 requirement_decisions:
 - D-4
-requirement_features: []
+- D-33
+- D-58
+requirement_features:
+- WA-19
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-LABOR-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-LABOR-0004
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-RATES-0005
+  requirement_id: REQ-ORG-0002
 data_model:
   status: covered
-  reads: []
+  reads:
+  - LaborRule.*
+  - Unit.state
+  - Unit.city
   writes: []
-  detail: null
-  migration_entities:
-  - Timesheet
+  detail: Reads only. The caller supplies the Timesheets and saves the classes.
 requirement_starting_flow: false
 requirement_review:
   status: draft

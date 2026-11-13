@@ -2,44 +2,86 @@ requirement_id: REQ-COMPLIANCE-0004
 requirement_target_layer: product
 requirement_target_module: COMPLIANCE
 requirement_phase: MVP
-requirement_title: Record Agency attestations with an audit trail
+requirement_title: Record Agency Attestations and keep their history
 requirement_statement: >-
-  An Agency User attests that a Worker meets a requirement, such as work authorization. Iris records who
-  attested, when, and to what.
-requirement_actors: []
+  An Agency User attests that a Worker meets a Credential Type, such as work authorization. Iris keeps
+  who attested, when, and to what, and never changes an Attestation.
+requirement_actors:
+- AGENCY_USER
+- PROGRAM_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    An attestation counts toward eligibility only for Credential Types that accept one.
-  rule_sources: []
+    An Agency User records an Attestation for a Worker of their own Agency and an active Credential Type,
+    with a statement and an optional valid_until date.
+  rule_sources:
+  - SHEET WA-16
+  - SESSIONS Worker Assignment & Compliance
   rule_decisions: []
 - rule_id: R2
-  rule_statement: An attestation is never edited, and a new one replaces the last.
-  rule_sources: []
+  rule_statement: >-
+    Iris sets attested_by to that User and attested_at to the time the Attestation was recorded.
+  rule_sources:
+  - SESSIONS Worker Assignment & Compliance
   rule_decisions: []
 - rule_id: R3
-  rule_statement: Compass or the MSP can audit every attestation and its history.
-  rule_sources: []
-  rule_decisions: []
+  rule_statement: >-
+    An Attestation is never edited or deleted; to change or renew one, the Agency User records a new Attestation.
+  rule_sources:
+  - SHEET WA-16
+  rule_decisions:
+  - D-3
+- rule_id: R4
+  rule_statement: >-
+    For a Worker and Credential Type, only the Attestation with the latest attested_at counts, and it
+    is current through its valid_until date, or without end when that is empty.
+  rule_sources:
+  - GRAPH data model Attestation
+  rule_decisions:
+  - D-3
+  - D-56
+- rule_id: R5
+  rule_statement: >-
+    An Attestation can be recorded for any active Credential Type, but REQ-COMPLIANCE-0005 counts it only
+    where the type's proof is ATTESTATION.
+  rule_sources:
+  - SESSIONS Worker Assignment & Compliance
+  rule_decisions:
+  - D-3
+- rule_id: R6
+  rule_statement: >-
+    A Program User can see every Attestation, including replaced ones, with its Worker, Agency, Credential
+    Type, statement, valid_until, attested_by, and attested_at.
+  rule_sources:
+  - SHEET WA-16
+  rule_decisions:
+  - D-3
 requirement_sources:
-- SHEET
-- SESSIONS Worker compliance
+- SHEET WA-16
+- SESSIONS Worker Assignment & Compliance
 requirement_decisions:
 - D-3
+- D-56
 requirement_features:
 - WA-16
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-COMPLIANCE-0001
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
   requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - CredentialType.name
+  - CredentialType.active
+  - Worker.agency_id
+  writes:
+  - Attestation.*
   detail: null
-  migration_entities:
-  - Attestation
 requirement_starting_flow: false
 requirement_review:
   status: draft

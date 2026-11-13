@@ -4,44 +4,112 @@ requirement_target_module: LABOR
 requirement_phase: MVP
 requirement_title: Track overtime within each Agency and alert
 requirement_statement: >-
-  Iris adds up each Worker's hours in the Work Week at their Agency and alerts before an assignment takes
-  them past the overtime threshold.
-requirement_actors: []
+  Iris adds up a Worker's minutes at a Unit in its Work Week and alerts when an Assignment or Timesheet
+  hours add overtime. Where OVERTIME_HARD_BLOCK is on, an Assignment that adds overtime is refused instead.
+requirement_actors:
+- SYSTEM
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Hours counted are approved Timesheet hours plus the scheduled hours of upcoming assigned Shifts.
-  rule_sources: []
-  rule_decisions: []
+    Overtime is tracked for one Worker at one Unit within one Work Week of that Unit; minutes at other
+    Units or with other Agencies are not counted.
+  rule_sources:
+  - SHEET WA-19
+  rule_decisions:
+  - D-4
 - rule_id: R2
   rule_statement: >-
-    Overtime is flagged, not blocked, unless the overtime hard block Setting is on.
+    The caller gives the Worker's counted Shifts in that week, each with its work date, start time, and
+    minutes, both before and after the change being checked.
   rule_sources: []
-  rule_decisions: []
+  rule_decisions:
+  - D-4
+  - D-58
 - rule_id: R3
-  rule_statement: Hours at other Agencies are not counted in MVP.
+  rule_statement: >-
+    When Timesheet hours are saved, REQ-TIME-0001 counts a Shift at its Timesheets' worked_minutes once
+    hours are entered, and otherwise at its scheduled minutes less the planned break.
+  rule_sources:
+  - SHEET WA-19
+  rule_decisions:
+  - D-4
+- rule_id: R4
+  rule_statement: >-
+    When a Worker is assigned, REQ-WORKFORCE-0003 counts every Shift at its scheduled minutes less the
+    planned break, because it cannot read Timesheets.
   rule_sources: []
+  rule_decisions:
+  - D-4
+  - D-58
+- rule_id: R5
+  rule_statement: >-
+    A change adds overtime when the week's overtime plus double-time minutes, classified as in REQ-LABOR-0005,
+    are greater after the change than before it.
+  rule_sources:
+  - SHEET WA-19
+  rule_decisions:
+  - D-4
+  - D-58
+- rule_id: R6
+  rule_statement: >-
+    When an Assignment would add overtime and OVERTIME_HARD_BLOCK is true for the Unit, the answer is
+    to refuse it, and no alert is sent.
+  rule_sources:
+  - SHEET WA-19
+  rule_decisions:
+  - D-16
+- rule_id: R7
+  rule_statement: >-
+    In every other case a change that adds overtime is allowed and Iris sends OVERTIME_ALERT; Timesheet
+    hours are never refused for overtime.
+  rule_sources:
+  - SHEET WA-19
+  rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    OVERTIME_ALERT goes in the app to every active Agency User of the Worker's Agency and to the User
+    who created the Shift's Request, naming the Worker, the Work Week, and the overtime minutes.
+  rule_sources:
+  - SHEET WA-19
   rule_decisions: []
 requirement_sources:
-- SHEET
-- DEMO
+- SHEET WA-19
 requirement_decisions:
 - D-4
+- D-16
+- D-58
 requirement_features:
 - WA-19
 edges:
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-LABOR-0001
-- edge_type: DEPENDS_ON
   requirement_id: REQ-LABOR-0004
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-LABOR-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0005
+- edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-MESSAGING-0001
 data_model:
-  status: not_applicable
-  reads: []
+  status: covered
+  reads:
+  - Worker.agency_id
+  - Shift.request_id
+  - Request.unit_id
+  - Request.created_by
+  - RoleGrant.user_id
+  - RoleGrant.role
+  - RoleGrant.agency_id
+  - RoleGrant.revoked_at
   writes: []
-  detail: null
-  migration_entities: []
+  detail: >-
+    Reads only. The caller supplies the week's minutes; this requirement reads neither Assignments nor
+    Timesheets.
 requirement_starting_flow: false
 requirement_review:
   status: draft

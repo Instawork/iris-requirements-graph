@@ -2,30 +2,97 @@ requirement_id: REQ-COMPLIANCE-0003
 requirement_target_layer: product
 requirement_target_module: COMPLIANCE
 requirement_phase: MVP
-requirement_title: Validate credential documents with AI
+requirement_title: Validate Credential documents with AI and review what it cannot settle
 requirement_statement: >-
-  Iris checks each uploaded document for expiry, issuer, and signs of editing, and checks it with the
-  issuer or a public registry where available.
-requirement_actors: []
+  Iris checks each uploaded Credential document for expiry, issuer, and signs of editing, and with the
+  issuer or a public registry where available. A Program User decides the ones the checks cannot settle.
+requirement_actors:
+- SYSTEM
+- PROGRAM_USER
 requirement_rules:
 - rule_id: R1
-  rule_statement: The result is Verified, Needs review, or Rejected, with the reason.
-  rule_sources: []
+  rule_statement: >-
+    Iris checks every PENDING_CHECK Credential for four things: the expiry date on the document, the issuer
+    named on it, signs of editing, and the issuer or registry record.
+  rule_sources:
+  - SHEET WA-15
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    A Needs review result goes to a Compass reviewer, who confirms or rejects it with a note.
-  rule_sources: []
+    The issuer or registry check is made through REQ-INTEGRATIONS-0006; when its result is not available,
+    that check is skipped and the result rests on the document checks.
+  rule_sources:
+  - SHEET WA-15
   rule_decisions: []
 - rule_id: R3
-  rule_statement: A Rejected credential does not count toward eligibility.
+  rule_statement: >-
+    An AI model reads the document and judges the three document checks; the status is then set from those
+    judgments by the rules here, without a Proposal.
+  rule_sources:
+  - SHEET WA-15
+  rule_decisions:
+  - D-3
+- rule_id: R4
+  rule_statement: >-
+    The result is REJECTED when the expiry date on the document has passed, or REQ-INTEGRATIONS-0006 returns
+    not confirmed.
+  rule_sources:
+  - SHEET WA-15
+  rule_decisions:
+  - D-3
+  - D-56
+- rule_id: R5
+  rule_statement: >-
+    The result is VERIFIED when it is not REJECTED, no sign of editing is found, the document's issuer
+    and dates match the details uploaded, and every check that ran passed.
+  rule_sources:
+  - SHEET WA-15
+  rule_decisions:
+  - D-3
+  - D-56
+- rule_id: R6
+  rule_statement: >-
+    Any other outcome, including a document Iris cannot read, is NEEDS_REVIEW.
   rule_sources: []
+  rule_decisions:
+  - D-3
+  - D-56
+- rule_id: R7
+  rule_statement: >-
+    Each result sets checked_at and a status_reason naming every check that failed or could not finish,
+    and verification_reference when REQ-INTEGRATIONS-0006 returned a reference.
+  rule_sources:
+  - SHEET WA-15
+  rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    A Program User decides each NEEDS_REVIEW Credential as VERIFIED or REJECTED with a review_note, which
+    sets reviewed_by and reviewed_at.
+  rule_sources:
+  - SHEET WA-16
+  rule_decisions:
+  - D-3
+- rule_id: R9
+  rule_statement: >-
+    VERIFIED and REJECTED are final: nobody changes the status of such a Credential.
+  rule_sources:
+  - GRAPH data model CredentialStatus transitions
+  rule_decisions:
+  - D-56
+- rule_id: R10
+  rule_statement: >-
+    When a Credential becomes VERIFIED or REJECTED, Iris sends CREDENTIAL_DECIDED in the app to the User
+    who uploaded it, with the status_reason or review_note.
+  rule_sources:
+  - SHEET WA-15
   rule_decisions: []
 requirement_sources:
-- SHEET
-- SESSIONS Worker compliance
+- SHEET WA-15
+- SHEET WA-16
+- SESSIONS Worker Assignment & Compliance
 requirement_decisions:
 - D-3
+- D-56
 requirement_features:
 - WA-15
 edges:
@@ -35,13 +102,27 @@ edges:
   requirement_id: REQ-AGENT-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-INTEGRATIONS-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-MESSAGING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - Credential.*
+  - CredentialType.name
+  - CredentialType.has_expiry
+  writes:
+  - Credential.status
+  - Credential.status_reason
+  - Credential.verification_reference
+  - Credential.checked_at
+  - Credential.reviewed_by
+  - Credential.reviewed_at
+  - Credential.review_note
   detail: null
-  migration_entities:
-  - Credential
 requirement_starting_flow: false
 requirement_review:
   status: draft

@@ -4,32 +4,100 @@ requirement_target_module: COMPLIANCE
 requirement_phase: MVP
 requirement_title: Decide whether a Worker is eligible for a Shift
 requirement_statement: >-
-  A Worker is eligible for a Shift when every required Credential Type is satisfied on the Shift date.
-  Iris gives the reason when they are not.
-requirement_actors: []
+  A Worker is eligible for a Shift when every Credential Type the Shift requires is satisfied on its work
+  date. Iris answers for a given Worker and Shift, with the reasons when the Worker is not eligible.
+requirement_actors:
+- SYSTEM
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    A Credential Type is satisfied by a verified, unexpired credential, or by an attestation where the
-    type accepts one.
-  rule_sources: []
+    A Shift requires every active Credential Type that has a Credential Requirement applying to the Shift's
+    Unit and Position, as REQ-COMPLIANCE-0001 defines.
+  rule_sources:
+  - SHEET WA-13
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    The same check runs whoever assigns, whether an Agency User, a file, or the assistant.
-  rule_sources: []
+    A required type is satisfied by a Credential of the Worker for that type that is VERIFIED and has
+    no expires_on, or an expires_on on or after the Shift's work date.
+  rule_sources:
+  - SHEET WA-14
+  - DEMO lib/compliance.ts
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    When a credential lapses before an assigned Shift, the Agency is told to renew it or replace the Worker.
-  rule_sources: []
+    A required type whose proof is ATTESTATION is also satisfied by the Worker's Attestation for it that
+    is current on the work date, as REQ-COMPLIANCE-0004 defines.
+  rule_sources:
+  - SESSIONS Worker Assignment & Compliance
+  rule_decisions:
+  - D-3
+- rule_id: R4
+  rule_statement: >-
+    A Credential that is PENDING_CHECK, NEEDS_REVIEW, or REJECTED never satisfies a type.
+  rule_sources:
+  - SHEET WA-15
+  rule_decisions:
+  - D-3
+- rule_id: R5
+  rule_statement: >-
+    The Worker is eligible when every required type is satisfied, and always when the Shift requires none.
+  rule_sources:
+  - SHEET WA-13
+  - FAQ
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    When the Worker is not eligible, the answer names each unsatisfied type and why: nothing on file,
+    expired by the work date, still being checked, or rejected.
+  rule_sources:
+  - SESSIONS Worker Assignment & Compliance
+  rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    The answer is computed from the records at the moment it is asked, is not stored, and is the same
+    whichever channel asks.
+  rule_sources:
+  - DEMO lib/compliance.ts
+  - PRD §7 What the agent checks
+  rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    When REQ-WORKFORCE-0003 asks about a Worker already assigned to a Shift that has not started and the
+    answer is not eligible, Iris sends WORKER_NOT_ELIGIBLE.
+  rule_sources:
+  - SHEET WA-14
+  - FAQ
+  rule_decisions:
+  - D-51
+- rule_id: R9
+  rule_statement: >-
+    WORKER_NOT_ELIGIBLE goes by email and in the app to every active Agency User of the Worker's Agency
+    and to the User who created the Request, with the reasons.
+  rule_sources:
+  - SHEET WA-14
+  - FAQ
+  rule_decisions:
+  - D-51
+- rule_id: R10
+  rule_statement: >-
+    This requirement never reads or changes Assignments; removing the Worker with NOT_ELIGIBLE is done
+    by REQ-WORKFORCE-0003.
+  rule_sources:
+  - GRAPH keeps the dependency graph free of cycles
   rule_decisions: []
 requirement_sources:
+- SHEET WA-13
+- SHEET WA-14
 - FAQ
-- SESSIONS Worker compliance
-- DEMO
-requirement_decisions: []
-requirement_features: []
+- SESSIONS Worker Assignment & Compliance
+- DEMO lib/compliance.ts
+requirement_decisions:
+- D-3
+- D-51
+requirement_features:
+- WA-13
+- WA-14
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-COMPLIANCE-0001
@@ -38,14 +106,40 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-COMPLIANCE-0004
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0005
+- edge_type: DEPENDS_ON
   requirement_id: REQ-MESSAGING-0001
 data_model:
-  status: not_applicable
-  reads: []
+  status: covered
+  reads:
+  - CredentialRequirement.*
+  - CredentialType.*
+  - Credential.worker_id
+  - Credential.credential_type_id
+  - Credential.status
+  - Credential.expires_on
+  - Attestation.*
+  - Worker.agency_id
+  - Shift.request_id
+  - Shift.position_id
+  - Shift.starts_at
+  - Request.unit_id
+  - Request.created_by
+  - Unit.org_node_id
+  - Unit.timezone
+  - OrgNode.parent_id
+  - RoleGrant.user_id
+  - RoleGrant.role
+  - RoleGrant.agency_id
+  - RoleGrant.revoked_at
   writes: []
-  detail: >-
-    Computed from Credential, Attestation, and CredentialRequirement; not stored.
-  migration_entities: []
+  detail: Reads only. The answer is computed and not stored.
 requirement_starting_flow: false
 requirement_review:
   status: draft

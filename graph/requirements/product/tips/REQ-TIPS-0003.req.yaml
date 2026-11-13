@@ -4,26 +4,33 @@ requirement_target_module: TIPS
 requirement_phase: MVP
 requirement_title: Apply tip tax rules by state
 requirement_statement: >-
-  Iris applies each state's tip tax rules, such as New York's, to tips passed through to Agencies.
-requirement_actors: []
-requirement_rules: []
+  Iris will apply each state's tip tax rules, such as New York's, to tips. No rule is applied until Compass
+  names the rules under D-15.
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Until Compass names the tip tax rules, Iris applies none, and tips pass through at the amounts entered.
+  rule_sources:
+  - SHEET TS-13
+  rule_decisions:
+  - D-15
 requirement_sources:
-- SHEET
+- SHEET TS-13
 requirement_decisions:
 - D-15
 requirement_features:
 - TS-13
 edges:
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-LABOR-0001
-- edge_type: DEPENDS_ON
   requirement_id: REQ-TIPS-0001
 data_model:
   status: pending
   reads: []
   writes: []
-  detail: Waiting on which tip tax rules apply (D-15).
-  migration_entities: []
+  detail: >-
+    Waiting on which tip tax rules apply, and in which states first (D-15).
 requirement_starting_flow: false
 requirement_review:
   status: draft

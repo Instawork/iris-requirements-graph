@@ -1,0 +1,45 @@
+requirement_id: REQ-TIME-0013
+requirement_target_layer: product
+requirement_target_module: TIME
+requirement_phase: P2
+requirement_title: Revise a locked Timesheet to match an invoice credit
+requirement_statement: >-
+  In Phase 2, when an Agency credits hours sent back on an issued invoice, the locked Timesheet is revised
+  to match. No other change to a locked Timesheet is allowed.
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    When REQ-INVOICING-0011 records an accepted credit, the hours of the locked Timesheet are revised
+    to match it through this requirement, and its status and locked_at stay as they are.
+  rule_sources:
+  - SHEET INV-11
+  - SHEET 5.2
+  rule_decisions: []
+requirement_sources:
+- SHEET INV-11
+- SHEET 5.2
+requirement_decisions: []
+requirement_features:
+- INV-11
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0007
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
+data_model:
+  status: pending
+  reads: []
+  writes: []
+  detail: >-
+    Which fields a credit revises, and how the minutes are reclassified, is designed with Phase 2 invoicing.
+requirement_starting_flow: false
+requirement_review:
+  status: placeholder
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

@@ -4,33 +4,80 @@ requirement_target_module: LABOR
 requirement_phase: MVP
 requirement_title: Hold state and local labor rules
 requirement_statement: >-
-  Iris holds labor rules by state and city, such as meal and rest breaks, minimum wage, and overtime thresholds,
-  so compliance does not rely on operators.
-requirement_actors: []
+  Iris holds labor rules by state and city for meal and rest breaks, minimum wage, and overtime, so compliance
+  does not depend on each Unit User. Instawork Admins load them as reference data. The pilot's rules come
+  from Compass, as input I-10.
+requirement_actors:
+- INSTAWORK_ADMIN
 requirement_rules:
 - rule_id: R1
-  rule_statement: >-
-    Each rule names its state, its city when local, what it requires, and when it takes effect.
-  rule_sources: []
-  rule_decisions: []
+  rule_statement: Only an Instawork Admin adds, changes, or ends a Labor Rule.
+  rule_sources:
+  - SHEET WA-18
+  rule_decisions:
+  - D-26
 - rule_id: R2
-  rule_statement: Instawork maintains the rules as reference data.
-  rule_sources: []
+  rule_statement: >-
+    Each rule has a two-letter state, an optional city, one kind, an effective_from date, and an optional
+    effective_to date that is exclusive.
+  rule_sources:
+  - SHEET WA-18
   rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    The kinds are MEAL_BREAK, REST_BREAK, MINIMUM_WAGE, DAILY_OVERTIME, WEEKLY_OVERTIME, and DAILY_DOUBLE_TIME.
+  rule_sources:
+  - SHEET WA-18
+  - SHEET WA-19
+  - PRD Key Terms
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    A rule needs threshold_minutes for every kind except MINIMUM_WAGE, break_minutes for MEAL_BREAK and
+    REST_BREAK, and minimum_wage for MINIMUM_WAGE; a rule missing its value is refused.
+  rule_sources:
+  - GRAPH data model LaborRule
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    Two rules of the same state, city, and kind cannot cover the same date; the later one is refused until
+    the earlier one is ended.
+  rule_sources: []
+  rule_decisions:
+  - D-57
+- rule_id: R6
+  rule_statement: >-
+    The rule in effect for a Unit, kind, and date has the Unit's state and covers the date; a rule for
+    the Unit's city wins over the statewide rule.
+  rule_sources:
+  - SHEET WA-18
+  rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    When no rule of a kind is in effect for a Unit and date, that kind does not apply there; Iris has
+    no built-in default rules.
+  rule_sources: []
+  rule_decisions:
+  - D-26
+  - D-57
 requirement_sources:
-- SHEET
-- DEMO
-requirement_decisions: []
+- SHEET WA-18
+requirement_decisions:
+- D-26
+- D-57
 requirement_features:
 - WA-18
-edges: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
   reads: []
-  writes: []
+  writes:
+  - LaborRule.*
   detail: null
-  migration_entities:
-  - LaborRule
 requirement_starting_flow: false
 requirement_review:
   status: draft

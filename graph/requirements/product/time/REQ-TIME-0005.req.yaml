@@ -4,56 +4,184 @@ requirement_target_module: TIME
 requirement_phase: MVP
 requirement_title: Auto-approve within tolerance and surface exceptions
 requirement_statement: >-
-  Iris approves submitted Timesheets that match the schedule within the Approval Tolerance, and puts every
-  other one on the Unit's exception list.
-requirement_actors: []
+  Iris approves a submitted Timesheet whose billed times match the schedule within the Approval Tolerance
+  and that has no other exception. Every other one goes to the Unit's exception list with its reasons.
+requirement_actors:
+- SYSTEM
+- UNIT_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    A Timesheet matches when its billed clock-in and clock-out are each within the tolerance of the scheduled
-    times.
-  rule_sources: []
-  rule_decisions: []
+    Iris checks a Timesheet each time it becomes SUBMITTED, and again whenever its hours, no-show, Bill
+    Rates, or Expenses change while it is SUBMITTED.
+  rule_sources:
+  - SHEET TS-7
+  rule_decisions:
+  - D-22
 - rule_id: R2
   rule_statement: >-
-    Rate variance, a missed required break, overtime, a missing clock-out, or a no-show makes a Timesheet
-    an exception.
-  rule_sources: []
+    Each check replaces exception_reasons with every reason that applies; when none applies, the Timesheet
+    becomes APPROVED with approved_at set and approved_by left empty.
+  rule_sources:
+  - SHEET TS-7
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    Exceptions are listed with their reason and, where Iris has one, a proposed fix.
-  rule_sources: []
-  rule_decisions: []
+    MISSING_TIMES applies when no_show is false and clock_in or clock_out is empty.
+  rule_sources:
+  - SHEET TS-7
+  rule_decisions:
+  - D-22
 - rule_id: R4
-  rule_statement: The Approval Tolerance and whether auto-approval is on are Settings.
+  rule_statement: >-
+    OUTSIDE_TOLERANCE applies when clock_in differs from the Shift's starts_at, or clock_out from its
+    ends_at, by more than APPROVAL_TOLERANCE_MINUTES minutes, resolved for the Shift's Unit.
+  rule_sources:
+  - SHEET TS-7
+  rule_decisions:
+  - D-16
+- rule_id: R5
+  rule_statement: >-
+    MISSED_BREAK and BELOW_MINIMUM_WAGE apply when REQ-LABOR-0002 returns them for the billed times, the
+    break, and the regular Pay Rate of the Timesheet's Rate Line.
+  rule_sources:
+  - SHEET WA-18
+  rule_decisions:
+  - D-22
+- rule_id: R6
+  rule_statement: >-
+    The Timesheet's Rate Line is its Release's rate_line_id, or for a part split to another Position,
+    the line REQ-RATES-0005 finds for that Position.
   rule_sources: []
+  rule_decisions:
+  - D-22
+  - D-59
+- rule_id: R7
+  rule_statement: >-
+    RATE_VARIANCE applies when regular_bill_rate differs from the Release's regular_bill_rate.
+  rule_sources:
+  - SHEET RC-10
+  rule_decisions:
+  - D-22
+- rule_id: R8
+  rule_statement: PENDING_EXPENSE applies when any Expense on the Timesheet is PENDING.
+  rule_sources:
+  - SHEET TS-12
+  rule_decisions:
+  - D-22
+- rule_id: R9
+  rule_statement: >-
+    Overtime or double-time minutes alone add no reason, and a no-show Timesheet can carry only PENDING_EXPENSE.
+  rule_sources:
+  - SHEET WA-19
+  rule_decisions:
+  - D-22
+- rule_id: R10
+  rule_statement: >-
+    For a split Timesheet, the first part's clock_in, the last part's clock_out, and the parts' total
+    break are compared with the schedule and the break rule, and every part carries the result.
+  rule_sources: []
+  rule_decisions:
+  - D-22
+  - D-59
+- rule_id: R11
+  rule_statement: >-
+    A SUBMITTED Timesheet with any reason stays SUBMITTED and appears, with its reasons, on the exception
+    list of each Unit User whose scope covers the Shift's Unit.
+  rule_sources:
+  - SHEET TS-7
   rule_decisions: []
+- rule_id: R12
+  rule_statement: >-
+    exception_reasons are kept after approval, and are recomputed without changing the status when an
+    APPROVED Timesheet is corrected.
+  rule_sources:
+  - SHEET RC-10
+  rule_decisions:
+  - D-33
+- rule_id: R13
+  rule_statement: >-
+    For a part split to another Position, RATE_VARIANCE applies instead when REQ-RATES-0006 reports a
+    rate variance, or no contracted rate, for that Position's regular Bill Rate.
+  rule_sources:
+  - SHEET RC-10
+  rule_decisions:
+  - D-22
+  - D-59
+- rule_id: R14
+  rule_statement: >-
+    Each Timesheet also shows the rate variance REQ-RATES-0006 finds between its three Bill Rates and
+    the contracted Rate Line, before and after approval; that flag alone adds no reason.
+  rule_sources:
+  - SHEET RC-10
+  rule_decisions:
+  - D-22
+- rule_id: R15
+  rule_statement: >-
+    AGENCY_TIP applies when the Timesheet has a tip with no pool and no cashier PIN, which only an Agency
+    User enters.
+  rule_sources: []
+  rule_decisions:
+  - D-22
+  - D-28
 requirement_sources:
-- SHEET
-- SESSIONS Timesheets
+- SHEET TS-7
+- SHEET RC-10
+- SHEET WA-18
 requirement_decisions:
 - D-16
+- D-22
+- D-33
+- D-59
 requirement_features:
 - TS-7
 edges:
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-TIME-0001
+  requirement_id: REQ-TIME-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0005
 - edge_type: DEPENDS_ON
   requirement_id: REQ-RATES-0006
 - edge_type: DEPENDS_ON
   requirement_id: REQ-LABOR-0002
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-LABOR-0005
+  requirement_id: REQ-TIPS-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIPS-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - TipAllocation.timesheet_id
+  - TipAllocation.tip_pool_id
+  - TipAllocation.cashier_pin_id
+  - Timesheet.*
+  - Assignment.worker_id
+  - Assignment.release_id
+  - Release.shift_id
+  - Shift.request_id
+  - Request.unit_id
+  - Worker.agency_id
+  - Release.agency_id
+  - Release.rate_line_id
+  - Release.regular_bill_rate
+  - RateLine.regular_pay_rate
+  - RateLine.regular_bill_rate
+  - Shift.starts_at
+  - Shift.ends_at
+  - Shift.position_id
+  - Expense.timesheet_id
+  - Expense.status
+  writes:
+  - Timesheet.status
+  - Timesheet.exception_reasons
+  - Timesheet.approved_at
   detail: null
-  migration_entities:
-  - Timesheet
 requirement_starting_flow: false
 requirement_review:
   status: draft

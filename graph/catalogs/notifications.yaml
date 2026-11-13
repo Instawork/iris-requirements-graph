@@ -55,7 +55,7 @@ notifications:
   owner: REQ-COMPLIANCE-0005
   sources: [SHEET WA-14, FAQ]
 - type: CREDENTIAL_EXPIRING
-  trigger: A credential's expiry is CREDENTIAL_EXPIRY_WARNING_DAYS away.
+  trigger: A verified credential's expiry is CREDENTIAL_EXPIRY_WARNING_DAYS away or less. Sent once for each credential.
   recipients: Every active Agency User of the Worker's Agency.
   channels: [EMAIL, IN_APP]
   owner: REQ-COMPLIANCE-0002
@@ -68,7 +68,9 @@ notifications:
   owner: REQ-COMPLIANCE-0003
   sources: [SHEET WA-15]
 - type: TIMESHEET_CHANGED
-  trigger: A Unit User or an Agency User changes the hours, breaks, or no-show of a submitted Timesheet.
+  trigger: >-
+    A Unit User or an Agency User changes the hours, breaks, or no-show of a Timesheet that has been
+    submitted at least once, or splits it.
   recipients: The other party, the Agency's active Agency Users or the Unit Users over the Unit.
   channels: [EMAIL, IN_APP]
   owner: REQ-TIME-0006
@@ -80,7 +82,7 @@ notifications:
   owner: REQ-TIME-0006
   sources: ['SESSIONS Timesheets, Tips & Expenses']
 - type: OVERTIME_ALERT
-  trigger: An Assignment or a Timesheet puts a Worker into overtime.
+  trigger: An Assignment or saved Timesheet hours add overtime for a Worker at a Unit in its Work Week.
   recipients: Every active Agency User of the Agency, and the User who created the Request.
   channels: [IN_APP]
   owner: REQ-LABOR-0003

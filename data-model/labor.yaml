@@ -2,8 +2,8 @@ module: LABOR
 enums:
 - enum: LaborRuleKind
   values:
-  - {value: MEAL_BREAK, meaning: 'A break of break_minutes is due once worked time passes threshold_minutes.'}
-  - {value: REST_BREAK, meaning: 'A paid rest of break_minutes is due for each threshold_minutes worked.'}
+  - {value: MEAL_BREAK, meaning: 'An unpaid break of break_minutes is due once worked time passes threshold_minutes.'}
+  - {value: REST_BREAK, meaning: 'A paid rest of break_minutes is due for each threshold_minutes worked. Held for reference; not checked in MVP.'}
   - {value: MINIMUM_WAGE, meaning: The Pay Rate must be at least minimum_wage.}
   - {value: DAILY_OVERTIME, meaning: 'Minutes past threshold_minutes in one work day are overtime.'}
   - {value: WEEKLY_OVERTIME, meaning: 'Minutes past threshold_minutes in one Work Week are overtime.'}
@@ -23,3 +23,4 @@ entities:
   - {name: effective_to, type: date, nullable: true, note: Exclusive}
   constraints:
   - A city rule overrides the state rule of the same kind for Units in that city.
+  - Two rules of the same state, city, and kind never cover the same date.

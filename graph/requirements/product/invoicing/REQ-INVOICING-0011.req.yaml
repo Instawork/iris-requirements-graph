@@ -54,7 +54,7 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-INVOICING-0004
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-TIME-0006
+  requirement_id: REQ-TIME-0013
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0009
 - edge_type: DEPENDS_ON
