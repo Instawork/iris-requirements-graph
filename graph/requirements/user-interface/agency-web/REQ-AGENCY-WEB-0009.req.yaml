@@ -20,7 +20,7 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    While the Timesheet is DRAFT or REJECTED and no_show is false, the Agency User can change clock_in,
+    While the Timesheet is DRAFT or REJECTED and is_no_show is false, the Agency User can change clock_in,
     clock_out, and break_minutes through REQ-TIME-0001; otherwise those fields are read-only.
   rule_sources:
   - PRD §2 Shifts
@@ -196,7 +196,7 @@ data_model:
   - Position.name
   - Department.unit_id
   - Department.name
-  - Department.active
+  - Department.is_active
   - TipAllocation.*
   - Expense.*
   writes: []

@@ -35,7 +35,7 @@ entities:
   - {name: level, type: enum:OrgLevel}
   - {name: name, type: text}
   - {name: parent_id, type: ref:OrgNode, nullable: true, note: Empty only for a Sector; otherwise a node one level up}
-  - {name: active, type: bool, note: 'An inactive node takes no new child, and an inactive UNIT node takes no new Request'}
+  - {name: is_active, type: bool, note: 'An inactive node takes no new child, and an inactive UNIT node takes no new Request'}
   unique:
   - [parent_id, name]
   constraints:
@@ -61,11 +61,11 @@ entities:
   - {name: cost_center_id, type: ref:CostCenter}
   - {name: work_week_start, type: enum:Weekday}
   - {name: is_secured_site, type: bool, note: Workers need a badge request here}
-  - {name: default_parking, type: text, nullable: true}
-  - {name: default_entrance, type: text, nullable: true}
-  - {name: default_directions, type: text, nullable: true}
-  - {name: default_site_contact, type: text, nullable: true}
-  - {name: default_attire, type: text, nullable: true}
+  - {name: default_parking, type: longtext, nullable: true}
+  - {name: default_entrance, type: longtext, nullable: true}
+  - {name: default_directions, type: longtext, nullable: true}
+  - {name: default_site_contact, type: longtext, nullable: true}
+  - {name: default_attire, type: longtext, nullable: true}
   unique:
   - [org_node_id]
 - entity: Department
@@ -75,7 +75,7 @@ entities:
   - {name: unit_id, type: ref:Unit}
   - {name: name, type: text}
   - {name: cost_center_id, type: ref:CostCenter}
-  - {name: active, type: bool}
+  - {name: is_active, type: bool}
   unique:
   - [unit_id, name]
 - entity: RoleGrant
@@ -86,7 +86,7 @@ entities:
   - {name: role, type: enum:Role}
   - {name: org_node_id, type: ref:OrgNode, nullable: true, note: Set only for a Unit User; covers every Unit beneath it}
   - {name: agency_id, type: ref:Agency, nullable: true, note: Set only for an Agency User}
-  - {name: granted_by, type: ref:User, nullable: true, note: 'Empty for a seeded Instawork Admin; after a revoked grant is restored, the User who restored it'}
+  - {name: granted_by_id, type: ref:User, nullable: true, note: 'Empty for a seeded Instawork Admin; after a revoked grant is restored, the User who restored it'}
   - {name: revoked_at, type: timestamp, nullable: true}
   unique:
   - [user_id, role, org_node_id, agency_id]

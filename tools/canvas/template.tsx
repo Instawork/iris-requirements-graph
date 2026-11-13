@@ -550,9 +550,9 @@ function FieldType({ f, nav }: { f: Field; nav: Nav }) {
     const target = base.slice(4);
     return (
       <span style={{ fontFamily: MONO, fontSize: 12 }}>
-        <span style={{ color: theme.text.tertiary }}>→ </span>
+        <span style={{ color: theme.text.tertiary }}>int → </span>
         <Clickable mono onClick={() => nav.entity(target)}>{target}</Clickable>
-        <span style={{ color: theme.text.tertiary }}>{suffix}</span>
+        <span style={{ color: theme.text.tertiary }}>{`.id${suffix}`}</span>
       </span>
     );
   }
@@ -570,6 +570,13 @@ function FieldType({ f, nav }: { f: Field; nav: Nav }) {
   return <span style={{ fontFamily: MONO, fontSize: 12, color: theme.text.secondary }}>{`${base}${suffix}`}</span>;
 }
 
+function fieldKey(e: Entity, f: Field): string {
+  if (f.name === "id") return "Primary key";
+  if (f.type.startsWith("ref:")) return "Foreign key";
+  if (e.unique.some((u) => u.length === 1 && u[0] === f.name)) return "Unique";
+  return "";
+}
+
 function DataModelView({ phase, setPhase, entity, nav }: { phase: PhaseFilter; setPhase: (p: PhaseFilter) => void; entity: string; nav: Nav }) {
   const theme = useHostTheme();
   const visible = G.entities.filter((e) => matchesPhase(e.phase, phase));
@@ -580,7 +587,7 @@ function DataModelView({ phase, setPhase, entity, nav }: { phase: PhaseFilter; s
   return (
     <Stack gap={12}>
       <Text tone="secondary">
-        Every entity also has <Mono>id</Mono>, <Mono>created_at</Mono>, and <Mono>updated_at</Mono>. Fields are required unless marked nullable. Money is USD to the cent and hours are whole minutes. Each entity is written only by requirements in its own module.
+        Tables follow Instawork's Django model conventions (<Mono>D-262</Mono>). Every table has an integer primary key <Mono>id</Mono> that the database assigns in sequence, plus <Mono>created_at</Mono> and <Mono>updated_at</Mono>. A reference is an integer <Mono>{"<name>_id"}</Mono> column holding the other table's <Mono>id</Mono>. A unique constraint only stops duplicates; it is never the key. Fields are required unless marked nullable; <Mono>text</Mono> is up to 255 characters and <Mono>longtext</Mono> has no limit. Money is USD to the cent and hours are whole minutes. Each entity is written only by requirements in its own module.
       </Text>
       <PhaseFilterBar value={phase} onChange={setPhase} counts={phaseCounts(G.entities, (e) => e.phase)} />
       <Grid columns="250px minmax(0, 1fr)" gap={16} align="start">
@@ -616,13 +623,13 @@ function DataModelView({ phase, setPhase, entity, nav }: { phase: PhaseFilter; s
               <Text tone="secondary">{selected.description}</Text>
             </Stack>
             <Table
-              headers={["Field", "Type", "Notes"]}
-              rows={selected.fields.map((f) => [<Mono key="n">{f.name}</Mono>, <FieldType key="t" f={f} nav={nav} />, <Text key="no" size="small" tone="secondary">{f.note ?? ""}</Text>])}
+              headers={["Field", "Type", "Key", "Notes"]}
+              rows={selected.fields.map((f) => [<Mono key="n">{f.name}</Mono>, <FieldType key="t" f={f} nav={nav} />, <Text key="k" size="small" tone="secondary">{fieldKey(selected, f)}</Text>, <Text key="no" size="small" tone="secondary">{f.note ?? ""}</Text>])}
             />
             {selected.unique.length || selected.constraints.length ? (
               <Stack gap={4}>
                 <Label>Constraints</Label>
-                {selected.unique.map((u) => <Text key={u.join()} size="small">{`Unique: ${u.join(" + ")}`}</Text>)}
+                {selected.unique.map((u) => <Text key={u.join()} size="small">{`Unique constraint: ${u.join(" + ")}`}</Text>)}
                 {selected.constraints.map((c) => <Text key={c} size="small">{c}</Text>)}
               </Stack>
             ) : null}

@@ -139,7 +139,7 @@ data_model:
   - Worker.last_name
   - Worker.photo_url
   - Worker.agency_id
-  - Worker.active
+  - Worker.is_active
   - Agency.name
   - Assignment.worker_id
   - Assignment.release_id

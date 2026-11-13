@@ -48,7 +48,7 @@ data_model:
   reads:
   - RateLine.*
   - Unit.org_node_id
-  - OrgNode.active
+  - OrgNode.is_active
   writes: []
   detail: >-
     Adds the Unit case to the Rate Line checks. Lines are saved by REQ-RATES-0009. It is delivered when

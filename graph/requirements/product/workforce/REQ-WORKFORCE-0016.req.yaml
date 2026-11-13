@@ -72,7 +72,7 @@ requirement_rules:
   - D-51
 - rule_id: R9
   rule_statement: >-
-    An interval job of REQ-JOBS-0001 records eligible_at_start, from REQ-COMPLIANCE-0005's answer at that
+    An interval job of REQ-JOBS-0001 records is_eligible_at_start, from REQ-COMPLIANCE-0005's answer at that
     run, on each ASSIGNED Assignment that has none on a Shift whose starts_at has passed.
   rule_sources:
   - PRD §1 Metric definitions
@@ -118,7 +118,7 @@ data_model:
   - Unit.timezone
   - Release.shift_id
   - Release.status
-  - Worker.active
+  - Worker.is_active
   - WorkerRating.unit_id
   - WorkerRating.worker_id
   - WorkerRating.rating
@@ -126,7 +126,7 @@ data_model:
   - Assignment.worker_id
   - Assignment.status
   writes:
-  - Assignment.eligible_at_start
+  - Assignment.is_eligible_at_start
   detail: >-
     Removals are saved through REQ-WORKFORCE-0003, which writes the other Assignment fields and makes
     the ASSIGNED to REMOVED transition.

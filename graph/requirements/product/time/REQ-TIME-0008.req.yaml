@@ -36,7 +36,7 @@ requirement_rules:
 - rule_id: R4
   rule_statement: >-
     The new part copies the status, submission and approval details, rejected_reason, and
-    exception_reasons of the Timesheet it came from, and its no_show is false.
+    exception_reasons of the Timesheet it came from, and its is_no_show is false.
   rule_sources: []
   rule_decisions:
   - D-33
@@ -130,9 +130,9 @@ data_model:
   - Worker.agency_id
   - Release.agency_id
   - Shift.starts_at
-  - Position.active
+  - Position.is_active
   - Department.unit_id
-  - Department.active
+  - Department.is_active
   - Department.cost_center_id
   - Unit.cost_center_id
   - RateLine.regular_bill_rate
@@ -150,15 +150,15 @@ data_model:
   - Timesheet.overtime_bill_rate
   - Timesheet.double_time_bill_rate
   - Timesheet.status
-  - Timesheet.submitted_by
+  - Timesheet.submitted_by_id
   - Timesheet.submitted_at
-  - Timesheet.approved_by
+  - Timesheet.approved_by_id
   - Timesheet.approved_at
   - Timesheet.worked_minutes
   - Timesheet.regular_minutes
   - Timesheet.overtime_minutes
   - Timesheet.double_time_minutes
-  - Timesheet.no_show
+  - Timesheet.is_no_show
   - Timesheet.exception_reasons
   - Timesheet.rejected_reason
   detail: null

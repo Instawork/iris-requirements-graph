@@ -78,14 +78,14 @@ requirement_rules:
 - rule_id: R9
   rule_statement: >-
     Until the Shift's ends_at, an Agency User may remove their Agency's ASSIGNED Worker; the Assignment
-    becomes REMOVED with REMOVED_BY_AGENCY, removed_by, and removed_at.
+    becomes REMOVED with REMOVED_BY_AGENCY, removed_by_id, and removed_at.
   rule_sources:
   - PRD §2 Shift statuses
   rule_decisions: []
 - rule_id: R10
   rule_statement: >-
     An Agency User may swap an ASSIGNED Worker for another in one step: the old Assignment becomes REMOVED
-    with SWAPPED, removed_by, removed_at, and replaced_by_id, and the new one must pass every check.
+    with SWAPPED, removed_by_id, removed_at, and replaced_by_id, and the new one must pass every check.
   rule_sources:
   - SESSIONS Worker Assignment & Compliance
   rule_decisions: []
@@ -143,7 +143,7 @@ requirement_rules:
 - rule_id: R23
   rule_statement: >-
     REQ-WORKFORCE-0016 takes Workers off Shifts through this requirement, giving the removal_reason;
-    such a removal sets removed_at, leaves removed_by empty, and follows R16 and R22.
+    such a removal sets removed_at, leaves removed_by_id empty, and follows R16 and R22.
   rule_sources: []
   rule_decisions:
   - D-160
@@ -241,7 +241,7 @@ data_model:
   - Release.headcount
   - Release.status
   - Worker.agency_id
-  - Worker.active
+  - Worker.is_active
   - Worker.email
   - Worker.phone
   - WorkerRating.unit_id

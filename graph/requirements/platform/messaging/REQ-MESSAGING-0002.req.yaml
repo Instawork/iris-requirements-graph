@@ -46,7 +46,7 @@ requirement_rules:
 - rule_id: R5
   rule_statement: >-
     Each attachment of a message the handling requirement accepts becomes an Upload through REQ-INTAKE-0001,
-    sent by the matched User in the acting role it supplies, on the message's channel, and listed in attachment_upload_ids.
+    sent by the matched User in the acting role it supplies, on the message's channel, and linked as an attachment.
   rule_sources:
   - SHEET SC-10
   - SHEET Decisions & Inputs
@@ -221,18 +221,19 @@ data_model:
   reads:
   - User.email
   - User.phone
-  - User.active
+  - User.is_active
   - Upload.id
   - Upload.proposal_id
   - Proposal.id
   - Proposal.status
-  - Proposal.created_for
+  - Proposal.created_for_id
   - ProposalItem.problems
   - Notification.type
   - Notification.subject_id
   - Notification.provider_message_id
   writes:
   - InboundMessage.*
+  - InboundMessageAttachment.*
   detail: >-
     The voice, speech-to-text, and telephony providers sit behind this requirement. It reads no Role Grant:
     the handling requirement supplies the acting role and context.

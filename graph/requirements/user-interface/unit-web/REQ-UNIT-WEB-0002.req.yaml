@@ -122,12 +122,12 @@ data_model:
   - Unit.default_site_contact
   - Unit.default_attire
   - OrgNode.name
-  - OrgNode.active
+  - OrgNode.is_active
   - Position.name
-  - Position.active
+  - Position.is_active
   - Department.unit_id
   - Department.name
-  - Department.active
+  - Department.is_active
   writes: []
   detail: null
 requirement_starting_flow: true

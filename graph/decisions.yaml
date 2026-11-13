@@ -3235,3 +3235,17 @@ decisions:
   sources:
   - PRD §6 Uploads
   - GRAPH a problem entry names one field and one replacement value
+- decision_id: D-262
+  origin: graph
+  question: Do Iris tables follow the Instawork Django model conventions?
+  status: open
+  assumption: >-
+    Yes. Integer auto-increment id, created_at, and updated_at on every table; a reference is an integer
+    <name>_id column with no database foreign-key constraint; uniqueness is a named unique constraint;
+    booleans start with is_ or has_; empty text is stored as an empty string.
+  blocking: false
+  answer_from: INSTAWORK_ENGINEERING
+  answer: null
+  applies_to: every entity in data-model/
+  sources:
+  - GRAPH Instawork models use AutoField ids, ModelWithTimestamps, and ForeignKey with db_constraint=False

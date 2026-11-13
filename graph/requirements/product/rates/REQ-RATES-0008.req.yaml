@@ -84,7 +84,7 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R10
   rule_statement: >-
-    A lower line is submitted through REQ-RATES-0009 and linked to the review with answered_by and answered_at;
+    A lower line is submitted through REQ-RATES-0009 and linked to the review with answered_by_id and answered_at;
     the review becomes LOWERED when the line is APPROVED and stays REQUESTED, open to another answer, if
     SENT_BACK.
   rule_sources:
@@ -139,7 +139,7 @@ data_model:
   - RateLine.*
   - RateReview.*
   - RoleGrant.*
-  - User.active
+  - User.is_active
   - Agency.name
   - Position.name
   - Market.name

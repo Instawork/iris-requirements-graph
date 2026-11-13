@@ -154,7 +154,7 @@ data_model:
   - Timesheet.worked_minutes
   - Timesheet.overtime_minutes
   - Timesheet.double_time_minutes
-  - Timesheet.no_show
+  - Timesheet.is_no_show
   - Timesheet.status
   - Unit.work_week_start
   - Event.name

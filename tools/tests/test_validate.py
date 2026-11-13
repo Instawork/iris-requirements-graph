@@ -260,6 +260,22 @@ class MutationTests(unittest.TestCase):
         self.copy.edit_yaml("data-model/audit.yaml", lambda d: d["entities"][0]["fields"].append({"name": "shift_id", "type": "ref:Shift"}))
         self.assertCaught("data_model_refs", "pointing up")
 
+    def test_data_model_naming__ref_without_id(self):
+        self.copy.edit_yaml("data-model/audit.yaml", lambda d: d["entities"][0]["fields"].append({"name": "approver", "type": "ref:User"}))
+        self.assertCaught("data_model_naming", "ends in _id")
+
+    def test_data_model_naming__bool_prefix(self):
+        self.copy.edit_yaml("data-model/audit.yaml", lambda d: d["entities"][0]["fields"].append({"name": "active", "type": "bool"}))
+        self.assertCaught("data_model_naming", "starts with is_")
+
+    def test_data_model_naming__list_of_refs(self):
+        self.copy.edit_yaml("data-model/audit.yaml", lambda d: d["entities"][0]["fields"].append({"name": "user_ids", "type": "list:ref:User"}))
+        self.assertCaught("data_model_naming", "join entity")
+
+    def test_data_model_naming__record_id_without_type(self):
+        self.copy.edit_yaml("data-model/audit.yaml", lambda d: d["entities"][0]["fields"].append({"name": "target_id", "type": "int"}))
+        self.assertCaught("data_model_naming", "target_type")
+
     def test_enums_used(self):
         self.copy.edit_yaml("data-model/org.yaml", lambda d: d["enums"].append({"enum": "Unused", "values": [{"value": "A", "meaning": "A."}]}))
         self.assertCaught("enums_used", "Unused")

@@ -68,7 +68,7 @@ data_model:
   reads:
   - Setting.*
   - OrgNode.level
-  - OrgNode.active
+  - OrgNode.is_active
   writes:
   - Setting.*
   detail: Each key's type and scope are read from graph/catalogs/settings.yaml.

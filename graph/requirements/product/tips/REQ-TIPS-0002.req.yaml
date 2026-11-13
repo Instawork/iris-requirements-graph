@@ -47,7 +47,7 @@ requirement_rules:
   - D-216
 - rule_id: R5
   rule_statement: >-
-    A new Expense is PENDING with added_by set, and the Agency User can change or delete it while it is
+    A new Expense is PENDING with added_by_id set, and the Agency User can change or delete it while it is
     PENDING and its Timesheet is DRAFT or REJECTED.
   rule_sources:
   - GRAPH data model ApprovalStatus
@@ -57,7 +57,7 @@ requirement_rules:
 - rule_id: R6
   rule_statement: >-
     A Unit User whose scope covers the Shift's Unit approves or rejects each PENDING Expense on a SUBMITTED
-    Timesheet, which sets decided_by and decided_at.
+    Timesheet, which sets decided_by_id and decided_at.
   rule_sources:
   - SHEET TS-12
   - SESSIONS Timesheets, Tips & Expenses
@@ -174,7 +174,7 @@ data_model:
   - Timesheet.assignment_id
   - Timesheet.split_from_id
   - Timesheet.status
-  - Timesheet.no_show
+  - Timesheet.is_no_show
   - Assignment.worker_id
   - Assignment.release_id
   - Release.shift_id

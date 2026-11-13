@@ -194,7 +194,7 @@ data_model:
   - CredentialType.name
   - CredentialType.proof
   - CredentialType.has_expiry
-  - CredentialType.active
+  - CredentialType.is_active
   - Attestation.*
   - User.first_name
   - User.last_name

@@ -116,10 +116,10 @@ data_model:
   reads:
   - Proposal.kind
   - Proposal.channel
-  - Proposal.created_for
+  - Proposal.created_for_id
   - Proposal.summary
   - Proposal.status
-  - Proposal.decided_by
+  - Proposal.decided_by_id
   - Proposal.decided_at
   - ProposalItem.proposal_id
   - ProposalItem.row_no

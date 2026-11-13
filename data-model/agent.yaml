@@ -41,10 +41,10 @@ entities:
   fields:
   - {name: kind, type: enum:ProposalKind}
   - {name: channel, type: enum:Channel}
-  - {name: created_for, type: ref:User}
-  - {name: summary, type: text}
+  - {name: created_for_id, type: ref:User}
+  - {name: summary, type: longtext}
   - {name: status, type: enum:ProposalStatus}
-  - {name: decided_by, type: ref:User, nullable: true}
+  - {name: decided_by_id, type: ref:User, nullable: true}
   - {name: decided_at, type: timestamp, nullable: true}
 - entity: ProposalItem
   phase: MVP
@@ -55,12 +55,12 @@ entities:
   - {name: group_key, type: text, nullable: true, note: 'Items with the same key make one record together, such as the Shifts of one Request'}
   - {name: action, type: enum:ItemAction}
   - {name: record_type, type: text, note: 'The entity it changes; the main one when an item makes several records'}
-  - {name: record_id, type: uuid, nullable: true, note: 'Empty for CREATE until the item is saved, then the record it made'}
+  - {name: record_id, type: int, nullable: true, note: 'Empty for CREATE until the item is saved, then the record it made'}
   - {name: values, type: json, note: 'Names and values as proposed, with accepted fixes applied, or as edited'}
   - {name: problems, type: json, nullable: true, note: 'One entry for each problem a check found; empty when there is none'}
   - {name: decision, type: enum:ItemDecision, nullable: true}
   - {name: result, type: enum:ItemResult, nullable: true}
-  - {name: result_message, type: text, nullable: true}
+  - {name: result_message, type: longtext, nullable: true}
   constraints:
   - >-
     values is one flat object of name to value. For a FILE_ROWS item the names are the upload type's catalog

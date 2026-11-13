@@ -16,8 +16,13 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 LAYER_ORDER = ["user-interface", "product", "platform"]
 PHASES = ["MVP", "P2", "P3"]
 ROLES = ["INSTAWORK_ADMIN", "PROGRAM_USER", "UNIT_USER", "AGENCY_USER", "WORKER", "SYSTEM"]
-SCALAR_TYPES = {"uuid", "text", "int", "decimal", "money", "date", "time", "timestamp", "bool", "json"}
-IMPLICIT_FIELDS = {"id": "uuid", "created_at": "timestamp", "updated_at": "timestamp"}
+SCALAR_TYPES = {"text", "longtext", "int", "decimal", "money", "date", "time", "timestamp", "bool", "json"}
+IMPLICIT_FIELDS = {"id": "int", "created_at": "timestamp", "updated_at": "timestamp"}
+PRIMARY_KEY_FIELD = {"name": "id", "type": "int", "note": "Primary key; an integer the database assigns in sequence and never reuses"}
+TIMESTAMP_FIELDS = [
+    {"name": "created_at", "type": "timestamp", "note": "Set when the row is inserted"},
+    {"name": "updated_at", "type": "timestamp", "note": "Set on every save"},
+]
 CATALOG_ENUMS = {"settings": "SettingKey", "notifications": "NotificationType", "upload-types": "UploadType"}
 
 REQUIREMENT_ID = re.compile(r"^REQ-([A-Z][A-Z0-9-]*[A-Z0-9])-(\d{4})$")
@@ -111,6 +116,11 @@ def parse_type(type_text: str):
             return None
         return ("list", inner)
     return None
+
+
+def table_fields(entity: dict) -> list:
+    """Every column of an entity's table: the primary key, the listed fields, then the timestamps."""
+    return [PRIMARY_KEY_FIELD, *(entity.get("fields") or []), *TIMESTAMP_FIELDS]
 
 
 def type_targets(type_text: str):

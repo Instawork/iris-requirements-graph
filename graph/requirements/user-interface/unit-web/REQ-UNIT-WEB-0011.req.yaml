@@ -111,7 +111,7 @@ data_model:
   - Department.unit_id
   - Department.name
   - Department.cost_center_id
-  - Department.active
+  - Department.is_active
   - CostCenter.code
   - Position.name
   - OrgNode.name

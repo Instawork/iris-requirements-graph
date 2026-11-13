@@ -145,7 +145,7 @@ data_model:
   - OrgNode.parent_id
   - Unit.org_node_id
   - Release.shift_id
-  - Release.non_contracted
+  - Release.is_non_contracted
   - Release.bill_rate_reason
   - Shift.request_id
   - Shift.starts_at

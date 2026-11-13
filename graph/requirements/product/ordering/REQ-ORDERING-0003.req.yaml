@@ -45,7 +45,7 @@ requirement_rules:
 - rule_id: R5
   rule_statement: >-
     Until a Shift's starts_at, a Unit User over its Unit may cancel it while it is OPEN, PARTIALLY_FILLED,
-    or FILLED, which sets status CANCELLED, cancelled_by, and cancelled_at.
+    or FILLED, which sets status CANCELLED, cancelled_by_id, and cancelled_at.
   rule_sources:
   - PRD §2 Shift statuses
   rule_decisions:
@@ -163,7 +163,7 @@ data_model:
   - Shift.site_contact
   - Shift.attire
   - Shift.status
-  - Shift.cancelled_by
+  - Shift.cancelled_by_id
   - Shift.cancelled_at
   detail: >-
     The Unit, org node, and Position names are read only for the SHIFT_CHANGED message.

@@ -186,7 +186,7 @@ data_model:
   - Timesheet.regular_bill_rate
   - Timesheet.overtime_bill_rate
   - Timesheet.double_time_bill_rate
-  - Timesheet.no_show
+  - Timesheet.is_no_show
   - Timesheet.status
   - TipAllocation.timesheet_id
   - TipAllocation.amount

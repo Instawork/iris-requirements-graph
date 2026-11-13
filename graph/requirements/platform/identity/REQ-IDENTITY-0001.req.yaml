@@ -145,7 +145,7 @@ data_model:
   - User.last_name
   - User.password_hash
   - User.last_signed_in_at
-  - User.active
+  - User.is_active
   - Session.*
   detail: The session token reaches the browser in whatever way Instawork engineering chooses.
 requirement_starting_flow: true

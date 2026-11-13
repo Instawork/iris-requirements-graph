@@ -160,7 +160,7 @@ data_model:
   - Assignment.*
   - Worker.first_name
   - Worker.last_name
-  - Worker.active
+  - Worker.is_active
   - Worker.photo_url
   - WorkerRating.worker_id
   - WorkerRating.unit_id

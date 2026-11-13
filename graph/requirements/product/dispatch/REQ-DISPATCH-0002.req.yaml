@@ -13,14 +13,14 @@ requirement_rules:
 - rule_id: R1
   rule_statement: >-
     Before the Shift starts, an Agency User of the Release's Agency may accept a PENDING Release, which
-    becomes ACCEPTED with responded_by and responded_at.
+    becomes ACCEPTED with responded_by_id and responded_at.
   rule_sources:
   - SHEET SC-8
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
     Before the Shift starts, an Agency User of the Release's Agency may decline a PENDING Release with
-    a decline_reason, which becomes DECLINED with responded_by and responded_at.
+    a decline_reason, which becomes DECLINED with responded_by_id and responded_at.
   rule_sources:
   - SHEET SC-8
   rule_decisions:
@@ -34,7 +34,7 @@ requirement_rules:
 - rule_id: R4
   rule_statement: >-
     Until the Shift starts, an Agency User may decline an ACCEPTED Release with a decline_reason; it becomes
-    DECLINED with responded_by and responded_at set again, and REQ-WORKFORCE-0016 then removes its ASSIGNED
+    DECLINED with responded_by_id and responded_at set again, and REQ-WORKFORCE-0016 then removes its ASSIGNED
     Workers.
   rule_sources: []
   rule_decisions:
@@ -120,7 +120,7 @@ data_model:
   - Release.agency_id
   - Release.headcount
   - Release.status
-  - Release.released_by
+  - Release.released_by_id
   - Shift.starts_at
   - Shift.request_id
   - Shift.position_id
@@ -133,7 +133,7 @@ data_model:
   - Agency.name
   writes:
   - Release.status
-  - Release.responded_by
+  - Release.responded_by_id
   - Release.responded_at
   - Release.decline_reason
   - Release.closed_at

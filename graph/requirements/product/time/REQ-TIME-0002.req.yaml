@@ -13,7 +13,7 @@ requirement_rules:
 - rule_id: R1
   rule_statement: >-
     An Agency User submits a DRAFT or REJECTED Timesheet of their own Agency's Worker, which makes it
-    SUBMITTED and sets submitted_by and submitted_at.
+    SUBMITTED and sets submitted_by_id and submitted_at.
   rule_sources:
   - SHEET TS-8
   - SESSIONS Timesheets, Tips & Expenses
@@ -43,7 +43,7 @@ requirement_rules:
 - rule_id: R5
   rule_statement: >-
     A Unit User whose scope covers the Shift's Unit approves a SUBMITTED Timesheet, which makes it APPROVED
-    and sets approved_by and approved_at.
+    and sets approved_by_id and approved_at.
   rule_sources:
   - SHEET TS-8
   rule_decisions:
@@ -111,9 +111,9 @@ data_model:
   - Shift.starts_at
   writes:
   - Timesheet.status
-  - Timesheet.submitted_by
+  - Timesheet.submitted_by_id
   - Timesheet.submitted_at
-  - Timesheet.approved_by
+  - Timesheet.approved_by_id
   - Timesheet.approved_at
   - Timesheet.rejected_reason
   detail: null

@@ -71,9 +71,9 @@ edges:
 data_model:
   status: covered
   reads:
-  - Position.active
+  - Position.is_active
   - Department.unit_id
-  - Department.active
+  - Department.is_active
   writes:
   - RequestTemplate.*
   - RequestTemplateLine.*

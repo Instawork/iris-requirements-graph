@@ -19,7 +19,7 @@ import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from irisgraph import REPO_ROOT, REQUIREMENT_ID_IN_TEXT, Graph, load_graph, type_targets  # noqa: E402
+from irisgraph import REPO_ROOT, REQUIREMENT_ID_IN_TEXT, Graph, load_graph, table_fields, type_targets  # noqa: E402
 
 UPPER_TOKEN = re.compile(r"\b[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)+\b")
 DECISION_IN_TEXT = re.compile(r"\bD-\d+\b")
@@ -45,7 +45,7 @@ def _entity_view(graph: Graph, name: str) -> dict:
         "module": entity["module"],
         "phase": entity.get("phase"),
         "description": entity.get("description"),
-        "fields": entity.get("fields"),
+        "fields": table_fields(entity),
     }
     for key in ("unique", "constraints"):
         if entity.get(key):

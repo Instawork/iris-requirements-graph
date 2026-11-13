@@ -13,7 +13,7 @@ requirement_rules:
 - rule_id: R1
   rule_statement: >-
     A Unit User over a Shift's Unit may name Workers they want on it, each saved as a WorkerRequest with
-    status REQUESTED and requested_by.
+    status REQUESTED and requested_by_id.
   rule_sources:
   - SHEET WA-2
   - SESSIONS Worker Assignment & Compliance
@@ -102,7 +102,7 @@ data_model:
   - Release.agency_id
   - Release.status
   - Worker.agency_id
-  - Worker.active
+  - Worker.is_active
   - WorkerRating.unit_id
   - WorkerRating.worker_id
   - WorkerRating.rating

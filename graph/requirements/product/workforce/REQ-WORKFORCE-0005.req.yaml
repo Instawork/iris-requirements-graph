@@ -19,7 +19,7 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    A Unit holds one current rating per Worker; rating again replaces it and sets rated_by and rated_at.
+    A Unit holds one current rating per Worker; rating again replaces it and sets rated_by_id and rated_at.
   rule_sources:
   - SHEET WA-3
   - SHEET 3.2

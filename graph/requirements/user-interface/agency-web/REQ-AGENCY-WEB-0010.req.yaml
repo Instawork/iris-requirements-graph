@@ -77,7 +77,7 @@ data_model:
   - User.first_name
   - User.last_name
   - User.phone
-  - User.active
+  - User.is_active
   - User.invited_at
   - User.invite_accepted_at
   - User.last_signed_in_at

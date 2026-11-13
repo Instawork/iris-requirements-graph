@@ -71,7 +71,7 @@ data_model:
   - Worker.last_name
   - Worker.photo_url
   - Worker.agency_id
-  - Worker.active
+  - Worker.is_active
   - WorkerRating.unit_id
   - WorkerRating.worker_id
   - WorkerRating.rating

@@ -34,15 +34,15 @@ entities:
   - {name: regular_bill_rate, type: money}
   - {name: overtime_bill_rate, type: money}
   - {name: double_time_bill_rate, type: money}
-  - {name: bill_rate_reason, type: text, nullable: true, note: Required when the rates differ from the Rate Line or there is none}
-  - {name: non_contracted, type: bool, note: No approval covered the Unit for this Agency when it was sent}
-  - {name: non_contracted_reason, type: text, nullable: true, note: Why the Shift went to an Agency with no approval covering the Unit; required when non_contracted is true}
+  - {name: bill_rate_reason, type: longtext, nullable: true, note: Required when the rates differ from the Rate Line or there is none}
+  - {name: is_non_contracted, type: bool, note: No approval covered the Unit for this Agency when it was sent}
+  - {name: non_contracted_reason, type: longtext, nullable: true, note: Why the Shift went to an Agency with no approval covering the Unit; required when is_non_contracted is true}
   - {name: status, type: enum:ReleaseStatus}
-  - {name: released_by, type: ref:User}
+  - {name: released_by_id, type: ref:User}
   - {name: released_at, type: timestamp}
-  - {name: responded_by, type: ref:User, nullable: true, note: The Agency User who gave the latest answer}
+  - {name: responded_by_id, type: ref:User, nullable: true, note: The Agency User who gave the latest answer}
   - {name: responded_at, type: timestamp, nullable: true}
-  - {name: decline_reason, type: text, nullable: true}
+  - {name: decline_reason, type: longtext, nullable: true}
   - {name: closed_at, type: timestamp, nullable: true, note: 'When it was withdrawn, cancelled, or expired'}
   constraints:
   - The headcounts of a Shift's PENDING and ACCEPTED Releases add up to at most the Shift's headcount.
@@ -54,7 +54,16 @@ entities:
   - {name: unit_id, type: ref:Unit}
   - {name: position_id, type: ref:Position, nullable: true, note: Empty means every Position}
   - {name: mode, type: enum:DispatchMode}
-  - {name: agency_ids, type: 'list:ref:Agency', note: In release order}
   - {name: window_hours, type: int}
   - {name: open_to_all_after_hours, type: int, nullable: true}
   - {name: hold_until_hours_before, type: int, nullable: true}
+- entity: DispatchRuleAgency
+  phase: P2
+  description: An Agency a Dispatch Rule releases to, in release order.
+  fields:
+  - {name: dispatch_rule_id, type: ref:DispatchRule}
+  - {name: agency_id, type: ref:Agency}
+  - {name: sequence, type: int, note: 'Release order, starting at 1'}
+  unique:
+  - [dispatch_rule_id, agency_id]
+  - [dispatch_rule_id, sequence]

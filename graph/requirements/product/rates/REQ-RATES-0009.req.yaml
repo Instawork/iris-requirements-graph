@@ -160,7 +160,7 @@ data_model:
   reads:
   - RateLine.*
   - RoleGrant.*
-  - User.active
+  - User.is_active
   - Agency.name
   - Position.name
   - Market.name

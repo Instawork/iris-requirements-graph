@@ -78,6 +78,9 @@ SETTING_KEYS = {"key", "type", "default", "scope", "meaning", "owner", "sources"
 NOTIFICATION_KEYS = {"type", "subject", "trigger", "recipients", "channels", "owner", "sources", "decisions"}
 UPLOAD_KEYS = {"type", "phase", "meaning", "uploaders", "owner", "sources", "decisions", "columns", "identified_by"}
 COLUMN_KEYS = {"column", "kind", "required", "maps_to", "lookup", "note", "saved_by"}
+ENTITY_NAME = re.compile(r"^[A-Z][A-Za-z0-9]*$")
+FIELD_NAME = re.compile(r"^[a-z][a-z0-9_]*$")
+BOOL_PREFIXES = ("is_", "has_")
 COLUMN_KINDS = {"text", "date", "time", "money", "int", "yes_no"}
 KIND_OF_FIELD_TYPE = {"bool": "yes_no", "money": "money", "int": "int", "date": "date"}
 TERM_KEYS = {"term", "definition", "avoid", "source_words", "sources", "decisions"}
@@ -747,6 +750,37 @@ def data_model_refs(graph: Graph):
 
 
 @check("data-model")
+def data_model_naming(graph: Graph):
+    problems = []
+    for name, entity in graph.entities.items():
+        here = f"{entity['file']} entity {name}"
+        if not ENTITY_NAME.match(name):
+            problems.append((here, "an entity name is PascalCase"))
+        for item in entity.get("fields") or []:
+            if not isinstance(item, dict):
+                continue
+            field_name = str(item.get("name"))
+            parsed = parse_type(item.get("type"))
+            if not FIELD_NAME.match(field_name):
+                problems.append((here, f"field {field_name} must be snake_case"))
+            if parsed is None:
+                continue
+            if parsed[0] == "ref" and not field_name.endswith("_id"):
+                problems.append((here, f"field {field_name} is a reference, so its name ends in _id"))
+            if parsed[0] == "list" and parsed[1][0] == "ref":
+                problems.append((here, f"field {field_name} lists records; make a join entity with one row per pair"))
+            if parsed == ("scalar", "bool") and not field_name.startswith(BOOL_PREFIXES):
+                problems.append((here, f"field {field_name} is a bool, so its name starts with {' or '.join(BOOL_PREFIXES)}"))
+            if field_name.endswith("_id") and parsed[0] != "ref":
+                type_field = entity["field_map"].get(field_name[: -len("_id")] + "_type") or {}
+                if parsed == ("scalar", "int") and type_field.get("type") != "text":
+                    problems.append((here, f"field {field_name} points at a record of any entity, so it needs a text {field_name[:-3]}_type beside it"))
+                elif parsed not in (("scalar", "int"), ("scalar", "text")):
+                    problems.append((here, f"field {field_name} ends in _id, which is kept for references, record ids, and outside systems' ids"))
+    return problems
+
+
+@check("data-model")
 def enums_used(graph: Graph):
     used = set()
     for entity in graph.entities.values():
@@ -995,7 +1029,7 @@ def upload_types_catalog(graph: Graph):
             if isinstance(resolved, str):
                 problems.append((col_here, resolved))
                 continue
-            mapped = graph.entities[resolved[0]]["field_map"].get(resolved[1]) or {}
+            mapped = graph.entities[resolved[0]]["field_map"].get(resolved[1]) or {"type": IMPLICIT_FIELDS.get(resolved[1])}
             expected = KIND_OF_FIELD_TYPE.get(mapped.get("type"))
             if expected and column.get("kind") in COLUMN_KINDS and column["kind"] != expected:
                 problems.append((col_here, f"kind must be {expected}, because {column['maps_to']} is a {mapped['type']}"))

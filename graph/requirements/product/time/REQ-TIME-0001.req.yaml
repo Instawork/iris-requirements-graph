@@ -22,7 +22,7 @@ requirement_rules:
 - rule_id: R2
   rule_statement: >-
     A new Timesheet takes the Shift's Position and Department and the Release's regular, overtime, and
-    double-time Bill Rates, with no clock times, no break, and no_show false.
+    double-time Bill Rates, with no clock times, no break, and is_no_show false.
   rule_sources:
   - PRD Data Model
   - PRD §3 Supplier Rates
@@ -57,7 +57,7 @@ requirement_rules:
 - rule_id: R7
   rule_statement: >-
     worked_minutes is clock_out minus clock_in minus break_minutes, and is 0 while either clock time
-    is empty or no_show is true.
+    is empty or is_no_show is true.
   rule_sources:
   - PRD §2 Shifts
   rule_decisions:
@@ -197,7 +197,7 @@ data_model:
   - Timesheet.regular_bill_rate
   - Timesheet.overtime_bill_rate
   - Timesheet.double_time_bill_rate
-  - Timesheet.no_show
+  - Timesheet.is_no_show
   - Timesheet.status
   - Timesheet.exception_reasons
   detail: null

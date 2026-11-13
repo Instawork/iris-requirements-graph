@@ -13,7 +13,7 @@ requirement_rules:
 - rule_id: R1
   rule_statement: >-
     A Unit User over the Unit of a Shift that is not CANCELLED may send any part of its unsent headcount
-    to one active Agency they choose, creating a PENDING Release with released_by and released_at.
+    to one active Agency they choose, creating a PENDING Release with released_by_id and released_at.
   rule_sources:
   - SHEET SC-7
   rule_decisions:
@@ -78,7 +78,7 @@ requirement_rules:
   - D-260
 - rule_id: R9
   rule_statement: >-
-    non_contracted is set true when REQ-RATES-0007 finds no approval covering the Unit, and the reason
+    is_non_contracted is set true when REQ-RATES-0007 finds no approval covering the Unit, and the reason
     it then requires is stored in non_contracted_reason, apart from any bill_rate_reason.
   rule_sources:
   - SHEET RC-11
@@ -205,7 +205,7 @@ data_model:
   - Release.agency_id
   - Release.headcount
   - Release.status
-  - Agency.active
+  - Agency.is_active
   - AgencyApproval.agency_id
   - AgencyApproval.org_node_id
   - AgencyApproval.removed_at
@@ -228,10 +228,10 @@ data_model:
   - Release.overtime_bill_rate
   - Release.double_time_bill_rate
   - Release.bill_rate_reason
-  - Release.non_contracted
+  - Release.is_non_contracted
   - Release.non_contracted_reason
   - Release.status
-  - Release.released_by
+  - Release.released_by_id
   - Release.released_at
   - Release.closed_at
   detail: null

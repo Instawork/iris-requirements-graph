@@ -21,11 +21,11 @@ entities:
   description: One append-only entry in the Audit Trail.
   fields:
   - {name: record_type, type: text, note: 'The record''s entity name in the data model, such as Shift'}
-  - {name: record_id, type: uuid}
+  - {name: record_id, type: int, note: The id of the record in the record_type table}
   - {name: action, type: enum:AuditAction}
   - {name: actor_id, type: ref:User, nullable: true, note: Empty for SYSTEM changes}
   - {name: channel, type: enum:Channel}
   - {name: proposal_id, type: ref:Proposal, nullable: true}
   - {name: before, type: json, nullable: true, note: 'Field names and old values: the changed fields for an UPDATE, the whole record for a DELETE'}
   - {name: after, type: json, nullable: true, note: 'Field names and new values: the changed fields for an UPDATE, the whole record for a CREATE'}
-  - {name: reason, type: text, nullable: true}
+  - {name: reason, type: longtext, nullable: true}

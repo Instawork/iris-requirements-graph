@@ -188,7 +188,7 @@ data_model:
   reads:
   - RoleGrant.*
   - OrgNode.*
-  - User.active
+  - User.is_active
   - User.invite_accepted_at
   writes:
   - RoleGrant.*

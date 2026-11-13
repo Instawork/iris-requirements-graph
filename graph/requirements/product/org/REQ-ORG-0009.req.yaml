@@ -151,7 +151,7 @@ data_model:
   - RoleGrant.*
   - OrgNode.parent_id
   - OrgNode.level
-  - User.active
+  - User.is_active
   - Session.context
   writes: []
   detail: >-

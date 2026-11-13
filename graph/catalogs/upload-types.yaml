@@ -45,7 +45,7 @@ upload_types:
   - {column: email, kind: text, required: 'no', maps_to: Worker.email, saved_by: REQ-WORKFORCE-0001}
   - {column: phone, kind: text, required: 'no', maps_to: Worker.phone, saved_by: REQ-WORKFORCE-0001}
   - {column: city, kind: text, required: 'no', maps_to: Worker.city, saved_by: REQ-WORKFORCE-0001}
-  - {column: positions, kind: text, required: 'no', maps_to: Worker.position_ids, saved_by: REQ-WORKFORCE-0001, lookup: 'Position.name, separated by semicolons'}
+  - {column: positions, kind: text, required: 'no', maps_to: WorkerPosition.position_id, saved_by: REQ-WORKFORCE-0001, lookup: 'Position.name, separated by semicolons'}
 - type: SHIFTS
   phase: MVP
   meaning: >-
@@ -59,7 +59,7 @@ upload_types:
   - [shift_id]
   - [unit, position, date, start_time, end_time]
   columns:
-  - {column: shift_id, kind: text, required: to change or staff an existing Shift, maps_to: Shift.id, note: Filled by Iris on download}
+  - {column: shift_id, kind: int, required: to change or staff an existing Shift, maps_to: Shift.id, note: Filled by Iris on download}
   - {column: event, kind: text, required: 'no', maps_to: Shift.event_id, lookup: Event.name at the Unit}
   - {column: unit, kind: text, required: unless shift_id is given, maps_to: Request.unit_id, lookup: Unit name}
   - {column: department, kind: text, required: 'no', maps_to: Shift.department_id, lookup: Department.name at the Unit}
@@ -100,7 +100,7 @@ upload_types:
   - {column: clock_in, kind: time, required: unless no_show, maps_to: Timesheet.clock_in, note: A time with no date is read as the one nearest the scheduled start}
   - {column: clock_out, kind: time, required: unless no_show, maps_to: Timesheet.clock_out, note: A time with no date is read as the one nearest the scheduled end}
   - {column: break_minutes, kind: int, required: 'no', maps_to: Timesheet.break_minutes}
-  - {column: no_show, kind: yes_no, required: 'no', maps_to: Timesheet.no_show, note: Yes or No}
+  - {column: no_show, kind: yes_no, required: 'no', maps_to: Timesheet.is_no_show, note: Yes or No}
   - {column: reason, kind: text, required: on a Unit User's file, maps_to: AuditEvent.reason, saved_by: REQ-AUDIT-0001, note: Why the Unit User corrects the line; kept on the Audit Trail entry of its correction and ignored on an Agency User's file}
 - type: TIPS
   phase: MVP

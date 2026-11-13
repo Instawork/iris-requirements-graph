@@ -13,7 +13,7 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Deactivating a User sets active to false and sets ended_at on each of their open Sessions, so their
+    Deactivating a User sets is_active to false and sets ended_at on each of their open Sessions, so their
     next request is refused.
   rule_sources: []
   rule_decisions:
@@ -30,7 +30,7 @@ requirement_rules:
   - D-106
 - rule_id: R3
   rule_statement: >-
-    Reactivating sets active to true and restores no Session, so the User signs in again with the password
+    Reactivating sets is_active to true and restores no Session, so the User signs in again with the password
     they had.
   rule_sources: []
   rule_decisions:
@@ -74,11 +74,11 @@ edges:
 data_model:
   status: covered
   reads:
-  - User.active
+  - User.is_active
   - Session.user_id
   - Session.ended_at
   writes:
-  - User.active
+  - User.is_active
   - Session.ended_at
   detail: null
 requirement_starting_flow: true

@@ -49,18 +49,18 @@ entities:
   - {name: regular_bill_rate, type: money, note: "The Release's rate, or the Rate Line's for a part split to another Position; nobody edits it (D-68)"}
   - {name: overtime_bill_rate, type: money}
   - {name: double_time_bill_rate, type: money}
-  - {name: no_show, type: bool}
-  - {name: no_show_by, type: enum:Role, nullable: true, note: 'The acting role that set the mark, AGENCY_USER or UNIT_USER; empty while no_show is false'}
+  - {name: is_no_show, type: bool}
+  - {name: no_show_by, type: enum:Role, nullable: true, note: 'The acting role that set the mark, AGENCY_USER or UNIT_USER; empty while is_no_show is false'}
   - {name: status, type: enum:TimesheetStatus}
   - {name: exception_reasons, type: 'list:enum:ExceptionReason', note: Empty when it matches}
-  - {name: submitted_by, type: ref:User, nullable: true}
+  - {name: submitted_by_id, type: ref:User, nullable: true}
   - {name: submitted_at, type: timestamp, nullable: true}
-  - {name: approved_by, type: ref:User, nullable: true, note: Empty when Iris auto-approved it}
+  - {name: approved_by_id, type: ref:User, nullable: true, note: Empty when Iris auto-approved it}
   - {name: approved_at, type: timestamp, nullable: true}
-  - {name: rejected_reason, type: text, nullable: true}
+  - {name: rejected_reason, type: longtext, nullable: true}
   - {name: locked_at, type: timestamp, nullable: true, note: 'Set when it locks, each Timesheet on its own lock time; it cannot change after'}
   constraints:
   - regular_minutes plus overtime_minutes plus double_time_minutes equals worked_minutes.
   - An Assignment has one Timesheet, or one per part when split.
   - A Timesheet with locked_at set never changes in MVP, and neither do its tips and Expenses.
-  - no_show_by is set exactly while no_show is true.
+  - no_show_by is set exactly while is_no_show is true.

@@ -37,14 +37,14 @@ entities:
   - {name: effective_from, type: date}
   - {name: effective_to, type: date, nullable: true, note: 'Exclusive; set when a later approved line for the same key takes effect, or when a Program User ends the line (D-77). Equal to effective_from means the line never prices work'}
   - {name: replaces_id, type: ref:RateLine, nullable: true, note: The approved line this one supersedes}
-  - {name: change_reason, type: text, nullable: true, note: 'Why the rate changed; required when an APPROVED line for the same key existed when this line was submitted'}
-  - {name: end_reason, type: text, nullable: true, note: Why a Program User ended the line; empty when a later line replaced it}
+  - {name: change_reason, type: longtext, nullable: true, note: 'Why the rate changed; required when an APPROVED line for the same key existed when this line was submitted'}
+  - {name: end_reason, type: longtext, nullable: true, note: Why a Program User ended the line; empty when a later line replaced it}
   - {name: status, type: enum:RateLineStatus}
-  - {name: submitted_by, type: ref:User}
+  - {name: submitted_by_id, type: ref:User}
   - {name: submitted_via, type: enum:Channel}
-  - {name: reviewed_by, type: ref:User, nullable: true, note: Empty for a line a Program User submitted}
+  - {name: reviewed_by_id, type: ref:User, nullable: true, note: Empty for a line a Program User submitted}
   - {name: reviewed_at, type: timestamp, nullable: true}
-  - {name: sent_back_reason, type: text, nullable: true}
+  - {name: sent_back_reason, type: longtext, nullable: true}
   constraints:
   - Exactly one of market_id and unit_id is set.
   - Two APPROVED lines with the same Agency, Position, and Market or Unit never cover the same date.
@@ -56,11 +56,11 @@ entities:
   - {name: rate_line_id, type: ref:RateLine}
   - {name: peer_rate, type: money, note: 'The Peer Rate, rounded half up to the cent, when the review was requested'}
   - {name: status, type: enum:RateReviewStatus}
-  - {name: requested_by, type: ref:User}
+  - {name: requested_by_id, type: ref:User}
   - {name: requested_at, type: timestamp}
-  - {name: answer, type: text, nullable: true, note: 'The reason to keep, or a note on the lower rate'}
+  - {name: answer, type: longtext, nullable: true, note: 'The reason to keep, or a note on the lower rate'}
   - {name: proposed_rate_line_id, type: ref:RateLine, nullable: true, note: The lower line the Agency submitted}
-  - {name: answered_by, type: ref:User, nullable: true, note: The Agency User who gave the reason or submitted the latest lower line}
+  - {name: answered_by_id, type: ref:User, nullable: true, note: The Agency User who gave the reason or submitted the latest lower line}
   - {name: answered_at, type: timestamp, nullable: true}
   constraints:
   - A Rate Line has at most one REQUESTED review.

@@ -96,11 +96,31 @@ decision.
 
 ### Data model
 
-- Types: `uuid`, `text`, `int`, `decimal`, `money`, `date`, `time`, `timestamp`, `bool`,
-  `json`, `ref:Entity`, `enum:Name`, and `list:<type>`. Fields are required unless `nullable: true`.
-- Every entity also has `id`, `created_at`, and `updated_at`. Do not list them.
-- Money is USD to the cent. Hours are stored as whole minutes. An amount is rate × minutes ÷ 60,
-  rounded as D-41 says.
+Tables follow the Instawork Django model conventions (D-262):
+
+- Every table has an integer primary key `id`, assigned in sequence by the database and never
+  reused, plus `created_at` and `updated_at`. They are not listed in `data-model/`; the validator
+  rejects them there, and the canvas and `get_requirement.py` show them on every entity.
+- Types: `text` (up to 255 characters), `longtext` (free text with no limit), `int`, `decimal`,
+  `money`, `date`, `time`, `timestamp`, `bool`, `json`, `ref:Entity`, `enum:Name`, and
+  `list:<type>`. Fields are required unless `nullable: true`. An empty `text` is stored as an empty
+  string, not null.
+- A `ref:Entity` field is an integer column holding that entity's `id`, named `<name>_id`, with no
+  database foreign-key constraint (Instawork's `db_constraint=False`), so the application keeps
+  references whole. Deleting a record deletes, in the same save, the rows that exist only for it,
+  such as a Request template's lines or a Tip Pool's shares. A record anything else points at is
+  deactivated or ended instead of deleted.
+- A record linked to many others gets a join entity with one row per pair, such as `WorkerPosition`.
+  A `list:` holds enum values only, never references.
+- A field that may point at a record of any entity is an `int` `<name>_id` beside a `text`
+  `<name>_type` holding the entity's name, such as `AuditEvent.record_type` and `record_id`. A
+  `text` field ending in `_id` holds an outside system's id.
+- A `bool` field starts with `is_` or `has_`.
+- `unique` lists named unique constraints. None of them is a primary key: a Position is found by
+  its `id`, and its unique `name` only stops two rows sharing one name.
+- An enum is stored as the text of its value, such as `APPROVED`.
+- Money is USD to the cent, stored as a decimal with two places. Hours are stored as whole minutes.
+  An amount is rate × minutes ÷ 60, rounded as D-41 says.
 - A `timestamp` is an instant. A `date` or `time` at a Unit is in that Unit's `timezone`.
 - A requirement writes only its own module's entities. To change another module's records it
   depends on the requirement that owns them. A user-interface requirement writes nothing directly.

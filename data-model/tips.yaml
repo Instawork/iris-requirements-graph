@@ -26,7 +26,7 @@ entities:
   - {name: shift_id, type: ref:Shift, nullable: true}
   - {name: event_id, type: ref:Event, nullable: true}
   - {name: amount, type: money}
-  - {name: entered_by, type: ref:User}
+  - {name: entered_by_id, type: ref:User}
   - {name: entered_via, type: enum:Channel}
   - {name: hours_missing_notified_at, type: timestamp, nullable: true, note: When TIP_HOURS_MISSING was sent for it; empty until then}
   constraints:
@@ -51,7 +51,7 @@ entities:
   - {name: tip_pool_id, type: ref:TipPool, nullable: true}
   - {name: cashier_pin_id, type: ref:CashierPin, nullable: true}
   - {name: amount, type: money, note: 'A pool share, a whole PIN tip, or the amount an Agency User entered'}
-  - {name: entered_by, type: ref:User}
+  - {name: entered_by_id, type: ref:User}
   constraints:
   - At most one of tip_pool_id and cashier_pin_id is set.
   - A Tip Pool's allocations add up to its amount, or to less only while no Timesheet it covers that is not locked has counted minutes (REQ-TIPS-0004.R7).
@@ -63,9 +63,9 @@ entities:
   - {name: timesheet_id, type: ref:Timesheet}
   - {name: kind, type: enum:ExpenseKind}
   - {name: amount, type: money}
-  - {name: note, type: text, nullable: true, note: Required for OTHER}
+  - {name: note, type: longtext, nullable: true, note: Required for OTHER}
   - {name: status, type: enum:ApprovalStatus}
-  - {name: added_by, type: ref:User}
-  - {name: decided_by, type: ref:User, nullable: true}
+  - {name: added_by_id, type: ref:User}
+  - {name: decided_by_id, type: ref:User, nullable: true}
   - {name: decided_at, type: timestamp, nullable: true}
-  - {name: rejected_reason, type: text, nullable: true}
+  - {name: rejected_reason, type: longtext, nullable: true}

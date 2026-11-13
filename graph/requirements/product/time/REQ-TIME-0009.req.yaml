@@ -23,7 +23,7 @@ requirement_rules:
   - D-69
 - rule_id: R2
   rule_statement: >-
-    Marking sets no_show to true and no_show_by to the acting role, and clears clock_in, clock_out,
+    Marking sets is_no_show to true and no_show_by to the acting role, and clears clock_in, clock_out,
     and break_minutes through REQ-TIME-0001, so worked_minutes and every hour class become 0.
   rule_sources:
   - PRD §2 Shifts
@@ -64,14 +64,14 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R7
   rule_statement: >-
-    Clearing sets no_show to false and empties no_show_by, after which hours are entered again.
+    Clearing sets is_no_show to false and empties no_show_by, after which hours are entered again.
   rule_sources:
   - PRD §2 Shifts
   rule_decisions:
   - D-214
 - rule_id: R8
   rule_statement: >-
-    While no_show is true, a change to clock_in, clock_out, or break_minutes is refused until the mark
+    While is_no_show is true, a change to clock_in, clock_out, or break_minutes is refused until the mark
     is cleared.
   rule_sources: []
   rule_decisions:
@@ -103,7 +103,7 @@ data_model:
   - Request.unit_id
   - Worker.agency_id
   writes:
-  - Timesheet.no_show
+  - Timesheet.is_no_show
   - Timesheet.clock_in
   - Timesheet.clock_out
   - Timesheet.break_minutes

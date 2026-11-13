@@ -153,7 +153,7 @@ data_model:
   reads:
   - User.email
   - User.phone
-  - User.active
+  - User.is_active
   writes:
   - Notification.*
   detail: >-

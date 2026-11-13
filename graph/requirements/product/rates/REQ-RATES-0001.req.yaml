@@ -93,7 +93,7 @@ data_model:
   status: covered
   reads:
   - RateLine.*
-  - Position.active
+  - Position.is_active
   - Agency.name
   - Market.name
   writes: []

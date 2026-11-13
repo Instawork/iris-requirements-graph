@@ -37,7 +37,7 @@ entities:
   description: A Unit's order for one or more Shifts, booked together.
   fields:
   - {name: unit_id, type: ref:Unit}
-  - {name: created_by, type: ref:User}
+  - {name: created_by_id, type: ref:User}
   - {name: created_via, type: enum:Channel}
   - {name: recurrence_weekdays, type: 'list:enum:Weekday', nullable: true, note: Set for a recurring Request}
   - {name: recurrence_every_weeks, type: int, nullable: true}
@@ -59,12 +59,12 @@ entities:
   - {name: headcount, type: int, note: At least 1; Workers the Unit asks Agencies for}
   - {name: needed_headcount, type: int, nullable: true, note: Set only when overbooking; at most headcount; a record only (D-19)}
   - {name: status, type: enum:ShiftStatus, note: Set only by the system}
-  - {name: parking, type: text, nullable: true}
-  - {name: entrance, type: text, nullable: true}
-  - {name: directions, type: text, nullable: true}
-  - {name: site_contact, type: text, nullable: true}
-  - {name: attire, type: text, nullable: true}
-  - {name: cancelled_by, type: ref:User, nullable: true}
+  - {name: parking, type: longtext, nullable: true}
+  - {name: entrance, type: longtext, nullable: true}
+  - {name: directions, type: longtext, nullable: true}
+  - {name: site_contact, type: longtext, nullable: true}
+  - {name: attire, type: longtext, nullable: true}
+  - {name: cancelled_by_id, type: ref:User, nullable: true}
   - {name: cancelled_at, type: timestamp, nullable: true}
   constraints:
   - The work date is the date of starts_at in the Unit's timezone.

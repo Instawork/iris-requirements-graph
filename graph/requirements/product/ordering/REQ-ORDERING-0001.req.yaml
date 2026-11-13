@@ -122,7 +122,7 @@ data_model:
   status: covered
   reads:
   - Unit.org_node_id
-  - OrgNode.active
+  - OrgNode.is_active
   - Unit.timezone
   - Unit.default_parking
   - Unit.default_entrance
@@ -130,11 +130,11 @@ data_model:
   - Unit.default_site_contact
   - Unit.default_attire
   - Department.unit_id
-  - Department.active
-  - Position.active
+  - Department.is_active
+  - Position.is_active
   writes:
   - Request.unit_id
-  - Request.created_by
+  - Request.created_by_id
   - Request.created_via
   - Shift.request_id
   - Shift.line_no

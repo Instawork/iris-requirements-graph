@@ -161,7 +161,7 @@ data_model:
   - Timesheet.assignment_id
   - Timesheet.status
   - Worker.agency_id
-  - Worker.active
+  - Worker.is_active
   - Credential.worker_id
   - Credential.credential_type_id
   - Credential.status

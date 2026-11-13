@@ -50,7 +50,7 @@ requirement_rules:
   - D-197
 - rule_id: R6
   rule_statement: >-
-    A saved Credential starts as PENDING_CHECK with uploaded_by set and file_url naming the stored document,
+    A saved Credential starts as PENDING_CHECK with uploaded_by_id set and file_url naming the stored document,
     and is then checked by REQ-COMPLIANCE-0003.
   rule_sources:
   - SHEET WA-15
@@ -202,7 +202,7 @@ data_model:
   - Credential.expires_on
   - Credential.status
   - Credential.check_attempts
-  - Credential.uploaded_by
+  - Credential.uploaded_by_id
   - Credential.replaces_id
   - Credential.expiry_warned_at
   detail: >-

@@ -120,7 +120,7 @@ data_model:
   status: covered
   reads:
   - Agency.name
-  - Agency.active
+  - Agency.is_active
   - AgencyApproval.agency_id
   - AgencyApproval.org_node_id
   - AgencyApproval.removed_at

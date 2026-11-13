@@ -20,7 +20,7 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    Iris sets attested_by to that User and attested_at to the time the Attestation was recorded.
+    Iris sets attested_by_id to that User and attested_at to the time the Attestation was recorded.
   rule_sources:
   - SESSIONS Worker Assignment & Compliance
   rule_decisions: []
@@ -51,7 +51,7 @@ requirement_rules:
 - rule_id: R6
   rule_statement: >-
     A Program User can see every Attestation, including replaced ones, with its Worker, Agency, Credential
-    Type, statement, valid_until, attested_by, and attested_at.
+    Type, statement, valid_until, attested_by_id, and attested_at.
   rule_sources:
   - SHEET WA-16
   rule_decisions:
@@ -78,7 +78,7 @@ data_model:
   status: covered
   reads:
   - CredentialType.name
-  - CredentialType.active
+  - CredentialType.is_active
   - Worker.agency_id
   writes:
   - Attestation.*

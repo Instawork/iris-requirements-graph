@@ -26,16 +26,16 @@ entities:
   - {name: user_id, type: ref:User, nullable: true, note: Empty when the recipient is a Worker or an inbound sender Iris could not match}
   - {name: to_address, type: text, nullable: true, note: 'Email or phone, fixed when the Notification is created; required for EMAIL and SMS'}
   - {name: subject_type, type: text, note: 'The entity it is about: the subject the notifications catalog gives its type'}
-  - {name: subject_id, type: uuid, note: The record of that entity the owner passed}
+  - {name: subject_id, type: int, note: The record of that entity the owner passed}
   - {name: title, type: text, note: 'The email''s subject line and the inbox heading; not sent in a text'}
-  - {name: body, type: text, note: Never holds an invite or reset link}
+  - {name: body, type: longtext, note: Never holds an invite or reset link}
   - {name: provider_message_id, type: text, nullable: true, note: 'The id the email provider gave a sent email, so a reply can be matched to it; empty otherwise'}
   - {name: secret, type: text, nullable: true, note: 'A link the message needs, held only while QUEUED and erased when SENT or FAILED; never shown in the app'}
   - {name: status, type: enum:NotificationStatus}
   - {name: attempts, type: int, note: How many times an EMAIL or SMS was tried; 0 for IN_APP}
   - {name: sent_at, type: timestamp, nullable: true}
   - {name: read_at, type: timestamp, nullable: true, note: IN_APP only}
-  - {name: failure_reason, type: text, nullable: true}
+  - {name: failure_reason, type: longtext, nullable: true}
   constraints:
   - secret is empty unless status is QUEUED.
 - entity: InboundMessage
@@ -47,7 +47,14 @@ entities:
   - {name: user_id, type: ref:User, nullable: true, note: The User the sender matched}
   - {name: provider_message_id, type: text, nullable: true, note: 'The id the email provider gave a received email; empty for a text or a call'}
   - {name: thread_key, type: text, note: The same for every message of one conversation}
-  - {name: body, type: text, note: 'For a call, empty until it ends and then the transcript of both sides'}
-  - {name: attachment_upload_ids, type: 'list:ref:Upload', nullable: true}
+  - {name: body, type: longtext, note: 'For a call, empty until it ends and then the transcript of both sides'}
   - {name: received_at, type: timestamp, note: 'For a call, the time it began'}
   - {name: proposal_id, type: ref:Proposal, nullable: true, note: 'The Proposal made from the message''s words; the Proposal of an attached file is on its Upload'}
+- entity: InboundMessageAttachment
+  phase: MVP
+  description: A file attached to an Inbound Message, saved as an Upload.
+  fields:
+  - {name: inbound_message_id, type: ref:InboundMessage}
+  - {name: upload_id, type: ref:Upload}
+  unique:
+  - [upload_id]

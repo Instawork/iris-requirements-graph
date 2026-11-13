@@ -52,12 +52,19 @@ entities:
   - {name: email, type: text, nullable: true}
   - {name: phone, type: text, nullable: true}
   - {name: city, type: text, nullable: true}
-  - {name: position_ids, type: 'list:ref:Position', nullable: true, note: Positions the Worker works; informational in MVP}
   - {name: photo_url, type: text, nullable: true}
-  - {name: active, type: bool, note: An inactive Worker cannot be assigned}
+  - {name: is_active, type: bool, note: An inactive Worker cannot be assigned}
   - {name: created_via, type: enum:Channel}
   constraints:
   - Within one Agency, no two Workers share an email, and no two share a phone.
+- entity: WorkerPosition
+  phase: MVP
+  description: A Position a Worker works. Informational in MVP.
+  fields:
+  - {name: worker_id, type: ref:Worker}
+  - {name: position_id, type: ref:Position}
+  unique:
+  - [worker_id, position_id]
 - entity: Assignment
   phase: MVP
   description: A named Worker on a Shift, through one of the Agency's Releases.
@@ -65,14 +72,14 @@ entities:
   - {name: release_id, type: ref:Release}
   - {name: worker_id, type: ref:Worker}
   - {name: status, type: enum:AssignmentStatus}
-  - {name: assigned_by, type: ref:User}
+  - {name: assigned_by_id, type: ref:User}
   - {name: assigned_via, type: enum:Channel}
   - {name: assigned_at, type: timestamp}
-  - {name: removed_by, type: ref:User, nullable: true, note: The Agency User who removed or swapped the Worker; empty when Iris took the Worker off}
+  - {name: removed_by_id, type: ref:User, nullable: true, note: The Agency User who removed or swapped the Worker; empty when Iris took the Worker off}
   - {name: removed_at, type: timestamp, nullable: true}
   - {name: removal_reason, type: enum:RemovalReason, nullable: true}
   - {name: replaced_by_id, type: ref:Assignment, nullable: true, note: Set on a swap}
-  - {name: eligible_at_start, type: bool, nullable: true, note: 'Recorded once by a job after the Shift starts, or after a later Assignment'}
+  - {name: is_eligible_at_start, type: bool, nullable: true, note: 'Recorded once by a job after the Shift starts, or after a later Assignment'}
   - {name: instructions_sent_at, type: timestamp, nullable: true}
   constraints:
   - A Worker has at most one ASSIGNED Assignment per Shift.
@@ -83,9 +90,9 @@ entities:
   fields:
   - {name: shift_id, type: ref:Shift}
   - {name: worker_id, type: ref:Worker}
-  - {name: requested_by, type: ref:User}
+  - {name: requested_by_id, type: ref:User}
   - {name: status, type: enum:WorkerRequestStatus}
-  - {name: unavailable_reason, type: text, nullable: true}
+  - {name: unavailable_reason, type: longtext, nullable: true}
   unique:
   - [shift_id, worker_id]
 - entity: WorkerRating
@@ -95,8 +102,8 @@ entities:
   - {name: unit_id, type: ref:Unit}
   - {name: worker_id, type: ref:Worker}
   - {name: rating, type: enum:Rating}
-  - {name: review, type: text, nullable: true}
-  - {name: rated_by, type: ref:User}
+  - {name: review, type: longtext, nullable: true}
+  - {name: rated_by_id, type: ref:User}
   - {name: rated_at, type: timestamp}
   unique:
   - [unit_id, worker_id]
@@ -108,9 +115,9 @@ entities:
   - {name: unit_id, type: ref:Unit}
   - {name: shift_id, type: ref:Shift, nullable: true}
   - {name: category, type: enum:IssueCategory}
-  - {name: description, type: text}
+  - {name: description, type: longtext}
   - {name: status, type: enum:IssueStatus}
-  - {name: reported_by, type: ref:User}
-  - {name: resolution, type: text, nullable: true}
-  - {name: resolved_by, type: ref:User, nullable: true}
+  - {name: reported_by_id, type: ref:User}
+  - {name: resolution, type: longtext, nullable: true}
+  - {name: resolved_by_id, type: ref:User, nullable: true}
   - {name: resolved_at, type: timestamp, nullable: true}

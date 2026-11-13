@@ -64,10 +64,10 @@ requirement_rules:
   - D-56
 - rule_id: R8
   rule_statement: >-
-    A Credential Type is never deleted; setting active to false stops it being required and keeps its
+    A Credential Type is never deleted; setting is_active to false stops it being required and keeps its
     Credentials and Attestations, and it can be made active again.
   rule_sources:
-  - GRAPH data model CredentialType.active
+  - GRAPH data model CredentialType.is_active
   rule_decisions:
   - D-191
 - rule_id: R9

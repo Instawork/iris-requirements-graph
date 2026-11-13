@@ -180,7 +180,7 @@ data_model:
   - Upload.file_name
   - Upload.file_url
   - Upload.type
-  - Upload.uploaded_by
+  - Upload.uploaded_by_id
   - Upload.channel
   - Upload.status
   - Upload.failure_reason

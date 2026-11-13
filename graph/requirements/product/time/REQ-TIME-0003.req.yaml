@@ -100,7 +100,7 @@ requirement_rules:
   - D-33
 - rule_id: R12
   rule_statement: >-
-    A line whose no_show is Yes marks the Timesheet a no-show under REQ-TIME-0009 instead of saving clock
+    A line whose no_show column is Yes marks the Timesheet a no-show under REQ-TIME-0009 instead of saving clock
     times.
   rule_sources:
   - PRD §6 Templates
@@ -113,7 +113,7 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R14
   rule_statement: >-
-    A line whose no_show is not Yes needs both clock_in and clock_out; a line missing either is a problem
+    A line whose no_show column is not Yes needs both clock_in and clock_out; a line missing either is a problem
     for the uploader to complete or drop.
   rule_sources:
   - PRD §6 Templates
@@ -200,7 +200,7 @@ data_model:
   - Timesheet.clock_in
   - Timesheet.clock_out
   - Timesheet.break_minutes
-  - Timesheet.no_show
+  - Timesheet.is_no_show
   - Timesheet.worked_minutes
   - Timesheet.regular_minutes
   - Timesheet.overtime_minutes

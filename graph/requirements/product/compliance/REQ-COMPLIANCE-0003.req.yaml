@@ -70,7 +70,7 @@ requirement_rules:
 - rule_id: R8
   rule_statement: >-
     A Program User decides each NEEDS_REVIEW Credential as VERIFIED or REJECTED with a review_note, which
-    sets reviewed_by and reviewed_at.
+    sets reviewed_by_id and reviewed_at.
   rule_sources:
   - SHEET WA-16
   rule_decisions:
@@ -151,7 +151,7 @@ data_model:
   - Credential.verification_reference
   - Credential.checked_at
   - Credential.check_attempts
-  - Credential.reviewed_by
+  - Credential.reviewed_by_id
   - Credential.reviewed_at
   - Credential.review_note
   detail: >-

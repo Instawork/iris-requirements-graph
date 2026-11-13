@@ -36,7 +36,7 @@ entities:
   - {name: name, type: text}
   - {name: proof, type: enum:ProofMethod}
   - {name: has_expiry, type: bool}
-  - {name: active, type: bool}
+  - {name: is_active, type: bool}
   unique:
   - [name]
 - entity: CredentialRequirement
@@ -60,14 +60,14 @@ entities:
   - {name: issued_on, type: date, nullable: true}
   - {name: expires_on, type: date, nullable: true, note: Required when the type has an expiry; the Credential counts through this date}
   - {name: status, type: enum:CredentialStatus}
-  - {name: status_reason, type: text, nullable: true}
+  - {name: status_reason, type: longtext, nullable: true}
   - {name: verification_reference, type: text, nullable: true, note: From the issuer or registry}
   - {name: checked_at, type: timestamp, nullable: true}
   - {name: check_attempts, type: int, note: 'Runs in which the document model returned a failure; 0 on a new Credential'}
-  - {name: reviewed_by, type: ref:User, nullable: true}
+  - {name: reviewed_by_id, type: ref:User, nullable: true}
   - {name: reviewed_at, type: timestamp, nullable: true}
-  - {name: review_note, type: text, nullable: true}
-  - {name: uploaded_by, type: ref:User}
+  - {name: review_note, type: longtext, nullable: true}
+  - {name: uploaded_by_id, type: ref:User}
   - {name: replaces_id, type: ref:Credential, nullable: true, note: The credential this renewal replaces}
   - {name: expiry_warned_at, type: timestamp, nullable: true, note: When CREDENTIAL_EXPIRING was sent for it; empty until then (D-145)}
 - entity: Attestation
@@ -76,9 +76,9 @@ entities:
   fields:
   - {name: worker_id, type: ref:Worker}
   - {name: credential_type_id, type: ref:CredentialType}
-  - {name: statement, type: text}
+  - {name: statement, type: longtext}
   - {name: valid_until, type: date, nullable: true, note: Current through this date; empty means no end}
-  - {name: attested_by, type: ref:User}
+  - {name: attested_by_id, type: ref:User}
   - {name: attested_at, type: timestamp}
 - entity: BadgeRequest
   phase: MVP
@@ -88,9 +88,9 @@ entities:
   - {name: unit_id, type: ref:Unit}
   - {name: status, type: enum:BadgeStatus}
   - {name: requested_at, type: timestamp, note: Set again when a REVOKED request is raised again}
-  - {name: issued_by, type: ref:User, nullable: true}
+  - {name: issued_by_id, type: ref:User, nullable: true}
   - {name: issued_at, type: timestamp, nullable: true}
-  - {name: revoked_by, type: ref:User, nullable: true}
+  - {name: revoked_by_id, type: ref:User, nullable: true}
   - {name: revoked_at, type: timestamp, nullable: true}
   unique:
   - [worker_id, unit_id]

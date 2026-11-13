@@ -82,14 +82,14 @@ edges:
 data_model:
   status: covered
   reads:
-  - Position.active
+  - Position.is_active
   - Market.name
   - LaborRule.effective_from
   - LaborRule.effective_to
   - RoleGrant.role
   - RoleGrant.revoked_at
   - RoleGrant.user_id
-  - User.active
+  - User.is_active
   - User.invite_accepted_at
   - User.invited_at
   - User.email

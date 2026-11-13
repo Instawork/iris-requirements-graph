@@ -17,7 +17,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from irisgraph import REPO_ROOT, Graph, load_graph  # noqa: E402
+from irisgraph import REPO_ROOT, Graph, load_graph, table_fields  # noqa: E402
 from validate import run  # noqa: E402
 
 TEMPLATE = Path(__file__).resolve().parent / "canvas" / "template.tsx"
@@ -99,7 +99,7 @@ def graph_payload(graph: Graph) -> dict:
                 "module": entity["module"],
                 "phase": entity.get("phase"),
                 "description": entity.get("description") or "",
-                "fields": entity.get("fields") or [],
+                "fields": table_fields(entity),
                 "unique": entity.get("unique") or [],
                 "constraints": entity.get("constraints") or [],
             }

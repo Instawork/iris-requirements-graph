@@ -69,6 +69,7 @@ data_model:
   - AgencyApproval.removed_at
   writes:
   - DispatchRule.*
+  - DispatchRuleAgency.*
   detail: >-
     How several Releases share one Shift's headcount is settled when Phase 2 is scoped (D-157).
 requirement_starting_flow: false

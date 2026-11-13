@@ -90,7 +90,7 @@ data_model:
   reads:
   - Upload.file_name
   - Upload.type
-  - Upload.uploaded_by
+  - Upload.uploaded_by_id
   - Upload.channel
   - Upload.status
   - Upload.total_rows

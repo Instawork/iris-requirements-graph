@@ -105,7 +105,7 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R13
   rule_statement: >-
-    Deciding sets decided_by and decided_at, and a decided Proposal never changes again, so a failed item
+    Deciding sets decided_by_id and decided_at, and a decided Proposal never changes again, so a failed item
     is retried only in a new Proposal.
   rule_sources: []
   rule_decisions:

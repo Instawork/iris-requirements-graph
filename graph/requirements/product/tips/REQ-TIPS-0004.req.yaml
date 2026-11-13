@@ -277,7 +277,7 @@ data_model:
   - Timesheet.clock_out
   - Timesheet.status
   - Timesheet.locked_at
-  - Timesheet.no_show
+  - Timesheet.is_no_show
   - Assignment.worker_id
   - Assignment.release_id
   - Release.shift_id

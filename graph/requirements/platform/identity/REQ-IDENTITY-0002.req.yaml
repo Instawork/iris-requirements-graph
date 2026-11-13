@@ -22,7 +22,7 @@ requirement_rules:
   - D-25
 - rule_id: R2
   rule_statement: >-
-    An invite for an email no User holds creates an active User without a password, sets invited_by and
+    An invite for an email no User holds creates an active User without a password, sets invited_by_id and
     invited_at, and creates an INVITE AccessLink.
   rule_sources:
   - SHEET PLT-4
@@ -139,9 +139,9 @@ data_model:
   - User.first_name
   - User.last_name
   - User.phone
-  - User.active
+  - User.is_active
   - User.password_hash
-  - User.invited_by
+  - User.invited_by_id
   - User.invited_at
   - User.invite_accepted_at
   - AccessLink.*

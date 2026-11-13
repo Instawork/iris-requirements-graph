@@ -26,10 +26,10 @@ entities:
   - {name: file_name, type: text}
   - {name: file_url, type: text, note: Private storage; the original is kept}
   - {name: type, type: enum:UploadType, nullable: true, note: Empty until detected or picked}
-  - {name: uploaded_by, type: ref:User}
+  - {name: uploaded_by_id, type: ref:User}
   - {name: channel, type: enum:Channel}
   - {name: status, type: enum:UploadStatus}
   - {name: total_rows, type: int, nullable: true}
   - {name: rows_to_review, type: int, nullable: true}
   - {name: proposal_id, type: ref:Proposal, nullable: true}
-  - {name: failure_reason, type: text, nullable: true}
+  - {name: failure_reason, type: longtext, nullable: true}

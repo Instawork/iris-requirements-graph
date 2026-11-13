@@ -5,7 +5,7 @@ entities:
   description: A staffing vendor that supplies Workers to Compass Shifts.
   fields:
   - {name: name, type: text}
-  - {name: active, type: bool, note: An inactive Agency receives no new Releases}
+  - {name: is_active, type: bool, note: An inactive Agency receives no new Releases}
   unique:
   - [name]
 - entity: AgencyApproval
@@ -14,9 +14,9 @@ entities:
   fields:
   - {name: agency_id, type: ref:Agency}
   - {name: org_node_id, type: ref:OrgNode, note: 'A Sector, Region, District, or Unit node'}
-  - {name: approved_by, type: ref:User}
+  - {name: approved_by_id, type: ref:User}
   - {name: approved_at, type: timestamp}
-  - {name: removed_by, type: ref:User, nullable: true}
+  - {name: removed_by_id, type: ref:User, nullable: true}
   - {name: removed_at, type: timestamp, nullable: true}
   constraints:
   - An Agency has at most one approval without removed_at per org node.

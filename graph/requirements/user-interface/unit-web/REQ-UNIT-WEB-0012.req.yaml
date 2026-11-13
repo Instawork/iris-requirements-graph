@@ -138,7 +138,7 @@ data_model:
   - Timesheet.worked_minutes
   - Timesheet.clock_in
   - Timesheet.clock_out
-  - Timesheet.no_show
+  - Timesheet.is_no_show
   - Timesheet.status
   - Timesheet.approved_at
   - Timesheet.locked_at

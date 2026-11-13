@@ -102,7 +102,7 @@ data_model:
   - Timesheet.split_from_id
   - Timesheet.status
   - Timesheet.locked_at
-  - Timesheet.no_show
+  - Timesheet.is_no_show
   - Assignment.worker_id
   - Assignment.release_id
   - Release.shift_id

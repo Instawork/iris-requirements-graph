@@ -62,6 +62,6 @@ entities:
   - {name: invoice_line_id, type: ref:InvoiceLine}
   - {name: minutes, type: int}
   - {name: amount, type: money, nullable: true, note: Set when the Agency credits the hours}
-  - {name: reason, type: text}
-  - {name: requested_by, type: ref:User}
+  - {name: reason, type: longtext}
+  - {name: requested_by_id, type: ref:User}
   - {name: credited_at, type: timestamp, nullable: true}

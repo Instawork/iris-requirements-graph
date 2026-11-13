@@ -12,7 +12,7 @@ entities:
   description: Spend on hours worked that no issued invoice covers, at one moment.
   fields:
   - {name: taken_at, type: timestamp}
-  - {name: taken_by, type: ref:User}
+  - {name: taken_by_id, type: ref:User}
 - entity: AccrualLine
   phase: P2
   description: One Cost Center's amount in one bucket of an Accrual Snapshot.

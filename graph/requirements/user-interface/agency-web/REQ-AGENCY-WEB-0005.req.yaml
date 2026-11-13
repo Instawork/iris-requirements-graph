@@ -155,7 +155,7 @@ data_model:
   - RateReview.requested_at
   - RateReview.answer
   - RateReview.proposed_rate_line_id
-  - RateReview.answered_by
+  - RateReview.answered_by_id
   - RateReview.answered_at
   - Position.name
   - Market.name

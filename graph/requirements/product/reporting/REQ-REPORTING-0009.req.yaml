@@ -60,7 +60,7 @@ requirement_rules:
 - rule_id: R7
   rule_statement: >-
     Each Unit also shows how many of its Releases for work dates in the period carry a
-    bill_rate_reason or are non_contracted.
+    bill_rate_reason or have is_non_contracted set.
   rule_sources:
   - SHEET RC-11
   - PRD §1 Compass view
@@ -90,7 +90,7 @@ data_model:
   status: covered
   reads:
   - Release.bill_rate_reason
-  - Release.non_contracted
+  - Release.is_non_contracted
   - Release.shift_id
   - Agency.name
   - Event.name
