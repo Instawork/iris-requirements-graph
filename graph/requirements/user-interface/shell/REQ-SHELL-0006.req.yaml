@@ -67,6 +67,8 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-IDENTITY-0002
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-IDENTITY-0003
+- edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0005
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AGENCIES-0001

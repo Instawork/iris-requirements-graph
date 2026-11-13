@@ -31,7 +31,8 @@ requirement_rules:
   rule_sources:
   - PRD §6 Uploads
   - GRAPH platform reads no product records, so the caller supplies them
-  rule_decisions: []
+  rule_decisions:
+  - D-109
 - rule_id: R4
   rule_statement: >-
     When that role is not among the type's uploaders, such as a Unit User sending a RATE_CARD, Iris names
@@ -46,7 +47,8 @@ requirement_rules:
   rule_sources:
   - PRD §7 When the agent is unsure
   - GRAPH platform reads no product records, so the caller supplies them
-  rule_decisions: []
+  rule_decisions:
+  - D-109
 - rule_id: R6
   rule_statement: >-
     A question or a refusal is given on the channel the file or message arrived on.
@@ -54,10 +56,19 @@ requirement_rules:
   - SHEET SC-9
   - SHEET SC-10
   rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    A question goes back to the caller with what was understood so far, and the caller returns the answer
+    with it; this requirement keeps nothing between the two.
+  rule_sources:
+  - GRAPH platform reads no product records, so the caller supplies them
+  rule_decisions:
+  - D-109
 requirement_sources:
 - PRD §7 When the agent is unsure
 - PRD §6 Uploads
-requirement_decisions: []
+requirement_decisions:
+- D-109
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON
@@ -66,7 +77,10 @@ data_model:
   status: not_applicable
   reads: []
   writes: []
-  detail: Asks or refuses before any Proposal exists; it stores nothing.
+  detail: >-
+    Asks or refuses before any Proposal exists and stores nothing. A question waiting for an answer is
+    kept by its caller: the Upload for a file (NEEDS_TYPE), the conversation in the assistant, or the
+    thread for a message.
 requirement_starting_flow: true
 requirement_review:
   status: draft

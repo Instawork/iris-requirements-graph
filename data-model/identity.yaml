@@ -9,10 +9,10 @@ entities:
   phase: MVP
   description: A person who signs in to Iris. What they may see and do comes from their Role Grants.
   fields:
-  - {name: email, type: text, note: Stored lowercase}
+  - {name: email, type: text}
   - {name: first_name, type: text}
   - {name: last_name, type: text}
-  - {name: phone, type: text, nullable: true, note: Ten digits; used to match inbound texts and calls}
+  - {name: phone, type: text, nullable: true, note: Used to match inbound texts and calls}
   - {name: password_hash, type: text, nullable: true, note: Empty until the invite is accepted}
   - {name: invited_by, type: ref:User, nullable: true, note: Empty for the seeded first Instawork Admin}
   - {name: invited_at, type: timestamp, nullable: true}
@@ -21,13 +21,26 @@ entities:
   - {name: active, type: bool, note: A deactivated User cannot sign in}
   unique:
   - [email]
+- entity: Session
+  phase: MVP
+  description: One sign-in of one User, from the sign-in until it ends (D-101).
+  fields:
+  - {name: user_id, type: ref:User}
+  - {name: token_hash, type: text, note: The token itself is never stored}
+  - {name: context, type: json, nullable: true, note: 'Stored for the caller, which REQ-ORG-0009 defines; IDENTITY never reads what it holds'}
+  - {name: last_active_at, type: timestamp, note: The time of the last accepted request}
+  - {name: ended_at, type: timestamp, nullable: true, note: 'Set by sign-out, deactivation, or a password reset'}
+  unique:
+  - [token_hash]
+  constraints:
+  - A Session is open while ended_at is empty and last_active_at is less than 12 hours ago.
 - entity: AccessLink
   phase: MVP
   description: A single-use link sent by email to invite a User or reset a password (D-34).
   fields:
   - {name: user_id, type: ref:User}
   - {name: purpose, type: enum:AccessLinkPurpose}
-  - {name: token_hash, type: text, note: The token itself is never stored}
+  - {name: token_hash, type: text, note: The token itself is never stored here}
   - {name: expires_at, type: timestamp}
   - {name: used_at, type: timestamp, nullable: true}
   unique:

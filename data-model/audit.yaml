@@ -3,29 +3,29 @@ enums:
 - enum: Channel
   values:
   - {value: APP, meaning: A form or button in Iris.}
-  - {value: FILE_UPLOAD, meaning: A row from an Upload.}
-  - {value: ASSISTANT, meaning: The in-app assistant.}
-  - {value: EMAIL, meaning: An inbound email.}
-  - {value: SMS, meaning: An inbound text.}
+  - {value: FILE_UPLOAD, meaning: A row from an Upload sent on the Uploads page or in the assistant.}
+  - {value: ASSISTANT, meaning: A typed request in the in-app assistant.}
+  - {value: EMAIL, meaning: 'An inbound email, or a row from a file attached to one.'}
+  - {value: SMS, meaning: 'An inbound text, or a row from a file attached to one.'}
   - {value: PHONE, meaning: An inbound call.}
   - {value: API, meaning: An Agency or Compass system by API. P3.}
   - {value: SYSTEM, meaning: 'Iris itself, such as an auto-approval or a lock.'}
 - enum: AuditAction
   values:
   - {value: CREATE, meaning: A record was added.}
-  - {value: UPDATE, meaning: A record changed.}
-  - {value: DELETE, meaning: A record was removed or deactivated.}
+  - {value: UPDATE, meaning: 'A record changed and still exists. Deactivating, reactivating, revoking, and cancelling are updates.'}
+  - {value: DELETE, meaning: A record was removed from Iris.}
 entities:
 - entity: AuditEvent
   phase: MVP
   description: One append-only entry in the Audit Trail.
   fields:
-  - {name: record_type, type: text}
+  - {name: record_type, type: text, note: 'The record''s entity name in the data model, such as Shift'}
   - {name: record_id, type: uuid}
   - {name: action, type: enum:AuditAction}
   - {name: actor_id, type: ref:User, nullable: true, note: Empty for SYSTEM changes}
   - {name: channel, type: enum:Channel}
   - {name: proposal_id, type: ref:Proposal, nullable: true}
-  - {name: before, type: json, nullable: true}
-  - {name: after, type: json, nullable: true}
+  - {name: before, type: json, nullable: true, note: 'Field names and old values: the changed fields for an UPDATE, the whole record for a DELETE'}
+  - {name: after, type: json, nullable: true, note: 'Field names and new values: the changed fields for an UPDATE, the whole record for a CREATE'}
   - {name: reason, type: text, nullable: true}

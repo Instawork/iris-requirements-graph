@@ -20,7 +20,8 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    A template can be downloaded as CSV or as Excel, and a filled template is accepted in either format.
+    A template can be downloaded as CSV or as an Excel .xlsx file, and a filled template is accepted in
+    either format.
   rule_sources:
   - PRD §6 Templates
   rule_decisions: []
@@ -31,7 +32,8 @@ requirement_rules:
   rule_sources:
   - PRD §6 Uploads
   - GRAPH platform reads no product records, so the caller supplies them
-  rule_decisions: []
+  rule_decisions:
+  - D-109
 - rule_id: R4
   rule_statement: The Uploads page and the assistant give the same template for a type.
   rule_sources:
@@ -46,7 +48,8 @@ requirement_rules:
 requirement_sources:
 - PRD §6 Templates
 - PRD §7 How it connects
-requirement_decisions: []
+requirement_decisions:
+- D-109
 requirement_features: []
 edges: []
 data_model:
