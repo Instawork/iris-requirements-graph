@@ -60,8 +60,8 @@ type Capability = { capability_id: string; area: string; name: string; descripti
 type Feature = { feature_id: string; capability_id: string; feature: string; why: string };
 type Setting = { key: string; type: string; default: string | number | boolean; scope: string; meaning: string; owner: string; sources?: string[]; decisions?: string[] };
 type Notification = { type: string; trigger: string; recipients: string; channels: string[]; owner: string; sources?: string[]; decisions?: string[] };
-type UploadColumn = { column: string; required: string; maps_to: string; lookup?: string; saved_by?: string; note?: string };
-type UploadType = { type: string; phase: Phase; meaning: string; uploaders: string[]; owner: string; columns: UploadColumn[]; sources?: string[]; decisions?: string[] };
+type UploadColumn = { column: string; kind: string; required: string; maps_to: string; lookup?: string; saved_by?: string; note?: string };
+type UploadType = { type: string; phase: Phase; meaning: string; uploaders: string[]; owner: string; columns: UploadColumn[]; identified_by?: string[][]; sources?: string[]; decisions?: string[] };
 type Check = { name: string; suite: string; problems: string[] };
 type GraphData = {
   meta: { digest: string; checks: Check[] };
@@ -692,10 +692,14 @@ function CatalogsView({ nav }: { nav: Nav }) {
               <Text size="small" tone="tertiary">{`Uploaded by ${selected.uploaders.join(", ")} · saved by`}</Text>
               <ReqLink id={selected.owner} nav={nav} withTitle />
             </Row>
+            {selected.identified_by?.length ? (
+              <Text size="small" tone="tertiary">{`Detected by any of: ${selected.identified_by.map((set) => set.join(" + ")).join("; ")}`}</Text>
+            ) : null}
             <Table
-              headers={["Column", "Required", "Fills", "Notes"]}
+              headers={["Column", "Kind", "Required", "Fills", "Notes"]}
               rows={selected.columns.map((c) => [
                 <Mono key="c">{c.column}</Mono>,
+                <Mono key="k" tone="secondary">{c.kind}</Mono>,
                 <Text key="r" size="small">{c.required}</Text>,
                 <Mono key="m" tone="secondary">{c.maps_to}</Mono>,
                 <Text key="n" size="small" tone="tertiary">{[c.lookup ? `Lookup: ${c.lookup}` : "", c.saved_by ? `Saved by ${c.saved_by}` : "", c.note ?? ""].filter(Boolean).join(". ")}</Text>,
