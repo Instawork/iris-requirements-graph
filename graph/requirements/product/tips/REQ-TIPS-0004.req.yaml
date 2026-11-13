@@ -5,8 +5,9 @@ requirement_phase: MVP
 requirement_title: Split Tip Pools by hours and credit cashier PIN tips
 requirement_statement: >-
   A Unit User enters a Tip Pool for a Unit and date, or one Shift or Event on it, and Iris splits it across
-  Workers by minutes worked. A tip entered under a cashier PIN goes whole to the Worker that PIN is
-  mapped to. A share is fixed once its Timesheet locks.
+  Workers by minutes worked. Scheduled minutes count until a Worker's hours are entered, and a share is
+  fixed once its Timesheet locks. A tip entered under a cashier PIN goes whole to the Worker that PIN is
+  mapped to.
 requirement_actors:
 - UNIT_USER
 - SYSTEM
@@ -22,8 +23,8 @@ requirement_rules:
   - D-126
 - rule_id: R2
   rule_statement: >-
-    A pool is entered in the app, from a TIPS file, or in the assistant as a Proposal of kind TIP_ENTRY
-    that shows each share before anything is saved.
+    A pool is entered in the app, from a TIPS file, or in the assistant as a TIP_ENTRY Proposal with one
+    item per pool, whose summary lists each Worker's share before anything is saved.
   rule_sources:
   - SHEET TS-11
   - SESSIONS Timesheets, Tips & Expenses
@@ -47,9 +48,8 @@ requirement_rules:
   - D-60
 - rule_id: R5
   rule_statement: >-
-    Each covered Timesheet that is not locked and has worked_minutes above 0 gets a share: the open amount
-    times its worked_minutes divided by the worked_minutes of all such Timesheets, rounded down to the
-    cent.
+    Each covered Timesheet that is not locked and has counted minutes (R7) gets a share: the open amount
+    times those minutes divided by the counted minutes of all such Timesheets, rounded down to the cent.
   rule_sources:
   - SHEET TS-11
   rule_decisions:
@@ -64,8 +64,8 @@ requirement_rules:
   - D-134
 - rule_id: R7
   rule_statement: >-
-    A covered Timesheet with no hours entered, or marked a no-show, has worked_minutes of 0 under
-    REQ-TIME-0001.R7 and gets no share.
+    A covered Timesheet's counted minutes are its worked_minutes once both clock times are entered, its
+    Shift's scheduled minutes less the planned break until then, and 0 while it is a no-show.
   rule_sources:
   - SHEET TS-11
   rule_decisions:
@@ -77,15 +77,15 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R9
   rule_statement: >-
-    While no covered Timesheet that is not locked has worked_minutes above 0, the open amount is unallocated:
+    While no covered Timesheet that is not locked has counted minutes, the open amount is unallocated:
     it stays on the pool, is credited to no Timesheet, and adds nothing to spend.
   rule_sources: []
   rule_decisions:
   - D-60
 - rule_id: R10
   rule_statement: >-
-    Iris splits the open amount when the pool is entered, and again whenever the pool changes or a covered
-    Timesheet's hours or no-show change, which REQ-TIME-0001.R15 publishes.
+    Iris splits the open amount when the pool is entered or changed, and whenever REQ-TIME-0001.R15
+    publishes that a covered Timesheet was created or that its hours or no-show changed.
   rule_sources:
   - SHEET TS-11
   rule_decisions:
@@ -107,8 +107,8 @@ requirement_rules:
   - D-132
 - rule_id: R13
   rule_statement: >-
-    Entering, changing, or deleting a Tip Pool is refused when a Timesheet it covers or would cover is
-    locked, and so is a PIN tip whose Timesheet is locked.
+    Entering, changing, or deleting a Tip Pool is refused when a Timesheet it covers, would cover, or
+    holds a share on is locked, and so is a PIN tip whose Timesheet is locked.
   rule_sources:
   - SHEET TS-9
   rule_decisions:
@@ -138,11 +138,12 @@ requirement_rules:
   - D-128
 - rule_id: R17
   rule_statement: >-
-    A tip entered with a cashier PIN creates one TipAllocation, with cashier_pin_id set, for the whole
-    amount on the Timesheet of that PIN's Worker at that Unit on that date.
+    A Unit User enters a cashier PIN tip at a Unit in their scope, creating one TipAllocation, with
+    cashier_pin_id set, for the whole amount on the Timesheet of that PIN's Worker there on that date.
   rule_sources:
   - SHEET TS-11
   rule_decisions:
+  - D-28
   - D-127
 - rule_id: R18
   rule_statement: >-
@@ -181,6 +182,41 @@ requirement_rules:
   - PRD §7 What the agent checks
   rule_decisions:
   - D-71
+- rule_id: R23
+  rule_statement: >-
+    When REQ-ORDERING-0011 attaches a Shift to an Event, moves it to another, or detaches it, Iris splits
+    again the open amount of every pool narrowed to either Event on the Shift's work date.
+  rule_sources:
+  - SHEET TS-11
+  - SHEET REP-2
+  rule_decisions:
+  - D-242
+- rule_id: R24
+  rule_statement: >-
+    After such a change a Timesheet the pool no longer covers loses its share unless it is locked, and
+    a locked Timesheet the pool now covers gets none.
+  rule_sources:
+  - SHEET TS-9
+  rule_decisions:
+  - D-242
+- rule_id: R25
+  rule_statement: >-
+    When REQ-TIME-0007 locks a covered Timesheet while another, not a no-show, lacks a clock time, Iris
+    sends TIP_HOURS_MISSING to the Unit Users R11 names, naming the pool and the Workers whose hours are
+    missing.
+  rule_sources:
+  - SHEET TS-11
+  - SHEET TS-9
+  rule_decisions:
+  - D-60
+  - D-135
+- rule_id: R26
+  rule_statement: >-
+    TIP_HOURS_MISSING is sent at most once for a pool: sending it sets the pool's hours_missing_notified_at,
+    and a pool that has it set sends none.
+  rule_sources: []
+  rule_decisions:
+  - D-135
 requirement_sources:
 - SHEET TS-11
 - SHEET 4.4
@@ -197,6 +233,7 @@ requirement_decisions:
 - D-135
 - D-136
 - D-234
+- D-242
 requirement_features:
 - TS-11
 edges:
@@ -204,6 +241,8 @@ edges:
   requirement_id: REQ-TIPS-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-TIME-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0007
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORDERING-0001
 - edge_type: DEPENDS_ON
@@ -235,6 +274,7 @@ data_model:
   - Timesheet.split_from_id
   - Timesheet.worked_minutes
   - Timesheet.clock_in
+  - Timesheet.clock_out
   - Timesheet.status
   - Timesheet.locked_at
   - Timesheet.no_show
@@ -243,6 +283,8 @@ data_model:
   - Release.shift_id
   - Shift.request_id
   - Shift.starts_at
+  - Shift.ends_at
+  - Shift.break_minutes
   - Shift.event_id
   - Request.unit_id
   - Event.unit_id

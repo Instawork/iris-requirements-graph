@@ -12,8 +12,8 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    A job of REQ-JOBS-0001 runs every five minutes and creates one DRAFT Timesheet for each ASSIGNED
-    Assignment that has none, on every Shift that is not CANCELLED and whose ends_at has passed.
+    An interval job of REQ-JOBS-0001 creates one DRAFT Timesheet for each ASSIGNED Assignment that has
+    none, on every Shift that is not CANCELLED and whose ends_at has passed.
   rule_sources:
   - PRD §2 Shift statuses
   rule_decisions:
@@ -74,8 +74,8 @@ requirement_rules:
   - D-133
 - rule_id: R9
   rule_statement: >-
-    After that, Iris gives REQ-LABOR-0003 the Worker's Shifts in the Work Week of the changed
-    Timesheet's Unit, before and after the change, and it alerts when the change adds overtime.
+    After that, Iris gives REQ-LABOR-0003 the Worker's Shifts with work dates within six days of the
+    changed one, before and after the change, and it alerts for each Unit where the change adds overtime.
   rule_sources:
   - SHEET WA-19
   rule_decisions:
@@ -122,8 +122,8 @@ requirement_rules:
   - D-112
 - rule_id: R15
   rule_statement: >-
-    Each change to a Timesheet's hours or no-show is published as an event; REQ-TIPS-0004 re-splits
-    its Tip Pools and REQ-TIME-0005 rechecks it while it is SUBMITTED.
+    Each new Timesheet and each change to a Timesheet's hours or no-show is published as an event;
+    REQ-TIPS-0004 re-splits its Tip Pools, and REQ-TIME-0005 rechecks it as REQ-TIME-0005.R1 says.
   rule_sources:
   - SHEET TS-11
   - SHEET TS-7

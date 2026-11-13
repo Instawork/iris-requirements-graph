@@ -58,11 +58,12 @@ requirement_rules:
 - rule_id: R6
   rule_statement: >-
     Upload corrections opens the Uploads send step of REQ-SHELL-0008 with TIMESHEETS picked; REQ-TIME-0003
-    saves the accepted rows as corrections with one reason for the file.
+    saves the accepted rows as corrections, each with the reason in its reason column.
   rule_sources:
   - PRD §6 Uploads
   rule_decisions:
   - D-114
+  - D-139
 requirement_sources:
 - SHEET TS-10
 - SHEET TS-7
@@ -73,6 +74,7 @@ requirement_decisions:
 - D-33
 - D-69
 - D-114
+- D-139
 - D-214
 requirement_features:
 - TS-10

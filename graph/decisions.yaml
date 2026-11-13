@@ -157,8 +157,8 @@ decisions:
     block invoicing?
   status: open
   assumption: >-
-    Only an Approved Timesheet locks. An unapproved one stays open after the window and shows as late to
-    its Unit and its Agency until it is approved, by the Lock Window in effect when it is asked.
+    Only an Approved Timesheet locks. An unapproved one stays open after its Lock Window, as set when
+    it is looked at, and shows as late to its Unit and its Agency until it is approved.
   blocking: false
   answer_from: COMPASS_OPERATIONS
   answer: null
@@ -271,10 +271,7 @@ decisions:
   question: Which conditions besides schedule tolerance stop a Timesheet from being auto-approved?
   status: open
   assumption: >-
-    Each exception reason REQ-TIME-0005 lists: missing or out-of-tolerance times, a short or missed
-    break, pay below the minimum wage, a rate variance on a split part, a pending expense, an
-    Agency-entered tip, a late submission, a Worker added after the Shift, and mixed Work Weeks.
-    Overtime alone does not.
+    Each exception reason REQ-TIME-0005 lists. Overtime alone does not.
   blocking: false
   answer_from: COMPASS_OPERATIONS
   answer: null
@@ -353,8 +350,8 @@ decisions:
   question: Who enters tips?
   status: open
   assumption: >-
-    Unit Users enter Tip Pools, and Agency Users enter each Worker's own tips on their Timesheets, in
-    the app or by chat.
+    Unit Users enter Tip Pools and cashier PIN tips, and Agency Users enter each Worker's own tips on
+    their Timesheets, in the app or by chat.
   blocking: false
   answer_from: COMPASS_OPERATIONS
   answer: null
@@ -764,14 +761,19 @@ decisions:
   - SHEET TS-10
 - decision_id: D-60
   origin: graph
-  question: How is a Tip Pool split when the Timesheets it covers lock at different times?
+  question: >-
+    How is a Tip Pool split when some Workers' hours are entered only after other covered Timesheets
+    have locked? Example: a $1,000 pool covers ten Workers who are scheduled for, and work, the same
+    hours on a Friday, five from Agency X and five from Agency Y. X's hours are in that night and its
+    Timesheets lock on Sunday; Y's hours arrive on Monday. Splitting only among Timesheets that have
+    hours gives X's Workers $200 each and Y's Workers nothing.
   status: open
   assumption: >-
-    Each Timesheet keeps the share it holds when it locks, and the rest of the pool is split by worked
-    minutes across the covered Timesheets not yet locked, again whenever their hours change. An amount
-    no unlocked Timesheet can take stays on the pool, unallocated and billed to nobody.
+    Until a Worker's hours are entered, the Shift's scheduled minutes less the planned break stand in,
+    so each Worker in the example gets $100. A Timesheet keeps the share it holds when it locks, and
+    the rest is split again. An amount no unlocked Timesheet can take stays unallocated.
   blocking: false
-  answer_from: COMPASS_HR_LEGAL_PAYROLL
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET TS-11
@@ -1725,9 +1727,9 @@ decisions:
     the same days with the Units swapped bill 20 hours of it. Needs HR, legal, and payroll.
   status: open
   assumption: >-
-    Each Timesheet is classified within the Work Week of its own Unit, counting the Worker's minutes at
-    every Unit on dates in that week. Such Timesheets carry the exception reason MIXED_WORK_WEEKS, so a
-    Unit User sees them before approval.
+    Each Timesheet is classified in its own Unit's Work Week, counting the Worker's minutes at every
+    Unit on that week's dates, and an assignment or hours change is checked in each such week. The
+    Timesheet checked later carries MIXED_WORK_WEEKS, so a Unit User sees it before approval.
   blocking: false
   answer_from: COMPASS_HR_LEGAL_PAYROLL
   answer: null
@@ -1749,11 +1751,12 @@ decisions:
   - SHEET TS-11
 - decision_id: D-135
   origin: graph
-  question: Who is told when a tip a Unit entered ends up credited to no Worker?
+  question: Who is told when a tip a Unit entered may not reach the Workers it was meant for?
   status: open
   assumption: >-
-    The Unit Users over the Unit, in the app, when a change to a Timesheet leaves part of a Tip Pool
-    unallocated or makes a Timesheet that holds a PIN tip a no-show.
+    The Unit Users over the Unit, in the app: when a Timesheet change leaves part of a Tip Pool
+    unallocated or makes a Timesheet holding a PIN tip a no-show, and once for a pool when a share locks
+    while another Worker's hours are missing.
   blocking: false
   answer_from: COMPASS_OPERATIONS
   answer: null
@@ -3045,3 +3048,50 @@ decisions:
   answer: null
   sources:
   - SHEET INV-1
+- decision_id: D-242
+  origin: graph
+  question: >-
+    What happens to a Tip Pool entered for an Event when a Shift is later attached to that Event, moved
+    to another, or detached from it?
+  status: open
+  assumption: >-
+    The pool is split again across the Timesheets it then covers. A locked Timesheet of the moved Shift
+    keeps the share it holds and gets none from a pool it joins.
+  blocking: false
+  answer_from: COMPASS_OPERATIONS
+  answer: null
+  sources:
+  - SHEET TS-11
+  - SHEET REP-2
+  - SHEET TS-9
+- decision_id: D-243
+  origin: graph
+  question: >-
+    Whose overtime hard block and alert apply when an assignment or hours change at one Unit adds
+    overtime to the Worker's Shift at another Unit?
+  status: open
+  assumption: >-
+    Those of the Unit whose Shift gains the overtime and those of the Unit where the change is made. An
+    assignment is refused when either Unit has the hard block on; otherwise the Unit Users over both
+    are alerted.
+  blocking: false
+  answer_from: COMPASS_OPERATIONS
+  answer: null
+  sources:
+  - SHEET WA-19
+  - SHEET WA-20
+- decision_id: D-244
+  origin: graph
+  question: >-
+    What may a Unit User see of a Worker's Timesheet at another Unit whose Work Week starts on a
+    different day from their own Unit's?
+  status: open
+  assumption: >-
+    Only that Unit's name and the weekday its Work Week starts, even when the Unit is outside their
+    scope.
+  blocking: false
+  answer_from: COMPASS_OPERATIONS
+  answer: null
+  sources:
+  - SHEET WA-20
+  - SHEET PLT-1
