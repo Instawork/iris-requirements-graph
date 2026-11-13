@@ -143,6 +143,14 @@ class MutationTests(unittest.TestCase):
         self.copy.edit_yaml("graph/decisions.yaml", lambda d: d["decisions"][0].pop("answer_from"))
         self.assertCaught("decisions_well_formed", "answer_from")
 
+    def test_decisions_well_formed__two_questions(self):
+        self.copy.edit_yaml("graph/decisions.yaml", lambda d: d["decisions"][0].update(question="Which day? Which zone?"))
+        self.assertCaught("decisions_well_formed", "one question")
+
+    def test_decisions_well_formed__long_assumption(self):
+        self.copy.edit_yaml("graph/decisions.yaml", lambda d: d["decisions"][0].update(assumption="word " * 51))
+        self.assertCaught("decisions_well_formed", "at most 50 words")
+
     def test_registers_well_formed(self):
         self.copy.edit_yaml("graph/conflicts.yaml", lambda d: d["conflicts"][0].update(keep=""))
         self.assertCaught("registers_well_formed", "needs keep")

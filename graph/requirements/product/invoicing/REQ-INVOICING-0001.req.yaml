@@ -20,7 +20,9 @@ requirement_rules:
   - SHEET INV-1
   - SESSIONS Invoicing & Accruals
   - PRD Key Terms
-  rule_decisions: []
+  rule_decisions:
+  - D-240
+  - D-241
 - rule_id: R2
   rule_statement: >-
     When a Timesheet becomes APPROVED, this requirement adds its line to the current week's
@@ -39,6 +41,7 @@ requirement_rules:
   - SESSIONS Invoicing & Accruals
   rule_decisions:
   - D-67
+  - D-241
 - rule_id: R4
   rule_statement: >-
     The invoice opens on a summary: one total for the week, each Agency's total, and totals by Cost Center.
@@ -87,6 +90,8 @@ requirement_decisions:
 - D-35
 - D-67
 - D-137
+- D-240
+- D-241
 requirement_features:
 - INV-1
 edges:
@@ -133,8 +138,7 @@ data_model:
   - InvoiceLine.tips_amount
   - InvoiceLine.expenses_amount
   detail: >-
-    Creates every invoice record with all its required fields. No source says which day the invoice
-    week starts or closes.
+    Creates every invoice record with all its required fields.
 requirement_starting_flow: false
 requirement_review:
   status: draft

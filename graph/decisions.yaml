@@ -89,7 +89,7 @@ decisions:
   - SHEET Decisions & Inputs
 - decision_id: D-8
   origin: sheet
-  question: 'Pilot shape: a geography (Chicago was floated) or a sector, and which Units.'
+  question: Is the pilot one geography (Chicago was floated) or one sector?
   status: open
   assumption: >-
     The pilot is one geography. Its Markets, ZIP codes, Units, and Agencies are loaded before launch;
@@ -3024,3 +3024,24 @@ decisions:
   answer: null
   sources:
   - GRAPH a job runs with no User
+- decision_id: D-240
+  origin: sheet
+  question: Who receives the weekly Consolidated Invoice, one for all of Compass or one per Sector?
+  status: open
+  assumption: One for the whole program each week, with every Agency inside it.
+  blocking: false
+  answer_from: COMPASS_FINANCE
+  answer: null
+  sources:
+  - SHEET INV-1
+  - FAQ One consolidated invoice
+- decision_id: D-241
+  origin: sheet
+  question: On which day does the invoice week start?
+  status: open
+  assumption: Monday, in the program timezone of D-213; the week closes at the end of Sunday.
+  blocking: false
+  answer_from: COMPASS_FINANCE
+  answer: null
+  sources:
+  - SHEET INV-1

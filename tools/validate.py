@@ -70,6 +70,7 @@ REVIEW_STATUSES = {"draft", "approved", "placeholder", "changes_requested"}
 DELIVERY_STATUSES = {"not_started", "in_progress", "delivered"}
 DECISION_KEYS = {"decision_id", "origin", "question", "status", "assumption", "blocking", "answer", "sources", "applies_to", "answer_from"}
 ANSWER_FROM = {"COMPASS_OPERATIONS", "COMPASS_HR_LEGAL_PAYROLL", "COMPASS_FINANCE", "INSTAWORK_PRODUCT", "INSTAWORK_ENGINEERING"}
+ASSUMPTION_MAX_WORDS = 50
 ENUM_KEYS = {"enum", "values", "transitions", "catalog", "phase", "description"}
 ENTITY_KEYS = {"entity", "phase", "description", "fields", "unique", "constraints"}
 FIELD_KEYS = {"name", "type", "nullable", "note"}
@@ -389,6 +390,10 @@ def decisions_well_formed(graph: Graph):
             problems.append((here, "origin must be sheet or graph"))
         if not decision.get("question"):
             problems.append((here, "needs a question"))
+        elif str(decision["question"]).count("?") != 1:
+            problems.append((here, "the question must be one question, with one question mark"))
+        if len(str(decision.get("assumption") or "").split()) > ASSUMPTION_MAX_WORDS:
+            problems.append((here, f"the assumption states the choice in at most {ASSUMPTION_MAX_WORDS} words"))
         if not isinstance(decision.get("blocking"), bool):
             problems.append((here, "blocking must be true or false"))
         if decision.get("answer_from") not in ANSWER_FROM:
