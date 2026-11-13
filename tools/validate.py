@@ -68,7 +68,8 @@ REVIEW_KEYS = {"status", "by", "at", "notes"}
 DELIVERY_KEYS = {"status", "pull_requests"}
 REVIEW_STATUSES = {"draft", "approved", "placeholder", "changes_requested"}
 DELIVERY_STATUSES = {"not_started", "in_progress", "delivered"}
-DECISION_KEYS = {"decision_id", "origin", "question", "status", "assumption", "blocking", "answer", "sources", "applies_to"}
+DECISION_KEYS = {"decision_id", "origin", "question", "status", "assumption", "blocking", "answer", "sources", "applies_to", "answer_from"}
+ANSWER_FROM = {"COMPASS_OPERATIONS", "COMPASS_HR_LEGAL_PAYROLL", "COMPASS_FINANCE", "INSTAWORK_PRODUCT", "INSTAWORK_ENGINEERING"}
 ENUM_KEYS = {"enum", "values", "transitions", "catalog", "phase", "description"}
 ENTITY_KEYS = {"entity", "phase", "description", "fields", "unique", "constraints"}
 FIELD_KEYS = {"name", "type", "nullable", "note"}
@@ -388,6 +389,8 @@ def decisions_well_formed(graph: Graph):
             problems.append((here, "needs a question"))
         if not isinstance(decision.get("blocking"), bool):
             problems.append((here, "blocking must be true or false"))
+        if "answer_from" in decision and decision.get("answer_from") not in ANSWER_FROM:
+            problems.append((here, f"answer_from must be one of {', '.join(sorted(ANSWER_FROM))}"))
         if decision.get("status") == "open":
             if not decision.get("assumption"):
                 problems.append((here, "an open decision needs the assumption the graph builds on"))

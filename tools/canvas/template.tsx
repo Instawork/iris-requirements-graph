@@ -45,7 +45,14 @@ type EnumDef = { name: string; module: string; values: { value: string; meaning:
 type Module = { id: string; name: string; about: string };
 type Layer = { id: string; name: string; about: string; modules: Module[] };
 type Source = { source: string; rank: number; title: string; url: string; date: string; use: string };
-type Decision = { decision_id: string; origin: string; question: string; status: string; assumption: string; blocking: boolean; answer: string | null; sources: string[]; applies_to?: string };
+type Decision = { decision_id: string; origin: string; question: string; status: string; assumption: string; blocking: boolean; answer: string | null; sources: string[]; applies_to?: string; answer_from?: string };
+const ANSWER_FROM: Record<string, string> = {
+  COMPASS_OPERATIONS: "Compass operations",
+  COMPASS_HR_LEGAL_PAYROLL: "Compass HR, legal, and payroll",
+  COMPASS_FINANCE: "Compass finance",
+  INSTAWORK_PRODUCT: "Instawork product",
+  INSTAWORK_ENGINEERING: "Instawork engineering",
+};
 type Conflict = { conflict_id: string; topic: string; keep: string; drop: string };
 type Input = { input_id: string; origin: string; ask: string; sources?: string[]; decisions?: string[] };
 type Term = { term: string; definition: string; avoid: string[]; source_words?: string[]; sources?: string[]; decisions?: string[] };
@@ -722,6 +729,7 @@ function SourcesView({ nav }: { nav: Nav }) {
     <Stack key="q" gap={2}>
       <Text size="small">{d.question}</Text>
       <Text size="small" tone="tertiary">{`${d.blocking ? "Blocking. " : ""}Assumed until answered: ${d.assumption}`}</Text>
+      {d.answer_from ? <Text size="small" tone="tertiary">{`Answered by ${ANSWER_FROM[d.answer_from] ?? d.answer_from}`}</Text> : null}
     </Stack>,
     <Stack key="a" gap={2}>
       {(DECISION_REQS.get(d.decision_id) ?? []).map((id) => <ReqLink key={id} id={id} nav={nav} />)}
