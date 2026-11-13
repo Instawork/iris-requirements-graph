@@ -225,8 +225,8 @@ decisions:
   question: When a Unit books more Workers than it needs, such as 55 for 50, which Workers are billed?
   status: open
   assumption: >-
-    Every Worker who works is billed. The headcount needed is recorded for reporting and has no effect on
-    billing.
+    Every Worker who works is billed. The headcount needed is recorded on the Shift and has no effect on
+    billing; MVP reports do not use it.
   blocking: false
   answer: null
   sources:
