@@ -2,7 +2,8 @@
 """List requirements, filtered, in build order (dependencies first).
 
 --ready lists what the factory can build now: approved, not delivered, and every dependency
-delivered.
+delivered. --blocking lists each open blocking decision with the requirements it stops from being
+approved; every other listing ends with the same counts on stderr.
 """
 
 from __future__ import annotations
@@ -46,6 +47,36 @@ def is_ready(graph: Graph, requirement_id: str) -> bool:
     )
 
 
+def blocking_reach(graph: Graph) -> dict[str, list[str]]:
+    """For each open blocking decision, the requirements that cite it or depend on one that does."""
+    cited: dict[str, set[str]] = {}
+    for rid, doc in graph.requirements.items():
+        decisions = set(doc.get("requirement_decisions") or [])
+        for rule in doc.get("requirement_rules") or []:
+            if isinstance(rule, dict):
+                decisions.update(rule.get("rule_decisions") or [])
+        cited[rid] = decisions
+    reach: dict[str, list[str]] = {}
+    for decision_id, decision in graph.decisions.items():
+        if decision.get("blocking") is not True or decision.get("status") != "open":
+            continue
+        reach[decision_id] = sorted(
+            rid
+            for rid in graph.requirements
+            if any(decision_id in cited[r] for r in {rid} | graph.dependency_closure(rid))
+        )
+    return reach
+
+
+def blocking_lines(graph: Graph, with_ids: bool = False) -> list[str]:
+    lines = []
+    for decision_id, stopped in blocking_reach(graph).items():
+        mvp = sum(1 for rid in stopped if graph.requirements[rid].get("requirement_phase") == "MVP")
+        line = f"{decision_id} is open and blocking: it stops {len(stopped)} requirement(s), {mvp} of them MVP"
+        lines.append(f"{line}: {' '.join(stopped)}" if with_ids and stopped else line)
+    return lines
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--root", default=str(REPO_ROOT))
@@ -57,8 +88,12 @@ def main(argv=None) -> int:
     parser.add_argument("--starting-flow", action="store_true")
     parser.add_argument("--ready", action="store_true")
     parser.add_argument("--ids-only", action="store_true")
+    parser.add_argument("--blocking", action="store_true", help="list each open blocking decision and what it stops")
     args = parser.parse_args(argv)
     graph = load_graph(args.root)
+    if args.blocking:
+        print("\n".join(blocking_lines(graph, with_ids=not args.ids_only) or ["No open decision is blocking."]))
+        return 0
     for rid in build_order(graph):
         doc = graph.requirements[rid]
         review = (doc.get("requirement_review") or {}).get("status")
@@ -81,6 +116,9 @@ def main(argv=None) -> int:
             print(rid)
         else:
             print(f"{rid:26} {doc.get('requirement_phase'):4} {review:18} {delivery:12} {doc.get('requirement_title')}")
+    if not args.ids_only:
+        for line in blocking_lines(graph):
+            print(line, file=sys.stderr)
     return 0
 
 

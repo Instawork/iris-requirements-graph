@@ -87,11 +87,12 @@ upload_types:
   - {column: clock_out, required: unless no_show, maps_to: Timesheet.clock_out, note: A time with no date is read as the one nearest the scheduled end}
   - {column: break_minutes, required: 'no', maps_to: Timesheet.break_minutes}
   - {column: no_show, required: 'no', maps_to: Timesheet.no_show, note: Yes or No}
+  - {column: reason, required: on a Unit User's file, maps_to: AuditEvent.reason, saved_by: REQ-AUDIT-0001, note: Why the Unit User corrects the line; kept on the Audit Trail entry of its correction and ignored on an Agency User's file}
 - type: TIPS
   phase: MVP
   meaning: Tip Pools to split by hours, or tips under a cashier PIN.
   uploaders: [UNIT_USER]
-  owner: REQ-TIPS-0001
+  owner: REQ-TIPS-0004
   sources: [SHEET TS-11, PRD §6 Templates]
   columns:
   - {column: unit, required: 'yes', maps_to: TipPool.unit_id, lookup: Unit name}

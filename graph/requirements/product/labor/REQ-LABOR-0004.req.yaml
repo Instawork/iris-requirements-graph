@@ -30,7 +30,7 @@ requirement_rules:
   rule_sources:
   - GRAPH data model work date
   rule_decisions:
-  - D-4
+  - D-58
 - rule_id: R4
   rule_statement: >-
     Overtime tracking, the classification of minutes, and weekly reporting for a Unit all use this Work
@@ -38,7 +38,7 @@ requirement_rules:
   rule_sources:
   - SHEET WA-20
   rule_decisions:
-  - D-4
+  - D-141
 - rule_id: R5
   rule_statement: >-
     The Work Week for any date is worked out from the work_week_start stored on the Unit at the time it
@@ -49,8 +49,8 @@ requirement_rules:
 requirement_sources:
 - SHEET WA-20
 requirement_decisions:
-- D-4
 - D-58
+- D-141
 requirement_features:
 - WA-20
 edges:

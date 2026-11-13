@@ -4,16 +4,16 @@ requirement_target_module: TIME
 requirement_phase: MVP
 requirement_title: Lock approved Timesheets after the Lock Window
 requirement_statement: >-
-  An approved Timesheet locks once the Lock Window after its Shift has passed, 48 hours by default, or
-  the same time after a later approval. A locked Timesheet cannot change, and an unapproved one stays
-  open and shows as late. Timesheets that share a Tip Pool lock together.
+  An approved Timesheet locks once the Lock Window after its Shift has passed, 48 hours by default, and
+  never sooner than 24 hours after its approval. A locked Timesheet cannot change, and an unapproved one
+  stays open and shows as late. Each Timesheet locks on its own time, whatever Tip Pool covers it.
 requirement_actors:
 - SYSTEM
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    A Timesheet's lock time is LOCK_WINDOW_HOURS hours, resolved for the Shift's Unit, after its
-    Shift's ends_at, or that many hours after approved_at when it was approved later than that.
+    A Timesheet's lock time is the later of its Shift's ends_at plus LOCK_WINDOW_HOURS hours, resolved
+    for the Shift's Unit, and its approved_at plus 24 hours.
   rule_sources:
   - SHEET TS-9
   rule_decisions:
@@ -22,7 +22,7 @@ requirement_rules:
 - rule_id: R2
   rule_statement: >-
     A job of REQ-JOBS-0001 runs every five minutes and sets locked_at on each APPROVED Timesheet whose
-    lock time has passed, except one that R6 holds open.
+    lock time has passed.
   rule_sources:
   - SHEET TS-9
   rule_decisions:
@@ -52,12 +52,12 @@ requirement_rules:
   - SHEET TS-9
   - SHEET 5.2
   rule_decisions: []
-- rule_id: R6
+- rule_id: R7
   rule_statement: >-
-    A Timesheet that a Tip Pool covers under REQ-TIPS-0001 locks only in a run where every Timesheet
-    that pool covers is APPROVED and past its lock time, so they lock together.
+    Each Timesheet locks at its own lock time, whatever Tip Pool covers it, and from then
+    REQ-TIPS-0001.R17 keeps its tips as they are.
   rule_sources:
-  - SHEET TS-11
+  - SHEET TS-9
   rule_decisions:
   - D-60
 requirement_sources:
@@ -93,13 +93,6 @@ data_model:
   - Shift.request_id
   - Request.unit_id
   - Timesheet.locked_at
-  - Shift.starts_at
-  - Shift.event_id
-  - Unit.timezone
-  - TipPool.unit_id
-  - TipPool.work_date
-  - TipPool.shift_id
-  - TipPool.event_id
   writes:
   - Timesheet.locked_at
   detail: null

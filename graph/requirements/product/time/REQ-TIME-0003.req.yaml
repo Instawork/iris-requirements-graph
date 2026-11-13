@@ -83,12 +83,13 @@ requirement_rules:
 - rule_id: R10
   rule_statement: >-
     A Unit User's accepted lines are saved as corrections to SUBMITTED and APPROVED Timesheets under REQ-TIME-0006,
-    with one reason given for the file.
+    each with the reason in its reason column.
   rule_sources:
   - PRD §6 Uploads
   rule_decisions:
   - D-33
   - D-121
+  - D-147
 - rule_id: R11
   rule_statement: >-
     A line for a Timesheet the uploader may not change in its current status is reported as a problem
@@ -123,6 +124,14 @@ requirement_rules:
   rule_sources:
   - PRD §7 What the agent checks
   rule_decisions: []
+- rule_id: R16
+  rule_statement: >-
+    A Unit User's line with an empty reason is a problem for the uploader to complete or drop, because
+    REQ-TIME-0006 and REQ-TIME-0009 take a Unit User's change only with a reason.
+  rule_sources:
+  - PRD §7 What the agent checks
+  rule_decisions:
+  - D-147
 requirement_sources:
 - SHEET TS-5
 - FEEDBACK OCR to match paper timesheets
@@ -135,6 +144,7 @@ requirement_decisions:
 - D-33
 - D-119
 - D-121
+- D-147
 requirement_features:
 - TS-5
 edges:

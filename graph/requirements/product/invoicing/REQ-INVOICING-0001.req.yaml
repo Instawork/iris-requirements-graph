@@ -72,6 +72,14 @@ requirement_rules:
   - SHEET INV-5
   rule_decisions:
   - D-35
+- rule_id: R8
+  rule_statement: >-
+    While its invoice is OPEN, a line's five amounts are computed again whenever its Timesheet's hours,
+    tips, or Expenses change, as when a Tip Pool is split again.
+  rule_sources:
+  - PRD §5 Invoices
+  rule_decisions:
+  - D-145
 requirement_sources:
 - SHEET INV-1
 - SHEET 5.1
@@ -82,6 +90,7 @@ requirement_decisions:
 - D-35
 - D-68
 - D-132
+- D-145
 requirement_features:
 - INV-1
 edges:

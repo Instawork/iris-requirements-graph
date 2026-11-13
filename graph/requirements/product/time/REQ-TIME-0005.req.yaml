@@ -12,8 +12,8 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Iris checks a Timesheet each time it becomes SUBMITTED, and again whenever its hours, no-show, Bill
-    Rates, or Expenses change while it is SUBMITTED.
+    Iris checks a Timesheet each time it becomes SUBMITTED, and again whenever its hours, no-show, or
+    Expenses change while it is SUBMITTED.
   rule_sources:
   - SHEET TS-7
   rule_decisions:
@@ -161,6 +161,15 @@ requirement_rules:
   - SHEET TS-7
   rule_decisions:
   - D-22
+- rule_id: R20
+  rule_statement: >-
+    MIXED_WORK_WEEKS applies when the Worker has another Timesheet, not a no-show, with a work date fewer
+    than seven days from this one's, at a Unit whose work_week_start differs from this Unit's.
+  rule_sources:
+  - SHEET WA-19
+  - SHEET WA-20
+  rule_decisions:
+  - D-141
 requirement_sources:
 - SHEET TS-7
 - SHEET RC-10
@@ -174,6 +183,7 @@ requirement_decisions:
 - D-59
 - D-69
 - D-117
+- D-141
 requirement_features:
 - TS-7
 edges:
@@ -220,6 +230,8 @@ data_model:
   - Expense.status
   - Assignment.assigned_at
   - Shift.break_minutes
+  - Unit.work_week_start
+  - Unit.timezone
   writes:
   - Timesheet.status
   - Timesheet.exception_reasons

@@ -17,7 +17,9 @@ enums:
 entities:
 - entity: TipPool
   phase: MVP
-  description: Tips for a Unit and work date, or one Shift or Event on it, to be split across Workers by hours.
+  description: >-
+    Tips for a Unit and work date, or one Shift or Event on it, to be split across Workers by hours. Its
+    unallocated amount, its amount less its allocations, is computed, not stored.
   fields:
   - {name: unit_id, type: ref:Unit}
   - {name: work_date, type: date}
@@ -51,7 +53,8 @@ entities:
   - {name: entered_by, type: ref:User}
   constraints:
   - At most one of tip_pool_id and cashier_pin_id is set.
-  - Once a Tip Pool has any allocation, its allocations add up to its amount. A pool has none until a Timesheet it covers has worked minutes.
+  - A Tip Pool's allocations add up to its amount, or to less only while no Timesheet it covers that is not locked has worked minutes.
+  - An allocation on a locked Timesheet never changes.
 - entity: Expense
   phase: MVP
   description: 'A cost an Agency paid for a Worker on a Shift, passed through at cost.'
