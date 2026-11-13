@@ -82,9 +82,9 @@ A citation is `KEY detail`. Keys and their precedence, highest first:
 | Rank | Keys | Detail required |
 | --- | --- | --- |
 | 1 | SHEET, START | SHEET: a feature id (`TS-7`), a capability id (`4.3`), or a tab |
-| 2 | FEEDBACK, SESSIONS, SLACK | SESSIONS: the session name |
+| 2 | FEEDBACK, SESSIONS, SLACK | FEEDBACK: the comment; SESSIONS: the session name |
 | 3 | PRD | the section, such as `§2 Shifts` |
-| 4 | OPS, FAQ | optional |
+| 4 | OPS, FAQ | FAQ: the question; OPS optional |
 | 5 | DEMO | the file or model |
 
 When sources disagree the source with the smaller rank number wins (rank 1 is highest) and the

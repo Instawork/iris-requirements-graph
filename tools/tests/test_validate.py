@@ -125,6 +125,11 @@ class MutationTests(unittest.TestCase):
         self.copy.edit_requirement(rid, lambda d: d["requirement_rules"][0].update(rule_sources=["SHEET ZZ-99"]))
         self.assertCaught("citations_valid", "unknown sheet feature")
 
+    def test_citations_valid__bare_feedback(self):
+        rid = pick(self.g, phase="MVP")
+        self.copy.edit_requirement(rid, lambda d: d["requirement_rules"][0].update(rule_sources=["FEEDBACK"]))
+        self.assertCaught("citations_valid", "FEEDBACK")
+
     def test_every_rule_grounded(self):
         rid = pick(self.g, phase="MVP")
         self.copy.edit_requirement(rid, lambda d: d["requirement_rules"][0].update(rule_sources=[], rule_decisions=[]))

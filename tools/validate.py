@@ -42,7 +42,7 @@ INPUT_IN_TEXT = re.compile(r"\bI-\d+\b")
 FEATURE_ID = re.compile(r"^[A-Z]+-\d+$")
 CAPABILITY_ID = re.compile(r"^\d+\.\d+$")
 SHEET_TABS = {"Decisions & Inputs", "Core Capabilities", "Summary", "Read Me", "Feature Detail"}
-DETAIL_REQUIRED = {"SHEET", "PRD", "DEMO", "GRAPH", "SESSIONS"}
+DETAIL_REQUIRED = {"SHEET", "PRD", "DEMO", "GRAPH", "SESSIONS", "FEEDBACK", "FAQ"}
 
 REQUIREMENT_KEYS = {
     "requirement_id": str,
