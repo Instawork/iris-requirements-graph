@@ -28,7 +28,7 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-4
   rule_decisions:
-  - D-34
+  - D-190
 - rule_id: R4
   rule_statement: >-
     Change password sends the User a reset link through REQ-IDENTITY-0002 and says it was emailed; the
@@ -36,7 +36,7 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-4
   rule_decisions:
-  - D-34
+  - D-189
 - rule_id: R5
   rule_statement: >-
     The page offers no change to the User's own Role Grants or active flag.
@@ -48,8 +48,9 @@ requirement_sources:
 - SHEET PLT-4
 requirement_decisions:
 - D-25
-- D-34
 - D-108
+- D-189
+- D-190
 requirement_features:
 - PLT-4
 edges:

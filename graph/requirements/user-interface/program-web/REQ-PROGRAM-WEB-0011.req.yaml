@@ -24,7 +24,6 @@ requirement_rules:
   - PRD §2 Shifts
   - DEMO components/shifts/shifts-page.tsx
   rule_decisions:
-  - D-63
   - D-109
 - rule_id: R3
   rule_statement: >-
@@ -66,7 +65,6 @@ requirement_sources:
 - SHEET RC-10
 requirement_decisions:
 - D-2
-- D-63
 - D-69
 - D-109
 requirement_features:

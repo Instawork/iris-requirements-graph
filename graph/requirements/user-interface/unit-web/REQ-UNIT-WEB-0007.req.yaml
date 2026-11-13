@@ -31,14 +31,13 @@ requirement_rules:
   rule_sources:
   - SHEET SC-7
   rule_decisions:
-  - D-17
+  - D-175
 - rule_id: R4
   rule_statement: >-
     The list filters by Unit, date range, Position, Agency, status, and Shifts with unsent headcount.
   rule_sources:
   - DEMO components/shifts/shifts-page.tsx
-  rule_decisions:
-  - D-63
+  rule_decisions: []
 - rule_id: R6
   rule_statement: >-
     New Shift opens the booking form of REQ-UNIT-WEB-0002.
@@ -60,8 +59,7 @@ requirement_sources:
 - PRD §2 Shifts
 - SHEET SC-2
 requirement_decisions:
-- D-17
-- D-63
+- D-175
 requirement_features:
 - SC-2
 edges:

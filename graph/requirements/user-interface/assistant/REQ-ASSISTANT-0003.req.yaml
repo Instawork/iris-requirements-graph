@@ -104,16 +104,16 @@ requirement_rules:
   rule_sources:
   - PRD §7 When the agent is unsure
   rule_decisions:
-  - D-64
+  - D-228
 requirement_sources:
 - PRD §7 Agent Chat
 - SHEET SC-9
 - SHEET TS-6
 - SESSIONS Timesheets, Tips & Expenses
 requirement_decisions:
-- D-45
-- D-64
 - D-28
+- D-45
+- D-228
 requirement_features:
 - SC-9
 - TS-6

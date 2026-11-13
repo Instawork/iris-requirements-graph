@@ -43,14 +43,6 @@ requirement_rules:
   - GRAPH the factory needs one precision for timed work
   rule_decisions:
   - D-157
-- rule_id: R5
-  rule_statement: >-
-    A rule that refuses an action once a time has passed checks the clock when the action is made; a job
-    only changes stored state that the time makes stale.
-  rule_sources:
-  - GRAPH the factory needs one precision for timed work
-  rule_decisions:
-  - D-68
 - rule_id: R6
   rule_statement: >-
     A daily job for something that belongs to no Unit, such as a Credential, uses the program timezone,
@@ -58,7 +50,7 @@ requirement_rules:
   rule_sources:
   - GRAPH Credentials and Rate Reviews belong to no Unit
   rule_decisions:
-  - D-68
+  - D-231
 - rule_id: R7
   rule_statement: >-
     On a day the clocks skip a daily job's local time the job runs at the first run after the skip, and
@@ -86,7 +78,7 @@ requirement_rules:
   - D-157
 requirement_sources:
 - GRAPH seven MVP requirements act when a time passes, and none provides the clock
-requirement_decisions: [D-68, D-107, D-157]
+requirement_decisions: [D-68, D-107, D-157, D-231]
 requirement_features: []
 edges: []
 data_model:

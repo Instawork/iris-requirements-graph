@@ -38,7 +38,7 @@ requirement_rules:
   - GRAPH a Unit User's change to a Timesheet carries a reason, which the PRD's pill does not ask for
   rule_decisions:
   - D-33
-  - D-70
+  - D-232
 - rule_id: R4
   rule_statement: >-
     A no-show Timesheet has no hours amount and counts no tips, so only an approved Expense on it adds
@@ -68,7 +68,7 @@ requirement_rules:
   rule_sources:
   - PRD §2 Shifts
   rule_decisions:
-  - D-70
+  - D-232
 - rule_id: R8
   rule_statement: >-
     While no_show is true, a change to clock_in, clock_out, or break_minutes is refused until the mark
@@ -83,6 +83,7 @@ requirement_decisions:
 - D-33
 - D-70
 - D-144
+- D-232
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

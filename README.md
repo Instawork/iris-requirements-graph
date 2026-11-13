@@ -99,7 +99,7 @@ decision.
   `json`, `ref:Entity`, `enum:Name`, and `list:<type>`. Fields are required unless `nullable: true`.
 - Every entity also has `id`, `created_at`, and `updated_at`. Do not list them.
 - Money is USD to the cent. Hours are stored as whole minutes. An amount is rate × minutes ÷ 60,
-  rounded half up to the cent, per Timesheet and per hour class.
+  rounded as D-41 says.
 - A `timestamp` is an instant. A `date` or `time` at a Unit is in that Unit's `timezone`.
 - A requirement writes only its own module's entities. To change another module's records it
   depends on the requirement that owns them. A user-interface requirement writes nothing directly.
@@ -132,8 +132,9 @@ These hold everywhere unless a rule says otherwise, so rules do not repeat them.
   never calls B's code. The validator fails when a rule names a requirement with no dependency path
   either way.
 - **Timed work.** A rule that acts when a time passes, or each day, runs as a job of
-  `REQ-JOBS-0001`: at most five minutes late, once, in the Unit's timezone. Refusing an action after
-  a time is checked when the action is made.
+  `REQ-JOBS-0001`, whose rules say how late it may run, that it runs once, and in which timezone.
+  Refusing an action after a time is checked when the action is made; a job only changes stored
+  state that the time makes stale.
 - **Acting role.** A User signs in to one role and context (`REQ-SHELL-0002`), and every request
   carries it. `REQ-ORG-0009` checks that the User holds an unrevoked grant for that role and context.
   Rules that say "the acting role" read it from the request.
@@ -141,9 +142,9 @@ These hold everywhere unless a rule says otherwise, so rules do not repeat them.
   trimming, collapsing inner spaces, and ignoring case, among the records the sender may see. No match
   or several matches is a problem on the row. No match offers the three closest names, with the
   closest as the suggested fix when one is closest alone, and several matches offers every matching
-  record, for the sender to pick (`REQ-AGENT-0002.R19`, `R24`).
-- **Emails and phones.** Emails are stored trimmed and in lower case. Phones are stored as `+1`
-  followed by 10 digits; anything else is refused.
+  record, for the sender to pick (`REQ-AGENT-0002.R19`, `R24`; D-243).
+- **Emails and phones.** Emails are stored trimmed and in lower case. Phones are US numbers (D-155),
+  stored as `+1` followed by 10 digits; `REQ-IDENTITY-0001.R3` says which typed forms are accepted.
 - **Screens.** A screen that opens another screen names it by requirement id. A screen changes
   records only through the product requirements it depends on. What a screen built earlier shows of a
   feature built later, such as a link, a tab, a field, or an upload button, is added by the later
@@ -155,7 +156,9 @@ These hold everywhere unless a rule says otherwise, so rules do not repeat them.
 ### Decisions
 
 Open questions live in `graph/decisions.yaml`, each with the assumption the graph builds on
-until Compass answers. Each decision names who must answer it with `answer_from`:
+until Compass answers. A decision asks one question, and its assumption states the choice in one or
+two sentences; the rules that cite it carry the detail. Each decision names who must answer it with
+`answer_from`:
 `COMPASS_OPERATIONS`, `COMPASS_HR_LEGAL_PAYROLL`, `COMPASS_FINANCE`, `INSTAWORK_PRODUCT`, or
 `INSTAWORK_ENGINEERING`. A `blocking: true` decision stops approval of every requirement that
 cites it or depends on one that does. When a decision is answered, set `status: answered`

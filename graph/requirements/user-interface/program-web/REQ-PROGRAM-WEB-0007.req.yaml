@@ -22,9 +22,10 @@ requirement_rules:
 - rule_id: R2
   rule_statement: >-
     It filters by role, Agency, org node, and active or inactive, and searches by name or email.
-  rule_sources: []
-  rule_decisions:
-  - D-63
+  rule_sources:
+  - SHEET PLT-1
+  - DEMO components/pros/professionals-page.tsx
+  rule_decisions: []
 - rule_id: R3
   rule_statement: >-
     Invite takes an email, first name, last name, optional phone, and one role with its scope, and calls
@@ -40,7 +41,7 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-1
   rule_decisions:
-  - D-25
+  - D-185
   - D-26
 - rule_id: R5
   rule_statement: >-
@@ -49,7 +50,7 @@ requirement_rules:
   - SHEET PLT-2
   - FAQ Who uses Iris day to day?
   rule_decisions:
-  - D-25
+  - D-185
 - rule_id: R6
   rule_statement: >-
     An existing User offers Add role, and each of their grants offers Revoke, or Restore once revoked,
@@ -63,7 +64,7 @@ requirement_rules:
     link.
   rule_sources: []
   rule_decisions:
-  - D-34
+  - D-170
 - rule_id: R8
   rule_statement: >-
     Deactivate and Reactivate call REQ-ORG-0005 and are not offered for a User who holds an INSTAWORK_ADMIN
@@ -78,7 +79,6 @@ requirement_rules:
     REQ-ORG-0005.R6 refuses once a Program User has accepted their invite.
   rule_sources: []
   rule_decisions:
-  - D-26
   - D-83
 requirement_sources:
 - SHEET PLT-1
@@ -86,9 +86,9 @@ requirement_sources:
 requirement_decisions:
 - D-25
 - D-26
-- D-34
-- D-63
 - D-83
+- D-170
+- D-185
 requirement_features:
 - PLT-1
 - PLT-4

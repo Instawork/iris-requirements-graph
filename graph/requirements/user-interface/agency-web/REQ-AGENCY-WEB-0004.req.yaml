@@ -25,8 +25,7 @@ requirement_rules:
   rule_sources:
   - DEMO components/shifts/shifts-page.tsx
   rule_decisions:
-  - D-110
-  - D-63
+  - D-109
 - rule_id: R3
   rule_statement: A REJECTED Timesheet shows the Unit's rejected_reason in its row.
   rule_sources:
@@ -93,8 +92,7 @@ requirement_sources:
 - SESSIONS Timesheets, Tips & Expenses
 requirement_decisions:
 - D-13
-- D-63
-- D-110
+- D-109
 - D-120
 - D-122
 requirement_features:

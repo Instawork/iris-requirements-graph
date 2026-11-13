@@ -25,7 +25,7 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-4
   rule_decisions:
-  - D-34
+  - D-190
 - rule_id: R3
   rule_statement: >-
     Nobody can change a User's email, and a password changes only through an emailed reset link, never
@@ -33,7 +33,8 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-4
   rule_decisions:
-  - D-34
+  - D-190
+  - D-189
 - rule_id: R4
   rule_statement: >-
     A first or last name cannot be saved empty, a phone is checked as REQ-IDENTITY-0001 checks it, and
@@ -51,9 +52,10 @@ requirement_rules:
 requirement_sources:
 - SHEET PLT-4
 requirement_decisions:
-- D-34
 - D-37
 - D-155
+- D-189
+- D-190
 requirement_features:
 - PLT-4
 edges:

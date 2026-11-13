@@ -27,7 +27,7 @@ requirement_rules:
   rule_sources:
   - GRAPH data model work date
   rule_decisions:
-  - D-58
+  - D-219
 - rule_id: R3
   rule_statement: >-
     On one work date, counting across Units, minutes past the DAILY_DOUBLE_TIME threshold_minutes are
@@ -48,6 +48,7 @@ requirement_rules:
   rule_decisions:
   - D-4
   - D-58
+  - D-219
 - rule_id: R5
   rule_statement: >-
     Every remaining minute is regular, so each Timesheet's three classes add up to its worked_minutes.
@@ -73,7 +74,7 @@ requirement_rules:
   rule_decisions:
   - D-141
   - D-33
-  - D-58
+  - D-219
 - rule_id: R8
   rule_statement: >-
     REQ-LABOR-0003 uses the same steps on scheduled Shifts, with the scheduled start as clock_in and the
@@ -81,7 +82,7 @@ requirement_rules:
   rule_sources:
   - SHEET WA-19
   rule_decisions:
-  - D-58
+  - D-220
 requirement_sources:
 - SHEET WA-19
 - SHEET WA-20
@@ -91,6 +92,8 @@ requirement_decisions:
 - D-33
 - D-58
 - D-141
+- D-219
+- D-220
 requirement_features:
 - WA-19
 edges:

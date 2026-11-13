@@ -27,6 +27,8 @@ requirement_rules:
   - SHEET RC-16
   rule_decisions:
   - D-42
+  - D-196
+  - D-200
 - rule_id: R3
   rule_statement: >-
     A trend chart shows SPEND, or another measure the Program User picks, per Work Week or per calendar
@@ -42,7 +44,7 @@ requirement_rules:
   - SHEET REP-9
   - SHEET PLT-2
   rule_decisions:
-  - D-25
+  - D-185
 - rule_id: R5
   rule_statement: >-
     The Timesheet compliance view counts Timesheets with a missed break and late Timesheets for the period,
@@ -59,6 +61,7 @@ requirement_rules:
   - SHEET REP-3
   rule_decisions:
   - D-43
+  - D-200
 - rule_id: R7
   rule_statement: >-
     The Events view lists each Event with its projected cost, its actual cost in the parts
@@ -93,19 +96,21 @@ requirement_rules:
   - SHEET REP-1
   - SESSIONS Reporting
   rule_decisions:
-  - D-45
+  - D-203
 requirement_sources:
 - SHEET 6.3
 - SHEET 6.1
 requirement_decisions:
-- D-25
+- D-29
 - D-42
 - D-43
 - D-44
-- D-45
-- D-29
-- D-139
 - D-133
+- D-139
+- D-185
+- D-196
+- D-200
+- D-203
 requirement_features:
 - REP-2
 - REP-3

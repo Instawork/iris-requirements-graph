@@ -46,7 +46,7 @@ requirement_rules:
   rule_sources:
   - SHEET SC-8
   rule_decisions:
-  - D-38
+  - D-194
 - rule_id: R5
   rule_statement: An IN_APP Notification is created only for a User.
   rule_sources:
@@ -58,20 +58,19 @@ requirement_rules:
     and INBOUND_REPLY name no such User, because they answer that person.
   rule_sources: []
   rule_decisions:
-  - D-38
+  - D-194
 - rule_id: R7
   rule_statement: No Notification is created for a User whose active flag is false.
   rule_sources: []
   rule_decisions:
-  - D-38
+  - D-194
 - rule_id: R8
   rule_statement: >-
     A secret the caller passes, such as a link, is stored in the secret field, never in body, added to
     the message when it is sent, and erased when the Notification becomes SENT or FAILED.
   rule_sources: []
   rule_decisions:
-  - D-34
-  - D-101
+  - D-241
 - rule_id: R9
   rule_statement: >-
     An IN_APP Notification becomes SENT, with sent_at, as soon as it is stored.
@@ -128,18 +127,19 @@ requirement_rules:
   rule_sources:
   - SHEET SC-10
   rule_decisions:
-  - D-158
+  - D-255
 requirement_sources:
 - SHEET SC-8
 - SHEET SC-6
 - PRD Overview
 requirement_decisions:
-- D-34
 - D-38
 - D-68
 - D-101
 - D-107
-- D-158
+- D-194
+- D-241
+- D-255
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

@@ -39,7 +39,7 @@ requirement_rules:
   rule_sources:
   - PRD §7 Typed request
   rule_decisions:
-  - D-36
+  - D-242
 - rule_id: R5
   rule_statement: >-
     A card shows values as the owning requirement priced or checked them, such as each Shift line's Agency
@@ -55,7 +55,7 @@ requirement_rules:
   rule_sources:
   - PRD §6 Uploads
   rule_decisions:
-  - D-36
+  - D-242
 - rule_id: R7
   rule_statement: >-
     Reject all calls REQ-AGENT-0002 to reject the Proposal, and nothing is saved.
@@ -70,7 +70,7 @@ requirement_rules:
   rule_sources:
   - PRD §7 After the user approves
   rule_decisions:
-  - D-36
+  - D-192
   - D-108
 - rule_id: R9
   rule_statement: >-
@@ -78,7 +78,7 @@ requirement_rules:
     or request again.
   rule_sources: []
   rule_decisions:
-  - D-36
+  - D-191
 - rule_id: R10
   rule_statement: >-
     Only the User the Proposal was made for can open its card; anyone else is shown the refusal of REQ-AGENT-0002.
@@ -93,14 +93,17 @@ requirement_rules:
   rule_sources:
   - PRD §4 How the system matches a professional
   rule_decisions:
-  - D-103
+  - D-242
 requirement_sources:
 - PRD §7 Agent Chat
 - PRD §6 Uploads
 requirement_decisions:
 - D-36
-- D-108
 - D-103
+- D-108
+- D-191
+- D-192
+- D-242
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

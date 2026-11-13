@@ -85,21 +85,19 @@ requirement_rules:
     came through, each as the card of REQ-ASSISTANT-0002.
   rule_sources: []
   rule_decisions:
-  - D-36
-  - D-64
+  - D-229
 - rule_id: R11
   rule_statement: >-
     The conversation lasts for the session only; after sign-out the User still finds their Uploads in
     the upload log and their OPEN Proposals in the panel.
   rule_sources: []
   rule_decisions:
-  - D-36
-  - D-64
+  - D-229
 requirement_sources:
 - PRD §7 Agent Chat
 requirement_decisions:
-- D-36
 - D-64
+- D-229
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

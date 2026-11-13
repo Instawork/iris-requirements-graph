@@ -16,7 +16,7 @@ requirement_rules:
   rule_sources:
   - PRD §4 Professionals
   rule_decisions:
-  - D-113
+  - D-109
 - rule_id: R2
   rule_statement: >-
     Each Worker's row counts their Credentials needing action (REJECTED, expired, or expiring within CREDENTIAL_EXPIRY_WARNING_DAYS,
@@ -33,8 +33,7 @@ requirement_rules:
     by name.
   rule_sources:
   - DEMO components/pros/professionals-page.tsx
-  rule_decisions:
-  - D-63
+  rule_decisions: []
 - rule_id: R4
   rule_statement: >-
     Opening a Worker lists each Credential with its type, expiry, status, status_reason or review_note,
@@ -61,9 +60,8 @@ requirement_sources:
 requirement_decisions:
 - D-3
 - D-16
-- D-63
 - D-67
-- D-113
+- D-109
 requirement_features:
 - WA-14
 edges:

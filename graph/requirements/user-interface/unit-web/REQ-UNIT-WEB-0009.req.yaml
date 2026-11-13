@@ -33,7 +33,7 @@ requirement_rules:
   rule_sources:
   - SHEET SC-1
   rule_decisions:
-  - D-17
+  - D-175
 - rule_id: R4
   rule_statement: >-
     The User may type another regular Bill Rate, and must type one when there is no contracted rate;
@@ -64,15 +64,14 @@ requirement_rules:
   rule_sources:
   - SHEET SC-5
   rule_decisions:
-  - D-17
+  - D-175
 - rule_id: R11
   rule_statement: >-
     Once the Shift has started, the step offers only Agencies that hold an ACCEPTED Release on it.
   rule_sources:
   - SHEET SC-5
   rule_decisions:
-  - D-17
-  - D-18
+  - D-176
 - rule_id: R12
   rule_statement: >-
     When the picked Agency is non-contracted and REQ-RATES-0007 answers SOFT, the step takes a second
@@ -88,10 +87,10 @@ requirement_sources:
 requirement_decisions:
 - D-9
 - D-16
-- D-17
-- D-18
 - D-24
 - D-111
+- D-175
+- D-176
 requirement_features:
 - SC-1
 - SC-7

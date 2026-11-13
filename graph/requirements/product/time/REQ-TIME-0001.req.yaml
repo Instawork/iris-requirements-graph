@@ -17,7 +17,6 @@ requirement_rules:
   rule_sources:
   - PRD §2 Shift statuses
   rule_decisions:
-  - D-18
   - D-118
   - D-68
 - rule_id: R2
@@ -54,8 +53,7 @@ requirement_rules:
   rule_statement: Clock times are kept to the whole minute, with seconds dropped.
   rule_sources: []
   rule_decisions:
-  - D-41
-  - D-118
+  - D-247
 - rule_id: R7
   rule_statement: >-
     worked_minutes is clock_out minus clock_in minus break_minutes, and is 0 while either clock time
@@ -63,7 +61,7 @@ requirement_rules:
   rule_sources:
   - PRD §2 Shifts
   rule_decisions:
-  - D-118
+  - D-247
 - rule_id: R8
   rule_statement: >-
     Whenever worked_minutes changes, Iris reclassifies through REQ-LABOR-0005 every Timesheet of that
@@ -114,7 +112,7 @@ requirement_rules:
   rule_sources:
   - PRD §2 Shift statuses
   rule_decisions:
-  - D-18
+  - D-182
 - rule_id: R14
   rule_statement: >-
     A clock time is a local date and time at the Unit; one that does not exist on a daylight-saving
@@ -137,7 +135,6 @@ requirement_sources:
 - PRD Data Model
 requirement_decisions:
 - D-4
-- D-18
 - D-33
 - D-41
 - D-68
@@ -145,6 +142,8 @@ requirement_decisions:
 - D-118
 - D-119
 - D-141
+- D-182
+- D-247
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

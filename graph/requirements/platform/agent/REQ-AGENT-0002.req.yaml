@@ -59,7 +59,7 @@ requirement_rules:
   rule_sources:
   - PRD §6 Uploads
   rule_decisions:
-  - D-103
+  - D-242
 - rule_id: R7
   rule_statement: >-
     The User then applies the Proposal: an undecided item with no problem counts as ACCEPTED, and applying
@@ -67,7 +67,7 @@ requirement_rules:
   rule_sources:
   - PRD §6 Uploads
   rule_decisions:
-  - D-36
+  - D-242
 - rule_id: R8
   rule_statement: >-
     On apply, the ACCEPTED and EDITED items are handed, in list order, to the save step of the Proposal's
@@ -75,15 +75,14 @@ requirement_rules:
   rule_sources:
   - PRD §7 Agent Chat
   rule_decisions:
-  - D-36
-  - D-103
+  - D-192
 - rule_id: R9
   rule_statement: >-
     An item its owner saves gets result SAVED and the saved record's id in record_id; an item its owner
     refuses is not saved and gets FAILED_RECHECK with the owner's reason in result_message.
   rule_sources: []
   rule_decisions:
-  - D-36
+  - D-192
 - rule_id: R10
   rule_statement: A REJECTED item is never saved and gets no result.
   rule_sources:
@@ -95,7 +94,7 @@ requirement_rules:
     when at least one is FAILED_RECHECK.
   rule_sources: []
   rule_decisions:
-  - D-36
+  - D-192
 - rule_id: R12
   rule_statement: >-
     Rejecting the Proposal, or applying it with every item REJECTED, sets every item REJECTED and the
@@ -110,7 +109,7 @@ requirement_rules:
     is retried only in a new Proposal.
   rule_sources: []
   rule_decisions:
-  - D-36
+  - D-191
 - rule_id: R14
   rule_statement: >-
     Each save is given the Proposal's id and channel and the deciding User, so the Audit Trail shows where
@@ -123,14 +122,13 @@ requirement_rules:
     An OPEN Proposal does not expire: it stays OPEN until its User decides it.
   rule_sources: []
   rule_decisions:
-  - D-36
+  - D-191
 - rule_id: R16
   rule_statement: >-
     A User can list the Proposals made for them, OPEN ones first, and no one else's.
   rule_sources: []
   rule_decisions:
   - D-36
-  - D-64
 - rule_id: R17
   rule_statement: >-
     Accepting an item that has a fix which drops it, such as a duplicate row, sets its decision to REJECTED,
@@ -138,7 +136,7 @@ requirement_rules:
   rule_sources:
   - PRD §6 Uploads
   rule_decisions:
-  - D-103
+  - D-242
 - rule_id: R18
   rule_statement: >-
     An item's values are one flat set of names and values: for FILE_ROWS the names are the upload type's
@@ -155,7 +153,7 @@ requirement_rules:
   - PRD §7 File attached
   - GRAPH the Names convention offers closest names and does not say how they are chosen
   rule_decisions:
-  - D-103
+  - D-243
 - rule_id: R20
   rule_statement: >-
     The User picks at most one candidate for a problem, which stores that candidate's value in picked,
@@ -163,7 +161,7 @@ requirement_rules:
   rule_sources:
   - PRD §4 How the system matches a professional
   rule_decisions:
-  - D-103
+  - D-242
 - rule_id: R21
   rule_statement: >-
     Items that share a group_key make one record together, such as the Shifts of one Request, and are
@@ -171,7 +169,7 @@ requirement_rules:
   rule_sources:
   - GRAPH one Proposal of many rows can make one record
   rule_decisions:
-  - D-103
+  - D-192
 - rule_id: R22
   rule_statement: >-
     Each item saves whole or not at all, with its Audit Trail entries and Notifications, and an item that
@@ -179,8 +177,7 @@ requirement_rules:
   rule_sources:
   - GRAPH the Saving together convention would otherwise make one file one transaction
   rule_decisions:
-  - D-36
-  - D-103
+  - D-192
 - rule_id: R23
   rule_statement: >-
     Each Proposal kind has one save step, registered by the requirement that proposes that kind; for FILE_ROWS
@@ -188,7 +185,7 @@ requirement_rules:
   rule_sources:
   - GRAPH platform cannot call a product requirement, so the owner registers its save step
   rule_decisions:
-  - D-103
+  - D-192
 - rule_id: R24
   rule_statement: >-
     When a name matches no stored record and exactly one stored name is closest to it, that name is
@@ -196,22 +193,25 @@ requirement_rules:
   rule_sources:
   - PRD §7 File attached
   rule_decisions:
-  - D-103
+  - D-243
 - rule_id: R25
   rule_statement: >-
     A candidate the User picks replaces the problem's fix, so accepting the item uses the picked record.
   rule_sources:
   - PRD §6 Uploads
   rule_decisions:
-  - D-103
+  - D-242
 requirement_sources:
 - PRD §6 Uploads
 - PRD §7 Agent Chat
 requirement_decisions:
 - D-36
 - D-37
-- D-64
 - D-103
+- D-191
+- D-192
+- D-242
+- D-243
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

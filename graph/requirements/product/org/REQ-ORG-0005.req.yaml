@@ -20,7 +20,7 @@ requirement_rules:
   - SHEET PLT-2
   - FAQ Who uses Iris day to day?
   rule_decisions:
-  - D-25
+  - D-185
 - rule_id: R2
   rule_statement: An AGENCY_USER grant names one Agency and no org node.
   rule_sources:
@@ -33,8 +33,7 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-1
   rule_decisions:
-  - D-25
-  - D-26
+  - D-185
 - rule_id: R4
   rule_statement: >-
     A Program User may grant UNIT_USER, AGENCY_USER, and PROGRAM_USER to any User.
@@ -42,6 +41,7 @@ requirement_rules:
   - SHEET PLT-1
   rule_decisions:
   - D-25
+  - D-186
 - rule_id: R5
   rule_statement: >-
     An Agency User may grant only AGENCY_USER, and only for the Agency of their own grant.
@@ -54,7 +54,6 @@ requirement_rules:
     invite holds an unrevoked PROGRAM_USER grant.
   rule_sources: []
   rule_decisions:
-  - D-26
   - D-83
 - rule_id: R7
   rule_statement: >-
@@ -63,7 +62,6 @@ requirement_rules:
   rule_sources:
   - GRAPH the first grant has nobody to grant it
   rule_decisions:
-  - D-26
   - D-98
 - rule_id: R8
   rule_statement: >-
@@ -112,7 +110,7 @@ requirement_rules:
   - SHEET PLT-4
   rule_decisions:
   - D-25
-  - D-34
+  - D-170
 - rule_id: R14
   rule_statement: >-
     A Program User sees every User and their Role Grants, and an Agency User sees only the Users who
@@ -148,10 +146,12 @@ requirement_sources:
 requirement_decisions:
 - D-25
 - D-26
-- D-34
 - D-83
 - D-98
 - D-161
+- D-170
+- D-185
+- D-186
 requirement_features:
 - PLT-1
 edges:

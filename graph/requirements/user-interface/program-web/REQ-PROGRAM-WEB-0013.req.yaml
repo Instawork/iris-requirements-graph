@@ -16,7 +16,7 @@ requirement_rules:
   rule_sources:
   - PRD §1 Dashboard / Profile
   rule_decisions:
-  - D-62
+  - D-224
 - rule_id: R2
   rule_statement: >-
     Credentials to review counts NEEDS_REVIEW Credentials, shows the age of the oldest since it was uploaded,
@@ -25,7 +25,8 @@ requirement_rules:
   - SHEET WA-15
   rule_decisions:
   - D-3
-  - D-62
+  - D-224
+  - D-225
 - rule_id: R3
   rule_statement: >-
     Rate changes to approve counts PENDING Rate Lines, shows the age of the oldest since it was submitted,
@@ -34,7 +35,8 @@ requirement_rules:
   - SESSIONS Rate Cards & Supplier Sourcing
   rule_decisions:
   - D-10
-  - D-62
+  - D-224
+  - D-225
 - rule_id: R4
   rule_statement: >-
     Rates above their peers counts Rate Lines flagged above the Peer Rate under REQ-RATES-0008 that never
@@ -43,7 +45,8 @@ requirement_rules:
   - SHEET RC-12
   rule_decisions:
   - D-2
-  - D-62
+  - D-224
+  - D-225
 - rule_id: R5
   rule_statement: >-
     The second section is the Units view, which ranks every Unit by SPEND for the current calendar month,
@@ -76,7 +79,7 @@ requirement_rules:
   - SHEET REP-9
   - SHEET PLT-2
   rule_decisions:
-  - D-25
+  - D-185
 - rule_id: R9
   rule_statement: >-
     Selecting a Unit opens the Program Shifts screen of REQ-PROGRAM-WEB-0011 filtered to that Unit.
@@ -91,10 +94,11 @@ requirement_decisions:
 - D-2
 - D-3
 - D-10
-- D-25
 - D-29
 - D-30
-- D-62
+- D-185
+- D-224
+- D-225
 requirement_features:
 - REP-9
 - RC-12

@@ -27,7 +27,7 @@ requirement_rules:
     The original file is kept unchanged in private storage, and file_url is never a public link.
   rule_sources: []
   rule_decisions:
-  - D-40
+  - D-152
 - rule_id: R3
   rule_statement: >-
     CSV and Excel files are accepted for every upload type except CREDENTIALS, and PDF and image files
@@ -108,7 +108,7 @@ requirement_rules:
   rule_sources:
   - GRAPH no source gives a limit
   rule_decisions:
-  - D-104
+  - D-244
 - rule_id: R13
   rule_statement: >-
     Excel means an .xlsx workbook and an image a JPEG or PNG file; the first row that holds a value is
@@ -116,7 +116,7 @@ requirement_rules:
   rule_sources:
   - GRAPH no source says which sheet is read
   rule_decisions:
-  - D-104
+  - D-245
 - rule_id: R14
   rule_statement: >-
     The requirement that owns an upload type registers it, with its check step and its save step, when
@@ -140,7 +140,8 @@ requirement_rules:
   rule_sources:
   - GRAPH a photo or a document entered on a form is a file but not an Upload
   rule_decisions:
-  - D-152
+  - D-254
+  - D-244
 - rule_id: R17
   rule_statement: >-
     A stored file, an Upload's or not, is read only through this requirement, by the requirement that
@@ -160,6 +161,9 @@ requirement_decisions:
 - D-107
 - D-150
 - D-152
+- D-244
+- D-245
+- D-254
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

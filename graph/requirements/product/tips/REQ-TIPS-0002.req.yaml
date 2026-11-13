@@ -44,7 +44,7 @@ requirement_rules:
   - SHEET TS-12
   - SESSIONS Timesheets, Tips & Expenses
   rule_decisions:
-  - D-71
+  - D-234
 - rule_id: R5
   rule_statement: >-
     A new Expense is PENDING with added_by set, and the Agency User can change or delete it while it is
@@ -69,7 +69,7 @@ requirement_rules:
   rule_sources:
   - GRAPH data model ApprovalStatus
   rule_decisions:
-  - D-137
+  - D-253
 - rule_id: R8
   rule_statement: >-
     An APPROVED Expense passes through at its amount with no markup, and a REJECTED one adds nothing.
@@ -84,7 +84,7 @@ requirement_rules:
   - SHEET TS-12
   - SESSIONS Timesheets, Tips & Expenses
   rule_decisions:
-  - D-71
+  - D-234
 - rule_id: R10
   rule_statement: >-
     An Agency User can ask the assistant to add one Expense to several Workers of a Shift; the
@@ -92,7 +92,7 @@ requirement_rules:
   rule_sources:
   - SESSIONS Timesheets, Tips & Expenses
   rule_decisions:
-  - D-71
+  - D-233
 - rule_id: R11
   rule_statement: >-
     A request for everyone who worked a Shift covers each DRAFT or REJECTED Timesheet of the Agency's
@@ -100,7 +100,7 @@ requirement_rules:
   rule_sources:
   - SESSIONS Timesheets, Tips & Expenses
   rule_decisions:
-  - D-71
+  - D-233
 - rule_id: R12
   rule_statement: >-
     When the request does not fit exactly one Shift, or names a Worker who fits several Timesheets,
@@ -138,6 +138,9 @@ requirement_decisions:
 - D-71
 - D-72
 - D-137
+- D-233
+- D-234
+- D-253
 requirement_features:
 - TS-12
 edges:

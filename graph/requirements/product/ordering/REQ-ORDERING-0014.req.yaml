@@ -63,6 +63,7 @@ requirement_rules:
   - SHEET SC-7
   rule_decisions:
   - D-17
+  - D-206
 - rule_id: R8
   rule_statement: >-
     An Agency User's row names a shift_id and a Worker, and assigns that Worker through REQ-WORKFORCE-0003
@@ -122,7 +123,8 @@ requirement_rules:
   rule_sources:
   - PRD §7 What the agent checks
   rule_decisions:
-  - D-49
+  - D-205
+  - D-206
 - rule_id: R16
   rule_statement: >-
     A row whose agency has no contracted rate for the new Shift is a problem whose fix clears the agency,
@@ -130,7 +132,7 @@ requirement_rules:
   rule_sources:
   - PRD §7 What the agent checks
   rule_decisions:
-  - D-49
+  - D-206
 - rule_id: R17
   rule_statement: >-
     A row whose agency is non-contracted needs a non_contracted_reason where REQ-RATES-0007 answers SOFT
@@ -138,7 +140,7 @@ requirement_rules:
   rule_sources:
   - SHEET RC-11
   rule_decisions:
-  - D-49
+  - D-206
 - rule_id: R18
   rule_statement: >-
     A row with no date, where every other row of the file for the same Event gives one date, is a problem
@@ -156,6 +158,8 @@ requirement_decisions:
 - D-17
 - D-49
 - D-103
+- D-205
+- D-206
 requirement_features:
 - SC-2
 edges:

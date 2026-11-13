@@ -38,7 +38,7 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-1
   rule_decisions:
-  - D-25
+  - D-185
 - rule_id: R4
   rule_statement: >-
     The account menu shows the User's first name, last name, and email, and offers sign out.
@@ -59,7 +59,7 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-4
   rule_decisions:
-  - D-34
+  - D-99
 - rule_id: R7
   rule_statement: >-
     Each screen's requirement adds its own item to its role's menu, so the menu shows an item only once
@@ -71,13 +71,13 @@ requirement_sources:
 - PRD Pages
 - SHEET PLT-1
 requirement_decisions:
-- D-25
-- D-34
 - D-65
 - D-66
+- D-99
 - D-108
 - D-130
 - D-131
+- D-185
 requirement_features:
 - PLT-1
 edges:

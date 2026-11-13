@@ -62,7 +62,7 @@ requirement_rules:
   rule_sources:
   - PRD §6 Templates
   rule_decisions:
-  - D-119
+  - D-248
 - rule_id: R8
   rule_statement: >-
     When an Agency User's line names a Worker with no Assignment on the Shift, the Proposal offers to
@@ -70,7 +70,7 @@ requirement_rules:
   rule_sources:
   - PRD §4 Professionals
   rule_decisions:
-  - D-18
+  - D-182
 - rule_id: R9
   rule_statement: >-
     An Agency User's accepted lines save clock_in, clock_out, and break_minutes to DRAFT and REJECTED
@@ -140,11 +140,11 @@ requirement_sources:
 - PRD §6 Templates
 requirement_decisions:
 - D-5
-- D-18
 - D-33
-- D-119
 - D-121
 - D-147
+- D-182
+- D-248
 requirement_features:
 - TS-5
 edges:

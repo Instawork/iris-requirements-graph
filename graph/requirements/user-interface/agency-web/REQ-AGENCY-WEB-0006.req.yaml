@@ -49,7 +49,7 @@ requirement_rules:
   rule_sources:
   - DEMO components/shifts/assign-pros-dialog.tsx
   rule_decisions:
-  - D-17
+  - D-175
 - rule_id: R6
   rule_statement: >-
     Confirming calls REQ-WORKFORCE-0003 once for each picked Worker, and a Worker it then refuses stays
@@ -102,7 +102,7 @@ requirement_rules:
   rule_sources:
   - PRD §2 Shift statuses
   rule_decisions:
-  - D-18
+  - D-182
 - rule_id: R13
   rule_statement: >-
     When an assigned Worker has neither an email nor a phone, the screen shows the answer of
@@ -116,10 +116,10 @@ requirement_sources:
 - SESSIONS Worker Assignment & Compliance
 requirement_decisions:
 - D-4
-- D-17
-- D-18
 - D-51
 - D-89
+- D-175
+- D-182
 requirement_features:
 - WA-1
 edges:

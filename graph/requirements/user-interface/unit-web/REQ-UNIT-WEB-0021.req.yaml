@@ -18,7 +18,7 @@ requirement_rules:
   - SHEET WA-2
   - FEEDBACK a single agency, then request worker as a nested feature
   rule_decisions:
-  - D-52
+  - D-208
   - D-108
 - rule_id: R2
   rule_statement: >-
@@ -35,7 +35,7 @@ requirement_rules:
   rule_sources:
   - SHEET WA-2
   rule_decisions:
-  - D-52
+  - D-208
 - rule_id: R4
   rule_statement: >-
     The Shift's page lists Workers requested by name as REQUESTED or UNAVAILABLE, with the Agency's
@@ -52,6 +52,7 @@ requirement_decisions:
 - D-52
 - D-96
 - D-108
+- D-208
 requirement_features:
 - WA-2
 edges:

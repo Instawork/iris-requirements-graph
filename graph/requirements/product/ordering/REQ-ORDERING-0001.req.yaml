@@ -52,7 +52,7 @@ requirement_rules:
   rule_statement: A new Shift must end in the future.
   rule_sources: []
   rule_decisions:
-  - D-18
+  - D-181
 - rule_id: R7
   rule_statement: Headcount is a whole number of at least 1.
   rule_sources:
@@ -94,7 +94,7 @@ requirement_rules:
   rule_statement: A Request cannot be created for a Unit whose org node is inactive.
   rule_sources: []
   rule_decisions:
-  - D-53
+  - D-209
 - rule_id: R13
   rule_statement: >-
     A start or end time that the clock skips on its date is refused, and one that the clock repeats is
@@ -106,7 +106,7 @@ requirement_sources:
 - SHEET SC-2
 - PRD §2 Shifts
 - PRD Data Model
-requirement_decisions: [D-6, D-17, D-18, D-20, D-53, D-93]
+requirement_decisions: [D-6, D-17, D-20, D-93, D-181, D-209]
 requirement_features:
 - SC-2
 edges:

@@ -19,8 +19,6 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-1
   rule_decisions:
-  - D-25
-  - D-61
   - D-82
 - rule_id: R2
   rule_statement: >-
@@ -29,7 +27,6 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-4
   rule_decisions:
-  - D-25
   - D-61
 - rule_id: R3
   rule_statement: >-
@@ -38,7 +35,6 @@ requirement_rules:
   rule_sources:
   - DEMO components/shell/sidebar.tsx
   rule_decisions:
-  - D-25
   - D-61
 - rule_id: R4
   rule_statement: >-
@@ -64,14 +60,14 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-1
   rule_decisions:
-  - D-61
+  - D-239
 requirement_sources:
 - SHEET PLT-1
 - FEEDBACK show visually that we're talking like supplier vs buyer vs corporate
 requirement_decisions:
-- D-25
 - D-61
 - D-82
+- D-239
 requirement_features:
 - PLT-1
 edges:

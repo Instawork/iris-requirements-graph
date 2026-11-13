@@ -45,14 +45,14 @@ requirement_rules:
   rule_sources:
   - DEMO components/shifts/shifts-page.tsx
   rule_decisions:
-  - D-126
+  - D-249
 - rule_id: R5
   rule_statement: >-
     Every date and time of a Shift, Release, Timesheet, or Tip Pool is shown in the timezone of its Unit.
   rule_sources:
   - 'GRAPH data model: a date or time at a Unit is in that Unit''s timezone'
   rule_decisions:
-  - D-126
+  - D-250
 - rule_id: R6
   rule_statement: >-
     Money is shown in US dollars to the cent, exactly as the owning requirement computed it, and is never
@@ -67,6 +67,8 @@ requirement_sources:
 requirement_decisions:
 - D-41
 - D-126
+- D-249
+- D-250
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

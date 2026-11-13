@@ -16,7 +16,7 @@ notifications:
   channels: [EMAIL, IN_APP]
   owner: REQ-DISPATCH-0001
   sources: [SHEET SC-8]
-  decisions: [D-17]
+  decisions: [D-179, D-180]
 - type: RELEASE_ANSWERED
   trigger: An Agency accepts or declines a Release, including a decline after accepting.
   recipients: The User who sent the Release.

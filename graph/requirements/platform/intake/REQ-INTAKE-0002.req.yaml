@@ -61,7 +61,7 @@ requirement_rules:
   rule_sources:
   - PRD §6 Templates
   rule_decisions:
-  - D-40
+  - D-195
 - rule_id: R8
   rule_statement: >-
     A value that cannot be read as its column's kind in the catalog is a problem.
@@ -77,7 +77,7 @@ requirement_rules:
   - PRD §7 File attached
   - GRAPH platform reads no product records, so the caller supplies them
   rule_decisions:
-  - D-103
+  - D-243
   - D-107
 - rule_id: R10
   rule_statement: >-
@@ -143,7 +143,7 @@ requirement_rules:
   - PRD §7 What the LLM does and what code does
   - GRAPH files arrive with columns the template does not have
   rule_decisions:
-  - D-104
+  - D-246
 - rule_id: R18
   rule_statement: >-
     Rows the type's owner says make one record together, such as the Shifts of one Request, get one group_key
@@ -151,7 +151,7 @@ requirement_rules:
   rule_sources:
   - GRAPH one Proposal of many rows can make one record
   rule_decisions:
-  - D-103
+  - D-192
 - rule_id: R19
   rule_statement: >-
     A text value is kept as written, an int value is a whole number written in digits, and a yes_no
@@ -159,7 +159,7 @@ requirement_rules:
   rule_sources:
   - PRD §6 Templates
   rule_decisions:
-  - D-40
+  - D-195
 - rule_id: R20
   rule_statement: >-
     The type's owner may add a fix to any problem, including one INTAKE found, such as a missing date
@@ -175,11 +175,13 @@ requirement_sources:
 - PRD §7 What the agent checks
 requirement_decisions:
 - D-37
-- D-40
 - D-103
-- D-104
 - D-107
 - D-151
+- D-192
+- D-195
+- D-243
+- D-246
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

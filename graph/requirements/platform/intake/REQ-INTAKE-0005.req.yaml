@@ -34,7 +34,7 @@ requirement_rules:
   rule_sources:
   - PRD §6 Templates
   rule_decisions:
-  - D-40
+  - D-195
 - rule_id: R4
   rule_statement: A download creates no Upload and changes no record.
   rule_sources:
@@ -47,12 +47,12 @@ requirement_rules:
   rule_sources:
   - PRD §6 Templates
   rule_decisions:
-  - D-40
+  - D-195
 requirement_sources:
 - PRD §6 Uploads
 requirement_decisions:
-- D-40
 - D-107
+- D-195
 requirement_features: []
 edges: []
 data_model:

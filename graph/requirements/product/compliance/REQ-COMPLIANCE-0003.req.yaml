@@ -42,7 +42,7 @@ requirement_rules:
   - SHEET WA-15
   rule_decisions:
   - D-3
-  - D-56
+  - D-212
 - rule_id: R5
   rule_statement: >-
     The result is VERIFIED when it is not REJECTED, no sign of editing is found, the document's issuer
@@ -51,7 +51,7 @@ requirement_rules:
   - SHEET WA-15
   rule_decisions:
   - D-3
-  - D-56
+  - D-212
 - rule_id: R6
   rule_statement: >-
     Any other outcome, including a document from which the model reads neither an issuer nor a date,
@@ -59,7 +59,7 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-3
-  - D-56
+  - D-212
 - rule_id: R7
   rule_statement: >-
     Each result sets checked_at and a status_reason naming every check that failed or could not finish,
@@ -81,7 +81,7 @@ requirement_rules:
   rule_sources:
   - GRAPH data model CredentialStatus transitions
   rule_decisions:
-  - D-56
+  - D-213
 - rule_id: R10
   rule_statement: >-
     When a Credential becomes VERIFIED or REJECTED, Iris sends CREDENTIAL_DECIDED in the app to the User
@@ -97,7 +97,7 @@ requirement_rules:
   rule_sources:
   - SHEET WA-15
   rule_decisions:
-  - D-56
+  - D-212
 - rule_id: R12
   rule_statement: >-
     A run in which REQ-AGENT-0001 returns a failure leaves the Credential PENDING_CHECK and adds one to
@@ -112,9 +112,10 @@ requirement_sources:
 - SESSIONS Worker Assignment & Compliance
 requirement_decisions:
 - D-3
-- D-56
 - D-68
 - D-87
+- D-212
+- D-213
 requirement_features:
 - WA-15
 edges:

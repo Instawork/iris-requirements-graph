@@ -17,6 +17,7 @@ requirement_rules:
   - FAQ Can each sector configure Iris differently?
   rule_decisions:
   - D-16
+  - D-174
 - rule_id: R2
   rule_statement: >-
     A key the catalog scopes as any lists its overrides, each with its Sector, Region, District, or Unit
@@ -26,7 +27,7 @@ requirement_rules:
   - SHEET WA-19
   - SHEET TS-9
   rule_decisions:
-  - D-16
+  - D-174
 - rule_id: R3
   rule_statement: >-
     PEER_RATE_THRESHOLD_PCT and CREDENTIAL_EXPIRY_WARNING_DAYS are program-wide, so they show a program
@@ -35,7 +36,7 @@ requirement_rules:
   - SHEET RC-12
   - SHEET WA-14
   rule_decisions:
-  - D-16
+  - D-174
 - rule_id: R4
   rule_statement: >-
     A value is entered as the key's type, a whole number, on or off, or SOFT or HARD, and saved through
@@ -50,14 +51,14 @@ requirement_rules:
     the screen then shows the value that applies instead.
   rule_sources: []
   rule_decisions:
-  - D-16
+  - D-174
 - rule_id: R6
   rule_statement: >-
     Picking a Unit shows, for every key, the value in force there as REQ-ORG-0006 resolves it.
   rule_sources:
   - FAQ Can each sector configure Iris differently?
   rule_decisions:
-  - D-16
+  - D-174
 requirement_sources:
 - FAQ Can each sector configure Iris differently?
 - SHEET TS-9
@@ -65,6 +66,7 @@ requirement_sources:
 - SHEET WA-19
 requirement_decisions:
 - D-16
+- D-174
 requirement_features:
 - TS-9
 - RC-11

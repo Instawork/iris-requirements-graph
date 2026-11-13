@@ -109,7 +109,7 @@ requirement_rules:
   rule_sources:
   - SHEET RC-5
   rule_decisions:
-  - D-55
+  - D-210
 - rule_id: R14
   rule_statement: >-
     A Program User ends an APPROVED line that has no effective_to by setting effective_to on or after
@@ -133,6 +133,7 @@ requirement_decisions:
 - D-10
 - D-55
 - D-78
+- D-210
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

@@ -29,7 +29,6 @@ requirement_rules:
   - PRD §6 Position list
   - SHEET RC-2
   rule_decisions:
-  - D-26
   - D-98
 - rule_id: R4
   rule_statement: >-
@@ -38,7 +37,7 @@ requirement_rules:
   rule_sources:
   - GRAPH a retired Position stays on past records
   rule_decisions:
-  - D-26
+  - D-209
 - rule_id: R5
   rule_statement: >-
     Unit Users and Agency Users choose Positions from the catalog and cannot add one.
@@ -59,6 +58,7 @@ requirement_sources:
 requirement_decisions:
 - D-26
 - D-98
+- D-209
 requirement_features:
 - RC-2
 edges:

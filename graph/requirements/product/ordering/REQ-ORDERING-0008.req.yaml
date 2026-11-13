@@ -42,7 +42,8 @@ requirement_rules:
     When REQ-WORKFORCE-0003 assigns a Worker from a Timesheet to an UNFILLED Shift, the Shift becomes WORKED.
   rule_sources: []
   rule_decisions:
-  - D-18
+  - D-47
+  - D-182
 - rule_id: R6
   rule_statement: >-
     A CANCELLED Shift never changes status, and a WORKED Shift stays WORKED.
@@ -57,9 +58,9 @@ requirement_rules:
 requirement_sources:
 - PRD §2 Shift statuses
 requirement_decisions:
-- D-18
 - D-47
 - D-68
+- D-182
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

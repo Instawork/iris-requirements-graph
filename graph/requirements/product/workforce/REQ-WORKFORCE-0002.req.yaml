@@ -41,7 +41,7 @@ requirement_rules:
   rule_sources:
   - PRD §4 How the system matches a professional
   rule_decisions:
-  - D-103
+  - D-243
 - rule_id: R6
   rule_statement: >-
     With no match, the caller proposes a new Worker from the named person's details, and none is created
@@ -52,7 +52,7 @@ requirement_rules:
 requirement_sources:
 - PRD §4 How the system matches a professional
 requirement_decisions:
-- D-103
+- D-243
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

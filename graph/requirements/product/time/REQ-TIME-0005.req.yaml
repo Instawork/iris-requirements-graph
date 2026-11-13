@@ -86,7 +86,7 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-22
-  - D-59
+  - D-222
 - rule_id: R11
   rule_statement: >-
     A SUBMITTED Timesheet with any reason stays SUBMITTED and appears, with its reasons, on the exception
@@ -152,7 +152,7 @@ requirement_rules:
   - SHEET TS-7
   rule_decisions:
   - D-22
-  - D-18
+  - D-182
 - rule_id: R19
   rule_statement: >-
     SHORT_BREAK applies when no_show is false, both clock times are set, and break_minutes, counting
@@ -177,14 +177,14 @@ requirement_sources:
 - SHEET WA-18
 requirement_decisions:
 - D-16
-- D-18
 - D-22
 - D-28
 - D-33
-- D-59
 - D-69
 - D-117
 - D-141
+- D-182
+- D-222
 requirement_features:
 - TS-7
 edges:

@@ -20,8 +20,7 @@ requirement_rules:
   - SHEET INV-1
   - SESSIONS Invoicing & Accruals
   - PRD Key Terms
-  rule_decisions:
-  - D-132
+  rule_decisions: []
 - rule_id: R2
   rule_statement: >-
     When a Timesheet becomes APPROVED, this requirement adds its line to the current week's
@@ -29,8 +28,7 @@ requirement_rules:
     it when missing.
   rule_sources:
   - SESSIONS Invoicing & Accruals
-  rule_decisions:
-  - D-132
+  rule_decisions: []
 - rule_id: R3
   rule_statement: >-
     A daily job of REQ-JOBS-0001 makes a Consolidated Invoice and its Agency Invoices ISSUED once its
@@ -40,7 +38,6 @@ requirement_rules:
   - SHEET INV-3
   - SESSIONS Invoicing & Accruals
   rule_decisions:
-  - D-132
   - D-68
 - rule_id: R4
   rule_statement: >-
@@ -89,7 +86,6 @@ requirement_decisions:
 - D-31
 - D-35
 - D-68
-- D-132
 - D-145
 requirement_features:
 - INV-1
@@ -137,8 +133,8 @@ data_model:
   - InvoiceLine.tips_amount
   - InvoiceLine.expenses_amount
   detail: >-
-    Creates every invoice record with all its required fields. The day the invoice week starts and
-    closes waits on D-132.
+    Creates every invoice record with all its required fields. No source says which day the invoice
+    week starts or closes.
 requirement_starting_flow: false
 requirement_review:
   status: draft

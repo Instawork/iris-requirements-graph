@@ -102,6 +102,7 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-53
+  - D-209
   - D-81
 - rule_id: R12
   rule_statement: >-
@@ -110,14 +111,14 @@ requirement_rules:
   rule_sources:
   - PRD §3 Supplier Rates
   rule_decisions:
-  - D-86
+  - D-237
 - rule_id: R13
   rule_statement: >-
     Changing a Unit's time zone moves no stored instant, so the local times and work dates of that Unit's
     Shifts and Timesheets are read in the new zone from then on.
   rule_sources: []
   rule_decisions:
-  - D-86
+  - D-236
 requirement_sources:
 - SESSIONS Shift Creation
 - SHEET PLT-2
@@ -128,6 +129,9 @@ requirement_decisions:
 - D-54
 - D-81
 - D-86
+- D-209
+- D-236
+- D-237
 requirement_features:
 - PLT-2
 edges:

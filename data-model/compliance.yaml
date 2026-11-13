@@ -82,7 +82,7 @@ entities:
   - {name: attested_at, type: timestamp}
 - entity: BadgeRequest
   phase: MVP
-  description: 'Badge and system access for one Worker at one secured Unit (D-27). One row per Worker and Unit, reused for every Assignment there.'
+  description: 'Badge and system access for one Worker at one secured Unit (D-187). One row per Worker and Unit, reused for every Assignment there.'
   fields:
   - {name: worker_id, type: ref:Worker}
   - {name: unit_id, type: ref:Unit}

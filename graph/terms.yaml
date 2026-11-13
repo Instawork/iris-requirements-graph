@@ -176,7 +176,7 @@ terms:
   avoid: [labor regulation, wage rule]
   source_words: [labor law]
   sources: [SHEET WA-18, SHEET WA-19]
-  decisions: [D-26, D-57]
+  decisions: [D-26, D-217]
 - term: Timesheet
   definition: The hours one Worker billed for one Shift, or for one part of a Shift split by role.
   avoid: [timecard]
@@ -203,7 +203,7 @@ terms:
     Timesheet and passed through at cost once a Unit User approves it.
   avoid: [reimbursement]
   sources: [SHEET TS-12, 'SESSIONS Timesheets, Tips & Expenses']
-  decisions: [D-71, D-137]
+  decisions: [D-71, D-137, D-253]
 - term: Spend
   definition: Approved spend plus pending spend, as REQ-REPORTING-0001 defines them.
   avoid: []
@@ -214,7 +214,7 @@ terms:
     A Unit's labor budget for a range of dates, loaded from a file and set against Spend on dashboards.
   avoid: [spend target, spending limit]
   sources: [SHEET REP-8, SHEET REP-7]
-  decisions: [D-14]
+  decisions: [D-14, D-172]
 - term: Sales Record
   definition: >-
     A Unit's revenue for one date, with the events held and meals served when the file gives them. Labor
@@ -240,7 +240,6 @@ terms:
   avoid: []
   source_words: [Invoice Group]
   sources: [SHEET INV-1, PRD Key Terms]
-  decisions: [D-132]
 - term: Agency Invoice
   definition: One Agency's part of a Consolidated Invoice. Phase 2.
   avoid: []
@@ -251,7 +250,7 @@ terms:
     reopened.
   avoid: []
   sources: [SHEET REP-1]
-  decisions: [D-45]
+  decisions: [D-203]
 - term: Work date
   definition: The date a Shift starts, in its Unit's timezone. Spend is dated by it.
   avoid: []
@@ -264,21 +263,21 @@ terms:
   definition: The Shifts a recurring Request created from one of its lines.
   avoid: []
   sources: [SHEET SC-4]
-  decisions: [D-20]
+  decisions: [D-183]
 - term: Chained block
   definition: >-
     A multi-week assignment booked as one recurring Request. Iris treats it as any recurring Request in
-    MVP (D-20). Not the same as blocking a Worker.
+    MVP (D-184). Not the same as blocking a Worker.
   avoid: []
   sources: [SHEET SC-4]
-  decisions: [D-20]
+  decisions: [D-184]
 - term: Acting role
   definition: >-
     The role whose screens a signed-in User is using, and for an Agency User the one Agency. A User whose
     Role Grants give several chooses one at a time. A graph term.
   avoid: []
   sources: [SHEET PLT-1]
-  decisions: [D-61]
+  decisions: [D-82, D-61]
 - term: To-do
   definition: One kind of work waiting for a User, shown on their home page with a count and what is at stake.
   avoid: []
@@ -292,7 +291,7 @@ terms:
   definition: One sign-in of one User, from the sign-in until it ends. It carries the acting role. A graph term.
   avoid: []
   sources: [SHEET PLT-4]
-  decisions: [D-99]
+  decisions: [D-99, D-239]
 - term: Upload
   definition: A file a User sent to Iris, and what became of it.
   avoid: []

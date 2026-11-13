@@ -16,14 +16,14 @@ requirement_rules:
   rule_sources:
   - PRD §2 Shift statuses
   rule_decisions:
-  - D-18
+  - D-180
 - rule_id: R2
   rule_statement: >-
     When REQ-DISPATCH-0002 declines an ACCEPTED Release, each of its ASSIGNED Assignments is removed with
     RELEASE_DECLINED.
   rule_sources: []
   rule_decisions:
-  - D-17
+  - D-178
 - rule_id: R3
   rule_statement: >-
     When REQ-WORKFORCE-0005 saves a BLOCK rating, the Worker's ASSIGNED Assignments on that Unit's Shifts
@@ -45,7 +45,6 @@ requirement_rules:
     every ASSIGNED Worker on that Unit's Shifts that have not started.
   rule_sources: []
   rule_decisions:
-  - D-51
   - D-68
   - D-91
 - rule_id: R6
@@ -54,7 +53,7 @@ requirement_rules:
     is asked again at once about every ASSIGNED Worker on it.
   rule_sources: []
   rule_decisions:
-  - D-51
+  - D-91
 - rule_id: R7
   rule_statement: >-
     When either recheck finds an ASSIGNED Worker not eligible, the Assignment is removed with NOT_ELIGIBLE,
@@ -84,12 +83,12 @@ requirement_sources:
 - PRD §2 Shift statuses
 - SESSIONS Worker Assignment & Compliance
 requirement_decisions:
-- D-17
-- D-18
 - D-51
 - D-68
 - D-90
 - D-91
+- D-178
+- D-180
 requirement_features:
 - WA-3
 edges:

@@ -92,7 +92,7 @@ requirement_rules:
   rule_sources:
   - SHEET TS-10
   rule_decisions:
-  - D-118
+  - D-247
 requirement_sources:
 - SHEET TS-10
 - FEEDBACK split can also be department driven
@@ -102,7 +102,7 @@ requirement_decisions:
 - D-33
 - D-59
 - D-117
-- D-118
+- D-247
 requirement_features:
 - TS-10
 edges:

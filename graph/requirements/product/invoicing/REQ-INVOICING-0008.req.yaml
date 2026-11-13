@@ -23,12 +23,10 @@ requirement_rules:
   - SHEET INV-8
   rule_decisions:
   - D-35
-  - D-132
 requirement_sources:
 - SHEET INV-8
 requirement_decisions:
 - D-35
-- D-132
 requirement_features:
 - INV-8
 edges:
@@ -42,7 +40,7 @@ data_model:
   writes:
   - AgencyInvoice.contract_type
   detail: >-
-    Where the type is set, on the Agency or the Unit, and who receives each type wait on D-35 and D-132.
+    Where the type is set, on the Agency or the Unit, waits on D-35. No source says who receives each type.
 requirement_starting_flow: false
 requirement_review:
   status: draft

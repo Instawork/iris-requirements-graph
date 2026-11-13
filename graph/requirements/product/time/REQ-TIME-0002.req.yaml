@@ -33,7 +33,6 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-33
-  - D-120
 - rule_id: R4
   rule_statement: >-
     An Agency User can submit one Timesheet, or in one step every DRAFT and REJECTED Timesheet of their

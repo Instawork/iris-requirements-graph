@@ -158,9 +158,10 @@ conflicts:
 - conflict_id: C-30
   topic: Worker contact details
   keep: >-
-    Email and phone are optional on a Worker, because a paper sign-in sheet carries only names (sessions,
-    Timesheets, Tips & Expenses; the PRD's own Shift template makes the phone optional). The Agency is
-    told when an assigned Worker has neither, so site instructions still reach the Worker (sheet SC-6; D-89).
+    Email and phone are optional on a Worker. The sessions show an Agency scanning a paper sign-in sheet
+    that Iris matches to Workers (Timesheets, Tips & Expenses), and the PRD's own Shift template makes
+    the phone optional; that such a sheet carries only names is the graph's inference. The Agency is told
+    when an assigned Worker has neither, so site instructions still reach the Worker (sheet SC-6; D-89).
   drop: Email and phone required on every Professional row (PRD).
 - conflict_id: C-31
   topic: Which Workers a Unit can rate and request
@@ -220,5 +221,5 @@ conflicts:
   keep: >-
     A SHIFTS file creates and changes Shifts and assigns Workers, as the PRD's own Shift template does,
     which has no column that cancels. A Shift is cancelled on its page, by a typed request, or by a
-    message (D-49).
+    message (D-205).
   drop: The Buyer cancels shifts by CSV (PRD, who sees what on Shifts).

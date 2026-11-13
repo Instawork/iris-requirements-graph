@@ -17,7 +17,7 @@ requirement_rules:
   rule_sources:
   - SHEET TS-9
   rule_decisions:
-  - D-13
+  - D-171
   - D-16
 - rule_id: R2
   rule_statement: >-
@@ -68,6 +68,7 @@ requirement_decisions:
 - D-33
 - D-60
 - D-68
+- D-171
 requirement_features:
 - TS-9
 edges:

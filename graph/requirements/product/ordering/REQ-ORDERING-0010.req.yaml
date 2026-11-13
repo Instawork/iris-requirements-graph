@@ -56,7 +56,7 @@ requirement_rules:
   - SHEET SC-3
   - SESSIONS Shift Creation
   rule_decisions:
-  - D-64
+  - D-227
 - rule_id: R7
   rule_statement: >-
     A message has no session: its sender acts as UNIT_USER across their unrevoked UNIT_USER grants, which
@@ -64,8 +64,7 @@ requirement_rules:
   rule_sources:
   - SHEET SC-10
   rule_decisions:
-  - D-82
-  - D-106
+  - D-256
 - rule_id: R8
   rule_statement: >-
     The Agency is filled only when every Release of that Shift went to the same Agency, and otherwise
@@ -86,10 +85,9 @@ requirement_sources:
 requirement_decisions:
 - D-17
 - D-48
-- D-64
-- D-82
 - D-94
-- D-106
+- D-227
+- D-256
 requirement_features:
 - SC-10
 edges:

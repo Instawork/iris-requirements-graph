@@ -54,6 +54,7 @@ requirement_rules:
   rule_decisions:
   - D-33
   - D-70
+  - D-232
 - rule_id: R6
   rule_statement: >-
     Upload corrections opens the Uploads send step of REQ-SHELL-0008 with TIMESHEETS picked; REQ-TIME-0003
@@ -72,6 +73,7 @@ requirement_decisions:
 - D-33
 - D-70
 - D-121
+- D-232
 requirement_features:
 - TS-10
 edges:

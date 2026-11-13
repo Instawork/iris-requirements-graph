@@ -6,7 +6,7 @@ enums:
   - {value: PARTIALLY_FILLED, meaning: Not ended and fewer Workers are assigned than the headcount.}
   - {value: FILLED, meaning: Not ended and assigned Workers equal or exceed the headcount.}
   - {value: WORKED, meaning: 'Its end time has passed with at least one Worker assigned, before or after the end.'}
-  - {value: UNFILLED, meaning: 'Its end time has passed with no Worker assigned. Becomes WORKED if a Timesheet later assigns one (D-18).'}
+  - {value: UNFILLED, meaning: 'Its end time has passed with no Worker assigned. Becomes WORKED if a Timesheet later assigns one (D-47).'}
   - {value: CANCELLED, meaning: The Unit cancelled it before it started.}
   transitions:
   - {from: null, to: OPEN, requirement: REQ-ORDERING-0001}

@@ -17,7 +17,7 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-25
-  - D-34
+  - D-99
 - rule_id: R2
   rule_statement: >-
     The caller checks who may deactivate or reactivate whom, as REQ-ORG-0005 states, and this requirement
@@ -59,8 +59,8 @@ requirement_sources:
 - SHEET PLT-4
 requirement_decisions:
 - D-25
-- D-34
 - D-37
+- D-99
 - D-100
 - D-107
 requirement_features:

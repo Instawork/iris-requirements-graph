@@ -61,7 +61,7 @@ requirement_rules:
   rule_sources:
   - SHEET WA-1
   rule_decisions:
-  - D-50
+  - D-207
 - rule_id: R8
   rule_statement: >-
     A Worker's Positions are informational and do not limit the Shifts the Worker can be assigned to.
@@ -109,7 +109,7 @@ requirement_rules:
     A photo is a JPEG or PNG file stored through REQ-INTAKE-0001, and photo_url holds its reference.
   rule_sources: []
   rule_decisions:
-  - D-152
+  - D-254
 - rule_id: R15
   rule_statement: >-
     A Worker's photo may be opened only by an Agency User of the Worker's Agency, a Program User, and
@@ -128,6 +128,8 @@ requirement_decisions:
 - D-92
 - D-152
 - D-155
+- D-207
+- D-254
 requirement_features:
 - WA-1
 edges:

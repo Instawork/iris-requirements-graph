@@ -24,13 +24,13 @@ requirement_rules:
   rule_sources:
   - SHEET SC-8
   rule_decisions:
-  - D-17
+  - D-177
 - rule_id: R3
   rule_statement: >-
     An answer covers the Release's whole headcount; an Agency cannot accept part of it.
   rule_sources: []
   rule_decisions:
-  - D-17
+  - D-177
 - rule_id: R4
   rule_statement: >-
     Until the Shift starts, an Agency User may decline an ACCEPTED Release with a decline_reason; it becomes
@@ -38,14 +38,14 @@ requirement_rules:
     Workers.
   rule_sources: []
   rule_decisions:
-  - D-17
+  - D-178
 - rule_id: R5
   rule_statement: >-
     An interval job of REQ-JOBS-0001 sets each Release still PENDING once its Shift's starts_at has passed
     to EXPIRED with closed_at set.
   rule_sources: []
   rule_decisions:
-  - D-17
+  - D-179
   - D-68
 - rule_id: R6
   rule_statement: >-
@@ -55,6 +55,7 @@ requirement_rules:
   - SHEET SC-12
   rule_decisions:
   - D-17
+  - D-179
 - rule_id: R7
   rule_statement: >-
     Each accept and each decline, including a decline after accepting, sends RELEASE_ANSWERED to the User
@@ -68,7 +69,7 @@ requirement_rules:
     Release is accepted or declined on its own.
   rule_sources: []
   rule_decisions:
-  - D-20
+  - D-184
 - rule_id: R9
   rule_statement: >-
     An Agency User sees the Shift's whole headcount, their own Release's headcount, whether any other
@@ -89,9 +90,12 @@ requirement_sources:
 - SESSIONS Shift Creation
 requirement_decisions:
 - D-17
-- D-20
 - D-68
 - D-88
+- D-177
+- D-178
+- D-179
+- D-184
 requirement_features:
 - SC-8
 edges:

@@ -26,8 +26,8 @@ requirement_rules:
   - SHEET REP-7
   - GRAPH spend to date is set against the whole month's budget
   rule_decisions:
-  - D-14
-  - D-133
+  - D-172
+  - D-251
 - rule_id: R3
   rule_statement: >-
     It shows SPEND for the current month to date beside the whole prior month, and for the current Work
@@ -37,7 +37,7 @@ requirement_rules:
   - PRD §1 Detailed requirements
   - GRAPH to-date figures are compared with whole prior periods
   rule_decisions:
-  - D-133
+  - D-251
 - rule_id: R4
   rule_statement: It splits every SPEND figure into APPROVED_SPEND and PENDING_SPEND.
   rule_sources:
@@ -52,7 +52,7 @@ requirement_rules:
   - SHEET REP-7
   - PRD §1 Detailed requirements
   rule_decisions:
-  - D-42
+  - D-199
 - rule_id: R6
   rule_statement: It breaks the month's SPEND down by Position and by Unit.
   rule_sources:
@@ -71,7 +71,7 @@ requirement_rules:
   - SHEET 6.3
   - FAQ Reporting at every level
   rule_decisions:
-  - D-25
+  - D-185
 - rule_id: R9
   rule_statement: >-
     Every number is computed from current records when the dashboard opens, so a Shift's cost appears
@@ -85,11 +85,11 @@ requirement_sources:
 - SHEET 6.3
 - PRD §1 Detailed requirements
 requirement_decisions:
-- D-14
-- D-25
 - D-29
-- D-42
-- D-133
+- D-172
+- D-185
+- D-199
+- D-251
 requirement_features:
 - REP-7
 edges:

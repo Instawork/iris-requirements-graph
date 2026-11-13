@@ -44,6 +44,7 @@ requirement_sources:
 - FAQ Levy releases shifts 72 hours before doors
 requirement_decisions:
 - D-17
+- D-175
 requirement_features:
 - SC-12
 edges:
@@ -69,7 +70,7 @@ data_model:
   writes:
   - DispatchRule.*
   detail: >-
-    How several Releases share one Shift's headcount is settled when Phase 2 is scoped (D-17).
+    How several Releases share one Shift's headcount is settled when Phase 2 is scoped (D-175).
 requirement_starting_flow: false
 requirement_review:
   status: draft

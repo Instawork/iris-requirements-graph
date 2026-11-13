@@ -18,7 +18,7 @@ requirement_rules:
   rule_sources:
   - SHEET INV-11
   rule_decisions:
-  - D-46
+  - D-204
 - rule_id: R2
   rule_statement: >-
     Because clock-in is Phase 3, the User states the minutes to send back, and Iris does not compare billed
@@ -47,7 +47,7 @@ requirement_sources:
 - SHEET 5.2
 requirement_decisions:
 - D-5
-- D-46
+- D-204
 requirement_features:
 - INV-11
 edges:

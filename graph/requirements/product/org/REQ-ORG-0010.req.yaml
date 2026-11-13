@@ -23,7 +23,7 @@ requirement_rules:
   - SHEET WA-19
   - SHEET TS-9
   rule_decisions:
-  - D-16
+  - D-174
 - rule_id: R3
   rule_statement: >-
     A key the catalog scopes as program takes only a program default, and an override at an org node is
@@ -31,7 +31,7 @@ requirement_rules:
   rule_sources:
   - GRAPH a program-wide Setting has no Unit to resolve from
   rule_decisions:
-  - D-16
+  - D-174
 - rule_id: R4
   rule_statement: >-
     A value that does not fit the key's catalog type (a whole number of 0 or more, true or false, or SOFT
@@ -39,7 +39,6 @@ requirement_rules:
   rule_sources:
   - GRAPH the settings catalog gives each key a type
   rule_decisions:
-  - D-16
   - D-80
 - rule_id: R5
   rule_statement: >-
@@ -47,15 +46,15 @@ requirement_rules:
     default restores the catalog default.
   rule_sources: []
   rule_decisions:
-  - D-16
+  - D-174
 requirement_sources:
 - FAQ Settings for each sector
 - SHEET TS-9
 - SHEET WA-19
 requirement_decisions:
-- D-16
 - D-53
 - D-80
+- D-174
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

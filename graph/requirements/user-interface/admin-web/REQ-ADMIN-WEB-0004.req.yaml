@@ -17,8 +17,7 @@ requirement_rules:
   - SHEET WA-18
   rule_decisions:
   - D-26
-  - D-63
-  - D-116
+  - D-109
 - rule_id: R2
   rule_statement: >-
     Add rule takes a state, an optional city, a kind, the values that kind needs, and effective_from,
@@ -40,14 +39,13 @@ requirement_rules:
     is ended.
   rule_sources: []
   rule_decisions:
-  - D-57
+  - D-217
 requirement_sources:
 - SHEET WA-18
 requirement_decisions:
 - D-26
-- D-57
-- D-63
-- D-116
+- D-109
+- D-217
 requirement_features:
 - WA-18
 edges:

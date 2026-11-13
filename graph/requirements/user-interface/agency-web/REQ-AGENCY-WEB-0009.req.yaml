@@ -44,6 +44,7 @@ requirement_rules:
   rule_decisions:
   - D-33
   - D-70
+  - D-232
 - rule_id: R5
   rule_statement: >-
     Split by role asks for a switch time and a new Position, a new Department of the Unit, or both, calls
@@ -92,6 +93,7 @@ requirement_rules:
   - SHEET TS-12
   rule_decisions:
   - D-137
+  - D-253
 - rule_id: R11
   rule_statement: >-
     A REJECTED Timesheet shows the Unit's rejected_reason above the hours until it is submitted again.
@@ -113,21 +115,21 @@ requirement_rules:
   rule_sources:
   - PRD §2 Shift statuses
   rule_decisions:
-  - D-18
   - D-108
 requirement_sources:
 - PRD §2 Shifts
 - SHEET 4.4
 - SESSIONS Timesheets, Tips & Expenses
 requirement_decisions:
-- D-18
 - D-28
 - D-33
 - D-59
-- D-108
-- D-70
 - D-69
+- D-70
+- D-108
 - D-137
+- D-232
+- D-253
 requirement_features:
 - TS-10
 - TS-11

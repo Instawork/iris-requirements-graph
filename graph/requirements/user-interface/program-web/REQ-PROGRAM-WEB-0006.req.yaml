@@ -17,7 +17,6 @@ requirement_rules:
   - FEEDBACK Creating an agency in bulk
   rule_decisions:
   - D-9
-  - D-63
 - rule_id: R2
   rule_statement: >-
     Add Agency takes the Agency's name and a first contact's first name, last name, email, and optional
@@ -62,7 +61,6 @@ requirement_decisions:
 - D-9
 - D-25
 - D-53
-- D-63
 requirement_features:
 - RC-11
 edges:

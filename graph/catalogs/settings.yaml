@@ -17,7 +17,7 @@ settings:
   meaning: Hours after a Shift ends that an Approved Timesheet locks, and never sooner than 24 hours after its approval.
   owner: REQ-TIME-0007
   sources: [SHEET TS-9]
-  decisions: [D-16, D-13]
+  decisions: [D-16, D-13, D-171]
 - key: OFF_CONTRACT_RATE_GATE
   type: enum:GateMode
   default: SOFT
@@ -41,7 +41,7 @@ settings:
   meaning: How far above the Peer Rate, in percent, a regular Bill Rate must be to be flagged.
   owner: REQ-RATES-0008
   sources: [SHEET RC-12]
-  decisions: [D-16, D-12]
+  decisions: [D-16, D-235]
 - key: CREDENTIAL_EXPIRY_WARNING_DAYS
   type: int
   default: 30

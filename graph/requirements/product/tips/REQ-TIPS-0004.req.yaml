@@ -150,14 +150,14 @@ requirement_rules:
     earliest Shift among those neither a no-show nor locked, and to its first part if split.
   rule_sources: []
   rule_decisions:
-  - D-136
+  - D-252
 - rule_id: R19
   rule_statement: >-
     A PIN tip is refused when no CashierPin is valid for that PIN, Unit, and date, or its Worker has
     no Timesheet there on that date that is neither a no-show nor locked.
   rule_sources: []
   rule_decisions:
-  - D-136
+  - D-252
 - rule_id: R20
   rule_statement: >-
     When a Timesheet that holds a PIN tip becomes a no-show, the tip stays on it and counts as zero,
@@ -196,6 +196,7 @@ requirement_decisions:
 - D-142
 - D-143
 - D-144
+- D-252
 requirement_features:
 - TS-11
 edges:

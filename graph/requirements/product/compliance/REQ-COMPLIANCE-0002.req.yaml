@@ -47,7 +47,7 @@ requirement_rules:
   rule_sources:
   - PRD §4 How the system matches a professional
   rule_decisions:
-  - D-56
+  - D-215
 - rule_id: R6
   rule_statement: >-
     A saved Credential starts as PENDING_CHECK with uploaded_by set and file_url naming the stored document,
@@ -64,7 +64,7 @@ requirement_rules:
   - SESSIONS Worker Assignment & Compliance
   - GRAPH data model Credential.replaces_id
   rule_decisions:
-  - D-56
+  - D-213
 - rule_id: R8
   rule_statement: >-
     After upload, an Agency User cannot change a Credential; a correction or a renewal is uploaded as
@@ -72,7 +72,7 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-3
-  - D-56
+  - D-213
 - rule_id: R9
   rule_statement: >-
     A daily job of REQ-JOBS-0001, at 08:00 in the program timezone, sends CREDENTIAL_EXPIRING for each VERIFIED
@@ -83,6 +83,7 @@ requirement_rules:
   rule_decisions:
   - D-16
   - D-68
+  - D-231
   - D-156
 - rule_id: R10
   rule_statement: >-
@@ -91,7 +92,6 @@ requirement_rules:
   rule_sources:
   - SHEET WA-14
   rule_decisions:
-  - D-56
   - D-156
 - rule_id: R11
   rule_statement: >-
@@ -109,7 +109,7 @@ requirement_rules:
   rule_sources:
   - GRAPH a Credential belongs to no Unit, so it has no Unit timezone
   rule_decisions:
-  - D-68
+  - D-231
 - rule_id: R13
   rule_statement: >-
     A Credential entered on a form with its details stores its document through REQ-INTAKE-0001 and creates
@@ -117,7 +117,7 @@ requirement_rules:
   rule_sources:
   - SHEET WA-14
   rule_decisions:
-  - D-152
+  - D-254
 - rule_id: R14
   rule_statement: >-
     Only an Agency User of the Worker's Agency and a Program User may open a Credential's document, which
@@ -133,13 +133,16 @@ requirement_sources:
 - FAQ Every worker verified before the first shift
 - SESSIONS Worker Assignment & Compliance
 requirement_decisions:
-- D-67
 - D-3
 - D-16
-- D-56
+- D-67
 - D-68
 - D-152
 - D-156
+- D-213
+- D-215
+- D-231
+- D-254
 requirement_features:
 - WA-14
 edges:

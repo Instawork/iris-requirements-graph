@@ -33,8 +33,7 @@ requirement_rules:
   rule_sources:
   - SHEET SC-3
   rule_decisions:
-  - D-17
-  - D-18
+  - D-175
   - D-19
 - rule_id: R4
   rule_statement: >-
@@ -51,7 +50,7 @@ requirement_rules:
   rule_sources:
   - PRD §2 Shift statuses
   rule_decisions:
-  - D-18
+  - D-180
 - rule_id: R6
   rule_statement: >-
     A cancel calls REQ-DISPATCH-0001, which cancels the Shift's PENDING and ACCEPTED Releases, and
@@ -60,7 +59,7 @@ requirement_rules:
   rule_sources:
   - PRD §2 Shift statuses
   rule_decisions:
-  - D-18
+  - D-180
 - rule_id: R7
   rule_statement: A CANCELLED Shift cannot be edited, sent to an Agency, or staffed.
   rule_sources:
@@ -71,6 +70,7 @@ requirement_rules:
     After its ends_at a Shift cannot be edited or cancelled, and changes to the hours worked are made on
     Timesheets (C-44).
   rule_sources:
+  - SHEET TS-7
   - PRD §2 Shift statuses
   rule_decisions:
   - D-18
@@ -81,8 +81,8 @@ requirement_rules:
   rule_sources:
   - PRD §2 Shifts
   rule_decisions:
-  - D-49
-  - D-64
+  - D-205
+  - D-227
 - rule_id: R10
   rule_statement: >-
     A Shift's Unit, Position, and Department never change once it is created; a Shift booked for the
@@ -98,7 +98,7 @@ requirement_rules:
   - PRD §7 Who uses it
   - PRD §2 Shifts
   rule_decisions:
-  - D-64
+  - D-227
 - rule_id: R12
   rule_statement: >-
     Iris finds each Shift the request means among the Shifts in the User's scope that have not ended,
@@ -106,7 +106,7 @@ requirement_rules:
   rule_sources:
   - PRD §7 What the agent checks
   rule_decisions:
-  - D-64
+  - D-227
 - rule_id: R13
   rule_statement: >-
     When no Shift or several match, or the new headcount or time is missing, Iris asks under REQ-AGENT-0003
@@ -129,7 +129,7 @@ requirement_rules:
   rule_sources:
   - PRD §7 Agent Chat
   rule_decisions:
-  - D-64
+  - D-227
 - rule_id: R16
   rule_statement: >-
     When an edit is saved, REQ-ORDERING-0006 reacts to changed site instructions, REQ-ORDERING-0008 to
@@ -138,19 +138,20 @@ requirement_rules:
   - SHEET SC-6
   - PRD §2 Shift statuses
   rule_decisions:
-  - D-51
+  - D-91
 requirement_sources:
 - SHEET SC-3
 - PRD §2 Shift statuses
 - PRD §7 Who uses it
 requirement_decisions:
-- D-17
 - D-18
 - D-19
-- D-49
-- D-51
-- D-64
+- D-91
 - D-95
+- D-175
+- D-180
+- D-205
+- D-227
 requirement_features:
 - SC-3
 edges:

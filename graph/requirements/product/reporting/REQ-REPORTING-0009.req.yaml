@@ -34,6 +34,7 @@ requirement_rules:
   - SHEET RC-16
   rule_decisions:
   - D-42
+  - D-196
 - rule_id: R4
   rule_statement: >-
     Each Unit shows this month's SPEND as a percentage above or below the average of its prior full calendar
@@ -55,7 +56,7 @@ requirement_rules:
   - SHEET REP-9
   - SHEET PLT-2
   rule_decisions:
-  - D-25
+  - D-185
 - rule_id: R7
   rule_statement: >-
     Each Unit also shows how many of its Releases for work dates in the period carry a
@@ -70,11 +71,12 @@ requirement_sources:
 - SHEET 6.3
 requirement_decisions:
 - D-2
-- D-25
 - D-30
 - D-42
-- D-139
 - D-133
+- D-139
+- D-185
+- D-196
 requirement_features:
 - REP-9
 edges:

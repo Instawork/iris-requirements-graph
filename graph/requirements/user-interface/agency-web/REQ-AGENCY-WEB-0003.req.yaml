@@ -17,7 +17,7 @@ requirement_rules:
   - SHEET WA-1
   - PRD §4 Professionals
   rule_decisions:
-  - D-113
+  - D-109
 - rule_id: R3
   rule_statement: >-
     The roster filters to active or inactive Workers and by Position, and searches by name, email, or
@@ -25,8 +25,7 @@ requirement_rules:
   rule_sources:
   - SESSIONS Worker Assignment & Compliance
   - DEMO components/pros/professionals-page.tsx
-  rule_decisions:
-  - D-63
+  rule_decisions: []
 - rule_id: R4
   rule_statement: >-
     Add Worker takes a first and last name and, optionally, an email, phone, city, Positions from the
@@ -42,7 +41,7 @@ requirement_rules:
   rule_sources:
   - SHEET WA-1
   rule_decisions:
-  - D-50
+  - D-207
 - rule_id: R9
   rule_statement: >-
     Deactivate first warns that the Worker comes off Shifts that have not started, as
@@ -55,9 +54,9 @@ requirement_sources:
 - PRD §4 Professionals
 requirement_decisions:
 - D-50
-- D-63
 - D-90
-- D-113
+- D-109
+- D-207
 requirement_features:
 - WA-1
 edges:

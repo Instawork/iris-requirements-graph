@@ -29,8 +29,7 @@ requirement_rules:
   rule_statement: Both tabs filter by status, Unit, Position, and date range.
   rule_sources:
   - DEMO components/shifts/shifts-page.tsx
-  rule_decisions:
-  - D-63
+  rule_decisions: []
 - rule_id: R4
   rule_statement: >-
     Opening a Release shows the Unit's name and address, the Shift's Position, times, and planned break,
@@ -64,7 +63,7 @@ requirement_rules:
   rule_sources:
   - SHEET SC-8
   rule_decisions:
-  - D-17
+  - D-177
 - rule_id: R8
   rule_statement: >-
     A PENDING Release offers Decline, and an ACCEPTED one does until its Shift starts; Decline takes a
@@ -72,14 +71,15 @@ requirement_rules:
   rule_sources:
   - SHEET SC-8
   rule_decisions:
-  - D-17
+  - D-177
+  - D-178
 - rule_id: R9
   rule_statement: >-
     Before an ACCEPTED Release is declined, the page says how many ASSIGNED Workers will come off the
     Shift and asks the Agency User to confirm.
   rule_sources: []
   rule_decisions:
-  - D-17
+  - D-178
 - rule_id: R10
   rule_statement: >-
     The Agency User can select several PENDING Releases, such as those of one chained block, and accept
@@ -87,7 +87,7 @@ requirement_rules:
   rule_sources:
   - SHEET SC-4
   rule_decisions:
-  - D-20
+  - D-184
 - rule_id: R11
   rule_statement: >-
     A DECLINED, WITHDRAWN, CANCELLED, or EXPIRED Release stays in the list under its status, with its
@@ -95,7 +95,7 @@ requirement_rules:
   rule_sources:
   - SHEET SC-8
   rule_decisions:
-  - D-17
+  - D-179
 - rule_id: R14
   rule_statement: >-
     The CSV download of the Releases list, through REQ-SHELL-0010, carries each Shift's id in a shift_id
@@ -108,11 +108,12 @@ requirement_sources:
 - SHEET SC-6
 - PRD §2 Shifts
 requirement_decisions:
-- D-17
-- D-20
-- D-63
 - D-88
 - D-109
+- D-177
+- D-178
+- D-179
+- D-184
 requirement_features:
 - SC-6
 - SC-8

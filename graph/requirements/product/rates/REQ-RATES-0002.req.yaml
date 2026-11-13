@@ -86,12 +86,12 @@ requirement_rules:
   rule_sources:
   - SHEET RC-5
   rule_decisions:
-  - D-55
+  - D-210
 requirement_sources:
 - SHEET RC-4
 - PRD §6 Templates
 - SESSIONS Rate Cards & Supplier Sourcing
-requirement_decisions: [D-1, D-10, D-11, D-21, D-54, D-55, D-79]
+requirement_decisions: [D-1, D-10, D-11, D-21, D-54, D-79, D-210]
 requirement_features:
 - RC-4
 edges:

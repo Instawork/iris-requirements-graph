@@ -18,7 +18,7 @@ requirement_rules:
   - SHEET RC-12
   rule_decisions:
   - D-12
-  - D-85
+  - D-235
 - rule_id: R2
   rule_statement: >-
     A line with no other Agency's line to compare with has no Peer Rate, and a Unit Rate Line has none.
@@ -33,7 +33,7 @@ requirement_rules:
   - SHEET RC-12
   rule_decisions:
   - D-16
-  - D-85
+  - D-235
 - rule_id: R4
   rule_statement: >-
     The same comparison is made for any regular Bill Rate, Agency, Position, and Market, so the rate on
@@ -102,11 +102,11 @@ requirement_rules:
   rule_sources:
   - GRAPH a Rate Line belongs to no Unit, so it has no Unit timezone
   rule_decisions:
-  - D-68
+  - D-231
 requirement_sources:
 - SHEET RC-12
 - SESSIONS Invoicing & Accruals
-requirement_decisions: [D-2, D-10, D-12, D-16, D-68, D-85]
+requirement_decisions: [D-2, D-10, D-12, D-16, D-85, D-231, D-235]
 requirement_features:
 - RC-12
 edges:

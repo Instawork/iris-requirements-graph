@@ -23,7 +23,6 @@ requirement_rules:
   rule_sources:
   - SHEET REP-2
   rule_decisions:
-  - D-17
   - D-44
 - rule_id: R3
   rule_statement: >-
@@ -67,7 +66,6 @@ requirement_sources:
 - SHEET REP-2
 - SHEET 6.1
 requirement_decisions:
-- D-17
 - D-29
 - D-44
 requirement_features:

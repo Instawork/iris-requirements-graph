@@ -39,7 +39,7 @@ requirement_rules:
     Before the Program User confirms, the page says the decision is final and cannot be changed later.
   rule_sources: []
   rule_decisions:
-  - D-56
+  - D-213
 - rule_id: R5
   rule_statement: >-
     An Attestations tab lists every Attestation, including replaced ones, with Worker, Agency, Credential
@@ -55,8 +55,7 @@ requirement_rules:
   rule_sources:
   - SHEET WA-16
   rule_decisions:
-  - D-56
-  - D-63
+  - D-214
 - rule_id: R7
   rule_statement: >-
     The Attestations tab offers no way to add, change, or remove an Attestation.
@@ -69,9 +68,9 @@ requirement_sources:
 - SHEET WA-16
 requirement_decisions:
 - D-3
-- D-56
-- D-63
 - D-66
+- D-213
+- D-214
 requirement_features:
 - WA-15
 - WA-16

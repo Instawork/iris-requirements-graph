@@ -16,7 +16,8 @@ requirement_rules:
   rule_sources:
   - SHEET REP-8
   rule_decisions:
-  - D-14
+  - D-173
+  - D-172
 - rule_id: R2
   rule_statement: >-
     A Budget belongs to one Unit, and Department budgets are not part of MVP.
@@ -31,7 +32,7 @@ requirement_rules:
   rule_sources:
   - PRD §7 What the agent checks
   rule_decisions:
-  - D-14
+  - D-172
   - D-54
 - rule_id: R4
   rule_statement: >-
@@ -40,14 +41,14 @@ requirement_rules:
   rule_sources:
   - 'GRAPH data model: a Unit''s Budgets never overlap in dates'
   rule_decisions:
-  - D-14
+  - D-172
 - rule_id: R5
   rule_statement: >-
     A row with the same Unit and dates as a saved Budget is proposed as an update to its amount.
   rule_sources:
   - GRAPH a second upload corrects a Budget
   rule_decisions:
-  - D-14
+  - D-138
 - rule_id: R6
   rule_statement: >-
     No BUDGETS row is saved until the Program User approves the Proposal, and each accepted row is saved
@@ -64,7 +65,7 @@ requirement_rules:
   - SHEET REP-7
   - GRAPH proration, because each Budget carries its own dates
   rule_decisions:
-  - D-14
+  - D-172
   - D-77
 - rule_id: R8
   rule_statement: >-
@@ -72,13 +73,16 @@ requirement_rules:
   rule_sources:
   - GRAPH no Budget is different from a Budget of zero
   rule_decisions:
-  - D-14
+  - D-172
 requirement_sources:
 - SHEET REP-8
 requirement_decisions:
 - D-14
 - D-54
 - D-77
+- D-138
+- D-172
+- D-173
 requirement_features:
 - REP-8
 edges:

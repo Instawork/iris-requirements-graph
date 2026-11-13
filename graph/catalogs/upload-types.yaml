@@ -54,7 +54,7 @@ upload_types:
   uploaders: [UNIT_USER, AGENCY_USER]
   owner: REQ-ORDERING-0014
   sources: [SHEET SC-2, SHEET SC-6, PRD §6 Templates]
-  decisions: [D-49]
+  decisions: [D-49, D-205, D-206]
   identified_by:
   - [shift_id]
   - [unit, position, date, start_time, end_time]
@@ -121,7 +121,7 @@ upload_types:
   uploaders: [AGENCY_USER]
   owner: REQ-TIPS-0002
   sources: [SHEET TS-12, 'SESSIONS Timesheets, Tips & Expenses']
-  decisions: [D-71]
+  decisions: [D-71, D-234]
   columns:
   - {column: shift_id, kind: text, required: 'unless unit, date, and position identify the Shift', maps_to: Expense.timesheet_id}
   - {column: unit, kind: text, required: 'no', maps_to: Expense.timesheet_id, lookup: Unit name}
@@ -191,7 +191,7 @@ upload_types:
   uploaders: [PROGRAM_USER]
   owner: REQ-REPORTING-0007
   sources: [SHEET REP-8]
-  decisions: [D-14]
+  decisions: [D-14, D-172, D-173]
   columns:
   - {column: unit, kind: text, required: 'yes', maps_to: Budget.unit_id, lookup: Unit name}
   - {column: period_start, kind: date, required: 'yes', maps_to: Budget.period_start}
