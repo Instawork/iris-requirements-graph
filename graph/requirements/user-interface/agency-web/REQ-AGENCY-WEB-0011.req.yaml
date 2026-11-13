@@ -57,8 +57,8 @@ requirement_rules:
 - rule_id: R6
   rule_statement: >-
     Credentials to renew counts the Credentials of the Agency's active Workers that need action under
-    REQ-COMPLIANCE-0002, shows the earliest expiry date among them, and opens the Workers screen of REQ-AGENCY-WEB-0003
-    filtered to those Workers.
+    REQ-COMPLIANCE-0002, shows the earliest expiry date among them, and opens the roster filtered to
+    those Workers, as REQ-AGENCY-WEB-0007.R13 adds.
   rule_sources:
   - SHEET WA-14
   - PRD §1 Who sees what
@@ -138,6 +138,8 @@ edges:
   requirement_id: REQ-ORG-0006
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCY-WEB-0007
 data_model:
   status: covered
   reads:

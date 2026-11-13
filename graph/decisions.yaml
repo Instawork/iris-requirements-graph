@@ -220,9 +220,10 @@ decisions:
     total. A new Release can be sent until the Shift starts; after that, headcount can only be added to
     an accepted Release. More headcount sent to an Agency already holding the Shift is added to its
     Release, which keeps its status and rates. An Agency answers for the whole Release, gives a reason
-    to decline, and may decline an accepted Release until the Shift starts. The Unit may withdraw a
-    pending Release, and one still pending at the Shift's start expires. Headcount that is declined,
-    given back, withdrawn, or expired can be sent again. Automatic multi-Agency dispatch is Phase 2.
+    to decline, and may decline an accepted Release until the Shift starts, which takes its assigned
+    Workers off the Shift. The Unit may withdraw a pending Release, and one still pending at the Shift's
+    start expires. Headcount that is declined, given back, withdrawn, or expired can be sent again.
+    Automatic multi-Agency dispatch is Phase 2.
   blocking: false
   answer_from: COMPASS_OPERATIONS
   answer: null
@@ -274,7 +275,8 @@ decisions:
     in seven-day spans from each line's first date. A change applies to one Shift, or to every Shift of
     the same line that has not started. A chained block is such a recurring Request and nothing more in
     MVP: Iris stores no block flag, each Shift gets its own Release, the Shifts can be sent together
-    and answered one by one or several at once, and the Agency may assign different Workers to each.
+    with each Release saved on its own so that one refused Shift stops no other, they are answered one
+    by one or several at once, and the Agency may assign different Workers to each.
   blocking: false
   answer_from: COMPASS_OPERATIONS
   answer: null
@@ -680,7 +682,9 @@ decisions:
   status: open
   assumption: >-
     Nothing extra is stored. When a message leaves out the times, Department, or Agency for a Position,
-    Iris fills them from the Unit's most recent Shift for that Position and shows what it filled.
+    Iris fills them from the Shift most recently created at the Unit for that Position that was not
+    cancelled, fills the Agency only when every Release of that Shift went to one Agency, and shows what
+    it filled.
   blocking: false
   answer_from: INSTAWORK_PRODUCT
   answer: null
@@ -1271,15 +1275,12 @@ decisions:
   - GRAPH a User may hold a Program User and an Agency User grant, and rules such as Rate Line approval differ by role
 - decision_id: D-83
   origin: graph
-  question: >-
-    May a User hold several Role Grants, what happens when a grant is given twice, and who grants Program
-    User when no active Program User is left?
+  question: When may an Instawork Admin invite a Program User?
   status: open
   assumption: >-
-    A User may hold any number of Role Grants. A grant that repeats an unrevoked role and scope is
-    refused. Granting a revoked role and scope again restores the old grant and records who restored it.
-    An Instawork Admin may grant Program User whenever no active User holds an unrevoked Program User
-    grant, so the program is never locked out when its last Program User is deactivated.
+    Whenever no active User who has accepted their invite holds an unrevoked Program User grant. Until
+    one does, the Instawork Admin sees the Program Users they invited and may send an invite again or
+    revoke it, so neither a mistyped email nor the loss of the last Program User locks the program out.
   blocking: false
   answer_from: INSTAWORK_PRODUCT
   answer: null
@@ -1389,8 +1390,8 @@ decisions:
   question: What happens to a Worker's upcoming Assignments when their Agency makes them inactive?
   status: open
   assumption: >-
-    They come off every Shift that has not started, as when a Unit blocks them (D-51), and the User
-    who created the Request is told. Assignments on Shifts that have started stay.
+    They come off every Shift that has not started, as when a Unit blocks them (D-51), and the Unit
+    Users over each Shift's Unit are told. Assignments on Shifts that have started stay.
   blocking: false
   answer_from: INSTAWORK_PRODUCT
   answer: null
@@ -1673,16 +1674,12 @@ decisions:
   - GRAPH platform requirements may depend only on platform requirements
 - decision_id: D-108
   origin: graph
-  question: >-
-    In which order are a role's menu, Home, and screens built, and what does a User see before every
-    screen exists?
+  question: How can the first slice be used before every screen and feature exists?
   status: open
   assumption: >-
-    Each role's menu and Home page are one requirement, built before that role's other screens. A menu
-    shows an item once the screen it opens is delivered. Home holds the sections other requirements add
-    to it, and says there is nothing to do when none has anything to show. Where a screen built earlier
-    leads to one built later, such as a tab, a link, or a menu item, the later screen's requirement adds
-    it. So the first slice can be used end to end before the other screens exist.
+    Each role's menu and Home page are one requirement, built before that role's other screens. Whatever
+    a screen built earlier shows of a feature built later, such as a menu item, a tab, a link, a Home
+    section, a field, or an upload button, is added by the later requirement.
   blocking: false
   answer_from: INSTAWORK_ENGINEERING
   answer: null
@@ -2073,3 +2070,44 @@ decisions:
   sources:
   - SHEET REP-9
   - SHEET 6.3
+- decision_id: D-160
+  origin: graph
+  question: Who at a Unit is told when a Worker is assigned to a Shift or comes off it?
+  status: open
+  assumption: >-
+    Every active Unit User whose scope covers the Shift's Unit, not only the User who created the
+    Request, who may be away or deactivated.
+  blocking: false
+  answer_from: COMPASS_OPERATIONS
+  answer: null
+  sources:
+  - PRD §2 Shifts
+  - SHEET PLT-1
+- decision_id: D-161
+  origin: graph
+  question: What happens when a User is granted a role and scope they already hold, or held before?
+  status: open
+  assumption: >-
+    A User may hold any number of Role Grants. One that repeats an unrevoked role and scope is refused,
+    and granting a revoked one again restores the old grant and records who restored it.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - SHEET PLT-1
+  - SHEET PLT-4
+- decision_id: D-162
+  origin: graph
+  question: >-
+    What may a request do when it has no acting context: a new session, an inbound message, or a timed
+    job?
+  status: open
+  assumption: >-
+    A session with no context yet may only list the User's contexts, choose one, and sign out. A request
+    with no session carries the context that the requirement handling it supplies, and a timed job acts
+    as SYSTEM and is not checked.
+  blocking: false
+  answer_from: INSTAWORK_ENGINEERING
+  answer: null
+  sources:
+  - GRAPH a new Session has no context, and a message or a job has no Session

@@ -1,0 +1,48 @@
+requirement_id: REQ-AGENCY-WEB-0012
+requirement_target_layer: user-interface
+requirement_target_module: AGENCY-WEB
+requirement_phase: MVP
+requirement_title: Upload Worker assignments from the Shifts screen
+requirement_statement: >-
+  From the Shifts screen an Agency User uploads a SHIFTS file that names the Workers to assign to the
+  Shifts released to their Agency.
+requirement_actors:
+- AGENCY_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    This requirement adds Upload assignments to the Shifts screen of REQ-AGENCY-WEB-0002, which opens
+    the Uploads send step of REQ-SHELL-0008 with SHIFTS picked, and REQ-ORDERING-0014 assigns the
+    Workers its accepted rows name.
+  rule_sources:
+  - PRD §6 Templates
+  - PRD §7 Who uses it
+  rule_decisions:
+  - D-108
+requirement_sources:
+- PRD §6 Templates
+- PRD §7 Who uses it
+requirement_decisions:
+- D-108
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCY-WEB-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0014
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: Opens the Uploads send step. It shows no record of its own.
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

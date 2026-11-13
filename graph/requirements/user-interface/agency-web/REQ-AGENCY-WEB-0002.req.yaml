@@ -96,26 +96,10 @@ requirement_rules:
   - SHEET SC-8
   rule_decisions:
   - D-17
-- rule_id: R12
-  rule_statement: >-
-    A PENDING or ACCEPTED Release lists the Workers the Unit requested by name, and each REQUESTED one
-    offers Mark unavailable, which takes a reason and calls REQ-WORKFORCE-0004.
-  rule_sources:
-  - SHEET WA-2
-  rule_decisions:
-  - D-52
-- rule_id: R13
-  rule_statement: >-
-    Upload assignments opens the Uploads send step of REQ-SHELL-0008 with SHIFTS picked, and REQ-ORDERING-0014
-    assigns the Workers its accepted rows name.
-  rule_sources:
-  - PRD §6 Templates
-  - PRD §7 Who uses it
-  rule_decisions: []
 - rule_id: R14
   rule_statement: >-
-    The CSV download of the Releases list, through REQ-SHELL-0010, carries each Shift's shift_id as REQ-ORDERING-0014.R14
-    requires, so the Agency can name Workers on its rows and send them back.
+    The CSV download of the Releases list, through REQ-SHELL-0010, carries each Shift's id in a shift_id
+    column.
   rule_sources:
   - PRD §6 Templates
   rule_decisions: []
@@ -126,21 +110,17 @@ requirement_sources:
 requirement_decisions:
 - D-17
 - D-20
-- D-52
 - D-63
 - D-88
 - D-109
 requirement_features:
 - SC-6
 - SC-8
-- WA-2
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AGENCY-WEB-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0009
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-SHELL-0008
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0010
 - edge_type: DEPENDS_ON
@@ -150,11 +130,7 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORDERING-0006
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-ORDERING-0014
-- edge_type: DEPENDS_ON
   requirement_id: REQ-WORKFORCE-0003
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-WORKFORCE-0004
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0009
 - edge_type: DEPENDS_ON
@@ -194,12 +170,6 @@ data_model:
   - Position.name
   - Assignment.release_id
   - Assignment.status
-  - WorkerRequest.shift_id
-  - WorkerRequest.worker_id
-  - WorkerRequest.status
-  - WorkerRequest.unavailable_reason
-  - Worker.first_name
-  - Worker.last_name
   writes: []
   detail: null
 requirement_starting_flow: true

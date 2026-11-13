@@ -63,12 +63,30 @@ requirement_rules:
   - SHEET PLT-2
   rule_decisions:
   - D-53
+- rule_id: R8
+  rule_statement: >-
+    This requirement adds Start from template to the booking form of REQ-UNIT-WEB-0002, which lists the
+    Unit's Request templates and, for the one picked and a date, fills the lines through
+    REQ-ORDERING-0007.
+  rule_sources:
+  - SHEET SC-11
+  rule_decisions:
+  - D-108
+- rule_id: R9
+  rule_statement: >-
+    On that form, picking a Position that has a default Department at the Unit fills the Department in.
+  rule_sources:
+  - SHEET SC-11
+  - FEEDBACK Departments within venues
+  rule_decisions:
+  - D-108
 requirement_sources:
 - SHEET SC-11
 - SHEET SC-6
 requirement_decisions:
 - D-53
 - D-65
+- D-108
 requirement_features:
 - SC-11
 edges:

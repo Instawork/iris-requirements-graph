@@ -1,0 +1,46 @@
+requirement_id: REQ-UNIT-WEB-0020
+requirement_target_layer: user-interface
+requirement_target_module: UNIT-WEB
+requirement_phase: MVP
+requirement_title: Flag a Bill Rate above its peers in the send step
+requirement_statement: >-
+  In the send step a Unit User sees when the Bill Rate about to be sent is above the Peer Rate.
+requirement_actors:
+- UNIT_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    This requirement adds a flag to the send step of REQ-UNIT-WEB-0009 on a regular Bill Rate that
+    REQ-RATES-0008 judges to be above the Peer Rate.
+  rule_sources:
+  - SHEET 1.4
+  - SHEET RC-12
+  rule_decisions:
+  - D-12
+  - D-108
+requirement_sources:
+- SHEET 1.4
+- SHEET RC-12
+requirement_decisions:
+- D-12
+- D-108
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-UNIT-WEB-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0008
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: Shows the answer of REQ-RATES-0008.R4. It reads no record of its own.
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

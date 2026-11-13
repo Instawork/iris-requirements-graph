@@ -38,10 +38,20 @@ requirement_rules:
   - 'GRAPH data model: BadgeRequest records who issued or revoked it'
   rule_decisions:
   - D-27
+- rule_id: R5
+  rule_statement: >-
+    At a secured Unit, this requirement adds each ASSIGNED Worker's BadgeRequest status to the Shift's
+    page of REQ-UNIT-WEB-0008.
+  rule_sources:
+  - SHEET WA-17
+  rule_decisions:
+  - D-27
+  - D-108
 requirement_sources:
 - SHEET WA-17
 requirement_decisions:
 - D-27
+- D-108
 - D-114
 requirement_features:
 - WA-17
@@ -50,6 +60,8 @@ edges:
   requirement_id: REQ-UNIT-WEB-0004
 - edge_type: DEPENDS_ON
   requirement_id: REQ-COMPLIANCE-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-UNIT-WEB-0008
 data_model:
   status: covered
   reads:
@@ -63,6 +75,8 @@ data_model:
   - OrgNode.name
   - User.first_name
   - User.last_name
+  - Assignment.worker_id
+  - Assignment.status
   writes: []
   detail: null
 requirement_starting_flow: false

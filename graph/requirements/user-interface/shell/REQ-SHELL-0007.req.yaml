@@ -72,7 +72,7 @@ data_model:
   - Notification.read_at
   writes: []
   detail: null
-requirement_starting_flow: false
+requirement_starting_flow: true
 requirement_review:
   status: draft
   by: null

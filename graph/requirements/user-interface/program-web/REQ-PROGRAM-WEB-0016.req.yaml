@@ -1,0 +1,57 @@
+requirement_id: REQ-PROGRAM-WEB-0016
+requirement_target_layer: user-interface
+requirement_target_module: PROGRAM-WEB
+requirement_phase: MVP
+requirement_title: Upload a rate card from the Rates screen
+requirement_statement: >-
+  From the Rates screen a Program User uploads a RATE_CARD file to enter many Rate Lines for any Agency
+  at once.
+requirement_actors:
+- PROGRAM_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    This requirement adds Upload rates to the Rates screen of REQ-PROGRAM-WEB-0003, which opens the
+    Uploads send step of REQ-SHELL-0008 with RATE_CARD picked.
+  rule_sources:
+  - SHEET RC-4
+  - FEEDBACK Rate Cards needs to be its own CRM
+  rule_decisions:
+  - D-108
+- rule_id: R2
+  rule_statement: >-
+    The rows name the Agency, and REQ-RATES-0002 saves each accepted row as an APPROVED line.
+  rule_sources:
+  - SHEET RC-4
+  - FEEDBACK Rate Cards needs to be its own CRM
+  rule_decisions:
+  - D-10
+requirement_sources:
+- SHEET RC-4
+- FEEDBACK Rate Cards needs to be its own CRM
+requirement_decisions:
+- D-10
+- D-108
+requirement_features:
+- RC-4
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-PROGRAM-WEB-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0002
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: Opens the Uploads send step. It shows no record of its own.
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

@@ -2,10 +2,10 @@ requirement_id: REQ-UNIT-WEB-0009
 requirement_target_layer: user-interface
 requirement_target_module: UNIT-WEB
 requirement_phase: MVP
-requirement_title: Pick an Agency, a rate, and Workers in one send step
+requirement_title: Pick an Agency and a rate in one send step
 requirement_statement: >-
   Wherever a Unit User sends a Shift, one step lists the Agencies with their contracted rates and takes
-  the headcount and any other rate with a reason. In the same step they can request Workers by name.
+  the headcount and any other rate with a reason.
 requirement_actors:
 - UNIT_USER
 requirement_rules:
@@ -51,30 +51,11 @@ requirement_rules:
   - SHEET RC-11
   rule_decisions:
   - D-16
-- rule_id: R6
-  rule_statement: >-
-    The step flags a regular Bill Rate that REQ-RATES-0008 judges to be above the Peer Rate.
-  rule_sources:
-  - SHEET 1.4
-  - SHEET RC-12
-  rule_decisions:
-  - D-12
-- rule_id: R7
-  rule_statement: >-
-    Request Workers by name lists the picked Agency's active Workers, those the Unit rated FAVORITE first,
-    and leaves out Workers the Unit rated BLOCK.
-  rule_sources:
-  - SHEET WA-2
-  - FEEDBACK a single agency, then request worker as a nested feature
-  rule_decisions:
-  - D-52
 - rule_id: R8
   rule_statement: >-
-    Send calls REQ-DISPATCH-0001 for the Release and then REQ-WORKFORCE-0004 for each Worker named, and
-    a refused send saves neither.
+    Send calls REQ-DISPATCH-0001 for the Release, and a refused send saves nothing.
   rule_sources:
   - SHEET SC-7
-  - SHEET WA-2
   rule_decisions: []
 - rule_id: R9
   rule_statement: >-
@@ -84,14 +65,6 @@ requirement_rules:
   - SHEET SC-5
   rule_decisions:
   - D-17
-- rule_id: R10
-  rule_statement: >-
-    For a series, one step sends every chosen Shift of the Request to the Agency and then lists any Shift
-    whose send was refused.
-  rule_sources:
-  - SHEET SC-4
-  rule_decisions:
-  - D-20
 - rule_id: R11
   rule_statement: >-
     Once the Shift has started, the step offers only Agencies that hold an ACCEPTED Release on it.
@@ -111,22 +84,17 @@ requirement_rules:
 requirement_sources:
 - SHEET SC-1
 - SHEET SC-7
-- SHEET WA-2
 - FEEDBACK a single agency, then request worker as a nested feature
 requirement_decisions:
 - D-9
-- D-12
 - D-16
 - D-17
 - D-18
-- D-20
 - D-24
-- D-52
 - D-111
 requirement_features:
 - SC-1
 - SC-7
-- WA-2
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-UNIT-WEB-0001
@@ -138,12 +106,6 @@ edges:
   requirement_id: REQ-DISPATCH-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-RATES-0007
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-RATES-0008
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-WORKFORCE-0004
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-WORKFORCE-0005
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AGENCIES-0002
 data_model:
@@ -163,17 +125,6 @@ data_model:
   - Release.regular_bill_rate
   - Shift.headcount
   - Shift.starts_at
-  - Worker.first_name
-  - Worker.last_name
-  - Worker.photo_url
-  - Worker.agency_id
-  - Worker.active
-  - WorkerRating.unit_id
-  - WorkerRating.worker_id
-  - WorkerRating.rating
-  - WorkerRequest.shift_id
-  - WorkerRequest.worker_id
-  - WorkerRequest.status
   writes: []
   detail: null
 requirement_starting_flow: true

@@ -46,11 +46,12 @@ requirement_rules:
   - D-25
 - rule_id: R5
   rule_statement: >-
-    An Instawork Admin acts only on reference data (Positions, Markets, Market ZIP codes, and labor rules)
-    and on granting a Program User when REQ-ORG-0005 allows it.
+    An Instawork Admin acts only on reference data (Positions, Markets, Market ZIP codes, and labor
+    rules) and on the Program User grants and invites REQ-ORG-0005 allows them.
   rule_sources: []
   rule_decisions:
   - D-26
+  - D-83
 - rule_id: R6
   rule_statement: >-
     A revoked Role Grant allows nothing, and no grant of an inactive User allows anything.
@@ -96,6 +97,30 @@ requirement_rules:
   - SHEET PLT-1
   rule_decisions:
   - D-82
+- rule_id: R12
+  rule_statement: >-
+    A session with no acting context yet may only list the contexts the User's unrevoked grants give,
+    set one under R10, and sign out.
+  rule_sources:
+  - GRAPH a new session has no context until the User chooses one
+  rule_decisions:
+  - D-162
+- rule_id: R13
+  rule_statement: >-
+    A request with no session, such as an inbound message, is checked against the acting context that
+    the requirement handling it supplies.
+  rule_sources:
+  - GRAPH a message has no session to carry a context
+  rule_decisions:
+  - D-82
+  - D-162
+- rule_id: R14
+  rule_statement: >-
+    A timed job acts as SYSTEM for no User, so this requirement does not check it.
+  rule_sources:
+  - GRAPH a job runs with no User
+  rule_decisions:
+  - D-162
 requirement_sources:
 - SHEET PLT-1
 - PRD §1 Who sees what
@@ -103,6 +128,8 @@ requirement_decisions:
 - D-25
 - D-26
 - D-82
+- D-83
+- D-162
 requirement_features:
 - PLT-1
 edges:

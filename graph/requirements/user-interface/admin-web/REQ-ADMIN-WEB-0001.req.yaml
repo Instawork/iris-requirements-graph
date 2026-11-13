@@ -27,15 +27,23 @@ requirement_rules:
   - D-68
 - rule_id: R3
   rule_statement: >-
-    While no active User holds an unrevoked PROGRAM_USER grant, Home offers Invite the first Program User,
-    which embeds the invite form of REQ-PROGRAM-WEB-0007 with the role fixed to PROGRAM_USER.
+    While REQ-ORG-0005.R6 allows a grant, Home offers Invite a Program User, which embeds the invite
+    form of REQ-PROGRAM-WEB-0007 with the role fixed to PROGRAM_USER.
   rule_sources: []
   rule_decisions:
   - D-26
   - D-83
 - rule_id: R4
   rule_statement: >-
-    Once an active Program User exists, Home says so and no longer offers the invite.
+    Below the invite, Home lists each User REQ-ORG-0005.R16 lets the Instawork Admin see, with their
+    name, email, and invite date, and offers Send invite again and Revoke under REQ-ORG-0005.R15.
+  rule_sources: []
+  rule_decisions:
+  - D-83
+- rule_id: R5
+  rule_statement: >-
+    While REQ-ORG-0005.R6 refuses a grant, Home says a Program User is in place and offers neither the
+    invite nor that list.
   rule_sources: []
   rule_decisions:
   - D-26
@@ -74,6 +82,11 @@ data_model:
   - RoleGrant.revoked_at
   - RoleGrant.user_id
   - User.active
+  - User.invite_accepted_at
+  - User.invited_at
+  - User.email
+  - User.first_name
+  - User.last_name
   writes: []
   detail: null
 requirement_starting_flow: true

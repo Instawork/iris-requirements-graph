@@ -93,8 +93,6 @@ edges:
   requirement_id: REQ-CATALOG-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0009
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-WORKFORCE-0016
 data_model:
   status: covered
   reads:
@@ -106,7 +104,7 @@ data_model:
   - Position.name
   writes: []
   detail: null
-requirement_starting_flow: true
+requirement_starting_flow: false
 requirement_review:
   status: draft
   by: null

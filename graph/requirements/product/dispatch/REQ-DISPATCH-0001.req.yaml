@@ -121,8 +121,8 @@ requirement_rules:
   - D-17
 - rule_id: R15
   rule_statement: >-
-    Several Shifts of one Request, such as a block, can be sent to one Agency in one step, which creates
-    one Release for each Shift.
+    Several Shifts of one Request, such as a block, can be sent to one Agency in one step, and each
+    Shift's Release is saved on its own, so a refused Shift stops no other.
   rule_sources:
   - SHEET SC-4
   rule_decisions:
@@ -134,22 +134,18 @@ requirement_rules:
   rule_sources:
   - PRD §7 After the user approves
   rule_decisions: []
-- rule_id: R17
-  rule_statement: >-
-    Before a Release is sent, the Unit User sees whether its regular Bill Rate is above the Peer Rate, as
-    REQ-RATES-0008 judges it.
-  rule_sources:
-  - SHEET 1.4
-  - SHEET RC-12
-  rule_decisions:
-  - D-12
 requirement_sources:
 - SHEET SC-7
 - SHEET SC-1
 - PRD Data Model
 - FEEDBACK a single agency, then request worker as a nested feature
 - SESSIONS Worker Assignment & Compliance
-requirement_decisions: [D-9, D-12, D-17, D-18, D-20, D-24]
+requirement_decisions:
+- D-9
+- D-17
+- D-18
+- D-20
+- D-24
 requirement_features:
 - SC-7
 - SC-1
@@ -162,8 +158,6 @@ edges:
   requirement_id: REQ-RATES-0005
 - edge_type: DEPENDS_ON
   requirement_id: REQ-RATES-0007
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-RATES-0008
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0005
 - edge_type: DEPENDS_ON

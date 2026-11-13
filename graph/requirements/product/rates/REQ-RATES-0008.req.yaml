@@ -132,7 +132,7 @@ data_model:
   writes:
   - RateReview.*
   detail: null
-requirement_starting_flow: true
+requirement_starting_flow: false
 requirement_review:
   status: draft
   by: null

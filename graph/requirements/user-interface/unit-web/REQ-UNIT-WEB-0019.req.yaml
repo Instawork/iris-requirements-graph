@@ -1,0 +1,46 @@
+requirement_id: REQ-UNIT-WEB-0019
+requirement_target_layer: user-interface
+requirement_target_module: UNIT-WEB
+requirement_phase: MVP
+requirement_title: Upload a Shifts file from the Shifts list
+requirement_statement: >-
+  From the Shifts list a Unit User uploads a SHIFTS file to create or change many Shifts at once.
+requirement_actors:
+- UNIT_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    This requirement adds Upload Shifts to the Shifts list of REQ-UNIT-WEB-0007, which opens the Uploads
+    send step of REQ-SHELL-0008 with SHIFTS picked, whose rows REQ-ORDERING-0014 checks and saves.
+  rule_sources:
+  - PRD §2 Shifts
+  - PRD §6 Templates
+  rule_decisions:
+  - D-108
+requirement_sources:
+- PRD §2 Shifts
+- PRD §6 Templates
+requirement_decisions:
+- D-108
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-UNIT-WEB-0007
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-SHELL-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0014
+data_model:
+  status: not_applicable
+  reads: []
+  writes: []
+  detail: Opens the Uploads send step. It shows no record of its own.
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

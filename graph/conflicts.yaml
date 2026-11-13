@@ -209,3 +209,16 @@ conflicts:
     Five columns, parking, entrance, directions, site_contact, and attire, one for each structured site
     instruction field (sheet SC-6).
   drop: One free-text instructions column on the Shift template (PRD).
+- conflict_id: C-44
+  topic: Shift times after the Shift ends
+  keep: >-
+    A Shift's scheduled times are fixed once it ends. Hours are corrected on the Timesheet, which is
+    auto-approved against the schedule (sheet TS-7; D-18).
+  drop: Buyer and Supplier can change shift times while the shift is Worked or Confirming hours (PRD).
+- conflict_id: C-45
+  topic: Cancelling a Shift by file
+  keep: >-
+    A SHIFTS file creates and changes Shifts and assigns Workers, as the PRD's own Shift template does,
+    which has no column that cancels. A Shift is cancelled on its page, by a typed request, or by a
+    message (D-49).
+  drop: The Buyer cancels shifts by CSV (PRD, who sees what on Shifts).

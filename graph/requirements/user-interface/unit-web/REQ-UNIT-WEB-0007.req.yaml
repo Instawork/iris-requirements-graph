@@ -4,8 +4,8 @@ requirement_target_module: UNIT-WEB
 requirement_phase: MVP
 requirement_title: List the Unit's Shifts by date
 requirement_statement: >-
-  A Unit User sees the Shifts of the Units in their scope grouped by date, with how much of each is filled
-  and by which Agencies. From the list they book, upload, or open a Shift.
+  A Unit User sees the Shifts of the Units in their scope grouped by date, with how much of each is
+  filled and by which Agencies. From the list they book a Request or open a Shift.
 requirement_actors:
 - UNIT_USER
 requirement_rules:
@@ -19,8 +19,8 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    Each row shows the Position, Unit, Department, Event, start and end, ASSIGNED Workers over headcount,
-    the Agencies holding a PENDING or ACCEPTED Release, and the status, and opens the Shift's page of
+    Each row shows the Position, Unit, Department, start and end, ASSIGNED Workers over headcount, the
+    Agencies holding a PENDING or ACCEPTED Release, and the status, and opens the Shift's page of
     REQ-UNIT-WEB-0008.
   rule_sources:
   - PRD §2 Shifts
@@ -34,30 +34,20 @@ requirement_rules:
   - D-17
 - rule_id: R4
   rule_statement: >-
-    The list filters by Unit, date range, Position, Agency, Event, status, and Shifts with unsent headcount.
+    The list filters by Unit, date range, Position, Agency, status, and Shifts with unsent headcount.
   rule_sources:
   - DEMO components/shifts/shifts-page.tsx
   rule_decisions:
   - D-63
-- rule_id: R5
-  rule_statement: >-
-    Shifts of one recurring Request line are marked as a series.
-  rule_sources:
-  - SHEET SC-4
-  rule_decisions:
-  - D-20
 - rule_id: R6
   rule_statement: >-
-    New Shift opens the booking form of REQ-UNIT-WEB-0002, and Upload Shifts opens the Uploads send step
-    of REQ-SHELL-0008 with SHIFTS picked, whose rows REQ-ORDERING-0014 checks and saves.
+    New Shift opens the booking form of REQ-UNIT-WEB-0002.
   rule_sources:
   - PRD §2 Shifts
-  - PRD §6 Templates
   rule_decisions: []
 - rule_id: R7
   rule_statement: >-
-    The list's CSV download, through REQ-SHELL-0010, carries each Shift's shift_id as REQ-ORDERING-0014.R14
-    requires.
+    The list's CSV download, through REQ-SHELL-0010, carries each Shift's id in a shift_id column.
   rule_sources:
   - PRD §6 Templates
   rule_decisions: []
@@ -71,7 +61,6 @@ requirement_sources:
 - SHEET SC-2
 requirement_decisions:
 - D-17
-- D-20
 - D-63
 requirement_features:
 - SC-2
@@ -83,17 +72,9 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0010
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-SHELL-0008
-- edge_type: DEPENDS_ON
   requirement_id: REQ-ORDERING-0001
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-ORDERING-0004
-- edge_type: DEPENDS_ON
   requirement_id: REQ-ORDERING-0008
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-ORDERING-0011
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-ORDERING-0014
 - edge_type: DEPENDS_ON
   requirement_id: REQ-DISPATCH-0001
 - edge_type: DEPENDS_ON
@@ -104,20 +85,16 @@ data_model:
   status: covered
   reads:
   - Shift.request_id
-  - Shift.line_no
   - Shift.position_id
   - Shift.department_id
-  - Shift.event_id
   - Shift.starts_at
   - Shift.ends_at
   - Shift.headcount
   - Shift.status
   - Request.unit_id
-  - Request.recurrence_weekdays
   - OrgNode.name
   - Position.name
   - Department.name
-  - Event.name
   - Release.shift_id
   - Release.agency_id
   - Release.headcount

@@ -5,8 +5,7 @@ requirement_phase: MVP
 requirement_title: Manage the org tree, Units, and Departments
 requirement_statement: >-
   On the Org screen a Program User browses the Compass org as a tree and adds, changes, and deactivates
-  Sectors, Regions, Districts, Units, and Departments. They can also load Units and Departments from a
-  UNITS file.
+  Sectors, Regions, Districts, Units, and Departments.
 requirement_actors:
 - PROGRAM_USER
 requirement_rules:
@@ -73,14 +72,6 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-53
-- rule_id: R9
-  rule_statement: >-
-    Upload Units opens the Uploads send step of REQ-SHELL-0008 with UNITS picked, and REQ-ORG-0003 saves
-    the Units and Departments of its accepted rows.
-  rule_sources:
-  - SESSIONS Shift Creation
-  - SHEET PLT-2
-  rule_decisions: []
 requirement_sources:
 - SHEET 7.1
 - SHEET PLT-2
@@ -96,15 +87,11 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0009
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-SHELL-0008
-- edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0010
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0002
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-ORG-0003
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0008
 - edge_type: DEPENDS_ON

@@ -67,9 +67,8 @@ data_model:
   - Unit.org_node_id
   writes: []
   detail: >-
-    Reads only. Unit rows are saved by REQ-ORG-0002. Setting rows are saved only by REQ-ORG-0010, which
-    depends on this requirement and is built after it; until then the Setting table is empty and every key
-    resolves to its catalog default (R3). Tests of R1 and R2 insert Setting rows directly.
+    Reads only. Unit rows are saved by REQ-ORG-0002 and Setting rows by REQ-ORG-0010. While the Setting
+    table is empty, every key resolves to its catalog default (R3).
 requirement_starting_flow: true
 requirement_review:
   status: draft

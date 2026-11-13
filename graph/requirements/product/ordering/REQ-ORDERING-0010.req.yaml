@@ -20,7 +20,7 @@ requirement_rules:
 - rule_id: R2
   rule_statement: >-
     When the message leaves out the times, Department, or Agency for a Position, Iris fills them from
-    the Unit's most recent Shift for that Position and marks each filled value in the draft.
+    the Shift most recently created at the Unit for that Position that is not CANCELLED.
   rule_sources:
   - SHEET SC-10
   rule_decisions:
@@ -66,14 +66,29 @@ requirement_rules:
   rule_decisions:
   - D-82
   - D-106
+- rule_id: R8
+  rule_statement: >-
+    The Agency is filled only when every Release of that Shift went to the same Agency, and otherwise
+    Iris asks as REQ-ORDERING-0009.R3 does.
+  rule_sources:
+  - SHEET SC-10
+  rule_decisions:
+  - D-48
+- rule_id: R9
+  rule_statement: >-
+    The draft marks each value filled from an earlier Shift.
+  rule_sources:
+  - SHEET SC-10
+  rule_decisions:
+  - D-48
 requirement_sources:
 - SHEET SC-10
 requirement_decisions:
 - D-17
 - D-48
 - D-64
-- D-94
 - D-82
+- D-94
 - D-106
 requirement_features:
 - SC-10

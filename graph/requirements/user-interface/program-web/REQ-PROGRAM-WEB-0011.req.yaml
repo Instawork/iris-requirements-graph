@@ -46,12 +46,14 @@ requirement_rules:
 - rule_id: R5
   rule_statement: >-
     The Shift's page lists each ASSIGNED Worker with their Agency, and each Timesheet with its hours,
-    amount, tips, Expenses, status, exception_reasons, and the rate variance REQ-RATES-0006 reports.
+    amount, tips, Expenses, status, exception_reasons, and the rate variance REQ-RATES-0006 reports with
+    the Release's bill_rate_reason.
   rule_sources:
   - PRD §2 Shifts
   - SHEET RC-10
   rule_decisions:
   - D-2
+  - D-69
 - rule_id: R6
   rule_statement: >-
     The screen offers no action: a Program User cannot book, change, send, cancel, staff, or approve anything
@@ -65,6 +67,7 @@ requirement_sources:
 requirement_decisions:
 - D-2
 - D-63
+- D-69
 - D-109
 requirement_features:
 - RC-10

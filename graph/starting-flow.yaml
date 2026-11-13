@@ -2,25 +2,25 @@
 # assign a worker (SHEET Read Me), and the unit sees who was assigned. It starts from an invite:
 # every role can set a password, sign in, and land on a Home with its menu. The flow is these seeds
 # and everything they depend on.
+# A seed is a screen the walk cannot do without. Two are kept for another reason, and removing either
+# leaves the walk intact: REQ-PROGRAM-WEB-0003, so a Shift can be sent at a contracted rate rather
+# than only off-contract with a reason, and REQ-SHELL-0007, the only place an in-app notification
+# such as WORKER_ASSIGNED is read.
 # tools/set_starting_flow.py writes requirement_starting_flow from this list; the validator
 # fails when the flags and the list disagree.
 seeds:
 - REQ-SHELL-0004
+- REQ-SHELL-0005
+- REQ-SHELL-0007
 - REQ-ADMIN-WEB-0001
-- REQ-ADMIN-WEB-0002
 - REQ-ADMIN-WEB-0003
 - REQ-PROGRAM-WEB-0002
 - REQ-PROGRAM-WEB-0003
 - REQ-PROGRAM-WEB-0006
 - REQ-PROGRAM-WEB-0007
 - REQ-UNIT-WEB-0002
+- REQ-UNIT-WEB-0007
+- REQ-UNIT-WEB-0008
 - REQ-AGENCY-WEB-0002
 - REQ-AGENCY-WEB-0003
 - REQ-AGENCY-WEB-0006
-- REQ-SHELL-0005
-- REQ-UNIT-WEB-0007
-- REQ-UNIT-WEB-0008
-- REQ-ADMIN-WEB-0004
-- REQ-PROGRAM-WEB-0004
-- REQ-PROGRAM-WEB-0010
-- REQ-AGENCY-WEB-0007

@@ -1,0 +1,58 @@
+requirement_id: REQ-UNIT-WEB-0018
+requirement_target_layer: user-interface
+requirement_target_module: UNIT-WEB
+requirement_phase: MVP
+requirement_title: Record the headcount needed when a Unit overbooks
+requirement_statement: >-
+  When a Unit User books more Workers than needed, they state the headcount needed on the booking form
+  or on the Shift's page. The Shift's page shows both numbers.
+requirement_actors:
+- UNIT_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    This requirement adds to each line of the booking form of REQ-UNIT-WEB-0002 a needed headcount below
+    its headcount, which REQ-ORDERING-0005 records as overbooking.
+  rule_sources:
+  - SHEET SC-5
+  rule_decisions:
+  - D-19
+  - D-108
+- rule_id: R2
+  rule_statement: >-
+    The Shift's page of REQ-UNIT-WEB-0008 shows the needed headcount beside the headcount, and its Edit
+    also changes the needed headcount through REQ-ORDERING-0005.
+  rule_sources:
+  - SHEET SC-5
+  rule_decisions:
+  - D-19
+requirement_sources:
+- SHEET SC-5
+requirement_decisions:
+- D-19
+- D-108
+requirement_features:
+- SC-5
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-UNIT-WEB-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-UNIT-WEB-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0005
+data_model:
+  status: covered
+  reads:
+  - Shift.headcount
+  - Shift.needed_headcount
+  writes: []
+  detail: null
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

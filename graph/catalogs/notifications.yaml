@@ -32,21 +32,22 @@ notifications:
   decisions: [D-18]
 - type: WORKER_ASSIGNED
   trigger: A Worker is assigned to a Shift.
-  recipients: The User who created the Request.
+  recipients: Every active Unit User over the Shift's Unit.
   channels: [IN_APP]
   owner: REQ-WORKFORCE-0003
   sources: [PRD §2 Shifts]
+  decisions: [D-160]
 - type: WORKER_REMOVED
   trigger: >-
     A Worker is removed from a Shift for any reason except its cancellation, which RELEASE_WITHDRAWN
     covers, or the Worker not being eligible, which WORKER_NOT_ELIGIBLE covers.
   recipients: >-
-    The User who created the Request. When the Unit blocked the Worker, also every active Agency User of
-    the Worker's Agency.
+    Every active Unit User over the Shift's Unit. When the Unit blocked the Worker, also every active
+    Agency User of the Worker's Agency.
   channels: [EMAIL, IN_APP]
   owner: REQ-WORKFORCE-0003
   sources: [PRD §2 Shifts, SHEET WA-3]
-  decisions: [D-51]
+  decisions: [D-51, D-160]
 - type: SITE_INSTRUCTIONS
   trigger: A Worker is assigned to a Shift, or its site instructions change while Workers are assigned.
   recipients: The Worker, at their email or phone.

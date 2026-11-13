@@ -4,9 +4,8 @@ requirement_target_module: AGENCY-WEB
 requirement_phase: MVP
 requirement_title: Keep the Agency's Worker roster
 requirement_statement: >-
-  On the Workers screen an Agency User lists the Agency's Workers, adds them one at a time or from a file,
-  changes their details, and deactivates them. The roster shows which Workers have Credentials that need
-  action.
+  On the Workers screen an Agency User lists the Agency's Workers, adds them one at a time, changes
+  their details, and deactivates them.
 requirement_actors:
 - AGENCY_USER
 requirement_rules:
@@ -19,19 +18,10 @@ requirement_rules:
   - PRD §4 Professionals
   rule_decisions:
   - D-113
-- rule_id: R2
-  rule_statement: >-
-    Each row shows how many of the Worker's Credentials are REJECTED, expired, or within CREDENTIAL_EXPIRY_WARNING_DAYS
-    of expiry and not replaced by a newer one, and how many are PENDING_CHECK or NEEDS_REVIEW.
-  rule_sources:
-  - SHEET WA-14
-  rule_decisions:
-  - D-16
-  - D-67
 - rule_id: R3
   rule_statement: >-
-    The roster filters to active or inactive Workers, to Workers with a Credential counted in either group,
-    and by Position, and searches by name, email, or phone.
+    The roster filters to active or inactive Workers and by Position, and searches by name, email, or
+    phone.
   rule_sources:
   - SESSIONS Worker Assignment & Compliance
   - DEMO components/pros/professionals-page.tsx
@@ -53,27 +43,6 @@ requirement_rules:
   - SHEET WA-1
   rule_decisions:
   - D-50
-- rule_id: R6
-  rule_statement: >-
-    Upload Workers opens the Uploads send step of REQ-SHELL-0008 with WORKERS picked, and REQ-WORKFORCE-0001
-    saves the accepted rows.
-  rule_sources:
-  - SHEET WA-1
-  - PRD §4 Professionals
-  rule_decisions: []
-- rule_id: R7
-  rule_statement: >-
-    Upload Credentials opens that step with CREDENTIALS picked, takes one PDF or image for each
-    Credential, and REQ-COMPLIANCE-0002 saves them.
-  rule_sources:
-  - SHEET WA-14
-  rule_decisions: []
-- rule_id: R8
-  rule_statement: >-
-    Selecting a Worker opens that Worker's page of REQ-AGENCY-WEB-0007, with their Credentials and Attestations.
-  rule_sources:
-  - PRD §4 Professionals
-  rule_decisions: []
 - rule_id: R9
   rule_statement: >-
     Deactivate first warns that the Worker comes off Shifts that have not started, as
@@ -85,48 +54,30 @@ requirement_sources:
 - SHEET WA-1
 - PRD §4 Professionals
 requirement_decisions:
-- D-16
 - D-50
 - D-63
-- D-67
 - D-90
 - D-113
 requirement_features:
 - WA-1
-- WA-14
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AGENCY-WEB-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0009
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-SHELL-0008
-- edge_type: DEPENDS_ON
   requirement_id: REQ-SHELL-0010
 - edge_type: DEPENDS_ON
   requirement_id: REQ-WORKFORCE-0001
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-COMPLIANCE-0002
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-COMPLIANCE-0003
-- edge_type: DEPENDS_ON
   requirement_id: REQ-CATALOG-0001
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-ORG-0006
-- edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0009
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-WORKFORCE-0016
 data_model:
   status: covered
   reads:
   - Worker.*
   - Position.name
-  - Credential.worker_id
-  - Credential.credential_type_id
-  - Credential.status
-  - Credential.expires_on
-  - Credential.replaces_id
   writes: []
   detail: null
 requirement_starting_flow: true

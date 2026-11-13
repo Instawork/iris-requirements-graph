@@ -85,15 +85,20 @@ requirement_rules:
   - D-24
 - rule_id: R11
   rule_statement: >-
-    The gates apply only when a Shift is sent; a rate billed on a Timesheet is flagged, never gated.
+    The gates apply only when a Shift is sent, and nothing gates a Timesheet, which bills the rates of
+    its Release.
   rule_sources:
   - SHEET RC-10
   - SHEET RC-11
   rule_decisions:
-  - D-22
+  - D-69
 requirement_sources:
 - SHEET RC-11
-requirement_decisions: [D-9, D-16, D-22, D-24]
+requirement_decisions:
+- D-9
+- D-16
+- D-24
+- D-69
 requirement_features:
 - RC-11
 edges:
@@ -103,8 +108,6 @@ edges:
   requirement_id: REQ-AGENCIES-0002
 - edge_type: DEPENDS_ON
   requirement_id: REQ-RATES-0005
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-RATES-0006
 data_model:
   status: covered
   reads:
