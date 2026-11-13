@@ -27,7 +27,7 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-4
   rule_decisions:
-  - D-61
+  - D-127
 - rule_id: R3
   rule_statement: >-
     Opening any signed-in page without a session shows the sign-in page instead.
@@ -58,6 +58,7 @@ requirement_decisions:
 - D-26
 - D-34
 - D-61
+- D-127
 requirement_features:
 - PLT-4
 edges:

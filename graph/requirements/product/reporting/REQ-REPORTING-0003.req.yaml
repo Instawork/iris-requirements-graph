@@ -91,7 +91,7 @@ requirement_rules:
   rule_sources:
   - SHEET REP-1
   rule_decisions:
-  - D-14
+  - D-136
   - D-75
 - rule_id: R12
   rule_statement: >-
@@ -120,19 +120,18 @@ requirement_rules:
   rule_sources:
   - SHEET REP-1
   rule_decisions:
-  - D-45
   - D-74
 requirement_sources:
 - SHEET REP-1
 - SHEET 6.1
 - SESSIONS Reporting
 requirement_decisions:
-- D-14
 - D-25
 - D-45
 - D-74
 - D-75
 - D-76
+- D-136
 requirement_features:
 - REP-1
 edges:

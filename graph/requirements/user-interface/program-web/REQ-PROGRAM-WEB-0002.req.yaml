@@ -62,7 +62,7 @@ requirement_rules:
     A Unit's page lists its Departments with their Cost Center codes and whether active, and the Program
     User adds, renames, or deactivates one through REQ-ORG-0002.
   rule_sources:
-  - FEEDBACK
+  - FEEDBACK Departments within venues
   - SHEET PLT-2
   rule_decisions:
   - D-53

@@ -24,7 +24,7 @@ requirement_rules:
   - SHEET TS-12
   - SESSIONS Timesheets, Tips & Expenses
   rule_decisions:
-  - D-60
+  - D-140
 - rule_id: R3
   rule_statement: >-
     Tips show as each TipAllocation with its source: a Tip Pool share, a cashier PIN tip, or a tip the
@@ -34,7 +34,7 @@ requirement_rules:
   rule_decisions:
   - D-22
   - D-28
-  - D-60
+  - D-140
 requirement_sources:
 - SHEET TS-12
 - SHEET TS-11
@@ -42,7 +42,7 @@ requirement_sources:
 requirement_decisions:
 - D-22
 - D-28
-- D-60
+- D-140
 requirement_features:
 - TS-12
 edges:

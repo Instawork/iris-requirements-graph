@@ -17,7 +17,7 @@ requirement_rules:
   rule_sources:
   - SHEET REP-9
   rule_decisions:
-  - D-45
+  - D-142
 - rule_id: R2
   rule_statement: >-
     Each Agency row shows its FILL_RATE and NO_SHOW_RATE beside its SPEND, and a rate with nothing to
@@ -34,7 +34,7 @@ requirement_rules:
   rule_sources:
   - SHEET REP-9
   rule_decisions:
-  - D-14
+  - D-136
 - rule_id: R4
   rule_statement: >-
     Every view on the screen can be narrowed to one Sector, Region, or District.
@@ -98,13 +98,14 @@ requirement_sources:
 - SHEET 6.3
 - SHEET 6.1
 requirement_decisions:
-- D-14
 - D-25
 - D-42
 - D-43
 - D-44
 - D-45
 - D-29
+- D-142
+- D-136
 requirement_features:
 - REP-2
 - REP-3

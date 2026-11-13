@@ -44,7 +44,7 @@ requirement_rules:
     it through REQ-ORDERING-0007.
   rule_sources:
   - SHEET SC-11
-  - FEEDBACK
+  - FEEDBACK Departments within venues
   rule_decisions: []
 - rule_id: R6
   rule_statement: >-

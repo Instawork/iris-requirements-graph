@@ -77,7 +77,7 @@ requirement_rules:
   - PRD §1 Detailed requirements
   - SHEET WA-20
   rule_decisions:
-  - D-14
+  - D-136
 - rule_id: R9
   rule_statement: >-
     For spend and hours, the Position and Department are the Timesheet's, which differ from the Shift's
@@ -102,15 +102,15 @@ requirement_rules:
   rule_sources:
   - SHEET WA-20
   rule_decisions:
-  - D-14
+  - D-136
 requirement_sources:
 - PRD §1 Metric definitions
 - SHEET RC-16
 - SHEET 6.1
 requirement_decisions:
-- D-14
 - D-29
 - D-42
+- D-136
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

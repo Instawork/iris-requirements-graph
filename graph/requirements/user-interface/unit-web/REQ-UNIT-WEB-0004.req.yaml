@@ -26,7 +26,7 @@ requirement_rules:
   - PRD §4 Professionals
   - SHEET WA-3
   rule_decisions:
-  - D-63
+  - D-116
 - rule_id: R3
   rule_statement: The roster filters by Unit, Agency, rating, and Worker name.
   rule_sources:
@@ -49,7 +49,7 @@ requirement_rules:
   - SHEET WA-3
   rule_decisions:
   - D-51
-  - D-65
+  - D-132
 - rule_id: R6
   rule_statement: >-
     Add a Worker finds any active Worker by Agency and name, so a Unit can rate them before their first
@@ -90,7 +90,8 @@ requirement_decisions:
 - D-51
 - D-52
 - D-63
-- D-65
+- D-116
+- D-132
 requirement_features:
 - WA-3
 - WA-4

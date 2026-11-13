@@ -17,7 +17,7 @@ requirement_rules:
   rule_sources:
   - SHEET REP-1
   rule_decisions:
-  - D-45
+  - D-74
 - rule_id: R2
   rule_statement: >-
     Each answer states the measures, groupings, filters, and dates it used, so the User can see how the
@@ -69,6 +69,7 @@ requirement_decisions:
 - D-43
 - D-45
 - D-64
+- D-74
 requirement_features:
 - REP-1
 edges:

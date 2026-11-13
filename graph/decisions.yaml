@@ -2,6 +2,8 @@
 # origin: sheet = listed on the sheet's Decisions tab; graph = raised while building this graph.
 # An open decision carries the assumption the graph builds on until Compass answers.
 # blocking: true means no requirement that cites it, or depends on one that does, may be approved.
+# answer_from: who must answer it. COMPASS_OPERATIONS, COMPASS_HR_LEGAL_PAYROLL, COMPASS_FINANCE,
+# INSTAWORK_PRODUCT, or INSTAWORK_ENGINEERING.
 decisions:
 - decision_id: D-1
   origin: sheet
@@ -11,6 +13,7 @@ decisions:
     Yes. A Rate Line can price one Position at one Unit, and it wins over the Market Rate Line for that
     Agency and Position.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET Decisions & Inputs
@@ -23,6 +26,7 @@ decisions:
     Program Users see every rate flag and send Rate Reviews. Unit Users see the flags on their own
     Shifts and Timesheets.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET Decisions & Inputs
@@ -34,6 +38,7 @@ decisions:
     Iris checks each document automatically. A Program User reviews what the checks cannot settle and
     sets, per Credential Type, whether an attestation or a verified document satisfies it.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET Decisions & Inputs
@@ -51,6 +56,7 @@ decisions:
     are not combined in MVP. Whose Work Week should govern when Units differ, and who owes overtime
     across Agencies, stay open.
   blocking: false
+  answer_from: COMPASS_HR_LEGAL_PAYROLL
   answer: null
   sources:
   - SHEET Decisions & Inputs
@@ -61,6 +67,7 @@ decisions:
   status: open
   assumption: MVP starts with Timesheet intake. Clock-in is Phase 3.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET Decisions & Inputs
@@ -70,6 +77,7 @@ decisions:
   status: open
   assumption: Requests start in Iris. MyStaff integration is Phase 3.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET Decisions & Inputs
@@ -79,6 +87,7 @@ decisions:
   status: open
   assumption: Finance Users arrive in Phase 3; nothing in MVP depends on this.
   blocking: false
+  answer_from: COMPASS_FINANCE
   answer: null
   sources:
   - SHEET Decisions & Inputs
@@ -90,6 +99,7 @@ decisions:
     The pilot is one geography. Its Markets, ZIP codes, Units, and Agencies are loaded before launch;
     nothing in the build depends on which geography.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET Decisions & Inputs
@@ -99,6 +109,7 @@ decisions:
   status: open
   assumption: A Program User approves an Agency at a Sector, Region, District, or Unit.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET RC-11
@@ -110,6 +121,7 @@ decisions:
     An Agency User or a Program User submits a new Rate Line. A Program User approves Agency
     submissions; a Program User's own lines need no second approval.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SESSIONS Rate Cards & Supplier Sourcing
@@ -125,6 +137,7 @@ decisions:
     The Bill Rate is contracted. Each Rate Line stores Pay and Bill Rates, and the markup is shown as a
     percentage of the Pay Rate.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SESSIONS Rate Cards & Supplier Sourcing
@@ -137,6 +150,7 @@ decisions:
     A simple average of the regular Bill Rates other Agencies hold on approved Rate Lines in effect today
     for the same Position and Market.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET RC-12
@@ -153,33 +167,30 @@ decisions:
     Lateness is worked out with the Lock Window in effect when it is asked, so changing the Setting
     changes which past Timesheets count as late.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET TS-9
 - decision_id: D-14
   origin: graph
-  question: >-
-    Which day does the invoice week start, what is a budget period, is a budget per Unit or also per
-    Department, and who receives the invoice: one for Compass, or one per sector?
+  question: What is a budget period, is a budget per Unit or also per Department, and who loads budgets?
   status: open
   assumption: >-
     In MVP each Budget row is for one Unit and carries its own start and end dates; rows for one Unit
-    never overlap, and a budget for any other period is prorated by days. A Program User loads
-    budgets. A dashboard week is the Unit's Work Week and a dashboard month is a calendar month. The
-    period so far is set against the whole prior period and against the whole month's budget. The
-    invoice questions wait for Phase 2.
+    never overlap, and a budget for any other period is prorated by days. A Program User loads budgets.
   blocking: false
+  answer_from: COMPASS_FINANCE
   answer: null
   sources:
-  - SHEET INV-1
   - SHEET REP-8
-  - FAQ One consolidated invoice
+  - SHEET REP-7
 - decision_id: D-15
   origin: graph
   question: Which tip tax rules must Iris apply, and in which states first (TS-13)?
   status: open
   assumption: No rule is applied until Compass names the rules.
   blocking: true
+  answer_from: COMPASS_FINANCE
   answer: null
   sources:
   - SHEET TS-13
@@ -191,6 +202,7 @@ decisions:
     The defaults in graph/catalogs/settings.yaml: tolerance 15 minutes, Lock Window 48 hours, both gates
     soft, peer threshold 15%, expiry warning 30 days, overtime hard block off.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET TS-7
@@ -212,6 +224,7 @@ decisions:
     pending Release, and one still pending at the Shift's start expires. Headcount that is declined,
     given back, withdrawn, or expired can be sent again. Automatic multi-Agency dispatch is Phase 2.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET SC-7
@@ -229,6 +242,7 @@ decisions:
     corrections apply, and a Worker found on a Timesheet without an Assignment is assigned there, even
     beyond the headcount.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - PRD §2 Shift statuses
@@ -242,6 +256,7 @@ decisions:
     Every Worker who works is billed. The headcount needed is recorded on the Shift and has no effect on
     billing; MVP reports do not use it.
   blocking: false
+  answer_from: COMPASS_FINANCE
   answer: null
   sources:
   - SHEET SC-5
@@ -261,6 +276,7 @@ decisions:
     MVP: Iris stores no block flag, each Shift gets its own Release, the Shifts can be sent together
     and answered one by one or several at once, and the Agency may assign different Workers to each.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET SC-4
@@ -272,6 +288,7 @@ decisions:
     A Market is a city in a state with its ZIP codes, as on the PRD rate card. Instawork loads the pilot
     Markets.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET RC-3
@@ -288,6 +305,7 @@ decisions:
     submission after the Lock Window closed, and a Worker assigned after the Shift ended. Overtime
     alone does not, and a no-show Timesheet can be held only by a pending expense.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET TS-7
@@ -300,6 +318,7 @@ decisions:
   status: open
   assumption: They flag. Only overtime has an optional hard block, per WA-19.
   blocking: false
+  answer_from: COMPASS_HR_LEGAL_PAYROLL
   answer: null
   sources:
   - SHEET WA-18
@@ -316,6 +335,7 @@ decisions:
     keeps the rates it was sent at when Rate Lines change later. Derived rates are rounded half up to the
     cent.
   blocking: false
+  answer_from: COMPASS_FINANCE
   answer: null
   sources:
   - SHEET SC-1
@@ -329,6 +349,7 @@ decisions:
     invite a User may also deactivate and reactivate them. MVP has no view-only role, and every
     Program User covers the whole program.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET PLT-1
@@ -343,6 +364,7 @@ decisions:
     Instawork staff, as Instawork Admins. The first Instawork Admin is seeded at deployment with a
     password. They load the Position catalog, Markets, and labor rules, and invite the first Program User.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - PRD §6 Uploads
@@ -356,19 +378,19 @@ decisions:
     it Issued or Revoked. A revoked request is raised again when the Worker is next assigned at that Unit.
     A badge request never stops a Worker being assigned.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET WA-17
 - decision_id: D-28
   origin: graph
-  question: Who enters tips, how do cashier-PIN tips combine with the hours split, and which Workers share a pool?
+  question: Who enters tips?
   status: open
   assumption: >-
     Unit Users enter Tip Pools, and Agency Users enter each Worker's own tips on their Timesheets, in
-    the app or by chat. A Tip Pool is for one Unit and work date and can be narrowed to one Shift or
-    one Event there. A tip under a cashier PIN goes to that PIN's Worker and is not split. A pool
-    splits across every covered Timesheet, whatever the Agency.
+    the app or by chat.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET TS-11
@@ -386,6 +408,7 @@ decisions:
     estimate and is shown as one. Pending spend holds hours only; tips and expenses count once their
     Timesheet is approved.
   blocking: false
+  answer_from: COMPASS_FINANCE
   answer: null
   sources:
   - PRD §1 Detailed requirements
@@ -399,6 +422,7 @@ decisions:
     three, as a percentage. A Unit with no prior full month shows no comparison. MVP shows the number
     and sets no flag threshold.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - PRD §1 Dashboard / Profile
@@ -410,6 +434,7 @@ decisions:
     Iris records what is owed. MVP has no invoices or payments, and Phase 2 shows payment status
     without paying anyone.
   blocking: false
+  answer_from: COMPASS_FINANCE
   answer: null
   sources:
   - START
@@ -421,6 +446,7 @@ decisions:
   status: open
   assumption: Every phase follows Instawork's Suggested Priority on the sheet.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   applies_to: every requirement_phase
   answer: null
   sources:
@@ -435,6 +461,7 @@ decisions:
     until lock, and an Approved Timesheet stays Approved. Nobody edits a locked Timesheet. The one thing a
     Unit User may change on a Draft or Rejected Timesheet is the no-show mark (D-70).
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - PRD §2 Shifts
@@ -451,6 +478,7 @@ decisions:
     and at once when the User is deactivated or resets their password. A reset request shows the same
     message whether or not the email matched. An invite can be sent again until it is accepted.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - SHEET PLT-4
@@ -460,6 +488,7 @@ decisions:
   status: open
   assumption: Phase 2 only; nothing in MVP depends on it.
   blocking: false
+  answer_from: COMPASS_FINANCE
   answer: null
   sources:
   - SHEET INV-8
@@ -475,6 +504,7 @@ decisions:
     each rechecked by the requirement that owns the record; a failed item does not stop the others, and
     a decided Proposal never changes again.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - PRD §6 Uploads
@@ -489,6 +519,7 @@ decisions:
     Uploads, Notifications, InboundMessages, AccessLinks, and sign-in times are not audited. Nobody can
     change or delete an entry, and passwords and link tokens never appear in one.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - SHEET RC-5
@@ -504,6 +535,7 @@ decisions:
     and is then marked failed, without undoing the change that caused it. A channel the recipient has
     no address for is skipped, and deactivated Users and the User who caused the notification get none.
   blocking: false
+  answer_from: INSTAWORK_ENGINEERING
   answer: null
   sources:
   - SHEET SC-8
@@ -521,6 +553,7 @@ decisions:
     matches several Users counts as no match. A matched User can approve a Proposal by replying in the
     same conversation.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - SHEET SC-10
@@ -537,6 +570,7 @@ decisions:
     become suggested fixes. An unreadable, unsupported, or empty file fails. Files are stored privately,
     downloads use the template formats, and each User sees only their own Uploads.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - PRD §6 Uploads
@@ -551,6 +585,7 @@ decisions:
     Hours are whole minutes. An amount is a rate times minutes divided by 60, rounded half up to the
     cent, for each Timesheet and each hour class; totals add the rounded amounts.
   blocking: false
+  answer_from: COMPASS_FINANCE
   answer: null
   sources:
   - PRD §5 Invoices
@@ -570,6 +605,7 @@ decisions:
     and hours by the Timesheet's, and every measure by the Shift's Event. An Agency's average Bill
     Rate is its spend on hours over its hours. A rate over nothing shows as not available.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET RC-16
@@ -578,19 +614,17 @@ decisions:
 - decision_id: D-43
   origin: graph
   question: >-
-    Which dates count in labor cost as a percentage of sales, does labor cost include Compass's own
-    employees, and what does a second sales upload for the same Unit and date do?
+    Which dates count in labor cost as a percentage of sales, and does labor cost include Compass's own
+    employees?
   status: open
   assumption: >-
     Only dates with revenue above zero count, in both the spend and the revenue; with none, the measure
-    shows as not available. Labor cost is agency spend in Iris only. A second upload for the same Unit
-    and date replaces the first.
+    shows as not available. Labor cost is agency spend in Iris only.
   blocking: false
+  answer_from: COMPASS_FINANCE
   answer: null
   sources:
   - SHEET REP-3
-  - SHEET REP-4
-  - PRD §6 Templates
 - decision_id: D-44
   origin: graph
   question: How is an Event's projected cost computed?
@@ -600,24 +634,22 @@ decisions:
     minutes (end minus start minus the planned break) times the regular Bill Rate, rounded per Release.
     It holds no tips, expenses, or overtime premium, and follows the Releases as they change.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - SHEET REP-2
 - decision_id: D-45
   origin: graph
-  question: >-
-    Who keeps a Saved Report, what is a dashboard, and are the sheet's "top operators" Units or people?
+  question: Who may ask reporting questions, and who keeps a Saved Report?
   status: open
   assumption: >-
     Unit Users and Program Users ask questions within their scope; Agency Users get no reports in MVP. A
-    Saved Report belongs to the User who saved it and is recomputed when reopened. An answer with
-    several measures is a dashboard. Operators are ranked as Units.
+    Saved Report belongs to the User who saved it and is recomputed when reopened.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - SHEET REP-1
-  - SHEET REP-9
-  - SHEET 6.3
 - decision_id: D-46
   origin: graph
   question: In Phase 2, who records a payment, and which Compass User sends overbilled hours back?
@@ -626,6 +658,7 @@ decisions:
     A Program User records the amount paid on an Agency Invoice, and the Consolidated Invoice follows its
     Agency Invoices. A Unit User or a Program User sends hours back. Nothing in MVP depends on it.
   blocking: false
+  answer_from: COMPASS_FINANCE
   answer: null
   sources:
   - SHEET INV-7
@@ -637,6 +670,7 @@ decisions:
   assumption: >-
     Unfilled, not Worked. It becomes Worked if a Worker is later assigned to it from a Timesheet.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - PRD §2 Shift statuses
@@ -648,6 +682,7 @@ decisions:
     Nothing extra is stored. When a message leaves out the times, Department, or Agency for a Position,
     Iris fills them from the Unit's most recent Shift for that Position and shows what it filled.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - SHEET SC-10
@@ -663,6 +698,7 @@ decisions:
     agency has no contracted rate is a problem and that Shift is sent from its page. A row to a non-contracted
     Agency gives the reason in its own column where the gate asks for one.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - SHEET SC-2
@@ -676,6 +712,7 @@ decisions:
     carries only names. An Agency User may change their Agency's Workers and deactivate them, and an
     inactive Worker cannot be assigned.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET WA-1
@@ -691,6 +728,7 @@ decisions:
     They come off every Shift at that Unit that has not started, and the Agency and the Unit are told.
     Eligibility is checked again once each day and whenever a Shift's times change.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET WA-3
@@ -708,6 +746,7 @@ decisions:
     Agency's active Workers, and it can rate any Worker before a first Shift, so favorite and block
     lists carry over.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET WA-2
@@ -723,6 +762,7 @@ decisions:
     they change Settings. A Unit User may change the default site instructions of a Unit they cover and
     nothing else. Nothing is deleted: a node, Unit, Department, or Agency is made inactive instead.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET PLT-1
@@ -740,6 +780,7 @@ decisions:
     is a row problem. Where a Region or District name matches several org nodes, the row lists each with
     its path from the Sector for the sender to pick.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - PRD §6 Templates
@@ -756,6 +797,7 @@ decisions:
     changes nothing and is not submitted. Work already sent or billed keeps the rates stored on it and is
     flagged by the variance check.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET RC-5
@@ -777,6 +819,7 @@ decisions:
     through its expiry date and an Attestation through its valid-until date. A Credential file never
     creates a Worker.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET WA-13
@@ -796,6 +839,7 @@ decisions:
     the values its kind needs: a threshold in minutes, a break length, or a minimum wage. Iris applies
     only the rules loaded for a state or city, one per kind on any date, and has no built-in defaults.
   blocking: false
+  answer_from: COMPASS_HR_LEGAL_PAYROLL
   answer: null
   sources:
   - SHEET WA-18
@@ -816,6 +860,7 @@ decisions:
     when the week's overtime and double-time minutes rise. The Work Week of any date follows the
     Unit's current start day.
   blocking: false
+  answer_from: COMPASS_HR_LEGAL_PAYROLL
   answer: null
   sources:
   - SHEET WA-19
@@ -823,78 +868,53 @@ decisions:
 - decision_id: D-59
   origin: graph
   question: >-
-    Which details of entering, submitting, approving, and splitting hours do the exception and edit-right
-    decisions leave open?
+    How do the parts of a split Timesheet behave: their status, their break, and how they are checked?
   status: open
   assumption: >-
-    A Draft Timesheet is created when its Shift ends, and clock times are kept to the minute. A clock
-    time is local to the Unit: one that does not exist on a daylight-saving change is refused, and one
-    that occurs twice is read as the one nearest the schedule. Worked minutes are zero until both
-    clock times are entered, and every path that changes hours saves them through the one requirement
-    that recomputes the minutes. A Timesheet with a missing clock time or a pending expense can be
-    submitted, but a Unit User cannot approve it until that is settled. Submitting a Rejected
-    Timesheet again clears its rejection reason. A Unit User's file is saved only as corrections to
-    Submitted and Approved Timesheets, and a file time with no date is read as the one nearest the
-    scheduled time. A split part starts in the status of the Timesheet it came from, the break stays
-    on the first part unless the user moves minutes, and a part can be split again. The parts of one
-    Assignment are checked together, and a part in a Position with no Rate Line keeps the original
-    rates and is an exception. A bulk step skips what it cannot do and lists it.
+    A split part starts in the status of the Timesheet it came from, the break stays on the first part
+    unless the user moves minutes, and a part can be split again. The parts of one Assignment are
+    checked together.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
-  - SHEET TS-5
-  - SHEET TS-7
-  - SHEET TS-8
   - SHEET TS-10
-  - PRD §2 Shifts
+  - SHEET TS-7
 - decision_id: D-60
   origin: graph
-  question: >-
-    How are a Tip Pool's leftover cents shared, when is a split recomputed, who keeps cashier PINs, and
-    until when can tips and expenses be added or decided?
+  question: How are a Tip Pool's leftover cents shared, and until when is its split recomputed?
   status: open
   assumption: >-
     Shares are rounded down to the cent, and leftover cents go one each to the shares with the largest
-    dropped fractions. A pool covers every Timesheet on its Shifts and is split across those with
-    hours; a pool entered before any hours has no shares until hours are entered. It is split again
-    whenever covered hours change, until its Timesheets lock. They lock together, only once every one
-    of them is approved and past its Lock Window, so the split always follows hours worked; one
-    Timesheet that is never approved keeps the others open. A Tip Pool or PIN tip that would cover a
-    locked Timesheet is refused, so tips that arrive after the lock cannot be entered in MVP. Unit
-    Users keep the cashier PIN map, and a PIN tip goes to one Timesheet of that Worker; it is refused
-    when the PIN is not mapped or the Worker has no open Timesheet there that day. Tips on a no-show
-    Timesheet count as zero. Agency Users add tips and expenses only on Draft and Rejected Timesheets.
-    A tip they enter keeps its Timesheet from being approved automatically, so a Unit User sees it
-    before it is billed. A Unit User decides each expense on a Submitted Timesheet, and a decided
-    expense does not change; an approved expense counts even on a no-show Timesheet.
+    dropped fractions. A pool covers every Timesheet on its Shifts and is split across those with hours;
+    a pool entered before any hours has no shares until hours are entered. It is split again whenever
+    covered hours change, until its Timesheets lock. They lock together, only once every one of them is
+    approved and past its Lock Window, so the split always follows hours worked; one Timesheet that is
+    never approved keeps the others open. A Tip Pool or PIN tip that would cover a locked Timesheet is
+    refused, so tips that arrive after the lock cannot be entered in MVP. Tips on a no-show Timesheet
+    count as zero.
   blocking: false
+  answer_from: COMPASS_HR_LEGAL_PAYROLL
   answer: null
   sources:
   - SHEET TS-11
-  - SHEET TS-12
-  - SESSIONS Timesheets, Tips & Expenses
+  - SHEET TS-9
 - decision_id: D-61
   origin: graph
-  question: >-
-    What do the screens every persona shares do where no source says: which Role Grant a User acts in,
-    the smallest phone width, what a refused sign-in says, and what the inbox shows?
+  question: How does a User with several roles choose and switch the one they act in?
   status: open
   assumption: >-
-    A User acts in one acting context at a time, as D-84 defines it. A User with several contexts chooses
-    one at each sign-in and can switch without signing out; the choice is kept on the session, so every
-    request carries it, and switching changes the menu and no record. A User with no unrevoked grant can
-    only sign out. Every page works at a width of 360 px. A refused sign-in does not say which
-    part was wrong. The inbox shows an unread count, holds the notifications of every context, and opening
-    one opens its record. A refused action shows its reason and keeps what was typed, Shift times show in
-    the Unit's timezone, and to-dos are computed, never stored.
+    A User acts in one acting context at a time, as D-84 defines it. A User with several contexts
+    chooses one at each sign-in and can switch without signing out; the choice is kept on the session,
+    so every request carries it, and switching changes the menu and no record. A User with no unrevoked
+    grant can only sign out.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - SHEET PLT-1
-  - SHEET PLT-3
   - SHEET PLT-4
-  - FEEDBACK
-  - PRD Overview
+  - FEEDBACK show visually that we're talking like supplier vs buyer vs corporate
 - decision_id: D-62
   origin: graph
   question: Which tasks are on each persona's to-do list, and what is at stake on each?
@@ -914,6 +934,7 @@ decisions:
     The Agency home has no second section in MVP, and the Program home's is Units ranked by spend.
     Anomalous invoices join in Phase 2.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - PRD §1 How Todos behave
@@ -931,28 +952,14 @@ decisions:
   - SHEET WA-4
 - decision_id: D-63
   origin: graph
-  question: How is each list ordered and filtered, and what does it show when it is empty?
+  question: Which fields can each list be filtered and searched by?
   status: open
-  assumption: >-
-    Lists of Shifts show those not yet ended first, soonest first, then ended ones, newest first. The
-    Unit's exception list shows times outside tolerance first, then the oldest Shift. Agencies offered for
-    a Shift show approved ones first, lowest contracted rate first. Badge requests show Requested ones
-    first, oldest first. Tip Pools, Events, and Saved Reports show the newest first. Each list filters by
-    the fields its requirement names, says in words when it is empty, and offers to clear filters that
-    hide everything.
-    An Agency's Releases show pending and accepted ones on Shifts not yet ended, soonest first, and the
-    rest on a second tab, newest first. Its Timesheets open on Draft and Rejected ones, oldest work date
-    first. Worker issues and Rate Reviews show the open ones first. Rate Lines open on approved lines in
-    effect. Rosters sort by last name, a Unit's roster with its Favorite Workers first, and the
-    program-wide Worker list by Agency first. Each list filters by the fields its requirement names.
+  assumption: Each list filters by the fields its requirement names.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
-  - PRD §2 Shifts
-  - SESSIONS Timesheets, Tips & Expenses
   - DEMO components/shifts/shifts-page.tsx
-  - PRD §3 Supplier Rates
-  - PRD §4 Professionals
   - DEMO components/pros/professionals-page.tsx
   - DEMO components/rates/rates-page.tsx
 - decision_id: D-64
@@ -971,6 +978,7 @@ decisions:
     open Proposals each time it opens, whichever channel they came through. Each reporting answer states
     the measures, groupings, filters, and dates it used.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - PRD §7 Agent Chat
@@ -979,34 +987,30 @@ decisions:
   - SHEET SC-10
 - decision_id: D-65
   origin: graph
-  question: Which screens does a Unit User have, and how do they work across several Units?
+  question: Which screens does a Unit User have?
   status: open
   assumption: >-
     The Unit menu is Home, Shifts, Timesheets, Tips, Workers, Agencies, Events, Reports, Uploads, and
-    Setup; invoices join in Phase 2. A Unit User over several Units sees them together and can narrow
-    every screen to one Unit, a choice that lasts until they change it or sign out. Setup holds Request
-    templates, Position defaults, and default site
-    instructions. A report period is a Work Week, a calendar month, or a range of dates. Cancelling a
-    Shift asks for confirmation, and choosing Block first warns what it removes.
+    Setup; invoices join in Phase 2. Setup holds Request templates, Position defaults, and default site
+    instructions.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - PRD Pages
   - SHEET PLT-1
   - SHEET SC-11
-  - SHEET WA-3
 - decision_id: D-66
   origin: graph
-  question: Which screens do an Agency User, a Program User, and an Instawork Admin have?
+  question: Which screens does a Program User have?
   status: open
   assumption: >-
-    The Agency menu is Home, Shifts, Workers, Timesheets, Rate Card, Uploads, and Users, and Worker
-    issues are a tab of Workers. The Program menu is Home, Shifts, Workers, Rates, Credentials, Agencies,
-    Org, Users, Reports, Uploads, and Settings; the rate approval queue and Rate Reviews are tabs of
-    Rates, and Credential setup, the review queue, and Attestations are tabs of Credentials. The Instawork
-    Admin menu is Home, Positions, Markets, and Labor rules. Invoices join the Agency and Program menus
-    in Phase 2 and Agency performance in Phase 3.
+    The Program menu is Home, Shifts, Workers, Rates, Credentials, Agencies, Org, Users, Reports,
+    Uploads, and Settings; the rate approval queue and Rate Reviews are tabs of Rates, and Credential
+    setup, the review queue, and Attestations are tabs of Credentials. Invoices join in Phase 2 and
+    Agency performance in Phase 3.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - PRD Pages
@@ -1025,6 +1029,7 @@ decisions:
     for a Program User. Whether a Worker meets one Shift's requirements is shown only where a Shift is
     chosen, by the eligibility check.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - SHEET WA-13
@@ -1042,6 +1047,7 @@ decisions:
     for things that belong to no Unit, such as Credentials. Refusing an action once a time has passed is
     checked when the action is made, not by the job.
   blocking: false
+  answer_from: INSTAWORK_ENGINEERING
   answer: null
   sources:
   - GRAPH seven MVP requirements act when a time passes, and none provides the clock
@@ -1058,6 +1064,7 @@ decisions:
     A later start changes nothing, so a changed configuration is ignored once a User exists, and the
     password is changed afterwards by a reset link. No screen adds another Instawork Admin in MVP.
   blocking: false
+  answer_from: INSTAWORK_ENGINEERING
   answer: null
   sources:
   - SHEET PLT-4
@@ -1074,6 +1081,7 @@ decisions:
     and the screens set; IDENTITY stores it without reading it, and a new Session starts with none. Sessions
     are not written to the Audit Trail.
   blocking: false
+  answer_from: INSTAWORK_ENGINEERING
   answer: null
   sources:
   - SHEET PLT-4
@@ -1090,6 +1098,7 @@ decisions:
     the record is removed from Iris, with the whole record in before. CREATE holds the whole new record
     in after. The record type is the entity's name in the data model.
   blocking: false
+  answer_from: INSTAWORK_ENGINEERING
   answer: null
   sources:
   - SHEET RC-5
@@ -1107,6 +1116,7 @@ decisions:
     from the body, on the Notification and only while it is queued; it is erased once the message is
     sent or has failed, and is never shown in the app or written to the Audit Trail.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - SHEET SC-8
@@ -1121,6 +1131,7 @@ decisions:
     shape or the LLM does not answer. The gateway can read and change no record. The model and its provider
     are Instawork engineering's choice.
   blocking: false
+  answer_from: INSTAWORK_ENGINEERING
   answer: null
   sources:
   - PRD §7 What the LLM does and what code does
@@ -1142,6 +1153,7 @@ decisions:
     that proposes it. Each item saves whole or not at all, and items that share a group key go to their
     owner in one call so they can make one record, such as one Request.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - PRD §6 Uploads
@@ -1162,6 +1174,7 @@ decisions:
     one with more than 5,000 rows fails. Excel means .xlsx and an image JPEG or PNG, the first row with
     a value is the header, and a workbook may hold rows on one sheet only.
   blocking: false
+  answer_from: INSTAWORK_ENGINEERING
   answer: null
   sources:
   - PRD §6 Uploads
@@ -1177,6 +1190,7 @@ decisions:
     or registry check returns not available, and a Credential rests on the document checks and a Program
     User's review.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET WA-15
@@ -1199,6 +1213,7 @@ decisions:
     alone, and the transcript is stored when the call ends. The voice, speech, and telephony providers
     are Instawork engineering's choice.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - SHEET SC-10
@@ -1213,6 +1228,7 @@ decisions:
     whether a User may make a change. The caller also keeps anything that must outlast the call, such
     as a question waiting for an answer.
   blocking: false
+  answer_from: INSTAWORK_ENGINEERING
   answer: null
   sources:
   - GRAPH platform requirements may depend only on platform requirements
@@ -1227,6 +1243,7 @@ decisions:
     ignored when a later line's start date is checked. The Agency sees the end and the reason in its rate
     history and is not notified.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET RC-5
@@ -1240,6 +1257,7 @@ decisions:
     the PRD rate card does, and a row missing one is a problem. If the pilot data holds only Bill Rates
     or only regular rates, Compass or the Agencies supply the rest before the rates are loaded.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - PRD §6 Templates
@@ -1252,6 +1270,7 @@ decisions:
     0 or more. A negative tolerance, Lock Window, threshold, or warning period is refused. No upper limit
     is set.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - GRAPH the settings catalog gives each key a type and no range
@@ -1264,6 +1283,7 @@ decisions:
     node or a Unit is made active again only while its parent is active. So an active Unit always sits
     under active nodes.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - SHEET PLT-2
@@ -1280,6 +1300,7 @@ decisions:
     An email, text, or call has no session, so its sender acts as a Unit User across their Unit User
     grants (D-108).
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - SHEET PLT-1
@@ -1296,6 +1317,7 @@ decisions:
     An Instawork Admin may grant Program User whenever no active User holds an unrevoked Program User
     grant, so the program is never locked out when its last Program User is deactivated.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - SHEET PLT-1
@@ -1311,6 +1333,7 @@ decisions:
     Grants, Settings, Agency approvals, and Credential Requirements are scoped to a Unit or a level
     above it.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET PLT-2
@@ -1324,6 +1347,7 @@ decisions:
     peers, and never sees the Peer Rate or another Agency's rate. The Peer Rate is rounded half up to the
     cent, and a rate is flagged when it is at least the Peer Rate plus the threshold percent of it.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET RC-12
@@ -1344,6 +1368,7 @@ decisions:
     to a Market, the Units with that ZIP code move to that Market; removing a ZIP code from a Market
     changes no Unit.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - DEMO lib/types.ts
@@ -1359,6 +1384,7 @@ decisions:
     newer Credential replaces and that expires today or within the warning days. A later change to the
     warning days does not warn again.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - SHEET WA-14
@@ -1374,6 +1400,7 @@ decisions:
     Unit User gave when sending the Shift. A wrong rate on work already done is corrected with
     invoicing in Phase 2.
   blocking: false
+  answer_from: COMPASS_FINANCE
   answer: null
   sources:
   - PRD §7 What the agent accepts
@@ -1391,6 +1418,7 @@ decisions:
     set; a mark a Unit User set is cleared only by a Unit User. While the mark is set, no hours can be
     entered.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - PRD §2 Shifts
@@ -1409,6 +1437,7 @@ decisions:
     shift id, or else by Unit, date, and Position, and its Worker by the Worker matching rule, as a
     Timesheet row does. An expense for a split Timesheet goes to its first part.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - SHEET TS-12
@@ -1424,6 +1453,7 @@ decisions:
     whose suggested fix is to reject it. The sender decides, because two equal tips or expenses can
     both be real.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - SHEET TS-11
@@ -1438,6 +1468,7 @@ decisions:
     The Worker's Agency Users and the Unit Users over the Unit of the Shift that added the overtime,
     in the app only. The User whose action caused it is told in the answer to that action instead.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET WA-19
@@ -1452,6 +1483,7 @@ decisions:
     Work Week, or month. Any other answer with one measure is a table, and several measures form a
     dashboard of those.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - SHEET REP-1
@@ -1465,6 +1497,7 @@ decisions:
     Weeks, and the last full month. Each is resolved on the day the report is opened, for each Unit in
     its own timezone and Work Week.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - SHEET REP-1
@@ -1480,6 +1513,7 @@ decisions:
     there is no Worker dimension. Pay Rates and Markups are not measures, so no report shows them;
     Program Users see them on the Rate Card screens.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - SHEET 6.1
@@ -1495,6 +1529,7 @@ decisions:
     An average Bill Rate is rounded half up to the cent. Each prorated Budget is rounded half up to
     the cent before the Budgets are added.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - SHEET REP-7
@@ -1510,6 +1545,7 @@ decisions:
     holds a pending or accepted Release on the Shift, and the total headcount those hold. It never sees
     the other Agencies' names, rates, answers, or Workers.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SESSIONS Shift Creation
@@ -1525,6 +1561,7 @@ decisions:
     assignment, and the Agency's other active Agency Users are told in the app each time instructions
     would have been sent, so the Agency passes them on. Email and phone stay optional on a Worker (D-50).
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - SHEET SC-6
@@ -1536,6 +1573,7 @@ decisions:
     They come off every Shift that has not started, as when a Unit blocks them (D-51), and the User
     who created the Request is told. Assignments on Shifts that have started stay.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - SHEET WA-1
@@ -1547,6 +1585,7 @@ decisions:
     At 06:00 in each Unit's timezone, so an Agency learns that a Worker came off a Shift at the start
     of its working day.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - SHEET WA-14
@@ -1558,6 +1597,7 @@ decisions:
     The Worker's name, photo, and Agency, as on the PRD's Shift detail. A Unit User never sees a Worker's
     email or phone; a Unit reaches a Worker through the Agency.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - PRD §2 Shifts
@@ -1570,6 +1610,7 @@ decisions:
     A time that does not exist on its date, because the clock skips it, is refused. A time that occurs
     twice is read as the earlier of the two.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - PRD §2 Shifts
@@ -1582,6 +1623,7 @@ decisions:
     it on that call, as a reply does for an email or a text. The call's transcript, kept as the message
     body, is the record, and the Proposal records the caller as the User who decided it.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - SHEET SC-10
@@ -1594,6 +1636,7 @@ decisions:
     Department cannot, because Releases hold rates for the Position; a Shift booked for the wrong one
     is cancelled and booked again.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - SHEET SC-3
@@ -1609,6 +1652,7 @@ decisions:
     the Shift when the Agency's Release closes: it is hidden while that Agency holds no pending or accepted
     Release on the Shift, and shows again if the Shift is sent to that Agency again.
   blocking: false
+  answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - SHEET WA-2
@@ -1622,6 +1666,7 @@ decisions:
     A Unit User rates each Worker in Iris, one at a time, once the Worker's Agency has added them; a rating
     can be given before the Worker's first Shift there. There is no ratings file in MVP.
   blocking: false
+  answer_from: COMPASS_OPERATIONS
   answer: null
   sources:
   - SHEET WA-2
@@ -1639,7 +1684,392 @@ decisions:
     leads to one built later, such as a tab, a link, or a menu item, the later screen's requirement adds
     it. So the first slice can be used end to end before the other screens exist.
   blocking: false
+  answer_from: INSTAWORK_ENGINEERING
   answer: null
   sources:
   - GRAPH the starting flow must be usable before every screen is built
   - PRD Pages
+- decision_id: D-112
+  origin: graph
+  question: In what order do lists of Shifts and Releases show?
+  status: open
+  assumption: >-
+    Lists of Shifts show those not yet ended first, soonest first, then ended ones, newest first. An
+    Agency's Releases show pending and accepted ones on Shifts not yet ended, soonest first, and the
+    rest on a second tab, newest first.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - PRD §2 Shifts
+  - DEMO components/shifts/shifts-page.tsx
+- decision_id: D-113
+  origin: graph
+  question: In what order do lists of Timesheets show, and which Timesheets do they open on?
+  status: open
+  assumption: >-
+    The Unit's exception list shows times outside tolerance first, then the oldest Shift. An Agency's
+    Timesheets open on Draft and Rejected ones, oldest work date first.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - SESSIONS Timesheets, Tips & Expenses
+  - SHEET TS-7
+- decision_id: D-114
+  origin: graph
+  question: In what order are Agencies offered to a Unit User who is choosing one for a Shift?
+  status: open
+  assumption: Agencies offered for a Shift show approved ones first, lowest contracted rate first.
+  blocking: false
+  answer_from: COMPASS_OPERATIONS
+  answer: null
+  sources:
+  - PRD §3 Supplier Rates
+  - SHEET SC-1
+- decision_id: D-115
+  origin: graph
+  question: Which Rate Lines does a Rate Card screen open on?
+  status: open
+  assumption: Rate Lines open on approved lines in effect.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - DEMO components/rates/rates-page.tsx
+  - PRD §3 Supplier Rates
+- decision_id: D-116
+  origin: graph
+  question: How are Worker rosters sorted?
+  status: open
+  assumption: >-
+    Rosters sort by last name, a Unit's roster with its Favorite Workers first, and the program-wide
+    Worker list by Agency first.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - PRD §4 Professionals
+  - DEMO components/pros/professionals-page.tsx
+- decision_id: D-117
+  origin: graph
+  question: In what order do lists of badge requests, Worker issues, and Rate Reviews show?
+  status: open
+  assumption: >-
+    Badge requests show Requested ones first, oldest first. Worker issues and Rate Reviews show the open
+    ones first.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - SHEET WA-17
+  - SHEET WA-4
+  - SHEET RC-12
+- decision_id: D-118
+  origin: graph
+  question: In what order do Tip Pools, Events, and Saved Reports show?
+  status: open
+  assumption: Tip Pools, Events, and Saved Reports show the newest first.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - SHEET TS-11
+  - SHEET REP-2
+  - SHEET REP-1
+- decision_id: D-119
+  origin: graph
+  question: In what order do the Instawork Admin's lists of Positions, Markets, and Labor Rules show?
+  status: open
+  assumption: >-
+    Positions list by name, Markets by state and then city, and Labor Rules by state, city, and kind.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - GRAPH no source gives an order for the reference lists
+- decision_id: D-120
+  origin: graph
+  question: >-
+    Which Bill Rates does a part of a Timesheet take when it is split to a Position with no Rate Line?
+  status: open
+  assumption: A part in a Position with no Rate Line keeps the original rates and is an exception.
+  blocking: false
+  answer_from: COMPASS_FINANCE
+  answer: null
+  sources:
+  - SHEET TS-10
+  - SHEET RC-10
+- decision_id: D-121
+  origin: graph
+  question: When is a Timesheet created, and how are its clock times and worked minutes kept?
+  status: open
+  assumption: >-
+    A Draft Timesheet is created when its Shift ends, and clock times are kept to the minute. Worked
+    minutes are zero until both clock times are entered, and every path that changes hours saves them
+    through the one requirement that recomputes the minutes.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - PRD §2 Shifts
+  - PRD §2 Shift statuses
+- decision_id: D-122
+  origin: graph
+  question: >-
+    How is a Timesheet's clock time read on a day the clocks change, or when a file gives a time with no
+    date?
+  status: open
+  assumption: >-
+    A clock time is local to the Unit: one that does not exist on a daylight-saving change is refused,
+    and one that occurs twice is read as the one nearest the schedule. A file time with no date is read
+    as the one nearest the scheduled time.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - SHEET TS-5
+  - PRD §6 Templates
+- decision_id: D-123
+  origin: graph
+  question: >-
+    What must be settled before a Timesheet is submitted or approved, and what does submitting a
+    Rejected one again change?
+  status: open
+  assumption: >-
+    A Timesheet with a missing clock time or a pending expense can be submitted, but a Unit User cannot
+    approve it until that is settled. Submitting a Rejected Timesheet again clears its rejection reason.
+  blocking: false
+  answer_from: COMPASS_OPERATIONS
+  answer: null
+  sources:
+  - SHEET TS-7
+  - SHEET TS-8
+- decision_id: D-124
+  origin: graph
+  question: What does a Timesheet file sent by a Unit User change?
+  status: open
+  assumption: A Unit User's file is saved only as corrections to Submitted and Approved Timesheets.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - PRD §6 Uploads
+  - SHEET TS-5
+- decision_id: D-125
+  origin: graph
+  question: What does a bulk submit or approve do with the Timesheets it cannot process?
+  status: open
+  assumption: A bulk step skips what it cannot do and lists it.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - SHEET TS-8
+- decision_id: D-126
+  origin: graph
+  question: What is the narrowest phone screen every page must work on?
+  status: open
+  assumption: Every page works at a width of 360 px.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - SHEET PLT-3
+- decision_id: D-127
+  origin: graph
+  question: What does a refused sign-in tell the person?
+  status: open
+  assumption: A refused sign-in does not say which part was wrong.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - SHEET PLT-4
+- decision_id: D-128
+  origin: graph
+  question: What does the in-app inbox show?
+  status: open
+  assumption: >-
+    The inbox shows an unread count, holds the notifications of every context, and opening one opens its
+    record.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - PRD Overview
+- decision_id: D-129
+  origin: graph
+  question: How does every screen show a refused action, an empty list, and the times of a Shift?
+  status: open
+  assumption: >-
+    A refused action shows its reason and keeps what was typed, and Shift times show in the Unit's
+    timezone. A list says in words when it is empty, and offers to clear filters that hide everything.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - PRD §7 When the agent is unsure
+  - DEMO components/shifts/shifts-page.tsx
+- decision_id: D-130
+  origin: graph
+  question: Are to-dos stored, or worked out each time a page loads?
+  status: open
+  assumption: To-dos are computed, never stored.
+  blocking: false
+  answer_from: INSTAWORK_ENGINEERING
+  answer: null
+  sources:
+  - PRD §1 How Todos behave
+- decision_id: D-131
+  origin: graph
+  question: How does a Unit User who covers several Units work across them?
+  status: open
+  assumption: >-
+    A Unit User over several Units sees them together and can narrow every screen to one Unit, a choice
+    that lasts until they change it or sign out.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - SHEET PLT-1
+  - SHEET REP-7
+- decision_id: D-132
+  origin: graph
+  question: Which Unit User actions ask for confirmation before they are saved?
+  status: open
+  assumption: Cancelling a Shift asks for confirmation, and choosing Block first warns what it removes.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - SHEET WA-3
+  - PRD §2 Shift statuses
+- decision_id: D-133
+  origin: graph
+  question: Which screens does an Agency User have?
+  status: open
+  assumption: >-
+    The Agency menu is Home, Shifts, Workers, Timesheets, Rate Card, Uploads, and Users, and Worker
+    issues are a tab of Workers. Invoices join in Phase 2 and Agency performance in Phase 3.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - PRD Pages
+  - SHEET PLT-1
+  - SHEET RC-16
+- decision_id: D-134
+  origin: graph
+  question: Which screens does an Instawork Admin have?
+  status: open
+  assumption: The Instawork Admin menu is Home, Positions, Markets, and Labor rules.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - GRAPH the Instawork Admin needs a screen for each kind of reference data it keeps
+- decision_id: D-135
+  origin: graph
+  question: >-
+    Which day does the invoice week start, and who receives the invoice: one for Compass, or one per
+    sector?
+  status: open
+  assumption: The invoice questions wait for Phase 2.
+  blocking: false
+  answer_from: COMPASS_FINANCE
+  answer: null
+  sources:
+  - SHEET INV-1
+  - FAQ One consolidated invoice
+- decision_id: D-136
+  origin: graph
+  question: >-
+    What is a week, a month, and a report period on a dashboard, and what is a period to date compared
+    with?
+  status: open
+  assumption: >-
+    A dashboard week is the Unit's Work Week and a dashboard month is a calendar month. A report period
+    is a Work Week, a calendar month, or a range of dates. The period so far is set against the whole
+    prior period and against the whole month's budget.
+  blocking: false
+  answer_from: COMPASS_FINANCE
+  answer: null
+  sources:
+  - SHEET REP-7
+  - SHEET REP-9
+  - SHEET WA-20
+- decision_id: D-137
+  origin: graph
+  question: Which Workers share a Tip Pool?
+  status: open
+  assumption: >-
+    A Tip Pool is for one Unit and work date and can be narrowed to one Shift or one Event there. A pool
+    splits across every covered Timesheet, whatever the Agency.
+  blocking: true
+  answer_from: COMPASS_HR_LEGAL_PAYROLL
+  answer: null
+  sources:
+  - SHEET TS-11
+- decision_id: D-138
+  origin: graph
+  question: Is a tip entered under a cashier PIN split by hours, or does it go whole to that PIN's Worker?
+  status: open
+  assumption: A tip under a cashier PIN goes to that PIN's Worker and is not split.
+  blocking: true
+  answer_from: COMPASS_HR_LEGAL_PAYROLL
+  answer: null
+  sources:
+  - SHEET TS-11
+  - SHEET 4.4
+- decision_id: D-139
+  origin: graph
+  question: Who keeps the cashier PIN map, and what happens to a PIN tip that cannot be placed?
+  status: open
+  assumption: >-
+    Unit Users keep the cashier PIN map, and a PIN tip goes to one Timesheet of that Worker; it is
+    refused when the PIN is not mapped or the Worker has no open Timesheet there that day.
+  blocking: false
+  answer_from: COMPASS_OPERATIONS
+  answer: null
+  sources:
+  - SHEET 4.4
+  - SHEET TS-11
+- decision_id: D-140
+  origin: graph
+  question: Until when can tips and Expenses be added to a Timesheet, and when is an Expense decided?
+  status: open
+  assumption: >-
+    Agency Users add tips and expenses only on Draft and Rejected Timesheets. A tip they enter keeps its
+    Timesheet from being approved automatically, so a Unit User sees it before it is billed. A Unit User
+    decides each expense on a Submitted Timesheet, and a decided expense does not change; an approved
+    expense counts even on a no-show Timesheet.
+  blocking: false
+  answer_from: COMPASS_OPERATIONS
+  answer: null
+  sources:
+  - SHEET TS-11
+  - SHEET TS-12
+  - SESSIONS Timesheets, Tips & Expenses
+- decision_id: D-141
+  origin: graph
+  question: What does a second sales upload for the same Unit and date do?
+  status: open
+  assumption: A second upload for the same Unit and date replaces the first.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - SHEET REP-4
+  - PRD §6 Templates
+- decision_id: D-142
+  origin: graph
+  question: Are the sheet's "top operators" Units or people?
+  status: open
+  assumption: Operators are ranked as Units.
+  blocking: false
+  answer_from: COMPASS_OPERATIONS
+  answer: null
+  sources:
+  - SHEET REP-9
+  - SHEET 6.3

@@ -26,7 +26,7 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-3
   rule_decisions:
-  - D-61
+  - D-126
 - rule_id: R3
   rule_statement: >-
     On a phone the menu collapses behind one button, and every action a desktop offers is also offered
@@ -42,12 +42,12 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-3
   - SHEET TS-5
-  - FEEDBACK
+  - FEEDBACK OCR to match paper timesheets
   rule_decisions: []
 requirement_sources:
 - SHEET PLT-3
 requirement_decisions:
-- D-61
+- D-126
 requirement_features:
 - PLT-3
 edges:

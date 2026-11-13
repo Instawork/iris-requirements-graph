@@ -49,7 +49,7 @@ terms:
   definition: A staffing vendor that supplies Workers to Compass.
   avoid: [Supplier, vendor]
   source_words: [vendor, supplier]
-  sources: [SHEET RC-3, FEEDBACK]
+  sources: [SHEET RC-3, FEEDBACK Creating an agency in bulk]
 - term: Agency User
   definition: Staff of one Agency who answer Releases, staff Shifts, and submit hours.
   avoid: []
@@ -58,7 +58,7 @@ terms:
   definition: A person an Agency sends to Shifts.
   avoid: [Professional, Pro, associate]
   source_words: [associate, temp]
-  sources: [FEEDBACK, SHEET WA-1]
+  sources: [FEEDBACK the common language is probably workers, SHEET WA-1]
 - term: Role Grant
   definition: One role a User holds, with its scope, a part of the org or one Agency. A graph term.
   avoid: []
@@ -169,6 +169,14 @@ terms:
   avoid: [pay week]
   source_words: [pay area]
   sources: [SHEET WA-20]
+- term: Labor Rule
+  definition: >-
+    One state or city rule for a meal break, a rest break, the minimum wage, or overtime, with the dates it
+    is in effect. Instawork Admins load them as reference data.
+  avoid: [labor regulation, wage rule]
+  source_words: [labor law]
+  sources: [SHEET WA-18, SHEET WA-19]
+  decisions: [D-26, D-57]
 - term: Timesheet
   definition: The hours one Worker billed for one Shift, or for one part of a Shift split by role.
   avoid: [timecard]
@@ -189,11 +197,32 @@ terms:
     at cost.
   avoid: []
   sources: [SHEET TS-11]
+- term: Expense
+  definition: >-
+    A cost an Agency paid for a Worker on a Shift, such as parking or a background check, added to the
+    Timesheet and passed through at cost once a Unit User approves it.
+  avoid: [reimbursement]
+  sources: [SHEET TS-12, 'SESSIONS Timesheets, Tips & Expenses']
+  decisions: [D-71, D-140]
 - term: Spend
   definition: Approved spend plus pending spend, as REQ-REPORTING-0001 defines them.
   avoid: []
   sources: [PRD §1 Detailed requirements, SHEET REP-7]
   decisions: [D-29]
+- term: Budget
+  definition: >-
+    A Unit's labor budget for a range of dates, loaded from a file and set against Spend on dashboards.
+  avoid: [spend target, spending limit]
+  sources: [SHEET REP-8, SHEET REP-7]
+  decisions: [D-14]
+- term: Sales Record
+  definition: >-
+    A Unit's revenue for one date, with the events held and meals served when the file gives them. Labor
+    cost as a percentage of sales is worked out from it.
+  avoid: [revenue record]
+  source_words: [sales data]
+  sources: [SHEET REP-4, SHEET REP-3]
+  decisions: [D-141]
 - term: Setting
   definition: A configurable value with a program default and overrides down the org tree.
   avoid: []
@@ -211,7 +240,7 @@ terms:
   avoid: []
   source_words: [Invoice Group]
   sources: [SHEET INV-1, PRD Key Terms]
-  decisions: [D-14]
+  decisions: [D-135]
 - term: Agency Invoice
   definition: One Agency's part of a Consolidated Invoice. Phase 2.
   avoid: []

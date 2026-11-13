@@ -50,7 +50,7 @@ requirement_rules:
     REQ-TIME-0008, and then shows each part with its own rates.
   rule_sources:
   - SHEET TS-10
-  - FEEDBACK
+  - FEEDBACK split can also be department driven
   - SESSIONS Timesheets, Tips & Expenses
   rule_decisions: []
 - rule_id: R6
@@ -68,7 +68,7 @@ requirement_rules:
   - PRD §2 Shifts
   rule_decisions:
   - D-28
-  - D-60
+  - D-140
 - rule_id: R8
   rule_statement: >-
     Tips from a Tip Pool or a cashier PIN are listed with their source and cannot be changed here.
@@ -91,7 +91,7 @@ requirement_rules:
   rule_sources:
   - SHEET TS-12
   rule_decisions:
-  - D-60
+  - D-140
 - rule_id: R11
   rule_statement: >-
     A REJECTED Timesheet shows the Unit's rejected_reason above the hours until it is submitted again.
@@ -124,10 +124,10 @@ requirement_decisions:
 - D-28
 - D-33
 - D-59
-- D-60
 - D-110
 - D-70
 - D-69
+- D-140
 requirement_features:
 - TS-10
 - TS-11

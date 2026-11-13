@@ -14,7 +14,7 @@ requirement_rules:
     The Settings screen lists every key of the settings catalog with its meaning, its program default,
     and whether that default is the catalog's or was set by a Program User.
   rule_sources:
-  - FAQ
+  - FAQ Can each sector configure Iris differently?
   rule_decisions:
   - D-16
 - rule_id: R2
@@ -22,7 +22,7 @@ requirement_rules:
     A key the catalog scopes as any lists its overrides, each with its Sector, Region, District, or Unit
     and its value, and offers Add override at a node picked from the org tree.
   rule_sources:
-  - FAQ
+  - FAQ Can each sector configure Iris differently?
   - SHEET WA-19
   - SHEET TS-9
   rule_decisions:
@@ -55,11 +55,11 @@ requirement_rules:
   rule_statement: >-
     Picking a Unit shows, for every key, the value in force there as REQ-ORG-0006 resolves it.
   rule_sources:
-  - FAQ
+  - FAQ Can each sector configure Iris differently?
   rule_decisions:
   - D-16
 requirement_sources:
-- FAQ
+- FAQ Can each sector configure Iris differently?
 - SHEET TS-9
 - SHEET RC-11
 - SHEET WA-19

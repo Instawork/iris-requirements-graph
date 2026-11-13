@@ -16,7 +16,7 @@ requirement_rules:
     or Unit, the six rates, Markup as a percentage, effective dates, and status.
   rule_sources:
   - PRD §3 Supplier Rates
-  - FEEDBACK
+  - FEEDBACK Just do % only
   rule_decisions:
   - D-11
 - rule_id: R2
@@ -24,21 +24,21 @@ requirement_rules:
     It filters by Market, Position, Agency, Unit, and status and sorts by any rate, rather than placing
     Agencies side by side (C-15).
   rule_sources:
-  - FEEDBACK
+  - FEEDBACK A lot of vendors side by side
   rule_decisions: []
 - rule_id: R3
   rule_statement: It opens on APPROVED lines in effect today.
   rule_sources:
   - DEMO components/rates/rates-page.tsx
   rule_decisions:
-  - D-63
+  - D-115
 - rule_id: R4
   rule_statement: >-
     Each Market Rate Line in effect today shows its Peer Rate, and a line flagged above it under REQ-RATES-0008
     is highlighted with the gap in dollars and as a percentage.
   rule_sources:
   - SHEET RC-12
-  - FEEDBACK
+  - FEEDBACK A lot of vendors side by side
   rule_decisions:
   - D-12
 - rule_id: R5
@@ -61,7 +61,7 @@ requirement_rules:
     Add rate opens the form of REQ-RATES-0013 with an Agency field, and the saved line is listed as APPROVED
     at once (C-13).
   rule_sources:
-  - FEEDBACK
+  - FEEDBACK Rate Cards needs to be its own CRM
   rule_decisions:
   - D-10
 - rule_id: R8
@@ -78,7 +78,7 @@ requirement_rules:
     Agency, and REQ-RATES-0002 saves each accepted row as an APPROVED line.
   rule_sources:
   - SHEET RC-4
-  - FEEDBACK
+  - FEEDBACK Rate Cards needs to be its own CRM
   rule_decisions:
   - D-10
 - rule_id: R10
@@ -98,7 +98,8 @@ requirement_rules:
   rule_decisions:
   - D-80
 requirement_sources:
-- FEEDBACK
+- FEEDBACK A lot of vendors side by side
+- FEEDBACK Rate Cards needs to be its own CRM
 - SESSIONS Rate Cards & Supplier Sourcing
 - SHEET RC-12
 requirement_decisions:
@@ -106,8 +107,8 @@ requirement_decisions:
 - D-10
 - D-11
 - D-12
-- D-63
 - D-80
+- D-115
 requirement_features:
 - RC-3
 - RC-4

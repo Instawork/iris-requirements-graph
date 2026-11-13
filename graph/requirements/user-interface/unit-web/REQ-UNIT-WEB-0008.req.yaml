@@ -91,7 +91,7 @@ requirement_rules:
   - PRD §2 Shift statuses
   rule_decisions:
   - D-18
-  - D-65
+  - D-132
 - rule_id: R11
   rule_statement: >-
     On a Shift in a series, Edit and Cancel ask whether to apply to this Shift or to every Shift of the
@@ -152,9 +152,9 @@ requirement_decisions:
 - D-20
 - D-27
 - D-52
-- D-65
 - D-98
 - D-97
+- D-132
 requirement_features:
 - SC-3
 - SC-5

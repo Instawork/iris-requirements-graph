@@ -17,7 +17,7 @@ requirement_rules:
   - SHEET SC-1
   - SHEET SC-7
   rule_decisions:
-  - D-63
+  - D-114
 - rule_id: R2
   rule_statement: >-
     The Agencies REQ-ORDERING-0002.R2 marks non-contracted follow the approved ones, and an Agency it
@@ -65,7 +65,7 @@ requirement_rules:
     and leaves out Workers the Unit rated BLOCK.
   rule_sources:
   - SHEET WA-2
-  - FEEDBACK
+  - FEEDBACK a single agency, then request worker as a nested feature
   rule_decisions:
   - D-52
 - rule_id: R8
@@ -112,7 +112,7 @@ requirement_sources:
 - SHEET SC-1
 - SHEET SC-7
 - SHEET WA-2
-- FEEDBACK
+- FEEDBACK a single agency, then request worker as a nested feature
 requirement_decisions:
 - D-9
 - D-12
@@ -122,7 +122,7 @@ requirement_decisions:
 - D-20
 - D-24
 - D-52
-- D-63
+- D-114
 requirement_features:
 - SC-1
 - SC-7

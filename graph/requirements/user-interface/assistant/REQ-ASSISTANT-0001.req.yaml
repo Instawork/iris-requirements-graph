@@ -46,7 +46,7 @@ requirement_rules:
     Rate Card, and download a template.
   rule_sources:
   - SESSIONS Reporting
-  - FEEDBACK
+  - FEEDBACK Creating an agency in bulk
   rule_decisions:
   - D-64
 - rule_id: R6

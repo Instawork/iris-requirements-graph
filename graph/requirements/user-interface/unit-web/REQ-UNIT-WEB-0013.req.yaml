@@ -23,7 +23,7 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-27
-  - D-63
+  - D-117
 - rule_id: R3
   rule_statement: >-
     Mark issued is offered on a REQUESTED row and Revoke on a REQUESTED or ISSUED row, both through REQ-COMPLIANCE-0006;
@@ -42,7 +42,7 @@ requirement_sources:
 - SHEET WA-17
 requirement_decisions:
 - D-27
-- D-63
+- D-117
 requirement_features:
 - WA-17
 edges:

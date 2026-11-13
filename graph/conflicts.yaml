@@ -2,7 +2,7 @@
 conflicts:
 - conflict_id: C-1
   topic: Names
-  keep: Unit, Agency, Worker (sheet, feedback).
+  keep: Unit, Agency, Worker (sheet; feedback "the common language is probably workers").
   drop: Buyer, Supplier, Professional or Pro (PRD, demo).
 - conflict_id: C-2
   topic: Releasing to Agencies
@@ -78,7 +78,7 @@ conflicts:
   topic: Comparing Agency rates
   keep: >-
     Program Users filter and sort Rate Lines by Position and Market, with the Peer Rate beside each line
-    (feedback: too many Agencies to see side by side).
+    (feedback "a lot of vendors side by side").
   drop: Every Agency's rates side by side (PRD).
 - conflict_id: C-16
   topic: Bill Rate on a Shift
@@ -97,7 +97,7 @@ conflicts:
 - conflict_id: C-19
   topic: Requests from MyStaff
   keep: Requests start in Iris; MyStaff is Phase 3 (sheet PLT-11; D-6).
-  drop: Open shifts come straight from MyStaff (FAQ).
+  drop: Open shifts come straight from MyStaff (FAQ "Open shifts come straight from MySTAFF").
 - conflict_id: C-20
   topic: Invoice period
   keep: Weekly (sheet INV-1).
@@ -112,22 +112,25 @@ conflicts:
     own fill rate, time to fill, no-show rate, compliance, and average rating (PRD).
 - conflict_id: C-22
   topic: Budget approvals
-  keep: 'Phase 3 (sheet SC-15; feedback: skip unless it''s an issue).'
-  drop: Every over-budget order needs approval from day one (FAQ, deck).
+  keep: Phase 3 (sheet SC-15; feedback "skip this approval feature unless we hear that it's an issue").
+  drop: Every over-budget order needs approval from day one (FAQ "Budgets and approvals"; deck).
 - conflict_id: C-23
   topic: Clock-in
   keep: >-
     Phase 3 and an open decision (sheet TS-1; D-5). MVP auto-approval compares billed times with the schedule.
-  drop: Iris clock as the source of truth from day one (FAQ, deck, sessions, demo).
+  drop: >-
+    Iris clock as the source of truth from day one (FAQ "Every hour checked against the clock"; deck;
+    sessions; demo).
 - conflict_id: C-24
   topic: Forecasts and savings
   keep: >-
     Only what the sheet lists: fill risk (Phase 2) and Department demand forecasting (Phase 3).
-  drop: Spend forecasts and savings recommendations (FAQ, deck, sessions).
+  drop: >-
+    Spend forecasts and savings recommendations (FAQ "Spend forecast and recommendations"; deck; sessions).
 - conflict_id: C-25
   topic: Paying Agencies
   keep: Iris records what is owed and shows payment status in Phase 2 (sheet INV-7; D-31).
-  drop: Agencies are paid through Iris (FAQ).
+  drop: Agencies are paid through Iris (FAQ "One consolidated invoice").
 - conflict_id: C-26
   topic: AI in validation
   keep: >-
@@ -138,7 +141,7 @@ conflicts:
   topic: Upload file kinds
   keep: >-
     Timesheets, tips, expenses, and Credential documents also arrive as PDFs and images (sheet TS-5,
-    WA-14; sessions; feedback on OCR).
+    WA-14; sessions; feedback "OCR to match timesheets if they're using paper timesheets").
   drop: Every upload is a CSV or Excel file (PRD).
 - conflict_id: C-28
   topic: Accrual scope

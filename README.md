@@ -152,7 +152,9 @@ These hold everywhere unless a rule says otherwise, so rules do not repeat them.
 ### Decisions
 
 Open questions live in `graph/decisions.yaml`, each with the assumption the graph builds on
-until Compass answers. A `blocking: true` decision stops approval of every requirement that
+until Compass answers. Each decision names who must answer it with `answer_from`:
+`COMPASS_OPERATIONS`, `COMPASS_HR_LEGAL_PAYROLL`, `COMPASS_FINANCE`, `INSTAWORK_PRODUCT`, or
+`INSTAWORK_ENGINEERING`. A `blocking: true` decision stops approval of every requirement that
 cites it or depends on one that does. When a decision is answered, set `status: answered`
 and `answer`, then update the requirements that cite it.
 

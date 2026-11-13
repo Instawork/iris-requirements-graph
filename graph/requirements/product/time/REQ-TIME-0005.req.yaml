@@ -55,7 +55,7 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-22
-  - D-59
+  - D-69
 - rule_id: R7
   rule_statement: >-
     A Timesheet that bills its Release's Bill Rates never carries RATE_VARIANCE; only a part split to
@@ -110,7 +110,7 @@ requirement_rules:
   - SHEET RC-10
   rule_decisions:
   - D-22
-  - D-59
+  - D-120
 - rule_id: R14
   rule_statement: >-
     Each Timesheet also shows the rate variance REQ-RATES-0006 finds between its three Bill Rates and
@@ -173,6 +173,7 @@ requirement_decisions:
 - D-33
 - D-59
 - D-69
+- D-120
 requirement_features:
 - TS-7
 edges:

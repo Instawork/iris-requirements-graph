@@ -15,7 +15,7 @@ requirement_rules:
     rates, the Markup of each pair as a percentage, effective_from, effective_to, and status.
   rule_sources:
   - PRD §3 Supplier Rates
-  - FEEDBACK
+  - FEEDBACK Just do % only
   rule_decisions:
   - D-11
 - rule_id: R2
@@ -25,6 +25,7 @@ requirement_rules:
   rule_sources:
   - DEMO components/rates/rates-page.tsx
   rule_decisions:
+  - D-115
   - D-63
 - rule_id: R3
   rule_statement: >-
@@ -38,7 +39,6 @@ requirement_rules:
     Add rate opens the form of REQ-RATES-0013 with no Agency field, and the saved line is listed as PENDING
     until a Program User approves it or sends it back.
   rule_sources:
-  - FEEDBACK
   - SESSIONS Rate Cards & Supplier Sourcing
   rule_decisions:
   - D-10
@@ -105,6 +105,7 @@ requirement_decisions:
 - D-11
 - D-63
 - D-87
+- D-115
 requirement_features:
 - RC-3
 - RC-4

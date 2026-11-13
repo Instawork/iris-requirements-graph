@@ -45,7 +45,6 @@ requirement_rules:
     When a document is sent without details, the page shows what Iris read from it for the Agency User
     to confirm or correct before REQ-COMPLIANCE-0002 saves it.
   rule_sources:
-  - FAQ
   - PRD §6 Uploads
   rule_decisions: []
 - rule_id: R6

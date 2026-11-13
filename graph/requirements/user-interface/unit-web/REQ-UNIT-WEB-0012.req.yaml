@@ -17,7 +17,7 @@ requirement_rules:
   - SHEET TS-11
   rule_decisions:
   - D-28
-  - D-63
+  - D-118
 - rule_id: R2
   rule_statement: >-
     New Tip Pool takes a Unit, a work date, an amount, and optionally one Shift or one Event, never both,
@@ -26,6 +26,7 @@ requirement_rules:
   - SHEET TS-11
   rule_decisions:
   - D-28
+  - D-137
 - rule_id: R3
   rule_statement: >-
     Opening a pool shows its Shift or Event when set and each share with its Worker, Agency, worked minutes,
@@ -50,7 +51,7 @@ requirement_rules:
   rule_sources:
   - SHEET TS-11
   rule_decisions:
-  - D-28
+  - D-138
 - rule_id: R6
   rule_statement: >-
     The PIN map tab lists each cashier PIN with its Unit, Worker, valid_from, and valid_to, and adds a
@@ -58,8 +59,7 @@ requirement_rules:
   rule_sources:
   - SHEET 4.4
   rule_decisions:
-  - D-28
-  - D-60
+  - D-139
 - rule_id: R7
   rule_statement: >-
     Upload tips opens the Uploads send step of REQ-SHELL-0008 with TIPS picked, and a pool typed in the
@@ -75,7 +75,7 @@ requirement_rules:
   rule_sources:
   - SHEET 4.4
   rule_decisions:
-  - D-60
+  - D-139
 - rule_id: R9
   rule_statement: >-
     A new pool, a change to one, or a PIN tip that REQ-TIPS-0001.R17 refuses shows that a Timesheet it
@@ -91,7 +91,10 @@ requirement_sources:
 requirement_decisions:
 - D-28
 - D-60
-- D-63
+- D-118
+- D-137
+- D-138
+- D-139
 requirement_features:
 - TS-11
 edges:

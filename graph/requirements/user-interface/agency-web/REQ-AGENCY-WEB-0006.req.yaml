@@ -86,7 +86,7 @@ requirement_rules:
     Workers who came off the Release are listed below the assigned ones with the removal reason, such
     as NOT_ELIGIBLE or BLOCKED_BY_UNIT.
   rule_sources:
-  - FAQ
+  - FAQ What happens if a worker doesn't meet the requirements?
   rule_decisions:
   - D-51
 - rule_id: R11

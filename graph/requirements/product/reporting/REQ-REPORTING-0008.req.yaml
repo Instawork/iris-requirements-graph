@@ -27,6 +27,7 @@ requirement_rules:
   - GRAPH spend to date is set against the whole month's budget
   rule_decisions:
   - D-14
+  - D-136
 - rule_id: R3
   rule_statement: >-
     It shows SPEND for the current month to date beside the whole prior month, and for the current Work
@@ -36,7 +37,7 @@ requirement_rules:
   - PRD §1 Detailed requirements
   - GRAPH to-date figures are compared with whole prior periods
   rule_decisions:
-  - D-14
+  - D-136
 - rule_id: R4
   rule_statement: It splits every SPEND figure into APPROVED_SPEND and PENDING_SPEND.
   rule_sources:
@@ -88,6 +89,7 @@ requirement_decisions:
 - D-25
 - D-29
 - D-42
+- D-136
 requirement_features:
 - REP-7
 edges:

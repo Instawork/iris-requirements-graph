@@ -17,7 +17,7 @@ requirement_rules:
   - SHEET TS-7
   - SESSIONS Timesheets, Tips & Expenses
   rule_decisions:
-  - D-63
+  - D-113
 - rule_id: R2
   rule_statement: >-
     Other tabs list the Timesheets in scope that are DRAFT or REJECTED with the Agency, APPROVED, and
@@ -75,7 +75,7 @@ requirement_rules:
   - SHEET TS-8
   rule_decisions:
   - D-22
-  - D-59
+  - D-123
 - rule_id: R9
   rule_statement: >-
     Approve all approves in one step every SUBMITTED Timesheet shown for one Shift, one Event, or one
@@ -84,7 +84,7 @@ requirement_rules:
   - SHEET TS-8
   - SESSIONS Timesheets, Tips & Expenses
   rule_decisions:
-  - D-59
+  - D-125
 - rule_id: R17
   rule_statement: A locked Timesheet shows when it locked and offers no action.
   rule_sources:
@@ -118,6 +118,9 @@ requirement_decisions:
 - D-59
 - D-63
 - D-110
+- D-113
+- D-123
+- D-125
 requirement_features:
 - TS-7
 - TS-8

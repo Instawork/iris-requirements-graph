@@ -47,7 +47,7 @@ requirement_rules:
     When a UNIT_USER scope is picked, the form says it covers every Unit at or beneath that node.
   rule_sources:
   - SHEET PLT-2
-  - FAQ
+  - FAQ Who uses Iris day to day?
   rule_decisions:
   - D-25
 - rule_id: R6

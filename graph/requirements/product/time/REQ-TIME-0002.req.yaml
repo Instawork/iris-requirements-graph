@@ -27,13 +27,13 @@ requirement_rules:
   - SHEET TS-7
   rule_decisions:
   - D-22
-  - D-59
+  - D-123
 - rule_id: R3
   rule_statement: Submitting a REJECTED Timesheet clears its rejected_reason.
   rule_sources: []
   rule_decisions:
   - D-33
-  - D-59
+  - D-123
 - rule_id: R4
   rule_statement: >-
     An Agency User can submit one Timesheet, or in one step every DRAFT and REJECTED Timesheet of their
@@ -56,7 +56,7 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-22
-  - D-59
+  - D-123
 - rule_id: R7
   rule_statement: >-
     A Unit User can approve one Timesheet, or in one step every SUBMITTED Timesheet in their scope for
@@ -71,7 +71,7 @@ requirement_rules:
     the reason.
   rule_sources: []
   rule_decisions:
-  - D-59
+  - D-125
 - rule_id: R9
   rule_statement: >-
     A Timesheet can be submitted and approved as soon as it exists; neither step waits for the Work Week
@@ -85,7 +85,8 @@ requirement_sources:
 requirement_decisions:
 - D-22
 - D-33
-- D-59
+- D-123
+- D-125
 requirement_features:
 - TS-8
 edges:

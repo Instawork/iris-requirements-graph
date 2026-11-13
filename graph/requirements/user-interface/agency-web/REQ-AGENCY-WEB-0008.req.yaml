@@ -16,7 +16,7 @@ requirement_rules:
   rule_sources:
   - SHEET WA-4
   rule_decisions:
-  - D-66
+  - D-133
 - rule_id: R2
   rule_statement: >-
     OPEN issues come first, oldest first, then RESOLVED ones, newest first, and the list filters by status,
@@ -24,6 +24,7 @@ requirement_rules:
   rule_sources:
   - SHEET WA-4
   rule_decisions:
+  - D-117
   - D-63
 - rule_id: R3
   rule_statement: >-
@@ -41,7 +42,8 @@ requirement_sources:
 - SHEET WA-4
 requirement_decisions:
 - D-63
-- D-66
+- D-133
+- D-117
 requirement_features:
 - WA-4
 edges:

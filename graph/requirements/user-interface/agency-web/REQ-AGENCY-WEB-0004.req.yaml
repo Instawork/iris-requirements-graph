@@ -25,6 +25,7 @@ requirement_rules:
   rule_sources:
   - DEMO components/shifts/shifts-page.tsx
   rule_decisions:
+  - D-113
   - D-63
 - rule_id: R3
   rule_statement: A REJECTED Timesheet shows the Unit's rejected_reason in its row.
@@ -55,7 +56,7 @@ requirement_rules:
   rule_sources:
   - SHEET TS-8
   rule_decisions:
-  - D-59
+  - D-123
 - rule_id: R7
   rule_statement: >-
     Submit all, offered for one Shift, one Event, or one work date at a Unit, calls REQ-TIME-0002 for
@@ -68,14 +69,14 @@ requirement_rules:
     After a bulk submit, the screen lists each Timesheet left unsubmitted with the reason.
   rule_sources: []
   rule_decisions:
-  - D-59
+  - D-125
 - rule_id: R9
   rule_statement: >-
     Upload hours opens the Uploads send step of REQ-SHELL-0008 with TIMESHEETS picked, for a template,
     PDF, or photo of a sign-in sheet; REQ-TIME-0003 saves accepted lines without submitting any Timesheet.
   rule_sources:
   - SHEET TS-5
-  - FEEDBACK
+  - FEEDBACK OCR to match paper timesheets
   - SESSIONS Timesheets, Tips & Expenses
   rule_decisions: []
 - rule_id: R10
@@ -92,8 +93,10 @@ requirement_sources:
 - SESSIONS Timesheets, Tips & Expenses
 requirement_decisions:
 - D-13
-- D-59
 - D-63
+- D-113
+- D-123
+- D-125
 requirement_features:
 - TS-5
 - TS-8

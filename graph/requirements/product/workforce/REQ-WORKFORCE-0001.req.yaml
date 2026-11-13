@@ -52,7 +52,7 @@ requirement_rules:
     with at least a name, once the uploader approves.
   rule_sources:
   - PRD §4 Professionals
-  - FEEDBACK use OCR to match paper timesheets
+  - FEEDBACK OCR to match paper timesheets
   rule_decisions: []
 - rule_id: R7
   rule_statement: >-

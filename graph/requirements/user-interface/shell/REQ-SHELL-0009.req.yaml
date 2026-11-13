@@ -29,6 +29,8 @@ requirement_rules:
   rule_decisions:
   - D-65
   - D-66
+  - D-133
+  - D-134
 - rule_id: R3
   rule_statement: >-
     Opening a screen or record the User's Role Grants do not cover shows the refusal of REQ-ORG-0009 and
@@ -74,6 +76,8 @@ requirement_decisions:
 - D-65
 - D-66
 - D-110
+- D-133
+- D-134
 requirement_features:
 - PLT-1
 edges:

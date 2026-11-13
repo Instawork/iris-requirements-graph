@@ -389,7 +389,7 @@ def decisions_well_formed(graph: Graph):
             problems.append((here, "needs a question"))
         if not isinstance(decision.get("blocking"), bool):
             problems.append((here, "blocking must be true or false"))
-        if "answer_from" in decision and decision.get("answer_from") not in ANSWER_FROM:
+        if decision.get("answer_from") not in ANSWER_FROM:
             problems.append((here, f"answer_from must be one of {', '.join(sorted(ANSWER_FROM))}"))
         if decision.get("status") == "open":
             if not decision.get("assumption"):

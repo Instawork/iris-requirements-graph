@@ -14,7 +14,7 @@ requirement_rules:
     The Agencies screen lists every Agency with its name, whether it is active, and the number of org
     nodes it is approved at, and searches by name.
   rule_sources:
-  - FEEDBACK
+  - FEEDBACK Creating an agency in bulk
   rule_decisions:
   - D-9
   - D-63
@@ -23,7 +23,7 @@ requirement_rules:
     Add Agency takes the Agency's name and a first contact's first name, last name, email, and optional
     phone, and calls REQ-AGENCIES-0001, which invites the contact as the first Agency User.
   rule_sources:
-  - FEEDBACK
+  - FEEDBACK Creating an agency in bulk
   rule_decisions:
   - D-25
 - rule_id: R3
@@ -60,10 +60,10 @@ requirement_rules:
     Upload Agencies opens the Uploads send step of REQ-SHELL-0008 with AGENCIES picked, and REQ-AGENCIES-0001
     and REQ-AGENCIES-0002 save the Agencies, contacts, and approvals of its accepted rows.
   rule_sources:
-  - FEEDBACK
+  - FEEDBACK Creating an agency in bulk
   rule_decisions: []
 requirement_sources:
-- FEEDBACK
+- FEEDBACK Creating an agency in bulk
 - SHEET RC-11
 requirement_decisions:
 - D-9

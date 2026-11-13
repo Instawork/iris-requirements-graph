@@ -134,6 +134,10 @@ class MutationTests(unittest.TestCase):
         self.copy.edit_yaml("graph/decisions.yaml", lambda d: d["decisions"][0].update(assumption=None))
         self.assertCaught("decisions_well_formed", "assumption")
 
+    def test_decisions_well_formed__answer_from(self):
+        self.copy.edit_yaml("graph/decisions.yaml", lambda d: d["decisions"][0].pop("answer_from"))
+        self.assertCaught("decisions_well_formed", "answer_from")
+
     def test_registers_well_formed(self):
         self.copy.edit_yaml("graph/conflicts.yaml", lambda d: d["conflicts"][0].update(keep=""))
         self.assertCaught("registers_well_formed", "needs keep")

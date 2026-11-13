@@ -18,7 +18,7 @@ requirement_rules:
   - SHEET REP-1
   rule_decisions:
   - D-45
-  - D-63
+  - D-118
 - rule_id: R2
   rule_statement: >-
     Opening one calls REQ-REPORTING-0003 and shows the recomputed chart, table, or dashboard.
@@ -33,7 +33,7 @@ requirement_rules:
   rule_sources:
   - SHEET REP-1
   rule_decisions:
-  - D-14
+  - D-136
   - D-75
 - rule_id: R4
   rule_statement: >-
@@ -42,7 +42,7 @@ requirement_rules:
   rule_sources:
   - SESSIONS Reporting
   rule_decisions:
-  - D-61
+  - D-129
 - rule_id: R5
   rule_statement: >-
     Each Saved Report offers Rename, which takes a new name, and Delete, both through REQ-REPORTING-0003.R13.
@@ -53,11 +53,11 @@ requirement_sources:
 - SHEET REP-1
 - SESSIONS Reporting
 requirement_decisions:
-- D-14
 - D-45
-- D-61
-- D-63
 - D-75
+- D-118
+- D-136
+- D-129
 requirement_features:
 - REP-1
 edges:

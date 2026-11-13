@@ -41,7 +41,7 @@ requirement_rules:
     and a reason, and saves through REQ-TIME-0008.
   rule_sources:
   - SHEET TS-10
-  - FEEDBACK
+  - FEEDBACK split can also be department driven
   - SESSIONS Timesheets, Tips & Expenses
   rule_decisions:
   - D-33
@@ -61,7 +61,7 @@ requirement_rules:
   rule_sources:
   - PRD §6 Uploads
   rule_decisions:
-  - D-59
+  - D-124
 requirement_sources:
 - SHEET TS-10
 - SHEET TS-7
@@ -70,8 +70,8 @@ requirement_sources:
 requirement_decisions:
 - D-5
 - D-33
-- D-59
 - D-70
+- D-124
 requirement_features:
 - TS-10
 edges:

@@ -45,8 +45,7 @@ requirement_rules:
   rule_sources:
   - SHEET WA-20
   rule_decisions:
-  - D-14
-  - D-65
+  - D-136
 - rule_id: R6
   rule_statement: The screen embeds the Saved Reports list of REQ-SHELL-0012.
   rule_sources:
@@ -67,10 +66,9 @@ requirement_sources:
 - SHEET REP-10
 - SHEET 6.3
 requirement_decisions:
-- D-14
 - D-43
 - D-45
-- D-65
+- D-136
 requirement_features:
 - REP-3
 - REP-7

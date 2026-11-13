@@ -54,6 +54,7 @@ requirement_rules:
   - PRD §1 Detailed requirements
   rule_decisions:
   - D-14
+  - D-136
 - rule_id: R6
   rule_statement: >-
     Each spend figure shows its APPROVED_SPEND and PENDING_SPEND parts, and the summary links to the Reports
@@ -73,6 +74,7 @@ requirement_decisions:
 - D-27
 - D-29
 - D-62
+- D-136
 requirement_features:
 - REP-7
 edges:

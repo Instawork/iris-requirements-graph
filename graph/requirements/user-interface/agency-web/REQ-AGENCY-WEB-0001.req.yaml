@@ -15,7 +15,7 @@ requirement_rules:
   rule_sources:
   - PRD Pages
   rule_decisions:
-  - D-66
+  - D-133
 - rule_id: R12
   rule_statement: >-
     Home is the page an Agency User lands on, first in the menu; it holds only the sections other requirements
@@ -29,8 +29,8 @@ requirement_sources:
 - PRD §1 Dashboard / Profile
 - SHEET PLT-1
 requirement_decisions:
-- D-66
 - D-110
+- D-133
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

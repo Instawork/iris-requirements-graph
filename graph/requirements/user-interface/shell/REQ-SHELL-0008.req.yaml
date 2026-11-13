@@ -68,12 +68,10 @@ requirement_rules:
     The Uploads item of the menu shows how many of the User's Uploads are IN_REVIEW or NEEDS_TYPE.
   rule_sources:
   - DEMO components/shell/nav-config.ts
-  rule_decisions:
-  - D-61
+  rule_decisions: []
 requirement_sources:
 - PRD §6 Uploads
-requirement_decisions:
-- D-61
+requirement_decisions: []
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON
