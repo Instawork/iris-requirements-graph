@@ -18,7 +18,7 @@ requirement_rules:
   - SHEET WA-15
   rule_decisions:
   - D-68
-  - D-89
+  - D-87
 - rule_id: R2
   rule_statement: >-
     The issuer or registry check is made through REQ-INTEGRATIONS-0006; when its result is not available,
@@ -105,7 +105,7 @@ requirement_decisions:
 - D-3
 - D-56
 - D-68
-- D-89
+- D-87
 requirement_features:
 - WA-15
 edges:

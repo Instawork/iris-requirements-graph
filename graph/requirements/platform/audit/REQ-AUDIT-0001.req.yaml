@@ -41,7 +41,7 @@ requirement_rules:
   rule_sources:
   - PRD §2 Shifts
   rule_decisions:
-  - D-102
+  - D-100
 - rule_id: R5
   rule_statement: >-
     The channel says how the change reached Iris: APP, FILE_UPLOAD, ASSISTANT, EMAIL, SMS, PHONE, API,
@@ -79,7 +79,7 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-37
-  - D-101
+  - D-99
 - rule_id: R10
   rule_statement: >-
     The AuditEvents of one record can be listed newest first, and the requirement that shows them decides
@@ -95,15 +95,15 @@ requirement_rules:
   rule_sources:
   - GRAPH data model AuditAction meanings
   rule_decisions:
-  - D-102
+  - D-100
 requirement_sources:
 - SHEET RC-5
 - SHEET WA-16
 - PRD §2 Shifts
 requirement_decisions:
 - D-37
-- D-101
-- D-102
+- D-99
+- D-100
 requirement_features: []
 edges: []
 data_model:

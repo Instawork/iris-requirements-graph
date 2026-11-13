@@ -16,7 +16,7 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-2
   rule_decisions:
-  - D-86
+  - D-84
 - rule_id: R2
   rule_statement: >-
     A node is saved only when its parent exists and is exactly one level above it; otherwise it is refused
@@ -57,13 +57,13 @@ requirement_rules:
   - SHEET PLT-2
   - FEEDBACK Departments within venues
   rule_decisions:
-  - D-86
+  - D-84
 requirement_sources:
 - SHEET PLT-2
 - FEEDBACK Departments within venues
 requirement_decisions:
 - D-54
-- D-86
+- D-84
 requirement_features:
 - PLT-2
 edges:

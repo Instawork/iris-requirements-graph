@@ -18,7 +18,7 @@ requirement_rules:
   - SHEET RC-12
   rule_decisions:
   - D-12
-  - D-87
+  - D-85
 - rule_id: R2
   rule_statement: >-
     A line with no other Agency's line to compare with has no Peer Rate, and a Unit Rate Line has none.
@@ -33,7 +33,7 @@ requirement_rules:
   - SHEET RC-12
   rule_decisions:
   - D-16
-  - D-87
+  - D-85
 - rule_id: R4
   rule_statement: >-
     The same comparison is made for any regular Bill Rate, Agency, Position, and Market, so the rate on
@@ -51,7 +51,7 @@ requirement_rules:
   - FEEDBACK A lot of vendors side by side
   - PRD §3 Supplier Rates
   rule_decisions:
-  - D-87
+  - D-85
 - rule_id: R6
   rule_statement: >-
     Only a Program User sends a Rate Review, on a flagged line with no REQUESTED review; it is saved as
@@ -106,7 +106,7 @@ requirement_rules:
 requirement_sources:
 - SHEET RC-12
 - SESSIONS Invoicing & Accruals
-requirement_decisions: [D-2, D-10, D-12, D-16, D-68, D-87]
+requirement_decisions: [D-2, D-10, D-12, D-16, D-68, D-85]
 requirement_features:
 - RC-12
 edges:

@@ -17,7 +17,7 @@ requirement_rules:
   - SHEET SC-1
   - SHEET SC-7
   rule_decisions:
-  - D-114
+  - D-111
 - rule_id: R2
   rule_statement: >-
     The Agencies REQ-ORDERING-0002.R2 marks non-contracted follow the approved ones, and an Agency it
@@ -122,7 +122,7 @@ requirement_decisions:
 - D-20
 - D-24
 - D-52
-- D-114
+- D-111
 requirement_features:
 - SC-1
 - SC-7

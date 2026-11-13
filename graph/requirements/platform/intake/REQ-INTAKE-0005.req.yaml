@@ -20,7 +20,7 @@ requirement_rules:
   - PRD §6 Uploads
   - GRAPH platform reads no product records, so the caller supplies them
   rule_decisions:
-  - D-109
+  - D-107
 - rule_id: R2
   rule_statement: >-
     The file has one header row with the table's column names, then one line per row, with the table's
@@ -52,7 +52,7 @@ requirement_sources:
 - PRD §6 Uploads
 requirement_decisions:
 - D-40
-- D-109
+- D-107
 requirement_features: []
 edges: []
 data_model:

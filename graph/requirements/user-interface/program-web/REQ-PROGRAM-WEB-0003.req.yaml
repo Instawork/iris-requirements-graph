@@ -31,7 +31,7 @@ requirement_rules:
   rule_sources:
   - DEMO components/rates/rates-page.tsx
   rule_decisions:
-  - D-115
+  - D-112
 - rule_id: R4
   rule_statement: >-
     Each Market Rate Line in effect today shows its Peer Rate, and a line flagged above it under REQ-RATES-0008
@@ -96,7 +96,7 @@ requirement_rules:
   rule_sources:
   - SHEET RC-5
   rule_decisions:
-  - D-80
+  - D-78
 requirement_sources:
 - FEEDBACK A lot of vendors side by side
 - FEEDBACK Rate Cards needs to be its own CRM
@@ -107,8 +107,8 @@ requirement_decisions:
 - D-10
 - D-11
 - D-12
-- D-80
-- D-115
+- D-78
+- D-112
 requirement_features:
 - RC-3
 - RC-4

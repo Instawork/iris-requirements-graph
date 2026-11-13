@@ -77,13 +77,13 @@ requirement_rules:
   - SESSIONS Shift Creation
   - PRD §2 Shifts
   rule_decisions:
-  - D-90
+  - D-88
 - rule_id: R10
   rule_statement: >-
     An Agency User never sees which other Agencies hold the Shift, or their rates, answers, or Workers.
   rule_sources: []
   rule_decisions:
-  - D-90
+  - D-88
 requirement_sources:
 - SHEET SC-8
 - SESSIONS Shift Creation
@@ -91,7 +91,7 @@ requirement_decisions:
 - D-17
 - D-20
 - D-68
-- D-90
+- D-88
 requirement_features:
 - SC-8
 edges:

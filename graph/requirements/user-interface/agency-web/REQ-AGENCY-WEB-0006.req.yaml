@@ -96,7 +96,7 @@ requirement_rules:
   rule_sources:
   - SHEET SC-6
   rule_decisions:
-  - D-91
+  - D-89
 - rule_id: R12
   rule_statement: >-
     After the Shift ends, the Release lists its Workers with no Assign, Swap, or Remove.
@@ -111,7 +111,7 @@ requirement_rules:
   rule_sources:
   - SHEET SC-6
   rule_decisions:
-  - D-91
+  - D-89
 requirement_sources:
 - SHEET WA-1
 - SESSIONS Worker Assignment & Compliance
@@ -121,7 +121,7 @@ requirement_decisions:
 - D-18
 - D-51
 - D-52
-- D-91
+- D-89
 requirement_features:
 - WA-1
 - WA-2

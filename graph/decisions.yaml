@@ -904,7 +904,7 @@ decisions:
   question: How does a User with several roles choose and switch the one they act in?
   status: open
   assumption: >-
-    A User acts in one acting context at a time, as D-84 defines it. A User with several contexts
+    A User acts in one acting context at a time, as D-82 defines it. A User with several contexts
     chooses one at each sign-in and can switch without signing out; the choice is kept on the session,
     so every request carries it, and switching changes the menu and no record. A User with no unrevoked
     grant can only sign out.
@@ -1051,344 +1051,6 @@ decisions:
   answer: null
   sources:
   - GRAPH seven MVP requirements act when a time passes, and none provides the clock
-- decision_id: D-100
-  origin: graph
-  question: >-
-    Where do the first Instawork Admin's email and password come from, and are the User and its Role
-    Grant created in one step?
-  status: open
-  assumption: >-
-    The deployment configuration holds the first Instawork Admin's email, first name, last name, and
-    password. When Iris starts and no User exists, it creates that User, active, with the password's hash
-    and no inviter, and REQ-ORG-0005 grants it INSTAWORK_ADMIN with no granting User, both in one step.
-    A later start changes nothing, so a changed configuration is ignored once a User exists, and the
-    password is changed afterwards by a reset link. No screen adds another Instawork Admin in MVP.
-  blocking: false
-  answer_from: INSTAWORK_ENGINEERING
-  answer: null
-  sources:
-  - SHEET PLT-4
-  - GRAPH the first User has nobody to invite them
-- decision_id: D-101
-  origin: graph
-  question: How is a sign-in kept, when does it end, and where is the role a User is acting in kept?
-  status: open
-  assumption: >-
-    Each sign-in is a stored Session holding its User, a hash of its token, and the time of its last
-    accepted request. It is open until the User signs out, is deactivated, or resets their password,
-    or until 12 hours pass without a request, which is checked when a request arrives. A User may have
-    several open Sessions. The Session also holds the acting role and context, which REQ-ORG-0009 defines
-    and the screens set; IDENTITY stores it without reading it, and a new Session starts with none. Sessions
-    are not written to the Audit Trail.
-  blocking: false
-  answer_from: INSTAWORK_ENGINEERING
-  answer: null
-  sources:
-  - SHEET PLT-4
-  - GRAPH the acting role and context need a place the platform does not read
-- decision_id: D-102
-  origin: graph
-  question: >-
-    What does the Audit Trail record when a record is deactivated, revoked, or cancelled, and what do
-    before and after hold?
-  status: open
-  assumption: >-
-    Any change that keeps the record, including deactivating, reactivating, revoking, and cancelling it,
-    is an UPDATE whose before and after hold only the fields that changed. DELETE is recorded only when
-    the record is removed from Iris, with the whole record in before. CREATE holds the whole new record
-    in after. The record type is the entity's name in the data model.
-  blocking: false
-  answer_from: INSTAWORK_ENGINEERING
-  answer: null
-  sources:
-  - SHEET RC-5
-  - PRD §2 Shifts
-- decision_id: D-103
-  origin: graph
-  question: >-
-    Who words each notification, what is an email's subject line, and where is an invite or reset link
-    kept until its email is sent?
-  status: open
-  assumption: >-
-    No source gives the wording. The requirement that owns a notification type passes a title and a body
-    in plain text, worded by its builder from the facts its rule names. The title is the email's subject
-    line and the inbox heading, and a text carries the body only. A link the message needs is kept apart
-    from the body, on the Notification and only while it is queued; it is erased once the message is
-    sent or has failed, and is never shown in the app or written to the Audit Trail.
-  blocking: false
-  answer_from: INSTAWORK_PRODUCT
-  answer: null
-  sources:
-  - SHEET SC-8
-  - SHEET PLT-4
-- decision_id: D-104
-  origin: graph
-  question: What does REQ-AGENT-0001 deliver, when its rules bind every flow that uses the LLM?
-  status: open
-  assumption: >-
-    One gateway that makes every LLM call. A caller passes a text and the fields to read from it, or the
-    facts to put into words, and gets back a value for each field, or a failure when the output has another
-    shape or the LLM does not answer. The gateway can read and change no record. The model and its provider
-    are Instawork engineering's choice.
-  blocking: false
-  answer_from: INSTAWORK_ENGINEERING
-  answer: null
-  sources:
-  - PRD §7 What the LLM does and what code does
-- decision_id: D-105
-  origin: graph
-  question: >-
-    What does a Proposal item carry, how does a person settle each problem on it, and how are items that
-    make one record together saved?
-  status: open
-  assumption: >-
-    An item's values are one flat set of names and values: the catalog's column names for a file row,
-    and names its proposing requirement chooses otherwise. Each problem names its field, says what is
-    wrong, and carries a fix (a new value, dropping the item, or a step its owner takes on save), candidates
-    to pick from, or neither. An item is accepted only when every problem has a fix or a pick; otherwise
-    it is edited or rejected. Editing saves the values as the person leaves them, changed or not, so
-    it also keeps a row whose fix was to drop it. For a name that matches nothing the candidates are the three closest stored
-    names by single-character edits, and for a name that matches several records they are all of those
-    records; Iris never picks one itself. Each Proposal kind has one save step, registered by the requirement
-    that proposes it. Each item saves whole or not at all, and items that share a group key go to their
-    owner in one call so they can make one record, such as one Request.
-  blocking: false
-  answer_from: INSTAWORK_PRODUCT
-  answer: null
-  sources:
-  - PRD §6 Uploads
-  - PRD §7 Agent Chat
-  - PRD §4 How the system matches a professional
-- decision_id: D-106
-  origin: graph
-  question: >-
-    How does Iris tell which upload type a file is, how large may a file be, and which part of a workbook
-    is read?
-  status: open
-  assumption: >-
-    The LLM maps the file's column names to each upload type's catalog columns. A type fits when the file
-    has every column the catalog marks required yes, the fitting type that covers the most of the file's
-    columns is chosen, and none or a tie asks the uploader. A PDF or image is read by OCR and the LLM names
-    the one type its text holds, among the four that take them, or none. A file column that maps to no
-    catalog column is left out and named in the Proposal's summary. A file over 10 MB is refused and
-    one with more than 5,000 rows fails. Excel means .xlsx and an image JPEG or PNG, the first row with
-    a value is the header, and a workbook may hold rows on one sheet only.
-  blocking: false
-  answer_from: INSTAWORK_ENGINEERING
-  answer: null
-  sources:
-  - PRD §6 Uploads
-  - PRD §7 When the agent is unsure
-  - SHEET TS-5
-- decision_id: D-107
-  origin: graph
-  question: Which issuers and public registries does MVP check a Credential against (WA-15)?
-  status: open
-  assumption: >-
-    None. MVP checks each document itself for its expiry date, its issuer, and signs of editing. No issuer
-    or public registry is connected until Compass names the providers it relies on (I-6), so every issuer
-    or registry check returns not available, and a Credential rests on the document checks and a Program
-    User's review.
-  blocking: false
-  answer_from: COMPASS_OPERATIONS
-  answer: null
-  sources:
-  - SHEET WA-15
-  - SESSIONS Worker Assignment & Compliance
-  - DEMO run-of-show
-- decision_id: D-108
-  origin: graph
-  question: >-
-    How do conversations by email, text, and phone work where the sheet is silent: who takes the request,
-    what makes a thread, what counts as approval, and what the voice agent does?
-  status: open
-  assumption: >-
-    REQ-ORDERING-0010 is the one requirement that takes requests by message in MVP; it supplies the sender's
-    acting role and context, and anything it refuses is answered with its reason. An email reply joins
-    the thread of the message it answers, a text joins the sender's last text thread when that had a message
-    in the past 24 hours, and each call is one thread. The LLM reads a reply as approval, refusal, or
-    neither. Approval applies the thread's one open Proposal when every item can be accepted as proposed;
-    otherwise Iris asks the User to finish it in the app. On a call the voice agent asks the questions
-    aloud, reads the Proposal's summary, and takes a spoken yes or no; the caller is known by their number
-    alone, and the transcript is stored when the call ends. The voice, speech, and telephony providers
-    are Instawork engineering's choice.
-  blocking: false
-  answer_from: INSTAWORK_PRODUCT
-  answer: null
-  sources:
-  - SHEET SC-10
-  - SHEET SC-9
-- decision_id: D-109
-  origin: graph
-  question: How does a platform requirement use product records, which it may not read?
-  status: open
-  assumption: >-
-    It never reads them. The product or screen requirement that calls it supplies what it needs: the acting
-    role, the recipients of a notification, the rows of a table, the result of a lookup or a check, and
-    whether a User may make a change. The caller also keeps anything that must outlast the call, such
-    as a question waiting for an answer.
-  blocking: false
-  answer_from: INSTAWORK_ENGINEERING
-  answer: null
-  sources:
-  - GRAPH platform requirements may depend only on platform requirements
-- decision_id: D-80
-  origin: graph
-  question: Can an approved Rate Line be ended without a new line replacing it, and who may end it?
-  status: open
-  assumption: >-
-    Yes. A Program User ends an approved Rate Line that has no end date by giving an end date on or after
-    its start, and a reason. From that date the Agency has no contracted rate for that Position and Market
-    or Unit until a new line is approved. A line ended on its own start date never prices work and is
-    ignored when a later line's start date is checked. The Agency sees the end and the reason in its rate
-    history and is not notified.
-  blocking: false
-  answer_from: COMPASS_OPERATIONS
-  answer: null
-  sources:
-  - SHEET RC-5
-  - GRAPH an Agency that stops supplying a Position, or a line saved with a wrong date, needs an end
-- decision_id: D-81
-  origin: graph
-  question: Must every Rate Line give all six rates, and does the pilot rate data (I-5) hold them?
-  status: open
-  assumption: >-
-    Yes. Every Rate Line gives a Pay Rate and a Bill Rate for regular, overtime, and double-time hours, as
-    the PRD rate card does, and a row missing one is a problem. If the pilot data holds only Bill Rates
-    or only regular rates, Compass or the Agencies supply the rest before the rates are loaded.
-  blocking: false
-  answer_from: COMPASS_OPERATIONS
-  answer: null
-  sources:
-  - PRD §6 Templates
-  - SHEET Decisions & Inputs
-- decision_id: D-82
-  origin: graph
-  question: Which values may a whole-number Setting take?
-  status: open
-  assumption: >-
-    0 or more. A negative tolerance, Lock Window, threshold, or warning period is refused. No upper limit
-    is set.
-  blocking: false
-  answer_from: INSTAWORK_PRODUCT
-  answer: null
-  sources:
-  - GRAPH the settings catalog gives each key a type and no range
-- decision_id: D-83
-  origin: graph
-  question: In what order may org nodes be made inactive and active again?
-  status: open
-  assumption: >-
-    A Sector, Region, or District is made inactive only when every node beneath it is already inactive. A
-    node or a Unit is made active again only while its parent is active. So an active Unit always sits
-    under active nodes.
-  blocking: false
-  answer_from: INSTAWORK_PRODUCT
-  answer: null
-  sources:
-  - SHEET PLT-2
-  - GRAPH D-53 says nodes are made inactive and not what happens beneath them
-- decision_id: D-84
-  origin: graph
-  question: Does a User who holds several Role Grants act with all of them at once, or only as the role they chose?
-  status: open
-  assumption: >-
-    Only as the role they chose. Every request carries an acting context: one role and, for an Agency
-    User, one Agency. A Unit User context covers all the User's Unit User grants. Iris allows an action
-    only when the acting role may take it and the User still holds an unrevoked grant for that role and
-    Agency; their other grants count for nothing until they switch. The context is kept on the session.
-    An email, text, or call has no session, so its sender acts as a Unit User across their Unit User
-    grants (D-108).
-  blocking: false
-  answer_from: INSTAWORK_PRODUCT
-  answer: null
-  sources:
-  - SHEET PLT-1
-  - GRAPH a User may hold a Program User and an Agency User grant, and rules such as Rate Line approval differ by role
-- decision_id: D-85
-  origin: graph
-  question: >-
-    May a User hold several Role Grants, what happens when a grant is given twice, and who grants Program
-    User when no active Program User is left?
-  status: open
-  assumption: >-
-    A User may hold any number of Role Grants. A grant that repeats an unrevoked role and scope is
-    refused. Granting a revoked role and scope again restores the old grant and records who restored it.
-    An Instawork Admin may grant Program User whenever no active User holds an unrevoked Program User
-    grant, so the program is never locked out when its last Program User is deactivated.
-  blocking: false
-  answer_from: INSTAWORK_PRODUCT
-  answer: null
-  sources:
-  - SHEET PLT-1
-  - SHEET PLT-4
-- decision_id: D-86
-  origin: graph
-  question: >-
-    PLT-2 lists Department as the lowest level of the hierarchy. Can access, Settings, Agency approvals,
-    or Credential Requirements be scoped to a Department?
-  status: open
-  assumption: >-
-    No. A Department sits inside one Unit and has its own Cost Center, so spend rolls up through it. Role
-    Grants, Settings, Agency approvals, and Credential Requirements are scoped to a Unit or a level
-    above it.
-  blocking: false
-  answer_from: COMPASS_OPERATIONS
-  answer: null
-  sources:
-  - SHEET PLT-2
-  - FEEDBACK Departments within venues
-- decision_id: D-87
-  origin: graph
-  question: Who sees the Peer Rate, and how is it rounded and compared?
-  status: open
-  assumption: >-
-    Program Users see the Peer Rate beside each line. An Agency User is told only that a rate is above its
-    peers, and never sees the Peer Rate or another Agency's rate. The Peer Rate is rounded half up to the
-    cent, and a rate is flagged when it is at least the Peer Rate plus the threshold percent of it.
-  blocking: false
-  answer_from: COMPASS_OPERATIONS
-  answer: null
-  sources:
-  - SHEET RC-12
-  - PRD §3 Supplier Rates
-- decision_id: D-88
-  origin: graph
-  question: >-
-    Where does a Unit's time zone come from, what does changing it do, and does a Unit's Market follow
-    later changes to a Market's ZIP codes?
-  status: open
-  assumption: >-
-    A Program User may enter the time zone. When it is left empty, Iris fills it from the Unit's ZIP code
-    using a ZIP code table shipped with the build, and refuses the Unit when the table lacks that ZIP
-    code. Changing a Unit's time zone moves no stored instant: the local times and work dates of the
-    Unit's Shifts and Timesheets, past and future, are read in the new zone from then on, so the change
-    is for correcting a wrong zone. A Unit's Market is set from its ZIP code when the Unit is saved. When
-    a ZIP code is later added
-    to a Market, the Units with that ZIP code move to that Market; removing a ZIP code from a Market
-    changes no Unit.
-  blocking: false
-  answer_from: INSTAWORK_PRODUCT
-  answer: null
-  sources:
-  - DEMO lib/types.ts
-  - PRD §3 Supplier Rates
-- decision_id: D-89
-  origin: graph
-  question: When is a Credential checked, and how often is an Agency warned that one is expiring?
-  status: open
-  assumption: >-
-    A job that runs every five minutes (D-68) checks each Credential waiting for its checks, so a check
-    that cannot run is tried again at the next run. The expiry warning is sent once for each Credential,
-    by a daily job at 08:00 in the program timezone, for every verified Credential not yet warned that no
-    newer Credential replaces and that expires today or within the warning days. A later change to the
-    warning days does not warn again.
-  blocking: false
-  answer_from: INSTAWORK_PRODUCT
-  answer: null
-  sources:
-  - SHEET WA-14
-  - SHEET WA-15
 - decision_id: D-69
   origin: graph
   question: >-
@@ -1534,7 +1196,164 @@ decisions:
   sources:
   - SHEET REP-7
   - PRD §1 Detailed requirements
-- decision_id: D-90
+- decision_id: D-78
+  origin: graph
+  question: Can an approved Rate Line be ended without a new line replacing it, and who may end it?
+  status: open
+  assumption: >-
+    Yes. A Program User ends an approved Rate Line that has no end date by giving an end date on or after
+    its start, and a reason. From that date the Agency has no contracted rate for that Position and Market
+    or Unit until a new line is approved. A line ended on its own start date never prices work and is
+    ignored when a later line's start date is checked. The Agency sees the end and the reason in its rate
+    history and is not notified.
+  blocking: false
+  answer_from: COMPASS_OPERATIONS
+  answer: null
+  sources:
+  - SHEET RC-5
+  - GRAPH an Agency that stops supplying a Position, or a line saved with a wrong date, needs an end
+- decision_id: D-79
+  origin: graph
+  question: Must every Rate Line give all six rates, and does the pilot rate data (I-5) hold them?
+  status: open
+  assumption: >-
+    Yes. Every Rate Line gives a Pay Rate and a Bill Rate for regular, overtime, and double-time hours, as
+    the PRD rate card does, and a row missing one is a problem. If the pilot data holds only Bill Rates
+    or only regular rates, Compass or the Agencies supply the rest before the rates are loaded.
+  blocking: false
+  answer_from: COMPASS_OPERATIONS
+  answer: null
+  sources:
+  - PRD §6 Templates
+  - SHEET Decisions & Inputs
+- decision_id: D-80
+  origin: graph
+  question: Which values may a whole-number Setting take?
+  status: open
+  assumption: >-
+    0 or more. A negative tolerance, Lock Window, threshold, or warning period is refused. No upper limit
+    is set.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - GRAPH the settings catalog gives each key a type and no range
+- decision_id: D-81
+  origin: graph
+  question: In what order may org nodes be made inactive and active again?
+  status: open
+  assumption: >-
+    A Sector, Region, or District is made inactive only when every node beneath it is already inactive. A
+    node or a Unit is made active again only while its parent is active. So an active Unit always sits
+    under active nodes.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - SHEET PLT-2
+  - GRAPH D-53 says nodes are made inactive and not what happens beneath them
+- decision_id: D-82
+  origin: graph
+  question: Does a User who holds several Role Grants act with all of them at once, or only as the role they chose?
+  status: open
+  assumption: >-
+    Only as the role they chose. Every request carries an acting context: one role and, for an Agency
+    User, one Agency. A Unit User context covers all the User's Unit User grants. Iris allows an action
+    only when the acting role may take it and the User still holds an unrevoked grant for that role and
+    Agency; their other grants count for nothing until they switch. The context is kept on the session.
+    An email, text, or call has no session, so its sender acts as a Unit User across their Unit User
+    grants (D-106).
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - SHEET PLT-1
+  - GRAPH a User may hold a Program User and an Agency User grant, and rules such as Rate Line approval differ by role
+- decision_id: D-83
+  origin: graph
+  question: >-
+    May a User hold several Role Grants, what happens when a grant is given twice, and who grants Program
+    User when no active Program User is left?
+  status: open
+  assumption: >-
+    A User may hold any number of Role Grants. A grant that repeats an unrevoked role and scope is
+    refused. Granting a revoked role and scope again restores the old grant and records who restored it.
+    An Instawork Admin may grant Program User whenever no active User holds an unrevoked Program User
+    grant, so the program is never locked out when its last Program User is deactivated.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - SHEET PLT-1
+  - SHEET PLT-4
+- decision_id: D-84
+  origin: graph
+  question: >-
+    PLT-2 lists Department as the lowest level of the hierarchy. Can access, Settings, Agency approvals,
+    or Credential Requirements be scoped to a Department?
+  status: open
+  assumption: >-
+    No. A Department sits inside one Unit and has its own Cost Center, so spend rolls up through it. Role
+    Grants, Settings, Agency approvals, and Credential Requirements are scoped to a Unit or a level
+    above it.
+  blocking: false
+  answer_from: COMPASS_OPERATIONS
+  answer: null
+  sources:
+  - SHEET PLT-2
+  - FEEDBACK Departments within venues
+- decision_id: D-85
+  origin: graph
+  question: Who sees the Peer Rate, and how is it rounded and compared?
+  status: open
+  assumption: >-
+    Program Users see the Peer Rate beside each line. An Agency User is told only that a rate is above its
+    peers, and never sees the Peer Rate or another Agency's rate. The Peer Rate is rounded half up to the
+    cent, and a rate is flagged when it is at least the Peer Rate plus the threshold percent of it.
+  blocking: false
+  answer_from: COMPASS_OPERATIONS
+  answer: null
+  sources:
+  - SHEET RC-12
+  - PRD §3 Supplier Rates
+- decision_id: D-86
+  origin: graph
+  question: >-
+    Where does a Unit's time zone come from, what does changing it do, and does a Unit's Market follow
+    later changes to a Market's ZIP codes?
+  status: open
+  assumption: >-
+    A Program User may enter the time zone. When it is left empty, Iris fills it from the Unit's ZIP code
+    using a ZIP code table shipped with the build, and refuses the Unit when the table lacks that ZIP
+    code. Changing a Unit's time zone moves no stored instant: the local times and work dates of the
+    Unit's Shifts and Timesheets, past and future, are read in the new zone from then on, so the change
+    is for correcting a wrong zone. A Unit's Market is set from its ZIP code when the Unit is saved. When
+    a ZIP code is later added
+    to a Market, the Units with that ZIP code move to that Market; removing a ZIP code from a Market
+    changes no Unit.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - DEMO lib/types.ts
+  - PRD §3 Supplier Rates
+- decision_id: D-87
+  origin: graph
+  question: When is a Credential checked, and how often is an Agency warned that one is expiring?
+  status: open
+  assumption: >-
+    A job that runs every five minutes (D-68) checks each Credential waiting for its checks, so a check
+    that cannot run is tried again at the next run. The expiry warning is sent once for each Credential,
+    by a daily job at 08:00 in the program timezone, for every verified Credential not yet warned that no
+    newer Credential replaces and that expires today or within the warning days. A later change to the
+    warning days does not warn again.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - SHEET WA-14
+  - SHEET WA-15
+- decision_id: D-88
   origin: graph
   question: >-
     What does an Agency see about other Agencies holding the same Shift? The sessions report that Agencies
@@ -1550,7 +1369,7 @@ decisions:
   sources:
   - SESSIONS Shift Creation
   - PRD §2 Shifts
-- decision_id: D-91
+- decision_id: D-89
   origin: graph
   question: >-
     What happens when an assigned Worker has no email and no phone, so site instructions cannot be sent
@@ -1565,7 +1384,7 @@ decisions:
   answer: null
   sources:
   - SHEET SC-6
-- decision_id: D-92
+- decision_id: D-90
   origin: graph
   question: What happens to a Worker's upcoming Assignments when their Agency makes them inactive?
   status: open
@@ -1577,7 +1396,7 @@ decisions:
   answer: null
   sources:
   - SHEET WA-1
-- decision_id: D-93
+- decision_id: D-91
   origin: graph
   question: At what time of day does Iris recheck the eligibility of assigned Workers?
   status: open
@@ -1589,7 +1408,7 @@ decisions:
   answer: null
   sources:
   - SHEET WA-14
-- decision_id: D-94
+- decision_id: D-92
   origin: graph
   question: Which details of an Agency's Worker does a Unit User see?
   status: open
@@ -1602,7 +1421,7 @@ decisions:
   sources:
   - PRD §2 Shifts
   - PRD §4 Professionals
-- decision_id: D-95
+- decision_id: D-93
   origin: graph
   question: How is a Shift's local start or end time read on a day the clocks change?
   status: open
@@ -1614,7 +1433,7 @@ decisions:
   answer: null
   sources:
   - PRD §2 Shifts
-- decision_id: D-96
+- decision_id: D-94
   origin: graph
   question: Does a spoken yes on a call approve a draft, and what is kept as the record?
   status: open
@@ -1627,7 +1446,7 @@ decisions:
   answer: null
   sources:
   - SHEET SC-10
-- decision_id: D-97
+- decision_id: D-95
   origin: graph
   question: Can a Shift's date, Position, or Department change after it is booked?
   status: open
@@ -1641,7 +1460,7 @@ decisions:
   sources:
   - SHEET SC-3
   - PRD §2 Shift statuses
-- decision_id: D-98
+- decision_id: D-96
   origin: graph
   question: >-
     Can a Unit take back a request for a Worker by name, and what becomes of the request when the Agency's
@@ -1656,7 +1475,7 @@ decisions:
   answer: null
   sources:
   - SHEET WA-2
-- decision_id: D-99
+- decision_id: D-97
   origin: graph
   question: >-
     How do a Unit's existing favorite and block lists get into Iris? The sheet says favorite rosters must
@@ -1671,7 +1490,188 @@ decisions:
   sources:
   - SHEET WA-2
   - SHEET 3.2
-- decision_id: D-110
+- decision_id: D-98
+  origin: graph
+  question: >-
+    Where do the first Instawork Admin's email and password come from, and are the User and its Role
+    Grant created in one step?
+  status: open
+  assumption: >-
+    The deployment configuration holds the first Instawork Admin's email, first name, last name, and
+    password. When Iris starts and no User exists, it creates that User, active, with the password's hash
+    and no inviter, and REQ-ORG-0005 grants it INSTAWORK_ADMIN with no granting User, both in one step.
+    A later start changes nothing, so a changed configuration is ignored once a User exists, and the
+    password is changed afterwards by a reset link. No screen adds another Instawork Admin in MVP.
+  blocking: false
+  answer_from: INSTAWORK_ENGINEERING
+  answer: null
+  sources:
+  - SHEET PLT-4
+  - GRAPH the first User has nobody to invite them
+- decision_id: D-99
+  origin: graph
+  question: How is a sign-in kept, when does it end, and where is the role a User is acting in kept?
+  status: open
+  assumption: >-
+    Each sign-in is a stored Session holding its User, a hash of its token, and the time of its last
+    accepted request. It is open until the User signs out, is deactivated, or resets their password,
+    or until 12 hours pass without a request, which is checked when a request arrives. A User may have
+    several open Sessions. The Session also holds the acting role and context, which REQ-ORG-0009 defines
+    and the screens set; IDENTITY stores it without reading it, and a new Session starts with none. Sessions
+    are not written to the Audit Trail.
+  blocking: false
+  answer_from: INSTAWORK_ENGINEERING
+  answer: null
+  sources:
+  - SHEET PLT-4
+  - GRAPH the acting role and context need a place the platform does not read
+- decision_id: D-100
+  origin: graph
+  question: >-
+    What does the Audit Trail record when a record is deactivated, revoked, or cancelled, and what do
+    before and after hold?
+  status: open
+  assumption: >-
+    Any change that keeps the record, including deactivating, reactivating, revoking, and cancelling it,
+    is an UPDATE whose before and after hold only the fields that changed. DELETE is recorded only when
+    the record is removed from Iris, with the whole record in before. CREATE holds the whole new record
+    in after. The record type is the entity's name in the data model.
+  blocking: false
+  answer_from: INSTAWORK_ENGINEERING
+  answer: null
+  sources:
+  - SHEET RC-5
+  - PRD §2 Shifts
+- decision_id: D-101
+  origin: graph
+  question: >-
+    Who words each notification, what is an email's subject line, and where is an invite or reset link
+    kept until its email is sent?
+  status: open
+  assumption: >-
+    No source gives the wording. The requirement that owns a notification type passes a title and a body
+    in plain text, worded by its builder from the facts its rule names. The title is the email's subject
+    line and the inbox heading, and a text carries the body only. A link the message needs is kept apart
+    from the body, on the Notification and only while it is queued; it is erased once the message is
+    sent or has failed, and is never shown in the app or written to the Audit Trail.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - SHEET SC-8
+  - SHEET PLT-4
+- decision_id: D-102
+  origin: graph
+  question: What does REQ-AGENT-0001 deliver, when its rules bind every flow that uses the LLM?
+  status: open
+  assumption: >-
+    One gateway that makes every LLM call. A caller passes a text and the fields to read from it, or the
+    facts to put into words, and gets back a value for each field, or a failure when the output has another
+    shape or the LLM does not answer. The gateway can read and change no record. The model and its provider
+    are Instawork engineering's choice.
+  blocking: false
+  answer_from: INSTAWORK_ENGINEERING
+  answer: null
+  sources:
+  - PRD §7 What the LLM does and what code does
+- decision_id: D-103
+  origin: graph
+  question: >-
+    What does a Proposal item carry, how does a person settle each problem on it, and how are items that
+    make one record together saved?
+  status: open
+  assumption: >-
+    An item's values are one flat set of names and values: the catalog's column names for a file row,
+    and names its proposing requirement chooses otherwise. Each problem names its field, says what is
+    wrong, and carries a fix (a new value, dropping the item, or a step its owner takes on save), candidates
+    to pick from, or neither. An item is accepted only when every problem has a fix or a pick; otherwise
+    it is edited or rejected. Editing saves the values as the person leaves them, changed or not, so
+    it also keeps a row whose fix was to drop it. For a name that matches nothing the candidates are the three closest stored
+    names by single-character edits, and for a name that matches several records they are all of those
+    records; Iris never picks one itself. Each Proposal kind has one save step, registered by the requirement
+    that proposes it. Each item saves whole or not at all, and items that share a group key go to their
+    owner in one call so they can make one record, such as one Request.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - PRD §6 Uploads
+  - PRD §7 Agent Chat
+  - PRD §4 How the system matches a professional
+- decision_id: D-104
+  origin: graph
+  question: >-
+    How does Iris tell which upload type a file is, how large may a file be, and which part of a workbook
+    is read?
+  status: open
+  assumption: >-
+    The LLM maps the file's column names to each upload type's catalog columns. A type fits when the file
+    has every column the catalog marks required yes, the fitting type that covers the most of the file's
+    columns is chosen, and none or a tie asks the uploader. A PDF or image is read by OCR and the LLM names
+    the one type its text holds, among the four that take them, or none. A file column that maps to no
+    catalog column is left out and named in the Proposal's summary. A file over 10 MB is refused and
+    one with more than 5,000 rows fails. Excel means .xlsx and an image JPEG or PNG, the first row with
+    a value is the header, and a workbook may hold rows on one sheet only.
+  blocking: false
+  answer_from: INSTAWORK_ENGINEERING
+  answer: null
+  sources:
+  - PRD §6 Uploads
+  - PRD §7 When the agent is unsure
+  - SHEET TS-5
+- decision_id: D-105
+  origin: graph
+  question: Which issuers and public registries does MVP check a Credential against (WA-15)?
+  status: open
+  assumption: >-
+    None. MVP checks each document itself for its expiry date, its issuer, and signs of editing. No issuer
+    or public registry is connected until Compass names the providers it relies on (I-6), so every issuer
+    or registry check returns not available, and a Credential rests on the document checks and a Program
+    User's review.
+  blocking: false
+  answer_from: COMPASS_OPERATIONS
+  answer: null
+  sources:
+  - SHEET WA-15
+  - SESSIONS Worker Assignment & Compliance
+  - DEMO run-of-show
+- decision_id: D-106
+  origin: graph
+  question: >-
+    How do conversations by email, text, and phone work where the sheet is silent: who takes the request,
+    what makes a thread, what counts as approval, and what the voice agent does?
+  status: open
+  assumption: >-
+    REQ-ORDERING-0010 is the one requirement that takes requests by message in MVP; it supplies the sender's
+    acting role and context, and anything it refuses is answered with its reason. An email reply joins
+    the thread of the message it answers, a text joins the sender's last text thread when that had a message
+    in the past 24 hours, and each call is one thread. The LLM reads a reply as approval, refusal, or
+    neither. Approval applies the thread's one open Proposal when every item can be accepted as proposed;
+    otherwise Iris asks the User to finish it in the app. On a call the voice agent asks the questions
+    aloud, reads the Proposal's summary, and takes a spoken yes or no; the caller is known by their number
+    alone, and the transcript is stored when the call ends. The voice, speech, and telephony providers
+    are Instawork engineering's choice.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - SHEET SC-10
+  - SHEET SC-9
+- decision_id: D-107
+  origin: graph
+  question: How does a platform requirement use product records, which it may not read?
+  status: open
+  assumption: >-
+    It never reads them. The product or screen requirement that calls it supplies what it needs: the acting
+    role, the recipients of a notification, the rows of a table, the result of a lookup or a check, and
+    whether a User may make a change. The caller also keeps anything that must outlast the call, such
+    as a question waiting for an answer.
+  blocking: false
+  answer_from: INSTAWORK_ENGINEERING
+  answer: null
+  sources:
+  - GRAPH platform requirements may depend only on platform requirements
+- decision_id: D-108
   origin: graph
   question: >-
     In which order are a role's menu, Home, and screens built, and what does a User see before every
@@ -1689,7 +1689,7 @@ decisions:
   sources:
   - GRAPH the starting flow must be usable before every screen is built
   - PRD Pages
-- decision_id: D-112
+- decision_id: D-109
   origin: graph
   question: In what order do lists of Shifts and Releases show?
   status: open
@@ -1703,7 +1703,7 @@ decisions:
   sources:
   - PRD §2 Shifts
   - DEMO components/shifts/shifts-page.tsx
-- decision_id: D-113
+- decision_id: D-110
   origin: graph
   question: In what order do lists of Timesheets show, and which Timesheets do they open on?
   status: open
@@ -1716,7 +1716,7 @@ decisions:
   sources:
   - SESSIONS Timesheets, Tips & Expenses
   - SHEET TS-7
-- decision_id: D-114
+- decision_id: D-111
   origin: graph
   question: In what order are Agencies offered to a Unit User who is choosing one for a Shift?
   status: open
@@ -1727,7 +1727,7 @@ decisions:
   sources:
   - PRD §3 Supplier Rates
   - SHEET SC-1
-- decision_id: D-115
+- decision_id: D-112
   origin: graph
   question: Which Rate Lines does a Rate Card screen open on?
   status: open
@@ -1738,7 +1738,7 @@ decisions:
   sources:
   - DEMO components/rates/rates-page.tsx
   - PRD §3 Supplier Rates
-- decision_id: D-116
+- decision_id: D-113
   origin: graph
   question: How are Worker rosters sorted?
   status: open
@@ -1751,7 +1751,7 @@ decisions:
   sources:
   - PRD §4 Professionals
   - DEMO components/pros/professionals-page.tsx
-- decision_id: D-117
+- decision_id: D-114
   origin: graph
   question: In what order do lists of badge requests, Worker issues, and Rate Reviews show?
   status: open
@@ -1765,7 +1765,7 @@ decisions:
   - SHEET WA-17
   - SHEET WA-4
   - SHEET RC-12
-- decision_id: D-118
+- decision_id: D-115
   origin: graph
   question: In what order do Tip Pools, Events, and Saved Reports show?
   status: open
@@ -1777,7 +1777,7 @@ decisions:
   - SHEET TS-11
   - SHEET REP-2
   - SHEET REP-1
-- decision_id: D-119
+- decision_id: D-116
   origin: graph
   question: In what order do the Instawork Admin's lists of Positions, Markets, and Labor Rules show?
   status: open
@@ -1788,7 +1788,7 @@ decisions:
   answer: null
   sources:
   - GRAPH no source gives an order for the reference lists
-- decision_id: D-120
+- decision_id: D-117
   origin: graph
   question: >-
     Which Bill Rates does a part of a Timesheet take when it is split to a Position with no Rate Line?
@@ -1800,7 +1800,7 @@ decisions:
   sources:
   - SHEET TS-10
   - SHEET RC-10
-- decision_id: D-121
+- decision_id: D-118
   origin: graph
   question: When is a Timesheet created, and how are its clock times and worked minutes kept?
   status: open
@@ -1814,7 +1814,7 @@ decisions:
   sources:
   - PRD §2 Shifts
   - PRD §2 Shift statuses
-- decision_id: D-122
+- decision_id: D-119
   origin: graph
   question: >-
     How is a Timesheet's clock time read on a day the clocks change, or when a file gives a time with no
@@ -1830,7 +1830,7 @@ decisions:
   sources:
   - SHEET TS-5
   - PRD §6 Templates
-- decision_id: D-123
+- decision_id: D-120
   origin: graph
   question: >-
     What must be settled before a Timesheet is submitted or approved, and what does submitting a
@@ -1845,7 +1845,7 @@ decisions:
   sources:
   - SHEET TS-7
   - SHEET TS-8
-- decision_id: D-124
+- decision_id: D-121
   origin: graph
   question: What does a Timesheet file sent by a Unit User change?
   status: open
@@ -1856,7 +1856,7 @@ decisions:
   sources:
   - PRD §6 Uploads
   - SHEET TS-5
-- decision_id: D-125
+- decision_id: D-122
   origin: graph
   question: What does a bulk submit or approve do with the Timesheets it cannot process?
   status: open
@@ -1866,7 +1866,7 @@ decisions:
   answer: null
   sources:
   - SHEET TS-8
-- decision_id: D-126
+- decision_id: D-123
   origin: graph
   question: What is the narrowest phone screen every page must work on?
   status: open
@@ -1876,7 +1876,7 @@ decisions:
   answer: null
   sources:
   - SHEET PLT-3
-- decision_id: D-127
+- decision_id: D-124
   origin: graph
   question: What does a refused sign-in tell the person?
   status: open
@@ -1886,7 +1886,7 @@ decisions:
   answer: null
   sources:
   - SHEET PLT-4
-- decision_id: D-128
+- decision_id: D-125
   origin: graph
   question: What does the in-app inbox show?
   status: open
@@ -1898,7 +1898,7 @@ decisions:
   answer: null
   sources:
   - PRD Overview
-- decision_id: D-129
+- decision_id: D-126
   origin: graph
   question: How does every screen show a refused action, an empty list, and the times of a Shift?
   status: open
@@ -1911,7 +1911,7 @@ decisions:
   sources:
   - PRD §7 When the agent is unsure
   - DEMO components/shifts/shifts-page.tsx
-- decision_id: D-130
+- decision_id: D-127
   origin: graph
   question: Are to-dos stored, or worked out each time a page loads?
   status: open
@@ -1921,7 +1921,7 @@ decisions:
   answer: null
   sources:
   - PRD §1 How Todos behave
-- decision_id: D-131
+- decision_id: D-128
   origin: graph
   question: How does a Unit User who covers several Units work across them?
   status: open
@@ -1934,7 +1934,7 @@ decisions:
   sources:
   - SHEET PLT-1
   - SHEET REP-7
-- decision_id: D-132
+- decision_id: D-129
   origin: graph
   question: Which Unit User actions ask for confirmation before they are saved?
   status: open
@@ -1945,7 +1945,7 @@ decisions:
   sources:
   - SHEET WA-3
   - PRD §2 Shift statuses
-- decision_id: D-133
+- decision_id: D-130
   origin: graph
   question: Which screens does an Agency User have?
   status: open
@@ -1959,7 +1959,7 @@ decisions:
   - PRD Pages
   - SHEET PLT-1
   - SHEET RC-16
-- decision_id: D-134
+- decision_id: D-131
   origin: graph
   question: Which screens does an Instawork Admin have?
   status: open
@@ -1969,7 +1969,7 @@ decisions:
   answer: null
   sources:
   - GRAPH the Instawork Admin needs a screen for each kind of reference data it keeps
-- decision_id: D-135
+- decision_id: D-132
   origin: graph
   question: >-
     Which day does the invoice week start, and who receives the invoice: one for Compass, or one per
@@ -1982,7 +1982,7 @@ decisions:
   sources:
   - SHEET INV-1
   - FAQ One consolidated invoice
-- decision_id: D-136
+- decision_id: D-133
   origin: graph
   question: >-
     What is a week, a month, and a report period on a dashboard, and what is a period to date compared
@@ -1999,7 +1999,7 @@ decisions:
   - SHEET REP-7
   - SHEET REP-9
   - SHEET WA-20
-- decision_id: D-137
+- decision_id: D-134
   origin: graph
   question: Which Workers share a Tip Pool?
   status: open
@@ -2011,7 +2011,7 @@ decisions:
   answer: null
   sources:
   - SHEET TS-11
-- decision_id: D-138
+- decision_id: D-135
   origin: graph
   question: Is a tip entered under a cashier PIN split by hours, or does it go whole to that PIN's Worker?
   status: open
@@ -2022,7 +2022,7 @@ decisions:
   sources:
   - SHEET TS-11
   - SHEET 4.4
-- decision_id: D-139
+- decision_id: D-136
   origin: graph
   question: Who keeps the cashier PIN map, and what happens to a PIN tip that cannot be placed?
   status: open
@@ -2035,7 +2035,7 @@ decisions:
   sources:
   - SHEET 4.4
   - SHEET TS-11
-- decision_id: D-140
+- decision_id: D-137
   origin: graph
   question: Until when can tips and Expenses be added to a Timesheet, and when is an Expense decided?
   status: open
@@ -2051,7 +2051,7 @@ decisions:
   - SHEET TS-11
   - SHEET TS-12
   - SESSIONS Timesheets, Tips & Expenses
-- decision_id: D-141
+- decision_id: D-138
   origin: graph
   question: What does a second sales upload for the same Unit and date do?
   status: open
@@ -2062,7 +2062,7 @@ decisions:
   sources:
   - SHEET REP-4
   - PRD §6 Templates
-- decision_id: D-142
+- decision_id: D-139
   origin: graph
   question: Are the sheet's "top operators" Units or people?
   status: open

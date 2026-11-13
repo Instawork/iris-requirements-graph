@@ -70,7 +70,7 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-55
-  - D-80
+  - D-78
 - rule_id: R9
   rule_statement: >-
     When a line becomes APPROVED, the APPROVED line in effect on its effective_from for the same Agency,
@@ -89,7 +89,7 @@ requirement_rules:
   rule_sources:
   - SHEET RC-5
   rule_decisions:
-  - D-80
+  - D-78
 - rule_id: R11
   rule_statement: Each line records who submitted it and the channel it came through.
   rule_sources:
@@ -117,7 +117,7 @@ requirement_rules:
   rule_sources:
   - SHEET RC-5
   rule_decisions:
-  - D-80
+  - D-78
 - rule_id: R15
   rule_statement: >-
     When a line that answers a Rate Review is approved or sent back, REQ-RATES-0008 updates that review.
@@ -132,7 +132,7 @@ requirement_sources:
 requirement_decisions:
 - D-10
 - D-55
-- D-80
+- D-78
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

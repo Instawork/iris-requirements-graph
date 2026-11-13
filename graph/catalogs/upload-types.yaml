@@ -150,7 +150,7 @@ upload_types:
   - {column: city, required: 'yes', maps_to: Unit.city}
   - {column: state, required: 'yes', maps_to: Unit.state}
   - {column: zip, required: 'yes', maps_to: Unit.zip}
-  - {column: timezone, required: 'no', maps_to: Unit.timezone, note: 'An IANA zone; filled from the ZIP code if empty (D-88)'}
+  - {column: timezone, required: 'no', maps_to: Unit.timezone, note: 'An IANA zone; filled from the ZIP code if empty (D-86)'}
   - {column: unit_cost_center, required: 'yes', maps_to: Unit.cost_center_id, lookup: CostCenter.code}
   - {column: work_week_start, required: 'yes', maps_to: Unit.work_week_start}
   - {column: secured_site, required: 'no', maps_to: Unit.is_secured_site, note: Yes or No}

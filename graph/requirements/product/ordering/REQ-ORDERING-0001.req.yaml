@@ -101,12 +101,12 @@ requirement_rules:
     read as the earlier of the two.
   rule_sources: []
   rule_decisions:
-  - D-95
+  - D-93
 requirement_sources:
 - SHEET SC-2
 - PRD §2 Shifts
 - PRD Data Model
-requirement_decisions: [D-6, D-17, D-18, D-20, D-53, D-95]
+requirement_decisions: [D-6, D-17, D-18, D-20, D-53, D-93]
 requirement_features:
 - SC-2
 edges:

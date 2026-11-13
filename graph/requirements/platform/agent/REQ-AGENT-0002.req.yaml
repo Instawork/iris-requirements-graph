@@ -29,7 +29,7 @@ requirement_rules:
   rule_sources:
   - PRD §6 Uploads
   rule_decisions:
-  - D-105
+  - D-103
 - rule_id: R3
   rule_statement: >-
     While a Proposal is OPEN it has changed no record other than itself and its ProposalItems.
@@ -59,7 +59,7 @@ requirement_rules:
   rule_sources:
   - PRD §6 Uploads
   rule_decisions:
-  - D-105
+  - D-103
 - rule_id: R7
   rule_statement: >-
     The User then applies the Proposal: an undecided item with no problem counts as ACCEPTED, and applying
@@ -76,7 +76,7 @@ requirement_rules:
   - PRD §7 Agent Chat
   rule_decisions:
   - D-36
-  - D-105
+  - D-103
 - rule_id: R9
   rule_statement: >-
     An item its owner saves gets result SAVED and the saved record's id in record_id; an item its owner
@@ -138,7 +138,7 @@ requirement_rules:
   rule_sources:
   - PRD §6 Uploads
   rule_decisions:
-  - D-105
+  - D-103
 - rule_id: R18
   rule_statement: >-
     An item's values are one flat set of names and values: for FILE_ROWS the names are the upload type's
@@ -146,7 +146,7 @@ requirement_rules:
   rule_sources:
   - GRAPH two requirements build and read each item, so its shape is fixed here
   rule_decisions:
-  - D-105
+  - D-103
 - rule_id: R19
   rule_statement: >-
     Candidates for a name are every stored record that matches it or, when none does, the three stored
@@ -155,7 +155,7 @@ requirement_rules:
   - PRD §7 File attached
   - GRAPH the Names convention offers closest names and does not say how they are chosen
   rule_decisions:
-  - D-105
+  - D-103
 - rule_id: R20
   rule_statement: >-
     The User picks at most one candidate for a problem, which stores that candidate's value in picked,
@@ -163,7 +163,7 @@ requirement_rules:
   rule_sources:
   - PRD §4 How the system matches a professional
   rule_decisions:
-  - D-105
+  - D-103
 - rule_id: R21
   rule_statement: >-
     Items that share a group_key make one record together, such as the Shifts of one Request, and are
@@ -171,7 +171,7 @@ requirement_rules:
   rule_sources:
   - GRAPH one Proposal of many rows can make one record
   rule_decisions:
-  - D-105
+  - D-103
 - rule_id: R22
   rule_statement: >-
     Each item saves whole or not at all, with its Audit Trail entries and Notifications, and an item that
@@ -180,7 +180,7 @@ requirement_rules:
   - GRAPH the Saving together convention would otherwise make one file one transaction
   rule_decisions:
   - D-36
-  - D-105
+  - D-103
 - rule_id: R23
   rule_statement: >-
     Each Proposal kind has one save step, registered by the requirement that proposes that kind; for FILE_ROWS
@@ -188,7 +188,7 @@ requirement_rules:
   rule_sources:
   - GRAPH platform cannot call a product requirement, so the owner registers its save step
   rule_decisions:
-  - D-105
+  - D-103
 requirement_sources:
 - PRD §6 Uploads
 - PRD §7 Agent Chat
@@ -196,7 +196,7 @@ requirement_decisions:
 - D-36
 - D-37
 - D-64
-- D-105
+- D-103
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

@@ -19,7 +19,7 @@ requirement_rules:
   - SHEET TS-11
   rule_decisions:
   - D-28
-  - D-137
+  - D-134
 - rule_id: R2
   rule_statement: >-
     A pool is entered in the app, from a TIPS file, or in the assistant as a Proposal of kind TIP_ENTRY
@@ -35,7 +35,7 @@ requirement_rules:
   rule_sources:
   - SHEET TS-11
   rule_decisions:
-  - D-137
+  - D-134
 - rule_id: R4
   rule_statement: >-
     Each covered Timesheet with worked_minutes above 0 gets a share: the pool amount times its
@@ -83,7 +83,7 @@ requirement_rules:
   rule_sources:
   - SHEET 4.4
   rule_decisions:
-  - D-139
+  - D-136
 - rule_id: R10
   rule_statement: >-
     A tip entered with a cashier PIN creates one TipAllocation, with cashier_pin_id set, for the whole
@@ -91,21 +91,21 @@ requirement_rules:
   rule_sources:
   - SHEET TS-11
   rule_decisions:
-  - D-138
+  - D-135
 - rule_id: R11
   rule_statement: >-
     When that Worker has several Timesheets there on that date, the tip goes to the one on the
     earliest Shift among those neither a no-show nor locked, and to its first part if split.
   rule_sources: []
   rule_decisions:
-  - D-139
+  - D-136
 - rule_id: R12
   rule_statement: >-
     A PIN tip is refused when no CashierPin is valid for that PIN, Unit, and date, or its Worker has
     no Timesheet there on that date that is neither a no-show nor locked.
   rule_sources: []
   rule_decisions:
-  - D-139
+  - D-136
 - rule_id: R13
   rule_statement: >-
     In a TIPS file, a row with a cashier PIN is a PIN tip and every other row is a Tip Pool.
@@ -121,7 +121,7 @@ requirement_rules:
   - PRD §2 Shifts
   rule_decisions:
   - D-28
-  - D-140
+  - D-137
   - D-33
 - rule_id: R15
   rule_statement: >-
@@ -139,7 +139,7 @@ requirement_rules:
   rule_sources:
   - SHEET 4.4
   rule_decisions:
-  - D-139
+  - D-136
 - rule_id: R17
   rule_statement: >-
     A Tip Pool, or a change to one, is refused when a Timesheet it would cover is locked, and a PIN
@@ -175,10 +175,10 @@ requirement_decisions:
 - D-33
 - D-60
 - D-72
+- D-134
+- D-136
+- D-135
 - D-137
-- D-139
-- D-138
-- D-140
 requirement_features:
 - TS-11
 edges:

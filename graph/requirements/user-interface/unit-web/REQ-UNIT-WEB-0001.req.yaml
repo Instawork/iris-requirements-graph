@@ -25,7 +25,7 @@ requirement_rules:
   - SHEET PLT-1
   - SHEET REP-7
   rule_decisions:
-  - D-131
+  - D-128
 - rule_id: R9
   rule_statement: >-
     Home is the page a Unit User lands on, first in the menu; it holds only the sections other requirements
@@ -33,15 +33,15 @@ requirement_rules:
   rule_sources:
   - PRD §1 Dashboard / Profile
   rule_decisions:
-  - D-110
+  - D-108
 requirement_sources:
 - PRD Pages
 - PRD §1 Dashboard / Profile
 - SHEET PLT-1
 requirement_decisions:
 - D-65
-- D-110
-- D-131
+- D-108
+- D-128
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

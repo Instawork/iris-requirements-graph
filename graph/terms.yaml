@@ -203,7 +203,7 @@ terms:
     Timesheet and passed through at cost once a Unit User approves it.
   avoid: [reimbursement]
   sources: [SHEET TS-12, 'SESSIONS Timesheets, Tips & Expenses']
-  decisions: [D-71, D-140]
+  decisions: [D-71, D-137]
 - term: Spend
   definition: Approved spend plus pending spend, as REQ-REPORTING-0001 defines them.
   avoid: []
@@ -222,7 +222,7 @@ terms:
   avoid: [revenue record]
   source_words: [sales data]
   sources: [SHEET REP-4, SHEET REP-3]
-  decisions: [D-141]
+  decisions: [D-138]
 - term: Setting
   definition: A configurable value with a program default and overrides down the org tree.
   avoid: []
@@ -240,7 +240,7 @@ terms:
   avoid: []
   source_words: [Invoice Group]
   sources: [SHEET INV-1, PRD Key Terms]
-  decisions: [D-135]
+  decisions: [D-132]
 - term: Agency Invoice
   definition: One Agency's part of a Consolidated Invoice. Phase 2.
   avoid: []
@@ -292,7 +292,7 @@ terms:
   definition: One sign-in of one User, from the sign-in until it ends. It carries the acting role. A graph term.
   avoid: []
   sources: [SHEET PLT-4]
-  decisions: [D-101]
+  decisions: [D-99]
 - term: Upload
   definition: A file a User sent to Iris, and what became of it.
   avoid: []

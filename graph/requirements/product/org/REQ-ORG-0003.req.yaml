@@ -34,7 +34,7 @@ requirement_rules:
   - DEMO lib/types.ts
   - SHEET WA-17
   rule_decisions:
-  - D-88
+  - D-86
 - rule_id: R4
   rule_statement: >-
     Each row is checked and saved by the rules of REQ-ORG-0002, so a ZIP code in no Market or a name
@@ -66,7 +66,7 @@ requirement_decisions:
 - D-21
 - D-53
 - D-54
-- D-88
+- D-86
 requirement_features:
 - PLT-2
 edges:

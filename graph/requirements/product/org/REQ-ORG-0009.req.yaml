@@ -17,7 +17,7 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-1
   rule_decisions:
-  - D-84
+  - D-82
 - rule_id: R2
   rule_statement: >-
     A Unit User acts only on Units at or beneath the org node of one of their UNIT_USER grants, and on
@@ -35,7 +35,7 @@ requirement_rules:
   - SHEET PLT-1
   - PRD §1 Who sees what
   rule_decisions:
-  - D-84
+  - D-82
 - rule_id: R4
   rule_statement: >-
     A Program User's scope is the whole program, so no Unit or Agency is outside it.
@@ -65,7 +65,7 @@ requirement_rules:
   - PRD §6 Uploads
   - PRD §1 Who sees what
   rule_decisions:
-  - D-84
+  - D-82
 - rule_id: R8
   rule_statement: >-
     A refused action saves nothing, and the User is told that their role or scope does not allow it.
@@ -79,7 +79,7 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-1
   rule_decisions:
-  - D-84
+  - D-82
 - rule_id: R10
   rule_statement: >-
     A User sets or switches their acting context only to one that an unrevoked Role Grant of theirs gives,
@@ -87,7 +87,7 @@ requirement_rules:
   rule_sources:
   - GRAPH the session holds the context, so every request carries it
   rule_decisions:
-  - D-84
+  - D-82
 - rule_id: R11
   rule_statement: >-
     Every request is checked against the acting context of its session, and is refused once the User holds
@@ -95,14 +95,14 @@ requirement_rules:
   rule_sources:
   - SHEET PLT-1
   rule_decisions:
-  - D-84
+  - D-82
 requirement_sources:
 - SHEET PLT-1
 - PRD §1 Who sees what
 requirement_decisions:
 - D-25
 - D-26
-- D-84
+- D-82
 requirement_features:
 - PLT-1
 edges:

@@ -33,7 +33,7 @@ requirement_rules:
   - PRD §6 Uploads
   - GRAPH platform reads no product records, so the caller supplies them
   rule_decisions:
-  - D-109
+  - D-107
 - rule_id: R4
   rule_statement: The Uploads page and the assistant give the same template for a type.
   rule_sources:
@@ -49,7 +49,7 @@ requirement_sources:
 - PRD §6 Templates
 - PRD §7 How it connects
 requirement_decisions:
-- D-109
+- D-107
 requirement_features: []
 edges: []
 data_model:

@@ -25,7 +25,7 @@ requirement_rules:
   rule_sources:
   - PRD §6 Uploads
   rule_decisions:
-  - D-105
+  - D-103
 - rule_id: R3
   rule_statement: >-
     On each such item the User accepts the fix, edits the values, or rejects the item, and one action
@@ -71,7 +71,7 @@ requirement_rules:
   - PRD §7 After the user approves
   rule_decisions:
   - D-36
-  - D-110
+  - D-108
 - rule_id: R9
   rule_statement: >-
     A decided Proposal's card is read-only, and it says that a failed item is retried by sending the file
@@ -93,14 +93,14 @@ requirement_rules:
   rule_sources:
   - PRD §4 How the system matches a professional
   rule_decisions:
-  - D-105
+  - D-103
 requirement_sources:
 - PRD §7 Agent Chat
 - PRD §6 Uploads
 requirement_decisions:
 - D-36
-- D-110
-- D-105
+- D-108
+- D-103
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

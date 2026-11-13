@@ -61,7 +61,7 @@ requirement_rules:
   rule_sources:
   - PRD §6 Uploads
   rule_decisions:
-  - D-124
+  - D-121
 requirement_sources:
 - SHEET TS-10
 - SHEET TS-7
@@ -71,7 +71,7 @@ requirement_decisions:
 - D-5
 - D-33
 - D-70
-- D-124
+- D-121
 requirement_features:
 - TS-10
 edges:

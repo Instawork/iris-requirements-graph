@@ -2,7 +2,7 @@
 # Recipients never include the User whose action caused the notification. PASSWORD_RESET and
 # INBOUND_REPLY are the exceptions: they answer that person.
 # channels: every channel a type may use. An owner may name fewer for one send (REQ-MESSAGING-0001.R3).
-# No source gives the wording: the owner writes each title and body from the facts its rule names (D-103).
+# No source gives the wording: the owner writes each title and body from the facts its rule names (D-101).
 notifications:
 - type: RELEASE_NEW
   trigger: A Release is sent to an Agency, or more headcount is added to its Release.
@@ -59,7 +59,7 @@ notifications:
   channels: [IN_APP]
   owner: REQ-ORDERING-0006
   sources: [SHEET SC-6]
-  decisions: [D-91]
+  decisions: [D-89]
 - type: WORKER_NOT_ELIGIBLE
   trigger: An assigned Worker stops being eligible for an upcoming Shift.
   recipients: Every active Agency User of the Worker's Agency, and the User who created the Request.
@@ -74,7 +74,7 @@ notifications:
   channels: [EMAIL, IN_APP]
   owner: REQ-COMPLIANCE-0002
   sources: [SHEET WA-14]
-  decisions: [D-16, D-89]
+  decisions: [D-16, D-87]
 - type: CREDENTIAL_DECIDED
   trigger: A credential is verified or rejected.
   recipients: The User who uploaded it.

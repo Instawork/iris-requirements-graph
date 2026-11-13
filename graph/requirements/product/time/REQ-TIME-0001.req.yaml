@@ -18,7 +18,7 @@ requirement_rules:
   - PRD §2 Shift statuses
   rule_decisions:
   - D-18
-  - D-121
+  - D-118
   - D-68
 - rule_id: R2
   rule_statement: >-
@@ -55,7 +55,7 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-41
-  - D-121
+  - D-118
 - rule_id: R7
   rule_statement: >-
     worked_minutes is clock_out minus clock_in minus break_minutes, and is 0 while either clock time
@@ -63,7 +63,7 @@ requirement_rules:
   rule_sources:
   - PRD §2 Shifts
   rule_decisions:
-  - D-121
+  - D-118
 - rule_id: R8
   rule_statement: >-
     Whenever worked_minutes changes, Iris reclassifies through REQ-LABOR-0005 every Timesheet of that
@@ -119,7 +119,7 @@ requirement_rules:
     change is refused, and one that occurs twice means the occurrence nearest the scheduled time.
   rule_sources: []
   rule_decisions:
-  - D-122
+  - D-119
 - rule_id: R15
   rule_statement: >-
     Each change to a Timesheet's hours or no-show is published as an event; REQ-TIPS-0001 re-splits
@@ -140,8 +140,8 @@ requirement_decisions:
 - D-41
 - D-68
 - D-69
-- D-121
-- D-122
+- D-118
+- D-119
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

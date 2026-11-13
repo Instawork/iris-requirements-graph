@@ -77,7 +77,7 @@ requirement_rules:
     Reviews list REQUESTED ones first, then newest first, and filter by status and Agency.
   rule_sources: []
   rule_decisions:
-  - D-117
+  - D-114
   - D-63
 requirement_sources:
 - SESSIONS Rate Cards & Supplier Sourcing
@@ -88,7 +88,7 @@ requirement_decisions:
 - D-55
 - D-63
 - D-66
-- D-117
+- D-114
 requirement_features:
 - RC-12
 edges:

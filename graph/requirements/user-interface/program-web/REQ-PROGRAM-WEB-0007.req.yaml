@@ -79,7 +79,7 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-26
-  - D-85
+  - D-83
 requirement_sources:
 - SHEET PLT-1
 - SHEET PLT-4
@@ -88,7 +88,7 @@ requirement_decisions:
 - D-26
 - D-34
 - D-63
-- D-85
+- D-83
 requirement_features:
 - PLT-1
 - PLT-4

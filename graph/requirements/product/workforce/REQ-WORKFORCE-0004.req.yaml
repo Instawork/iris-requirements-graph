@@ -62,14 +62,14 @@ requirement_rules:
     deletes it.
   rule_sources: []
   rule_decisions:
-  - D-98
+  - D-96
 - rule_id: R8
   rule_statement: >-
     A WorkerRequest is shown, and can be marked, only while the Worker's Agency holds a PENDING or ACCEPTED
     Release on the Shift, and it keeps its status when that Release closes.
   rule_sources: []
   rule_decisions:
-  - D-98
+  - D-96
 requirement_sources:
 - SHEET WA-2
 - FEEDBACK a single agency, then request worker as a nested feature
@@ -77,7 +77,7 @@ requirement_sources:
 requirement_decisions:
 - D-17
 - D-52
-- D-98
+- D-96
 requirement_features:
 - WA-2
 edges:

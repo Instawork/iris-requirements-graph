@@ -82,14 +82,14 @@ requirement_rules:
   - PRD §2 Shifts
   - PRD §4 Professionals
   rule_decisions:
-  - D-94
+  - D-92
 - rule_id: R11
   rule_statement: >-
     When a Worker is made inactive, REQ-WORKFORCE-0016 reacts by taking them off the Shifts they are
     assigned to that have not started; this requirement changes no Assignment.
   rule_sources: []
   rule_decisions:
-  - D-92
+  - D-90
 - rule_id: R12
   rule_statement: >-
     Two WORKERS rows are duplicates when they share an email or share a phone, and the later row is the
@@ -103,8 +103,8 @@ requirement_sources:
 - PRD §6 Templates
 requirement_decisions:
 - D-50
+- D-90
 - D-92
-- D-94
 requirement_features:
 - WA-1
 edges:

@@ -29,7 +29,7 @@ requirement_rules:
   - SHEET SC-6
   - GRAPH platform reads no product records, so the caller supplies them
   rule_decisions:
-  - D-109
+  - D-107
 - rule_id: R3
   rule_statement: >-
     One Notification is created with status QUEUED for each recipient on each channel the catalog lists
@@ -71,7 +71,7 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-34
-  - D-103
+  - D-101
 - rule_id: R9
   rule_statement: >-
     An IN_APP Notification becomes SENT, with sent_at, as soon as it is stored.
@@ -113,7 +113,7 @@ requirement_rules:
   rule_sources:
   - GRAPH no source gives the wording of any notification
   rule_decisions:
-  - D-103
+  - D-101
 - rule_id: R15
   rule_statement: >-
     A try the provider does not answer counts as a refusal, and failure_reason then says the provider
@@ -129,8 +129,8 @@ requirement_decisions:
 - D-34
 - D-38
 - D-68
-- D-103
-- D-109
+- D-101
+- D-107
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

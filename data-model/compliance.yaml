@@ -68,7 +68,7 @@ entities:
   - {name: review_note, type: text, nullable: true}
   - {name: uploaded_by, type: ref:User}
   - {name: replaces_id, type: ref:Credential, nullable: true, note: The credential this renewal replaces}
-  - {name: expiry_warned_at, type: timestamp, nullable: true, note: When CREDENTIAL_EXPIRING was sent for it; empty until then (D-89)}
+  - {name: expiry_warned_at, type: timestamp, nullable: true, note: When CREDENTIAL_EXPIRING was sent for it; empty until then (D-87)}
 - entity: Attestation
   phase: MVP
   description: An Agency's statement that a Worker meets a Credential Type. Append-only; the latest wins.

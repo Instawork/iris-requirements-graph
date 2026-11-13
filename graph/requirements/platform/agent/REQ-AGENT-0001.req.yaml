@@ -55,7 +55,7 @@ requirement_rules:
   rule_sources:
   - GRAPH the rules need one place that enforces them
   rule_decisions:
-  - D-104
+  - D-102
 - rule_id: R7
   rule_statement: >-
     A reading returns a value for each field asked for, empty where the text gives none; output in any
@@ -63,7 +63,7 @@ requirement_rules:
   rule_sources:
   - GRAPH the rules need one place that enforces them
   rule_decisions:
-  - D-104
+  - D-102
 - rule_id: R8
   rule_statement: >-
     This requirement can read and change no record, so whatever the LLM returns reaches a record only
@@ -71,13 +71,13 @@ requirement_rules:
   rule_sources:
   - PRD §7 What the LLM does and what code does
   rule_decisions:
-  - D-104
+  - D-102
 requirement_sources:
 - PRD §7 What the LLM does and what code does
 - SHEET WA-15
 requirement_decisions:
 - D-3
-- D-104
+- D-102
 requirement_features: []
 edges: []
 data_model:

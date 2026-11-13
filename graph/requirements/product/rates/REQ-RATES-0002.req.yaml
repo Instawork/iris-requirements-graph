@@ -19,7 +19,7 @@ requirement_rules:
   - SHEET RC-5
   - PRD §6 Templates
   rule_decisions:
-  - D-81
+  - D-79
 - rule_id: R2
   rule_statement: >-
     An Agency User's rows are for their own Agency, so a row that names another Agency is a row problem;
@@ -91,7 +91,7 @@ requirement_sources:
 - SHEET RC-4
 - PRD §6 Templates
 - SESSIONS Rate Cards & Supplier Sourcing
-requirement_decisions: [D-1, D-10, D-11, D-21, D-54, D-55, D-81]
+requirement_decisions: [D-1, D-10, D-11, D-21, D-54, D-55, D-79]
 requirement_features:
 - RC-4
 edges:

@@ -32,7 +32,7 @@ requirement_rules:
   - SHEET WA-2
   - SHEET 3.2
   rule_decisions:
-  - D-99
+  - D-97
 - rule_id: R4
   rule_statement: >-
     A rating applies only at the Unit that gave it, and only to that Worker of that Agency.
@@ -60,7 +60,7 @@ requirement_sources:
 - PRD §4 Professionals
 requirement_decisions:
 - D-51
-- D-99
+- D-97
 requirement_features:
 - WA-3
 edges:

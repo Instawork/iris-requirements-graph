@@ -21,7 +21,7 @@ requirement_rules:
   rule_sources:
   - PRD §7 When the agent is unsure
   rule_decisions:
-  - D-129
+  - D-126
 - rule_id: R2
   rule_statement: >-
     A screen offers an action only to a role that may take it, and only while the record's status allows
@@ -45,14 +45,14 @@ requirement_rules:
   rule_sources:
   - DEMO components/shifts/shifts-page.tsx
   rule_decisions:
-  - D-129
+  - D-126
 - rule_id: R5
   rule_statement: >-
     Every date and time of a Shift, Release, Timesheet, or Tip Pool is shown in the timezone of its Unit.
   rule_sources:
   - 'GRAPH data model: a date or time at a Unit is in that Unit''s timezone'
   rule_decisions:
-  - D-129
+  - D-126
 - rule_id: R6
   rule_statement: >-
     Money is shown in US dollars to the cent, exactly as the owning requirement computed it, and is never
@@ -66,7 +66,7 @@ requirement_sources:
 - SHEET PLT-1
 requirement_decisions:
 - D-41
-- D-129
+- D-126
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

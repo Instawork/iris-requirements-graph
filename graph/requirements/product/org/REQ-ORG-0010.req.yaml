@@ -40,7 +40,7 @@ requirement_rules:
   - GRAPH the settings catalog gives each key a type
   rule_decisions:
   - D-16
-  - D-82
+  - D-80
 - rule_id: R5
   rule_statement: >-
     Removing an override deletes its row so the next value up the tree applies, and removing the program
@@ -55,7 +55,7 @@ requirement_sources:
 requirement_decisions:
 - D-16
 - D-53
-- D-82
+- D-80
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

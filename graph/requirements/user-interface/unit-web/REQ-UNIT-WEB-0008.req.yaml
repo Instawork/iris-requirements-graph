@@ -66,7 +66,7 @@ requirement_rules:
   - SHEET WA-2
   rule_decisions:
   - D-52
-  - D-98
+  - D-96
 - rule_id: R8
   rule_statement: >-
     Workers removed from the Shift are listed below those assigned, each with the removal reason and time.
@@ -82,7 +82,7 @@ requirement_rules:
   - SHEET SC-5
   rule_decisions:
   - D-18
-  - D-97
+  - D-95
 - rule_id: R10
   rule_statement: >-
     Until the Shift starts, Cancel calls REQ-ORDERING-0003 once the User confirms, and the page then shows
@@ -91,7 +91,7 @@ requirement_rules:
   - PRD §2 Shift statuses
   rule_decisions:
   - D-18
-  - D-132
+  - D-129
 - rule_id: R11
   rule_statement: >-
     On a Shift in a series, Edit and Cancel ask whether to apply to this Shift or to every Shift of the
@@ -152,9 +152,9 @@ requirement_decisions:
 - D-20
 - D-27
 - D-52
-- D-98
-- D-97
-- D-132
+- D-96
+- D-95
+- D-129
 requirement_features:
 - SC-3
 - SC-5

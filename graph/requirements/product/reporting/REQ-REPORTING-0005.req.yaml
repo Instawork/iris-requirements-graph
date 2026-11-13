@@ -43,7 +43,7 @@ requirement_rules:
     revenue, events held, and meals served.
   rule_sources: []
   rule_decisions:
-  - D-141
+  - D-138
 - rule_id: R6
   rule_statement: >-
     No SALES row is saved until the Program User approves the Proposal, and each accepted row is saved
@@ -57,7 +57,7 @@ requirement_sources:
 - PRD §6 Templates
 requirement_decisions:
 - D-54
-- D-141
+- D-138
 requirement_features:
 - REP-4
 edges:

@@ -17,7 +17,7 @@ requirement_rules:
   rule_decisions:
   - D-21
   - D-26
-  - D-119
+  - D-116
 - rule_id: R2
   rule_statement: >-
     Add Market and Rename take a city name and a two-letter state and save through REQ-CATALOG-0002.
@@ -37,7 +37,7 @@ requirement_sources:
 requirement_decisions:
 - D-21
 - D-26
-- D-119
+- D-116
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

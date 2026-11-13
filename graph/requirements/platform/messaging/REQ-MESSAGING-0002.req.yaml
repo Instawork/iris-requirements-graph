@@ -27,7 +27,7 @@ requirement_rules:
   rule_sources:
   - SHEET SC-10
   rule_decisions:
-  - D-108
+  - D-106
 - rule_id: R3
   rule_statement: >-
     An email matches the active User whose email equals the sender's address, and a text or call the active
@@ -51,7 +51,7 @@ requirement_rules:
   - SHEET SC-10
   - SHEET Decisions & Inputs
   rule_decisions:
-  - D-108
+  - D-106
 - rule_id: R6
   rule_statement: >-
     Each matched message that decides no Proposal goes to the handling requirement, REQ-ORDERING-0010
@@ -62,8 +62,8 @@ requirement_rules:
   - PRD §7 Agent Chat
   - GRAPH platform reads no product records, so the caller supplies them
   rule_decisions:
-  - D-108
-  - D-109
+  - D-106
+  - D-107
 - rule_id: R7
   rule_statement: >-
     An email replying to a stored message joins its thread, a text joins the sender's last text thread
@@ -72,7 +72,7 @@ requirement_rules:
   - SHEET SC-10
   - SHEET SC-9
   rule_decisions:
-  - D-108
+  - D-106
 - rule_id: R8
   rule_statement: >-
     A reply in a thread, from the User its one OPEN Proposal was made for, applies that Proposal when the
@@ -81,7 +81,7 @@ requirement_rules:
   - SHEET SC-10
   rule_decisions:
   - D-39
-  - D-108
+  - D-106
 - rule_id: R9
   rule_statement: >-
     Iris answers each email or text with an INBOUND_REPLY to the sender, naming the message's channel so
@@ -96,7 +96,7 @@ requirement_rules:
   rule_sources:
   - GRAPH a message with attachments leads to several Proposals
   rule_decisions:
-  - D-108
+  - D-106
 - rule_id: R11
   rule_statement: >-
     Approval by reply accepts every item and applies the Proposal through REQ-AGENT-0002; when an item
@@ -105,7 +105,7 @@ requirement_rules:
   rule_sources:
   - SHEET SC-10
   rule_decisions:
-  - D-108
+  - D-106
 - rule_id: R12
   rule_statement: >-
     A reply read as neither approval nor refusal is passed on as a new message in the thread, so it can
@@ -113,7 +113,7 @@ requirement_rules:
   rule_sources:
   - SHEET SC-9
   rule_decisions:
-  - D-108
+  - D-106
 - rule_id: R13
   rule_statement: >-
     On a call the voice agent says only what these rules produce: it asks each question aloud, reads a
@@ -121,8 +121,8 @@ requirement_rules:
   rule_sources:
   - SHEET SC-10
   rule_decisions:
-  - D-108
-  - D-96
+  - D-106
+  - D-94
 - rule_id: R14
   rule_statement: >-
     A Proposal still OPEN when a call ends or a thread goes quiet stays OPEN, and its User decides it in
@@ -130,7 +130,7 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-36
-  - D-108
+  - D-106
 - rule_id: R15
   rule_statement: >-
     When the handling requirement refuses the sender or the request, Iris answers with its reason and creates
@@ -138,7 +138,7 @@ requirement_rules:
   rule_sources:
   - PRD §7 When the agent is unsure
   rule_decisions:
-  - D-108
+  - D-106
 - rule_id: R16
   rule_statement: >-
     An unmatched caller is told aloud, on every call, that Iris does not recognize the number, and the
@@ -151,9 +151,9 @@ requirement_sources:
 requirement_decisions:
 - D-36
 - D-39
-- D-108
-- D-109
-- D-96
+- D-106
+- D-107
+- D-94
 requirement_features:
 - SC-10
 edges:

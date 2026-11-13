@@ -20,7 +20,7 @@ requirement_rules:
   - SHEET PLT-4
   - SHEET PLT-1
   rule_decisions:
-  - D-110
+  - D-108
 - rule_id: R2
   rule_statement: >-
     The User changes their first name, last name, and phone through REQ-IDENTITY-0003, and the email is
@@ -49,7 +49,7 @@ requirement_sources:
 requirement_decisions:
 - D-25
 - D-34
-- D-110
+- D-108
 requirement_features:
 - PLT-4
 edges:

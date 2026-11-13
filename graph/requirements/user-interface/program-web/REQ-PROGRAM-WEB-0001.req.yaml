@@ -23,14 +23,14 @@ requirement_rules:
   rule_sources:
   - PRD §1 Dashboard / Profile
   rule_decisions:
-  - D-110
+  - D-108
 requirement_sources:
 - PRD Pages
 - PRD §1 Dashboard / Profile
 - SHEET PLT-1
 requirement_decisions:
 - D-66
-- D-110
+- D-108
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

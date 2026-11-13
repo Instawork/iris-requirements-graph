@@ -53,13 +53,13 @@ requirement_rules:
   - PRD §7 Agent Chat
   - PRD §7 What the agent checks
   rule_decisions:
-  - D-105
+  - D-103
 requirement_sources:
 - SHEET RC-2
 - PRD §6 Position list
 requirement_decisions:
 - D-26
-- D-105
+- D-103
 requirement_features:
 - RC-2
 edges:

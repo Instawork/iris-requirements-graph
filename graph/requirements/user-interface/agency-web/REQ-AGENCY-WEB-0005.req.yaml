@@ -25,7 +25,7 @@ requirement_rules:
   rule_sources:
   - DEMO components/rates/rates-page.tsx
   rule_decisions:
-  - D-115
+  - D-112
   - D-63
 - rule_id: R3
   rule_statement: >-
@@ -33,7 +33,7 @@ requirement_rules:
   rule_sources:
   - PRD §3 Supplier Rates
   rule_decisions:
-  - D-87
+  - D-85
 - rule_id: R4
   rule_statement: >-
     Add rate opens the form of REQ-RATES-0013 with no Agency field, and the saved line is listed as PENDING
@@ -80,7 +80,7 @@ requirement_rules:
   rule_sources:
   - SHEET RC-12
   rule_decisions:
-  - D-87
+  - D-85
 - rule_id: R10
   rule_statement: >-
     Each REQUESTED review offers Keep the rate, which takes a reason, and Lower the rate, which opens
@@ -104,8 +104,8 @@ requirement_decisions:
 - D-10
 - D-11
 - D-63
-- D-87
-- D-115
+- D-85
+- D-112
 requirement_features:
 - RC-3
 - RC-4

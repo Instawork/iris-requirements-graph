@@ -19,7 +19,7 @@ requirement_rules:
   - PRD §2 Shift statuses
   rule_decisions:
   - D-18
-  - D-97
+  - D-95
 - rule_id: R2
   rule_statement: >-
     An edit is refused unless the changed Shift still passes every check a new Shift must pass.
@@ -88,7 +88,7 @@ requirement_rules:
     wrong one is cancelled and booked again.
   rule_sources: []
   rule_decisions:
-  - D-97
+  - D-95
 - rule_id: R11
   rule_statement: >-
     A Unit User's typed request to change a Shift's headcount or times, or to cancel it, becomes a Proposal
@@ -149,7 +149,7 @@ requirement_decisions:
 - D-49
 - D-51
 - D-64
-- D-97
+- D-95
 requirement_features:
 - SC-3
 edges:

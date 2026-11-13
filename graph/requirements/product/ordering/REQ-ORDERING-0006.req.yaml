@@ -52,7 +52,7 @@ requirement_rules:
   rule_sources:
   - SHEET SC-6
   rule_decisions:
-  - D-91
+  - D-89
 - rule_id: R7
   rule_statement: >-
     A SITE_INSTRUCTIONS message names the Unit, the Position, and the Shift's date and start and end times,
@@ -60,11 +60,11 @@ requirement_rules:
   rule_sources:
   - SHEET SC-6
   rule_decisions:
-  - D-91
+  - D-89
 requirement_sources:
 - SHEET SC-6
 requirement_decisions:
-- D-91
+- D-89
 requirement_features:
 - SC-6
 edges:

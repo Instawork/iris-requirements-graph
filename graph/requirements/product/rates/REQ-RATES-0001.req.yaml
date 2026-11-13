@@ -28,7 +28,7 @@ requirement_rules:
   - PRD §6 Templates
   rule_decisions:
   - D-11
-  - D-81
+  - D-79
 - rule_id: R3
   rule_statement: Each Bill Rate is at least the Pay Rate for the same class of hours.
   rule_sources:
@@ -77,7 +77,7 @@ requirement_sources:
 - SHEET RC-3
 - PRD §3 Supplier Rates
 - FEEDBACK Just do % only
-requirement_decisions: [D-1, D-11, D-21, D-81]
+requirement_decisions: [D-1, D-11, D-21, D-79]
 requirement_features:
 - RC-3
 edges:

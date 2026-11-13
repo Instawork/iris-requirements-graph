@@ -38,7 +38,7 @@ requirement_rules:
     have not started are removed with WORKER_INACTIVE.
   rule_sources: []
   rule_decisions:
-  - D-92
+  - D-90
 - rule_id: R5
   rule_statement: >-
     A daily job of REQ-JOBS-0001, at 06:00 in each Unit's timezone, asks REQ-COMPLIANCE-0005 again about
@@ -47,7 +47,7 @@ requirement_rules:
   rule_decisions:
   - D-51
   - D-68
-  - D-93
+  - D-91
 - rule_id: R6
   rule_statement: >-
     When REQ-ORDERING-0003 changes the date or times of a Shift that has not started, REQ-COMPLIANCE-0005
@@ -88,8 +88,8 @@ requirement_decisions:
 - D-18
 - D-51
 - D-68
-- D-92
-- D-93
+- D-90
+- D-91
 requirement_features:
 - WA-3
 edges:

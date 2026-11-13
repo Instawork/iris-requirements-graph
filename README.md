@@ -144,7 +144,7 @@ These hold everywhere unless a rule says otherwise, so rules do not repeat them.
   followed by 10 digits; anything else is refused.
 - **Screens.** A screen that opens another screen names it by requirement id. A screen changes
   records only through the product requirements it depends on. Where a screen built earlier leads to
-  one built later, the later screen's requirement adds the link (D-110).
+  one built later, the later screen's requirement adds the link (D-108).
 - **Stack and providers.** The graph does not choose the stack or the email, SMS, voice, language
   model, OCR, or verification providers; Instawork engineering does. Each provider sits behind the
   one platform requirement that uses it, so the choice changes one requirement.

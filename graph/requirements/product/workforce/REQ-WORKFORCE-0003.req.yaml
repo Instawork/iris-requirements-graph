@@ -141,7 +141,7 @@ requirement_rules:
   - D-17
   - D-18
   - D-51
-  - D-92
+  - D-90
 - rule_id: R24
   rule_statement: >-
     When the assigned Worker has neither an email nor a phone, the answer to the assigning User says
@@ -150,7 +150,7 @@ requirement_rules:
   - SHEET SC-6
   rule_decisions:
   - D-38
-  - D-91
+  - D-89
 - rule_id: R25
   rule_statement: >-
     When an Assignment becomes ASSIGNED, REQ-ORDERING-0006, REQ-ORDERING-0008, and REQ-COMPLIANCE-0006
@@ -181,8 +181,8 @@ requirement_decisions:
 - D-27
 - D-38
 - D-51
-- D-91
-- D-92
+- D-89
+- D-90
 requirement_features:
 - WA-1
 edges:

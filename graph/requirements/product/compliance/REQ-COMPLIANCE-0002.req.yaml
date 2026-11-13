@@ -83,7 +83,7 @@ requirement_rules:
   rule_decisions:
   - D-16
   - D-68
-  - D-89
+  - D-87
 - rule_id: R10
   rule_statement: >-
     CREDENTIAL_EXPIRING goes by email and in the app to every active Agency User of the Worker's Agency
@@ -92,7 +92,7 @@ requirement_rules:
   - SHEET WA-14
   rule_decisions:
   - D-56
-  - D-89
+  - D-87
 - rule_id: R11
   rule_statement: >-
     A Credential needs action when it is REJECTED, or VERIFIED with an expires_on already past or at
@@ -121,7 +121,7 @@ requirement_decisions:
 - D-16
 - D-56
 - D-68
-- D-89
+- D-87
 requirement_features:
 - WA-14
 edges:

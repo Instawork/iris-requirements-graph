@@ -18,7 +18,7 @@ requirement_rules:
   - SHEET WA-1
   - PRD §4 Professionals
   rule_decisions:
-  - D-116
+  - D-113
 - rule_id: R2
   rule_statement: >-
     Each row shows how many of the Worker's Credentials are REJECTED, expired, or within CREDENTIAL_EXPIRY_WARNING_DAYS
@@ -80,7 +80,7 @@ requirement_rules:
     REQ-WORKFORCE-0001.R11 says.
   rule_sources: []
   rule_decisions:
-  - D-92
+  - D-90
 requirement_sources:
 - SHEET WA-1
 - PRD §4 Professionals
@@ -89,8 +89,8 @@ requirement_decisions:
 - D-50
 - D-63
 - D-67
-- D-92
-- D-116
+- D-90
+- D-113
 requirement_features:
 - WA-1
 - WA-14

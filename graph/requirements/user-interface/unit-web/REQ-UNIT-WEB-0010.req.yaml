@@ -16,7 +16,7 @@ requirement_rules:
   rule_sources:
   - SHEET REP-2
   rule_decisions:
-  - D-118
+  - D-115
 - rule_id: R2
   rule_statement: >-
     Actual cost shows its APPROVED_SPEND and PENDING_SPEND parts, with the estimated part of PENDING_SPEND
@@ -56,7 +56,7 @@ requirement_sources:
 - SHEET REP-2
 requirement_decisions:
 - D-29
-- D-118
+- D-115
 requirement_features:
 - REP-2
 edges:

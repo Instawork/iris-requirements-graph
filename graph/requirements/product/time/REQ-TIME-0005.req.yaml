@@ -110,7 +110,7 @@ requirement_rules:
   - SHEET RC-10
   rule_decisions:
   - D-22
-  - D-120
+  - D-117
 - rule_id: R14
   rule_statement: >-
     Each Timesheet also shows the rate variance REQ-RATES-0006 finds between its three Bill Rates and
@@ -173,7 +173,7 @@ requirement_decisions:
 - D-33
 - D-59
 - D-69
-- D-120
+- D-117
 requirement_features:
 - TS-7
 edges:

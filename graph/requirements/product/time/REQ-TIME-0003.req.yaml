@@ -62,7 +62,7 @@ requirement_rules:
   rule_sources:
   - PRD §6 Templates
   rule_decisions:
-  - D-122
+  - D-119
 - rule_id: R8
   rule_statement: >-
     When an Agency User's line names a Worker with no Assignment on the Shift, the Proposal offers to
@@ -88,7 +88,7 @@ requirement_rules:
   - PRD §6 Uploads
   rule_decisions:
   - D-33
-  - D-124
+  - D-121
 - rule_id: R11
   rule_statement: >-
     A line for a Timesheet the uploader may not change in its current status is reported as a problem
@@ -133,8 +133,8 @@ requirement_decisions:
 - D-5
 - D-18
 - D-33
-- D-122
-- D-124
+- D-119
+- D-121
 requirement_features:
 - TS-5
 edges:
