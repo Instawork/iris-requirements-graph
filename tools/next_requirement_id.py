@@ -20,9 +20,11 @@ from irisgraph import REPO_ROOT, REQUIREMENT_ID, load_graph  # noqa: E402
 ID_IN_PATH = re.compile(r"(REQ-[A-Z][A-Z0-9-]*-\d{4})\.req\.yaml")
 
 
-def history_ids(root: Path) -> set[str]:
+def history_ids(root: Path, all_branches: bool = True) -> set[str]:
+    """Requirement ids with a file in git history: of every branch, or of the checked-out one only."""
+    refs = ["--all"] if all_branches else ["HEAD"]
     result = subprocess.run(
-        ["git", "log", "--all", "--name-only", "--format=", "--", "graph/requirements"],
+        ["git", "log", *refs, "--name-only", "--format=", "--", "graph/requirements"],
         cwd=root,
         capture_output=True,
         text=True,

@@ -1011,7 +1011,7 @@ def removed_ids_retired(graph: Graph):
 
     if not (graph.root / ".git").exists():
         return []
-    gone = history_ids(graph.root) - set(graph.requirements) - set(graph.retired)
+    gone = history_ids(graph.root, all_branches=False) - set(graph.requirements) - set(graph.retired)
     return [("graph/retired.yaml", f"{requirement_id} was removed without being retired") for requirement_id in sorted(gone)]
 
 
