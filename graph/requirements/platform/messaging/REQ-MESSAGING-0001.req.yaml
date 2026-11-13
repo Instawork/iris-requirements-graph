@@ -121,6 +121,14 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-38
+- rule_id: R16
+  rule_statement: >-
+    When the provider accepts an email, the message id it gives is stored in provider_message_id, so
+    REQ-MESSAGING-0002 can tell which message a reply answers.
+  rule_sources:
+  - SHEET SC-10
+  rule_decisions:
+  - D-158
 requirement_sources:
 - SHEET SC-8
 - SHEET SC-6
@@ -131,6 +139,7 @@ requirement_decisions:
 - D-68
 - D-101
 - D-107
+- D-158
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

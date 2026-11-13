@@ -79,7 +79,7 @@ data_model:
   writes:
   - User.active
   - Session.ended_at
-  detail: Split from REQ-IDENTITY-0001, where it was R8.
+  detail: null
 requirement_starting_flow: true
 requirement_review:
   status: draft

@@ -302,6 +302,39 @@ class MutationTests(unittest.TestCase):
         self.copy.edit_yaml("graph/catalogs/upload-types.yaml", lambda d: d["upload_types"][0]["columns"][0].update(maps_to="RateLine.nope"))
         self.assertCaught("upload_types_catalog", "nope")
 
+    def test_upload_types_catalog__kind(self):
+        self.copy.edit_yaml("graph/catalogs/upload-types.yaml", lambda d: d["upload_types"][0]["columns"][0].update(kind="number"))
+        self.assertCaught("upload_types_catalog", "kind must be one of")
+
+    def test_upload_types_catalog__kind_of_field(self):
+        def broken(doc):
+            for upload_type in doc["upload_types"]:
+                for column in upload_type["columns"]:
+                    if column["kind"] == "money":
+                        column["kind"] = "text"
+                        return
+
+        self.copy.edit_yaml("graph/catalogs/upload-types.yaml", broken)
+        self.assertCaught("upload_types_catalog", "kind must be money")
+
+    def test_upload_types_catalog__identified_by(self):
+        self.copy.edit_yaml("graph/catalogs/upload-types.yaml", lambda d: d["upload_types"][0].update(identified_by=[["no_such_column"]]))
+        self.assertCaught("upload_types_catalog", "no_such_column")
+
+    def test_saved_by_in_owner_closure(self):
+        def broken(doc):
+            for upload_type in doc["upload_types"]:
+                owner = upload_type["owner"]
+                outside = next(r for r in sorted(self.g.requirements) if r != owner and r not in self.g.dependency_closure(owner))
+                for column in upload_type["columns"]:
+                    if column.get("saved_by"):
+                        column["saved_by"] = outside
+                        return outside
+            raise AssertionError("no column has saved_by")
+
+        self.copy.edit_yaml("graph/catalogs/upload-types.yaml", broken)
+        self.assertCaught("saved_by_in_owner_closure", "is not a requirement that owner")
+
     def test_review_state(self):
         rid = pick(self.g, phase="MVP", with_edges=True)
         self.copy.edit_requirement(rid, lambda d: d.update(requirement_review={"status": "approved", "by": "pdongritot", "at": "2026-11-13", "notes": None}))

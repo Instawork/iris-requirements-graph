@@ -1,0 +1,101 @@
+requirement_id: REQ-AGENCIES-0010
+requirement_target_layer: product
+requirement_target_module: AGENCIES
+requirement_phase: MVP
+requirement_title: Load Agencies from a file
+requirement_statement: >-
+  A Program User loads many Agencies at once from an AGENCIES file, each with its first Agency User and
+  the org nodes it is approved for. The rows become a Proposal, and nothing is saved until the Program
+  User approves it.
+requirement_actors:
+- PROGRAM_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: Only a Program User sends an AGENCIES file, with one row per Agency.
+  rule_sources:
+  - FEEDBACK Creating an agency in bulk
+  rule_decisions:
+  - D-53
+- rule_id: R2
+  rule_statement: >-
+    Each row must give agency, contact_first_name, contact_last_name, and contact_email, and may give contact_phone
+    and approved_for.
+  rule_sources:
+  - FEEDBACK Creating an agency in bulk
+  - DEMO lib/types.ts
+  rule_decisions:
+  - D-25
+- rule_id: R3
+  rule_statement: >-
+    Before the Proposal is shown, each row's agency is checked by the rules of REQ-AGENCIES-0001, its contact
+    by REQ-IDENTITY-0002, and each approved_for name by REQ-AGENCIES-0002.
+  rule_sources:
+  - PRD §6 Uploads
+  - PRD §7 What the agent checks
+  rule_decisions:
+  - D-151
+- rule_id: R4
+  rule_statement: >-
+    A row that repeats an earlier row's agency is reported as a duplicate of that row.
+  rule_sources:
+  - PRD §7 What the agent checks
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    The approved_for column lists org node names separated by semicolons, and a name several org nodes share
+    is a row problem whose candidates show each node with its path.
+  rule_sources:
+  - FEEDBACK Creating an agency in bulk
+  rule_decisions:
+  - D-9
+  - D-54
+- rule_id: R6
+  rule_statement: >-
+    An accepted row saves its Agency through REQ-AGENCIES-0001, which invites the contact once and grants
+    them AGENCY_USER, and then approves each approved_for node through REQ-AGENCIES-0002.
+  rule_sources:
+  - FEEDBACK Creating an agency in bulk
+  rule_decisions:
+  - D-25
+  - D-151
+requirement_sources:
+- FEEDBACK Creating an agency in bulk
+- PRD §6 Uploads
+requirement_decisions:
+- D-9
+- D-25
+- D-53
+- D-54
+- D-151
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCIES-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCIES-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INTAKE-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+data_model:
+  status: covered
+  reads:
+  - Agency.name
+  - OrgNode.name
+  - OrgNode.level
+  - OrgNode.parent_id
+  writes: []
+  detail: >-
+    Saves nothing itself: REQ-AGENCIES-0001 saves the Agency, REQ-IDENTITY-0002 the contact, and REQ-AGENCIES-0002
+    the approvals, as saved_by says for each AGENCIES column in the catalog.
+requirement_starting_flow: true
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

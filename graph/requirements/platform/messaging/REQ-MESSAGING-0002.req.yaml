@@ -22,12 +22,12 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    A call is answered by an AI voice agent, and one InboundMessage is stored when the call ends, with
-    the transcript of both sides as its body.
+    A call is answered by an AI voice agent and stored as one InboundMessage when it begins, and its
+    body is set to the transcript of both sides when the call ends.
   rule_sources:
   - SHEET SC-10
   rule_decisions:
-  - D-106
+  - D-159
 - rule_id: R3
   rule_statement: >-
     An email matches the active User whose email equals the sender's address, and a text or call the active
@@ -38,8 +38,8 @@ requirement_rules:
   - D-39
 - rule_id: R4
   rule_statement: >-
-    When exactly one User matches, user_id is set; otherwise it stays empty, no Upload or Proposal is created,
-    and Iris tells that sender, at most once in 24 hours, that it does not recognize them.
+    When exactly one User matches, user_id is set; otherwise it stays empty and no Upload or Proposal
+    is created.
   rule_sources: []
   rule_decisions:
   - D-39
@@ -72,16 +72,15 @@ requirement_rules:
   - SHEET SC-10
   - SHEET SC-9
   rule_decisions:
-  - D-106
+  - D-158
 - rule_id: R8
   rule_statement: >-
-    A reply in a thread, from the User its one OPEN Proposal was made for, applies that Proposal when the
-    LLM reads the reply as approval and rejects it when read as refusal.
+    A reply in a thread, from the User its one OPEN Proposal was made for, applies that Proposal when
+    it is an approval and rejects it when it is a refusal.
   rule_sources:
   - SHEET SC-10
   rule_decisions:
-  - D-39
-  - D-106
+  - D-158
 - rule_id: R9
   rule_statement: >-
     Iris answers each email or text with an INBOUND_REPLY to the sender, naming the message's channel so
@@ -96,7 +95,7 @@ requirement_rules:
   rule_sources:
   - GRAPH a message with attachments leads to several Proposals
   rule_decisions:
-  - D-106
+  - D-158
 - rule_id: R11
   rule_statement: >-
     Approval by reply accepts every item and applies the Proposal through REQ-AGENT-0002; when an item
@@ -105,15 +104,15 @@ requirement_rules:
   rule_sources:
   - SHEET SC-10
   rule_decisions:
-  - D-106
+  - D-158
 - rule_id: R12
   rule_statement: >-
-    A reply read as neither approval nor refusal is passed on as a new message in the thread, so it can
-    answer a question or change the request.
+    A reply that is neither an approval nor a refusal is passed on as a new message in the thread, so
+    it can answer a question or change the request.
   rule_sources:
   - SHEET SC-9
   rule_decisions:
-  - D-106
+  - D-158
 - rule_id: R13
   rule_statement: >-
     On a call the voice agent says only what these rules produce: it asks each question aloud, reads a
@@ -121,7 +120,7 @@ requirement_rules:
   rule_sources:
   - SHEET SC-10
   rule_decisions:
-  - D-106
+  - D-159
   - D-94
 - rule_id: R14
   rule_statement: >-
@@ -130,7 +129,7 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-36
-  - D-106
+  - D-158
 - rule_id: R15
   rule_statement: >-
     When the handling requirement refuses the sender or the request, Iris answers with its reason and creates
@@ -146,14 +145,61 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-39
+- rule_id: R17
+  rule_statement: >-
+    An email replies to a stored message when the message id it answers equals the provider_message_id
+    of an InboundMessage, or of an INBOUND_REPLY, whose subject is the InboundMessage it answered.
+  rule_sources:
+  - SHEET SC-10
+  rule_decisions:
+  - D-158
+- rule_id: R18
+  rule_statement: >-
+    Code decides: a reply is an approval when its own text, without quoted earlier messages, punctuation,
+    and case, is yes, approve, or confirm, and a refusal when it is no, reject, or cancel.
+  rule_sources:
+  - PRD §7 What the LLM does and what code does
+  rule_decisions:
+  - D-158
+- rule_id: R19
+  rule_statement: >-
+    An answer that carries a Proposal tells the sender to reply yes to approve it or no to reject it.
+  rule_sources:
+  - SHEET SC-10
+  rule_decisions:
+  - D-158
+- rule_id: R20
+  rule_statement: >-
+    On a call, each thing the caller says is passed to the handling requirement as it is said, as a
+    message in the call's thread is, and the answer is spoken.
+  rule_sources:
+  - SHEET SC-10
+  rule_decisions:
+  - D-159
+- rule_id: R21
+  rule_statement: >-
+    A call ends when the caller hangs up, or when the caller has said nothing for 30 seconds.
+  rule_sources:
+  - GRAPH no source says when a call ends
+  rule_decisions:
+  - D-159
+- rule_id: R22
+  rule_statement: >-
+    Iris tells an unmatched email or text sender, at most once in 24 hours for one address or number,
+    that it does not recognize them.
+  rule_sources: []
+  rule_decisions:
+  - D-39
 requirement_sources:
 - SHEET SC-10
 requirement_decisions:
 - D-36
 - D-39
+- D-94
 - D-106
 - D-107
-- D-94
+- D-158
+- D-159
 requirement_features:
 - SC-10
 edges:
@@ -179,6 +225,9 @@ data_model:
   - Proposal.status
   - Proposal.created_for
   - ProposalItem.problems
+  - Notification.type
+  - Notification.subject_id
+  - Notification.provider_message_id
   writes:
   - InboundMessage.*
   detail: >-

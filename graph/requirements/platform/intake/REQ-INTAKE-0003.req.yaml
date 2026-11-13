@@ -4,8 +4,8 @@ requirement_target_module: INTAKE
 requirement_phase: MVP
 requirement_title: Provide a template for each upload type
 requirement_statement: >-
-  Each upload type has a template whose columns come from the upload-types catalog, downloadable as CSV
-  or Excel. The template is the same on the Uploads page and in the assistant.
+  Each upload type that takes CSV or Excel has a template whose columns come from the upload-types catalog,
+  downloadable as CSV or Excel. The template is the same on the Uploads page and in the assistant.
 requirement_actors:
 - PROGRAM_USER
 - UNIT_USER
@@ -27,8 +27,8 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    A User is offered templates only for the upload types whose uploaders in the catalog include the role
-    they are acting in, which the caller supplies.
+    A User is offered templates only for the upload types registered under REQ-INTAKE-0001 whose uploaders
+    in the catalog include the role they are acting in, which the caller supplies.
   rule_sources:
   - PRD §6 Uploads
   - GRAPH platform reads no product records, so the caller supplies them
@@ -45,13 +45,24 @@ requirement_rules:
   rule_sources:
   - PRD §6 Templates
   rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    CREDENTIALS has no template, because it takes one document for each Credential and never a CSV or
+    Excel file.
+  rule_sources:
+  - SHEET WA-14
+  rule_decisions:
+  - D-40
 requirement_sources:
 - PRD §6 Templates
 - PRD §7 How it connects
 requirement_decisions:
+- D-40
 - D-107
 requirement_features: []
-edges: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INTAKE-0001
 data_model:
   status: not_applicable
   reads: []

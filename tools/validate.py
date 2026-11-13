@@ -75,8 +75,10 @@ ENTITY_KEYS = {"entity", "phase", "description", "fields", "unique", "constraint
 FIELD_KEYS = {"name", "type", "nullable", "note"}
 SETTING_KEYS = {"key", "type", "default", "scope", "meaning", "owner", "sources", "decisions"}
 NOTIFICATION_KEYS = {"type", "trigger", "recipients", "channels", "owner", "sources", "decisions"}
-UPLOAD_KEYS = {"type", "phase", "meaning", "uploaders", "owner", "sources", "decisions", "columns"}
-COLUMN_KEYS = {"column", "required", "maps_to", "lookup", "note", "saved_by"}
+UPLOAD_KEYS = {"type", "phase", "meaning", "uploaders", "owner", "sources", "decisions", "columns", "identified_by"}
+COLUMN_KEYS = {"column", "kind", "required", "maps_to", "lookup", "note", "saved_by"}
+COLUMN_KINDS = {"text", "date", "time", "money", "int", "yes_no"}
+KIND_OF_FIELD_TYPE = {"bool": "yes_no", "money": "money", "int": "int", "date": "date"}
 TERM_KEYS = {"term", "definition", "avoid", "source_words", "sources", "decisions"}
 
 CHECKS: dict[str, tuple[str, callable]] = {}
@@ -980,10 +982,16 @@ def upload_types_catalog(graph: Graph):
                     problems.append((col_here, f"unknown key {field_name!r}"))
             if column.get("required") in (None, ""):
                 problems.append((col_here, "needs required"))
+            if column.get("kind") not in COLUMN_KINDS:
+                problems.append((col_here, f"kind must be one of {', '.join(sorted(COLUMN_KINDS))}"))
             resolved = field_ref(graph, column.get("maps_to"))
             if isinstance(resolved, str):
                 problems.append((col_here, resolved))
                 continue
+            mapped = graph.entities[resolved[0]]["field_map"].get(resolved[1]) or {}
+            expected = KIND_OF_FIELD_TYPE.get(mapped.get("type"))
+            if expected and column.get("kind") in COLUMN_KINDS and column["kind"] != expected:
+                problems.append((col_here, f"kind must be {expected}, because {column['maps_to']} is a {mapped['type']}"))
             saver = column.get("saved_by") or item.get("owner")
             if saver not in graph.requirements:
                 problems.append((col_here, f"saved_by {saver!r} is not a requirement"))
@@ -1001,6 +1009,30 @@ def upload_types_catalog(graph: Graph):
             problems.append((here, "needs columns"))
         if len(set(names)) != len(names):
             problems.append((here, "a column repeats"))
+        if "identified_by" in item:
+            sets = item["identified_by"]
+            if not isinstance(sets, list) or not sets or not all(isinstance(one, list) and one for one in sets):
+                problems.append((here, "identified_by must be a list of column sets, each with at least one column"))
+            else:
+                for name in sorted({name for one in sets for name in one} - set(names)):
+                    problems.append((here, f"identified_by names {name!r}, which is not a column of the type"))
+    return problems
+
+
+@check("catalogs")
+def saved_by_in_owner_closure(graph: Graph):
+    """Only a type's owner is called with its rows, so it can pass a column on only to a requirement it depends on."""
+    problems = []
+    for key, item in graph.upload_types.items():
+        owner = item.get("owner")
+        if owner not in graph.requirements:
+            continue
+        closure = graph.dependency_closure(owner)
+        for column in item.get("columns") or []:
+            saver = column.get("saved_by")
+            if saver and saver != owner and saver not in closure:
+                here = f"graph/catalogs/upload-types.yaml {key} column {column.get('column')}"
+                problems.append((here, f"saved_by {saver} is not a requirement that owner {owner} depends on"))
     return problems
 
 

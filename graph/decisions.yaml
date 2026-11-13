@@ -537,16 +537,12 @@ decisions:
   - SHEET SC-6
 - decision_id: D-39
   origin: graph
-  question: >-
-    What does Iris do with an email, text, or call from a sender it cannot match to one active User, and
-    how are phone numbers compared?
+  question: What does Iris do with an email, text, or call from a sender it cannot match to one active User?
   status: open
   assumption: >-
-    Iris stores the message, creates no Upload or Proposal, and answers that it does not recognize the
-    sender, at most once in 24 hours for one address or number. Phones are US numbers: 10 digits, typed
-    with or without formatting and a leading 1, and stored in the form the README gives. A number that
-    matches several Users counts as no match. A matched User can approve a Proposal by replying in the
-    same conversation.
+    Iris stores the message and creates no Upload or Proposal. It answers an email or a text that it does
+    not recognize the sender, at most once in 24 hours for one address or number, and tells a caller so
+    aloud on every call before ending it. A number that matches several Users counts as no match.
   blocking: false
   answer_from: INSTAWORK_PRODUCT
   answer: null
@@ -559,8 +555,10 @@ decisions:
     an Upload fail, and who sees it?
   status: open
   assumption: >-
-    CSV and Excel for every type except Credentials, which are documents, and PDF and image files for
-    Timesheets, tips, expenses, and Credentials.
+    CSV and Excel for every type except Credentials, which are documents and so have no template, and
+    PDF and image files for Timesheets, tips, expenses, and Credentials. Each catalog column has a kind
+    (text, date, time, money, int, or yes_no) that INTAKE checks, where an int is a whole number and a
+    yes_no is Yes or No.
     Month-first slash dates, 12-hour and 24-hour times, and money with a dollar sign or thousands commas
     become suggested fixes. An unreadable, unsupported, or empty file fails. Files are stored privately,
     downloads use the template formats, and each User sees only their own Uploads.
@@ -1331,19 +1329,16 @@ decisions:
   - PRD §3 Supplier Rates
 - decision_id: D-87
   origin: graph
-  question: When is a Credential checked, and how often is an Agency warned that one is expiring?
+  question: How long does Iris keep trying a Credential check that cannot finish?
   status: open
   assumption: >-
-    A job that runs every five minutes (D-68) checks each Credential waiting for its checks, so a check
-    that cannot run is tried again at the next run. The expiry warning is sent once for each Credential,
-    by a daily job at 08:00 in the program timezone, for every verified Credential not yet warned that no
-    newer Credential replaces and that expires today or within the warning days. A later change to the
-    warning days does not warn again.
+    A job that runs every five minutes (D-68) checks each Credential waiting for its checks. A run in
+    which the document model returns no usable answer leaves the Credential waiting, and the third such
+    run sends it to a Program User for review.
   blocking: false
   answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
-  - SHEET WA-14
   - SHEET WA-15
 - decision_id: D-88
   origin: graph
@@ -1484,16 +1479,14 @@ decisions:
   - SHEET 3.2
 - decision_id: D-98
   origin: graph
-  question: >-
-    Where do the first Instawork Admin's email and password come from, and are the User and its Role
-    Grant created in one step?
+  question: What does Iris create when it starts?
   status: open
   assumption: >-
-    The deployment configuration holds the first Instawork Admin's email, first name, last name, and
-    password. When Iris starts and no User exists, it creates that User, active, with the password's hash
-    and no inviter, and REQ-ORG-0005 grants it INSTAWORK_ADMIN with no granting User, both in one step.
-    A later start changes nothing, so a changed configuration is ignored once a User exists, and the
-    password is changed afterwards by a reset link. No screen adds another Instawork Admin in MVP.
+    At every start Iris creates only what is missing: the first Instawork Admin, from the deployment
+    configuration's email, name, and password, when no User holds that email; that User's INSTAWORK_ADMIN
+    grant when it holds none; and the 15 Positions when the catalog holds none. A start never changes
+    or reactivates an existing record, so a changed password in the configuration does nothing, and a
+    changed email adds another Instawork Admin.
   blocking: false
   answer_from: INSTAWORK_ENGINEERING
   answer: null
@@ -1557,10 +1550,11 @@ decisions:
   question: What does REQ-AGENT-0001 deliver, when its rules bind every flow that uses the LLM?
   status: open
   assumption: >-
-    One gateway that makes every LLM call. A caller passes a text and the fields to read from it, or the
-    facts to put into words, and gets back a value for each field, or a failure when the output has another
-    shape or the LLM does not answer. The gateway can read and change no record. The model and its provider
-    are Instawork engineering's choice.
+    One gateway that makes every LLM call. A caller passes a text, or a PDF or image file such as a
+    Credential document, and the fields to read from it, or the facts to put into words, and gets back
+    a value for each field, or a failure when the output has another shape or the LLM does not answer.
+    The gateway can read and change no record. The model and its provider are Instawork engineering's
+    choice.
   blocking: false
   answer_from: INSTAWORK_ENGINEERING
   answer: null
@@ -1578,11 +1572,13 @@ decisions:
     wrong, and carries a fix (a new value, dropping the item, or a step its owner takes on save), candidates
     to pick from, or neither. An item is accepted only when every problem has a fix or a pick; otherwise
     it is edited or rejected. Editing saves the values as the person leaves them, changed or not, so
-    it also keeps a row whose fix was to drop it. For a name that matches nothing the candidates are the three closest stored
-    names by single-character edits, and for a name that matches several records they are all of those
-    records; Iris never picks one itself. Each Proposal kind has one save step, registered by the requirement
-    that proposes it. Each item saves whole or not at all, and items that share a group key go to their
-    owner in one call so they can make one record, such as one Request.
+    it also keeps a row whose fix was to drop it. For a name that matches nothing the candidates are the
+    three closest stored names by single-character edits, and the closest is also the fix when one is
+    closest alone, as the PRD's chat shows. For a name that matches several records the candidates are
+    all of those records, with no fix. A candidate the person picks replaces the fix, and the owner of
+    a file's upload type may return a fix with any problem. Each Proposal kind has one save step, registered
+    by the requirement that proposes it. Each item saves whole or not at all, and items that share a
+    group key go to their owner in one call so they can make one record, such as one Request.
   blocking: false
   answer_from: INSTAWORK_PRODUCT
   answer: null
@@ -1598,9 +1594,10 @@ decisions:
   status: open
   assumption: >-
     The LLM maps the file's column names to each upload type's catalog columns. A type fits when the file
-    has every column the catalog marks required yes, the fitting type that covers the most of the file's
-    columns is chosen, and none or a tie asks the uploader. A PDF or image is read by OCR and the LLM names
-    the one type its text holds, among the four that take them, or none. A file column that maps to no
+    has every column of one of the type's identified_by sets in the catalog, or every column marked required
+    yes when the type lists none. The fitting type that covers the most of the file's columns is chosen,
+    and none or a tie asks the uploader. A PDF or image is read by OCR and the LLM names
+    the one registered type its text holds, among the four that take them, or none. A file column that maps to no
     catalog column is left out and named in the Proposal's summary. A file over 10 MB is refused and
     one with more than 5,000 rows fails. Excel means .xlsx and an image JPEG or PNG, the first row with
     a value is the header, and a workbook may hold rows on one sheet only.
@@ -1626,23 +1623,13 @@ decisions:
   sources:
   - SHEET WA-15
   - SESSIONS Worker Assignment & Compliance
-  - DEMO run-of-show
 - decision_id: D-106
   origin: graph
-  question: >-
-    How do conversations by email, text, and phone work where the sheet is silent: who takes the request,
-    what makes a thread, what counts as approval, and what the voice agent does?
+  question: Which requirement takes a request sent by email, text, or phone?
   status: open
   assumption: >-
-    REQ-ORDERING-0010 is the one requirement that takes requests by message in MVP; it supplies the sender's
-    acting role and context, and anything it refuses is answered with its reason. An email reply joins
-    the thread of the message it answers, a text joins the sender's last text thread when that had a message
-    in the past 24 hours, and each call is one thread. The LLM reads a reply as approval, refusal, or
-    neither. Approval applies the thread's one open Proposal when every item can be accepted as proposed;
-    otherwise Iris asks the User to finish it in the app. On a call the voice agent asks the questions
-    aloud, reads the Proposal's summary, and takes a spoken yes or no; the caller is known by their number
-    alone, and the transcript is stored when the call ends. The voice, speech, and telephony providers
-    are Instawork engineering's choice.
+    REQ-ORDERING-0010 alone, in MVP. It supplies the sender's acting role and context, and anything it
+    refuses is answered with its reason.
   blocking: false
   answer_from: INSTAWORK_PRODUCT
   answer: null
@@ -1655,9 +1642,10 @@ decisions:
   status: open
   assumption: >-
     It never reads them. The product or screen requirement that calls it supplies what it needs: the acting
-    role, the recipients of a notification, the rows of a table, the result of a lookup or a check, and
-    whether a User may make a change. The caller also keeps anything that must outlast the call, such
-    as a question waiting for an answer.
+    role, the recipients of a notification, the rows of a table, the result of a lookup or a check, the
+    timezones a daily job runs in, and whether a User may make a change or see a file. The caller also
+    keeps anything that must outlast the call, such as a question waiting for an answer or the reference
+    of a stored file.
   blocking: false
   answer_from: INSTAWORK_ENGINEERING
   answer: null
@@ -2171,3 +2159,138 @@ decisions:
   sources:
   - PRD §6 Uploads
   - PRD §7 What the agent checks
+- decision_id: D-150
+  origin: graph
+  question: When does an upload type become available to users?
+  status: open
+  assumption: >-
+    Only once the requirement that owns it is delivered and has registered it with INTAKE. Until then
+    the type is not offered on the Uploads page, is not detected in a file, and has no template.
+  blocking: false
+  answer_from: INSTAWORK_ENGINEERING
+  answer: null
+  sources:
+  - PRD §6 Uploads
+  - GRAPH each upload type is built after INTAKE, by the requirement that owns it
+- decision_id: D-151
+  origin: graph
+  question: Who checks and saves a file column that belongs to a requirement other than the upload type's owner?
+  status: open
+  assumption: >-
+    INTAKE calls only the type's owner. The owner passes each such column to the requirement the catalog
+    names in saved_by, whose rules check and save it, so that requirement is always one the owner depends
+    on.
+  blocking: false
+  answer_from: INSTAWORK_ENGINEERING
+  answer: null
+  sources:
+  - GRAPH one file row can change the records of several requirements
+- decision_id: D-152
+  origin: graph
+  question: Where is a file kept when it is not an Upload, such as a Worker's photo or a Credential document entered on a form?
+  status: open
+  assumption: >-
+    INTAKE stores it privately, as a PDF, JPEG, or PNG of at most 10 MB, and returns a reference that
+    the calling requirement keeps. Any stored file is read only through INTAKE, by that requirement or
+    by a User it says may see the file.
+  blocking: false
+  answer_from: INSTAWORK_ENGINEERING
+  answer: null
+  sources:
+  - SHEET WA-14
+  - PRD §4 Professionals
+- decision_id: D-153
+  origin: graph
+  question: How do the rows of a UNITS file become Units and Departments?
+  status: open
+  assumption: >-
+    The rows that name one Unit make it together, with one Department for each row that names one. A
+    file only adds Units, so a row for a Unit already in Iris is dropped, and a Work Week start is given
+    as the day's three-letter code or its full name.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - SHEET PLT-2
+  - SESSIONS Shift Creation
+- decision_id: D-154
+  origin: graph
+  question: Can a Credential Type be deleted?
+  status: open
+  assumption: >-
+    No. A Program User makes it inactive, which stops it being required and keeps its Credentials and
+    Attestations, and can make it active again.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - SHEET WA-13
+  - SHEET WA-16
+- decision_id: D-155
+  origin: graph
+  question: Does Iris accept phone numbers from outside the United States?
+  status: open
+  assumption: No. A phone is a US number of 10 digits, however it is typed.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - SHEET SC-10
+  - SHEET PLT-4
+- decision_id: D-156
+  origin: graph
+  question: How often is an Agency warned that a Credential is expiring?
+  status: open
+  assumption: >-
+    Once for each Credential, by a daily job at 08:00 in the program timezone, for a verified Credential
+    not yet warned that no newer one replaces. A later change to the warning days does not warn again.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - SHEET WA-14
+- decision_id: D-157
+  origin: graph
+  question: How does Iris make sure a job runs once?
+  status: open
+  assumption: >-
+    A daily job runs once for each timezone and local date, recorded as a JobRun saved together with
+    the run's changes, and its owner lists the timezones at each run. Only one run of a job is in progress
+    at a time, and a repeated run changes nothing the first already changed.
+  blocking: false
+  answer_from: INSTAWORK_ENGINEERING
+  answer: null
+  sources:
+  - GRAPH daily jobs run in each Unit's timezone, and Units are added after the code is deployed
+- decision_id: D-158
+  origin: graph
+  question: How does a reply by email or text approve a Proposal?
+  status: open
+  assumption: >-
+    An email joins the thread of the message it replies to, matched by the provider's message id, a
+    text joins the sender's last text thread when that had a message in the past 24 hours, and a thread's
+    Proposals are those of its messages and their attached files. A reply that says only yes, approve,
+    or confirm applies the thread's one open Proposal when every item can be accepted, no, reject, or
+    cancel rejects it, and any other reply is passed on as a new message; code, not the LLM, checks the
+    words.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - SHEET SC-10
+  - SHEET SC-9
+  - PRD §7 What the LLM does and what code does
+- decision_id: D-159
+  origin: graph
+  question: What does the voice agent do on a phone call?
+  status: open
+  assumption: >-
+    It asks each question aloud, reads a Proposal's summary, and takes a spoken yes or no, passing each
+    thing the caller says to the handling requirement as it is said. Each call is one thread and one
+    stored message whose body becomes the transcript, the caller is known by their number alone, and
+    the call ends when they hang up or say nothing for 30 seconds.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - SHEET SC-10

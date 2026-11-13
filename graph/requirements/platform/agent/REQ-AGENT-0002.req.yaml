@@ -189,6 +189,21 @@ requirement_rules:
   - GRAPH platform cannot call a product requirement, so the owner registers its save step
   rule_decisions:
   - D-103
+- rule_id: R24
+  rule_statement: >-
+    When a name matches no stored record and exactly one stored name is closest to it, that name is
+    the problem's fix as well as a candidate.
+  rule_sources:
+  - PRD §7 File attached
+  rule_decisions:
+  - D-103
+- rule_id: R25
+  rule_statement: >-
+    A candidate the User picks replaces the problem's fix, so accepting the item uses the picked record.
+  rule_sources:
+  - PRD §6 Uploads
+  rule_decisions:
+  - D-103
 requirement_sources:
 - PRD §6 Uploads
 - PRD §7 Agent Chat

@@ -42,7 +42,8 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R5
   rule_statement: >-
-    A date, time, or money value in the template format is accepted as it is.
+    A value in template format is accepted as it is: a date as YYYY-MM-DD, a time like 4:00 PM, and
+    money as a number with at most two decimals and no dollar sign.
   rule_sources:
   - PRD §6 Templates
   rule_decisions: []
@@ -63,17 +64,17 @@ requirement_rules:
   - D-40
 - rule_id: R8
   rule_statement: >-
-    A value that cannot be read as its column's kind of value is a problem with no fix.
+    A value that cannot be read as its column's kind in the catalog is a problem.
   rule_sources:
   - PRD §7 What the agent checks
   rule_decisions: []
 - rule_id: R9
   rule_statement: >-
-    Each lookup the catalog names is resolved by the type's owner; a value matching no record or several
-    is a problem with no fix, carrying the candidates of REQ-AGENT-0002 for the uploader to pick.
+    Each lookup the catalog names is resolved by the type's owner, and a value that matches no record
+    or several is a problem carrying the fix and candidates REQ-AGENT-0002 gives for a name.
   rule_sources:
   - PRD §7 What the agent checks
-  - PRD §7 Agent Chat
+  - PRD §7 File attached
   - GRAPH platform reads no product records, so the caller supplies them
   rule_decisions:
   - D-103
@@ -119,13 +120,14 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R15
   rule_statement: >-
-    On apply, each accepted row is saved by the type's owner, and a column with saved_by in the catalog
-    by that requirement, each under its own rules.
+    INTAKE calls only the type's owner, to check rows and to save accepted ones, and the owner passes
+    each column with saved_by in the catalog to that requirement, whose rules check and save it.
   rule_sources:
   - PRD §7 Agent Chat
   - GRAPH platform reads no product records, so the caller supplies them
   rule_decisions:
   - D-107
+  - D-151
 - rule_id: R16
   rule_statement: >-
     When the Proposal becomes APPLIED or PARTLY_APPLIED the Upload becomes SAVED, and when it becomes
@@ -150,6 +152,23 @@ requirement_rules:
   - GRAPH one Proposal of many rows can make one record
   rule_decisions:
   - D-103
+- rule_id: R19
+  rule_statement: >-
+    A text value is kept as written, an int value is a whole number written in digits, and a yes_no
+    value is Yes or No in any letter case.
+  rule_sources:
+  - PRD §6 Templates
+  rule_decisions:
+  - D-40
+- rule_id: R20
+  rule_statement: >-
+    The type's owner may add a fix to any problem, including one INTAKE found, such as a missing date
+    that the other rows of its group share.
+  rule_sources:
+  - PRD §7 File attached
+  - PRD §6 Uploads
+  rule_decisions:
+  - D-103
 requirement_sources:
 - PRD §6 Uploads
 - PRD §6 Templates
@@ -160,6 +179,7 @@ requirement_decisions:
 - D-103
 - D-104
 - D-107
+- D-151
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON
@@ -181,7 +201,9 @@ data_model:
   - Upload.proposal_id
   detail: >-
     The Proposal and its items are created through REQ-AGENT-0002. Checks read graph/catalogs/upload-types.yaml
-    for the type's columns, lookups, and saved_by requirements.
+    for the type's columns, kinds, lookups, and saved_by requirements, and call the check step and save
+    step the type's owner registered (REQ-INTAKE-0001.R14). The column mapping of R2 is made here for
+    the Upload's type, and the one detection made is not kept.
 requirement_starting_flow: true
 requirement_review:
   status: draft
