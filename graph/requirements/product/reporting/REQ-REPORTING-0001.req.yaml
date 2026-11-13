@@ -34,8 +34,8 @@ requirement_rules:
     Timesheet and per hour class.
   rule_sources:
   - PRD §5 Invoices
-  - GRAPH money rounding, pending a decision
-  rule_decisions: []
+  rule_decisions:
+  - D-41
 - rule_id: R4
   rule_statement: A Timesheet keeps counting toward APPROVED_SPEND after it locks.
   rule_sources:
@@ -130,8 +130,10 @@ requirement_sources:
 - SHEET REP-2
 - PRD §5 Invoices
 requirement_decisions:
-- D-29
 - D-13
+- D-29
+- D-33
+- D-41
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON
@@ -140,8 +142,6 @@ edges:
   requirement_id: REQ-TIME-0002
 - edge_type: DEPENDS_ON
   requirement_id: REQ-TIME-0005
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-LABOR-0005
 - edge_type: DEPENDS_ON
   requirement_id: REQ-TIPS-0001
 - edge_type: DEPENDS_ON

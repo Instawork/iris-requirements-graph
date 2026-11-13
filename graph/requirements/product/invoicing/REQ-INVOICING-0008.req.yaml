@@ -26,8 +26,8 @@ requirement_rules:
 requirement_sources:
 - SHEET INV-8
 requirement_decisions:
-- D-35
 - D-14
+- D-35
 requirement_features:
 - INV-8
 edges:

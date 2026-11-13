@@ -62,6 +62,8 @@ requirement_sources:
 - SHEET 6.3
 requirement_decisions:
 - D-13
+- D-16
+- D-22
 requirement_features:
 - REP-10
 edges:

@@ -16,28 +16,28 @@ requirement_rules:
     that have revenue above zero.
   rule_sources:
   - SHEET REP-3
-  - GRAPH labor cost against sales, pending a decision
-  rule_decisions: []
+  rule_decisions:
+  - D-43
 - rule_id: R2
   rule_statement: >-
     A date with no Sales Record, or with empty or zero revenue, is left out of both the spend and the
     revenue.
-  rule_sources:
-  - GRAPH labor cost against sales, pending a decision
-  rule_decisions: []
+  rule_sources: []
+  rule_decisions:
+  - D-43
 - rule_id: R3
   rule_statement: >-
     For several Units, the measure divides their total included spend by their total included revenue.
   rule_sources:
   - SHEET REP-3
-  - GRAPH labor cost against sales, pending a decision
-  rule_decisions: []
+  rule_decisions:
+  - D-43
 - rule_id: R4
   rule_statement: >-
     When no date in the period has revenue, the measure shows as not available, never as zero.
-  rule_sources:
-  - GRAPH labor cost against sales, pending a decision
-  rule_decisions: []
+  rule_sources: []
+  rule_decisions:
+  - D-43
 - rule_id: R5
   rule_statement: >-
     Labor cost here is Spend under REQ-REPORTING-0001, the agency labor held in Iris, and excludes Compass's
@@ -45,8 +45,8 @@ requirement_rules:
   rule_sources:
   - SHEET REP-3
   - FAQ
-  - GRAPH labor cost against sales, pending a decision
-  rule_decisions: []
+  rule_decisions:
+  - D-43
 - rule_id: R6
   rule_statement: >-
     A Unit User sees the measure for the Units in their scope, and a Program User for any Unit.
@@ -57,7 +57,8 @@ requirement_rules:
 requirement_sources:
 - SHEET REP-3
 - SHEET 6.1
-requirement_decisions: []
+requirement_decisions:
+- D-43
 requirement_features:
 - REP-3
 edges:

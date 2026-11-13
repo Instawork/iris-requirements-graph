@@ -42,9 +42,9 @@ requirement_rules:
   rule_statement: >-
     A row for a Unit and date that already has a Sales Record is proposed as an update that replaces its
     revenue, events held, and meals served.
-  rule_sources:
-  - GRAPH labor cost against sales, pending a decision
-  rule_decisions: []
+  rule_sources: []
+  rule_decisions:
+  - D-43
 - rule_id: R6
   rule_statement: >-
     No SALES row is saved until the Program User approves the Proposal, and each accepted row is saved
@@ -56,7 +56,8 @@ requirement_rules:
 requirement_sources:
 - SHEET REP-4
 - PRD §6 Templates
-requirement_decisions: []
+requirement_decisions:
+- D-43
 requirement_features:
 - REP-4
 edges:

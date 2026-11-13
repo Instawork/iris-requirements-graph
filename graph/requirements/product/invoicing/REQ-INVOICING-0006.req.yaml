@@ -33,7 +33,7 @@ data_model:
   status: covered
   reads: []
   writes:
-  - AgencyInvoice.vendor_invoice_number
+  - AgencyInvoice.agency_invoice_number
   detail: The sheet does not say who enters the number.
 requirement_starting_flow: false
 requirement_review:

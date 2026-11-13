@@ -157,13 +157,13 @@ upload_types:
   - {column: approved_for, required: 'no', maps_to: AgencyApproval.org_node_id, lookup: 'OrgNode.name, separated by semicolons', saved_by: REQ-AGENCIES-0002}
 - type: BUDGETS
   phase: MVP
-  meaning: Labor budgets, one row per Unit, or Department, and date range.
+  meaning: Labor budgets, one row per Unit and date range.
   uploaders: [PROGRAM_USER]
   owner: REQ-REPORTING-0007
   sources: [SHEET REP-8]
+  decisions: [D-14]
   columns:
   - {column: unit, required: 'yes', maps_to: Budget.unit_id, lookup: Unit name}
-  - {column: department, required: 'no', maps_to: Budget.department_id, lookup: Department.name at the Unit}
   - {column: period_start, required: 'yes', maps_to: Budget.period_start}
   - {column: period_end, required: 'yes', maps_to: Budget.period_end}
   - {column: amount, required: 'yes', maps_to: Budget.amount}

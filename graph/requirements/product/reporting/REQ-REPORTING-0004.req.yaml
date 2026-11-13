@@ -21,17 +21,17 @@ requirement_rules:
     minutes times the regular Bill Rate, divided by 60, rounded half up per Release.
   rule_sources:
   - SHEET REP-2
-  - GRAPH Event projected cost, pending a decision
   rule_decisions:
   - D-17
+  - D-44
 - rule_id: R3
   rule_statement: >-
     Scheduled minutes are the Shift's end minus its start minus its planned break, and projected cost
     includes no tips and no Expenses.
-  rule_sources:
-  - GRAPH Event projected cost, pending a decision
+  rule_sources: []
   rule_decisions:
   - D-29
+  - D-44
 - rule_id: R4
   rule_statement: >-
     Actual cost is the Event's SPEND under REQ-REPORTING-0001, shown as APPROVED_SPEND and PENDING_SPEND.
@@ -65,7 +65,9 @@ requirement_sources:
 - SHEET REP-2
 - SHEET 6.1
 requirement_decisions:
+- D-17
 - D-29
+- D-44
 requirement_features:
 - REP-2
 edges:

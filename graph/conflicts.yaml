@@ -98,8 +98,12 @@ conflicts:
   drop: Every month rolls into one consolidated invoice (demo).
 - conflict_id: C-21
   topic: Agency performance views
-  keep: Agency scorecards in Phase 3 (sheet RC-16).
-  drop: Units rank Agencies by spend, relationship, and performance on the dashboard (PRD).
+  keep: >-
+    Agency scorecards in Phase 3 (sheet RC-16). In MVP, Program Users see each Agency's fill rate and
+    no-show rate beside its spend (sheet REP-9), with formulas still to be defined with Foodbuy.
+  drop: >-
+    Units rank Agencies by spend, relationship, and performance on the dashboard, and Agencies see their
+    own fill rate, time to fill, no-show rate, compliance, and average rating (PRD).
 - conflict_id: C-22
   topic: Budget approvals
   keep: 'Phase 3 (sheet SC-15; feedback: skip unless it''s an issue).'
@@ -130,3 +134,9 @@ conflicts:
     Timesheets, tips, expenses, and Credential documents also arrive as PDFs and images (sheet TS-5,
     WA-14; sessions; feedback on OCR).
   drop: Every upload is a CSV or Excel file (PRD).
+- conflict_id: C-28
+  topic: Accrual scope
+  keep: >-
+    Hours worked that no issued invoice covers, split into with the Agency, waiting for approval, and
+    approved (sheet 5.3; sessions). The approved part is the INV-12 figure.
+  drop: Approved, uninvoiced Timesheets only (sheet INV-12 read alone).

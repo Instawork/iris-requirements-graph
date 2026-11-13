@@ -39,8 +39,8 @@ requirement_rules:
   rule_sources:
   - PRD §1 Metric definitions
   - SHEET RC-16
-  - GRAPH metric formulas, pending a decision
-  rule_decisions: []
+  rule_decisions:
+  - D-42
 - rule_id: R5
   rule_statement: >-
     Grouped by Agency, FILL_RATE divides the Agency's ASSIGNED Assignments by the headcount of the Releases
@@ -48,8 +48,8 @@ requirement_rules:
   rule_sources:
   - PRD §1 Metric definitions
   - SHEET RC-16
-  - GRAPH metric formulas, pending a decision
-  rule_decisions: []
+  rule_decisions:
+  - D-42
 - rule_id: R6
   rule_statement: >-
     NO_SHOW_RATE is Timesheets marked as a no-show divided by ASSIGNED Assignments, over Shifts whose
@@ -57,14 +57,14 @@ requirement_rules:
   rule_sources:
   - PRD §1 Metric definitions
   - SHEET RC-16
-  - GRAPH metric formulas, pending a decision
-  rule_decisions: []
+  rule_decisions:
+  - D-42
 - rule_id: R7
   rule_statement: >-
     A rate whose denominator is zero shows as not available, never as zero.
-  rule_sources:
-  - GRAPH metric formulas, pending a decision
-  rule_decisions: []
+  rule_sources: []
+  rule_decisions:
+  - D-42
 - rule_id: R8
   rule_statement: >-
     Every measure groups and filters by Sector, Region, District, Unit, Department, Cost Center, Agency,
@@ -108,6 +108,7 @@ requirement_sources:
 requirement_decisions:
 - D-14
 - D-29
+- D-42
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

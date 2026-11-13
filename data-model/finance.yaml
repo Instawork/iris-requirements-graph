@@ -1,17 +1,25 @@
 module: FINANCE
+enums:
+- enum: AccrualBucket
+  phase: P2
+  values:
+  - {value: WITH_AGENCY, meaning: Hours on Draft or Rejected Timesheets of ended Shifts.}
+  - {value: WAITING_FOR_APPROVAL, meaning: Hours on Submitted Timesheets.}
+  - {value: APPROVED_NOT_ISSUED, meaning: Approved Timesheets that no issued invoice covers.}
 entities:
 - entity: AccrualSnapshot
   phase: P2
-  description: Approved, uninvoiced spend at one moment.
+  description: Spend on hours worked that no issued invoice covers, at one moment.
   fields:
   - {name: taken_at, type: timestamp}
   - {name: taken_by, type: ref:User}
 - entity: AccrualLine
   phase: P2
-  description: One Cost Center's amount in an Accrual Snapshot.
+  description: One Cost Center's amount in one bucket of an Accrual Snapshot.
   fields:
   - {name: snapshot_id, type: ref:AccrualSnapshot}
   - {name: cost_center_id, type: ref:CostCenter}
+  - {name: bucket, type: enum:AccrualBucket}
   - {name: amount, type: money}
   unique:
-  - [snapshot_id, cost_center_id]
+  - [snapshot_id, cost_center_id, bucket]

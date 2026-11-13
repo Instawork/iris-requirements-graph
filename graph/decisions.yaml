@@ -153,12 +153,14 @@ decisions:
 - decision_id: D-14
   origin: graph
   question: >-
-    Which day does the invoice week start, what is a budget period, and who receives the invoice: one for
-    Compass, or one per sector?
+    Which day does the invoice week start, what is a budget period, is a budget per Unit or also per
+    Department, and who receives the invoice: one for Compass, or one per sector?
   status: open
   assumption: >-
-    In MVP each Budget row carries its own start and end dates, and a dashboard week is the Unit's Work
-    Week. The invoice questions wait for Phase 2.
+    In MVP each Budget row is for one Unit and carries its own start and end dates; rows for one Unit
+    never overlap, and a budget for any other period is prorated by days. A dashboard week is the Unit's
+    Work Week and a dashboard month is a calendar month. The period so far is set against the whole
+    prior period and against the whole month's budget. The invoice questions wait for Phase 2.
   blocking: false
   answer: null
   sources:
@@ -350,7 +352,9 @@ decisions:
   status: open
   assumption: >-
     Hours worked on Shifts that have ended but whose Timesheets are not yet approved, at the hours entered
-    or the scheduled hours when none are entered.
+    or the scheduled hours when none are entered. Both are priced at the Release's Bill Rates: entered
+    hours by hour class, and scheduled hours (end minus start minus the planned break) at the regular
+    rate. Pending spend holds hours only; tips and expenses count once their Timesheet is approved.
   blocking: false
   answer: null
   sources:
@@ -361,8 +365,9 @@ decisions:
   question: What does spend "far above normal" mean on the Program home?
   status: open
   assumption: >-
-    Each Unit shows this month's spend against the average of its three prior full months, as a
-    percentage. MVP shows the number and sets no flag threshold.
+    Each Unit shows this month's spend against the average of its prior full calendar months, up to
+    three, as a percentage. A Unit with no prior full month shows no comparison. MVP shows the number
+    and sets no flag threshold.
   blocking: false
   answer: null
   sources:
@@ -503,3 +508,87 @@ decisions:
   - PRD §6 Templates
   - SHEET TS-5
   - SESSIONS Timesheets, Tips & Expenses
+- decision_id: D-41
+  origin: graph
+  question: How are money amounts rounded?
+  status: open
+  assumption: >-
+    Hours are whole minutes. An amount is a rate times minutes divided by 60, rounded half up to the
+    cent, for each Timesheet and each hour class; totals add the rounded amounts.
+  blocking: false
+  answer: null
+  sources:
+  - PRD §5 Invoices
+  - PRD §7 Agent Chat
+- decision_id: D-42
+  origin: graph
+  question: >-
+    What are the formulas for hours, headcount, fill rate, no-show rate, and an Agency's average Bill
+    Rate? The sheet says metrics are to be defined with Foodbuy.
+  status: open
+  assumption: >-
+    Fill rate is assigned Workers over headcount on Shifts that started; for one Agency, over the
+    headcount of the Releases sent to it, leaving out withdrawn ones. No-show rate is no-show Timesheets
+    over assigned Workers on worked Shifts. Hours are the minutes behind spend. An Agency's average Bill
+    Rate is its spend on hours over its hours. A rate over nothing shows as not available.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET RC-16
+  - PRD §1 Metric definitions
+  - PRD §1 Detailed requirements
+- decision_id: D-43
+  origin: graph
+  question: >-
+    Which dates count in labor cost as a percentage of sales, does labor cost include Compass's own
+    employees, and what does a second sales upload for the same Unit and date do?
+  status: open
+  assumption: >-
+    Only dates with revenue above zero count, in both the spend and the revenue; with none, the measure
+    shows as not available. Labor cost is agency spend in Iris only. A second upload for the same Unit
+    and date replaces the first.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET REP-3
+  - SHEET REP-4
+  - PRD §6 Templates
+- decision_id: D-44
+  origin: graph
+  question: How is an Event's projected cost computed?
+  status: open
+  assumption: >-
+    The sum, over the pending and accepted Releases of the Event's Shifts, of headcount times scheduled
+    minutes (end minus start minus the planned break) times the regular Bill Rate, rounded per Release.
+    It holds no tips, expenses, or overtime premium, and follows the Releases as they change.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET REP-2
+- decision_id: D-45
+  origin: graph
+  question: >-
+    Who keeps a Saved Report, what is a dashboard, and are the sheet's "top operators" Units or people?
+  status: open
+  assumption: >-
+    Unit Users and Program Users ask questions within their scope; Agency Users get no reports in MVP. A
+    Saved Report belongs to the User who saved it and is recomputed when reopened. An answer with
+    several measures is a dashboard. Operators are ranked as Units.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET REP-1
+  - SHEET REP-9
+  - SHEET 6.3
+- decision_id: D-46
+  origin: graph
+  question: In Phase 2, who records a payment, and which Compass User sends overbilled hours back?
+  status: open
+  assumption: >-
+    A Program User records the amount paid on an Agency Invoice, and the Consolidated Invoice follows its
+    Agency Invoices. A Unit User or a Program User sends hours back. Nothing in MVP depends on it.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET INV-7
+  - SHEET INV-11

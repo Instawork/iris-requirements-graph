@@ -206,3 +206,24 @@ terms:
   definition: Append-only history of who changed what, when, through which channel, and why.
   avoid: []
   sources: [SHEET RC-5, SHEET WA-16]
+- term: Consolidated Invoice
+  definition: The single weekly invoice across every Agency, built from Approved Timesheets. Phase 2.
+  avoid: []
+  source_words: [Invoice Group]
+  sources: [SHEET INV-1, PRD Key Terms]
+  decisions: [D-14]
+- term: Agency Invoice
+  definition: One Agency's part of a Consolidated Invoice. Phase 2.
+  avoid: []
+  sources: [SESSIONS Invoicing & Accruals, PRD §5 Invoices]
+- term: Saved Report
+  definition: >-
+    The measures, groupings, filters, and period of an answer, kept by the User who asked so it can be
+    reopened.
+  avoid: []
+  sources: [SHEET REP-1]
+  decisions: [D-45]
+- term: Work date
+  definition: The date a Shift starts, in its Unit's timezone. Spend is dated by it.
+  avoid: []
+  sources: [SHEET INV-5]

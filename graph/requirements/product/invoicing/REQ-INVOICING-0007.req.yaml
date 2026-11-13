@@ -15,9 +15,9 @@ requirement_rules:
     Iris pays no one: a Program User records the amount paid so far on an ISSUED Agency Invoice.
   rule_sources:
   - SHEET INV-7
-  - GRAPH Phase 2 invoice actions, pending a decision
   rule_decisions:
   - D-31
+  - D-46
 - rule_id: R2
   rule_statement: >-
     An Agency Invoice becomes PARTLY_PAID when the amount paid is above zero and below its total, and
@@ -30,10 +30,10 @@ requirement_rules:
   rule_statement: >-
     A Consolidated Invoice is PAID when every Agency Invoice in it is PAID, and PARTLY_PAID when some
     payment is recorded but not all.
-  rule_sources:
-  - GRAPH Phase 2 invoice actions, pending a decision
+  rule_sources: []
   rule_decisions:
   - D-31
+  - D-46
 - rule_id: R4
   rule_statement: >-
     A Unit User sees the payment status of every Agency Invoice with lines for Units in their scope.
@@ -44,6 +44,7 @@ requirement_sources:
 - SHEET INV-7
 requirement_decisions:
 - D-31
+- D-46
 requirement_features:
 - INV-7
 edges:

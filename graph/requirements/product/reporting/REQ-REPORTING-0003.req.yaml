@@ -46,8 +46,8 @@ requirement_rules:
     as a dashboard.
   rule_sources:
   - SHEET REP-1
-  - GRAPH report access and saved reports, pending a decision
-  rule_decisions: []
+  rule_decisions:
+  - D-45
 - rule_id: R6
   rule_statement: >-
     An answer holds only records inside the asking User's scope, as REQ-ORG-0009 checks: the Units under
@@ -95,9 +95,9 @@ requirement_rules:
   rule_statement: >-
     Only the User who saved a Saved Report can reopen it, and reopening recomputes it from current records
     within that User's current scope.
-  rule_sources:
-  - GRAPH report access and saved reports, pending a decision
-  rule_decisions: []
+  rule_sources: []
+  rule_decisions:
+  - D-45
 requirement_sources:
 - SHEET REP-1
 - SHEET 6.1
@@ -105,6 +105,7 @@ requirement_sources:
 requirement_decisions:
 - D-14
 - D-25
+- D-45
 requirement_features:
 - REP-1
 edges:

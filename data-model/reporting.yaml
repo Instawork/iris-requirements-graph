@@ -5,14 +5,14 @@ enums:
   - {value: SPEND, meaning: 'Approved spend plus pending spend, as REQ-REPORTING-0001 defines.'}
   - {value: APPROVED_SPEND, meaning: Spend on Approved Timesheets and approved expenses.}
   - {value: PENDING_SPEND, meaning: Spend not yet approved (D-29).}
-  - {value: HOURS, meaning: Worked hours.}
-  - {value: OVERTIME_HOURS, meaning: Overtime plus double-time hours.}
-  - {value: HEADCOUNT_REQUESTED, meaning: Headcount on Shifts.}
-  - {value: FILL_RATE, meaning: Assigned Workers over headcount on Shifts that started.}
-  - {value: NO_SHOW_RATE, meaning: No-show Timesheets over Assignments on worked Shifts.}
-  - {value: BUDGET, meaning: Budget amount for the period.}
-  - {value: LABOR_PCT_OF_SALES, meaning: Spend over revenue.}
-  - {value: LATE_TIMESHEETS, meaning: Timesheets not approved when their Lock Window closed.}
+  - {value: HOURS, meaning: 'The minutes behind Spend, shown as hours: worked minutes on Approved Timesheets plus pending minutes (D-29).'}
+  - {value: OVERTIME_HOURS, meaning: Overtime plus double-time minutes within Hours.}
+  - {value: HEADCOUNT_REQUESTED, meaning: Headcount on Shifts that are not cancelled.}
+  - {value: FILL_RATE, meaning: 'Assigned Workers over headcount on Shifts that started; for one Agency, over the headcount released to it.'}
+  - {value: NO_SHOW_RATE, meaning: No-show Timesheets over assigned Workers on worked Shifts.}
+  - {value: BUDGET, meaning: 'Budget amount for the period, prorated by days.'}
+  - {value: LABOR_PCT_OF_SALES, meaning: 'Spend over revenue, on dates that have revenue.'}
+  - {value: LATE_TIMESHEETS, meaning: 'Timesheets not approved when their Lock Window closed, by work date.'}
 - enum: Dimension
   values:
   - {value: SECTOR, meaning: Sector}
@@ -30,16 +30,15 @@ enums:
 entities:
 - entity: Budget
   phase: MVP
-  description: A Unit's or Department's labor budget for a date range (D-14).
+  description: A Unit's labor budget for a date range (D-14).
   fields:
   - {name: unit_id, type: ref:Unit}
-  - {name: department_id, type: ref:Department, nullable: true}
   - {name: period_start, type: date}
   - {name: period_end, type: date, note: Inclusive}
   - {name: amount, type: money}
   - {name: upload_id, type: ref:Upload, nullable: true}
   constraints:
-  - Budgets for the same Unit and Department never overlap in dates.
+  - Budgets for the same Unit never overlap in dates.
 - entity: SalesRecord
   phase: MVP
   description: A Unit's sales for one date.

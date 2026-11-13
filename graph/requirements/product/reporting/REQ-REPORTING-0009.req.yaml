@@ -16,8 +16,8 @@ requirement_rules:
   rule_sources:
   - SHEET REP-9
   - PRD §1 Detailed requirements
-  - GRAPH report access and saved reports, pending a decision
-  rule_decisions: []
+  rule_decisions:
+  - D-45
 - rule_id: R2
   rule_statement: >-
     A trend shows a measure per Work Week or per calendar month across the chosen period.
@@ -32,8 +32,8 @@ requirement_rules:
   rule_sources:
   - SHEET REP-9
   - SHEET RC-16
-  - GRAPH metric formulas, pending a decision
-  rule_decisions: []
+  rule_decisions:
+  - D-42
 - rule_id: R4
   rule_statement: >-
     Each Unit shows this month's SPEND as a percentage above or below the average of its prior full calendar
@@ -60,7 +60,11 @@ requirement_sources:
 - SHEET REP-9
 - SHEET 6.3
 requirement_decisions:
+- D-14
+- D-25
 - D-30
+- D-42
+- D-45
 requirement_features:
 - REP-9
 edges:

@@ -12,7 +12,8 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    A Unit User sees the dashboard for every Unit inside their Role Grants and can narrow it to one Unit.
+    A Unit User sees the dashboard for every Unit inside the scope of their Role Grants and can narrow
+    it to one Unit.
   rule_sources:
   - SHEET REP-7
   - SHEET PLT-1
@@ -49,8 +50,8 @@ requirement_rules:
   rule_sources:
   - SHEET REP-7
   - PRD §1 Detailed requirements
-  - GRAPH metric formulas, pending a decision
-  rule_decisions: []
+  rule_decisions:
+  - D-42
 - rule_id: R6
   rule_statement: It breaks the month's SPEND down by Position and by Unit.
   rule_sources:
@@ -84,7 +85,9 @@ requirement_sources:
 - PRD §1 Detailed requirements
 requirement_decisions:
 - D-14
+- D-25
 - D-29
+- D-42
 requirement_features:
 - REP-7
 edges:

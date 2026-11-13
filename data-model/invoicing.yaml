@@ -35,8 +35,8 @@ entities:
   fields:
   - {name: consolidated_invoice_id, type: ref:ConsolidatedInvoice}
   - {name: agency_id, type: ref:Agency}
-  - {name: vendor_invoice_number, type: text, nullable: true}
-  - {name: contract_type, type: enum:ContractType}
+  - {name: agency_invoice_number, type: text, nullable: true, note: The Agency's own invoice number}
+  - {name: contract_type, type: enum:ContractType, note: 'Where it is set, on the Agency or the Unit, waits on D-35'}
   - {name: status, type: enum:InvoiceStatus}
   - {name: paid_amount, type: money}
   unique:
