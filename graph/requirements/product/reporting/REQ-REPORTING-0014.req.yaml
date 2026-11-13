@@ -2,29 +2,42 @@ requirement_id: REQ-REPORTING-0014
 requirement_target_layer: product
 requirement_target_module: REPORTING
 requirement_phase: P3
-requirement_title: Track temp-to-perm and flag over-reliance on temps
+requirement_title: Track temp-to-perm hours and flag heavy reliance on temps
 requirement_statement: >-
-  Iris tracks each person's hours across Units toward the free conversion threshold, and flags locations
+  Iris tracks each Worker's hours across Units toward the 400-hour temp-to-perm threshold. It flags Units
   that rely heavily on temps.
-requirement_actors: []
-requirement_rules: []
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Iris totals each Worker's hours across Units against the 400-hour temp-to-perm threshold and flags
+    Units with heavy temp use.
+  rule_sources:
+  - SHEET REP-12
+  - SHEET 6.4
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET REP-12
+- SHEET 6.4
 requirement_decisions: []
 requirement_features:
 - REP-12
 edges:
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-WORKFORCE-0007
+  requirement_id: REQ-REPORTING-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0003
 data_model:
-  status: not_applicable
+  status: pending
   reads: []
   writes: []
-  detail: null
-  migration_entities: []
+  detail: >-
+    What counts as heavy temp use is not defined. Hours across Agencies need one Worker profile across
+    Agencies, which is Phase 3.
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

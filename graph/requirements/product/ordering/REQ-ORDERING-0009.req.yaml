@@ -4,33 +4,66 @@ requirement_target_module: ORDERING
 requirement_phase: MVP
 requirement_title: Draft a Request from a plain-language sentence
 requirement_statement: >-
-  A Unit User types what they need, such as “3 bartenders and 2 line cooks Monday”, and Iris drafts the
-  Request for them to review and send.
-requirement_actors: []
+  A Unit User types what they need in the assistant, such as “3 bartenders and 2 line cooks Monday”. Iris
+  drafts the Request as a Proposal for them to review, change, and approve.
+requirement_actors:
+- UNIT_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Iris reads Position, headcount, Unit, date, and times from the text, and asks for anything missing.
-  rule_sources: []
+    From the text, Iris reads each line's Position, headcount, Unit, date, and start and end times.
+  rule_sources:
+  - SHEET SC-9
+  - PRD §7 Typed request
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    The draft shows each Shift, the receiving Agency, its Bill Rate, and the estimated cost.
-  rule_sources: []
+    When the User's scope covers several Units and the text names none, Iris asks which Unit before drafting.
+  rule_sources:
+  - SHEET SC-9
   rule_decisions: []
 - rule_id: R3
-  rule_statement: The draft is checked with the same rules as the booking form.
-  rule_sources: []
-  rule_decisions: []
+  rule_statement: >-
+    When the text names no Agency, Iris lists the Agencies approved for the Unit with their contracted
+    Bill Rates and asks which should receive each line.
+  rule_sources:
+  - SHEET SC-9
+  - SHEET SC-7
+  rule_decisions:
+  - D-17
 - rule_id: R4
-  rule_statement: Nothing is created or sent until the user confirms the draft.
-  rule_sources: []
+  rule_statement: >-
+    The draft is a Proposal of kind REQUEST_DRAFT that shows each Shift line, its Agency, and its Bill
+    Rate as REQ-ORDERING-0002 prices it.
+  rule_sources:
+  - SESSIONS Shift Creation
+  - PRD §7 Typed request
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    Each drafted line is checked as a new Shift is, and a line that fails shows its problem in the draft.
+  rule_sources:
+  - PRD §7 What the agent checks
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: The User may change any line of the draft before approving it.
+  rule_sources:
+  - PRD §7 Typed request
+  rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    On approval, the Request and its Shifts are created through REQ-ORDERING-0001 with created_via ASSISTANT,
+    and each line with an Agency is sent through REQ-DISPATCH-0001.
+  rule_sources:
+  - PRD §7 Typed request
+  - SESSIONS Shift Creation
   rule_decisions: []
 requirement_sources:
-- SHEET
-- PRD §7 Agent chat
-- SESSIONS Order in a sentence
-requirement_decisions: []
+- SHEET SC-9
+- PRD §7 Agent Chat
+- SESSIONS Shift Creation
+requirement_decisions:
+- D-17
 requirement_features:
 - SC-9
 edges:
@@ -46,13 +79,17 @@ edges:
   requirement_id: REQ-ORDERING-0002
 - edge_type: DEPENDS_ON
   requirement_id: REQ-DISPATCH-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
   status: covered
-  reads: []
+  reads:
+  - Position.name
+  - OrgNode.name
+  - Unit.timezone
+  - Agency.name
   writes: []
   detail: null
-  migration_entities:
-  - Proposal
 requirement_starting_flow: false
 requirement_review:
   status: draft

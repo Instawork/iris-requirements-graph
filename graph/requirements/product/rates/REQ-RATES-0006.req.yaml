@@ -4,28 +4,61 @@ requirement_target_module: RATES
 requirement_phase: MVP
 requirement_title: Flag rate variance at booking and on Timesheets
 requirement_statement: >-
-  When the Bill Rate on a Shift or a Timesheet differs from the contracted rate, Iris flags it with both
-  rates, the difference, and the reason.
-requirement_actors: []
+  Iris compares the Bill Rates used when a Shift is sent, or billed on a Timesheet, with the contracted
+  rate. A difference is flagged with both rates and the amount.
+requirement_actors:
+- SYSTEM
 requirement_rules:
 - rule_id: R1
-  rule_statement: A Unit User who changes a Shift's Bill Rate must give a reason.
-  rule_sources: []
+  rule_statement: >-
+    Given an Agency, Position, Unit, work date, and Bill Rates, the check compares each given rate with
+    the same rate on the contracted Rate Line.
+  rule_sources:
+  - SHEET RC-10
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    A Timesheet billed at a rate different from the contracted rate is flagged before approval and stays
-    flagged after it.
-  rule_sources: []
+    A given Bill Rate that differs from the contracted one, higher or lower, is a rate variance.
+  rule_sources:
+  - SHEET RC-10
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    Each flag links to the Rate Line, the Shift, and the person who set the rate.
-  rule_sources: []
+    The result names the contracted Rate Line and, for each differing rate, the contracted rate, the rate
+    used, and the difference in dollars.
+  rule_sources:
+  - SHEET RC-10
   rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    When no contracted rate exists, the result is off-contract and shows no difference.
+  rule_sources:
+  - SHEET RC-11
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    The check uses the work date both when a Shift is sent and on its Timesheets, and a variance stays
+    flagged after the Timesheet is approved.
+  rule_sources:
+  - SHEET RC-10
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    A flag raised when a Shift is sent shows the reason the Unit User gave for the rate (C-16).
+  rule_sources:
+  - SHEET RC-10
+  - SHEET SC-1
+  rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    Program Users see every rate variance flag, and a Unit User sees the flags on Shifts and Timesheets
+    of the Units their grant covers.
+  rule_sources:
+  - SHEET Decisions & Inputs
+  rule_decisions:
+  - D-2
 requirement_sources:
-- SHEET
-- SESSIONS Rates
+- SHEET RC-10
 requirement_decisions:
 - D-2
 requirement_features:
@@ -34,17 +67,15 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-RATES-0005
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-AUDIT-0001
+  requirement_id: REQ-ORG-0009
 data_model:
   status: covered
-  reads: []
+  reads:
+  - RateLine.*
   writes: []
   detail: >-
-    Variance is computed from Shift.bill_rate and Timesheet.bill_rate against the contracted Rate Line,
-    not stored.
-  migration_entities:
-  - Shift
-  - Timesheet
+    Reads only and returns its result to the caller. The rates and reasons it compares are kept on Release
+    and Timesheet by the requirements that own them.
 requirement_starting_flow: false
 requirement_review:
   status: draft

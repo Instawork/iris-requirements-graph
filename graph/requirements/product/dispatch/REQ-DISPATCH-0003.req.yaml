@@ -4,53 +4,72 @@ requirement_target_module: DISPATCH
 requirement_phase: P2
 requirement_title: Release Shifts by dispatch rules
 requirement_statement: >-
-  A Unit sets dispatch rules per Position: one preferred Agency, several at once, or a release order that
-  opens to all approved Agencies after a set time.
-requirement_actors: []
+  A Unit sets how its Shifts reach Agencies: one preferred Agency, several at once, or a release order
+  that opens to all approved Agencies after a set time.
+requirement_actors:
+- UNIT_USER
+- SYSTEM
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    In a release order, each next Agency receives the Shift after a window, 4 hours by default.
-  rule_sources: []
+    A Unit User may set a DispatchRule for a Unit, for one Position or for all, with mode PREFERRED, SEVERAL,
+    or RELEASE_ORDER and the Agencies it names.
+  rule_sources:
+  - SHEET SC-12
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    Agencies already released keep the Shift, and later ones are added, not swapped in.
-  rule_sources: []
+    Under RELEASE_ORDER, each next Agency receives the Shift after window_hours, 4 by default, and every
+    approved Agency receives it after open_to_all_after_hours.
+  rule_sources:
+  - SHEET SC-12
+  - PRD §2 Shifts
   rule_decisions: []
 - rule_id: R3
-  rule_statement: Release stops once the headcount is filled.
-  rule_sources: []
+  rule_statement: >-
+    Agencies already holding the Shift keep it as later ones are added, and no further Agency receives
+    it once it is FILLED.
+  rule_sources:
+  - PRD §2 Shifts
   rule_decisions: []
 - rule_id: R4
   rule_statement: >-
-    If the Shift starts before the remaining windows run out, every remaining Agency receives it at once.
-  rule_sources: []
-  rule_decisions: []
-- rule_id: R5
-  rule_statement: >-
-    A sector can hold Releases until a set time before the Shift, such as 72 hours before doors.
-  rule_sources: []
+    A rule may hold every Release until hold_until_hours_before hours before the Shift starts.
+  rule_sources:
+  - FAQ
   rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET SC-12
 - PRD §2 Shifts
 - FAQ
-requirement_decisions: []
+requirement_decisions:
+- D-17
 requirement_features:
 - SC-12
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-DISPATCH-0001
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-ORG-0006
+  requirement_id: REQ-DISPATCH-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCIES-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
-  detail: null
-  migration_entities:
-  - DispatchRule
+  reads:
+  - Shift.status
+  - Shift.starts_at
+  - Release.status
+  - AgencyApproval.agency_id
+  - AgencyApproval.org_node_id
+  - AgencyApproval.removed_at
+  writes:
+  - DispatchRule.*
+  detail: >-
+    How several Releases share one Shift's headcount is settled when Phase 2 is scoped (D-17).
 requirement_starting_flow: false
 requirement_review:
   status: draft

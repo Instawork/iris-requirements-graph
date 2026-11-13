@@ -2,30 +2,46 @@ requirement_id: REQ-REPORTING-0011
 requirement_target_layer: product
 requirement_target_module: REPORTING
 requirement_phase: P2
-requirement_title: Send exception alerts by email or chat
+requirement_title: Alert Users when spend or fill crosses a threshold
 requirement_statement: >-
-  Users set thresholds, such as over budget, and Iris alerts them by email or chat when one is crossed.
-requirement_actors: []
-requirement_rules: []
+  Iris alerts Users by email or chat when spend or fill crosses a threshold, such as spend over budget,
+  so they need not check for it.
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    When spend or fill crosses a threshold, such as SPEND passing BUDGET, Iris sends an alert by email
+    or chat.
+  rule_sources:
+  - SHEET REP-5
+  - SHEET 6.2
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET REP-5
+- SHEET 6.2
 requirement_decisions: []
 requirement_features:
 - REP-5
 edges:
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-REPORTING-0008
+  requirement_id: REQ-REPORTING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-REPORTING-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-REPORTING-0007
 - edge_type: DEPENDS_ON
   requirement_id: REQ-MESSAGING-0001
 data_model:
   status: pending
   reads: []
   writes: []
-  detail: Designed when Phase 2 is scoped.
-  migration_entities: []
+  detail: >-
+    Thresholds, who sets them, who is alerted, and a chat channel are not modeled. A notification type
+    is added to the catalog when Phase 2 is scoped.
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

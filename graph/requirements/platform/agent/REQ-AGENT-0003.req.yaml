@@ -4,31 +4,69 @@ requirement_target_module: AGENT
 requirement_phase: MVP
 requirement_title: Ask when unsure, and refuse data the user does not own
 requirement_statement: >-
-  When a file could be more than one type or a request is missing details, Iris asks before proposing
-  anything.
-requirement_actors: []
+  Before proposing anything, Iris asks when it cannot tell what a file or request is, or when details
+  are missing. When a user sends data their role may not send, Iris says who owns it and saves nothing.
+requirement_actors:
+- SYSTEM
 requirement_rules:
 - rule_id: R1
-  rule_statement: If a request lacks a date, a time, or a headcount, Iris asks for it.
-  rule_sources: []
+  rule_statement: >-
+    When a file or message could be more than one upload type or kind of request, Iris asks the user which
+    it is and creates no Proposal until they answer.
+  rule_sources:
+  - PRD §7 When the agent is unsure
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    If a user sends data they cannot change, such as a Unit User sending a Rate Card, Iris says who owns
-    it and saves nothing.
-  rule_sources: []
+    When a typed request lacks a detail the change needs, such as a date, a time, or a headcount, Iris
+    asks for it before creating a Proposal.
+  rule_sources:
+  - PRD §7 When the agent is unsure
+  - SHEET SC-9
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    Who may send each upload type is the uploaders list for that type in the upload-types catalog, checked
+    against the role the User is acting in, which the caller supplies.
+  rule_sources:
+  - PRD §6 Uploads
+  - GRAPH platform reads no product records, so the caller supplies them
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    When that role is not among the type's uploaders, such as a Unit User sending a RATE_CARD, Iris names
+    the roles that may send it, creates no Proposal, and saves nothing.
+  rule_sources:
+  - PRD §7 When the agent is unsure
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    For a typed request, the requirement that owns the change says whether the User may make it; if not,
+    Iris says who can and creates no Proposal.
+  rule_sources:
+  - PRD §7 When the agent is unsure
+  - GRAPH platform reads no product records, so the caller supplies them
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    A question or a refusal is given on the channel the file or message arrived on.
+  rule_sources:
+  - SHEET SC-9
+  - SHEET SC-10
   rule_decisions: []
 requirement_sources:
-- PRD §7 Agent chat
+- PRD §7 When the agent is unsure
+- PRD §6 Uploads
 requirement_decisions: []
 requirement_features: []
-edges: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0001
 data_model:
   status: not_applicable
   reads: []
   writes: []
-  detail: null
-  migration_entities: []
+  detail: Asks or refuses before any Proposal exists; it stores nothing.
 requirement_starting_flow: false
 requirement_review:
   status: draft

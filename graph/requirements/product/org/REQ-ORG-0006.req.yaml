@@ -4,42 +4,68 @@ requirement_target_module: ORG
 requirement_phase: MVP
 requirement_title: Resolve a Setting for a Unit
 requirement_statement: >-
-  Configurable values are Settings. Each has a program default and can be overridden at a Sector, Region,
-  District, or Unit, and the nearest override wins.
-requirement_actors: []
+  Given a Setting key and a Unit, Iris returns the value in force there. The nearest override up the org
+  tree wins, then the program default, then the catalog default.
+requirement_actors:
+- SYSTEM
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Settings include the Approval Tolerance, auto-approval, the Lock Window, the off-contract gate, the
-    peer rate threshold, the credential expiry warning, and the overtime hard block.
-  rule_sources: []
-  rule_decisions: []
+    For a key the catalog scopes as any, the value is the Setting row at the Unit's node, else the row
+    at its nearest ancestor that has one.
+  rule_sources:
+  - FAQ
+  - SHEET WA-19
+  rule_decisions:
+  - D-16
 - rule_id: R2
-  rule_statement: Every Setting has a program default before any override exists.
-  rule_sources: []
-  rule_decisions: []
+  rule_statement: >-
+    When no node on that path has a row, the value is the program default row, which names no org node.
+  rule_sources:
+  - FAQ
+  rule_decisions:
+  - D-16
 - rule_id: R3
-  rule_statement: Changing a Setting is recorded in the Audit Trail.
+  rule_statement: >-
+    When there is no program default row, the value is the key's default in the settings catalog.
   rule_sources: []
-  rule_decisions: []
+  rule_decisions:
+  - D-16
+- rule_id: R4
+  rule_statement: >-
+    A key the catalog scopes as program needs no Unit and resolves only from the program default row,
+    else the catalog default.
+  rule_sources:
+  - GRAPH a program-wide Setting has no Unit to resolve from
+  rule_decisions:
+  - D-16
+- rule_id: R5
+  rule_statement: >-
+    The value is returned in the key's catalog type: a whole number, true or false, or a gate mode of
+    SOFT or HARD.
+  rule_sources:
+  - GRAPH the settings catalog gives each key a type
+  rule_decisions:
+  - D-16
 requirement_sources:
-- SHEET RC-11, TS-7, TS-9, WA-19
-- OPS Settings for each sector
+- FAQ
+- SHEET TS-9
+- SHEET WA-19
+- SHEET RC-11
 requirement_decisions:
 - D-16
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0001
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
+  reads:
+  - Setting.*
+  - OrgNode.parent_id
+  - Unit.org_node_id
   writes: []
-  detail: null
-  migration_entities:
-  - Setting
+  detail: Reads only. Setting rows are saved by REQ-ORG-0010.
 requirement_starting_flow: false
 requirement_review:
   status: draft

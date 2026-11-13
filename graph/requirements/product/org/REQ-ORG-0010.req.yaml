@@ -1,0 +1,81 @@
+requirement_id: REQ-ORG-0010
+requirement_target_layer: product
+requirement_target_module: ORG
+requirement_phase: MVP
+requirement_title: Change a Setting
+requirement_statement: >-
+  A Program User changes the program default of a Setting, or overrides it for one Sector, Region, District,
+  or Unit. The change applies the next time the Setting is resolved.
+requirement_actors:
+- PROGRAM_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: Only a Program User sets, changes, or removes a Setting value.
+  rule_sources:
+  - GRAPH who maintains program setup is not stated
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    A key the catalog scopes as any takes a program default and an override at any Sector, Region, District,
+    or Unit node, with one value per key and node.
+  rule_sources:
+  - FAQ
+  - SHEET WA-19
+  - SHEET TS-9
+  rule_decisions:
+  - D-16
+- rule_id: R3
+  rule_statement: >-
+    A key the catalog scopes as program takes only a program default, and an override at an org node is
+    refused.
+  rule_sources:
+  - GRAPH a program-wide Setting has no Unit to resolve from
+  rule_decisions:
+  - D-16
+- rule_id: R4
+  rule_statement: >-
+    A value that does not fit the key's catalog type (a whole number, true or false, or SOFT or HARD)
+    is refused.
+  rule_sources:
+  - GRAPH the settings catalog gives each key a type
+  rule_decisions:
+  - D-16
+- rule_id: R5
+  rule_statement: >-
+    Removing an override deletes its row so the next value up the tree applies, and removing the program
+    default restores the catalog default.
+  rule_sources: []
+  rule_decisions:
+  - D-16
+requirement_sources:
+- FAQ
+- SHEET TS-9
+- SHEET WA-19
+requirement_decisions:
+- D-16
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
+data_model:
+  status: covered
+  reads:
+  - Setting.*
+  - OrgNode.level
+  - OrgNode.active
+  writes:
+  - Setting.*
+  detail: null
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

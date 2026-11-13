@@ -4,25 +4,44 @@ requirement_target_module: INVOICING
 requirement_phase: P2
 requirement_title: Keep the original work date through revisions
 requirement_statement: >-
-  Every line keeps the date the work was done, even after revisions, and that date is the system of record
-  for payment terms.
-requirement_actors: []
-requirement_rules: []
+  Every invoice line keeps the date the work was done as its date of record, however often the line is
+  revised.
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Each line stores the work date of its Shift, and no revision, correction, or adjustment changes it.
+  rule_sources:
+  - SHEET INV-5
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    An adjustment line carries the work date of the line it adjusts, not the date of the correction.
+  rule_sources:
+  - SHEET INV-5
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET INV-5
 requirement_decisions: []
 requirement_features:
 - INV-5
 edges:
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-INVOICING-0002
+  requirement_id: REQ-INVOICING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INVOICING-0004
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - InvoiceLine.adjusts_line_id
+  - Shift.starts_at
+  - Unit.timezone
+  writes:
+  - InvoiceLine.work_date
   detail: null
-  migration_entities:
-  - InvoiceLine
 requirement_starting_flow: false
 requirement_review:
   status: draft

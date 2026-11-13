@@ -4,39 +4,78 @@ requirement_target_module: RATES
 requirement_phase: MVP
 requirement_title: Find the contracted rate
 requirement_statement: >-
-  Given an Agency, a Position, a Unit, and a work date, Iris returns the Rate Line in effect, or says
-  that none exists.
-requirement_actors: []
+  Given an Agency, a Position, a Unit, and a work date, Iris returns the Rate Line that prices that work,
+  or says that none exists.
+requirement_actors:
+- SYSTEM
 requirement_rules:
 - rule_id: R1
-  rule_statement: A Unit Rate Line wins over the Market Rate Line.
-  rule_sources: []
-  rule_decisions: []
+  rule_statement: >-
+    Only APPROVED lines count, and a line is in effect on a date from its effective_from up to but not
+    including its effective_to.
+  rule_sources:
+  - DEMO lib/types.ts
+  rule_decisions:
+  - D-10
 - rule_id: R2
-  rule_statement: Only live Rate Lines count, and pending changes do not.
-  rule_sources: []
-  rule_decisions: []
+  rule_statement: >-
+    The answer is the line in effect on the work date for that Agency, Position, and Unit, if there is
+    one.
+  rule_sources:
+  - SHEET RC-6
+  rule_decisions:
+  - D-1
 - rule_id: R3
-  rule_statement: When no Rate Line exists, the Agency is off-contract for that work.
-  rule_sources: []
+  rule_statement: >-
+    Otherwise it is the line in effect on the work date for that Agency, that Position, and the Unit's
+    Market.
+  rule_sources:
+  - SHEET RC-3
+  - SHEET SC-1
+  rule_decisions:
+  - D-1
+  - D-21
+- rule_id: R4
+  rule_statement: >-
+    When neither exists the answer is none, meaning the work has no contracted rate.
+  rule_sources:
+  - SHEET RC-11
   rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    The work date alone picks the line, so a superseded line still answers for work dated before its effective_to.
+  rule_sources:
+  - SHEET RC-5
+  - DEMO lib/types.ts
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    The contracted rate is the line's regular Bill Rate, returned with its overtime and double-time Bill
+    Rates and its Pay Rates.
+  rule_sources:
+  - SHEET SC-1
+  rule_decisions:
+  - D-11
 requirement_sources:
-- SHEET SC-1, RC-10
-- PRD §2 Shifts
-requirement_decisions: []
+- SHEET SC-1
+- SHEET RC-3
+- SHEET RC-6
+requirement_decisions:
+- D-1
+- D-11
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-RATES-0001
+  requirement_id: REQ-RATES-0009
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-RATES-0004
+  requirement_id: REQ-ORG-0002
 data_model:
   status: covered
-  reads: []
+  reads:
+  - RateLine.*
+  - Unit.market_id
   writes: []
-  detail: null
-  migration_entities:
-  - RateLine
+  detail: Reads only.
 requirement_starting_flow: false
 requirement_review:
   status: draft

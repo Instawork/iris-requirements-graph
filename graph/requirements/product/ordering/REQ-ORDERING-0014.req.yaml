@@ -1,0 +1,162 @@
+requirement_id: REQ-ORDERING-0014
+requirement_target_layer: product
+requirement_target_module: ORDERING
+requirement_phase: MVP
+requirement_title: Load Shifts from a file
+requirement_statement: >-
+  A Unit User uploads a SHIFTS file to create or change many Shifts at once. An Agency User uploads one
+  to assign named Workers to Shifts released to their Agency.
+requirement_actors:
+- UNIT_USER
+- AGENCY_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Each row of a SHIFTS file becomes a Proposal item under REQ-INTAKE-0002 that creates a Shift, changes
+    a Shift, or assigns a Worker.
+  rule_sources:
+  - PRD §6 Templates
+  - PRD §6 Uploads
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    A Unit User's row with no shift_id creates a Shift at a Unit in their scope through REQ-ORDERING-0001,
+    with created_via FILE_UPLOAD.
+  rule_sources:
+  - PRD §6 Templates
+  - SHEET SC-2
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    The rows of one file that create Shifts at the same Unit form one Request.
+  rule_sources:
+  - SHEET SC-2
+  - >-
+    GRAPH the SHIFTS template has no column that groups rows into Requests, pending a decision
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    A Unit User's row with a shift_id changes that Shift through REQ-ORDERING-0003 and is refused when
+    that change is not allowed in the Shift's current status.
+  rule_sources:
+  - PRD §6 Templates
+  - PRD §7 What the agent checks
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    On a row that creates a Shift, an agency value sends the Shift's whole headcount to that Agency through
+    REQ-DISPATCH-0001 at the contracted rate, under that requirement's checks.
+  rule_sources:
+  - PRD §7 After the user approves
+  - SHEET SC-7
+  rule_decisions:
+  - D-17
+- rule_id: R6
+  rule_statement: >-
+    An Agency User's row names a shift_id and a Worker, and assigns that Worker through REQ-WORKFORCE-0003
+    to the Agency's ACCEPTED Release on that Shift.
+  rule_sources:
+  - PRD §6 Templates
+  - PRD §7 Who uses it
+  rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    An Agency User's row cannot create or change a Shift, and a Unit User's row cannot assign a Worker.
+  rule_sources:
+  - PRD §6 Templates
+  - PRD §7 Who uses it
+  rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    The unit, position, and agency are looked up by name, and the department and event by name within
+    the row's Unit.
+  rule_sources:
+  - PRD §6 Templates
+  - PRD §7 What the agent checks
+  rule_decisions: []
+- rule_id: R9
+  rule_statement: >-
+    The date, start_time, and end_time are read in the Unit's timezone and checked as a new Shift's are,
+    and the instructions value fills the Shift's directions.
+  rule_sources:
+  - PRD §6 Templates
+  - PRD §7 What the agent checks
+  rule_decisions: []
+- rule_id: R10
+  rule_statement: >-
+    A row that would create a Shift with the same Unit, Position, Department, start, and end as an earlier
+    row, or as a Shift that is not CANCELLED, is reported as a duplicate.
+  rule_sources:
+  - PRD §7 What the agent checks
+  rule_decisions: []
+- rule_id: R11
+  rule_statement: >-
+    A shift_id that matches no Shift the uploader may act on is a problem with no suggested fix.
+  rule_sources:
+  - PRD §7 What the agent checks
+  rule_decisions: []
+requirement_sources:
+- SHEET SC-2
+- PRD §6 Templates
+- PRD §7 What the agent checks
+requirement_decisions:
+- D-17
+requirement_features:
+- SC-2
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INTAKE-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0011
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-DISPATCH-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
+data_model:
+  status: covered
+  reads:
+  - Shift.id
+  - Shift.status
+  - Shift.request_id
+  - Event.unit_id
+  - Event.name
+  - OrgNode.name
+  - Unit.org_node_id
+  - Unit.timezone
+  - Department.name
+  - Department.unit_id
+  - Position.name
+  - Agency.name
+  - Release.shift_id
+  - Release.agency_id
+  - Release.status
+  writes:
+  - Request.unit_id
+  - Shift.event_id
+  - Shift.department_id
+  - Shift.position_id
+  - Shift.starts_at
+  - Shift.ends_at
+  - Shift.break_minutes
+  - Shift.headcount
+  - Shift.directions
+  detail: null
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

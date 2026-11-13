@@ -4,38 +4,104 @@ requirement_target_module: AUDIT
 requirement_phase: MVP
 requirement_title: Record who changed what
 requirement_statement: >-
-  Changes to audited records go into an append-only Audit Trail with who, when, through which channel,
-  the old and new values, and the reason.
-requirement_actors: []
+  Every change to a product record or a User goes into an append-only Audit Trail: who made it, when,
+  through which channel, the old and new values, and the reason. Nobody can change or delete an entry.
+requirement_actors:
+- SYSTEM
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Channels are app, file upload, assistant, email, SMS, phone, API, or system.
-  rule_sources: []
-  rule_decisions: []
+    Every create, update, and delete of a product record or a User writes one AuditEvent together with
+    the change, and if the event cannot be written the change is not saved.
+  rule_sources:
+  - SHEET RC-5
+  - SHEET WA-16
+  - PRD §2 Shifts
+  rule_decisions:
+  - D-37
 - rule_id: R2
-  rule_statement: Entries are never edited or deleted.
+  rule_statement: >-
+    No product record is exempt: Role Grants, Agency approvals, Releases, Worker ratings, Tip Pools, and
+    expenses are audited in the same way as rates, Shifts, and Timesheets.
   rule_sources: []
-  rule_decisions: []
+  rule_decisions:
+  - D-37
 - rule_id: R3
   rule_statement: >-
-    Audited records include Units, Settings, Rate Lines, Shifts, Assignments, Timesheets, Credentials,
-    and Attestations.
+    An AuditEvent holds the record's type and id, the action, the acting User, the channel, and the time;
+    actor_id is empty only when Iris itself made the change.
+  rule_sources:
+  - SHEET RC-5
+  - PRD §2 Shifts
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    For an UPDATE, before holds the old values and after the new values of the fields that changed; a
+    CREATE has only after, and a DELETE has only before.
+  rule_sources:
+  - PRD §2 Shifts
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    The channel says how the change reached Iris: APP, FILE_UPLOAD, ASSISTANT, EMAIL, SMS, PHONE, API,
+    or SYSTEM.
+  rule_sources:
+  - PRD §6 Uploads
+  - PRD §7 Agent Chat
+  - SHEET SC-10
+  - SHEET PLT-5
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    A change saved from a Proposal carries that Proposal's id and channel on its AuditEvent.
   rule_sources: []
+  rule_decisions:
+  - D-37
+- rule_id: R7
+  rule_statement: >-
+    When the requirement making a change requires a reason, the reason is stored on the AuditEvent.
+  rule_sources:
+  - SHEET RC-5
+  rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    No User of any role, and no other part of Iris, can change or delete an AuditEvent.
+  rule_sources:
+  - SHEET RC-5
+  - SHEET WA-16
+  rule_decisions:
+  - D-37
+- rule_id: R9
+  rule_statement: >-
+    Proposals, Uploads, Notifications, InboundMessages, AccessLinks, and sign-in times are not audited,
+    and a password hash or link token is never stored in before or after.
+  rule_sources: []
+  rule_decisions:
+  - D-37
+- rule_id: R10
+  rule_statement: >-
+    The AuditEvents of one record can be listed newest first, and the requirement that shows them decides
+    which Users may see them.
+  rule_sources:
+  - PRD §2 Shifts
+  - SHEET RC-5
   rule_decisions: []
 requirement_sources:
-- SHEET RC-5, WA-16, TS-4
+- SHEET RC-5
+- SHEET WA-16
 - PRD §2 Shifts
-requirement_decisions: []
+requirement_decisions:
+- D-37
 requirement_features: []
 edges: []
 data_model:
   status: covered
   reads: []
-  writes: []
-  detail: null
-  migration_entities:
-  - AuditEvent
+  writes:
+  - AuditEvent.*
+  detail: >-
+    The caller passes the actor, the Proposal, and the before and after values; AUDIT reads no other module's
+    records.
 requirement_starting_flow: false
 requirement_review:
   status: draft

@@ -2,28 +2,37 @@ requirement_id: REQ-REPORTING-0013
 requirement_target_layer: product
 requirement_target_module: REPORTING
 requirement_phase: P3
-requirement_title: Report tenure, temp duration, and turnover
+requirement_title: Report Worker tenure, temp duration, and turnover
 requirement_statement: >-
-  Iris reports Worker tenure, temp duration, and turnover by Agency and location.
-requirement_actors: []
-requirement_rules: []
+  Iris reports Worker tenure, temp duration, and turnover by Agency and by Unit.
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The report shows tenure, temp duration, and turnover for Workers, grouped by Agency and by Unit.
+  rule_sources:
+  - SHEET REP-11
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET REP-11
+- SHEET 6.4
 requirement_decisions: []
 requirement_features:
 - REP-11
 edges:
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-WORKFORCE-0007
+  requirement_id: REQ-REPORTING-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0003
 data_model:
-  status: not_applicable
+  status: pending
   reads: []
   writes: []
-  detail: null
-  migration_entities: []
+  detail: The formulas for tenure, temp duration, and turnover are not defined.
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

@@ -2,38 +2,55 @@ requirement_id: REQ-CATALOG-0002
 requirement_target_layer: product
 requirement_target_module: CATALOG
 requirement_phase: MVP
-requirement_title: Hold Markets
+requirement_title: Hold Markets and their ZIP codes
 requirement_statement: >-
-  A Market is a named area, such as Atlanta, defined by its ZIP codes. Rate Lines are priced per Market,
-  and every Unit falls in one.
-requirement_actors: []
+  A Market is a city in a state, with the ZIP codes that belong to it. Instawork Admins load the pilot's
+  Markets (I-8), and Rate Lines and Units refer to them.
+requirement_actors:
+- INSTAWORK_ADMIN
 requirement_rules:
 - rule_id: R1
-  rule_statement: A Market has a name, a state, and a list of ZIP codes.
+  rule_statement: >-
+    Only an Instawork Admin adds a Market, renames it, or adds and removes its ZIP codes.
   rule_sources: []
-  rule_decisions: []
+  rule_decisions:
+  - D-21
+  - D-26
 - rule_id: R2
-  rule_statement: A ZIP code belongs to at most one Market.
-  rule_sources: []
-  rule_decisions: []
+  rule_statement: >-
+    A Market has a city name and a two-letter state, and no two Markets share both.
+  rule_sources:
+  - PRD §3 Supplier Rates
+  - PRD §6 Templates
+  rule_decisions:
+  - D-21
 - rule_id: R3
-  rule_statement: Instawork maintains Markets as reference data in MVP.
-  rule_sources: []
-  rule_decisions: []
+  rule_statement: >-
+    A ZIP code is five digits and belongs to at most one Market; adding it to a second Market is refused.
+  rule_sources:
+  - GRAPH a Unit's ZIP code must resolve to one Market
+  rule_decisions:
+  - D-21
 requirement_sources:
 - SHEET RC-3
-- PRD §3 Supplier rates
-- SESSIONS Rates
-requirement_decisions: []
+- PRD §3 Supplier Rates
+requirement_decisions:
+- D-8
+- D-21
+- D-26
 requirement_features: []
-edges: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
   reads: []
-  writes: []
+  writes:
+  - Market.*
+  - MarketZip.*
   detail: null
-  migration_entities:
-  - Market
 requirement_starting_flow: false
 requirement_review:
   status: draft

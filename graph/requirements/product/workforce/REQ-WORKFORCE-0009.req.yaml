@@ -4,12 +4,20 @@ requirement_target_module: WORKFORCE
 requirement_phase: P3
 requirement_title: Track overtime across Agencies
 requirement_statement: >-
-  Iris adds up a person's hours across Agencies and Units, so overtime is caught when they work for several
-  Agencies.
-requirement_actors: []
-requirement_rules: []
+  Iris adds up a person's hours across Agencies and Units, so overtime is caught when they work through
+  several Agencies.
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Overtime tracking and alerts count one person's hours across every Agency, using the single profile.
+  rule_sources:
+  - SHEET WA-7
+  rule_decisions:
+  - D-4
 requirement_sources:
-- SHEET
+- SHEET WA-7
 requirement_decisions:
 - D-4
 requirement_features:
@@ -20,14 +28,13 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-LABOR-0003
 data_model:
-  status: not_applicable
+  status: pending
   reads: []
   writes: []
-  detail: null
-  migration_entities: []
+  detail: Designed when Phase 3 is scoped.
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

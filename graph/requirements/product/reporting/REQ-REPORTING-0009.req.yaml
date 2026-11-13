@@ -2,14 +2,65 @@ requirement_id: REQ-REPORTING-0009
 requirement_target_layer: product
 requirement_target_module: REPORTING
 requirement_phase: MVP
-requirement_title: Show program owners trends
+requirement_title: Show Program Users top Agencies, Events, and Units with trends
 requirement_statement: >-
-  Program owners see top Agencies, Events, and operators by spend, with trends over time.
-requirement_actors: []
-requirement_rules: []
+  A Program User sees which Agencies, Events, and Units carry the most spend, how spend moves over time,
+  and how each Agency performs.
+requirement_actors:
+- PROGRAM_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    For a chosen period, a Program User sees Agencies, Events, and Units each ranked by SPEND, highest
+    first.
+  rule_sources:
+  - SHEET REP-9
+  - PRD §1 Detailed requirements
+  - GRAPH report access and saved reports, pending a decision
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    A trend shows a measure per Work Week or per calendar month across the chosen period.
+  rule_sources:
+  - SHEET REP-9
+  - GRAPH trend steps
+  rule_decisions:
+  - D-14
+- rule_id: R3
+  rule_statement: >-
+    Each Agency shows its FILL_RATE and NO_SHOW_RATE beside its SPEND, as that Agency's performance.
+  rule_sources:
+  - SHEET REP-9
+  - SHEET RC-16
+  - GRAPH metric formulas, pending a decision
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    Each Unit shows this month's SPEND as a percentage above or below the average of its prior full calendar
+    months, up to three, with no flag threshold.
+  rule_sources:
+  - PRD §1 Dashboard / Profile
+  rule_decisions:
+  - D-30
+- rule_id: R5
+  rule_statement: A Unit with no prior full calendar month of spend shows no comparison.
+  rule_sources:
+  - GRAPH a new Unit has no normal level yet
+  rule_decisions:
+  - D-30
+- rule_id: R6
+  rule_statement: >-
+    The views cover the whole program and can be filtered to a Sector, Region, or District.
+  rule_sources:
+  - SHEET REP-9
+  - SHEET PLT-2
+  rule_decisions:
+  - D-25
 requirement_sources:
-- SHEET
-requirement_decisions: []
+- SHEET REP-9
+- SHEET 6.3
+requirement_decisions:
+- D-30
 requirement_features:
 - REP-9
 edges:
@@ -17,12 +68,20 @@ edges:
   requirement_id: REQ-REPORTING-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-REPORTING-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
-  status: not_applicable
-  reads: []
+  status: covered
+  reads:
+  - Agency.name
+  - Event.name
+  - Event.unit_id
+  - OrgNode.name
+  - OrgNode.level
+  - OrgNode.parent_id
   writes: []
-  detail: null
-  migration_entities: []
+  detail: >-
+    Computed on demand from the measures of REQ-REPORTING-0001 and REQ-REPORTING-0002; nothing is stored.
 requirement_starting_flow: false
 requirement_review:
   status: draft

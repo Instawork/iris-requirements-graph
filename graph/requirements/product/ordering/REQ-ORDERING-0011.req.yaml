@@ -2,37 +2,54 @@ requirement_id: REQ-ORDERING-0011
 requirement_target_layer: product
 requirement_target_module: ORDERING
 requirement_phase: MVP
-requirement_title: Group Requests into an Event
+requirement_title: Group Shifts into an Event
 requirement_statement: >-
-  A Unit User names an Event, such as a Friday banquet, and attaches Requests to it, so its cost can be
-  reported as one.
-requirement_actors: []
+  A Unit User names an Event, such as a Friday banquet, and attaches Shifts to it, so the Event's cost
+  can be seen as one.
+requirement_actors:
+- UNIT_USER
 requirement_rules:
 - rule_id: R1
-  rule_statement: An Event belongs to one Unit and has a name and one or more dates.
-  rule_sources: []
+  rule_statement: >-
+    A Unit User over a Unit may create and rename Events for it, and an Event's name is unique within
+    the Unit.
+  rule_sources:
+  - SHEET REP-2
   rule_decisions: []
 - rule_id: R2
-  rule_statement: A Request belongs to at most one Event.
-  rule_sources: []
+  rule_statement: >-
+    A Unit User may attach a Shift to one Event of the Shift's own Unit, move it to another, or detach
+    it, whatever the Shift's status.
+  rule_sources:
+  - SHEET REP-2
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    A Shift belongs to at most one Event, and the Shifts of one Request may belong to different Events.
+  rule_sources:
+  - SHEET REP-2
   rule_decisions: []
 requirement_sources:
-- SHEET
-- PRD Data model
+- SHEET REP-2
 requirement_decisions: []
 requirement_features:
 - REP-2
 edges:
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-ORG-0001
+  requirement_id: REQ-ORDERING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - Shift.request_id
+  - Request.unit_id
+  writes:
+  - Event.*
+  - Shift.event_id
   detail: null
-  migration_entities:
-  - Event
-  - Request
 requirement_starting_flow: false
 requirement_review:
   status: draft

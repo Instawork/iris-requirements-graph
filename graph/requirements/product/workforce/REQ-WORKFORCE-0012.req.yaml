@@ -4,26 +4,36 @@ requirement_target_module: WORKFORCE
 requirement_phase: P3
 requirement_title: Keep resume, interview, and offer records
 requirement_statement: >-
-  For longer assignments and temp-to-perm, Iris keeps candidates' resumes, interviews, and offers.
-requirement_actors: []
-requirement_rules: []
+  For longer assignments and temp-to-perm hires, Iris keeps each candidate's resume, interviews, and offers.
+requirement_actors:
+- AGENCY_USER
+- UNIT_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Iris keeps resume, interview, and offer records for the people put forward for longer assignments
+    and temp-to-perm roles.
+  rule_sources:
+  - SHEET WA-10
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET WA-10
 requirement_decisions: []
 requirement_features:
 - WA-10
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-WORKFORCE-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
   status: pending
   reads: []
   writes: []
   detail: Designed when Phase 3 is scoped.
-  migration_entities: []
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

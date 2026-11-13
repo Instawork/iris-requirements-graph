@@ -5,23 +5,28 @@ requirement_phase: P3
 requirement_title: Feed data to Snowflake in real time
 requirement_statement: >-
   Iris streams its data to Snowflake, so Levy, Foodbuy, and corporate teams can build their own dashboards.
-requirement_actors: []
-requirement_rules: []
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: Iris sends its data to Snowflake in real time.
+  rule_sources:
+  - SHEET PLT-7
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET PLT-7
 requirement_decisions: []
 requirement_features:
 - PLT-7
 edges: []
 data_model:
-  status: not_applicable
+  status: pending
   reads: []
   writes: []
-  detail: null
-  migration_entities: []
+  detail: Designed when Phase 3 is scoped.
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

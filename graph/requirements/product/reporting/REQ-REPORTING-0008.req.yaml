@@ -2,28 +2,109 @@ requirement_id: REQ-REPORTING-0008
 requirement_target_layer: product
 requirement_target_module: REPORTING
 requirement_phase: MVP
-requirement_title: Show operators spend against budget
+requirement_title: >-
+  Show Unit Users spend against budget, by Agency, and against last month
 requirement_statement: >-
-  An operator sees spend against budget, spend by Agency, and this month against last month, for their
-  Units.
-requirement_actors: []
-requirement_rules: []
+  A Unit User sees spend for the Units in their scope against budget, by Agency, and against the prior
+  week and month. A User granted above a Unit sees the same view rolled up.
+requirement_actors:
+- UNIT_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    A Unit User sees the dashboard for every Unit inside their Role Grants and can narrow it to one Unit.
+  rule_sources:
+  - SHEET REP-7
+  - SHEET PLT-1
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    It shows SPEND for the current calendar month to date beside BUDGET for the whole month and the difference,
+    and shows no budget where none is loaded.
+  rule_sources:
+  - SHEET REP-7
+  - GRAPH spend to date is set against the whole month's budget
+  rule_decisions:
+  - D-14
+- rule_id: R3
+  rule_statement: >-
+    It shows SPEND for the current month to date beside the whole prior month, and for the current Work
+    Week to date beside the whole prior Work Week, each with its percentage change.
+  rule_sources:
+  - SHEET REP-7
+  - PRD §1 Detailed requirements
+  - GRAPH to-date figures are compared with whole prior periods
+  rule_decisions:
+  - D-14
+- rule_id: R4
+  rule_statement: It splits every SPEND figure into APPROVED_SPEND and PENDING_SPEND.
+  rule_sources:
+  - PRD §1 Detailed requirements
+  rule_decisions:
+  - D-29
+- rule_id: R5
+  rule_statement: >-
+    It breaks the month's SPEND down by Agency, with each Agency's average Bill Rate: its spend on hours
+    divided by its HOURS.
+  rule_sources:
+  - SHEET REP-7
+  - PRD §1 Detailed requirements
+  - GRAPH metric formulas, pending a decision
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: It breaks the month's SPEND down by Position and by Unit.
+  rule_sources:
+  - PRD §1 Detailed requirements
+  rule_decisions: []
+- rule_id: R7
+  rule_statement: It shows the HOURS and HEADCOUNT_REQUESTED behind the month's SPEND.
+  rule_sources:
+  - PRD §1 Detailed requirements
+  rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    A Unit User granted at a Sector, Region, or District sees the same dashboard rolled up across every
+    Unit beneath that node.
+  rule_sources:
+  - SHEET 6.3
+  - FAQ
+  rule_decisions:
+  - D-25
+- rule_id: R9
+  rule_statement: >-
+    Every number is computed from current records when the dashboard opens, so a Shift's cost appears
+    as PENDING_SPEND as soon as the Shift ends.
+  rule_sources:
+  - SHEET REP-7
+  rule_decisions:
+  - D-29
 requirement_sources:
-- SHEET
-requirement_decisions: []
+- SHEET REP-7
+- SHEET 6.3
+- PRD §1 Detailed requirements
+requirement_decisions:
+- D-14
+- D-29
 requirement_features:
 - REP-7
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-REPORTING-0001
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-REPORTING-0002
+- edge_type: DEPENDS_ON
   requirement_id: REQ-REPORTING-0007
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
-  status: not_applicable
-  reads: []
+  status: covered
+  reads:
+  - Budget.unit_id
+  - Budget.period_start
+  - Budget.period_end
+  - Budget.amount
   writes: []
-  detail: null
-  migration_entities: []
+  detail: Computed on demand; nothing is stored.
 requirement_starting_flow: false
 requirement_review:
   status: draft

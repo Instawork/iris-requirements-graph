@@ -3,4 +3,6 @@
 retired:
 - requirement_id: REQ-ORG-0004
   replaced_by: REQ-IDENTITY-0001
-  reason: Sign-in moved to the IDENTITY platform module so every layer can depend on it.
+  reason: >-
+    Sign-in moved to the IDENTITY platform module so every layer can depend on it. Invites and password
+    resets are in REQ-IDENTITY-0002.

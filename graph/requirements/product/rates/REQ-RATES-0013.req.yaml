@@ -1,0 +1,99 @@
+requirement_id: REQ-RATES-0013
+requirement_target_layer: product
+requirement_target_module: RATES
+requirement_phase: MVP
+requirement_title: Add or change one Rate Line by form
+requirement_statement: >-
+  An Agency User or a Program User enters one Rate Line by form. Changing a rate means entering a new
+  line that replaces the current one from its effective date.
+requirement_actors:
+- AGENCY_USER
+- PROGRAM_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The form takes a Position, a Market or a Unit, the six rates, and an effective_from date; a Program
+    User also picks the Agency.
+  rule_sources:
+  - SHEET RC-3
+  - DEMO lib/types.ts
+  rule_decisions:
+  - D-10
+- rule_id: R2
+  rule_statement: >-
+    Saving the form submits the line through REQ-RATES-0009 with the app as its channel.
+  rule_sources:
+  - FEEDBACK
+  rule_decisions:
+  - D-10
+- rule_id: R3
+  rule_statement: >-
+    To change a rate, the form opens filled from the current APPROVED line, and saving submits a new line
+    without editing the old one.
+  rule_sources:
+  - SHEET RC-5
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    The form shows the Markup of each Pay and Bill Rate pair as a percentage and has no Markup field (C-14).
+  rule_sources:
+  - FEEDBACK
+  rule_decisions:
+  - D-11
+- rule_id: R5
+  rule_statement: >-
+    When a check in REQ-RATES-0001 fails, nothing is submitted and the form names the check.
+  rule_sources:
+  - PRD §7 Agent Chat
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    The submitter may give a reason for the change, which is kept on the new line's Audit Trail entry.
+  rule_sources:
+  - SHEET RC-5
+  rule_decisions: []
+requirement_sources:
+- SHEET RC-3
+- FEEDBACK
+requirement_decisions:
+- D-10
+requirement_features:
+- RC-3
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0004
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
+data_model:
+  status: covered
+  reads:
+  - RateLine.*
+  writes:
+  - RateLine.agency_id
+  - RateLine.position_id
+  - RateLine.market_id
+  - RateLine.unit_id
+  - RateLine.regular_pay_rate
+  - RateLine.regular_bill_rate
+  - RateLine.overtime_pay_rate
+  - RateLine.overtime_bill_rate
+  - RateLine.double_time_pay_rate
+  - RateLine.double_time_bill_rate
+  - RateLine.effective_from
+  - RateLine.submitted_via
+  detail: null
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

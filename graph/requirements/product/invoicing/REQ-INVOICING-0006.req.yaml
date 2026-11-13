@@ -2,30 +2,42 @@ requirement_id: REQ-INVOICING-0006
 requirement_target_layer: product
 requirement_target_module: INVOICING
 requirement_phase: P2
-requirement_title: Link vendor invoice numbers to Requests and lines
+requirement_title: Link Agency invoice numbers to Requests and lines
 requirement_statement: >-
-  Each Agency Invoice stores the Agency's own invoice number, searchable alongside its Requests and lines,
-  so vendors and finance share one reference.
-requirement_actors: []
-requirement_rules: []
+  Each Agency Invoice carries the Agency's own invoice number, so Agencies and Compass finance share one
+  reference to its Requests and lines.
+requirement_actors:
+- AGENCY_USER
+- PROGRAM_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Each Agency Invoice stores the Agency's own invoice number, and searching by that number finds the
+    Agency Invoice, its lines, and their Requests.
+  rule_sources:
+  - SHEET INV-6
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET INV-6
 requirement_decisions: []
 requirement_features:
 - INV-6
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-INVOICING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
   reads: []
-  writes: []
-  detail: null
-  migration_entities:
-  - AgencyInvoice
+  writes:
+  - AgencyInvoice.vendor_invoice_number
+  detail: The sheet does not say who enters the number.
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

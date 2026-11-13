@@ -4,12 +4,26 @@ requirement_target_module: INTEGRATIONS
 requirement_phase: P3
 requirement_title: Connect Agencies by API
 requirement_statement: >-
-  Agencies with their own platforms connect by API to receive Releases and send assignments and Timesheets.
-  Every other Agency keeps using file upload.
-requirement_actors: []
-requirement_rules: []
+  Agencies with their own platforms connect to Iris by API. Every other Agency keeps using file upload,
+  and a connected Agency can use both.
+requirement_actors:
+- AGENCY_USER
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    An Agency that has its own platform can exchange data with Iris by API instead of by file.
+  rule_sources:
+  - SHEET PLT-5
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: An Agency connected by API can still upload files.
+  rule_sources:
+  - FEEDBACK
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET PLT-5
+- FEEDBACK
 requirement_decisions: []
 requirement_features:
 - PLT-5
@@ -19,7 +33,6 @@ data_model:
   reads: []
   writes: []
   detail: Designed when Phase 3 is scoped.
-  migration_entities: []
 requirement_starting_flow: false
 requirement_review:
   status: draft

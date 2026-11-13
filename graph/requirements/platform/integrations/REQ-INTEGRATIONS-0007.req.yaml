@@ -6,16 +6,24 @@ requirement_title: Exchange Requests and approved time with MyStaff
 requirement_statement: >-
   Requests flow in from MyStaff and approved time flows back, so temps are not clocked into MyStaff by
   hand.
-requirement_actors: []
+requirement_actors:
+- SYSTEM
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    MyStaff runs on Infor Workforce Management, and a scheduled file export can stand in until the API
-    is connected.
-  rule_sources: []
+    Requests started in MyStaff arrive in Iris, and approved time is sent back to MyStaff.
+  rule_sources:
+  - SHEET PLT-11
+  rule_decisions:
+  - D-6
+- rule_id: R2
+  rule_statement: >-
+    Until the MyStaff connection is in place, a scheduled file export can carry open Shifts into Iris.
+  rule_sources:
+  - FAQ
   rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET PLT-11
 - FAQ
 requirement_decisions:
 - D-6
@@ -27,7 +35,6 @@ data_model:
   reads: []
   writes: []
   detail: Waiting on MyStaff API documentation (I-1).
-  migration_entities: []
 requirement_starting_flow: false
 requirement_review:
   status: draft

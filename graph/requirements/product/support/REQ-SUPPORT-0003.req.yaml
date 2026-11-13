@@ -4,26 +4,36 @@ requirement_target_module: SUPPORT
 requirement_phase: P2
 requirement_title: Post program announcements in the app
 requirement_statement: >-
-  Program Users post announcements about program updates that users see in the app.
-requirement_actors: []
-requirement_rules: []
+  Program Users post announcements about program updates, and other Users see them in the app.
+requirement_actors:
+- PROGRAM_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    An announcement that a Program User posts about a program update appears in the app for other Users.
+  rule_sources:
+  - SHEET PLT-16
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET PLT-16
+- SHEET 7.4
 requirement_decisions: []
 requirement_features:
 - PLT-16
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-MESSAGING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
   status: pending
   reads: []
   writes: []
-  detail: Designed when Phase 2 is scoped.
-  migration_entities: []
+  detail: >-
+    No announcement record or notification type is modeled. Who an announcement reaches is not defined.
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

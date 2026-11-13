@@ -2,27 +2,46 @@ requirement_id: REQ-INVOICING-0008
 requirement_target_layer: product
 requirement_target_module: INVOICING
 requirement_phase: P2
-requirement_title: Handle Agency contract types
+requirement_title: Handle contract types on invoices
 requirement_statement: >-
-  Each Agency's contract type, whether client-pay payroll, pass-through, or full service, decides who
-  receives its invoice.
-requirement_actors: []
-requirement_rules: []
+  A contract type (client-pay payroll, pass-through, or full service) decides who receives an invoice.
+  Whether the type is set per Agency or per Unit is an open decision.
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Each Agency Invoice carries one contract type: CLIENT_PAY_PAYROLL, PASS_THROUGH, or FULL_SERVICE.
+  rule_sources:
+  - SHEET INV-8
+  rule_decisions:
+  - D-35
+- rule_id: R2
+  rule_statement: The contract type decides who receives the Agency Invoice.
+  rule_sources:
+  - SHEET INV-8
+  rule_decisions:
+  - D-35
+  - D-14
 requirement_sources:
-- SHEET
-requirement_decisions: []
+- SHEET INV-8
+requirement_decisions:
+- D-35
+- D-14
 requirement_features:
 - INV-8
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-INVOICING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
   reads: []
-  writes: []
-  detail: null
-  migration_entities:
-  - AgencyInvoice
+  writes:
+  - AgencyInvoice.contract_type
+  detail: >-
+    Where the type is set, on the Agency or the Unit, and who receives each type wait on D-35 and D-14.
 requirement_starting_flow: false
 requirement_review:
   status: draft

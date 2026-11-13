@@ -2,41 +2,123 @@ requirement_id: REQ-IDENTITY-0001
 requirement_target_layer: platform
 requirement_target_module: IDENTITY
 requirement_phase: MVP
-requirement_title: Sign in with a User account
+requirement_title: Hold User accounts and sign in with email and password
 requirement_statement: >-
-  Every person has a User account with an email, a name, and a phone number. They sign in with email and
-  password and manage their own profile.
-requirement_actors: []
+  Every person who uses Iris has their own User, with an email, a name, and an optional phone. They sign
+  in with email and password, keep their own profile, and lose access when deactivated.
+requirement_actors:
+- INSTAWORK_ADMIN
+- PROGRAM_USER
+- UNIT_USER
+- AGENCY_USER
 requirement_rules:
 - rule_id: R1
-  rule_statement: A User resets a forgotten password through a link sent to their email.
-  rule_sources: []
+  rule_statement: >-
+    A User belongs to one person and holds an email, a first name, a last name, an optional phone, and
+    an active flag.
+  rule_sources:
+  - SHEET PLT-4
+  - SHEET PLT-1
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    A Program User invites Users and can deactivate them, and a deactivated User cannot sign in.
-  rule_sources: []
-  rule_decisions: []
+    The email is the sign-in name: it is stored trimmed and in lowercase, and creating a User with an
+    email another User holds is refused.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-34
 - rule_id: R3
   rule_statement: >-
-    Compass single sign-on is separate and comes later, in REQ-INTEGRATIONS-0005.
+    A phone is stored as 10 digits, with formatting and a leading country code 1 removed, and any other
+    number is refused.
   rule_sources: []
+  rule_decisions:
+  - D-39
+- rule_id: R4
+  rule_statement: A password has at least 12 characters, and only its hash is stored.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-34
+- rule_id: R5
+  rule_statement: >-
+    Sign-in succeeds only when the email matches an active User and the password matches that User's hash;
+    otherwise it is refused and no session starts.
+  rule_sources:
+  - SHEET PLT-4
   rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    A successful sign-in starts a session for that User and sets last_signed_in_at.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    A session ends when the User signs out or after 12 hours without activity, and the next request must
+    sign in again.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-34
+- rule_id: R8
+  rule_statement: >-
+    Deactivating a User sets active to false, and until the User is reactivated every sign-in and every
+    request from their open sessions is refused.
+  rule_sources: []
+  rule_decisions:
+  - D-25
+  - D-34
+- rule_id: R9
+  rule_statement: >-
+    A signed-in User can see their own User and change their own first name, last name, and phone, but
+    not their email.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-34
+- rule_id: R10
+  rule_statement: >-
+    The first Instawork Admin is seeded at deployment with an email and a password and no inviter; every
+    other User is created by an invite.
+  rule_sources: []
+  rule_decisions:
+  - D-26
+- rule_id: R11
+  rule_statement: >-
+    Creating, changing, deactivating, or reactivating a User is recorded in the Audit Trail without the
+    password hash, and sign-ins are not recorded there.
+  rule_sources: []
+  rule_decisions:
+  - D-37
 requirement_sources:
-- SHEET
-requirement_decisions: []
+- SHEET PLT-4
+- SHEET PLT-1
+requirement_decisions:
+- D-25
+- D-26
+- D-34
+- D-37
+- D-39
 requirement_features:
 - PLT-4
 edges:
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-MESSAGING-0001
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - User.*
+  writes:
+  - User.email
+  - User.first_name
+  - User.last_name
+  - User.phone
+  - User.password_hash
+  - User.last_signed_in_at
+  - User.active
   detail: null
-  migration_entities:
-  - User
 requirement_starting_flow: false
 requirement_review:
   status: draft

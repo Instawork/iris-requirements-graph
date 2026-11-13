@@ -4,12 +4,20 @@ requirement_target_module: WORKFORCE
 requirement_phase: P3
 requirement_title: Staff Shifts with nonprofit volunteers
 requirement_statement: >-
-  Volunteer groups, such as church groups at Levy Stadium, can work Shifts without a Bill Rate, and credential
-  requirements such as alcohol certification still apply.
-requirement_actors: []
-requirement_rules: []
+  Volunteer groups, such as church groups at a Levy stadium, can work Shifts under different commercial
+  terms. Credential requirements, such as alcohol service, still apply to them.
+requirement_actors:
+- UNIT_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Nonprofit volunteers can be assigned to Shifts under commercial terms still to be defined, and each
+    Shift's Credential Requirements still apply to them.
+  rule_sources:
+  - SHEET WA-11
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET WA-11
 requirement_decisions: []
 requirement_features:
 - WA-11
@@ -18,15 +26,16 @@ edges:
   requirement_id: REQ-WORKFORCE-0003
 - edge_type: DEPENDS_ON
   requirement_id: REQ-COMPLIANCE-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
   status: pending
   reads: []
   writes: []
   detail: Designed when Phase 3 is scoped.
-  migration_entities: []
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

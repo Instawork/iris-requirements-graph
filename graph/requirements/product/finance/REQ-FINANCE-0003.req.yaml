@@ -2,13 +2,23 @@ requirement_id: REQ-FINANCE-0003
 requirement_target_layer: product
 requirement_target_module: FINANCE
 requirement_phase: P3
-requirement_title: Scope Finance Users to their Cost Centers
+requirement_title: Scope finance users to their Cost Centers
 requirement_statement: >-
-  A Finance User sees spend only for the Cost Centers they own, with a roll-up across their region.
-requirement_actors: []
-requirement_rules: []
+  A finance role sees spend only for the Cost Centers it owns, with a regional roll-up. What finance sees
+  in each Sector is an open decision.
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    A User with the finance role sees spend only for the Cost Centers they own, rolled up by Region.
+  rule_sources:
+  - SHEET INV-14
+  rule_decisions:
+  - D-7
 requirement_sources:
-- SHEET
+- SHEET INV-14
+- SHEET 5.4
 requirement_decisions:
 - D-7
 requirement_features:
@@ -16,15 +26,20 @@ requirement_features:
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-REPORTING-0001
 data_model:
   status: pending
   reads: []
   writes: []
-  detail: Designed when Phase 3 is scoped.
-  migration_entities: []
+  detail: >-
+    No finance role or Cost Center ownership is modeled. A Role value is added when Phase 3 is scoped,
+    and visibility by Sector waits on D-7.
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

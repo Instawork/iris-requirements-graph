@@ -2,42 +2,80 @@ requirement_id: REQ-ORDERING-0008
 requirement_target_layer: product
 requirement_target_module: ORDERING
 requirement_phase: MVP
-requirement_title: Track each Shift's status
+requirement_title: Keep each Shift's status in step with its Workers and the clock
 requirement_statement: >-
-  A Shift is Open, Partially filled, Filled, Worked, or Cancelled. The status follows from its assignments
-  and its times.
-requirement_actors: []
+  Iris sets each Shift's status from its ASSIGNED Workers, its headcount, and the clock. No User sets
+  a status by hand.
+requirement_actors:
+- SYSTEM
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Open means no Worker is assigned, Partially filled means some headcount is, and Filled means all of
-    it is.
-  rule_sources: []
+    Before its ends_at, a Shift that is not CANCELLED is OPEN with no ASSIGNED Worker, PARTIALLY_FILLED
+    with fewer than its headcount, and FILLED with its headcount or more.
+  rule_sources:
+  - PRD §2 Shift statuses
   rule_decisions: []
 - rule_id: R2
-  rule_statement: A Shift becomes Worked when its end time passes.
-  rule_sources: []
+  rule_statement: >-
+    The status is worked out again whenever an Assignment on the Shift becomes ASSIGNED or REMOVED and
+    whenever the Shift's headcount changes.
+  rule_sources:
+  - PRD §2 Shift statuses
   rule_decisions: []
 - rule_id: R3
-  rule_statement: Only a Shift that has not started can be Cancelled.
-  rule_sources: []
+  rule_statement: >-
+    When ends_at passes, a PARTIALLY_FILLED or FILLED Shift becomes WORKED.
+  rule_sources:
+  - PRD §2 Shift statuses
   rule_decisions: []
 - rule_id: R4
-  rule_statement: Removing a Worker from a Filled Shift makes it Partially filled again.
+  rule_statement: When ends_at passes, an OPEN Shift becomes UNFILLED.
+  rule_sources:
+  - >-
+    GRAPH a Shift that ended with no Worker assigned was not worked, pending a decision
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    An UNFILLED Shift becomes WORKED when a Worker is assigned to it from a Timesheet.
   rule_sources: []
+  rule_decisions:
+  - D-18
+- rule_id: R6
+  rule_statement: >-
+    A CANCELLED Shift never changes status, and a WORKED Shift stays WORKED.
+  rule_sources:
+  - PRD §2 Shift statuses
+  rule_decisions: []
+- rule_id: R7
+  rule_statement: No User can set a Shift's status directly.
+  rule_sources:
+  - PRD §2 Shift statuses
   rule_decisions: []
 requirement_sources:
 - PRD §2 Shift statuses
-requirement_decisions: []
+requirement_decisions:
+- D-18
 requirement_features: []
-edges: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
-  detail: Hours after Worked are tracked on the Timesheet, not the Shift.
-  migration_entities:
-  - Shift
+  reads:
+  - Shift.headcount
+  - Shift.ends_at
+  - Shift.status
+  - Release.shift_id
+  - Assignment.release_id
+  - Assignment.status
+  writes:
+  - Shift.status
+  detail: null
 requirement_starting_flow: false
 requirement_review:
   status: draft

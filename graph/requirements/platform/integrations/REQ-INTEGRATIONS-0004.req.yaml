@@ -5,23 +5,29 @@ requirement_phase: P3
 requirement_title: Sync Units and Cost Centers automatically
 requirement_statement: >-
   New Units and Cost Centers appear in Iris automatically from Compass's systems.
-requirement_actors: []
-requirement_rules: []
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    A Unit or Cost Center added in Compass's systems is added to Iris without anyone entering it.
+  rule_sources:
+  - SHEET PLT-8
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET PLT-8
 requirement_decisions: []
 requirement_features:
 - PLT-8
 edges: []
 data_model:
-  status: not_applicable
+  status: pending
   reads: []
   writes: []
-  detail: null
-  migration_entities: []
+  detail: Designed when Phase 3 is scoped.
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

@@ -4,18 +4,55 @@ requirement_target_module: INTEGRATIONS
 requirement_phase: MVP
 requirement_title: Verify a credential with its issuer
 requirement_statement: >-
-  Iris checks a credential with its issuer or a public registry where one is available, and returns the
-  result with a reference.
-requirement_actors: []
+  Iris checks a credential with its issuer or a public registry where one is connected, and returns the
+  result with a reference. Where none is connected the check is skipped.
+requirement_actors:
+- SYSTEM
 requirement_rules:
 - rule_id: R1
-  rule_statement: When no source is available, the result is Needs review.
-  rule_sources: []
+  rule_statement: >-
+    The caller passes the credential's type, issuer, number, holder name, and dates, and Iris asks the
+    issuer or public registry connected for it whether the credential is valid.
+  rule_sources:
+  - SHEET WA-15
+  - SESSIONS Worker Assignment & Compliance
   rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    The result is confirmed when the source says the credential is valid, not confirmed when it says it
+    is not valid or cannot find it, and otherwise not available.
+  rule_sources:
+  - SHEET WA-15
+  rule_decisions:
+  - D-3
+- rule_id: R3
+  rule_statement: >-
+    A confirmed or not confirmed result carries the name of the source and the reference it gave.
+  rule_sources:
+  - SESSIONS Worker Assignment & Compliance
+  rule_decisions:
+  - D-3
+- rule_id: R4
+  rule_statement: >-
+    When no issuer or registry is connected for the credential, or the source does not answer, the result
+    is not available and the caller relies on its document checks alone.
+  rule_sources:
+  - SHEET WA-15
+  rule_decisions:
+  - D-3
+- rule_id: R5
+  rule_statement: >-
+    No issuer or registry is connected until Compass names the providers it relies on (I-6), so until
+    then every result is not available.
+  rule_sources:
+  - GRAPH the providers are an open input
+  rule_decisions:
+  - D-3
 requirement_sources:
-- SHEET
-- SESSIONS Verify with Chkr
-requirement_decisions: []
+- SHEET WA-15
+- SESSIONS Worker Assignment & Compliance
+requirement_decisions:
+- D-3
 requirement_features:
 - WA-15
 edges: []
@@ -23,8 +60,8 @@ data_model:
   status: not_applicable
   reads: []
   writes: []
-  detail: The result is stored on Credential by REQ-COMPLIANCE-0003.
-  migration_entities: []
+  detail: >-
+    Returns a result to the caller and stores nothing; REQ-COMPLIANCE-0003 saves it on the Credential.
 requirement_starting_flow: false
 requirement_review:
   status: draft

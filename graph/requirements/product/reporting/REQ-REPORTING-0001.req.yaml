@@ -2,54 +2,201 @@ requirement_id: REQ-REPORTING-0001
 requirement_target_layer: product
 requirement_target_module: REPORTING
 requirement_phase: MVP
-requirement_title: Define spend once for every screen
+requirement_title: Define approved and pending spend once for every screen
 requirement_statement: >-
   Every screen, report, and answer uses one definition of spend, so the same question gives the same number
-  everywhere.
-requirement_actors: []
+  everywhere. Spend is approved spend plus pending spend.
+requirement_actors:
+- SYSTEM
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Actual spend is approved Timesheet hours at their Bill Rates by hour class, plus approved tips and
-    expenses.
-  rule_sources: []
-  rule_decisions: []
+    SPEND is APPROVED_SPEND plus PENDING_SPEND, and every screen, report, and answer computes all three
+    only as this requirement defines them.
+  rule_sources:
+  - PRD §1 Detailed requirements
+  - SHEET REP-7
+  - GRAPH one definition, so every screen shows the same number
+  rule_decisions:
+  - D-29
 - rule_id: R2
   rule_statement: >-
-    Pending spend is the same sum for submitted Timesheets not yet approved.
-  rule_sources: []
+    APPROVED_SPEND is the sum, over Timesheets whose status is APPROVED, of regular, overtime, and double-time
+    amounts at the Timesheet's Bill Rates, plus approved Expenses and allocated tips.
+  rule_sources:
+  - PRD §1 Detailed requirements
+  - PRD §5 Invoices
+  - PRD §3 Supplier Rates
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    Projected spend is booked headcount times scheduled hours times the booked Bill Rate, for Shifts not
-    yet worked.
-  rule_sources: []
+    Every amount for hours is a Bill Rate times minutes, divided by 60, rounded half up to the cent, per
+    Timesheet and per hour class.
+  rule_sources:
+  - PRD §5 Invoices
+  - GRAPH money rounding, pending a decision
   rule_decisions: []
 - rule_id: R4
-  rule_statement: Spend is dated by work date and rolls up the org tree by Cost Center.
-  rule_sources: []
+  rule_statement: A Timesheet keeps counting toward APPROVED_SPEND after it locks.
+  rule_sources:
+  - SHEET TS-9
+  rule_decisions:
+  - D-13
+  - D-33
+- rule_id: R5
+  rule_statement: >-
+    An Expense counts at its amount, with no markup, only when the Expense and its Timesheet are both
+    APPROVED.
+  rule_sources:
+  - SHEET TS-12
+  - SESSIONS Timesheets, Tips & Expenses
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    A tip allocation counts at its amount, with no markup, once its Timesheet is APPROVED.
+  rule_sources:
+  - SHEET TS-11
+  - PRD §5 Invoices
+  rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    PENDING_SPEND covers each Timesheet not yet APPROVED on a Shift whose end time has passed, at the
+    hours entered, or at the scheduled hours when none are entered.
+  rule_sources:
+  - PRD §1 Detailed requirements
+  - SHEET REP-2
+  rule_decisions:
+  - D-29
+- rule_id: R8
+  rule_statement: >-
+    Entered hours are priced by hour class at the Release's Bill Rates, and hours count as not entered
+    when the clock-in or the clock-out is missing.
+  rule_sources:
+  - GRAPH pricing detail the pending-spend assumption leaves open
+  rule_decisions:
+  - D-29
+- rule_id: R9
+  rule_statement: >-
+    Scheduled hours are the Shift's end minus its start minus its planned break, priced at the Release's
+    regular Bill Rate.
+  rule_sources:
+  - GRAPH pricing detail the pending-spend assumption leaves open
+  rule_decisions:
+  - D-29
+- rule_id: R10
+  rule_statement: PENDING_SPEND includes no tips and no Expenses.
+  rule_sources:
+  - PRD §1 Detailed requirements
+  rule_decisions:
+  - D-29
+- rule_id: R11
+  rule_statement: >-
+    A Timesheet marked as a no-show adds nothing to APPROVED_SPEND or PENDING_SPEND.
+  rule_sources:
+  - PRD §5 Invoices
+  - PRD §2 Shifts
+  rule_decisions: []
+- rule_id: R12
+  rule_statement: A CANCELLED Shift adds nothing to spend.
+  rule_sources:
+  - PRD §2 Shift statuses
+  rule_decisions: []
+- rule_id: R13
+  rule_statement: >-
+    The work date of spend is the date its Shift starts, in the Unit's timezone.
+  rule_sources:
+  - >-
+    GRAPH data model: the work date is the date of Shift.starts_at at the Unit
+  rule_decisions: []
+- rule_id: R14
+  rule_statement: >-
+    Spend on a Timesheet is charged to its Department's Cost Center, or to the Unit's Cost Center when
+    the Timesheet has no Department.
+  rule_sources:
+  - SHEET PLT-2
+  - FEEDBACK
+  - SESSIONS Worker Assignment & Compliance
+  rule_decisions: []
+- rule_id: R15
+  rule_statement: >-
+    Spend rolls up from Unit to District, Region, and Sector along the org tree.
+  rule_sources:
+  - SHEET PLT-2
+  - SHEET 7.1
   rule_decisions: []
 requirement_sources:
-- PRD §1 Metric definitions
-- DEMO
-requirement_decisions: []
+- PRD §1 Detailed requirements
+- SHEET REP-7
+- SHEET REP-2
+- PRD §5 Invoices
+requirement_decisions:
+- D-29
+- D-13
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-ORG-0001
+  requirement_id: REQ-TIME-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0005
 - edge_type: DEPENDS_ON
   requirement_id: REQ-LABOR-0005
 - edge_type: DEPENDS_ON
   requirement_id: REQ-TIPS-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-TIPS-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-DISPATCH-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0002
 data_model:
-  status: not_applicable
-  reads: []
+  status: covered
+  reads:
+  - Timesheet.assignment_id
+  - Timesheet.position_id
+  - Timesheet.department_id
+  - Timesheet.clock_in
+  - Timesheet.clock_out
+  - Timesheet.worked_minutes
+  - Timesheet.regular_minutes
+  - Timesheet.overtime_minutes
+  - Timesheet.double_time_minutes
+  - Timesheet.regular_bill_rate
+  - Timesheet.overtime_bill_rate
+  - Timesheet.double_time_bill_rate
+  - Timesheet.no_show
+  - Timesheet.status
+  - TipAllocation.timesheet_id
+  - TipAllocation.amount
+  - Expense.timesheet_id
+  - Expense.amount
+  - Expense.status
+  - Assignment.release_id
+  - Release.shift_id
+  - Release.regular_bill_rate
+  - Release.overtime_bill_rate
+  - Release.double_time_bill_rate
+  - Shift.request_id
+  - Shift.starts_at
+  - Shift.ends_at
+  - Shift.break_minutes
+  - Shift.status
+  - Request.unit_id
+  - Unit.timezone
+  - Unit.cost_center_id
+  - Unit.org_node_id
+  - Department.cost_center_id
+  - OrgNode.parent_id
+  - OrgNode.level
   writes: []
-  detail: >-
-    Computed from Shift, Timesheet, TipAllocation, and Expense; not stored.
-  migration_entities: []
+  detail: Computed on demand; nothing is stored.
 requirement_starting_flow: false
 requirement_review:
   status: draft

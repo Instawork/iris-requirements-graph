@@ -1,5 +1,6 @@
 # Every notification Iris sends. REQ-MESSAGING-0001 delivers them; the owner requirement decides when to send.
-# Recipients never include the User whose action caused the notification.
+# Recipients never include the User whose action caused the notification. PASSWORD_RESET and
+# INBOUND_REPLY are the exceptions: they answer that person.
 notifications:
 - type: RELEASE_NEW
   trigger: A Release is sent to an Agency.
@@ -122,14 +123,14 @@ notifications:
   trigger: A User is invited.
   recipients: The invited User.
   channels: [EMAIL]
-  owner: REQ-IDENTITY-0001
+  owner: REQ-IDENTITY-0002
   sources: [SHEET PLT-4]
   decisions: [D-34]
 - type: PASSWORD_RESET
   trigger: A User asks to reset their password.
   recipients: That User.
   channels: [EMAIL]
-  owner: REQ-IDENTITY-0001
+  owner: REQ-IDENTITY-0002
   sources: [SHEET PLT-4]
   decisions: [D-34]
 - type: INBOUND_REPLY

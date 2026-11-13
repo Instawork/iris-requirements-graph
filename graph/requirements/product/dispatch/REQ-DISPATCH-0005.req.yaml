@@ -4,13 +4,20 @@ requirement_target_module: DISPATCH
 requirement_phase: P2
 requirement_title: Predict which Shifts will start short
 requirement_statement: >-
-  Iris flags Shifts likely to start short, such as under 80% filled within three days of start, so operators
-  act early.
-requirement_actors: []
-requirement_rules: []
+  Iris flags Shifts likely to start short, so Unit Users can act before the Shift.
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Iris flags each upcoming Shift it predicts will start with fewer ASSIGNED Workers than its headcount.
+  rule_sources:
+  - SHEET SC-14
+  - SESSIONS Reporting
+  rule_decisions: []
 requirement_sources:
-- SHEET
-- SESSIONS Fill risk
+- SHEET SC-14
+- SESSIONS Reporting
 requirement_decisions: []
 requirement_features:
 - SC-14
@@ -18,14 +25,15 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-DISPATCH-0004
 data_model:
-  status: not_applicable
+  status: pending
   reads: []
   writes: []
-  detail: null
-  migration_entities: []
+  detail: >-
+    The prediction's inputs and threshold are set when Phase 2 is scoped; the demo flagged Shifts under
+    80% filled within three days of their start.
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

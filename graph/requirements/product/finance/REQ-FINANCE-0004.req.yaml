@@ -2,14 +2,23 @@ requirement_id: REQ-FINANCE-0004
 requirement_target_layer: product
 requirement_target_module: FINANCE
 requirement_phase: P3
-requirement_title: Map GL codes by job title within a Cost Center
+requirement_title: Map GL codes by Position within a Cost Center
 requirement_statement: >-
   Each Position within a Cost Center maps to a GL code, such as front or back of house, so costs land
   in the right account.
-requirement_actors: []
-requirement_rules: []
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Spend for a Position within a Cost Center carries the GL code mapped to that pair, such as front of
+    house or back of house.
+  rule_sources:
+  - SHEET INV-15
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET INV-15
+- SHEET 5.4
 requirement_decisions: []
 requirement_features:
 - INV-15
@@ -18,15 +27,17 @@ edges:
   requirement_id: REQ-ORG-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-CATALOG-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-REPORTING-0001
 data_model:
   status: pending
   reads: []
   writes: []
-  detail: Designed when Phase 3 is scoped.
-  migration_entities: []
+  detail: >-
+    No GL code or mapping entity is modeled. Who maintains the mapping is not defined.
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

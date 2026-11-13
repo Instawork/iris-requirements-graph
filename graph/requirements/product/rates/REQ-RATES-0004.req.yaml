@@ -4,16 +4,35 @@ requirement_target_module: RATES
 requirement_phase: MVP
 requirement_title: Price a Position for one Unit
 requirement_statement: >-
-  A Rate Line can be set for a single Unit. It then overrides the Market Rate Line for that Agency and
-  Position at that Unit.
-requirement_actors: []
+  A Rate Line can price a Position at one Unit instead of in a Market. It then applies only to work at
+  that Unit.
+requirement_actors:
+- SYSTEM
 requirement_rules:
 - rule_id: R1
-  rule_statement: Without a Unit Rate Line, the Market Rate Line applies.
+  rule_statement: A Unit Rate Line names one Unit that exists and no Market.
+  rule_sources:
+  - SHEET RC-6
+  rule_decisions:
+  - D-1
+- rule_id: R2
+  rule_statement: >-
+    A Unit Rate Line passes the same checks and the same submission, approval, and effective dating as
+    a Market Rate Line.
+  rule_sources:
+  - SHEET RC-6
+  rule_decisions:
+  - D-1
+  - D-10
+- rule_id: R3
+  rule_statement: >-
+    A Unit Rate Line replaces only an earlier line for the same Agency, Position, and Unit, never a Market
+    Rate Line.
   rule_sources: []
-  rule_decisions: []
+  rule_decisions:
+  - D-1
 requirement_sources:
-- SHEET
+- SHEET RC-6
 requirement_decisions:
 - D-1
 requirement_features:
@@ -22,14 +41,17 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-RATES-0001
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-ORG-0001
+  requirement_id: REQ-RATES-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0002
 data_model:
   status: covered
-  reads: []
+  reads:
+  - RateLine.*
+  - Unit.org_node_id
   writes: []
-  detail: RateLine.unit_id is set for Unit rates.
-  migration_entities:
-  - RateLine
+  detail: >-
+    Adds the Unit case to the Rate Line checks. Lines are saved by REQ-RATES-0009.
 requirement_starting_flow: false
 requirement_review:
   status: draft

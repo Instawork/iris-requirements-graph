@@ -2,29 +2,97 @@ requirement_id: REQ-RATES-0009
 requirement_target_layer: product
 requirement_target_module: RATES
 requirement_phase: MVP
-requirement_title: Approve Rate Line changes before they go live
+requirement_title: Submit Rate Lines and approve them before they price work
 requirement_statement: >-
-  New or changed Rate Lines from an Agency start as pending. A Program User approves them or sends them
-  back with a reason.
-requirement_actors: []
+  Every Rate Line enters Iris through this requirement. An Agency User's line waits as PENDING until a
+  Program User approves it or sends it back, and a Program User's own line is APPROVED at once.
+requirement_actors:
+- AGENCY_USER
+- PROGRAM_USER
 requirement_rules:
 - rule_id: R1
-  rule_statement: Approved lines go live on their effective date.
-  rule_sources: []
-  rule_decisions: []
+  rule_statement: >-
+    An Agency User submits Rate Lines only for their own Agency, and a Program User submits them for any
+    Agency (C-13).
+  rule_sources:
+  - FEEDBACK
+  rule_decisions:
+  - D-10
 - rule_id: R2
   rule_statement: >-
-    Lines sent back stay off the Rate Card, and the Agency sees the reason.
-  rule_sources: []
+    A submitted line must pass every check in REQ-RATES-0001, or it is not saved.
+  rule_sources:
+  - PRD §7 Agent Chat
   rule_decisions: []
 - rule_id: R3
-  rule_statement: Changes a Program User makes go live without a second approval.
+  rule_statement: >-
+    A line an Agency User submits is saved as PENDING, and RATE_LINE_PENDING is sent to every active Program
+    User.
+  rule_sources:
+  - SESSIONS Rate Cards & Supplier Sourcing
+  rule_decisions:
+  - D-10
+- rule_id: R4
+  rule_statement: >-
+    A line a Program User submits is saved as APPROVED, with no second approval.
+  rule_sources:
+  - FEEDBACK
+  rule_decisions:
+  - D-10
+- rule_id: R5
+  rule_statement: >-
+    Only a Program User approves a PENDING line or sends it back, and sending back requires a reason;
+    either way the line records the reviewer and the time.
+  rule_sources:
+  - SESSIONS Rate Cards & Supplier Sourcing
+  - DEMO lib/types.ts
+  rule_decisions:
+  - D-10
+- rule_id: R6
+  rule_statement: >-
+    When a PENDING line is approved or sent back, RATE_LINE_DECIDED is sent to the User who submitted
+    it, with the reason if it was sent back.
   rule_sources: []
+  rule_decisions:
+  - D-10
+- rule_id: R7
+  rule_statement: >-
+    A SENT_BACK line never changes again, and the submitter answers it by submitting a new line.
+  rule_sources: []
+  rule_decisions:
+  - D-10
+- rule_id: R8
+  rule_statement: >-
+    A line becomes APPROVED only if its effective_from is on or after the effective_from of every APPROVED
+    line for the same Agency, Position, and Market or Unit.
+  rule_sources:
+  - GRAPH two approved lines must never cover the same date
+  rule_decisions: []
+- rule_id: R9
+  rule_statement: >-
+    When a line becomes APPROVED, the APPROVED line for the same Agency, Position, and Market or Unit
+    with no effective_to gets the new line's effective_from as its effective_to, and the new line's replaces_id
+    names it.
+  rule_sources:
+  - SHEET RC-5
+  - DEMO lib/types.ts
+  rule_decisions:
+  - D-10
+- rule_id: R10
+  rule_statement: >-
+    Once saved, a line's Agency, Position, Market or Unit, rates, and effective_from never change; a different
+    rate is always a new line.
+  rule_sources:
+  - SHEET RC-5
+  rule_decisions: []
+- rule_id: R11
+  rule_statement: Each line records who submitted it and the channel it came through.
+  rule_sources:
+  - SHEET RC-5
   rule_decisions: []
 requirement_sources:
-- SESSIONS Procurement
-- SHEET RC-11
-- DEMO
+- SESSIONS Rate Cards & Supplier Sourcing
+- FEEDBACK
 requirement_decisions:
 - D-10
 requirement_features: []
@@ -32,16 +100,20 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-RATES-0001
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-RATES-0003
+  requirement_id: REQ-ORG-0009
 - edge_type: DEPENDS_ON
   requirement_id: REQ-MESSAGING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - RateLine.*
+  - RoleGrant.*
+  - User.active
+  writes:
+  - RateLine.*
   detail: null
-  migration_entities:
-  - RateLine
 requirement_starting_flow: false
 requirement_review:
   status: draft

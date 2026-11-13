@@ -118,3 +118,15 @@ conflicts:
   topic: Paying Agencies
   keep: Iris records what is owed and shows payment status in Phase 2 (sheet INV-7; D-31).
   drop: Agencies are paid through Iris (FAQ).
+- conflict_id: C-26
+  topic: AI in validation
+  keep: >-
+    An AI model judges credential documents for expiry, issuer, and signs of editing (sheet WA-15; D-3).
+    Code does every other check.
+  drop: Code does every validation check, with no exception (PRD).
+- conflict_id: C-27
+  topic: Upload file kinds
+  keep: >-
+    Timesheets, tips, expenses, and Credential documents also arrive as PDFs and images (sheet TS-5,
+    WA-14; sessions; feedback on OCR).
+  drop: Every upload is a CSV or Excel file (PRD).

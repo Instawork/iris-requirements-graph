@@ -1,0 +1,105 @@
+requirement_id: REQ-ORG-0009
+requirement_target_layer: product
+requirement_target_module: ORG
+requirement_phase: MVP
+requirement_title: Allow each action only to its role and scope
+requirement_statement: >-
+  Before a person's action is saved or a record is shown, Iris checks the User's Role Grants. The action
+  goes ahead only when a grant's role allows it and its scope covers the record.
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Each requirement names the roles that may take its action; a User with no unrevoked grant of one of
+    those roles is refused.
+  rule_sources:
+  - SHEET PLT-1
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    A Unit User acts only on Units at or beneath the org node of one of their UNIT_USER grants, and on
+    records that belong to those Units.
+  rule_sources:
+  - SHEET PLT-1
+  - PRD §1 Who sees what
+  rule_decisions:
+  - D-25
+- rule_id: R3
+  rule_statement: >-
+    An Agency User acts only on their own Agency's records: Releases sent to it, its Workers, its Timesheets,
+    and its Rate Lines.
+  rule_sources:
+  - SHEET PLT-1
+  - PRD §1 Who sees what
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    A Program User's scope is the whole program, so no Unit or Agency is outside it.
+  rule_sources:
+  - SHEET PLT-1
+  - PRD §1 Who sees what
+  rule_decisions:
+  - D-25
+- rule_id: R5
+  rule_statement: >-
+    An Instawork Admin acts only on reference data (Positions, Markets, Market ZIP codes, and labor rules)
+    and on granting the first Program User.
+  rule_sources: []
+  rule_decisions:
+  - D-26
+- rule_id: R6
+  rule_statement: >-
+    A revoked Role Grant allows nothing, and no grant of an inactive User allows anything.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-25
+- rule_id: R7
+  rule_statement: >-
+    A list, search, or download returns only the records the User's grants cover.
+  rule_sources:
+  - PRD §6 Uploads
+  - PRD §1 Who sees what
+  rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    A refused action saves nothing, and the User is told that their role or scope does not allow it.
+  rule_sources:
+  - PRD §7 Agent Chat
+  rule_decisions: []
+requirement_sources:
+- SHEET PLT-1
+- PRD §1 Who sees what
+requirement_decisions:
+- D-25
+- D-26
+requirement_features:
+- PLT-1
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-IDENTITY-0001
+data_model:
+  status: covered
+  reads:
+  - RoleGrant.*
+  - OrgNode.parent_id
+  - OrgNode.level
+  - User.active
+  writes: []
+  detail: >-
+    Reads only. The caller says which Unit or Agency a record belongs to, so no other module's records
+    are read.
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

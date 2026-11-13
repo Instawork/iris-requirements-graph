@@ -2,50 +2,160 @@ requirement_id: REQ-REPORTING-0002
 requirement_target_layer: product
 requirement_target_module: REPORTING
 requirement_phase: MVP
-requirement_title: Define the standard metrics
+requirement_title: Define the standard measures and the dimensions that group them
 requirement_statement: >-
-  Fill rate, time to fill, no-show rate, and compliance each have one formula, used by every dashboard,
-  report, and scorecard.
-requirement_actors: []
+  Hours, headcount, fill rate, and no-show rate each have one formula, and every measure groups by the
+  same dimensions. The formulas are provisional: the sheet leaves metrics to be defined with Foodbuy.
+requirement_actors:
+- SYSTEM
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Fill rate is headcount an Agency filled divided by headcount released to it.
-  rule_sources: []
-  rule_decisions: []
+    HOURS is the minutes behind SPEND, shown in hours: worked minutes on APPROVED Timesheets plus the
+    entered or scheduled minutes counted in PENDING_SPEND.
+  rule_sources:
+  - PRD §1 Detailed requirements
+  - GRAPH hours must match the spend they sit behind
+  rule_decisions:
+  - D-29
 - rule_id: R2
   rule_statement: >-
-    Time to fill is the average time from Release to the Agency's headcount being filled.
-  rule_sources: []
+    OVERTIME_HOURS is the overtime and double-time minutes within HOURS, and scheduled minutes with no
+    hours entered add none.
+  rule_sources:
+  - SHEET WA-19
+  - 'GRAPH data model: Measure.OVERTIME_HOURS'
   rule_decisions: []
 - rule_id: R3
-  rule_statement: No-show rate is Workers marked no-show divided by Workers assigned.
-  rule_sources: []
+  rule_statement: >-
+    HEADCOUNT_REQUESTED is the sum of headcount on Shifts that are not CANCELLED.
+  rule_sources:
+  - PRD §1 Detailed requirements
+  - GRAPH a cancelled Shift adds nothing, as with spend
   rule_decisions: []
 - rule_id: R4
   rule_statement: >-
-    Compliance is assigned Workers who were eligible at Shift start divided by Workers assigned.
-  rule_sources: []
+    FILL_RATE is ASSIGNED Assignments divided by headcount, over Shifts that have started.
+  rule_sources:
+  - PRD §1 Metric definitions
+  - SHEET RC-16
+  - GRAPH metric formulas, pending a decision
   rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    Grouped by Agency, FILL_RATE divides the Agency's ASSIGNED Assignments by the headcount of the Releases
+    sent to it, leaving out WITHDRAWN Releases.
+  rule_sources:
+  - PRD §1 Metric definitions
+  - SHEET RC-16
+  - GRAPH metric formulas, pending a decision
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    NO_SHOW_RATE is Timesheets marked as a no-show divided by ASSIGNED Assignments, over Shifts whose
+    status is WORKED.
+  rule_sources:
+  - PRD §1 Metric definitions
+  - SHEET RC-16
+  - GRAPH metric formulas, pending a decision
+  rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    A rate whose denominator is zero shows as not available, never as zero.
+  rule_sources:
+  - GRAPH metric formulas, pending a decision
+  rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    Every measure groups and filters by Sector, Region, District, Unit, Department, Cost Center, Agency,
+    Position, Event, work date, Work Week, and month.
+  rule_sources:
+  - SHEET 6.1
+  - SHEET PLT-2
+  - PRD §1 Detailed requirements
+  - SHEET WA-20
+  rule_decisions:
+  - D-14
+- rule_id: R9
+  rule_statement: >-
+    For spend and hours, the Position and Department are the Timesheet's, which differ from the Shift's
+    after a split, and the Agency is the Release's.
+  rule_sources:
+  - SHEET TS-10
+  - SESSIONS Timesheets, Tips & Expenses
+  rule_decisions: []
+- rule_id: R10
+  rule_statement: >-
+    For HEADCOUNT_REQUESTED and FILL_RATE, the Position and Department are the Shift's, and for every
+    measure the Event is the Shift's.
+  rule_sources:
+  - SHEET REP-2
+  - >-
+    GRAPH data model: Shift.event_id, Shift.position_id, Shift.department_id
+  rule_decisions: []
+- rule_id: R11
+  rule_statement: >-
+    Grouping by Work Week puts each work date in the Work Week of its own Unit, and a month is a calendar
+    month of work dates.
+  rule_sources:
+  - SHEET WA-20
+  rule_decisions:
+  - D-14
 requirement_sources:
 - PRD §1 Metric definitions
-requirement_decisions: []
+- SHEET RC-16
+- SHEET 6.1
+requirement_decisions:
+- D-14
+- D-29
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-DISPATCH-0002
+  requirement_id: REQ-REPORTING-0001
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-WORKFORCE-0003
+  requirement_id: REQ-ORDERING-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0011
 - edge_type: DEPENDS_ON
   requirement_id: REQ-TIME-0009
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-COMPLIANCE-0005
+  requirement_id: REQ-LABOR-0004
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCIES-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-CATALOG-0001
 data_model:
-  status: not_applicable
-  reads: []
+  status: covered
+  reads:
+  - Shift.headcount
+  - Shift.status
+  - Shift.starts_at
+  - Shift.position_id
+  - Shift.department_id
+  - Shift.event_id
+  - Release.shift_id
+  - Release.agency_id
+  - Release.headcount
+  - Release.status
+  - Assignment.release_id
+  - Assignment.status
+  - Timesheet.assignment_id
+  - Timesheet.position_id
+  - Timesheet.department_id
+  - Timesheet.worked_minutes
+  - Timesheet.overtime_minutes
+  - Timesheet.double_time_minutes
+  - Timesheet.no_show
+  - Timesheet.status
+  - Unit.work_week_start
+  - Event.name
+  - Agency.name
+  - Position.name
+  - Department.name
+  - OrgNode.name
+  - OrgNode.level
   writes: []
-  detail: Computed; not stored.
-  migration_entities: []
+  detail: Computed on demand; nothing is stored.
 requirement_starting_flow: false
 requirement_review:
   status: draft

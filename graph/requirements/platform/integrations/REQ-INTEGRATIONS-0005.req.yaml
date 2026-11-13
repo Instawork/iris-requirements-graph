@@ -4,23 +4,32 @@ requirement_target_module: INTEGRATIONS
 requirement_phase: P3
 requirement_title: Sign in with Compass single sign-on
 requirement_statement: Compass Users sign in through Compass's identity provider.
-requirement_actors: []
-requirement_rules: []
+requirement_actors:
+- PROGRAM_USER
+- UNIT_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    A User from Compass can sign in to Iris through Compass's identity provider.
+  rule_sources:
+  - SHEET PLT-9
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET PLT-9
 requirement_decisions: []
 requirement_features:
 - PLT-9
-edges: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-IDENTITY-0001
 data_model:
-  status: not_applicable
+  status: pending
   reads: []
   writes: []
-  detail: null
-  migration_entities: []
+  detail: Designed when Phase 3 is scoped.
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

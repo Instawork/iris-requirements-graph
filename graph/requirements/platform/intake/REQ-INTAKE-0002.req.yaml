@@ -4,29 +4,133 @@ requirement_target_module: INTAKE
 requirement_phase: MVP
 requirement_title: Validate every row and propose fixes
 requirement_statement: >-
-  Iris checks every row against the rules for its upload type and proposes a fix for each problem, as
-  a Proposal.
-requirement_actors: []
+  Iris reads every row of an Upload, checks it against the catalog's columns and its owner's rules, and
+  creates a Proposal with a suggested fix for each problem. It never changes a value from the file silently.
+requirement_actors:
+- SYSTEM
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Dates are read as YYYY-MM-DD, times as 4:00 PM, and money without a dollar sign, and common variations
-    become proposed fixes.
-  rule_sources: []
+    Once an Upload has a type its uploader may send, Iris reads its rows, sets total_rows to their number,
+    and creates one Proposal of kind FILE_ROWS and channel FILE_UPLOAD for the uploader.
+  rule_sources:
+  - PRD §6 Uploads
   rule_decisions: []
 - rule_id: R2
-  rule_statement: Job titles are matched to the Position catalog, such as Svr to Server.
-  rule_sources: []
+  rule_statement: >-
+    The LLM maps the file's column names to the type's columns in the upload-types catalog, and code does
+    every check after that.
+  rule_sources:
+  - PRD §7 What the LLM does and what code does
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    Missing required columns, duplicates, and references to unknown records are reported per row.
-  rule_sources: []
+    For a PDF or an image, the LLM reads the OCR text into rows of the type's catalog columns, and those
+    rows are checked like file rows.
+  rule_sources:
+  - SHEET TS-5
+  - FEEDBACK
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    A row with no value in a column the catalog marks required yes has a problem; a column required only
+    under a condition is checked by the type's owner.
+  rule_sources:
+  - PRD §7 What the agent checks
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    A date, time, or money value in the template format is accepted as it is.
+  rule_sources:
+  - PRD §6 Templates
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    A date, time, or money value in another known form, such as 10/18/26 or $30, is a problem whose suggested
+    fix is the same value in template format.
+  rule_sources:
+  - PRD §6 Templates
+  rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    The known forms are month-first slash dates, 12-hour and 24-hour times such as 4pm or 16:00, and money
+    with a dollar sign or thousands commas.
+  rule_sources:
+  - PRD §6 Templates
+  rule_decisions:
+  - D-40
+- rule_id: R8
+  rule_statement: >-
+    A value that cannot be read as its column's kind of value is a problem with no suggested fix.
+  rule_sources:
+  - PRD §7 What the agent checks
+  rule_decisions: []
+- rule_id: R9
+  rule_statement: >-
+    Each lookup the catalog names is resolved by the type's owner; a value matching no record or several
+    is a problem, with the owner's closest match as the suggested fix when it has one.
+  rule_sources:
+  - PRD §7 What the agent checks
+  - PRD §7 Agent Chat
+  - GRAPH platform reads no product records, so the caller supplies them
+  rule_decisions: []
+- rule_id: R10
+  rule_statement: >-
+    Checks across columns or against stored records, such as an end time before the start, belong to the
+    type's owner, and INTAKE reports each problem the owner returns.
+  rule_sources:
+  - PRD §7 What the agent checks
+  - GRAPH platform reads no product records, so the caller supplies them
+  rule_decisions: []
+- rule_id: R11
+  rule_statement: >-
+    A row the type's owner reports as a duplicate of an earlier row has a problem, and its suggested fix
+    is to reject the later row.
+  rule_sources:
+  - PRD §6 Uploads
+  - PRD §7 What the agent checks
+  rule_decisions: []
+- rule_id: R12
+  rule_statement: >-
+    Every row becomes at least one ProposalItem carrying its row_no, and a row with a problem carries
+    the problem and any suggested fix.
+  rule_sources:
+  - PRD §6 Uploads
+  rule_decisions: []
+- rule_id: R13
+  rule_statement: >-
+    No value from the file is changed unless the uploader accepts or edits the suggested fix for it.
+  rule_sources:
+  - PRD §6 Uploads
+  rule_decisions: []
+- rule_id: R14
+  rule_statement: >-
+    Creating the Proposal sets the Upload to IN_REVIEW with proposal_id and rows_to_review, the number
+    of rows that have a problem.
+  rule_sources:
+  - PRD §6 Uploads
+  rule_decisions: []
+- rule_id: R15
+  rule_statement: >-
+    On apply, each accepted row is saved by the type's owner, and a column with saved_by in the catalog
+    by that requirement, each under its own rules.
+  rule_sources:
+  - PRD §7 Agent Chat
+  - GRAPH platform reads no product records, so the caller supplies them
+  rule_decisions: []
+- rule_id: R16
+  rule_statement: >-
+    When the Proposal becomes APPLIED or PARTLY_APPLIED the Upload becomes SAVED, and when it becomes
+    REJECTED the Upload becomes DISCARDED.
+  rule_sources:
+  - PRD §6 Uploads
   rule_decisions: []
 requirement_sources:
+- PRD §6 Uploads
 - PRD §6 Templates
 - PRD §7 What the agent checks
-requirement_decisions: []
+requirement_decisions:
+- D-40
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON
@@ -35,11 +139,18 @@ edges:
   requirement_id: REQ-AGENT-0002
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - Upload.type
+  - Upload.file_url
+  - Upload.uploaded_by
+  - Proposal.status
+  - ProposalItem.problem
+  writes:
+  - Upload.status
+  - Upload.total_rows
+  - Upload.rows_to_review
+  - Upload.proposal_id
   detail: null
-  migration_entities:
-  - Upload
 requirement_starting_flow: false
 requirement_review:
   status: draft

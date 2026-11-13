@@ -4,28 +4,98 @@ requirement_target_module: RATES
 requirement_phase: MVP
 requirement_title: Gate off-contract rates and non-contracted Agencies
 requirement_statement: >-
-  The off-contract gate decides what happens when a Unit uses a non-contracted Agency or a rate that differs
-  from the Rate Card. The gate is soft or hard.
-requirement_actors: []
+  When a Unit sends a Shift, Iris checks the Agency and the Bill Rate against the contract. Two Settings
+  decide whether an off-contract rate or a non-contracted Agency goes ahead with a reason or is refused.
+requirement_actors:
+- SYSTEM
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Soft lets the action through with a required reason and flags it as off-contract spend.
-  rule_sources: []
+    Given a Unit, Agency, Position, work date, and proposed regular Bill Rate, the check returns whether
+    the rate is contracted or off-contract, whether the Agency is non-contracted, and the gate mode for
+    each.
+  rule_sources:
+  - SHEET RC-11
   rule_decisions: []
 - rule_id: R2
-  rule_statement: Hard blocks the action and tells the user why.
-  rule_sources: []
+  rule_statement: >-
+    The rate is off-contract when it differs from the contracted rate from REQ-RATES-0005, or when there
+    is no contracted rate.
+  rule_sources:
+  - SHEET RC-11
+  - SHEET SC-1
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    The gate is a Setting, so it can differ by Sector, Region, District, or Unit.
-  rule_sources: []
+    The Agency is non-contracted when no approval under REQ-AGENCIES-0002 covers the Unit.
+  rule_sources:
+  - SHEET RC-11
+  rule_decisions:
+  - D-9
+- rule_id: R4
+  rule_statement: >-
+    OFF_CONTRACT_RATE_GATE sets the gate mode for an off-contract rate and NON_CONTRACTED_AGENCY_GATE
+    for a non-contracted Agency, each resolved for the Unit and SOFT by default.
+  rule_sources:
+  - SHEET RC-11
+  rule_decisions:
+  - D-16
+- rule_id: R5
+  rule_statement: >-
+    Under SOFT the send goes ahead only with a reason from the Unit User, and is flagged as off-contract
+    or non-contracted (C-16).
+  rule_sources:
+  - SHEET RC-11
+  - SHEET RC-10
+  rule_decisions:
+  - D-16
+- rule_id: R6
+  rule_statement: >-
+    Under HARD the send is refused, nothing is saved, and the Unit User is told which gate refused it.
+  rule_sources:
+  - SHEET RC-11
   rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    Each gate is applied on its own, so a send that trips both goes ahead only if neither is HARD.
+  rule_sources:
+  - SHEET RC-11
+  rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    A contracted rate sent to an Agency with a covering approval passes with no reason and no flag.
+  rule_sources:
+  - SHEET SC-1
+  - SHEET RC-11
+  rule_decisions: []
+- rule_id: R9
+  rule_statement: >-
+    With a Rate Line but a different rate, the check returns overtime and double-time Bill Rates scaled
+    from the line by the ratio of proposed to contracted regular rate, rounded half up to the cent.
+  rule_sources: []
+  rule_decisions:
+  - D-24
+- rule_id: R10
+  rule_statement: >-
+    With no Rate Line, the Unit User enters the regular Bill Rate, and the check returns overtime at 1.5
+    times and double time at 2 times it, rounded half up to the cent.
+  rule_sources: []
+  rule_decisions:
+  - D-24
+- rule_id: R11
+  rule_statement: >-
+    The gates apply only when a Shift is sent; a rate billed on a Timesheet is flagged, never gated.
+  rule_sources:
+  - SHEET RC-10
+  - SHEET RC-11
+  rule_decisions:
+  - D-22
 requirement_sources:
-- SHEET
+- SHEET RC-11
 requirement_decisions:
-- D-2
+- D-9
+- D-16
+- D-24
 requirement_features:
 - RC-11
 edges:
@@ -39,11 +109,14 @@ edges:
   requirement_id: REQ-RATES-0006
 data_model:
   status: covered
-  reads: []
+  reads:
+  - AgencyApproval.*
+  - OrgNode.parent_id
+  - Unit.org_node_id
+  - RateLine.*
   writes: []
-  detail: null
-  migration_entities:
-  - Setting
+  detail: >-
+    Reads only and returns its result to the caller, which keeps the reason and the flags on the Release.
 requirement_starting_flow: false
 requirement_review:
   status: draft

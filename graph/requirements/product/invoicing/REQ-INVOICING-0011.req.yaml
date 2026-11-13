@@ -4,28 +4,69 @@ requirement_target_module: INVOICING
 requirement_phase: P2
 requirement_title: Send back overbilled hours for credit
 requirement_statement: >-
-  Compass sends back hours billed above the clock on an issued invoice. The Agency credits them, and the
-  Timesheet is revised to match.
-requirement_actors: []
-requirement_rules: []
+  Compass sends back hours overbilled on an issued invoice. The Agency credits them, and the Timesheet
+  is revised to match.
+requirement_actors:
+- UNIT_USER
+- PROGRAM_USER
+- AGENCY_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    A Unit User or a Program User sends back hours on a line of an ISSUED invoice, stating the minutes
+    and a reason.
+  rule_sources:
+  - SHEET INV-11
+  - GRAPH Phase 2 invoice actions, pending a decision
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    Because clock-in is Phase 3, the User states the minutes to send back, and Iris does not compare billed
+    hours with a clock in Phase 2.
+  rule_sources:
+  - SHEET INV-11
+  - SHEET TS-1
+  rule_decisions:
+  - D-5
+- rule_id: R3
+  rule_statement: >-
+    When an Agency User credits the hours, Iris records the credit's amount and time and adds it as an
+    adjustment line on the OPEN invoice.
+  rule_sources:
+  - SHEET INV-11
+  - SHEET INV-3
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    The Timesheet's hours are then revised to match the credit, with the reason kept in the Audit Trail.
+  rule_sources:
+  - SHEET INV-11
+  rule_decisions: []
 requirement_sources:
-- SHEET
-requirement_decisions: []
+- SHEET INV-11
+- SHEET 5.2
+requirement_decisions:
+- D-5
 requirement_features:
 - INV-11
 edges:
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-INVOICING-0001
+  requirement_id: REQ-INVOICING-0004
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-TIME-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - InvoiceLine.*
+  - AgencyInvoice.status
+  writes:
+  - InvoiceCredit.*
   detail: >-
-    Until Iris has its own clock (Phase 3), the clock is the Unit's record of hours.
-  migration_entities:
-  - InvoiceCredit
+    The sheet says hours billed above the clock; Iris has no clock until Phase 3 (D-5).
 requirement_starting_flow: false
 requirement_review:
   status: draft

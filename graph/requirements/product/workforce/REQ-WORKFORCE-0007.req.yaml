@@ -4,20 +4,26 @@ requirement_target_module: WORKFORCE
 requirement_phase: P3
 requirement_title: Keep one profile per person across Agencies
 requirement_statement: >-
-  A person who works for several Agencies has one profile, so credentials, history, and blocks follow
+  A person who works through several Agencies has one profile, so Credentials, history, and blocks follow
   the person.
-requirement_actors: []
+requirement_actors:
+- SYSTEM
 requirement_rules:
 - rule_id: R1
-  rule_statement: Profiles are linked with the same matching order as within one Agency.
-  rule_sources: []
+  rule_statement: >-
+    One person who works through several Agencies has a single profile that links each Agency's Worker
+    for that person.
+  rule_sources:
+  - SHEET WA-5
   rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET WA-5
 requirement_decisions: []
 requirement_features:
 - WA-5
 edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-WORKFORCE-0002
 data_model:
@@ -25,10 +31,9 @@ data_model:
   reads: []
   writes: []
   detail: Designed when Phase 3 is scoped.
-  migration_entities: []
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

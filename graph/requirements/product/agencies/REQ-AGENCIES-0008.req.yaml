@@ -4,11 +4,18 @@ requirement_target_module: AGENCIES
 requirement_phase: P3
 requirement_title: Recommend Agencies and Workers while booking
 requirement_statement: >-
-  While a Unit User books, Iris recommends Agencies and Workers by performance, fill rate, and cost.
-requirement_actors: []
-requirement_rules: []
+  While a Unit User books, Iris suggests which Agency and which Workers to use.
+requirement_actors:
+- UNIT_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Recommendations at booking rank Agencies and Workers by performance, fill rate, and cost.
+  rule_sources:
+  - SHEET RC-18
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET RC-18
 requirement_decisions: []
 requirement_features:
 - RC-18
@@ -17,18 +24,20 @@ edges:
   requirement_id: REQ-AGENCIES-0006
 - edge_type: DEPENDS_ON
   requirement_id: REQ-RATES-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
-  status: not_applicable
+  status: pending
   reads: []
   writes: []
-  detail: null
-  migration_entities: []
+  detail: Designed when Phase 3 is scoped.
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
-  notes: null
+  notes: >-
+    Phase 3. Grounded only in its sheet line; rules are written when Phase 3 is scoped.
 requirement_delivery:
   status: not_started
   pull_requests: []

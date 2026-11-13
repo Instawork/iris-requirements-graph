@@ -4,54 +4,122 @@ requirement_target_module: RATES
 requirement_phase: MVP
 requirement_title: Load Rate Lines in bulk
 requirement_statement: >-
-  Rate Lines are loaded from a CSV or Excel file through File Intake, so a whole pilot market can be loaded
-  at once.
-requirement_actors: []
+  An Agency User or a Program User loads many Rate Lines at once from a RATE_CARD file. The rows become
+  a Proposal, and each accepted row is submitted as a Rate Line.
+requirement_actors:
+- AGENCY_USER
+- PROGRAM_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Each row names the Agency, Market, and Position, and the regular, overtime, and double-time Pay and
-    Bill Rates.
-  rule_sources: []
+    A RATE_CARD file has one row per Agency, Position, and Market or Unit, and each row must give the
+    position, all six rates, and effective_from.
+  rule_sources:
+  - SHEET RC-4
+  - PRD §6 Templates
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    An Agency User loads rows only for its own Agency, while a Program User loads rows for any Agency.
-  rule_sources: []
-  rule_decisions: []
+    An Agency User's rows are for their own Agency, and a Program User's rows must name the Agency in
+    the agency column (C-13).
+  rule_sources:
+  - FEEDBACK
+  rule_decisions:
+  - D-10
 - rule_id: R3
   rule_statement: >-
-    Every row is checked against the Rate Line rules, and duplicate Position and Market rows are flagged.
-  rule_sources: []
-  rule_decisions: []
+    A row names a Market by city and state, or a Unit by unit; a row that gives both, or neither, is a
+    row problem.
+  rule_sources:
+  - PRD §6 Templates
+  - SHEET RC-6
+  rule_decisions:
+  - D-1
+  - D-21
 - rule_id: R4
   rule_statement: >-
-    An unknown job title is proposed as a fix and never saved as a new Position.
-  rule_sources: []
+    An agency, a city and state, a unit, or a position that does not match exactly one record is a row
+    problem and never creates one.
+  rule_sources:
+  - PRD §7 Agent Chat
+  rule_decisions:
+  - D-21
+- rule_id: R5
+  rule_statement: >-
+    Markup and ZIP code columns are ignored, because Markup is computed and ZIP codes belong to the Market
+    (C-14).
+  rule_sources:
+  - FEEDBACK
+  rule_decisions:
+  - D-11
+  - D-21
+- rule_id: R6
+  rule_statement: >-
+    Each row is checked against REQ-RATES-0001 before the Proposal is shown, and a failing row lists the
+    check it failed.
+  rule_sources:
+  - PRD §7 Agent Chat
   rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    Rows in one file with the same Agency, Position, Market or Unit, and effective_from are all row problems.
+  rule_sources:
+  - PRD §7 Agent Chat
+  rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    Each accepted row is submitted through REQ-RATES-0009 in the uploader's name with FILE_UPLOAD as its
+    channel, so it is PENDING for an Agency User and APPROVED for a Program User.
+  rule_sources:
+  - PRD §6 Uploads
+  rule_decisions:
+  - D-10
 requirement_sources:
-- SHEET
-- PRD §6 Rate card template
-requirement_decisions: []
+- SHEET RC-4
+- PRD §6 Templates
+- FEEDBACK
+requirement_decisions:
+- D-10
 requirement_features:
 - RC-4
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-RATES-0001
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0004
+- edge_type: DEPENDS_ON
   requirement_id: REQ-RATES-0009
 - edge_type: DEPENDS_ON
   requirement_id: REQ-INTAKE-0002
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AGENT-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - Agency.name
+  - Position.name
+  - Market.name
+  - Market.state
+  - Unit.org_node_id
+  - OrgNode.name
+  writes:
+  - RateLine.agency_id
+  - RateLine.position_id
+  - RateLine.market_id
+  - RateLine.unit_id
+  - RateLine.regular_pay_rate
+  - RateLine.regular_bill_rate
+  - RateLine.overtime_pay_rate
+  - RateLine.overtime_bill_rate
+  - RateLine.double_time_pay_rate
+  - RateLine.double_time_bill_rate
+  - RateLine.effective_from
+  - RateLine.submitted_via
   detail: null
-  migration_entities:
-  - RateLine
-  - Upload
 requirement_starting_flow: false
 requirement_review:
   status: draft

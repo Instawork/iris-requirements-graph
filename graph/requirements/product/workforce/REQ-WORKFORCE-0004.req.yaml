@@ -4,43 +4,94 @@ requirement_target_module: WORKFORCE
 requirement_phase: MVP
 requirement_title: Request specific Workers by name
 requirement_statement: >-
-  When sending a Shift to one Agency, the Unit User can name the Workers they want from that Agency, such
-  as their favorites.
-requirement_actors: []
+  When sending a Shift to an Agency, a Unit User can name the Workers they want from that Agency. The
+  Agency sees who was asked for and says when one cannot work.
+requirement_actors:
+- UNIT_USER
+- AGENCY_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    The user picks from that Agency's Workers who have worked at the Unit, with favorites listed first.
-  rule_sources: []
+    A Unit User over a Shift's Unit may name Workers they want on it, each saved as a WorkerRequest with
+    status REQUESTED and requested_by.
+  rule_sources:
+  - SHEET WA-2
+  - SESSIONS Worker Assignment & Compliance
   rule_decisions: []
 - rule_id: R2
-  rule_statement: The Agency sees which Workers were requested and assigns them first.
-  rule_sources: []
-  rule_decisions: []
+  rule_statement: >-
+    A Worker can be requested only while their Agency holds a PENDING or ACCEPTED Release on the Shift,
+    so a request sits inside the send to one Agency.
+  rule_sources:
+  - FEEDBACK
+  rule_decisions:
+  - D-17
 - rule_id: R3
   rule_statement: >-
-    If a requested Worker cannot work, the Agency says why and may fill the headcount with another Worker.
-  rule_sources: []
+    A Worker who is inactive, or rated BLOCK by the Shift's Unit, cannot be requested, and a Worker is
+    requested at most once for a Shift.
+  rule_sources:
+  - SHEET WA-3
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    When picking, the Unit User sees the Agency's active Workers, with those the Unit rated FAVORITE listed
+    first.
+  rule_sources:
+  - SHEET WA-2
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    Agency Users see the requested Workers marked and listed first when assigning, and may still assign
+    other Workers.
+  rule_sources:
+  - SHEET WA-2
+  - >-
+    GRAPH a request is a preference and holds no headcount, pending a decision
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    An Agency User of the Worker's Agency may mark a REQUESTED WorkerRequest UNAVAILABLE with an unavailable_reason.
+  rule_sources:
+  - SHEET WA-2
+  - >-
+    GRAPH the Agency can say a requested Worker cannot work, pending a decision
   rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET WA-2
 - FEEDBACK
-- SESSIONS Request workers by name
-requirement_decisions: []
+- SESSIONS Worker Assignment & Compliance
+requirement_decisions:
+- D-17
 requirement_features:
 - WA-2
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-DISPATCH-0001
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0001
+- edge_type: DEPENDS_ON
   requirement_id: REQ-WORKFORCE-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - Request.unit_id
+  - Shift.request_id
+  - Release.shift_id
+  - Release.agency_id
+  - Release.status
+  - Worker.agency_id
+  - Worker.active
+  - WorkerRating.unit_id
+  - WorkerRating.worker_id
+  - WorkerRating.rating
+  writes:
+  - WorkerRequest.*
   detail: null
-  migration_entities:
-  - WorkerRequest
 requirement_starting_flow: false
 requirement_review:
   status: draft

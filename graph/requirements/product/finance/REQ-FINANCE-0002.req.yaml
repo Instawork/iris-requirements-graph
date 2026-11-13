@@ -2,30 +2,43 @@ requirement_id: REQ-FINANCE-0002
 requirement_target_layer: product
 requirement_target_module: FINANCE
 requirement_phase: P2
-requirement_title: Close out swapped and no-show Workers
+requirement_title: Close out swapped and no-show Workers automatically
 requirement_statement: >-
-  Assignments for Workers who were swapped out or did not show are closed automatically, so Requests do
-  not pile up Workers and inflate accruals.
-requirement_actors: []
-requirement_rules: []
+  Workers who were swapped out or did not show are closed out of Requests automatically, so they do not
+  inflate accruals.
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    A Worker who was swapped out of a Shift or marked as a no-show is closed out without manual work and
+    adds nothing to an accrual snapshot.
+  rule_sources:
+  - SHEET INV-13
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET INV-13
+- SHEET 5.3
 requirement_decisions: []
 requirement_features:
 - INV-13
 edges:
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-FINANCE-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0003
+- edge_type: DEPENDS_ON
   requirement_id: REQ-TIME-0009
 data_model:
-  status: covered
+  status: pending
   reads: []
   writes: []
-  detail: null
-  migration_entities:
-  - Assignment
+  detail: >-
+    A swap already removes the Assignment, and a no-show Timesheet already adds nothing to spend. What
+    else must be closed, such as assigned Workers with no hours entered, is not defined.
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

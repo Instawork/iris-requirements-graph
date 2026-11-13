@@ -2,28 +2,37 @@ requirement_id: REQ-WORKFORCE-0008
 requirement_target_layer: product
 requirement_target_module: WORKFORCE
 requirement_phase: P3
-requirement_title: Prevent double-booking across Agencies
+requirement_title: Prevent double-booking across Shifts and Agencies
 requirement_statement: >-
-  Iris stops one person from being assigned to overlapping Shifts through different Agencies.
-requirement_actors: []
-requirement_rules: []
+  Iris stops one person from being assigned to overlapping Shifts, through one Agency or several.
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    An assignment that overlaps another Shift the same person is assigned to, through any Agency, is detected
+    and prevented.
+  rule_sources:
+  - SHEET WA-6
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET WA-6
 requirement_decisions: []
 requirement_features:
 - WA-6
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-WORKFORCE-0007
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0003
 data_model:
-  status: not_applicable
+  status: pending
   reads: []
   writes: []
-  detail: null
-  migration_entities: []
+  detail: Designed when Phase 3 is scoped.
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

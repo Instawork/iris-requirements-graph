@@ -297,8 +297,9 @@ decisions:
   question: Who invites Users, is there a view-only scope, and can a Program User be limited to a sector?
   status: open
   assumption: >-
-    Program Users invite any User, and an Agency User invites Users to their own Agency. MVP has no
-    view-only role, and every Program User covers the whole program.
+    Program Users invite any User, and an Agency User invites Users to their own Agency. Whoever may
+    invite a User may also deactivate and reactivate them. MVP has no view-only role, and every
+    Program User covers the whole program.
   blocking: false
   answer: null
   sources:
@@ -311,8 +312,8 @@ decisions:
     Who keeps reference data (Positions, Markets, labor rules) and creates the first Program User?
   status: open
   assumption: >-
-    Instawork staff, as Instawork Admins. They load the Position catalog, Markets, and labor rules, and
-    invite the first Program User.
+    Instawork staff, as Instawork Admins. The first Instawork Admin is seeded at deployment with a
+    password. They load the Position catalog, Markets, and labor rules, and invite the first Program User.
   blocking: false
   answer: null
   sources:
@@ -408,8 +409,11 @@ decisions:
   question: What are the account security defaults?
   status: open
   assumption: >-
-    Invite and reset links work once and expire after 72 hours. Passwords have at least 12 characters.
-    A session ends after 12 hours without activity.
+    Email is the sign-in name, unique, stored lowercase, and not editable in MVP. Invite and reset links
+    work once, expire after 72 hours, and a new link expires the earlier ones; only a hash of the token
+    is stored. Passwords have at least 12 characters. A session ends after 12 hours without activity,
+    and at once when the User is deactivated or resets their password. A reset request shows the same
+    message whether or not the email matched. An invite can be sent again until it is accepted.
   blocking: false
   answer: null
   sources:
@@ -423,3 +427,79 @@ decisions:
   answer: null
   sources:
   - SHEET INV-8
+- decision_id: D-36
+  origin: graph
+  question: >-
+    Who may decide a Proposal, does an open Proposal expire, and are accepted items saved together or
+    one by one?
+  status: open
+  assumption: >-
+    Only the User a Proposal was made for decides it, and it stays open until they do. Rows with no
+    problem are saved without a separate decision. Accepted items are saved one by one in list order,
+    each rechecked by the requirement that owns the record; a failed item does not stop the others, and
+    a decided Proposal never changes again.
+  blocking: false
+  answer: null
+  sources:
+  - PRD §6 Uploads
+  - PRD §7 Agent Chat
+- decision_id: D-37
+  origin: graph
+  question: Which records are audited, and can anyone change or remove an audit entry?
+  status: open
+  assumption: >-
+    Every create, update, and delete of a product record or a User writes an AuditEvent in the same step
+    as the change, and a change saved from a Proposal records that Proposal and its channel. Proposals,
+    Uploads, Notifications, InboundMessages, AccessLinks, and sign-in times are not audited. Nobody can
+    change or delete an entry, and passwords and link tokens never appear in one.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET RC-5
+  - SHEET WA-16
+  - PRD §2 Shifts
+- decision_id: D-38
+  origin: graph
+  question: How quickly is a notification sent, how often is a failed send retried, and who is skipped?
+  status: open
+  assumption: >-
+    The first attempt is made within one minute. A refused email or text is tried three times in all and
+    then marked failed, without undoing the change that caused it. A channel the recipient has no address
+    for is skipped, and deactivated Users and the User who caused the notification get none.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET SC-8
+  - SHEET SC-6
+- decision_id: D-39
+  origin: graph
+  question: >-
+    What does Iris do with an email, text, or call from a sender it cannot match to one active User, and
+    how are phone numbers compared?
+  status: open
+  assumption: >-
+    Iris stores the message, creates no Upload or Proposal, and answers once that it does not recognize
+    the sender. Phones are US numbers stored as 10 digits, and a number that matches several Users counts
+    as no match. A matched User can approve a Proposal by replying in the same conversation.
+  blocking: false
+  answer: null
+  sources:
+  - SHEET SC-10
+- decision_id: D-40
+  origin: graph
+  question: >-
+    Which file kinds does each upload type accept, which value formats does Iris offer to fix, when does
+    an Upload fail, and who sees it?
+  status: open
+  assumption: >-
+    CSV and Excel for every type, and PDF and image files for Timesheets, tips, expenses, and Credentials.
+    Month-first slash dates, 12-hour and 24-hour times, and money with a dollar sign or thousands commas
+    become suggested fixes. An unreadable, unsupported, or empty file fails. Files are stored privately,
+    downloads use the template formats, and each User sees only their own Uploads.
+  blocking: false
+  answer: null
+  sources:
+  - PRD §6 Uploads
+  - PRD §6 Templates
+  - SHEET TS-5
+  - SESSIONS Timesheets, Tips & Expenses

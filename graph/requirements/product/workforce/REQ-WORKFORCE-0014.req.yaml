@@ -3,24 +3,32 @@ requirement_target_layer: product
 requirement_target_module: WORKFORCE
 requirement_phase: P3
 requirement_title: Offer career paths and training to hourly Workers
-requirement_statement: Iris offers hourly Workers career paths and training.
-requirement_actors: []
-requirement_rules: []
+requirement_statement: >-
+  Iris offers hourly Workers career paths and training.
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: Hourly Workers can see career paths and take training in Iris.
+  rule_sources:
+  - SHEET WA-12
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET WA-12
 requirement_decisions: []
 requirement_features:
 - WA-12
-edges: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0001
 data_model:
   status: pending
   reads: []
   writes: []
   detail: Designed when Phase 3 is scoped.
-  migration_entities: []
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

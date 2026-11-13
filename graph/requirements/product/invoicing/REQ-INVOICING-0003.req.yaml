@@ -2,28 +2,66 @@ requirement_id: REQ-INVOICING-0003
 requirement_target_layer: product
 requirement_target_module: INVOICING
 requirement_phase: P2
-requirement_title: Flag Rate Card deviations on the invoice
+requirement_title: Flag rate deviations on the invoice
 requirement_statement: >-
-  Lines billed above the Rate Card show the card rate, the billed rate, and the difference, and the invoice
-  totals off-card spend.
-requirement_actors: []
-requirement_rules: []
+  Invoice lines billed above the contracted rate are flagged, showing the contracted rate, the billed
+  rate, and the difference.
+requirement_actors:
+- SYSTEM
+- UNIT_USER
+- PROGRAM_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    A line is flagged when its Timesheet's regular Bill Rate is above the contracted rate for its Agency,
+    Position, Unit, and work date, or when no contracted rate exists.
+  rule_sources:
+  - SHEET INV-2
+  - SHEET RC-10
+  - SHEET RC-11
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    A flagged line shows the contracted rate, the billed rate, and the difference.
+  rule_sources:
+  - SHEET INV-2
+  - SHEET RC-10
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    A Unit User sees the flags on lines for Units in their scope, and a Program User sees every flag.
+  rule_sources:
+  - SHEET RC-10
+  rule_decisions:
+  - D-2
 requirement_sources:
-- SHEET
-requirement_decisions: []
+- SHEET INV-2
+requirement_decisions:
+- D-2
 requirement_features:
 - INV-2
 edges:
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-INVOICING-0002
+  requirement_id: REQ-INVOICING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0005
 - edge_type: DEPENDS_ON
   requirement_id: REQ-RATES-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
-  status: not_applicable
-  reads: []
+  status: covered
+  reads:
+  - InvoiceLine.timesheet_id
+  - InvoiceLine.work_date
+  - Timesheet.regular_bill_rate
+  - Timesheet.position_id
+  - Timesheet.assignment_id
+  - Assignment.release_id
+  - Release.rate_line_id
+  - RateLine.regular_bill_rate
   writes: []
-  detail: null
-  migration_entities: []
+  detail: Computed when the invoice is shown; no flag is stored.
 requirement_starting_flow: false
 requirement_review:
   status: draft

@@ -5,10 +5,18 @@ requirement_phase: P3
 requirement_title: Carry do-not-return blocks across Agencies
 requirement_statement: >-
   A person blocked at a Unit stays blocked there, whichever Agency sends them.
-requirement_actors: []
-requirement_rules: []
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    A BLOCK rating a Unit gave one Worker applies at that Unit to every Worker linked to the same person's
+    profile.
+  rule_sources:
+  - SHEET WA-9
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET WA-9
 requirement_decisions: []
 requirement_features:
 - WA-9
@@ -18,14 +26,13 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-WORKFORCE-0005
 data_model:
-  status: not_applicable
+  status: pending
   reads: []
   writes: []
-  detail: null
-  migration_entities: []
+  detail: Designed when Phase 3 is scoped.
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

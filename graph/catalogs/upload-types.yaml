@@ -1,5 +1,6 @@
 # Every upload type Iris accepts, who may send it, the requirement that saves its rows, and its template columns.
-# Files are CSV or Excel. Dates are YYYY-MM-DD, times like 4:00 PM, money without a dollar sign (PRD §6).
+# CSV or Excel for every type; TIMESHEETS, TIPS, EXPENSES, and CREDENTIALS also accept PDF and image files.
+# Dates are YYYY-MM-DD, times like 4:00 PM, money without a dollar sign (PRD §6).
 # maps_to: the field a column fills. lookup: how a name in the file is resolved to a record.
 # required: yes | no | a condition, written as a short phrase.
 upload_types:
@@ -149,10 +150,10 @@ upload_types:
   sources: [FEEDBACK]
   columns:
   - {column: agency, required: 'yes', maps_to: Agency.name}
-  - {column: contact_first_name, required: 'yes', maps_to: User.first_name, saved_by: REQ-IDENTITY-0001}
-  - {column: contact_last_name, required: 'yes', maps_to: User.last_name, saved_by: REQ-IDENTITY-0001}
-  - {column: contact_email, required: 'yes', maps_to: User.email, saved_by: REQ-IDENTITY-0001}
-  - {column: contact_phone, required: 'no', maps_to: User.phone, saved_by: REQ-IDENTITY-0001}
+  - {column: contact_first_name, required: 'yes', maps_to: User.first_name, saved_by: REQ-IDENTITY-0002}
+  - {column: contact_last_name, required: 'yes', maps_to: User.last_name, saved_by: REQ-IDENTITY-0002}
+  - {column: contact_email, required: 'yes', maps_to: User.email, saved_by: REQ-IDENTITY-0002}
+  - {column: contact_phone, required: 'no', maps_to: User.phone, saved_by: REQ-IDENTITY-0002}
   - {column: approved_for, required: 'no', maps_to: AgencyApproval.org_node_id, lookup: 'OrgNode.name, separated by semicolons', saved_by: REQ-AGENCIES-0002}
 - type: BUDGETS
   phase: MVP

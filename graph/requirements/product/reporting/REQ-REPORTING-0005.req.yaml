@@ -2,37 +2,85 @@ requirement_id: REQ-REPORTING-0005
 requirement_target_layer: product
 requirement_target_module: REPORTING
 requirement_phase: MVP
-requirement_title: Upload sales data by location
+requirement_title: Upload sales data by Unit
 requirement_statement: >-
-  A Program User uploads sales data by Unit and date, with revenue and, optionally, events held and meals
-  served.
-requirement_actors: []
+  A Program User uploads sales by Unit and date: revenue, events held, and meals served. Iris stores them
+  so labor cost can be shown as a percentage of sales.
+requirement_actors:
+- PROGRAM_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Each row is one Unit and date, and a later upload for the same Unit and date replaces it.
-  rule_sources: []
+    Only a Program User uploads a SALES file, with one row per Unit and date.
+  rule_sources:
+  - SHEET REP-4
+  - PRD §6 Uploads
+  - PRD §6 Templates
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    Unit and date are required on every SALES row, and revenue, events, and meals served are each optional.
+  rule_sources:
+  - PRD §6 Templates
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    A SALES row is reported as a problem when its unit matches no Unit or more than one, its date is invalid,
+    or its revenue, events, or meals served is not a number.
+  rule_sources:
+  - PRD §7 Agent Chat
+  - GRAPH Unit names can repeat across Districts
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    Two rows in one SALES file for the same Unit and date are reported as a problem.
+  rule_sources:
+  - PRD §7 Agent Chat
+  - 'GRAPH data model: one Sales Record per Unit and date'
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    A row for a Unit and date that already has a Sales Record is proposed as an update that replaces its
+    revenue, events held, and meals served.
+  rule_sources:
+  - GRAPH labor cost against sales, pending a decision
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    No SALES row is saved until the Program User approves the Proposal, and each accepted row is saved
+    as a Sales Record linked to its Upload.
+  rule_sources:
+  - PRD §6 Uploads
+  - PRD §7 Agent Chat
   rule_decisions: []
 requirement_sources:
-- SHEET
-- PRD §6 Business activity template
+- SHEET REP-4
+- PRD §6 Templates
 requirement_decisions: []
 requirement_features:
 - REP-4
 edges:
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-ORG-0001
-- edge_type: DEPENDS_ON
   requirement_id: REQ-INTAKE-0002
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AGENT-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - Unit.org_node_id
+  - OrgNode.name
+  - OrgNode.level
+  writes:
+  - SalesRecord.*
   detail: null
-  migration_entities:
-  - SalesRecord
 requirement_starting_flow: false
 requirement_review:
   status: draft

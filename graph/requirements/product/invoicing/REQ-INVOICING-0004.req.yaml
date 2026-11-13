@@ -4,24 +4,44 @@ requirement_target_module: INVOICING
 requirement_phase: P2
 requirement_title: Show prior-period adjustments separately
 requirement_statement: >-
-  Corrections to earlier weeks appear in their own section, apart from the current week's charges.
-requirement_actors: []
-requirement_rules: []
+  Corrections to earlier weeks appear in their own section of the invoice, apart from the current week's
+  charges.
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    A correction to a line on an ISSUED invoice becomes an adjustment line on the OPEN invoice, pointing
+    to the line it adjusts.
+  rule_sources:
+  - SHEET INV-3
+  - DEMO InvoiceStatus
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    Each invoice shows its adjustment lines in their own section with their own total, apart from the
+    current week's charges.
+  rule_sources:
+  - SHEET INV-3
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET INV-3
 requirement_decisions: []
 requirement_features:
 - INV-3
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-INVOICING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - InvoiceLine.agency_invoice_id
+  - AgencyInvoice.status
+  writes:
+  - InvoiceLine.adjusts_line_id
   detail: null
-  migration_entities:
-  - InvoiceLine
 requirement_starting_flow: false
 requirement_review:
   status: draft

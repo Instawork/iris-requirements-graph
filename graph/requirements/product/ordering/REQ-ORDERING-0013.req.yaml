@@ -4,12 +4,19 @@ requirement_target_module: ORDERING
 requirement_phase: P3
 requirement_title: Forecast Department demand
 requirement_statement: >-
-  Iris forecasts each Department's demand from its order history, such as 100-level concessions against
-  suites.
-requirement_actors: []
-requirement_rules: []
+  Iris forecasts each Department's demand from its order history in Iris, such as 100-level concessions
+  against suites.
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Iris forecasts the headcount each Department will need from the Shifts booked for it in Iris.
+  rule_sources:
+  - SHEET SC-16
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET SC-16
 requirement_decisions: []
 requirement_features:
 - SC-16
@@ -17,14 +24,13 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORDERING-0001
 data_model:
-  status: not_applicable
+  status: pending
   reads: []
   writes: []
-  detail: null
-  migration_entities: []
+  detail: Designed when Phase 3 is scoped.
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

@@ -6,10 +6,16 @@ requirement_title: Migrate data from Fieldglass
 requirement_statement: >-
   Rate Cards, Workers, and history move over from Fieldglass, so Units start with their rates and Workers
   and can compare against prior years.
-requirement_actors: []
-requirement_rules: []
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: Rate Cards, Workers, and history are loaded into Iris from Fieldglass.
+  rule_sources:
+  - SHEET PLT-6
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET PLT-6
 requirement_decisions: []
 requirement_features:
 - PLT-6
@@ -19,10 +25,9 @@ data_model:
   reads: []
   writes: []
   detail: Designed when Phase 3 is scoped.
-  migration_entities: []
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

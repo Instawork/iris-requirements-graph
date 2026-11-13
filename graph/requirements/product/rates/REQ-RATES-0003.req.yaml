@@ -4,40 +4,69 @@ requirement_target_module: RATES
 requirement_phase: MVP
 requirement_title: Keep a history of every rate change
 requirement_statement: >-
-  Every change to a Rate Line is recorded with who made it, when, through which channel, why, and the
-  values before and after.
-requirement_actors: []
+  Every Rate Line ever submitted stays on file with who submitted it, who reviewed it, and when. Program
+  Users and the owning Agency can read and download this history.
+requirement_actors:
+- PROGRAM_USER
+- AGENCY_USER
 requirement_rules:
 - rule_id: R1
-  rule_statement: The history can be filtered by Agency, Market, and Position.
-  rule_sources: []
+  rule_statement: >-
+    No Rate Line is deleted or overwritten; superseded, PENDING, and SENT_BACK lines all stay in the history.
+  rule_sources:
+  - SHEET RC-5
   rule_decisions: []
 - rule_id: R2
-  rule_statement: The history can be downloaded as CSV.
-  rule_sources: []
+  rule_statement: >-
+    Each history entry shows who made the change, when, through which channel, the values before and after,
+    and the reason when one was given.
+  rule_sources:
+  - SHEET RC-5
   rule_decisions: []
 - rule_id: R3
-  rule_statement: The history is kept after a Rate Line is retired.
-  rule_sources: []
+  rule_statement: >-
+    A superseded line shows its effective_to and the line that replaced it.
+  rule_sources:
+  - SHEET RC-5
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: The history filters by Agency, Position, and Market or Unit.
+  rule_sources:
+  - SHEET RC-5
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    A Program User sees every Agency's history, and an Agency User sees only their own Agency's.
+  rule_sources:
+  - PRD §3 Supplier Rates
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    The history downloads as CSV through REQ-INTAKE-0005 with only the lines the User may see.
+  rule_sources:
+  - PRD §6 Uploads
   rule_decisions: []
 requirement_sources:
-- SHEET
-- DEMO
+- SHEET RC-5
 requirement_decisions: []
 requirement_features:
 - RC-5
 edges:
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0009
+- edge_type: DEPENDS_ON
   requirement_id: REQ-AUDIT-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-INTAKE-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
   status: covered
-  reads: []
+  reads:
+  - RateLine.*
+  - AuditEvent.*
   writes: []
-  detail: null
-  migration_entities:
-  - AuditEvent
+  detail: Reads only.
 requirement_starting_flow: false
 requirement_review:
   status: draft

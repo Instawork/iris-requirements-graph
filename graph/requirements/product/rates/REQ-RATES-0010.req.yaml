@@ -4,31 +4,38 @@ requirement_target_module: RATES
 requirement_phase: P3
 requirement_title: Benchmark rates against market pay
 requirement_statement: >-
-  Iris shows where each Rate Line's pay sits in its market, such as its percentile for the Position and
-  Market, using Instawork's labor data.
-requirement_actors: []
-requirement_rules: []
+  Iris shows where each Agency's rates sit against market pay, using Instawork's labor data.
+requirement_actors:
+- PROGRAM_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Each Rate Line is compared with Instawork's market pay data for the same Position and Market.
+  rule_sources:
+  - SHEET RC-7
+  rule_decisions: []
 requirement_sources:
-- SHEET
-- SESSIONS Benchmarking
+- SHEET RC-7
 requirement_decisions: []
 requirement_features:
 - RC-7
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-RATES-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
   status: pending
   reads: []
   writes: []
   detail: Designed when Phase 3 is scoped.
-  migration_entities: []
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
-  notes: null
+  notes: >-
+    Phase 3. Grounded only in its sheet line; rules are written when Phase 3 is scoped.
 requirement_delivery:
   status: not_started
   pull_requests: []

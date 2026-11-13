@@ -4,33 +4,63 @@ requirement_target_module: AGENCIES
 requirement_phase: MVP
 requirement_title: Add an Agency
 requirement_statement: >-
-  A Program User adds each Agency that staffs Compass Shifts, one at a time or in bulk from a file.
-requirement_actors: []
+  A Program User adds each Agency that staffs Compass Shifts, by form or in bulk from an AGENCIES file.
+  Adding an Agency also invites its first Agency User.
+requirement_actors:
+- PROGRAM_USER
 requirement_rules:
 - rule_id: R1
-  rule_statement: >-
-    An Agency has a name, a primary contact's name, email, and phone, and the Markets it covers.
-  rule_sources: []
+  rule_statement: Only a Program User adds an Agency, by form or from an AGENCIES file.
+  rule_sources:
+  - FEEDBACK
   rule_decisions: []
 - rule_id: R2
-  rule_statement: Adding an Agency invites its primary contact as an Agency User.
-  rule_sources: []
+  rule_statement: >-
+    An Agency needs a name that no other Agency has, and a duplicate name is refused.
+  rule_sources:
+  - GRAPH files and forms find a record by its name
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    Bulk loading uses File Intake and the same checks as adding one by hand.
-  rule_sources: []
-  rule_decisions: []
+    Each new Agency needs a first contact with a first name, last name, and email; a phone number is optional.
+  rule_sources:
+  - FEEDBACK
+  rule_decisions:
+  - D-25
 - rule_id: R4
   rule_statement: >-
-    Agencies send data by file upload in MVP; API connections come later, in REQ-INTEGRATIONS-0001.
-  rule_sources: []
+    The contact is invited through REQ-IDENTITY-0001 and granted AGENCY_USER for the new Agency through
+    REQ-ORG-0005.
+  rule_sources:
+  - FEEDBACK
+  rule_decisions:
+  - D-25
+- rule_id: R5
+  rule_statement: >-
+    An AGENCIES file has one row per Agency: agency, contact_first_name, contact_last_name, and contact_email
+    are required, and contact_phone and approved_for are optional.
+  rule_sources:
+  - FEEDBACK
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    File rows are checked by the same rules as the form and become a Proposal; a row is saved only when
+    the Program User accepts it.
+  rule_sources:
+  - PRD §6 Uploads
+  - FEEDBACK
+  rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    A Program User renames or deactivates an Agency; an inactive Agency keeps its records and receives
+    no new Release.
+  rule_sources:
+  - GRAPH who maintains program setup is not stated
   rule_decisions: []
 requirement_sources:
 - FEEDBACK
-- SHEET PLT-5
-- DEMO run-of-show block 1
-requirement_decisions: []
+requirement_decisions:
+- D-25
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON
@@ -38,16 +68,20 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0005
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-CATALOG-0002
+  requirement_id: REQ-ORG-0009
 - edge_type: DEPENDS_ON
   requirement_id: REQ-INTAKE-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - Agency.*
+  writes:
+  - Agency.*
   detail: null
-  migration_entities:
-  - Agency
 requirement_starting_flow: false
 requirement_review:
   status: draft

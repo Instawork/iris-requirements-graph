@@ -4,29 +4,49 @@ requirement_target_module: DISPATCH
 requirement_phase: P2
 requirement_title: Show fill status for open Requests
 requirement_statement: >-
-  A Unit User sees every open Request with headcount filled by Agency and time to start, without chasing
-  notifications.
-requirement_actors: []
-requirement_rules: []
+  A Unit User sees every open Request with the headcount each Agency has filled and the time left before
+  each Shift starts, without chasing notifications.
+requirement_actors:
+- UNIT_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    For each Shift of their Units that has not ended, a Unit User sees its headcount, the ASSIGNED Workers
+    per Agency, each Release's status, and the time until it starts.
+  rule_sources:
+  - SHEET SC-13
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET SC-13
 requirement_decisions: []
 requirement_features:
 - SC-13
 edges:
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-DISPATCH-0001
+  requirement_id: REQ-DISPATCH-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0003
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORDERING-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
-  status: not_applicable
-  reads: []
+  status: covered
+  reads:
+  - Shift.headcount
+  - Shift.starts_at
+  - Shift.status
+  - Release.shift_id
+  - Release.agency_id
+  - Release.headcount
+  - Release.status
+  - Assignment.release_id
+  - Assignment.status
   writes: []
   detail: null
-  migration_entities: []
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

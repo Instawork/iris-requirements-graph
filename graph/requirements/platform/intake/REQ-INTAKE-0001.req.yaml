@@ -2,42 +2,112 @@ requirement_id: REQ-INTAKE-0001
 requirement_target_layer: platform
 requirement_target_module: INTAKE
 requirement_phase: MVP
-requirement_title: Accept a file and detect what it holds
+requirement_title: Accept a file and detect its upload type
 requirement_statement: >-
-  Users attach CSV, Excel, PDF, or image files on the Uploads page or in the assistant, and Iris detects
-  each file's upload type.
-requirement_actors: []
+  A User sends a CSV, Excel, PDF, or image file on the Uploads page, in the assistant, or attached to
+  a message. Iris stores it privately, detects its upload type from the catalog, and asks when it cannot
+  tell.
+requirement_actors:
+- PROGRAM_USER
+- UNIT_USER
+- AGENCY_USER
+- SYSTEM
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Upload types are Rate Card, Workers, Shifts, Timesheets, Expenses, Tips, Units, Agencies, Budgets,
-    and Sales data.
-  rule_sources: []
+    Each file sent creates one Upload with status RECEIVED, its file name, the User who sent it, and the
+    channel it arrived on: APP, ASSISTANT, EMAIL, or SMS.
+  rule_sources:
+  - PRD §6 Uploads
+  - PRD §7 How it connects
+  - SHEET SC-10
   rule_decisions: []
 - rule_id: R2
-  rule_statement: Text in images and scanned PDFs is read with OCR.
+  rule_statement: >-
+    The original file is kept unchanged in private storage, and file_url is never a public link.
   rule_sources: []
-  rule_decisions: []
+  rule_decisions:
+  - D-40
 - rule_id: R3
-  rule_statement: If the type is unclear, Iris asks the user.
-  rule_sources: []
+  rule_statement: >-
+    CSV and Excel files are accepted for every upload type, and PDF and image files only for TIMESHEETS,
+    TIPS, EXPENSES, and CREDENTIALS.
+  rule_sources:
+  - PRD §6 Templates
+  - SHEET TS-5
+  - SESSIONS Timesheets, Tips & Expenses
+  - SHEET WA-14
+  rule_decisions:
+  - D-40
+- rule_id: R4
+  rule_statement: Text in a PDF or an image is read by OCR before the type is detected.
+  rule_sources:
+  - FEEDBACK
+  - SHEET TS-5
   rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    When the uploader picked a type, that type is used; otherwise Iris detects it by comparing the file's
+    columns or text with the upload types in the catalog.
+  rule_sources:
+  - PRD §6 Uploads
+  - PRD §7 Agent Chat
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    When detection finds exactly one type, the Upload's type is set; when it finds none or several, the
+    status becomes NEEDS_TYPE and the uploader is asked to pick one.
+  rule_sources:
+  - PRD §7 When the agent is unsure
+  rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    When the uploader picks a type for a NEEDS_TYPE Upload, the type is set and the status returns to
+    RECEIVED.
+  rule_sources:
+  - PRD §7 When the agent is unsure
+  rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    If the role the uploader is acting in is not among the type's uploaders, the Upload becomes FAILED
+    and failure_reason names the roles that may send that type.
+  rule_sources:
+  - PRD §7 When the agent is unsure
+  rule_decisions: []
+- rule_id: R9
+  rule_statement: >-
+    A file that cannot be opened, is of another kind, or holds no rows or readable text becomes FAILED,
+    with failure_reason saying why.
+  rule_sources: []
+  rule_decisions:
+  - D-40
 requirement_sources:
 - PRD §6 Uploads
-- PRD §7 Agent chat
+- PRD §7 Agent Chat
 - SHEET TS-5
-requirement_decisions: []
+requirement_decisions:
+- D-40
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-IDENTITY-0001
+- edge_type: DEPENDS_ON
   requirement_id: REQ-AGENT-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0003
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - User.id
+  writes:
+  - Upload.file_name
+  - Upload.file_url
+  - Upload.type
+  - Upload.uploaded_by
+  - Upload.channel
+  - Upload.status
+  - Upload.failure_reason
   detail: null
-  migration_entities:
-  - Upload
 requirement_starting_flow: false
 requirement_review:
   status: draft

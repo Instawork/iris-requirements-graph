@@ -4,28 +4,76 @@ requirement_target_module: FINANCE
 requirement_phase: P2
 requirement_title: Take a point-in-time accrual snapshot
 requirement_statement: >-
-  Iris snapshots spend from approved, uninvoiced Timesheets by Cost Center, at the moment Finance asks.
-requirement_actors: []
+  Iris snapshots, by Cost Center, the spend on hours worked that no issued invoice covers yet. Finance
+  Users arrive in Phase 3, so a Program User takes it.
+requirement_actors:
+- PROGRAM_USER
 requirement_rules:
 - rule_id: R1
-  rule_statement: A snapshot never changes once taken.
-  rule_sources: []
+  rule_statement: >-
+    A Program User takes an accrual snapshot at any moment, and Iris records who took it and when.
+  rule_sources:
+  - SHEET INV-12
+  - GRAPH Finance Users arrive in Phase 3
+  rule_decisions:
+  - D-7
+- rule_id: R2
+  rule_statement: >-
+    The snapshot holds, for each Cost Center, the spend on hours worked that no ISSUED invoice covers,
+    and a total to accrue.
+  rule_sources:
+  - SESSIONS Invoicing & Accruals
+  - SHEET 5.3
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    Each Cost Center's amount is split three ways: DRAFT or REJECTED Timesheets with the Agency, SUBMITTED
+    Timesheets waiting for approval, and APPROVED Timesheets on an invoice not yet ISSUED.
+  rule_sources:
+  - SESSIONS Invoicing & Accruals
+  - SHEET INV-12
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    Amounts are approved spend and pending spend under REQ-REPORTING-0001, so accruals use the entered
+    hours and the actual Bill Rates.
+  rule_sources:
+  - SHEET INV-12
+  - GRAPH one spend definition for every screen
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: A snapshot never changes after it is taken.
+  rule_sources:
+  - SHEET INV-12
   rule_decisions: []
 requirement_sources:
-- SHEET
-requirement_decisions: []
+- SHEET INV-12
+- SHEET 5.3
+- SESSIONS Invoicing & Accruals
+requirement_decisions:
+- D-7
 requirement_features:
 - INV-12
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-REPORTING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INVOICING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - Timesheet.status
+  - InvoiceLine.timesheet_id
+  - InvoiceLine.agency_invoice_id
+  - AgencyInvoice.status
+  writes:
+  - AccrualSnapshot.*
+  - AccrualLine.*
   detail: null
-  migration_entities:
-  - AccrualSnapshot
 requirement_starting_flow: false
 requirement_review:
   status: draft

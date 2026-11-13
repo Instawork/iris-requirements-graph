@@ -4,31 +4,36 @@ requirement_target_module: AGENCIES
 requirement_phase: P3
 requirement_title: Generate an executive business review pack
 requirement_statement: >-
-  Iris builds the executive business review from program data for the period Compass picks.
-requirement_actors: []
-requirement_rules: []
+  Iris builds the executive business review pack for Compass from data already in the program.
+requirement_actors:
+- PROGRAM_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: An executive business review pack is generated from program data.
+  rule_sources:
+  - SHEET RC-19
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET RC-19
 requirement_decisions: []
 requirement_features:
 - RC-19
 edges:
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-REPORTING-0001
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-REPORTING-0002
+  requirement_id: REQ-ORG-0009
 data_model:
-  status: not_applicable
+  status: pending
   reads: []
   writes: []
-  detail: null
-  migration_entities: []
+  detail: >-
+    Designed when Phase 3 is scoped, including its edges to the REPORTING data it will read.
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
-  notes: null
+  notes: >-
+    Phase 3. Grounded only in its sheet line; rules are written when Phase 3 is scoped.
 requirement_delivery:
   status: not_started
   pull_requests: []

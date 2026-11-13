@@ -4,12 +4,19 @@ requirement_target_module: RATES
 requirement_phase: P3
 requirement_title: Negotiate market-indexed rates in bulk
 requirement_statement: >-
-  Compass sets rates indexed to the market and sends them to many Agencies at once, so rates keep up with
-  minimum wage and the market between negotiations.
-requirement_actors: []
-requirement_rules: []
+  Compass proposes rates indexed to the market to many Agencies at once, so rates keep pace between negotiations.
+requirement_actors:
+- PROGRAM_USER
+- AGENCY_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Market-indexed rates are negotiated with many Agencies at once rather than one Agency at a time.
+  rule_sources:
+  - SHEET RC-8
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET RC-8
 requirement_decisions: []
 requirement_features:
 - RC-8
@@ -18,18 +25,20 @@ edges:
   requirement_id: REQ-RATES-0010
 - edge_type: DEPENDS_ON
   requirement_id: REQ-RATES-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
   status: pending
   reads: []
   writes: []
   detail: Designed when Phase 3 is scoped.
-  migration_entities: []
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
-  notes: null
+  notes: >-
+    Phase 3. Grounded only in its sheet line; rules are written when Phase 3 is scoped.
 requirement_delivery:
   status: not_started
   pull_requests: []

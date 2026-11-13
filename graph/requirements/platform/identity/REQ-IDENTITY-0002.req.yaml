@@ -1,0 +1,142 @@
+requirement_id: REQ-IDENTITY-0002
+requirement_target_layer: platform
+requirement_target_module: IDENTITY
+requirement_phase: MVP
+requirement_title: Invite a User and reset a password by emailed link
+requirement_statement: >-
+  A User is added by an invite: Iris creates the User and emails a single-use link to set a password.
+  A User who forgets their password gets a single-use reset link by email.
+requirement_actors:
+- INSTAWORK_ADMIN
+- PROGRAM_USER
+- UNIT_USER
+- AGENCY_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    An invite names the person's email, first name, last name, and optional phone, and the signed-in User
+    who invites them; the calling requirement checks that this User may invite them.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-25
+  - D-26
+- rule_id: R2
+  rule_statement: >-
+    An invite for an email no User holds creates an active User without a password, sets invited_by and
+    invited_at, and creates an INVITE AccessLink.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-34
+- rule_id: R3
+  rule_statement: >-
+    An invite for a User who has not yet accepted creates a new INVITE link and sends it; for a User who
+    has accepted, it changes nothing and returns that User.
+  rule_sources: []
+  rule_decisions:
+  - D-34
+- rule_id: R4
+  rule_statement: >-
+    Each new link is emailed to its User, as a USER_INVITED notification for an invite or a PASSWORD_RESET
+    notification for a reset.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-34
+- rule_id: R5
+  rule_statement: >-
+    An AccessLink works once, expires 72 hours after it is created, and stores only a hash of its token;
+    the token appears only in the email sent.
+  rule_sources: []
+  rule_decisions:
+  - D-34
+- rule_id: R6
+  rule_statement: >-
+    Creating a link expires the User's earlier unused links of the same purpose.
+  rule_sources: []
+  rule_decisions:
+  - D-34
+- rule_id: R7
+  rule_statement: >-
+    A link that is unknown, used, expired, or belongs to a deactivated User is refused, and nothing changes.
+  rule_sources: []
+  rule_decisions:
+  - D-34
+- rule_id: R8
+  rule_statement: >-
+    With a valid link the User sets a password of at least 12 characters, which stores its hash, sets
+    used_at, and sets invite_accepted_at if it was empty.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-34
+- rule_id: R9
+  rule_statement: >-
+    Anyone can ask for a reset by entering an email; if it belongs to an active User a PASSWORD_RESET
+    link is created, and otherwise nothing is sent.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-34
+- rule_id: R10
+  rule_statement: >-
+    The reset screen shows the same message whether or not the email belongs to a User.
+  rule_sources: []
+  rule_decisions:
+  - D-34
+- rule_id: R11
+  rule_statement: >-
+    Setting a password with a PASSWORD_RESET link ends that User's open sessions.
+  rule_sources: []
+  rule_decisions:
+  - D-34
+- rule_id: R12
+  rule_statement: >-
+    Invites, accepted invites, and password changes are recorded in the Audit Trail, never with the password
+    hash or the token.
+  rule_sources: []
+  rule_decisions:
+  - D-37
+requirement_sources:
+- SHEET PLT-4
+requirement_decisions:
+- D-25
+- D-26
+- D-34
+- D-37
+requirement_features:
+- PLT-4
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-IDENTITY-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-MESSAGING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
+data_model:
+  status: covered
+  reads:
+  - User.*
+  - AccessLink.*
+  writes:
+  - User.email
+  - User.first_name
+  - User.last_name
+  - User.phone
+  - User.active
+  - User.password_hash
+  - User.invited_by
+  - User.invited_at
+  - User.invite_accepted_at
+  - AccessLink.*
+  detail: null
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

@@ -4,47 +4,92 @@ requirement_target_module: ORG
 requirement_phase: MVP
 requirement_title: Load Units and Departments from a file
 requirement_statement: >-
-  A Program User loads many Units and Departments at once from a file, through File Intake.
-requirement_actors: []
+  A Program User loads many Units and their Departments at once from a UNITS file (C-8). The rows become
+  a Proposal, and nothing is saved until the Program User approves it.
+requirement_actors:
+- PROGRAM_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Each row names the Sector, Region, District, Unit, address, ZIP code, and Cost Center code, and optionally
-    a Department with its Cost Center code.
-  rule_sources: []
+    Only a Program User sends a UNITS file, with one row per Department, or one row for a Unit that has
+    none.
+  rule_sources:
+  - SESSIONS Shift Creation
+  - SHEET PLT-2
+  - GRAPH who maintains program setup is not stated
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    Sectors, Regions, and Districts that do not exist yet are created from the rows once the user approves
-    the Proposal.
-  rule_sources: []
+    Each row must give sector, region, district, unit, address_line, city, state, zip, unit_cost_center,
+    and work_week_start; department_cost_center is required when department is set.
+  rule_sources:
+  - SESSIONS Shift Creation
+  - SHEET PLT-2
   rule_decisions: []
 - rule_id: R3
-  rule_statement: Every row is checked with the same rules as adding a Unit by hand.
-  rule_sources: []
+  rule_statement: >-
+    The timezone, secured_site, and department columns are optional; an empty timezone is filled from
+    the ZIP code and an empty secured_site means not secured.
+  rule_sources:
+  - DEMO lib/types.ts
+  - SHEET WA-17
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    Each row is checked and saved by the rules of REQ-ORG-0002, so a ZIP code in no Market or a Unit name
+    already used in its District is a row problem.
+  rule_sources:
+  - PRD §6 Uploads
+  rule_decisions:
+  - D-21
+- rule_id: R5
+  rule_statement: >-
+    Rows that repeat a Unit must agree on every Unit column, and a Department appears once per Unit; rows
+    that break this are row problems.
+  rule_sources:
+  - PRD §7 Agent Chat
+  - GRAPH one row per Department repeats the Unit columns
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    A Sector, Region, or District that a row names but the tree lacks is a row problem whose proposed
+    fix adds it through REQ-ORG-0008 when accepted.
+  rule_sources:
+  - SESSIONS Shift Creation
   rule_decisions: []
 requirement_sources:
-- SESSIONS Bulk cost center upload
-requirement_decisions: []
+- SESSIONS Shift Creation
+- SHEET PLT-2
+requirement_decisions:
+- D-21
 requirement_features:
 - PLT-2
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0002
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
   requirement_id: REQ-INTAKE-0002
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AGENT-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - OrgNode.*
+  - MarketZip.zip
+  - MarketZip.market_id
+  - CostCenter.code
+  writes:
+  - OrgNode.*
+  - Unit.*
+  - Department.*
+  - CostCenter.*
   detail: null
-  migration_entities:
-  - OrgNode
-  - Unit
-  - Department
-  - Upload
 requirement_starting_flow: false
 requirement_review:
   status: draft

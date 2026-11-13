@@ -5,10 +5,18 @@ requirement_phase: P3
 requirement_title: Carry do-not-return lists from internal staff systems
 requirement_statement: >-
   Former Compass employees removed from a Unit cannot come back there as Agency Workers.
-requirement_actors: []
-requirement_rules: []
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    A person on a Unit's do-not-return list in Compass's internal staff systems cannot be assigned to
+    that Unit's Shifts as an Agency Worker.
+  rule_sources:
+  - SHEET PLT-13
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET PLT-13
 requirement_decisions: []
 requirement_features:
 - PLT-13
@@ -17,15 +25,16 @@ edges:
   requirement_id: REQ-INTEGRATIONS-0007
 - edge_type: DEPENDS_ON
   requirement_id: REQ-WORKFORCE-0007
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0005
 data_model:
-  status: not_applicable
+  status: pending
   reads: []
   writes: []
-  detail: null
-  migration_entities: []
+  detail: Designed when Phase 3 is scoped.
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

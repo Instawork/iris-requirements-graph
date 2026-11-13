@@ -4,11 +4,59 @@ requirement_target_module: REPORTING
 requirement_phase: MVP
 requirement_title: Show labor cost as a percentage of sales
 requirement_statement: >-
-  For each Unit and period, Iris shows labor spend in Iris divided by revenue.
-requirement_actors: []
-requirement_rules: []
+  For a Unit or a group of Units and a period, Iris shows agency labor spend as a percentage of revenue.
+  It uses only the dates that have revenue.
+requirement_actors:
+- UNIT_USER
+- PROGRAM_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    LABOR_PCT_OF_SALES is SPEND divided by revenue, times 100, over the Unit's work dates in the period
+    that have revenue above zero.
+  rule_sources:
+  - SHEET REP-3
+  - GRAPH labor cost against sales, pending a decision
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    A date with no Sales Record, or with empty or zero revenue, is left out of both the spend and the
+    revenue.
+  rule_sources:
+  - GRAPH labor cost against sales, pending a decision
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    For several Units, the measure divides their total included spend by their total included revenue.
+  rule_sources:
+  - SHEET REP-3
+  - GRAPH labor cost against sales, pending a decision
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    When no date in the period has revenue, the measure shows as not available, never as zero.
+  rule_sources:
+  - GRAPH labor cost against sales, pending a decision
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    Labor cost here is Spend under REQ-REPORTING-0001, the agency labor held in Iris, and excludes Compass's
+    own employees.
+  rule_sources:
+  - SHEET REP-3
+  - FAQ
+  - GRAPH labor cost against sales, pending a decision
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    A Unit User sees the measure for the Units in their scope, and a Program User for any Unit.
+  rule_sources:
+  - SHEET REP-3
+  - SHEET PLT-1
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET REP-3
+- SHEET 6.1
 requirement_decisions: []
 requirement_features:
 - REP-3
@@ -17,12 +65,16 @@ edges:
   requirement_id: REQ-REPORTING-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-REPORTING-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
-  status: not_applicable
-  reads: []
+  status: covered
+  reads:
+  - SalesRecord.unit_id
+  - SalesRecord.date
+  - SalesRecord.revenue
   writes: []
-  detail: null
-  migration_entities: []
+  detail: Computed on demand; nothing is stored.
 requirement_starting_flow: false
 requirement_review:
   status: draft

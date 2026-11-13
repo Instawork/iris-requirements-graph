@@ -4,30 +4,96 @@ requirement_target_module: REPORTING
 requirement_phase: MVP
 requirement_title: Show an Event's projected and actual cost the next morning
 requirement_statement: >-
-  For each Event, Iris shows projected cost from booking beside actual cost from Timesheets, available
-  the next morning.
-requirement_actors: []
+  For each Event, Iris shows the cost projected from its Releases beside the actual cost. Both are ready
+  as soon as the Event's Shifts end, so a Unit knows the next morning what the Event cost.
+requirement_actors:
+- UNIT_USER
+- PROGRAM_USER
 requirement_rules:
 - rule_id: R1
-  rule_statement: Hours submitted but not yet approved show as pending spend.
-  rule_sources: []
+  rule_statement: An Event's cost covers every Shift that names it as its Event.
+  rule_sources:
+  - SHEET REP-2
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    Projected cost is the sum, over the Event's PENDING and ACCEPTED Releases, of headcount times scheduled
+    minutes times the regular Bill Rate, divided by 60, rounded half up per Release.
+  rule_sources:
+  - SHEET REP-2
+  - GRAPH Event projected cost, pending a decision
+  rule_decisions:
+  - D-17
+- rule_id: R3
+  rule_statement: >-
+    Scheduled minutes are the Shift's end minus its start minus its planned break, and projected cost
+    includes no tips and no Expenses.
+  rule_sources:
+  - GRAPH Event projected cost, pending a decision
+  rule_decisions:
+  - D-29
+- rule_id: R4
+  rule_statement: >-
+    Actual cost is the Event's SPEND under REQ-REPORTING-0001, shown as APPROVED_SPEND and PENDING_SPEND.
+  rule_sources:
+  - SHEET REP-2
+  - PRD §1 Detailed requirements
+  rule_decisions:
+  - D-29
+- rule_id: R5
+  rule_statement: >-
+    Both costs are computed from current records when viewed, so actual cost is complete once the Event's
+    last Shift ends, before any Timesheet is entered.
+  rule_sources:
+  - SHEET REP-2
+  rule_decisions:
+  - D-29
+- rule_id: R6
+  rule_statement: >-
+    Iris shows projected cost, actual cost, and the difference between them.
+  rule_sources:
+  - SHEET REP-2
+  rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    A Unit User sees Events at the Units in their scope, and a Program User sees every Event.
+  rule_sources:
+  - SHEET REP-2
+  - SHEET PLT-1
   rule_decisions: []
 requirement_sources:
-- SHEET
-requirement_decisions: []
+- SHEET REP-2
+- SHEET 6.1
+requirement_decisions:
+- D-29
 requirement_features:
 - REP-2
 edges:
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-REPORTING-0001
+- edge_type: DEPENDS_ON
   requirement_id: REQ-ORDERING-0011
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-REPORTING-0001
+  requirement_id: REQ-DISPATCH-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-DISPATCH-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
-  status: not_applicable
-  reads: []
+  status: covered
+  reads:
+  - Event.unit_id
+  - Event.name
+  - Shift.event_id
+  - Shift.starts_at
+  - Shift.ends_at
+  - Shift.break_minutes
+  - Release.shift_id
+  - Release.headcount
+  - Release.status
+  - Release.regular_bill_rate
   writes: []
-  detail: null
-  migration_entities: []
+  detail: Computed on demand; nothing is stored.
 requirement_starting_flow: false
 requirement_review:
   status: draft

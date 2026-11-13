@@ -4,40 +4,76 @@ requirement_target_module: RATES
 requirement_phase: MVP
 requirement_title: Hold each Agency's Rate Card
 requirement_statement: >-
-  A Rate Card is an Agency's set of Rate Lines. Each Rate Line prices one Position in one Market for regular,
-  overtime, and double-time hours.
-requirement_actors: []
+  A Rate Card is one Agency's set of Rate Lines. Each Rate Line prices one Position in one Market, or
+  at one Unit, with Pay and Bill Rates for regular, overtime, and double-time hours.
+requirement_actors:
+- SYSTEM
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    For each hour type, a Rate Line holds a Pay Rate and a Bill Rate, and shows the markup as a percentage
-    of the Pay Rate.
-  rule_sources: []
-  rule_decisions: []
+    A Rate Line names one Agency, one active Position, and exactly one of a Market or a Unit.
+  rule_sources:
+  - SHEET RC-3
+  - SHEET RC-6
+  rule_decisions:
+  - D-1
+  - D-21
 - rule_id: R2
-  rule_statement: The Bill Rate is at least the Pay Rate for every hour type.
-  rule_sources: []
-  rule_decisions: []
-- rule_id: R3
   rule_statement: >-
-    Overtime rates are at least the regular rates, and double-time rates are at least the overtime rates.
-  rule_sources: []
+    A Rate Line holds a Pay Rate and a Bill Rate for each of regular, overtime, and double-time hours,
+    each greater than zero and to the cent.
+  rule_sources:
+  - PRD §3 Supplier Rates
+  - PRD Key Terms
+  rule_decisions:
+  - D-11
+- rule_id: R3
+  rule_statement: Each Bill Rate is at least the Pay Rate for the same class of hours.
+  rule_sources:
+  - PRD §7 Agent Chat
   rule_decisions: []
 - rule_id: R4
   rule_statement: >-
-    An Agency has at most one live Rate Line per Position and Market, or per Position and Unit for Unit
-    rates.
-  rule_sources: []
+    Overtime rates are at least the regular rates and double-time rates at least the overtime rates, for
+    Pay Rates and for Bill Rates.
+  rule_sources:
+  - PRD §7 Agent Chat
   rule_decisions: []
 - rule_id: R5
   rule_statement: >-
-    A Rate Line has an effective date, and work is priced with the line in effect on the work date.
-  rule_sources: []
+    A Rate Line has an effective_from date and prices no work dated before it.
+  rule_sources:
+  - DEMO lib/types.ts
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    Markup is never entered or stored; it is the Bill Rate minus the Pay Rate, divided by the Pay Rate,
+    shown as a percentage (C-14).
+  rule_sources:
+  - FEEDBACK
+  rule_decisions:
+  - D-11
+- rule_id: R7
+  rule_statement: >-
+    A line that fails any of these checks is not saved, and the submitter is told which check failed.
+  rule_sources:
+  - PRD §7 Agent Chat
+  rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    A Unit User sees Bill Rates only, never Pay Rates or Markup, and only on APPROVED lines.
+  rule_sources:
+  - PRD §3 Supplier Rates
+  rule_decisions: []
+- rule_id: R9
+  rule_statement: >-
+    Pay Rates and Markup are shown only to Program Users and to Users of the Agency that owns the line.
+  rule_sources:
+  - PRD §3 Supplier Rates
   rule_decisions: []
 requirement_sources:
-- SHEET
-- PRD §3 Supplier rates
-- PRD §7 Rate card checks
+- SHEET RC-3
+- PRD §3 Supplier Rates
 - FEEDBACK
 requirement_decisions:
 - D-11
@@ -50,13 +86,18 @@ edges:
   requirement_id: REQ-CATALOG-0002
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AGENCIES-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
   status: covered
-  reads: []
+  reads:
+  - RateLine.*
+  - Position.active
+  - Agency.name
+  - Market.name
   writes: []
-  detail: null
-  migration_entities:
-  - RateLine
+  detail: >-
+    Holds the checks every Rate Line must pass and who may see which rate. Lines are saved by REQ-RATES-0009.
 requirement_starting_flow: false
 requirement_review:
   status: draft

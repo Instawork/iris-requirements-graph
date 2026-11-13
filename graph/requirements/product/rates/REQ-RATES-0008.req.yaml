@@ -4,55 +4,124 @@ requirement_target_module: RATES
 requirement_phase: MVP
 requirement_title: Ask an Agency to review a rate above its peers
 requirement_statement: >-
-  When an Agency's Bill Rate is above the Peer Rate by more than the threshold, Iris flags it, and a Program
-  User can ask the Agency to lower or justify it.
-requirement_actors: []
+  Iris flags a regular Bill Rate that is above the Peer Rate by the threshold or more. A Program User
+  can then ask the Agency to lower the rate or justify it.
+requirement_actors:
+- PROGRAM_USER
+- AGENCY_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    The Peer Rate is the average regular Bill Rate other Agencies hold for the same Position and Market.
-  rule_sources: []
-  rule_decisions: []
+    The Peer Rate of a Market Rate Line is the simple average of the regular Bill Rates on other Agencies'
+    APPROVED lines in effect today for the same Position and Market.
+  rule_sources:
+  - SHEET RC-12
+  rule_decisions:
+  - D-12
 - rule_id: R2
-  rule_statement: The threshold is a Setting, 15% by default.
+  rule_statement: >-
+    A line with no other Agency's line to compare with has no Peer Rate, and a Unit Rate Line has none.
   rule_sources: []
-  rule_decisions: []
+  rule_decisions:
+  - D-12
 - rule_id: R3
   rule_statement: >-
-    The Agency answers by proposing a lower rate or by giving a reason to keep it.
-  rule_sources: []
-  rule_decisions: []
+    A line in effect today is flagged when its regular Bill Rate is above the Peer Rate by PEER_RATE_THRESHOLD_PCT
+    percent or more, a program-wide Setting of 15 by default.
+  rule_sources:
+  - SHEET RC-12
+  rule_decisions:
+  - D-16
 - rule_id: R4
   rule_statement: >-
-    A Rate Review is Requested, then Lowered or Kept, and each step is recorded.
-  rule_sources: []
+    The same comparison is made for any regular Bill Rate, Agency, Position, and Market, so the rate on
+    a Shift can be flagged as above peers when it is sent.
+  rule_sources:
+  - SHEET 1.4
+  rule_decisions:
+  - D-2
+  - D-12
+- rule_id: R5
+  rule_statement: >-
+    The Peer Rate is shown beside each line to Program Users and is never shown to Agency Users (C-15).
+  rule_sources:
+  - FEEDBACK
+  - PRD §3 Supplier Rates
+  rule_decisions:
+  - D-12
+- rule_id: R6
+  rule_statement: >-
+    Only a Program User sends a Rate Review, on a flagged line with no REQUESTED review; it is saved as
+    REQUESTED with the Peer Rate at that moment.
+  rule_sources:
+  - SHEET RC-12
+  - SESSIONS Invoicing & Accruals
+  rule_decisions:
+  - D-2
+- rule_id: R7
+  rule_statement: >-
+    RATE_REVIEW_REQUESTED is sent to every active Agency User of the line's Agency.
+  rule_sources:
+  - SHEET RC-12
+  rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    An Agency User of that Agency answers a REQUESTED review with a reason to keep the rate, or with a
+    new line for the same Position and Market at a lower regular Bill Rate.
+  rule_sources:
+  - SHEET RC-12
+  rule_decisions: []
+- rule_id: R9
+  rule_statement: >-
+    A reason sets the review to KEPT and records the answer, who gave it, and when.
+  rule_sources:
+  - SHEET RC-12
+  rule_decisions: []
+- rule_id: R10
+  rule_statement: >-
+    A lower line is submitted through REQ-RATES-0009 and linked to the review, which becomes LOWERED when
+    that line is APPROVED and stays REQUESTED if it is SENT_BACK.
+  rule_sources:
+  - SHEET RC-12
+  rule_decisions:
+  - D-10
+- rule_id: R11
+  rule_statement: >-
+    RATE_REVIEW_ANSWERED is sent to the User who requested the review when the Agency gives its reason
+    or submits its lower line.
+  rule_sources:
+  - SHEET RC-12
   rule_decisions: []
 requirement_sources:
-- SHEET
-- SESSIONS Ask agency to review its rates
+- SHEET RC-12
+- SESSIONS Invoicing & Accruals
 requirement_decisions:
 - D-2
 - D-12
+- D-16
 requirement_features:
 - RC-12
 edges:
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-RATES-0001
-- edge_type: DEPENDS_ON
   requirement_id: REQ-RATES-0009
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0006
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 - edge_type: DEPENDS_ON
   requirement_id: REQ-MESSAGING-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - RateLine.*
+  - RateReview.*
+  - RoleGrant.*
+  - User.active
+  writes:
+  - RateReview.*
   detail: null
-  migration_entities:
-  - RateReview
 requirement_starting_flow: false
 requirement_review:
   status: draft

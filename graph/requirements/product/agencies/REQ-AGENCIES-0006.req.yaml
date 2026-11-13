@@ -3,35 +3,41 @@ requirement_target_layer: product
 requirement_target_module: AGENCIES
 requirement_phase: P3
 requirement_title: Score Agencies against their SLAs
-requirement_statement: >-
-  Each Agency gets a scorecard of time to fill, fill rate, no-show rate, Worker ratings, and invoice accuracy,
-  measured against its SLA targets.
-requirement_actors: []
+requirement_statement: Each Agency gets a scorecard measured against its SLA targets.
+requirement_actors:
+- PROGRAM_USER
+- AGENCY_USER
 requirement_rules:
 - rule_id: R1
-  rule_statement: The targets are to be set with Foodbuy.
-  rule_sources: []
+  rule_statement: >-
+    A scorecard shows an Agency's time to fill, fill rate, no-show rate, Worker ratings, and invoice accuracy
+    against its SLA; the metrics and targets are to be defined with Foodbuy.
+  rule_sources:
+  - SHEET RC-16
   rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET RC-16
 requirement_decisions: []
 requirement_features:
 - RC-16
 edges:
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-REPORTING-0002
+  requirement_id: REQ-AGENCIES-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
   status: pending
   reads: []
   writes: []
-  detail: Designed when Phase 3 is scoped.
-  migration_entities: []
+  detail: >-
+    Designed when Phase 3 is scoped, including its edges to the REPORTING metrics it will read.
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
-  notes: null
+  notes: >-
+    Phase 3. Grounded only in its sheet line; rules are written when Phase 3 is scoped.
 requirement_delivery:
   status: not_started
   pull_requests: []

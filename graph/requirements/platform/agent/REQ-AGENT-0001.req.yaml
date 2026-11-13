@@ -4,29 +4,62 @@ requirement_target_module: AGENT
 requirement_phase: MVP
 requirement_title: Interpret with the LLM, compute with code
 requirement_statement: >-
-  The LLM reads typed requests and messy columns and writes summaries. Code does every validation, every
-  match, and all money and hours math.
-requirement_actors: []
+  The LLM reads typed requests, messy column names, and text in files, and writes summaries and explanations.
+  Code does every validation check, every match, and all money and hours math. The one exception is the
+  AI check of credential documents.
+requirement_actors:
+- SYSTEM
 requirement_rules:
 - rule_id: R1
-  rule_statement: The same input and the same answers always give the same result.
-  rule_sources: []
+  rule_statement: >-
+    The LLM is used only to read typed requests, column names, and text in files and messages, and to
+    write summaries, questions, and explanations.
+  rule_sources:
+  - PRD §7 What the LLM does and what code does
+  - SHEET TS-5
   rule_decisions: []
 - rule_id: R2
-  rule_statement: The LLM never writes records; it only produces Proposals.
-  rule_sources: []
+  rule_statement: >-
+    Every validation check, every match to a stored record, and all money and hours math is done by code,
+    never by the LLM.
+  rule_sources:
+  - PRD §7 What the LLM does and what code does
   rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    Given the same values read from a file or request and the same user decisions, code returns the same
+    checks, matches, and amounts every time.
+  rule_sources:
+  - PRD §7 What the LLM does and what code does
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    LLM output never changes a record directly: it becomes values in a Proposal, a question, or an answer
+    to the user.
+  rule_sources:
+  - PRD §7 What the LLM does and what code does
+  - PRD §7 When the agent is unsure
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    Credential document checks are the exception: an AI model reads each document and judges its expiry,
+    issuer, and signs of editing, and that result is saved without a Proposal.
+  rule_sources:
+  - SHEET WA-15
+  rule_decisions:
+  - D-3
 requirement_sources:
 - PRD §7 What the LLM does and what code does
-requirement_decisions: []
+- SHEET WA-15
+requirement_decisions:
+- D-3
 requirement_features: []
 edges: []
 data_model:
   status: not_applicable
   reads: []
   writes: []
-  detail: null
-  migration_entities: []
+  detail: A rule set that every AI-assisted flow follows; it stores nothing.
 requirement_starting_flow: false
 requirement_review:
   status: draft

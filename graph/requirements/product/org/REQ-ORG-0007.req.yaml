@@ -2,38 +2,38 @@ requirement_id: REQ-ORG-0007
 requirement_target_layer: product
 requirement_target_module: ORG
 requirement_phase: P3
-requirement_title: Configure fields, labels, and views without a vendor ticket
+requirement_title: Configure fields, labels, and views without a ticket
 requirement_statement: >-
-  A Program User adds custom fields, renames labels, and saves views for the program without asking Instawork.
-requirement_actors: []
+  Compass changes fields, labels, and views in Iris itself, with no ticket to Instawork.
+requirement_actors:
+- PROGRAM_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    A custom field belongs to one record type, such as Request or Worker, and has a name and a value type.
-  rule_sources: []
-  rule_decisions: []
-- rule_id: R2
-  rule_statement: Renaming a label changes what users see, not the stored data.
-  rule_sources: []
+    A Program User adds custom fields, renames labels, and saves views without a request to Instawork.
+  rule_sources:
+  - SHEET PLT-10
   rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET PLT-10
 requirement_decisions: []
 requirement_features:
 - PLT-10
-edges: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
   status: pending
   reads: []
   writes: []
   detail: Designed when Phase 3 is scoped.
-  migration_entities: []
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
-  notes: null
+  notes: >-
+    Phase 3. Grounded only in its sheet line; rules are written when Phase 3 is scoped.
 requirement_delivery:
   status: not_started
   pull_requests: []

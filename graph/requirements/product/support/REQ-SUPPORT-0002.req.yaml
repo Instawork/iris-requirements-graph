@@ -4,23 +4,35 @@ requirement_target_module: SUPPORT
 requirement_phase: P2
 requirement_title: Collect feedback and enhancement requests in the app
 requirement_statement: Users send feedback and enhancement requests from inside the app.
-requirement_actors: []
-requirement_rules: []
+requirement_actors:
+- PROGRAM_USER
+- UNIT_USER
+- AGENCY_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    A signed-in User sends feedback or an enhancement request without leaving the app.
+  rule_sources:
+  - SHEET PLT-15
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET PLT-15
+- SHEET 7.4
 requirement_decisions: []
 requirement_features:
 - PLT-15
-edges: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
   status: pending
   reads: []
   writes: []
-  detail: Designed when Phase 2 is scoped.
-  migration_entities: []
+  detail: >-
+    No feedback record is modeled. Who receives and triages requests is not defined.
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

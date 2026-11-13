@@ -4,33 +4,76 @@ requirement_target_module: WORKFORCE
 requirement_phase: MVP
 requirement_title: Report a Worker issue to the Agency
 requirement_statement: >-
-  A Unit User reports an issue with a Worker, such as conduct, safety, quality, or a no-show. The Agency
-  receives it and tracks it to resolution.
-requirement_actors: []
+  A Unit User reports an issue with a Worker, such as conduct, safety, quality, or a no-show. The Worker's
+  Agency receives it and resolves it with a note the Unit can see.
+requirement_actors:
+- UNIT_USER
+- AGENCY_USER
 requirement_rules:
 - rule_id: R1
-  rule_statement: An issue stays Open until the Agency resolves it with a note.
-  rule_sources: []
+  rule_statement: >-
+    A Unit User over a Unit may report an issue on a Worker there, with a category of CONDUCT, SAFETY,
+    QUALITY, or NO_SHOW, a description, and optionally a Shift of that Unit.
+  rule_sources:
+  - SHEET WA-4
   rule_decisions: []
 - rule_id: R2
-  rule_statement: The Unit sees the Agency's response and the resolution.
-  rule_sources: []
+  rule_statement: >-
+    A new issue has status OPEN and reported_by, and WORKER_ISSUE_REPORTED is sent to the active Agency
+    Users of the Worker's Agency.
+  rule_sources:
+  - SHEET WA-4
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    An Agency User of the Worker's Agency may resolve an OPEN issue with a resolution note, which sets
+    status RESOLVED, resolved_by, and resolved_at.
+  rule_sources:
+  - SHEET WA-4
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    Resolving an issue sends WORKER_ISSUE_RESOLVED to the User who reported it.
+  rule_sources:
+  - SHEET WA-4
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    Unit Users over the Unit and Agency Users of the Worker's Agency see the issue, its status, and its
+    resolution.
+  rule_sources:
+  - SHEET WA-4
   rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET WA-4
 requirement_decisions: []
 requirement_features:
 - WA-4
 edges:
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0005
+- edge_type: DEPENDS_ON
   requirement_id: REQ-MESSAGING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - Worker.agency_id
+  - Request.unit_id
+  - Shift.request_id
+  - RoleGrant.role
+  - RoleGrant.agency_id
+  - RoleGrant.revoked_at
+  writes:
+  - WorkerIssue.*
   detail: null
-  migration_entities:
-  - WorkerIssue
 requirement_starting_flow: false
 requirement_review:
   status: draft

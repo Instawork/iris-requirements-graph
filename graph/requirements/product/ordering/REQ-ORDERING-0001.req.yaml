@@ -4,64 +4,143 @@ requirement_target_module: ORDERING
 requirement_phase: MVP
 requirement_title: Create a Request with one or more Shifts
 requirement_statement: >-
-  A Unit User creates a Request for one Unit. A Request holds one or more Shifts, and each Shift is one
-  Position at one time.
-requirement_actors: []
+  A Unit User creates a Request for one Unit with one or more Shift lines. Each line becomes a Shift:
+  one Position, from a start time to an end time, for a headcount.
+requirement_actors:
+- UNIT_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Each Shift has a Position, a date, a start time, an end time, a headcount, an optional planned break,
-    and an optional Department.
-  rule_sources: []
+    A Unit User may create a Request for one Unit, with one or more Shift lines, each for one Position.
+  rule_sources:
+  - SHEET SC-2
+  - PRD §2 Shifts
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    A Shift whose end time is earlier than its start time ends on the next day.
-  rule_sources: []
+    Each line states a Position, a date, a start time, an end time, and a headcount, and may state a planned
+    unpaid break in minutes and a Department.
+  rule_sources:
+  - PRD §2 Shifts
+  - FEEDBACK
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    The Position must be in the catalog, and the Unit must be inside the user's scope.
-  rule_sources: []
-  rule_decisions: []
+    Each line becomes one Shift with status OPEN and a line_no that numbers the Request's lines from 1.
+  rule_sources:
+  - PRD §2 Shift statuses
+  rule_decisions:
+  - D-20
 - rule_id: R4
-  rule_statement: Headcount is at least 1, and a Shift cannot start in the past.
-  rule_sources: []
+  rule_statement: >-
+    The date and times of a line are read in the Unit's timezone and saved as starts_at and ends_at.
+  rule_sources:
+  - SESSIONS Shift Creation
+  - >-
+    GRAPH data-model convention: a date or time at a Unit is in its timezone
   rule_decisions: []
 - rule_id: R5
   rule_statement: >-
-    A Shift is charged to its Department's Cost Center, or to the Unit's when it has no Department.
-  rule_sources: []
+    A Shift must end after it starts; an end time earlier than the start time is offered as ending the
+    next day and saved only after the User confirms that.
+  rule_sources:
+  - PRD §7 What the agent checks
+  - PRD §7 File attached
   rule_decisions: []
 - rule_id: R6
-  rule_statement: Nothing reaches an Agency until the user sends the Request.
+  rule_statement: A new Shift must end in the future.
   rule_sources: []
+  rule_decisions:
+  - D-18
+- rule_id: R7
+  rule_statement: Headcount is a whole number of at least 1.
+  rule_sources:
+  - PRD §2 Shifts
   rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    The Position must be active in the Position catalog, and a Department, when given, must be an active
+    Department of the same Unit.
+  rule_sources:
+  - PRD §7 What the agent checks
+  - FEEDBACK
+  - SHEET PLT-2
+  rule_decisions: []
+- rule_id: R9
+  rule_statement: >-
+    A new Shift's parking, entrance, directions, site_contact, and attire start as the Unit's defaults
+    unless the Unit User enters other values.
+  rule_sources:
+  - SHEET SC-6
+  - SHEET SC-11
+  rule_decisions: []
+- rule_id: R10
+  rule_statement: >-
+    A Request starts in Iris and records its Unit, the User who created it, and created_via, the Channel
+    it came through.
+  rule_sources:
+  - SHEET Decisions & Inputs
+  rule_decisions:
+  - D-6
+- rule_id: R11
+  rule_statement: >-
+    Creating a Request sends nothing to any Agency; a Shift reaches an Agency only through a Release.
+  rule_sources:
+  - SHEET SC-7
+  rule_decisions:
+  - D-17
 requirement_sources:
-- SHEET
+- SHEET SC-2
 - PRD §2 Shifts
-- PRD Data model
-requirement_decisions: []
+- PRD Data Model
+requirement_decisions:
+- D-6
+- D-18
 requirement_features:
 - SC-2
 edges:
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-ORG-0001
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-ORG-0005
+  requirement_id: REQ-ORG-0002
 - edge_type: DEPENDS_ON
   requirement_id: REQ-CATALOG-0001
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-ORDERING-0008
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - Unit.timezone
+  - Unit.default_parking
+  - Unit.default_entrance
+  - Unit.default_directions
+  - Unit.default_site_contact
+  - Unit.default_attire
+  - Department.unit_id
+  - Department.active
+  - Position.active
+  writes:
+  - Request.unit_id
+  - Request.created_by
+  - Request.created_via
+  - Request.template_id
+  - Request.is_block
+  - Shift.request_id
+  - Shift.line_no
+  - Shift.position_id
+  - Shift.department_id
+  - Shift.starts_at
+  - Shift.ends_at
+  - Shift.break_minutes
+  - Shift.headcount
+  - Shift.status
+  - Shift.parking
+  - Shift.entrance
+  - Shift.directions
+  - Shift.site_contact
+  - Shift.attire
   detail: null
-  migration_entities:
-  - Request
-  - Shift
-requirement_starting_flow: true
+requirement_starting_flow: false
 requirement_review:
   status: draft
   by: null

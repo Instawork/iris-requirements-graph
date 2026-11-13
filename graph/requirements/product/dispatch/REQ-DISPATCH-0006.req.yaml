@@ -5,10 +5,18 @@ requirement_phase: P3
 requirement_title: Offer Shifts to the internal labor pool first
 requirement_statement: >-
   Open Shifts go to Compass's internal labor pool first, and to Agencies after a set time.
-requirement_actors: []
-requirement_rules: []
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    A Shift is offered to Compass's internal labor pool first and is released to Agencies only after a
+    set time has passed.
+  rule_sources:
+  - SHEET PLT-12
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET PLT-12
 requirement_decisions:
 - D-6
 requirement_features:
@@ -23,10 +31,9 @@ data_model:
   reads: []
   writes: []
   detail: Designed when Phase 3 is scoped.
-  migration_entities: []
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

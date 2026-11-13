@@ -2,41 +2,56 @@ requirement_id: REQ-ORDERING-0002
 requirement_target_layer: product
 requirement_target_module: ORDERING
 requirement_phase: MVP
-requirement_title: Price each Shift from the contracted rate while booking
+requirement_title: Show the contracted rate for each Shift line while booking
 requirement_statement: >-
-  While booking, the user sees each Shift priced at the contracted Bill Rate of the Agency it goes to,
-  and the estimated cost, before sending.
-requirement_actors: []
+  While booking, a Unit User sees the contracted Bill Rate of each Agency a Shift line could go to, before
+  anything is sent. The rates a Release is sent at are saved on the Release, not on the Shift.
+requirement_actors:
+- UNIT_USER
 requirement_rules:
 - rule_id: R1
-  rule_statement: The Shift stores the Bill Rate it was booked at.
-  rule_sources: []
+  rule_statement: >-
+    For each Shift line, the Unit User sees every active Agency approved for the Unit with its contracted
+    regular Bill Rate for the line's Position, Unit, and work date, as REQ-RATES-0005 finds it.
+  rule_sources:
+  - SHEET SC-1
+  - PRD §2 Shifts
+  - SESSIONS Shift Creation
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    The estimate is headcount times scheduled hours, less any planned break, times the Bill Rate.
-  rule_sources: []
+    An active Agency with no approval covering the Unit can still be picked and is marked non-contracted,
+    and an Agency with no contracted rate for the line shows no rate.
+  rule_sources:
+  - SHEET RC-11
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    A Unit User may change the Bill Rate only with a reason, and the change is flagged as rate variance.
-  rule_sources: []
+    When an Agency is picked for a line, its contracted regular Bill Rate is filled in as the rate the
+    Release will be sent at.
+  rule_sources:
+  - SHEET SC-1
   rule_decisions: []
 - rule_id: R4
   rule_statement: >-
-    When the Agency has no Rate Line for the Shift, the off-contract gate applies.
-  rule_sources: []
+    Before sending, the line shows what REQ-RATES-0007 requires for the picked Agency and Bill Rate: nothing,
+    a reason, or that the send is refused.
+  rule_sources:
+  - SHEET RC-11
   rule_decisions: []
 - rule_id: R5
   rule_statement: >-
-    The Shift is checked against the labor rules for its Unit's state and city.
-  rule_sources: []
-  rule_decisions: []
+    Pricing a line saves no rate on the Shift; Bill Rates are saved only on a Release when it is sent.
+  rule_sources:
+  - PRD Data Model
+  rule_decisions:
+  - D-17
 requirement_sources:
-- SHEET
+- SHEET SC-1
 - PRD §2 Shifts
-- SESSIONS Shift creation
-requirement_decisions: []
+- SESSIONS Shift Creation
+requirement_decisions:
+- D-17
 requirement_features:
 - SC-1
 edges:
@@ -45,18 +60,25 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-RATES-0005
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-RATES-0006
-- edge_type: DEPENDS_ON
   requirement_id: REQ-RATES-0007
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-LABOR-0002
+  requirement_id: REQ-AGENCIES-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
   status: covered
-  reads: []
+  reads:
+  - Request.unit_id
+  - Shift.position_id
+  - Shift.starts_at
+  - Agency.name
+  - Agency.active
+  - AgencyApproval.agency_id
+  - AgencyApproval.org_node_id
+  - AgencyApproval.removed_at
+  - RateLine.regular_bill_rate
   writes: []
   detail: null
-  migration_entities:
-  - Shift
 requirement_starting_flow: false
 requirement_review:
   status: draft

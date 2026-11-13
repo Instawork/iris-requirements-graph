@@ -4,39 +4,93 @@ requirement_target_module: ORDERING
 requirement_phase: MVP
 requirement_title: Save Request templates and Unit defaults
 requirement_statement: >-
-  A Unit User saves Request templates, such as a game-day package of 5 bartenders and 4 concessions workers,
-  and sets defaults that prefill new Requests.
-requirement_actors: []
+  A Unit User saves Request templates, such as a game-day package of 5 bartenders and 4 concessions workers.
+  They also set Unit defaults that prefill new Requests.
+requirement_actors:
+- UNIT_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    A template holds Shift lines with Position, headcount, times, and Department, and can be applied to
-    any date.
-  rule_sources: []
+    A Unit User over a Unit may create, change, and delete its Request templates, each with a name that
+    is unique within the Unit.
+  rule_sources:
+  - SHEET SC-11
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    Unit defaults cover site instructions and which Department each Position is charged to.
-  rule_sources: []
+    A template line holds an active Position, a headcount of at least 1, a start time, and an end time,
+    and may hold a Department of the Unit and a planned break.
+  rule_sources:
+  - SHEET SC-11
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    A template line whose end time is before its start time is saved only after the User confirms that
+    it ends the next day.
+  rule_sources:
+  - PRD §7 What the agent checks
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    Applying a template to a date fills a new Request with one Shift line per template line, and the Unit
+    User may change any line before creating it.
+  rule_sources:
+  - SHEET SC-11
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    A Request made from a template is created through REQ-ORDERING-0001 and records template_id.
+  rule_sources:
+  - SHEET SC-11
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    A Unit User over a Unit may set one default Department for each Position there, and a new Shift line
+    for that Position is prefilled with it.
+  rule_sources:
+  - SHEET SC-11
+  - FEEDBACK
+  rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    A Unit User over a Unit may set its default parking, entrance, directions, site contact, and attire,
+    which are saved on the Unit through REQ-ORG-0002.
+  rule_sources:
+  - SHEET SC-11
+  - SHEET SC-6
   rule_decisions: []
 requirement_sources:
-- SHEET
-- DEMO
+- SHEET SC-11
 requirement_decisions: []
 requirement_features:
 - SC-11
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORDERING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-CATALOG-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - Position.active
+  - Department.unit_id
+  - Department.active
+  - Unit.default_parking
+  - Unit.default_entrance
+  - Unit.default_directions
+  - Unit.default_site_contact
+  - Unit.default_attire
+  writes:
+  - RequestTemplate.*
+  - RequestTemplateLine.*
+  - UnitPositionDefault.*
   detail: null
-  migration_entities:
-  - RequestTemplate
-  - Unit
-  - Department
 requirement_starting_flow: false
 requirement_review:
   status: draft

@@ -4,48 +4,101 @@ requirement_target_module: WORKFORCE
 requirement_phase: MVP
 requirement_title: Hold each Agency's Worker roster
 requirement_statement: >-
-  Each Agency keeps its Workers in Iris. In MVP a Worker belongs to one Agency, so one person at two Agencies
-  is two Workers.
-requirement_actors: []
+  Each Agency keeps its Workers in Iris, added one at a time or from a WORKERS file. A Worker belongs
+  to one Agency, so one person at two Agencies is two Workers.
+requirement_actors:
+- AGENCY_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    A Worker has a first name, last name, email, and phone, and optionally a city and the Positions they
-    work.
-  rule_sources: []
+    An Agency User may add Workers to their own Agency one at a time or from a WORKERS file, and created_via
+    records the Channel.
+  rule_sources:
+  - SHEET WA-1
+  - PRD §4 Professionals
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    An Agency User adds Workers one at a time, from a file, or from new names in a Timesheet file.
-  rule_sources: []
+    A Worker needs a first name and a last name; email, phone, city, Positions, and photo are optional.
+  rule_sources:
+  - PRD §6 Templates
+  - FEEDBACK
+  - GRAPH a paper sign-in sheet gives only names, pending a decision
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    Every new name is matched against existing Workers before anyone is created.
-  rule_sources: []
+    Email is stored lowercase and phone as digits only; within one Agency no two Workers share an email
+    or share a phone, and a save that would break this is refused.
+  rule_sources:
+  - PRD §4 How the system matches a professional
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    A Worker belongs to exactly one Agency, and the same person at two Agencies is two Workers.
+  rule_sources:
+  - PRD §4 How the system matches a professional
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    Each WORKERS row is matched under REQ-WORKFORCE-0002; a row that matches an existing Worker proposes
+    changes to that Worker, and only an unmatched row proposes a new one.
+  rule_sources:
+  - PRD §7 What the agent checks
+  - PRD §4 How the system matches a professional
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    A Worker named in a SHIFTS or Timesheet file who matches no Worker of the Agency is created here,
+    with at least a name, once the uploader approves.
+  rule_sources:
+  - PRD §4 Professionals
+  - FEEDBACK
+  rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    An Agency User may change the details of their Agency's Workers and set active to false or true; an
+    inactive Worker cannot be assigned.
+  rule_sources:
+  - SHEET WA-1
+  - GRAPH a roster needs edit and deactivate, pending a decision
+  rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    A Worker's Positions are informational and do not limit the Shifts the Worker can be assigned to.
+  rule_sources:
+  - PRD §6 Templates
   rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET WA-1
 - PRD §4 Professionals
-- PRD §6 Professional template
+- PRD §6 Templates
 requirement_decisions: []
 requirement_features:
 - WA-1
 edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCIES-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-CATALOG-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-WORKFORCE-0002
 - edge_type: DEPENDS_ON
   requirement_id: REQ-INTAKE-0002
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AGENT-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - Agency.active
+  - Position.name
+  writes:
+  - Worker.*
   detail: null
-  migration_entities:
-  - Worker
-requirement_starting_flow: true
+requirement_starting_flow: false
 requirement_review:
   status: draft
   by: null

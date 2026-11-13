@@ -4,44 +4,77 @@ requirement_target_module: AGENCIES
 requirement_phase: MVP
 requirement_title: Approve an Agency for part of the org
 requirement_statement: >-
-  A Program User approves an Agency at a Sector, Region, District, or Unit. Units under that scope may
-  send Requests to it.
-requirement_actors: []
+  A Program User approves an Agency at a Sector, Region, District, or Unit (C-10). Units at or beneath
+  that node can then send it Shifts as a contracted Agency.
+requirement_actors:
+- PROGRAM_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    An Agency without an approval covering a Unit is a non-contracted Agency for that Unit.
-  rule_sources: []
-  rule_decisions: []
+    Only a Program User adds or removes an approval, at a Sector, Region, District, or Unit node, and
+    each approval records who approved it and when.
+  rule_sources:
+  - SHEET RC-11
+  rule_decisions:
+  - D-9
 - rule_id: R2
-  rule_statement: Sending to a non-contracted Agency follows the off-contract gate.
+  rule_statement: >-
+    An approval covers a Unit when it has not been removed and sits at the Unit's node or one of its ancestors.
   rule_sources: []
-  rule_decisions: []
+  rule_decisions:
+  - D-9
 - rule_id: R3
   rule_statement: >-
-    Removing an approval stops new Releases to that Agency, and Shifts already released are unaffected.
+    An Agency with no approval covering a Unit is a non-contracted Agency for that Unit.
+  rule_sources:
+  - SHEET RC-11
+  rule_decisions:
+  - D-9
+- rule_id: R4
+  rule_statement: >-
+    An Agency has at most one unremoved approval per org node, and approving it there again is refused.
+  rule_sources:
+  - GRAPH one live approval per Agency and org node
+  rule_decisions:
+  - D-9
+- rule_id: R5
+  rule_statement: >-
+    Removing an approval records who removed it and when, makes the Agency non-contracted for the Units
+    it alone covered, and changes no Release already sent.
   rule_sources: []
-  rule_decisions: []
+  rule_decisions:
+  - D-9
+- rule_id: R6
+  rule_statement: >-
+    For an accepted AGENCIES file row, each org node named in approved_for becomes an approval of that
+    row's Agency; a name matching no single org node is a row problem.
+  rule_sources:
+  - FEEDBACK
+  rule_decisions:
+  - D-9
 requirement_sources:
 - SHEET RC-11
-- PRD §1 Who can do what
 requirement_decisions:
 - D-9
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENCIES-0001
+- edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0001
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-AGENCIES-0001
+  requirement_id: REQ-ORG-0009
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - Agency.*
+  - OrgNode.*
+  - AgencyApproval.*
+  writes:
+  - AgencyApproval.*
   detail: null
-  migration_entities:
-  - AgencyApproval
 requirement_starting_flow: false
 requirement_review:
   status: draft

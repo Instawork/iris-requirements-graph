@@ -4,12 +4,48 @@ requirement_target_module: INTAKE
 requirement_phase: MVP
 requirement_title: Provide a template for each upload type
 requirement_statement: >-
-  Each upload type has a downloadable CSV or Excel template, the same on the Uploads page and in the assistant.
-requirement_actors: []
-requirement_rules: []
+  Each upload type has a template whose columns come from the upload-types catalog, downloadable as CSV
+  or Excel. The template is the same on the Uploads page and in the assistant.
+requirement_actors:
+- PROGRAM_USER
+- UNIT_USER
+- AGENCY_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The template for an upload type has one header row holding that type's column names from the upload-types
+    catalog, in catalog order.
+  rule_sources:
+  - PRD §6 Templates
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    A template can be downloaded as CSV or as Excel, and a filled template is accepted in either format.
+  rule_sources:
+  - PRD §6 Templates
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    A User is offered templates only for the upload types whose uploaders in the catalog include the role
+    they are acting in, which the caller supplies.
+  rule_sources:
+  - PRD §6 Uploads
+  - GRAPH platform reads no product records, so the caller supplies them
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: The Uploads page and the assistant give the same template for a type.
+  rule_sources:
+  - PRD §7 How it connects
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    Rows added to a template use dates as YYYY-MM-DD, times like 4:00 PM, and money without a dollar sign.
+  rule_sources:
+  - PRD §6 Templates
+  rule_decisions: []
 requirement_sources:
 - PRD §6 Templates
-- PRD §7 Agent chat
+- PRD §7 How it connects
 requirement_decisions: []
 requirement_features: []
 edges: []
@@ -17,8 +53,8 @@ data_model:
   status: not_applicable
   reads: []
   writes: []
-  detail: null
-  migration_entities: []
+  detail: >-
+    Templates are generated from graph/catalogs/upload-types.yaml; nothing is stored.
 requirement_starting_flow: false
 requirement_review:
   status: draft

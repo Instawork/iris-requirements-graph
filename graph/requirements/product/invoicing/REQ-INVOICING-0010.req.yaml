@@ -2,14 +2,31 @@ requirement_id: REQ-INVOICING-0010
 requirement_target_layer: product
 requirement_target_module: INVOICING
 requirement_phase: P2
-requirement_title: Correct rates without re-entering Timesheets
+requirement_title: Correct rates and hours without re-entering Timesheets
 requirement_statement: >-
-  A rate correction reprices every affected line and shows the difference as an adjustment, without backing
-  out and re-entering Timesheets.
-requirement_actors: []
-requirement_rules: []
+  A correction to a rate or to hours on invoiced work shows as an adjustment. Nobody backs out and re-enters
+  Timesheets.
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    When a Bill Rate is corrected for work already invoiced, Iris reprices every affected line and adds
+    each difference as an adjustment line, with no Timesheet re-entered.
+  rule_sources:
+  - SHEET INV-10
+  - SHEET INV-3
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    A correction to the hours of an invoiced Timesheet is likewise added as an adjustment line for the
+    difference.
+  rule_sources:
+  - SHEET 5.2
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET INV-10
+- SHEET 5.2
 requirement_decisions: []
 requirement_features:
 - INV-10
@@ -17,14 +34,24 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-INVOICING-0004
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-RATES-0003
+  requirement_id: REQ-INVOICING-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-RATES-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
-  detail: null
-  migration_entities:
-  - InvoiceLine
+  reads:
+  - Timesheet.regular_bill_rate
+  - Timesheet.overtime_bill_rate
+  - Timesheet.double_time_bill_rate
+  - Timesheet.regular_minutes
+  - Timesheet.overtime_minutes
+  - Timesheet.double_time_minutes
+  writes:
+  - InvoiceLine.*
+  detail: >-
+    Who corrects a rate or hours after an invoice is issued is not defined.
 requirement_starting_flow: false
 requirement_review:
   status: draft

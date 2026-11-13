@@ -4,31 +4,108 @@ requirement_target_module: MESSAGING
 requirement_phase: MVP
 requirement_title: Receive requests by email, SMS, and phone
 requirement_statement: >-
-  Iris has an email address, a text number, and a phone line. They pass incoming requests to the assistant
-  and reply on the same channel.
-requirement_actors: []
+  Iris has an email address, an SMS number, and a phone line answered by an AI agent. It matches each
+  sender to a User, turns what they ask into a Proposal for that User, and answers on the same channel.
+requirement_actors:
+- PROGRAM_USER
+- UNIT_USER
+- AGENCY_USER
+- SYSTEM
 requirement_rules:
 - rule_id: R1
-  rule_statement: Phone calls are transcribed before the assistant reads them.
-  rule_sources: []
+  rule_statement: >-
+    Every email, text, and call Iris receives is stored as one InboundMessage with its channel, sender,
+    body, and received time.
+  rule_sources:
+  - SHEET SC-10
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    Each inbound message is kept with its sender and the Proposal it produced.
+    A call is answered by an AI agent, and what was said on the call is stored as the body.
+  rule_sources:
+  - SHEET SC-10
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    An email matches the active User whose email equals the sender's address in lowercase; a text or call
+    matches the active User whose phone equals the sender's 10 digits.
+  rule_sources:
+  - SHEET SC-10
+  rule_decisions:
+  - D-39
+- rule_id: R4
+  rule_statement: >-
+    When exactly one User matches, user_id is set; when none or several match, it stays empty, no Upload
+    or Proposal is created, and Iris answers once that it does not recognize the sender.
   rule_sources: []
+  rule_decisions:
+  - D-39
+- rule_id: R5
+  rule_statement: >-
+    Each attachment from a matched sender becomes an Upload sent by that User on the message's channel,
+    and its id is added to attachment_upload_ids.
+  rule_sources:
+  - SHEET SC-10
+  - SHEET Decisions & Inputs
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    A matched message is read under the agent rules, and any change it asks for becomes a Proposal made
+    for the matched User on the message's channel, stored in proposal_id.
+  rule_sources:
+  - SHEET SC-10
+  - PRD §7 Agent Chat
+  rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    Messages in one conversation share a thread_key, so a question, its answer, and the Proposal they
+    lead to stay together.
+  rule_sources:
+  - SHEET SC-10
+  - SHEET SC-9
+  rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    A reply in the thread from the User a Proposal was made for can accept or reject that Proposal, under
+    the same rules as in the app.
+  rule_sources:
+  - SHEET SC-10
+  rule_decisions:
+  - D-39
+- rule_id: R9
+  rule_statement: >-
+    Iris answers each email or text with an INBOUND_REPLY notification to the sender on the channel they
+    used; on a call the AI agent answers aloud and no Notification is created.
+  rule_sources:
+  - SHEET SC-10
   rule_decisions: []
 requirement_sources:
 - SHEET SC-10
-requirement_decisions: []
-requirement_features: []
-edges: []
+requirement_decisions:
+- D-39
+requirement_features:
+- SC-10
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-MESSAGING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INTAKE-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AGENT-0003
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - User.email
+  - User.phone
+  - User.active
+  - Upload.id
+  - Proposal.id
+  - Proposal.status
+  writes:
+  - InboundMessage.*
   detail: null
-  migration_entities:
-  - InboundMessage
 requirement_starting_flow: false
 requirement_review:
   status: draft

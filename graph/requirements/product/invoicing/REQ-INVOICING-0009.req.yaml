@@ -5,23 +5,33 @@ requirement_phase: P2
 requirement_title: Track statement-of-work projects
 requirement_statement: >-
   Statement-of-work projects are captured, tracked, and reported apart from Shifts.
-requirement_actors: []
-requirement_rules: []
+requirement_actors:
+- PROGRAM_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Iris holds statement-of-work projects and reports their spend separately from Shift spend.
+  rule_sources:
+  - SHEET INV-9
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET INV-9
 requirement_decisions: []
 requirement_features:
 - INV-9
-edges: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
   status: pending
   reads: []
   writes: []
-  detail: Designed when Phase 2 is scoped.
-  migration_entities: []
+  detail: >-
+    No statement-of-work entity is modeled. Who captures a project and how its spend is entered are not
+    defined.
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

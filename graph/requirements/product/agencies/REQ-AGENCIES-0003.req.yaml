@@ -4,36 +4,38 @@ requirement_target_module: AGENCIES
 requirement_phase: P3
 requirement_title: Onboard an Agency with its commercial terms
 requirement_statement: >-
-  A Program User onboards an Agency with its standard markup and vendor allowance, and keeps its supplier
-  details in one place.
-requirement_actors: []
+  Iris keeps each Agency's onboarding details and commercial terms in one place instead of many spreadsheets.
+requirement_actors:
+- PROGRAM_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    The vendor allowance is the rebate the Agency pays Compass, as a share of spend.
-  rule_sources: []
+    A Program User records an Agency's onboarding details, its standard Markup, and its Agency allowance.
+  rule_sources:
+  - SHEET RC-13
   rule_decisions: []
 requirement_sources:
-- SHEET
-- DEMO
+- SHEET RC-13
 requirement_decisions: []
 requirement_features:
 - RC-13
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AGENCIES-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
   status: pending
   reads: []
   writes: []
   detail: Designed when Phase 3 is scoped.
-  migration_entities: []
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
-  notes: null
+  notes: >-
+    Phase 3. Grounded only in its sheet line; rules are written when Phase 3 is scoped.
 requirement_delivery:
   status: not_started
   pull_requests: []

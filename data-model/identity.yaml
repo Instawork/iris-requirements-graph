@@ -12,9 +12,9 @@ entities:
   - {name: email, type: text, note: Stored lowercase}
   - {name: first_name, type: text}
   - {name: last_name, type: text}
-  - {name: phone, type: text, nullable: true, note: Digits only; used to match inbound texts and calls}
+  - {name: phone, type: text, nullable: true, note: Ten digits; used to match inbound texts and calls}
   - {name: password_hash, type: text, nullable: true, note: Empty until the invite is accepted}
-  - {name: invited_by, type: ref:User, nullable: true, note: Empty for a User an Instawork Admin seeded}
+  - {name: invited_by, type: ref:User, nullable: true, note: Empty for the seeded first Instawork Admin}
   - {name: invited_at, type: timestamp, nullable: true}
   - {name: invite_accepted_at, type: timestamp, nullable: true}
   - {name: last_signed_in_at, type: timestamp, nullable: true}

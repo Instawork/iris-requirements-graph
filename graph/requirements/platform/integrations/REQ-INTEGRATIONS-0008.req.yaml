@@ -5,23 +5,29 @@ requirement_phase: P3
 requirement_title: Post invoices to SAP
 requirement_statement: >-
   Invoices post to SAP ECC today, and to S/4 HANA after Compass migrates.
-requirement_actors: []
-requirement_rules: []
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Iris posts invoices to Compass's SAP system, SAP ECC first and S/4 HANA once Compass has migrated.
+  rule_sources:
+  - SHEET INV-16
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET INV-16
 requirement_decisions: []
 requirement_features:
 - INV-16
 edges: []
 data_model:
-  status: not_applicable
+  status: pending
   reads: []
   writes: []
-  detail: null
-  migration_entities: []
+  detail: Designed when Phase 3 is scoped.
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

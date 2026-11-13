@@ -4,40 +4,100 @@ requirement_target_module: INVOICING
 requirement_phase: P2
 requirement_title: Build one weekly consolidated invoice
 requirement_statement: >-
-  Each week Iris builds one consolidated invoice from approved Timesheets, tips, and expenses. It opens
-  on a summary and drills down from Unit to Agency, Shift, and Worker.
-requirement_actors: []
+  Each week Iris builds one Consolidated Invoice from Approved Timesheets, with every Agency inside it.
+  It opens on a summary and drills down from Unit to Agency, Shift, and Worker.
+requirement_actors:
+- SYSTEM
+- PROGRAM_USER
+- UNIT_USER
+- AGENCY_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Each Agency's share is its own Agency Invoice inside the consolidated invoice.
-  rule_sources: []
-  rule_decisions: []
+    Iris keeps one Consolidated Invoice per week and, inside it, one Agency Invoice for each Agency with
+    lines that week.
+  rule_sources:
+  - SHEET INV-1
+  - SESSIONS Invoicing & Accruals
+  - PRD Key Terms
+  rule_decisions:
+  - D-14
 - rule_id: R2
-  rule_statement: Approved hours join the open week's invoice until that week closes.
-  rule_sources: []
+  rule_statement: >-
+    A Consolidated Invoice starts OPEN, and a Timesheet's line joins the OPEN invoice when the Timesheet
+    becomes APPROVED.
+  rule_sources:
+  - SESSIONS Invoicing & Accruals
+  - DEMO InvoiceStatus
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    When its week closes, the Consolidated Invoice and its Agency Invoices become ISSUED, and their lines
+    change only through adjustments on a later invoice.
+  rule_sources:
+  - SHEET INV-3
+  - DEMO InvoiceStatus
+  rule_decisions:
+  - D-14
+- rule_id: R4
+  rule_statement: >-
+    The invoice opens on a summary: one total for the week, each Agency's total, and totals by Cost Center.
+  rule_sources:
+  - SHEET INV-1
+  - SESSIONS Invoicing & Accruals
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    From the summary, a User drills down from Unit to Agency, then to Shift, then to Worker.
+  rule_sources:
+  - SHEET INV-1
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    A Program User sees every invoice, a Unit User sees the lines for Units in their scope, and an Agency
+    User sees only their own Agency Invoices.
+  rule_sources:
+  - PRD §5 Invoices
   rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET INV-1
+- SHEET 5.1
 - START
-- FAQ
+- SESSIONS Invoicing & Accruals
 requirement_decisions:
 - D-14
+- D-31
 requirement_features:
 - INV-1
 edges:
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-INVOICING-0002
+- edge_type: DEPENDS_ON
   requirement_id: REQ-TIME-0002
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-INVOICING-0002
+  requirement_id: REQ-TIME-0005
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
-  detail: null
-  migration_entities:
-  - ConsolidatedInvoice
-  - AgencyInvoice
+  reads:
+  - Timesheet.status
+  - Timesheet.approved_at
+  - Timesheet.assignment_id
+  - Assignment.release_id
+  - Release.agency_id
+  - InvoiceLine.*
+  writes:
+  - ConsolidatedInvoice.week_start
+  - ConsolidatedInvoice.status
+  - ConsolidatedInvoice.issued_at
+  - AgencyInvoice.consolidated_invoice_id
+  - AgencyInvoice.agency_id
+  - AgencyInvoice.status
+  - InvoiceLine.agency_invoice_id
+  detail: The day the invoice week starts and closes waits on D-14.
 requirement_starting_flow: false
 requirement_review:
   status: draft

@@ -1,0 +1,72 @@
+requirement_id: REQ-ORG-0008
+requirement_target_layer: product
+requirement_target_module: ORG
+requirement_phase: MVP
+requirement_title: Add Sectors, Regions, and Districts by hand
+requirement_statement: >-
+  A Program User builds the upper levels of the org tree by hand. They add, rename, and deactivate Sectors,
+  Regions, and Districts.
+requirement_actors:
+- PROGRAM_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Only a Program User adds a Sector, a Region under a Sector, or a District under a Region.
+  rule_sources:
+  - SHEET PLT-2
+  - GRAPH who maintains program setup is not stated
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    A new node needs a name and, below Sector level, an active parent one level up; it is saved active.
+  rule_sources:
+  - SHEET PLT-2
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    A name already used by another node under the same parent is refused, on add and on rename.
+  rule_sources:
+  - GRAPH files and forms find a record by its name
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    A Program User renames a node without changing its parent, its children, or anything scoped to it.
+  rule_sources:
+  - SHEET PLT-2
+  - GRAPH who maintains program setup is not stated
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    A Program User deactivates a Sector, Region, or District only when every node beneath it is inactive,
+    and may reactivate it.
+  rule_sources:
+  - GRAPH who maintains program setup is not stated
+  rule_decisions: []
+requirement_sources:
+- SHEET PLT-2
+requirement_decisions: []
+requirement_features:
+- PLT-2
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
+data_model:
+  status: covered
+  reads:
+  - OrgNode.*
+  writes:
+  - OrgNode.*
+  detail: null
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

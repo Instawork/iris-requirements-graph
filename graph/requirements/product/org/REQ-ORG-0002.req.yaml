@@ -4,42 +4,133 @@ requirement_target_module: ORG
 requirement_phase: MVP
 requirement_title: Add a Unit and its Departments
 requirement_statement: >-
-  A Program User adds a Unit under a District, with any Departments it charges separately. The Unit can
-  order Shifts once it is saved.
-requirement_actors: []
+  A Program User adds a Unit under a District by form, with its address, Cost Center, Work Week start,
+  and any Departments. Iris sets the Unit's Market from its ZIP code.
+requirement_actors:
+- PROGRAM_USER
+- UNIT_USER
 requirement_rules:
 - rule_id: R1
-  rule_statement: The ZIP code must fall in a Market; otherwise the Unit is not saved.
-  rule_sources: []
+  rule_statement: >-
+    Only a Program User adds a Unit; it is saved as a UNIT node under an active District, together with
+    one Unit record.
+  rule_sources:
+  - SESSIONS Shift Creation
+  - SHEET PLT-2
+  - GRAPH who maintains program setup is not stated
   rule_decisions: []
 - rule_id: R2
-  rule_statement: A Cost Center code already in use is refused.
-  rule_sources: []
+  rule_statement: >-
+    In MVP a Unit enters Iris only by this form or a UNITS file, never by sync from another system (C-8).
+  rule_sources:
+  - SESSIONS Shift Creation
+  - SHEET PLT-8
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    A Unit can be edited or deactivated later, and a deactivated Unit cannot create Requests.
-  rule_sources: []
+    A Unit needs a name, address line, city, two-letter state, five-digit ZIP code, Cost Center code,
+    and Work Week start day; one missing or malformed is refused.
+  rule_sources:
+  - PRD Data Model
+  - SHEET WA-18
+  - SHEET WA-20
+  - SHEET PLT-2
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    The Unit's Market is the Market that holds its ZIP code; a ZIP code in no Market is refused.
+  rule_sources:
+  - PRD §3 Supplier Rates
+  rule_decisions:
+  - D-21
+- rule_id: R5
+  rule_statement: >-
+    The time zone is an IANA zone, filled from the ZIP code when the form leaves it empty.
+  rule_sources:
+  - DEMO lib/types.ts
+  - GRAPH every Shift time at a Unit is read in its time zone
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    A Cost Center code not yet on file is added as a new Cost Center, and a code already on file is reused.
+  rule_sources:
+  - SESSIONS Shift Creation
+  - SHEET PLT-2
+  rule_decisions: []
+- rule_id: R7
+  rule_statement: >-
+    A Program User adds, renames, or deactivates a Department; each has a name unique within its Unit
+    and its own Cost Center code.
+  rule_sources:
+  - FEEDBACK
+  - SHEET PLT-2
+  - GRAPH who maintains program setup is not stated
+  rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    The Program User may mark the Unit a secured site and set its default parking, entrance, directions,
+    site contact, and attire.
+  rule_sources:
+  - SHEET WA-17
+  - SHEET SC-6
+  - SHEET SC-11
+  rule_decisions: []
+- rule_id: R9
+  rule_statement: >-
+    A Unit User whose Role Grant covers the Unit may change its default site instructions and no other
+    Unit field.
+  rule_sources:
+  - SHEET SC-11
+  - SHEET SC-6
+  - GRAPH who maintains program setup is not stated
+  rule_decisions: []
+- rule_id: R10
+  rule_statement: >-
+    A Program User may later change any Unit field, and changing the ZIP code sets the Market again by
+    the same rule.
+  rule_sources:
+  - GRAPH who maintains program setup is not stated
+  rule_decisions:
+  - D-21
+- rule_id: R11
+  rule_statement: >-
+    A Program User deactivates a Unit by making its node inactive; an inactive Unit keeps its records
+    and accepts no new Request.
+  rule_sources:
+  - GRAPH who maintains program setup is not stated
   rule_decisions: []
 requirement_sources:
-- SESSIONS Shift creation
-- DEMO run-of-show block 1
-requirement_decisions: []
+- SESSIONS Shift Creation
+- SHEET PLT-2
+- FEEDBACK
+requirement_decisions:
+- D-21
 requirement_features:
 - PLT-2
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0001
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0008
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-CATALOG-0002
+- edge_type: DEPENDS_ON
   requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - OrgNode.*
+  - MarketZip.zip
+  - MarketZip.market_id
+  - CostCenter.code
+  writes:
+  - OrgNode.*
+  - Unit.*
+  - Department.*
+  - CostCenter.*
   detail: null
-  migration_entities:
-  - Unit
-  - Department
 requirement_starting_flow: false
 requirement_review:
   status: draft

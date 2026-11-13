@@ -4,40 +4,41 @@ requirement_target_module: ORDERING
 requirement_phase: P3
 requirement_title: Route over-budget Requests for approval
 requirement_statement: >-
-  When a Request would take a Unit over budget, it goes to an approver before any Agency sees it.
-requirement_actors: []
+  When a Request would take a Unit over its budget, it goes to an approver before any Agency receives
+  it.
+requirement_actors:
+- UNIT_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    The approver approves or declines with an optional note, and the Unit User is told.
-  rule_sources: []
-  rule_decisions: []
-- rule_id: R2
-  rule_statement: How far over budget needs approval is a Setting.
-  rule_sources: []
+    A Request that would take its Unit's spend over its budget is held for an approver, and none of it
+    is sent to an Agency until it is approved.
+  rule_sources:
+  - SHEET SC-15
+  - FEEDBACK
   rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET SC-15
 - FEEDBACK
 requirement_decisions: []
 requirement_features:
 - SC-15
 edges:
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0001
+- edge_type: DEPENDS_ON
   requirement_id: REQ-REPORTING-0007
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-ORG-0006
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-MESSAGING-0001
+  requirement_id: REQ-ORG-0009
 data_model:
   status: pending
   reads: []
   writes: []
-  detail: Designed when Phase 3 is scoped.
-  migration_entities: []
+  detail: >-
+    Designed when Phase 3 is scoped; the demo feedback is to skip it unless Compass raises it.
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

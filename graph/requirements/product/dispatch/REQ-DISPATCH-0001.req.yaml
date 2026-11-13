@@ -2,40 +2,151 @@ requirement_id: REQ-DISPATCH-0001
 requirement_target_layer: product
 requirement_target_module: DISPATCH
 requirement_phase: MVP
-requirement_title: Send a Shift to a chosen Agency
+requirement_title: Send a Shift's headcount to a chosen Agency
 requirement_statement: >-
-  The Unit User picks the Agency each Shift goes to and sends it. Each send creates a Release, and the
-  Agency is notified at once.
-requirement_actors: []
+  A Unit User picks one Agency and sends it some or all of a Shift's headcount. Each send is a Release
+  that stores the Bill Rates it was sent at, and the Agency is notified.
+requirement_actors:
+- UNIT_USER
+- SYSTEM
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Agencies approved for the Unit are offered, and sending to any other Agency follows the off-contract
-    gate.
-  rule_sources: []
-  rule_decisions: []
+    A Unit User over a Shift's Unit may send any part of its unsent headcount to one active Agency they
+    choose, which creates a PENDING Release with released_by and released_at.
+  rule_sources:
+  - SHEET SC-7
+  rule_decisions:
+  - D-17
 - rule_id: R2
   rule_statement: >-
-    A Shift can be released to more than one Agency, and each Agency staffs its own Workers.
+    Unsent headcount is the Shift's headcount less the headcounts of its PENDING and ACCEPTED Releases;
+    a Release's headcount is at least 1 and never more than the unsent headcount.
   rule_sources: []
-  rule_decisions: []
+  rule_decisions:
+  - D-17
 - rule_id: R3
   rule_statement: >-
-    The Release carries the Shift details, the site instructions, and the Agency's contracted Bill Rate.
-  rule_sources: []
-  rule_decisions: []
+    A new Release can be sent until the Shift starts; from then until its ends_at, headcount can only
+    be added to an ACCEPTED Release.
+  rule_sources:
+  - SHEET SC-5
+  rule_decisions:
+  - D-17
+  - D-18
 - rule_id: R4
-  rule_statement: The Agency is notified by email or SMS, and in the app.
+  rule_statement: >-
+    Sending more headcount to an Agency that already holds a PENDING or ACCEPTED Release on the Shift
+    raises that Release's headcount and keeps its status and rates.
+  rule_sources:
+  - SHEET SC-5
+  rule_decisions:
+  - D-17
+- rule_id: R5
+  rule_statement: >-
+    The Release stores rate_line_id and the regular, overtime, and double-time Bill Rates of the contracted
+    Rate Line that REQ-RATES-0005 finds for the Agency, Position, Unit, and work date.
+  rule_sources:
+  - SHEET SC-1
+  - PRD Data Model
+  rule_decisions: []
+- rule_id: R6
+  rule_statement: >-
+    A Unit User may enter another regular Bill Rate with a bill_rate_reason; the overtime and double-time
+    rates are then the contracted rates scaled by the same ratio, rounded half up to the cent.
+  rule_sources:
+  - SHEET SC-1
+  - SHEET RC-11
+  - SESSIONS Rate Cards & Supplier Sourcing
+  rule_decisions:
+  - D-24
+- rule_id: R7
+  rule_statement: >-
+    With no contracted Rate Line, rate_line_id is empty, the Unit User enters the regular Bill Rate and
+    a bill_rate_reason, and overtime is 1.5 times and double time 2 times that rate.
+  rule_sources:
+  - SHEET RC-11
+  rule_decisions:
+  - D-24
+- rule_id: R8
+  rule_statement: >-
+    A send at a Bill Rate other than the contracted rate, or with no contracted rate, goes ahead or is
+    refused as REQ-RATES-0007 decides under OFF_CONTRACT_RATE_GATE.
+  rule_sources:
+  - SHEET RC-11
+  rule_decisions: []
+- rule_id: R9
+  rule_statement: >-
+    non_contracted is true when no current AgencyApproval covers the Unit, and such a send goes ahead
+    or is refused as REQ-RATES-0007 decides under NON_CONTRACTED_AGENCY_GATE.
+  rule_sources:
+  - SHEET RC-11
+  rule_decisions:
+  - D-9
+- rule_id: R10
+  rule_statement: A Release keeps the rates it was sent at when Rate Lines change later.
+  rule_sources:
+  - SHEET SC-1
+  - GRAPH a Release is priced once, when it is sent, pending a decision
+  rule_decisions: []
+- rule_id: R11
+  rule_statement: >-
+    Creating a Release, or raising its headcount, sends RELEASE_NEW to the Agency's active Agency Users.
+  rule_sources:
+  - SHEET SC-8
+  rule_decisions: []
+- rule_id: R12
+  rule_statement: >-
+    A Unit User over the Unit may withdraw a PENDING Release, which becomes WITHDRAWN with closed_at set
+    and sends RELEASE_WITHDRAWN to the Agency's active Agency Users.
   rule_sources: []
+  rule_decisions:
+  - D-17
+- rule_id: R13
+  rule_statement: >-
+    When a Shift becomes CANCELLED, each of its PENDING and ACCEPTED Releases becomes CANCELLED with closed_at
+    set, and RELEASE_WITHDRAWN is sent to that Agency's active Agency Users.
+  rule_sources:
+  - PRD §2 Shift statuses
+  rule_decisions:
+  - D-18
+- rule_id: R14
+  rule_statement: >-
+    The headcount of a DECLINED, WITHDRAWN, or EXPIRED Release is unsent again and can be sent in a new
+    Release.
+  rule_sources: []
+  rule_decisions:
+  - D-17
+- rule_id: R15
+  rule_statement: >-
+    Several Shifts of one Request, such as a block, can be sent to one Agency in one step, which creates
+    one Release for each Shift.
+  rule_sources:
+  - SHEET SC-4
+  rule_decisions:
+  - D-20
+- rule_id: R16
+  rule_statement: >-
+    A send asked for by a SHIFTS file row or an approved assistant draft is saved by this requirement
+    under the same checks.
+  rule_sources:
+  - PRD §7 After the user approves
   rule_decisions: []
 requirement_sources:
-- SHEET
-- PRD §2 Shifts
-- SESSIONS Send to one agency
-requirement_decisions: []
+- SHEET SC-7
+- SHEET SC-1
+- PRD Data Model
+- FEEDBACK
+- SESSIONS Worker Assignment & Compliance
+requirement_decisions:
+- D-17
+- D-24
 requirement_features:
 - SC-7
+- SC-1
 edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORDERING-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AGENCIES-0002
 - edge_type: DEPENDS_ON
@@ -43,17 +154,49 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-RATES-0007
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0005
+- edge_type: DEPENDS_ON
   requirement_id: REQ-MESSAGING-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AUDIT-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - Request.unit_id
+  - Shift.request_id
+  - Shift.position_id
+  - Shift.headcount
+  - Shift.starts_at
+  - Shift.ends_at
+  - Shift.status
+  - Agency.active
+  - AgencyApproval.agency_id
+  - AgencyApproval.org_node_id
+  - AgencyApproval.removed_at
+  - RateLine.regular_bill_rate
+  - RateLine.overtime_bill_rate
+  - RateLine.double_time_bill_rate
+  - RoleGrant.role
+  - RoleGrant.agency_id
+  - RoleGrant.revoked_at
+  writes:
+  - Release.shift_id
+  - Release.agency_id
+  - Release.headcount
+  - Release.rate_line_id
+  - Release.regular_bill_rate
+  - Release.overtime_bill_rate
+  - Release.double_time_bill_rate
+  - Release.bill_rate_reason
+  - Release.non_contracted
+  - Release.status
+  - Release.released_by
+  - Release.released_at
+  - Release.closed_at
   detail: null
-  migration_entities:
-  - Release
-requirement_starting_flow: true
+requirement_starting_flow: false
 requirement_review:
   status: draft
   by: null

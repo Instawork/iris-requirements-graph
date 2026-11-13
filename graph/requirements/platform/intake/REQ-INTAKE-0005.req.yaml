@@ -4,20 +4,53 @@ requirement_target_module: INTAKE
 requirement_phase: MVP
 requirement_title: Download any table as CSV
 requirement_statement: >-
-  Every table can be downloaded as CSV, holding only what that user can see.
-requirement_actors: []
-requirement_rules: []
+  Any table a User sees can be downloaded as a CSV file that holds exactly the rows and columns of that
+  User's view.
+requirement_actors:
+- INSTAWORK_ADMIN
+- PROGRAM_USER
+- UNIT_USER
+- AGENCY_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The requirement that shows a table passes INTAKE the rows and columns the User may see there, and
+    INTAKE adds no rows and no columns.
+  rule_sources:
+  - PRD §6 Uploads
+  - GRAPH platform reads no product records, so the caller supplies them
+  rule_decisions: []
+- rule_id: R2
+  rule_statement: >-
+    The file has one header row with the table's column names, then one line per row, with the table's
+    filters and sort applied and every page included.
+  rule_sources:
+  - PRD §6 Uploads
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    Dates are written as YYYY-MM-DD, times like 4:00 PM, and money without a dollar sign.
+  rule_sources:
+  - PRD §6 Templates
+  rule_decisions:
+  - D-40
+- rule_id: R4
+  rule_statement: A download creates no Upload and changes no record.
+  rule_sources:
+  - PRD §6 Uploads
+  rule_decisions: []
 requirement_sources:
 - PRD §6 Uploads
-requirement_decisions: []
+requirement_decisions:
+- D-40
 requirement_features: []
 edges: []
 data_model:
   status: not_applicable
   reads: []
   writes: []
-  detail: null
-  migration_entities: []
+  detail: >-
+    Writes out the rows the caller passes; it reads and stores nothing itself.
 requirement_starting_flow: false
 requirement_review:
   status: draft

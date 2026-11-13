@@ -4,18 +4,39 @@ requirement_target_module: INTAKE
 requirement_phase: MVP
 requirement_title: Keep a log of every upload
 requirement_statement: >-
-  Every file, from the Uploads page or the assistant, is logged with its type, sender, time, row count,
-  and status.
-requirement_actors: []
+  Every file a User sends is listed in that User's upload log with its type, time, row count, and status.
+  This covers files sent on the Uploads page, in the assistant, and attached to a message.
+requirement_actors:
+- PROGRAM_USER
+- UNIT_USER
+- AGENCY_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Status is Saved, Needs review, or Failed, with the number of rows to review.
-  rule_sources: []
+    Every Upload appears in the log, whether it was sent on the Uploads page, in the assistant, or attached
+    to an email or text.
+  rule_sources:
+  - PRD §6 Uploads
+  - PRD §7 How it connects
   rule_decisions: []
 - rule_id: R2
-  rule_statement: Each user sees only their own uploads.
-  rule_sources: []
+  rule_statement: A User sees only the Uploads they sent themselves.
+  rule_sources:
+  - PRD §6 Uploads
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    Each line shows the file name, type, upload time, total rows, and status, with the newest Upload first.
+  rule_sources:
+  - PRD §6 Uploads
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    An IN_REVIEW line shows rows_to_review and opens its Proposal, a NEEDS_TYPE line lets the uploader
+    pick the type, and a FAILED line shows failure_reason.
+  rule_sources:
+  - PRD §6 Uploads
+  - PRD §7 When the agent is unsure
   rule_decisions: []
 requirement_sources:
 - PRD §6 Uploads
@@ -23,14 +44,13 @@ requirement_decisions: []
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-INTAKE-0001
+  requirement_id: REQ-INTAKE-0002
 data_model:
   status: covered
-  reads: []
+  reads:
+  - Upload.*
   writes: []
   detail: null
-  migration_entities:
-  - Upload
 requirement_starting_flow: false
 requirement_review:
   status: draft

@@ -3,24 +3,65 @@ requirement_target_layer: product
 requirement_target_module: INVOICING
 requirement_phase: P2
 requirement_title: Show payment status to Units
-requirement_statement: Units see whether each Agency Invoice is unpaid, partly paid, or paid.
-requirement_actors: []
-requirement_rules: []
+requirement_statement: >-
+  Units see whether each Agency Invoice is unpaid, partly paid, or paid. Iris records payments made elsewhere
+  and pays no one.
+requirement_actors:
+- PROGRAM_USER
+- UNIT_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    Iris pays no one: a Program User records the amount paid so far on an ISSUED Agency Invoice.
+  rule_sources:
+  - SHEET INV-7
+  - GRAPH Phase 2 invoice actions, pending a decision
+  rule_decisions:
+  - D-31
+- rule_id: R2
+  rule_statement: >-
+    An Agency Invoice becomes PARTLY_PAID when the amount paid is above zero and below its total, and
+    PAID when it equals the total.
+  rule_sources:
+  - SHEET INV-7
+  - DEMO lib/types.ts InvoiceStatus
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    A Consolidated Invoice is PAID when every Agency Invoice in it is PAID, and PARTLY_PAID when some
+    payment is recorded but not all.
+  rule_sources:
+  - GRAPH Phase 2 invoice actions, pending a decision
+  rule_decisions:
+  - D-31
+- rule_id: R4
+  rule_statement: >-
+    A Unit User sees the payment status of every Agency Invoice with lines for Units in their scope.
+  rule_sources:
+  - SHEET INV-7
+  rule_decisions: []
 requirement_sources:
-- SHEET
-requirement_decisions: []
+- SHEET INV-7
+requirement_decisions:
+- D-31
 requirement_features:
 - INV-7
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-INVOICING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - InvoiceLine.*
+  writes:
+  - AgencyInvoice.status
+  - AgencyInvoice.paid_amount
+  - ConsolidatedInvoice.status
   detail: null
-  migration_entities:
-  - AgencyInvoice
 requirement_starting_flow: false
 requirement_review:
   status: draft

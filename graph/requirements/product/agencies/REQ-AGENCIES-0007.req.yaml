@@ -4,12 +4,18 @@ requirement_target_module: AGENCIES
 requirement_phase: P3
 requirement_title: Follow up automatically when an Agency misses a target
 requirement_statement: >-
-  When an Agency misses its time-to-fill, fill rate, or spend thresholds, Iris sends it a follow-up and
-  records the answer.
-requirement_actors: []
-requirement_rules: []
+  Iris follows up with an Agency on its own when the Agency misses a target.
+requirement_actors:
+- SYSTEM
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    A follow-up is sent to an Agency that misses its time-to-fill, fill rate, or spend threshold.
+  rule_sources:
+  - SHEET RC-17
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET RC-17
 requirement_decisions: []
 requirement_features:
 - RC-17
@@ -23,13 +29,13 @@ data_model:
   reads: []
   writes: []
   detail: Designed when Phase 3 is scoped.
-  migration_entities: []
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
-  notes: null
+  notes: >-
+    Phase 3. Grounded only in its sheet line; rules are written when Phase 3 is scoped.
 requirement_delivery:
   status: not_started
   pull_requests: []

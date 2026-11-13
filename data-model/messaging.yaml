@@ -23,11 +23,11 @@ entities:
   fields:
   - {name: type, type: enum:NotificationType}
   - {name: channel, type: enum:NotificationChannel}
-  - {name: user_id, type: ref:User, nullable: true, note: Empty when the recipient is a Worker}
+  - {name: user_id, type: ref:User, nullable: true, note: Empty when the recipient is a Worker or an inbound sender Iris could not match}
   - {name: to_address, type: text, nullable: true, note: Email or phone; required for EMAIL and SMS}
   - {name: subject_type, type: text, note: The entity it is about}
   - {name: subject_id, type: uuid}
-  - {name: body, type: text}
+  - {name: body, type: text, note: Never holds an invite or reset link}
   - {name: status, type: enum:NotificationStatus}
   - {name: sent_at, type: timestamp, nullable: true}
   - {name: read_at, type: timestamp, nullable: true, note: IN_APP only}

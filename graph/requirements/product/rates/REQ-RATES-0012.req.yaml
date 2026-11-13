@@ -3,17 +3,19 @@ requirement_target_layer: product
 requirement_target_module: RATES
 requirement_phase: P3
 requirement_title: Apply urgency premiums
-requirement_statement: >-
-  Pre-agreed urgency premiums raise the rate for last-minute Requests, such as 1.5 times the rate.
-requirement_actors: []
+requirement_statement: Pre-agreed urgency premiums raise the rate for last-minute Requests.
+requirement_actors:
+- SYSTEM
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Each premium states its multiplier and how close to the Shift start a Request must be to qualify.
-  rule_sources: []
+    An urgency premium rule multiplies the rate for a last-minute Request by a pre-agreed factor, for
+    example 1.5.
+  rule_sources:
+  - SHEET RC-9
   rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET RC-9
 requirement_decisions: []
 requirement_features:
 - RC-9
@@ -25,13 +27,13 @@ data_model:
   reads: []
   writes: []
   detail: Designed when Phase 3 is scoped.
-  migration_entities: []
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
-  notes: null
+  notes: >-
+    Phase 3. Grounded only in its sheet line; rules are written when Phase 3 is scoped.
 requirement_delivery:
   status: not_started
   pull_requests: []

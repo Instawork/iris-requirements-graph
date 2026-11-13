@@ -2,27 +2,75 @@ requirement_id: REQ-DISPATCH-0002
 requirement_target_layer: product
 requirement_target_module: DISPATCH
 requirement_phase: MVP
-requirement_title: Accept or decline a released Shift
+requirement_title: Accept or decline a Release
 requirement_statement: >-
-  An Agency User accepts or declines each Release, and the Unit User sees the answer straight away.
-requirement_actors: []
+  An Agency User accepts or declines each Release sent to their Agency, and the Unit User who sent it
+  is told. A Release nobody answers expires when the Shift starts.
+requirement_actors:
+- AGENCY_USER
+- SYSTEM
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    A decline needs a reason, and the Unit can then send the Shift to another Agency.
-  rule_sources: []
+    An Agency User of the Release's Agency may accept a PENDING Release, which becomes ACCEPTED with responded_by
+    and responded_at.
+  rule_sources:
+  - SHEET SC-8
   rule_decisions: []
 - rule_id: R2
-  rule_statement: Accepting lets the Agency assign Workers to the Shift.
-  rule_sources: []
-  rule_decisions: []
+  rule_statement: >-
+    An Agency User of the Release's Agency may decline a PENDING Release with a decline_reason, which
+    becomes DECLINED with responded_by and responded_at.
+  rule_sources:
+  - SHEET SC-8
+  rule_decisions:
+  - D-17
 - rule_id: R3
-  rule_statement: An unanswered Release stays pending and shows on the Agency's to-dos.
+  rule_statement: >-
+    An answer covers the Release's whole headcount; an Agency cannot accept part of it.
   rule_sources: []
+  rule_decisions:
+  - D-17
+- rule_id: R4
+  rule_statement: >-
+    Until the Shift starts, an Agency User may decline an ACCEPTED Release with a decline_reason; it becomes
+    DECLINED, and its ASSIGNED Workers come off the Shift.
+  rule_sources: []
+  rule_decisions:
+  - D-17
+- rule_id: R5
+  rule_statement: >-
+    A Release still PENDING when its Shift starts becomes EXPIRED with closed_at set.
+  rule_sources: []
+  rule_decisions:
+  - D-17
+- rule_id: R6
+  rule_statement: >-
+    Only an answer, a withdrawal, a cancellation, or the Shift's start ends a PENDING Release; release
+    windows between Agencies are Phase 2.
+  rule_sources:
+  - SHEET SC-12
+  rule_decisions:
+  - D-17
+- rule_id: R7
+  rule_statement: >-
+    Each accept and each decline, including a decline after accepting, sends RELEASE_ANSWERED to the User
+    who sent the Release.
+  rule_sources:
+  - SHEET SC-8
   rule_decisions: []
+- rule_id: R8
+  rule_statement: >-
+    An Agency User may answer several PENDING Releases in one step, such as those of a block, and each
+    Release is accepted or declined on its own.
+  rule_sources: []
+  rule_decisions:
+  - D-20
 requirement_sources:
-- SHEET
-requirement_decisions: []
+- SHEET SC-8
+requirement_decisions:
+- D-17
+- D-20
 requirement_features:
 - SC-8
 edges:
@@ -30,14 +78,26 @@ edges:
   requirement_id: REQ-DISPATCH-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-MESSAGING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - Release.shift_id
+  - Release.agency_id
+  - Release.status
+  - Release.released_by
+  - Shift.starts_at
+  writes:
+  - Release.status
+  - Release.responded_by
+  - Release.responded_at
+  - Release.decline_reason
+  - Release.closed_at
   detail: null
-  migration_entities:
-  - Release
-requirement_starting_flow: true
+requirement_starting_flow: false
 requirement_review:
   status: draft
   by: null

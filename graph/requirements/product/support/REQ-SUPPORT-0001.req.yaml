@@ -5,25 +5,37 @@ requirement_phase: P2
 requirement_title: Answer how-to questions with an in-app help agent
 requirement_statement: >-
   An in-app agent answers how-to and Tier I questions, and escalates to Instawork support when it cannot.
-requirement_actors: []
-requirement_rules: []
+requirement_actors:
+- PROGRAM_USER
+- UNIT_USER
+- AGENCY_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    The help agent answers a User's how-to or Tier I question in the app, and passes a question it cannot
+    answer to Instawork support.
+  rule_sources:
+  - SHEET PLT-14
+  rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET PLT-14
+- SHEET 7.4
 requirement_decisions: []
 requirement_features:
 - PLT-14
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AGENT-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
   status: pending
   reads: []
   writes: []
-  detail: Designed when Phase 2 is scoped.
-  migration_entities: []
+  detail: Help content and the hand-off to Instawork support are not modeled.
 requirement_starting_flow: false
 requirement_review:
-  status: draft
+  status: placeholder
   by: null
   at: null
   notes: null

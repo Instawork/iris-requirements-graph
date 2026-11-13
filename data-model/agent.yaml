@@ -26,7 +26,7 @@ enums:
   - {value: DELETE, meaning: Remove or cancel a record.}
 - enum: ItemDecision
   values:
-  - {value: ACCEPTED, meaning: Accepted as proposed.}
+  - {value: ACCEPTED, meaning: 'Accepted as proposed, with the suggested fix applied when there is one.'}
   - {value: EDITED, meaning: Accepted after the person changed values.}
   - {value: REJECTED, meaning: Not to be saved.}
 - enum: ItemResult

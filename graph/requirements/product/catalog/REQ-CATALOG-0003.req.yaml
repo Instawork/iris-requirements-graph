@@ -2,30 +2,41 @@ requirement_id: REQ-CATALOG-0003
 requirement_target_layer: product
 requirement_target_module: CATALOG
 requirement_phase: P2
-requirement_title: Map Agency job titles to Positions
+requirement_title: Map each Agency's titles to Positions
 requirement_statement: >-
-  Each Agency's own job titles map to Compass Positions, so a Unit orders a Bartender and never sees an
-  Agency's name for it.
-requirement_actors: []
+  Each Agency's own titles map to Compass Positions, so a Unit orders a Bartender and never sees an Agency's
+  name for the job.
+requirement_actors:
+- AGENCY_USER
+- PROGRAM_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    A mapping belongs to one Agency and maps one Agency title to one Position.
-  rule_sources: []
+    A mapping ties one title used by one Agency to one Position, and an Agency has one mapping per title.
+  rule_sources:
+  - SHEET RC-1
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    When a file uses an unmapped title, the agent proposes a Position and a Program User confirms it.
-  rule_sources: []
+    When a file for an Agency uses a title with no mapping, Iris proposes a Position and the User who
+    sent the file confirms or changes it.
+  rule_sources:
+  - SHEET RC-1
+  - PRD §6 Uploads
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    A confirmed mapping is applied automatically to later files from that Agency.
-  rule_sources: []
+    A confirmed mapping is applied without asking to later files for that Agency.
+  rule_sources:
+  - SHEET RC-1
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: Unit Users see only Compass Position names, never an Agency's title.
+  rule_sources:
+  - SHEET RC-1
   rule_decisions: []
 requirement_sources:
-- SHEET
-- FAQ deck
+- SHEET RC-1
 requirement_decisions: []
 requirement_features:
 - RC-1
@@ -35,14 +46,22 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-AGENCIES-0001
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-INTAKE-0002
+- edge_type: DEPENDS_ON
   requirement_id: REQ-AGENT-0002
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - Position.*
+  - Agency.name
+  - TitleMapping.*
+  writes:
+  - TitleMapping.*
   detail: null
-  migration_entities:
-  - TitleMapping
 requirement_starting_flow: false
 requirement_review:
   status: draft

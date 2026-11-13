@@ -4,34 +4,72 @@ requirement_target_module: ORDERING
 requirement_phase: MVP
 requirement_title: Overbook and add headcount on the day
 requirement_statement: >-
-  A Unit User can book more Workers than needed, such as 55 when 50 are needed, and can add headcount
-  on the day of the Shift.
-requirement_actors: []
+  A Unit User can book more Workers than needed, such as 55 when 50 are needed, and Iris records both
+  numbers. They can also add headcount on the day, until the Shift ends.
+requirement_actors:
+- UNIT_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    A Shift records the headcount booked and, when overbooking, the headcount needed.
-  rule_sources: []
-  rule_decisions: []
+    When booking more Workers than needed, a Unit User sets headcount to the number booked and needed_headcount
+    to the number needed.
+  rule_sources:
+  - SHEET SC-5
+  rule_decisions:
+  - D-19
 - rule_id: R2
-  rule_statement: Same-day additions reach the Agency immediately.
+  rule_statement: >-
+    needed_headcount is at least 1 and at most headcount, and a change to either number that would break
+    this is refused.
   rule_sources: []
-  rule_decisions: []
+  rule_decisions:
+  - D-19
+- rule_id: R3
+  rule_statement: >-
+    needed_headcount is kept for reporting only: Shift status and Releases use headcount, and every Worker
+    who works counts toward spend.
+  rule_sources:
+  - SHEET SC-5
+  rule_decisions:
+  - D-19
+- rule_id: R4
+  rule_statement: >-
+    A Unit User may raise a Shift's headcount on the day it is worked, even after it has started, until
+    its ends_at.
+  rule_sources:
+  - SHEET SC-5
+  rule_decisions:
+  - D-18
+- rule_id: R5
+  rule_statement: >-
+    Headcount added on the day stays unsent until the Unit User sends it to an Agency through REQ-DISPATCH-0001.
+  rule_sources:
+  - SHEET SC-5
+  rule_decisions:
+  - D-17
 requirement_sources:
-- SHEET
-requirement_decisions: []
+- SHEET SC-5
+requirement_decisions:
+- D-18
+- D-19
 requirement_features:
 - SC-5
 edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-ORDERING-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - Shift.headcount
+  - Shift.ends_at
+  - Shift.status
+  writes:
+  - Shift.needed_headcount
   detail: null
-  migration_entities:
-  - Shift
 requirement_starting_flow: false
 requirement_review:
   status: draft

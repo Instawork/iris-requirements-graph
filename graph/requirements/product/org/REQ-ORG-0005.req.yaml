@@ -4,38 +4,99 @@ requirement_target_module: ORG
 requirement_phase: MVP
 requirement_title: Grant a role within a scope
 requirement_statement: >-
-  A User holds one or more Role Grants. Each grant pairs a role with a scope, and the User sees and acts
-  only on data inside that scope.
-requirement_actors: []
+  A Role Grant gives one User one role and the scope it covers. Program Users, Agency Users, and Instawork
+  Admins invite Users and grant or revoke roles within the limits below.
+requirement_actors:
+- INSTAWORK_ADMIN
+- PROGRAM_USER
+- AGENCY_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    A Unit User is granted at a Sector, Region, District, or Unit, and covers every Unit beneath it.
-  rule_sources: []
-  rule_decisions: []
+    A UNIT_USER grant names one org node at any level and no Agency, and covers every Unit at or beneath
+    that node.
+  rule_sources:
+  - SHEET PLT-1
+  - SHEET PLT-2
+  - FAQ
+  rule_decisions:
+  - D-25
 - rule_id: R2
-  rule_statement: >-
-    An Agency User is granted to one Agency and sees only Shifts released to that Agency and the Agency's
-    own records.
-  rule_sources: []
+  rule_statement: An AGENCY_USER grant names one Agency and no org node.
+  rule_sources:
+  - SHEET PLT-1
   rule_decisions: []
 - rule_id: R3
-  rule_statement: A Program User covers the whole program.
-  rule_sources: []
-  rule_decisions: []
+  rule_statement: >-
+    PROGRAM_USER and INSTAWORK_ADMIN grants name neither an org node nor an Agency, and a Program User
+    covers the whole program.
+  rule_sources:
+  - SHEET PLT-1
+  rule_decisions:
+  - D-25
+  - D-26
 - rule_id: R4
-  rule_statement: Unit Users see Bill Rates only, never Pay Rates or markups.
-  rule_sources: []
-  rule_decisions: []
+  rule_statement: >-
+    A Program User may grant UNIT_USER, AGENCY_USER, and PROGRAM_USER to any User.
+  rule_sources:
+  - SHEET PLT-1
+  rule_decisions:
+  - D-25
 - rule_id: R5
-  rule_statement: Agency Users never see another Agency's rates, Workers, or Timesheets.
+  rule_statement: >-
+    An Agency User may grant only AGENCY_USER, and only for the Agency of their own grant.
   rule_sources: []
-  rule_decisions: []
+  rule_decisions:
+  - D-25
+- rule_id: R6
+  rule_statement: >-
+    An Instawork Admin may grant only PROGRAM_USER, and only while no unrevoked PROGRAM_USER grant exists.
+  rule_sources: []
+  rule_decisions:
+  - D-26
+- rule_id: R7
+  rule_statement: >-
+    INSTAWORK_ADMIN grants are seeded with the deployment, name no granting User, and cannot be granted
+    in Iris.
+  rule_sources:
+  - GRAPH the first grant has nobody to grant it
+  rule_decisions:
+  - D-26
+- rule_id: R8
+  rule_statement: >-
+    The grantee is an existing User, or a new one invited through REQ-IDENTITY-0001 in the same action.
+  rule_sources:
+  - SHEET PLT-4
+  rule_decisions:
+  - D-25
+- rule_id: R9
+  rule_statement: >-
+    A User may hold several grants; one that repeats an unrevoked role and scope is refused, and granting
+    a revoked one again restores it.
+  rule_sources:
+  - GRAPH a User may hold more than one Role Grant
+  rule_decisions:
+  - D-25
+- rule_id: R10
+  rule_statement: >-
+    Whoever may grant a role and scope may revoke it; revoking sets revoked_at and ends that grant's access
+    at once.
+  rule_sources: []
+  rule_decisions:
+  - D-25
+- rule_id: R11
+  rule_statement: >-
+    A grant or revoke outside these limits is refused, nothing is saved, and the User is told why.
+  rule_sources:
+  - PRD §7 Agent Chat
+  rule_decisions:
+  - D-25
 requirement_sources:
-- SHEET
-- PRD §3 Supplier rates
-- FAQ deck
-requirement_decisions: []
+- SHEET PLT-1
+- SHEET PLT-4
+requirement_decisions:
+- D-25
+- D-26
 requirement_features:
 - PLT-1
 edges:
@@ -43,13 +104,19 @@ edges:
   requirement_id: REQ-ORG-0001
 - edge_type: DEPENDS_ON
   requirement_id: REQ-IDENTITY-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
-  detail: null
-  migration_entities:
-  - RoleGrant
+  reads:
+  - RoleGrant.*
+  - OrgNode.*
+  - User.active
+  writes:
+  - RoleGrant.*
+  detail: >-
+    The caller gives agency_id; Agency records are not read here. REQ-ORG-0009 depends on this requirement,
+    so these rules themselves state who may grant.
 requirement_starting_flow: false
 requirement_review:
   status: draft

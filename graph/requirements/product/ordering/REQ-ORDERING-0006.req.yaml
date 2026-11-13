@@ -2,38 +2,83 @@ requirement_id: REQ-ORDERING-0006
 requirement_target_layer: product
 requirement_target_module: ORDERING
 requirement_phase: MVP
-requirement_title: Attach structured site instructions
+requirement_title: Share structured site instructions with the Agency and Workers
 requirement_statement: >-
-  Each Shift carries site instructions in fixed fields: parking, entrance, directions, site contact, and
-  attire.
-requirement_actors: []
+  Each Shift carries site instructions in five fields: parking, entrance, directions, site contact, and
+  attire. The Agency sees them on its Release, and each assigned Worker receives them by text or email.
+requirement_actors:
+- AGENCY_USER
+- SYSTEM
 requirement_rules:
 - rule_id: R1
-  rule_statement: New Shifts start with the Unit's default instructions.
-  rule_sources: []
+  rule_statement: >-
+    A Shift's site instructions are its parking, entrance, directions, site_contact, and attire fields,
+    each an optional text.
+  rule_sources:
+  - SHEET SC-6
   rule_decisions: []
 - rule_id: R2
   rule_statement: >-
-    The Agency sees the instructions on every Release, and each assigned Worker receives them.
-  rule_sources: []
+    An Agency User sees the five fields on each PENDING or ACCEPTED Release their Agency holds on the
+    Shift.
+  rule_sources:
+  - SHEET SC-6
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    When an Assignment becomes ASSIGNED on a Shift with any site instruction filled, SITE_INSTRUCTIONS
+    is sent to the Worker's email and, by SMS, to the Worker's phone, whichever the Worker has.
+  rule_sources:
+  - SHEET SC-6
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    When a site instruction of a Shift that has not ended changes, SITE_INSTRUCTIONS is sent again to
+    every ASSIGNED Worker on it.
+  rule_sources:
+  - SHEET SC-6
+  rule_decisions: []
+- rule_id: R5
+  rule_statement: >-
+    Each send sets instructions_sent_at on the Assignment through REQ-WORKFORCE-0003, and a Worker with
+    neither an email nor a phone is sent nothing.
+  rule_sources:
+  - SHEET SC-6
   rule_decisions: []
 requirement_sources:
-- SHEET
-- PRD §2 Shifts
+- SHEET SC-6
 requirement_decisions: []
 requirement_features:
 - SC-6
 edges:
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-ORDERING-0007
+  requirement_id: REQ-ORDERING-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-WORKFORCE-0003
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-MESSAGING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
 data_model:
   status: covered
-  reads: []
+  reads:
+  - Shift.parking
+  - Shift.entrance
+  - Shift.directions
+  - Shift.site_contact
+  - Shift.attire
+  - Shift.ends_at
+  - Release.shift_id
+  - Release.agency_id
+  - Release.status
+  - Assignment.release_id
+  - Assignment.worker_id
+  - Assignment.status
+  - Assignment.instructions_sent_at
+  - Worker.email
+  - Worker.phone
   writes: []
   detail: null
-  migration_entities:
-  - Shift
-  - Unit
 requirement_starting_flow: false
 requirement_review:
   status: draft

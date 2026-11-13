@@ -2,42 +2,85 @@ requirement_id: REQ-INVOICING-0002
 requirement_target_layer: product
 requirement_target_module: INVOICING
 requirement_phase: P2
-requirement_title: Break each line into regular time, overtime, tips, and expenses
+requirement_title: >-
+  Break each invoice line into regular time, overtime, tips, and expenses
 requirement_statement: >-
-  Each invoice line is one Timesheet, priced as regular, overtime, and double-time hours at their Bill
-  Rates, plus tips and expenses at cost.
-requirement_actors: []
+  Each invoice line is one Timesheet's charges, split into regular, overtime, and double-time amounts,
+  tips, and Expenses.
+requirement_actors:
+- SYSTEM
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    When several Agencies fill one Shift, each Agency is invoiced only for its own Workers at its own
-    rates.
-  rule_sources: []
+    Each line holds one APPROVED Timesheet's regular, overtime, and double-time amounts, its tips, and
+    its Expenses as separate amounts.
+  rule_sources:
+  - SHEET INV-4
+  - PRD §5 Invoices
   rule_decisions: []
 - rule_id: R2
-  rule_statement: No-shows have zero hours and add nothing.
-  rule_sources: []
+  rule_statement: >-
+    The amounts are the Timesheet's approved spend amounts under REQ-REPORTING-0001, so invoices and dashboards
+    agree.
+  rule_sources:
+  - PRD §5 Invoices
+  - GRAPH one spend definition for every screen
+  rule_decisions: []
+- rule_id: R3
+  rule_statement: >-
+    When several Agencies staff one Shift, each Agency Invoice holds only that Agency's Workers, at that
+    Agency's Bill Rates.
+  rule_sources:
+  - PRD §5 Invoices
+  rule_decisions: []
+- rule_id: R4
+  rule_statement: >-
+    The invoice lists tips as one line per Unit and work date, passed through with no markup.
+  rule_sources:
+  - SESSIONS Invoicing & Accruals
+  - PRD §5 Invoices
   rule_decisions: []
 requirement_sources:
-- SHEET
+- SHEET INV-4
 - PRD §5 Invoices
 requirement_decisions: []
 requirement_features:
 - INV-4
 edges:
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-LABOR-0005
+  requirement_id: REQ-REPORTING-0001
 - edge_type: DEPENDS_ON
-  requirement_id: REQ-TIPS-0001
-- edge_type: DEPENDS_ON
-  requirement_id: REQ-TIPS-0002
+  requirement_id: REQ-AUDIT-0001
 data_model:
   status: covered
-  reads: []
-  writes: []
+  reads:
+  - Timesheet.assignment_id
+  - Timesheet.position_id
+  - Timesheet.department_id
+  - Timesheet.clock_in
+  - Timesheet.clock_out
+  - Timesheet.worked_minutes
+  - Timesheet.regular_minutes
+  - Timesheet.overtime_minutes
+  - Timesheet.double_time_minutes
+  - Timesheet.regular_bill_rate
+  - Timesheet.overtime_bill_rate
+  - Timesheet.double_time_bill_rate
+  - Timesheet.no_show
+  - Timesheet.status
+  - TipAllocation.timesheet_id
+  - TipAllocation.amount
+  - Expense.timesheet_id
+  - Expense.amount
+  - Expense.status
+  writes:
+  - InvoiceLine.timesheet_id
+  - InvoiceLine.regular_amount
+  - InvoiceLine.overtime_amount
+  - InvoiceLine.double_time_amount
+  - InvoiceLine.tips_amount
+  - InvoiceLine.expenses_amount
   detail: null
-  migration_entities:
-  - InvoiceLine
 requirement_starting_flow: false
 requirement_review:
   status: draft
