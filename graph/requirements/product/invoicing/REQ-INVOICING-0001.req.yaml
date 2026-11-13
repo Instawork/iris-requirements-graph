@@ -122,6 +122,9 @@ data_model:
   - Shift.request_id
   - Request.unit_id
   - Unit.timezone
+  - Unit.org_node_id
+  - OrgNode.parent_id
+  - OrgNode.level
   - InvoiceLine.*
   writes:
   - ConsolidatedInvoice.sector_id
