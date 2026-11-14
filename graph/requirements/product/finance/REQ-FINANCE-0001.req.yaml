@@ -4,7 +4,7 @@ requirement_target_module: FINANCE
 requirement_phase: P2
 requirement_title: Take a point-in-time accrual snapshot
 requirement_statement: >-
-  Iris snapshots, by Cost Center, the spend on hours worked that no issued invoice covers yet. Finance
+  Iris snapshots, by cost center, the spend on hours worked that no issued invoice covers yet. Finance
   Users arrive in Phase 3, so a Program User takes it.
 requirement_actors:
 - PROGRAM_USER
@@ -19,7 +19,7 @@ requirement_rules:
   - D-7
 - rule_id: R2
   rule_statement: >-
-    The snapshot holds, for each Cost Center, the spend on hours worked that no ISSUED invoice covers,
+    The snapshot holds, for each cost center, the spend on hours worked that no ISSUED invoice covers,
     and a total to accrue.
   rule_sources:
   - SESSIONS Invoicing & Accruals
@@ -27,7 +27,7 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    Each Cost Center's amount is split three ways: DRAFT or REJECTED Timesheets with the Agency, SUBMITTED
+    Each cost center's amount is split three ways: DRAFT or REJECTED Timesheets with the Agency, SUBMITTED
     Timesheets waiting for approval, and APPROVED Timesheets on an invoice not yet ISSUED.
   rule_sources:
   - SESSIONS Invoicing & Accruals

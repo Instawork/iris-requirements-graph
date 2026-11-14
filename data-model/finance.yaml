@@ -15,11 +15,11 @@ entities:
   - {name: taken_by_id, type: ref:User}
 - entity: AccrualLine
   phase: P2
-  description: One Cost Center's amount in one bucket of an Accrual Snapshot.
+  description: One Department's amount in one bucket of an Accrual Snapshot, by its cost center.
   fields:
   - {name: snapshot_id, type: ref:AccrualSnapshot}
-  - {name: cost_center_id, type: ref:CostCenter}
+  - {name: department_id, type: ref:Department}
   - {name: bucket, type: enum:AccrualBucket}
   - {name: amount, type: money}
   unique:
-  - [snapshot_id, cost_center_id, bucket]
+  - [snapshot_id, department_id, bucket]

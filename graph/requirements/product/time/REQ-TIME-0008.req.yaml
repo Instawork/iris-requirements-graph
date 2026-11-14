@@ -5,7 +5,7 @@ requirement_phase: MVP
 requirement_title: Split a Timesheet when a Worker changes role
 requirement_statement: >-
   When a Worker moves to another Position or Department partway through a Shift, the Timesheet splits
-  at that time. Each part keeps its own Position, Department, Bill Rates, and Cost Center.
+  at that time. Each part keeps its own Position, Department, and Bill Rates.
 requirement_actors:
 - AGENCY_USER
 - UNIT_USER
@@ -66,12 +66,12 @@ requirement_rules:
   - D-110
 - rule_id: R8
   rule_statement: >-
-    Each part is charged to its own Department's Cost Center, or to the Unit's when the part has no
-    Department.
+    Each part is charged to its own Department's cost center.
   rule_sources:
   - SESSIONS Timesheets, Tips & Expenses
   - FEEDBACK Departments have their own cost centers
-  rule_decisions: []
+  rule_decisions:
+  - D-276
 - rule_id: R9
   rule_statement: A part can be split again in the same way.
   rule_sources:
@@ -103,6 +103,7 @@ requirement_decisions:
 - D-59
 - D-110
 - D-229
+- D-276
 requirement_features:
 - TS-10
 edges:
@@ -133,8 +134,7 @@ data_model:
   - Position.is_active
   - Department.unit_id
   - Department.is_active
-  - Department.cost_center_id
-  - Unit.cost_center_id
+  - Department.cost_center_code
   - RateLine.regular_bill_rate
   - RateLine.overtime_bill_rate
   - RateLine.double_time_bill_rate

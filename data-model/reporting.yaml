@@ -21,7 +21,7 @@ enums:
   - {value: DISTRICT, meaning: District}
   - {value: UNIT, meaning: Unit}
   - {value: DEPARTMENT, meaning: Department}
-  - {value: COST_CENTER, meaning: Cost Center}
+  - {value: COMPANY, meaning: Company}
   - {value: AGENCY, meaning: Agency}
   - {value: POSITION, meaning: Position}
   - {value: EVENT, meaning: Event}

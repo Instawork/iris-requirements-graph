@@ -4,7 +4,7 @@ requirement_target_module: INTEGRATIONS
 requirement_phase: MVP
 requirement_title: Keep the ids other systems use for Iris records
 requirement_statement: >-
-  Iris keeps the id that Compass's Fieldglass, SAP, or MyStaff uses for a Unit, Department, Cost Center,
+  Iris keeps the id that Compass's Fieldglass, SAP, or MyStaff uses for a Company, Unit, Department,
   Agency, or Position. Loads, migrations, and Iris's agents match records across systems by these ids
   instead of by name.
 requirement_actors:
@@ -19,7 +19,7 @@ requirement_rules:
   - D-267
 - rule_id: R2
   rule_statement: >-
-    Ids are kept only for Units, Departments, Cost Centers, Agencies, and Positions, and record_type names
+    Ids are kept only for Companies, Units, Departments, Agencies, and Positions, and record_type names
     that entity.
   rule_sources: []
   rule_decisions:

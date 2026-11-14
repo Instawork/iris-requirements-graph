@@ -11,8 +11,7 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Only a Program User sends a UNITS file, with one row per Department, or one row for a Unit that has
-    none.
+    Only a Program User sends a UNITS file, with one row for each Department of each Unit.
   rule_sources:
   - SESSIONS Shift Creation
   - SHEET PLT-2
@@ -20,16 +19,17 @@ requirement_rules:
   - D-53
 - rule_id: R2
   rule_statement: >-
-    Each row must give sector, region, district, unit, address_line, city, state, zip, unit_cost_center,
-    and work_week_start; department_cost_center is required when department is set.
+    Each row must give sector, region, district, unit, address_line, city, state, zip, company,
+    work_week_start, department, and department_cost_center.
   rule_sources:
   - SESSIONS Shift Creation
   - SHEET PLT-2
-  rule_decisions: []
+  rule_decisions:
+  - D-276
 - rule_id: R3
   rule_statement: >-
-    The timezone, secured_site, and department columns are optional; an empty timezone is filled from
-    the ZIP code and an empty secured_site means not secured.
+    The timezone, secured_site, and department address columns are optional; an empty timezone is filled
+    from the ZIP code and an empty secured_site means not secured.
   rule_sources:
   - DEMO lib/types.ts
   - SHEET WA-17
@@ -78,8 +78,8 @@ requirement_rules:
   - D-143
 - rule_id: R9
   rule_statement: >-
-    A Department saved from a row copies its five site instructions from the Unit, since the file has no
-    instruction columns.
+    A Department saved from a row copies the Unit's address where its address columns are empty, and its
+    five site instructions, since the file has no instruction columns.
   rule_sources: []
   rule_decisions:
   - D-264
@@ -93,6 +93,7 @@ requirement_decisions:
 - D-85
 - D-143
 - D-264
+- D-276
 requirement_features:
 - PLT-2
 edges:
@@ -114,12 +115,12 @@ data_model:
   - OrgNode.*
   - MarketZip.zip
   - MarketZip.market_id
-  - CostCenter.code
+  - Company.name
   writes:
   - OrgNode.*
   - Unit.*
   - Department.*
-  - CostCenter.*
+  - Company.*
   detail: null
 requirement_starting_flow: false
 requirement_review:

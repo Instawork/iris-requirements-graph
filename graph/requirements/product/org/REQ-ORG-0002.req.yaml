@@ -4,8 +4,8 @@ requirement_target_module: ORG
 requirement_phase: MVP
 requirement_title: Add a Unit and its Departments
 requirement_statement: >-
-  A Program User adds a Unit under a District by form, with its address, Cost Center, Work Week start,
-  and any Departments. Iris sets the Unit's Market from its ZIP code.
+  A Program User adds a Unit under a District by form, with its address, Company, Work Week start,
+  and at least one Department. Iris sets the Unit's Market from its ZIP code.
 requirement_actors:
 - PROGRAM_USER
 - UNIT_USER
@@ -29,7 +29,7 @@ requirement_rules:
 - rule_id: R3
   rule_statement: >-
     A Unit needs a name no other Unit has, address line, city, two-letter USPS state code, five-digit ZIP
-    code, Cost Center code, and Work Week start day; one missing or malformed is refused.
+    code, Company, and Work Week start day; one missing or malformed is refused.
   rule_sources:
   - PRD Data Model
   - SHEET WA-18
@@ -55,7 +55,7 @@ requirement_rules:
   - D-85
 - rule_id: R6
   rule_statement: >-
-    A Cost Center code not yet on file is added as a new Cost Center, and a code already on file is reused.
+    A Company name not yet on file is added as a new Company, and a name already on file is reused.
   rule_sources:
   - SESSIONS Shift Creation
   - SHEET PLT-2
@@ -63,7 +63,7 @@ requirement_rules:
 - rule_id: R7
   rule_statement: >-
     A Program User adds, renames, deactivates, or reactivates a Department; each has a name unique within its Unit
-    and its own Cost Center code.
+    and a cost center code no other Department has.
   rule_sources:
   - FEEDBACK Departments within venues
   - SHEET PLT-2
@@ -121,14 +121,14 @@ requirement_rules:
   - D-218
 - rule_id: R14
   rule_statement: >-
-    A new Department copies default parking, entrance, directions, site contact, and attire from its Unit,
-    and a Program User may change them later.
+    A new Department copies its address and default site instructions from its Unit unless given, and a
+    Program User may change them later.
   rule_sources: []
   rule_decisions:
   - D-264
 - rule_id: R15
   rule_statement: >-
-    Changing a Unit's default site instructions leaves each Department's copy as it was saved.
+    Changing a Unit's address or default site instructions leaves each Department's copy as it was saved.
   rule_sources: []
   rule_decisions:
   - D-264
@@ -154,6 +154,14 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-266
+- rule_id: R19
+  rule_statement: >-
+    A Unit is saved with at least one Department, and its last active Department cannot be deactivated
+    while the Unit is active.
+  rule_sources:
+  - FEEDBACK Departments within venues, with their own cost centers
+  rule_decisions:
+  - D-276
 requirement_sources:
 - SESSIONS Shift Creation
 - SHEET PLT-2
@@ -168,6 +176,7 @@ requirement_decisions:
 - D-218
 - D-219
 - D-264
+- D-276
 - D-266
 requirement_features:
 - PLT-2
@@ -188,7 +197,7 @@ data_model:
   - OrgNode.*
   - MarketZip.zip
   - MarketZip.market_id
-  - CostCenter.code
+  - Company.name
   - RoleGrant.user_id
   - RoleGrant.role
   - RoleGrant.org_node_id
@@ -198,7 +207,7 @@ data_model:
   - OrgNode.*
   - Unit.*
   - Department.*
-  - CostCenter.*
+  - Company.*
   detail: null
 requirement_starting_flow: true
 requirement_review:

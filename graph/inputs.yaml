@@ -37,7 +37,7 @@ inputs:
   sources: [SHEET RC-2, PRD §6 Position list]
 - input_id: I-8
   origin: graph
-  ask: The pilot's Units, Departments, Cost Centers, Markets, and Market ZIP codes.
+  ask: The pilot's Companies, Units, Departments with their cost center codes, Markets, and Market ZIP codes.
   sources: [SHEET Decisions & Inputs]
   decisions: [D-8, D-21]
 - input_id: I-9

@@ -57,8 +57,8 @@ requirement_rules:
   - D-53
 - rule_id: R7
   rule_statement: >-
-    The Unit's address, timezone, Cost Center, Work Week start, secured-site flag, and each Department's
-    name and Cost Center are shown read-only.
+    The Unit's address, timezone, Company, Work Week start, secured-site flag, and each Department's name,
+    cost center code, and address are shown read-only.
   rule_sources:
   - SHEET PLT-2
   rule_decisions:
@@ -130,14 +130,18 @@ data_model:
   - Unit.*
   - Department.unit_id
   - Department.name
-  - Department.cost_center_id
+  - Department.cost_center_code
+  - Department.address_line
+  - Department.city
+  - Department.state
+  - Department.zip
   - Department.is_active
   - Department.default_parking
   - Department.default_entrance
   - Department.default_directions
   - Department.default_site_contact
   - Department.default_attire
-  - CostCenter.code
+  - Company.name
   - Position.name
   - OrgNode.name
   - AccountTeamAssignment.*

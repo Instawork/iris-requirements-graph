@@ -38,7 +38,7 @@ layers:
   modules:
   - module_id: ORG
     module_name: Org and access
-    about: The Compass org tree, Departments, Cost Centers, Role Grants, scopes, and Settings.
+    about: The Compass org tree, Companies, Departments, Role Grants, scopes, and Settings.
   - module_id: CATALOG
     module_name: Positions and markets
     about: Reference lists every other module prices and filters by.

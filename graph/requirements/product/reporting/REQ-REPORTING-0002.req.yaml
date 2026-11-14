@@ -70,7 +70,7 @@ requirement_rules:
   - D-182
 - rule_id: R8
   rule_statement: >-
-    Every measure groups and filters by Sector, Region, District, Unit, Department, Cost Center, Agency,
+    Every measure groups and filters by Sector, Region, District, Unit, Department, Company, Agency,
     Position, Event, work date, Work Week, and month.
   rule_sources:
   - SHEET 6.1

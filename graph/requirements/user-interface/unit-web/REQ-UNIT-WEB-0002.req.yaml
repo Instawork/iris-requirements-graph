@@ -11,8 +11,8 @@ requirement_actors:
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    The form takes one Unit and one or more lines, each with a Position, date, start time, end time, and
-    headcount, and optionally a planned break and a Department.
+    The form takes one Unit and one or more lines, each with a Position, Department, date, start time, end
+    time, and headcount, and optionally a planned break.
   rule_sources:
   - SHEET SC-2
   - PRD §2 Shifts
@@ -27,8 +27,8 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R3
   rule_statement: >-
-    Each line's five site instruction fields start filled from its Department's defaults, or the Unit's
-    when it has no Department, and can be changed for that line.
+    Each line's five site instruction fields start filled from its Department's defaults and can be
+    changed for that line.
   rule_sources:
   - SHEET SC-6
   - SHEET SC-11

@@ -38,11 +38,11 @@ terms:
   source_words: [operator, unit manager]
   sources: [SHEET PLT-1]
 - term: Department
-  definition: Part of a Unit charged to its own Cost Center, such as suites or concessions.
+  definition: A cost center inside a Unit, such as suites or concessions, with its own location and check-in instructions.
   avoid: []
   sources: [FEEDBACK Departments within venues, SHEET PLT-2]
-- term: Cost Center
-  definition: The accounting code a Unit or Department charges spend to.
+- term: Company
+  definition: The Compass company a Unit belongs to, such as Soldier Field Concessions.
   avoid: []
   sources: [SHEET PLT-2]
 - term: Agency

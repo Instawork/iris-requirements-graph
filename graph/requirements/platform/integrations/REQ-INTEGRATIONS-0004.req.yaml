@@ -2,15 +2,15 @@ requirement_id: REQ-INTEGRATIONS-0004
 requirement_target_layer: platform
 requirement_target_module: INTEGRATIONS
 requirement_phase: P3
-requirement_title: Sync Units and Cost Centers automatically
+requirement_title: Sync Units and Departments automatically
 requirement_statement: >-
-  New Units and Cost Centers appear in Iris automatically from Compass's systems.
+  New Units and Departments appear in Iris automatically from Compass's systems.
 requirement_actors:
 - SYSTEM
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    A Unit or Cost Center added in Compass's systems is added to Iris without anyone entering it.
+    A Unit or Department added in Compass's systems is added to Iris without anyone entering it.
   rule_sources:
   - SHEET PLT-8
   rule_decisions: []

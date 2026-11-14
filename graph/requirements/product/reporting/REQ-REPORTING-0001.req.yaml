@@ -108,8 +108,7 @@ requirement_rules:
   rule_decisions: []
 - rule_id: R14
   rule_statement: >-
-    Spend on a Timesheet is charged to its Department's Cost Center, or to the Unit's Cost Center when
-    the Timesheet has no Department.
+    Spend on a Timesheet is charged to its Department's cost center.
   rule_sources:
   - SHEET PLT-2
   - FEEDBACK Departments have their own cost centers
@@ -202,9 +201,8 @@ data_model:
   - Shift.status
   - Request.unit_id
   - Unit.timezone
-  - Unit.cost_center_id
   - Unit.org_node_id
-  - Department.cost_center_id
+  - Department.cost_center_code
   - OrgNode.parent_id
   - OrgNode.level
   writes: []

@@ -32,8 +32,8 @@ requirement_rules:
   - D-53
 - rule_id: R4
   rule_statement: >-
-    Add Unit, offered under an active District, takes a name, address line, city, state, ZIP code, Cost
-    Center code, Work Week start day, and optional time zone, and saves through REQ-ORG-0002.
+    Add Unit, offered under an active District, takes a name, address line, city, state, ZIP code, Company,
+    Work Week start day, optional time zone, and at least one Department, and saves through REQ-ORG-0002.
   rule_sources:
   - SESSIONS Shift Creation
   - SHEET PLT-2
@@ -58,8 +58,8 @@ requirement_rules:
   - D-21
 - rule_id: R7
   rule_statement: >-
-    A Unit's page lists its Departments with their Cost Center codes and whether active, and the Program
-    User adds, renames, or deactivates one through REQ-ORG-0002.
+    A Unit's page lists its Departments with their cost center codes, addresses, and whether active, and
+    the Program User adds, renames, or deactivates one through REQ-ORG-0002.
   rule_sources:
   - FEEDBACK Departments within venues
   - SHEET PLT-2
@@ -74,8 +74,8 @@ requirement_rules:
   - D-53
 - rule_id: R9
   rule_statement: >-
-    Adding a Department starts its parking, entrance, directions, site contact, and attire from the Unit,
-    and the Program User can change them.
+    Adding a Department starts its address and five site instructions from the Unit, and the Program User
+    can change them.
   rule_sources: []
   rule_decisions:
   - D-264
@@ -124,7 +124,7 @@ data_model:
   - OrgNode.*
   - Unit.*
   - Department.*
-  - CostCenter.code
+  - Company.name
   - Market.name
   - Market.state
   - AccountTeamAssignment.*

@@ -11,7 +11,7 @@ entities:
   description: The id one outside system uses for one Iris record (D-267).
   fields:
   - {name: system, type: enum:ExternalSystem}
-  - {name: record_type, type: text, note: 'The Iris entity name: Unit, Department, CostCenter, Agency, or Position'}
+  - {name: record_type, type: text, note: 'The Iris entity name: Company, Unit, Department, Agency, or Position'}
   - {name: record_id, type: int, note: The id of that record}
   - {name: external_id, type: text, note: 'Kept exactly as the outside system writes it'}
   - {name: recorded_by_id, type: ref:User}

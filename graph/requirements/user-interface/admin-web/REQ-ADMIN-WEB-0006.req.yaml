@@ -5,14 +5,14 @@ requirement_phase: MVP
 requirement_title: Keep the ids other systems use for Iris records
 requirement_statement: >-
   On the Outside ids screen an Instawork Admin sets the Fieldglass, SAP, and MyStaff ids of Units,
-  Departments, Cost Centers, Agencies, and Positions.
+  Departments, Companies, Agencies, and Positions.
 requirement_actors:
 - INSTAWORK_ADMIN
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
     The Outside ids screen picks a system and a record type and lists every record of that type by name,
-    or by code for a Cost Center, with its id there or empty.
+    or by name for a Company, with its id there or empty.
   rule_sources: []
   rule_decisions:
   - D-267
@@ -57,7 +57,7 @@ data_model:
   - Unit.org_node_id
   - Department.name
   - Department.unit_id
-  - CostCenter.code
+  - Company.name
   - Agency.name
   - Position.name
   writes: []

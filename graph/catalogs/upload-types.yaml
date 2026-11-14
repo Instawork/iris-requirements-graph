@@ -152,11 +152,11 @@ upload_types:
   - {column: expires_on, kind: date, required: when the type has an expiry, maps_to: Credential.expires_on}
 - type: UNITS
   phase: MVP
-  meaning: Units and their Departments, one row per Department, or per Unit when it has none.
+  meaning: Units and their Departments, one row per Department; every Unit has at least one.
   uploaders: [PROGRAM_USER]
   owner: REQ-ORG-0003
   sources: [SHEET PLT-2, SESSIONS Shift Creation]
-  decisions: [D-143]
+  decisions: [D-143, D-276]
   columns:
   - {column: sector, kind: text, required: 'yes', maps_to: OrgNode.parent_id, lookup: OrgNode.name at SECTOR, note: 'A Sector, Region, or District not in the tree is a row problem whose fix adds it'}
   - {column: region, kind: text, required: 'yes', maps_to: OrgNode.parent_id, lookup: OrgNode.name at REGION under the sector}
@@ -167,11 +167,15 @@ upload_types:
   - {column: state, kind: text, required: 'yes', maps_to: Unit.state}
   - {column: zip, kind: text, required: 'yes', maps_to: Unit.zip}
   - {column: timezone, kind: text, required: 'no', maps_to: Unit.timezone, note: 'An IANA zone; filled from the ZIP code if empty (D-85)'}
-  - {column: unit_cost_center, kind: text, required: 'yes', maps_to: Unit.cost_center_id, lookup: CostCenter.code}
+  - {column: company, kind: text, required: 'yes', maps_to: Unit.company_id, lookup: Company.name, note: A name not on file adds a new Company}
   - {column: work_week_start, kind: text, required: 'yes', maps_to: Unit.work_week_start, note: 'A day as MON, TUE, WED, THU, FRI, SAT, or SUN, or its full name such as Monday, in any letter case'}
   - {column: secured_site, kind: yes_no, required: 'no', maps_to: Unit.is_secured_site, note: Empty means not secured}
-  - {column: department, kind: text, required: 'no', maps_to: Department.name}
-  - {column: department_cost_center, kind: text, required: when department is set, maps_to: Department.cost_center_id, lookup: CostCenter.code}
+  - {column: department, kind: text, required: 'yes', maps_to: Department.name}
+  - {column: department_cost_center, kind: text, required: 'yes', maps_to: Department.cost_center_code, note: Unique across the program}
+  - {column: department_address_line, kind: text, required: 'no', maps_to: Department.address_line, note: Empty copies the Unit's}
+  - {column: department_city, kind: text, required: 'no', maps_to: Department.city, note: Empty copies the Unit's}
+  - {column: department_state, kind: text, required: 'no', maps_to: Department.state, note: Empty copies the Unit's}
+  - {column: department_zip, kind: text, required: 'no', maps_to: Department.zip, note: Empty copies the Unit's}
 - type: AGENCIES
   phase: MVP
   meaning: Agencies, with their first Agency User and the org nodes they are approved for.

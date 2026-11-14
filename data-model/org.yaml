@@ -46,13 +46,13 @@ entities:
   constraints:
   - Two UNIT nodes never share a name, whatever their parents (D-54).
   - A SECTOR has no parent; every other node's parent is exactly one level above it.
-- entity: CostCenter
+- entity: Company
   phase: MVP
-  description: A Compass cost center code that spend is charged to.
+  description: A Compass company that Units belong to (D-276).
   fields:
-  - {name: code, type: text}
+  - {name: name, type: text}
   unique:
-  - [code]
+  - [name]
 - entity: Unit
   phase: MVP
   description: 'A Compass location that orders Shifts, such as a stadium or a hospital. Its name is its OrgNode name.'
@@ -64,7 +64,7 @@ entities:
   - {name: zip, type: text, note: Five digits}
   - {name: timezone, type: text, note: 'IANA zone, such as America/Chicago; every Shift time at the Unit is in this zone. Filled from zip when not given (D-85)'}
   - {name: market_id, type: ref:Market, note: 'The Market that holds zip; set when the Unit is saved and again when its ZIP code is added to a Market (D-219)'}
-  - {name: cost_center_id, type: ref:CostCenter}
+  - {name: company_id, type: ref:Company}
   - {name: work_week_start, type: enum:Weekday}
   - {name: is_secured_site, type: bool, note: Workers need a badge request here}
   - {name: default_parking, type: longtext, nullable: true}
@@ -77,14 +77,19 @@ entities:
   - [org_node_id]
   constraints:
   - org_node_id is a UNIT-level node.
+  - A Unit has at least one Department (D-276).
 - entity: Department
   phase: MVP
-  description: 'Part of a Unit charged to its own Cost Center, such as suites or concessions, with its own check-in instructions.'
+  description: 'A cost center of a Unit, such as suites or concessions, with its own location and check-in instructions (D-276).'
   fields:
   - {name: unit_id, type: ref:Unit}
   - {name: name, type: text}
-  - {name: cost_center_id, type: ref:CostCenter}
+  - {name: cost_center_code, type: text, note: The Compass cost center code its spend is charged to}
   - {name: is_active, type: bool}
+  - {name: address_line, type: text}
+  - {name: city, type: text}
+  - {name: state, type: text, note: Two-letter code}
+  - {name: zip, type: text, note: Five digits}
   - {name: default_parking, type: longtext, nullable: true}
   - {name: default_entrance, type: longtext, nullable: true}
   - {name: default_directions, type: longtext, nullable: true}
@@ -92,8 +97,10 @@ entities:
   - {name: default_attire, type: longtext, nullable: true}
   unique:
   - [unit_id, name]
+  - [cost_center_code]
   constraints:
-  - The five default site instructions are copied from the Unit when the Department is created.
+  - Its address and five default site instructions are copied from the Unit when the Department is created, unless given.
+  - The Unit's timezone, Market, and labor rules apply to the Department, wherever its address is.
 - entity: RoleGrant
   phase: MVP
   description: 'One role a User holds, and the scope it covers. A revoked grant is restored, never added a second time.'

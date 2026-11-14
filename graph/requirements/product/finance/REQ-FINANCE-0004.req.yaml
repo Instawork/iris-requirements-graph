@@ -2,16 +2,16 @@ requirement_id: REQ-FINANCE-0004
 requirement_target_layer: product
 requirement_target_module: FINANCE
 requirement_phase: P3
-requirement_title: Map GL codes by Position within a Cost Center
+requirement_title: Map GL codes by Position within a Department
 requirement_statement: >-
-  Each Position within a Cost Center maps to a GL code, such as front or back of house, so costs land
+  Each Position within a cost center maps to a GL code, such as front or back of house, so costs land
   in the right account.
 requirement_actors:
 - SYSTEM
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Spend for a Position within a Cost Center carries the GL code mapped to that pair, such as front of
+    Spend for a Position within a cost center carries the GL code mapped to that pair, such as front of
     house or back of house.
   rule_sources:
   - SHEET INV-15

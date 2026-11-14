@@ -1098,7 +1098,7 @@ decisions:
     or Credential Requirements be scoped to a Department?
   status: open
   assumption: >-
-    No. A Department sits inside one Unit and has its own Cost Center, so spend rolls up through it. Role
+    No. A Department sits inside one Unit and is its own cost center, so spend rolls up through it. Role
     Grants, Settings, Agency approvals, and Credential Requirements are scoped to a Unit or a level
     above it.
   blocking: false
@@ -3271,7 +3271,7 @@ decisions:
   status: open
   assumption: >-
     Yes. A Department has the Unit's five site instructions, copied from the Unit when the Department
-    is created and editable after. A Shift uses its Department's copy, or the Unit's when it has none.
+    is created and editable after. A Shift uses its Department's copy.
   blocking: false
   answer_from: COMPASS_OPERATIONS
   answer: null
@@ -3310,7 +3310,7 @@ decisions:
   question: Which outside systems' ids does Iris keep for its records?
   status: open
   assumption: >-
-    Compass's systems only: Fieldglass, SAP, and MyStaff ids for Units, Departments, Cost Centers, Agencies,
+    Compass's systems only: Fieldglass, SAP, and MyStaff ids for Companies, Units, Departments, Agencies,
     and Positions, at most one per system per record. Instawork Admins keep them, and no Iris rule needs one
     to be present. Instawork's own back-office systems are not Iris data.
   blocking: false
@@ -3421,3 +3421,17 @@ decisions:
   answer: null
   sources:
   - GRAPH an agentic product must explain what its agents read and returned
+- decision_id: D-276
+  origin: graph
+  question: Is each Department a cost center, and what groups Units above them?
+  status: open
+  assumption: >-
+    Yes. Each Department has its own Compass cost center code, and every Shift and Timesheet is charged to
+    one, so every Unit has at least one Department. Each Unit belongs to a Company, such as Soldier Field
+    Concessions. A Department's address is copied from its Unit and may differ.
+  blocking: false
+  answer_from: COMPASS_FINANCE
+  answer: null
+  sources:
+  - GRAPH compass-vms-dashboard maps Fieldglass cost center codes to Instawork Company, Business, and region ids
+  - GRAPH Compass cost center names are department-level, such as general concessions or management at one venue

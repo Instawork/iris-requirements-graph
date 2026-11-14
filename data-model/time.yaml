@@ -38,7 +38,7 @@ entities:
   - {name: assignment_id, type: ref:Assignment}
   - {name: split_from_id, type: ref:Timesheet, nullable: true, note: Set on the later part of a split}
   - {name: position_id, type: ref:Position, note: The Shift's Position unless split}
-  - {name: department_id, type: ref:Department, nullable: true, note: The Shift's Department unless split}
+  - {name: department_id, type: ref:Department, note: The Shift's Department unless split}
   - {name: clock_in, type: timestamp, nullable: true, note: 'As billed, kept to the whole minute'}
   - {name: clock_out, type: timestamp, nullable: true, note: 'As billed, kept to the whole minute'}
   - {name: break_minutes, type: int, nullable: true}

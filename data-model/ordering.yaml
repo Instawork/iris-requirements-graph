@@ -51,7 +51,7 @@ entities:
   - {name: request_id, type: ref:Request}
   - {name: line_no, type: int, note: The Request line it came from; occurrences of one line form a series}
   - {name: position_id, type: ref:Position}
-  - {name: department_id, type: ref:Department, nullable: true}
+  - {name: department_id, type: ref:Department, note: 'The cost center the Shift is charged to'}
   - {name: event_id, type: ref:Event, nullable: true}
   - {name: starts_at, type: timestamp}
   - {name: ends_at, type: timestamp, note: Later than starts_at}
@@ -68,7 +68,7 @@ entities:
   - {name: cancelled_at, type: timestamp, nullable: true}
   constraints:
   - The work date is the date of starts_at in the Unit's timezone.
-  - The Shift is charged to its Department's Cost Center, or to the Unit's when it has no Department.
+  - The Shift is charged to its Department's cost center.
 - entity: RequestTemplate
   phase: MVP
   description: 'A saved package of Shift lines a Unit reuses, such as a game-day package.'
@@ -83,7 +83,7 @@ entities:
   fields:
   - {name: template_id, type: ref:RequestTemplate}
   - {name: position_id, type: ref:Position}
-  - {name: department_id, type: ref:Department, nullable: true}
+  - {name: department_id, type: ref:Department, nullable: true, note: Empty means the Department REQ-ORDERING-0001 picks when the line is booked}
   - {name: headcount, type: int}
   - {name: start_time, type: time, note: Local time at the Unit}
   - {name: end_time, type: time, note: Before start_time means the next day}
