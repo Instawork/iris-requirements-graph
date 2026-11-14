@@ -1616,7 +1616,9 @@ decisions:
   origin: graph
   question: Which screens does an Instawork Admin have?
   status: open
-  assumption: The Instawork Admin menu is Home, Positions, Markets, and Labor rules.
+  assumption: >-
+    The Instawork Admin menu is Home, Positions, Markets, Labor rules, Account team, and Outside ids, and
+    Billing from Phase 2.
   blocking: false
   answer_from: INSTAWORK_PRODUCT
   answer: null
@@ -3308,29 +3310,30 @@ decisions:
   question: Which outside systems' ids does Iris keep for its records?
   status: open
   assumption: >-
-    Fieldglass, SAP, MyStaff, Instawork, Salesforce, and NetSuite ids for Units, Departments, Cost Centers,
-    Agencies, and Positions, at most one per system per record. Instawork Admins keep them, and no Iris
-    rule needs one to be present.
+    Compass's systems only: Fieldglass, SAP, and MyStaff ids for Units, Departments, Cost Centers, Agencies,
+    and Positions, at most one per system per record. Instawork Admins keep them, and no Iris rule needs one
+    to be present. Instawork's own back-office systems are not Iris data.
   blocking: false
   answer_from: INSTAWORK_ENGINEERING
   answer: null
   sources:
-  - GRAPH Instawork's Business admin keeps salesforce_account_id, salesforce_opportunity_id, and netsuite_id
+  - GRAPH Instawork's Business admin keeps outside ids such as salesforce_account_id and netsuite_id on the record
   - GRAPH compass-vms-dashboard maps Fieldglass cost center codes to Instawork Company, Business, and region ids
 - decision_id: D-268
   origin: graph
-  question: Is each Consolidated Invoice billed to its own Sector's bill-to and Payment Terms?
+  question: Who bills Compass, and who does Compass pay?
   status: open
   assumption: >-
-    Yes. Each Sector has one Billing Profile with bill-to name, address, Payment Terms, and Compass's
-    payee number for Instawork. An issued invoice keeps a copy of it, a program-wide invoice number, and a
-    due date its terms' days after issue.
+    Each Agency Invoice is that Agency's bill to Compass, due on the Agency's Payment Terms, and Compass pays
+    each Agency directly. The Consolidated Invoice is Iris's weekly summary of them, addressed to the
+    Sector's Billing Profile, with its own reference number.
   blocking: false
   answer_from: COMPASS_FINANCE
   answer: null
   sources:
   - FAQ One consolidated invoice
-  - GRAPH Instawork keeps invoicing_name, invoicing_address, vendor_number, and PaymentTerms days_payment_due per Company
+  - GRAPH REQ-INVOICING-0007 says Iris pays no one
+  - GRAPH Instawork keeps invoicing_name, invoicing_address, and PaymentTerms days_payment_due per Company
 - decision_id: D-269
   origin: graph
   question: Does each Consolidated Invoice carry a Compass purchase order number?
@@ -3349,23 +3352,72 @@ decisions:
   question: Who keeps billing details for Sectors and Agencies?
   status: open
   assumption: >-
-    Instawork Admins keep Payment Terms, Sector Billing Profiles, purchase orders, and each Agency's legal
-    name, remit-to address, Payment Terms, and payee number. Program Users see all of them, and Agency
-    Users see only their own Agency's.
+    Program Users keep Sector Billing Profiles, purchase orders, and each Agency's legal name, remit-to
+    address, Payment Terms, and payee number, as Compass's payables data. Instawork Admins keep the Payment
+    Terms list and VMS fees. Agency Users see only their own.
   blocking: false
   answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
-  - GRAPH Instawork staff keep CompanyInvoicingSettings, payment terms, and purchase orders in Django admin
+  - GRAPH Compass accounts payable owns each Agency's remit-to and payee number
 - decision_id: D-271
   origin: graph
   question: How does an issued Consolidated Invoice reach Compass?
   status: open
   assumption: >-
-    By email to its Sector's billing recipients with the invoice attached, until posting to SAP through
-    REQ-INTEGRATIONS-0008 replaces it.
+    By email to its Sector's billing recipients with the summary and each Agency Invoice attached, until
+    posting to SAP through REQ-INTEGRATIONS-0008 replaces it.
   blocking: false
   answer_from: COMPASS_FINANCE
   answer: null
   sources:
   - GRAPH Instawork's Company keeps an invoice_email_list that issued invoices are sent to
+- decision_id: D-272
+  origin: graph
+  question: How does Iris charge its VMS fee?
+  status: open
+  assumption: >-
+    The Agency pays it: a percentage of each issued Agency Invoice's total, set per Agency by an Instawork
+    Admin. Each month Iris issues each Agency one fee statement for the month before. Compass never sees
+    the fee on its invoices.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - GRAPH Iris is software that Agencies bill Compass through, and it earns a VMS fee
+- decision_id: D-273
+  origin: graph
+  question: Is each payment to an Agency recorded on its own?
+  status: open
+  assumption: >-
+    Yes. A Program User records each payment's amount, date, and reference, such as a check or ACH number,
+    and an Agency Invoice's paid amount is their sum, never above its total.
+  blocking: false
+  answer_from: COMPASS_FINANCE
+  answer: null
+  sources:
+  - GRAPH a single paid amount cannot be reconciled against remittances
+- decision_id: D-274
+  origin: graph
+  question: May one User both run Iris and act for an Agency?
+  status: open
+  assumption: >-
+    No. A User holding INSTAWORK_ADMIN is never granted AGENCY_USER, and the reverse, so the people who run
+    Iris stay neutral among Agencies even when Instawork is also one of them.
+  blocking: false
+  answer_from: INSTAWORK_PRODUCT
+  answer: null
+  sources:
+  - GRAPH Iris is separate from Instawork's staffing marketplace, which may also be an Agency
+- decision_id: D-275
+  origin: graph
+  question: What does Iris keep about each LLM call?
+  status: open
+  assumption: >-
+    One record per call: the caller, purpose, model, acting User, the record read, token counts, duration,
+    and outcome. The input and output text are kept 90 days for debugging and evaluation, then cleared.
+  blocking: false
+  answer_from: INSTAWORK_ENGINEERING
+  answer: null
+  sources:
+  - GRAPH an agentic product must explain what its agents read and returned

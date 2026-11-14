@@ -315,13 +315,18 @@ terms:
   sources: [GRAPH D-266]
   decisions: [D-266]
 - term: Billing Profile
-  definition: 'A Sector''s bill-to name and address, Payment Terms, payee number, and invoice recipients.'
+  definition: 'The bill-to name, address, and invoice recipients Compass wants on a Sector''s invoices.'
   avoid: []
   source_words: [invoicing name, invoicing address, invoice email list]
   sources: [GRAPH D-268]
   decisions: [D-268, D-271]
 - term: Payment Terms
-  definition: How many days after issue an invoice is due, such as Net 30.
+  definition: How many days after issue an Agency Invoice is due, such as Net 30.
   avoid: []
   sources: [GRAPH D-268]
   decisions: [D-268]
+- term: VMS fee
+  definition: 'What Iris charges an Agency: a percent of each issued Agency Invoice, billed on a monthly fee statement.'
+  avoid: []
+  sources: [GRAPH D-272]
+  decisions: [D-272]

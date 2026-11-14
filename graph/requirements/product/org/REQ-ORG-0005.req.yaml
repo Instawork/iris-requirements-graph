@@ -156,6 +156,13 @@ requirement_rules:
   rule_sources: []
   rule_decisions:
   - D-257
+- rule_id: R20
+  rule_statement: >-
+    AGENCY_USER is refused to a User holding an unrevoked INSTAWORK_ADMIN grant, and R7 seeds no
+    INSTAWORK_ADMIN grant for a User holding an unrevoked AGENCY_USER grant.
+  rule_sources: []
+  rule_decisions:
+  - D-274
 requirement_sources:
 - SHEET PLT-1
 - SHEET PLT-4
@@ -170,6 +177,7 @@ requirement_decisions:
 - D-168
 - D-256
 - D-257
+- D-274
 requirement_features:
 - PLT-1
 edges:

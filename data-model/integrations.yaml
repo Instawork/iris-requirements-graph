@@ -5,9 +5,6 @@ enums:
   - {value: FIELDGLASS, meaning: 'SAP Fieldglass, the system Iris replaces for Compass.'}
   - {value: SAP, meaning: Compass's SAP finance system that invoices post to.}
   - {value: MYSTAFF, meaning: Compass's MyStaff workforce system.}
-  - {value: INSTAWORK, meaning: 'Instawork''s marketplace backend, such as its Company, Business, and Position ids.'}
-  - {value: SALESFORCE, meaning: Instawork's CRM.}
-  - {value: NETSUITE, meaning: Instawork's finance system.}
 entities:
 - entity: ExternalReference
   phase: MVP

@@ -9,15 +9,38 @@ requirement_statement: >-
 requirement_actors:
 - PROGRAM_USER
 - UNIT_USER
+- AGENCY_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Iris pays no one: a Program User records the amount paid so far on an ISSUED Agency Invoice.
+    Iris pays no one: a Program User records each payment Compass made on an ISSUED or PARTLY_PAID Agency
+    Invoice, with its amount, date paid, and an optional reference.
   rule_sources:
   - SHEET INV-7
   rule_decisions:
   - D-31
   - D-46
+  - D-273
+- rule_id: R5
+  rule_statement: >-
+    An Agency Invoice's paid_amount is the sum of its payments, and a payment that would take it above the
+    invoice's total is refused.
+  rule_sources: []
+  rule_decisions:
+  - D-273
+- rule_id: R6
+  rule_statement: >-
+    A payment is never changed; a Program User deletes one recorded in error, and paid_amount and the
+    status follow.
+  rule_sources: []
+  rule_decisions:
+  - D-273
+- rule_id: R7
+  rule_statement: >-
+    An Agency User sees the payments recorded on their own Agency's invoices.
+  rule_sources: []
+  rule_decisions:
+  - D-273
 - rule_id: R2
   rule_statement: >-
     An Agency Invoice becomes PARTLY_PAID when the amount paid is above zero and below its total, and
@@ -45,6 +68,7 @@ requirement_sources:
 requirement_decisions:
 - D-31
 - D-46
+- D-273
 requirement_features:
 - INV-7
 edges:
@@ -58,7 +82,9 @@ data_model:
   status: covered
   reads:
   - InvoiceLine.*
+  - AgencyPayment.*
   writes:
+  - AgencyPayment.*
   - AgencyInvoice.status
   - AgencyInvoice.paid_amount
   - ConsolidatedInvoice.status

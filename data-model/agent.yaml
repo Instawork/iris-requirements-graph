@@ -34,6 +34,11 @@ enums:
   values:
   - {value: SAVED, meaning: Saved by the requirement that proposed it.}
   - {value: FAILED_RECHECK, meaning: 'The requirement that proposed it refused it on save; result_message says why.'}
+- enum: LlmCallOutcome
+  values:
+  - {value: OK, meaning: The LLM answered in the shape asked for.}
+  - {value: INVALID_SHAPE, meaning: 'The answer was not in the shape asked for, so the caller got a failure.'}
+  - {value: FAILED, meaning: 'No answer: the provider refused, errored, or timed out.'}
 entities:
 - entity: Proposal
   phase: MVP
@@ -74,3 +79,22 @@ entities:
     changes no value), drops_item (true when the fix is to reject the item), candidates (empty, or a list
     of label and value the person may pick from), and picked (empty, or the value of the candidate picked).
   - An item is ACCEPTED only when each of its problems has a fix or a picked candidate.
+- entity: LlmCall
+  phase: MVP
+  description: One call Iris made to the LLM, kept to explain and evaluate what its agents read and returned (D-275).
+  fields:
+  - {name: caller, type: text, note: 'The calling requirement, such as REQ-INTAKE-0002'}
+  - {name: purpose, type: text, note: 'What was asked, such as read file columns or draft a Request'}
+  - {name: model, type: text, note: The provider's model name and version}
+  - {name: acting_user_id, type: ref:User, nullable: true, note: Empty for a SYSTEM call}
+  - {name: channel, type: enum:Channel}
+  - {name: record_type, type: text, nullable: true, note: 'The entity read, such as Upload, InboundMessage, or Credential'}
+  - {name: record_id, type: int, nullable: true}
+  - {name: input_text, type: longtext, nullable: true, note: Cleared after 90 days}
+  - {name: output_text, type: longtext, nullable: true, note: Cleared after 90 days}
+  - {name: input_tokens, type: int}
+  - {name: output_tokens, type: int}
+  - {name: duration_ms, type: int}
+  - {name: outcome, type: enum:LlmCallOutcome}
+  - {name: error, type: longtext, nullable: true}
+  - {name: text_cleared_at, type: timestamp, nullable: true}

@@ -4,8 +4,8 @@ requirement_target_module: ADMIN-WEB
 requirement_phase: MVP
 requirement_title: Keep the ids other systems use for Iris records
 requirement_statement: >-
-  On the Outside ids screen an Instawork Admin sets the Fieldglass, SAP, MyStaff, Instawork, Salesforce,
-  and NetSuite ids of Units, Departments, Cost Centers, Agencies, and Positions.
+  On the Outside ids screen an Instawork Admin sets the Fieldglass, SAP, and MyStaff ids of Units,
+  Departments, Cost Centers, Agencies, and Positions.
 requirement_actors:
 - INSTAWORK_ADMIN
 requirement_rules:
@@ -30,7 +30,7 @@ requirement_rules:
   rule_decisions:
   - D-267
 requirement_sources:
-- GRAPH Instawork's Business admin keeps salesforce_account_id, salesforce_opportunity_id, and netsuite_id
+- GRAPH Instawork's Business admin keeps outside ids such as salesforce_account_id and netsuite_id on the record
 requirement_decisions:
 - D-267
 requirement_features: []

@@ -65,8 +65,8 @@ requirement_rules:
   - D-101
 - rule_id: R8
   rule_statement: >-
-    This requirement can read and change no record, so whatever the LLM returns reaches a record only
-    through its caller's own rules.
+    This requirement reads and changes no record but its own LlmCall log, so whatever the LLM returns
+    reaches a record only through its caller's own rules.
   rule_sources:
   - PRD §7 What the LLM does and what code does
   rule_decisions:
@@ -80,21 +80,48 @@ requirement_rules:
   - GRAPH signs of editing show in a document file and not in its OCR text
   rule_decisions:
   - D-101
+- rule_id: R10
+  rule_statement: >-
+    Every call saves one LlmCall with its caller, purpose, model, acting User, channel, the record read,
+    the input and output text, token counts, duration, outcome, and any error.
+  rule_sources: []
+  rule_decisions:
+  - D-275
+- rule_id: R11
+  rule_statement: >-
+    A daily job of REQ-JOBS-0001 clears the input and output text of each LlmCall older than 90 days and
+    sets text_cleared_at, keeping the rest.
+  rule_sources: []
+  rule_decisions:
+  - D-275
+- rule_id: R12
+  rule_statement: >-
+    LlmCall records are for Instawork engineering to debug and evaluate the agents, and no Iris screen or
+    role lists them.
+  rule_sources: []
+  rule_decisions:
+  - D-275
 requirement_sources:
 - PRD §7 What the LLM does and what code does
 - SHEET WA-15
 requirement_decisions:
 - D-3
 - D-101
+- D-275
 requirement_features: []
-edges: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-JOBS-0001
 data_model:
-  status: not_applicable
-  reads: []
-  writes: []
+  status: covered
+  reads:
+  - LlmCall.*
+  writes:
+  - LlmCall.*
   detail: >-
-    Delivered as the one gateway that makes every LLM call, tested by R6 to R9. It stores nothing,
-    and R1 to R5 bind every requirement that calls it.
+    Delivered as the one gateway that makes every LLM call, tested by R6 to R12. It stores only its
+    LlmCall log, and R1 to R5 bind every requirement that calls it. The caller passes the acting User,
+    channel, and record read.
 requirement_starting_flow: true
 requirement_review:
   status: draft

@@ -1,0 +1,92 @@
+requirement_id: REQ-INVOICING-0013
+requirement_target_layer: product
+requirement_target_module: INVOICING
+requirement_phase: P2
+requirement_title: Charge Agencies the VMS fee each month
+requirement_statement: >-
+  Each month Iris sends each Agency one fee statement for the VMS fees on its Agency Invoices issued the
+  month before. Compass never sees the fee.
+requirement_actors:
+- SYSTEM
+- INSTAWORK_ADMIN
+- AGENCY_USER
+requirement_rules:
+- rule_id: R1
+  rule_statement: >-
+    On the first day of each month, in the program timezone, a job of REQ-JOBS-0001 issues one fee statement
+    per Agency for its Agency Invoices issued the month before.
+  rule_sources: []
+  rule_decisions:
+  - D-272
+- rule_id: R2
+  rule_statement: >-
+    A statement's fee_amount is the sum of those invoices' vms_fee_amount, and each of them is linked to it
+    through fee_statement_id.
+  rule_sources: []
+  rule_decisions:
+  - D-272
+- rule_id: R3
+  rule_statement: >-
+    An Agency whose invoices that month have no vms_fee_amount, or none at all, gets no statement.
+  rule_sources: []
+  rule_decisions:
+  - D-272
+- rule_id: R4
+  rule_statement: >-
+    A new statement starts ISSUED, and Iris sends FEE_STATEMENT_ISSUED to the Agency's active Agency Users.
+  rule_sources: []
+  rule_decisions:
+  - D-272
+- rule_id: R5
+  rule_statement: >-
+    Only an Instawork Admin marks a statement PAID with its paid date, and a PAID statement never changes.
+  rule_sources: []
+  rule_decisions:
+  - D-272
+- rule_id: R6
+  rule_statement: >-
+    An Agency User sees only their own Agency's statements and the invoices in each, and Program Users and
+    Unit Users never see a statement or a vms_fee_amount.
+  rule_sources: []
+  rule_decisions:
+  - D-272
+requirement_sources:
+- GRAPH Iris is software that Agencies bill Compass through, and it earns a VMS fee
+requirement_decisions:
+- D-272
+requirement_features: []
+edges:
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INVOICING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-INVOICING-0012
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-JOBS-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-MESSAGING-0001
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-ORG-0009
+- edge_type: DEPENDS_ON
+  requirement_id: REQ-AUDIT-0001
+data_model:
+  status: covered
+  reads:
+  - AgencyInvoice.agency_id
+  - AgencyInvoice.status
+  - AgencyInvoice.vms_fee_amount
+  - ConsolidatedInvoice.issued_at
+  - Agency.name
+  - AgencyFeeStatement.*
+  writes:
+  - AgencyFeeStatement.*
+  - AgencyInvoice.fee_statement_id
+  detail: null
+requirement_starting_flow: false
+requirement_review:
+  status: draft
+  by: null
+  at: null
+  notes: null
+requirement_delivery:
+  status: not_started
+  pull_requests: []

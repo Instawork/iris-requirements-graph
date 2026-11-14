@@ -13,6 +13,14 @@ enums:
   - {from: ISSUED, to: PARTLY_PAID, requirement: REQ-INVOICING-0007}
   - {from: ISSUED, to: PAID, requirement: REQ-INVOICING-0007}
   - {from: PARTLY_PAID, to: PAID, requirement: REQ-INVOICING-0007}
+- enum: FeeStatementStatus
+  phase: P2
+  values:
+  - {value: ISSUED, meaning: Sent to the Agency and not yet paid.}
+  - {value: PAID, meaning: Paid in full; never changes again.}
+  transitions:
+  - {from: null, to: ISSUED, requirement: REQ-INVOICING-0013}
+  - {from: ISSUED, to: PAID, requirement: REQ-INVOICING-0013}
 - enum: ContractType
   phase: P2
   values:
@@ -22,7 +30,7 @@ enums:
 entities:
 - entity: PaymentTerms
   phase: P2
-  description: 'How many days after issue an invoice is due, such as Net 30 (D-268).'
+  description: 'How many days after issue an Agency Invoice is due, such as Net 30 (D-268).'
   fields:
   - {name: name, type: text}
   - {name: days_due, type: int}
@@ -31,7 +39,7 @@ entities:
   - [name]
 - entity: BillingProfile
   phase: P2
-  description: Whom a Sector's Consolidated Invoices are billed to, and on which terms (D-268).
+  description: Where Compass wants a Sector's invoices addressed (D-268).
   fields:
   - {name: sector_id, type: ref:OrgNode, note: A SECTOR-level node}
   - {name: bill_to_name, type: text}
@@ -39,8 +47,6 @@ entities:
   - {name: city, type: text}
   - {name: state, type: text, note: Two-letter code}
   - {name: zip, type: text, note: Five digits}
-  - {name: payment_terms_id, type: ref:PaymentTerms}
-  - {name: compass_payee_number, type: text, nullable: true, note: 'The number Compass accounts payable uses for Instawork, printed on invoices'}
   unique:
   - [sector_id]
   constraints:
@@ -69,7 +75,7 @@ entities:
   - Two active purchase orders of one Sector never cover the same date.
 - entity: AgencyBillingProfile
   phase: P2
-  description: How an Agency is named and paid on its Agency Invoices (D-270).
+  description: 'How an Agency is named and paid on its Agency Invoices, and the VMS fee Iris charges it (D-270, D-272).'
   fields:
   - {name: agency_id, type: ref:Agency}
   - {name: legal_name, type: text}
@@ -79,6 +85,7 @@ entities:
   - {name: remit_to_zip, type: text, note: Five digits}
   - {name: payment_terms_id, type: ref:PaymentTerms}
   - {name: compass_payee_number, type: text, nullable: true, note: The number Compass accounts payable uses for the Agency}
+  - {name: vms_fee_pct, type: decimal, nullable: true, note: 'Percent of each issued Agency Invoice''s total that Iris charges the Agency, such as 2.5; set only by an Instawork Admin'}
   unique:
   - [agency_id]
 - entity: ConsolidatedInvoice
@@ -89,10 +96,9 @@ entities:
   - {name: week_start, type: date}
   - {name: status, type: enum:InvoiceStatus}
   - {name: issued_at, type: timestamp, nullable: true}
-  - {name: invoice_number, type: text, nullable: true, note: 'Set when ISSUED, from one program-wide sequence'}
-  - {name: bill_to, type: longtext, nullable: true, note: 'The Billing Profile''s name, address, and payee number as they were at issue; empty when the Sector had none'}
+  - {name: invoice_number, type: text, nullable: true, note: 'Iris''s reference for this summary, set when ISSUED from one program-wide sequence'}
+  - {name: bill_to, type: longtext, nullable: true, note: 'The Billing Profile''s name and address as they were at issue; empty when the Sector had none'}
   - {name: purchase_order_id, type: ref:PurchaseOrder, nullable: true, note: The active purchase order covering week_start at issue}
-  - {name: due_on, type: date, nullable: true, note: Issue date plus the Payment Terms' days_due}
   unique:
   - [sector_id, week_start]
   - [invoice_number]
@@ -109,6 +115,8 @@ entities:
   - {name: status, type: enum:InvoiceStatus}
   - {name: paid_amount, type: money, note: 0 until a payment is recorded}
   - {name: due_on, type: date, nullable: true, note: 'Issue date plus the Agency''s Payment Terms days_due; empty when it has none'}
+  - {name: vms_fee_amount, type: money, nullable: true, note: 'Set at issue from the Agency''s vms_fee_pct; never shown to Compass (D-272)'}
+  - {name: fee_statement_id, type: ref:AgencyFeeStatement, nullable: true, note: The fee statement that charged vms_fee_amount}
   unique:
   - [consolidated_invoice_id, agency_id]
 - entity: InvoiceLine
@@ -134,3 +142,25 @@ entities:
   - {name: reason, type: longtext}
   - {name: requested_by_id, type: ref:User}
   - {name: credited_at, type: timestamp, nullable: true}
+- entity: AgencyPayment
+  phase: P2
+  description: One payment Compass made to an Agency against an Agency Invoice (D-273).
+  fields:
+  - {name: agency_invoice_id, type: ref:AgencyInvoice}
+  - {name: amount, type: money}
+  - {name: paid_on, type: date}
+  - {name: reference, type: text, nullable: true, note: 'Such as a check or ACH number'}
+  - {name: recorded_by_id, type: ref:User}
+- entity: AgencyFeeStatement
+  phase: P2
+  description: One month's VMS fees that Iris charges one Agency (D-272).
+  fields:
+  - {name: agency_id, type: ref:Agency}
+  - {name: month_start, type: date, note: The first day of the month whose issued Agency Invoices it charges}
+  - {name: fee_amount, type: money}
+  - {name: status, type: enum:FeeStatementStatus}
+  - {name: issued_at, type: timestamp}
+  - {name: paid_on, type: date, nullable: true}
+  - {name: marked_paid_by_id, type: ref:User, nullable: true}
+  unique:
+  - [agency_id, month_start]

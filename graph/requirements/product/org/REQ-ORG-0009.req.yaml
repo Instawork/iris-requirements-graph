@@ -47,7 +47,7 @@ requirement_rules:
 - rule_id: R5
   rule_statement: >-
     An Instawork Admin acts only on reference data (Positions, Markets, Market ZIP codes, labor rules),
-    account teams, outside-system ids, billing details, and what REQ-ORG-0005 allows them.
+    account teams, outside-system ids, Payment Terms, VMS fees, and what REQ-ORG-0005 allows them.
   rule_sources: []
   rule_decisions:
   - D-26
@@ -56,6 +56,7 @@ requirement_rules:
   - D-265
   - D-267
   - D-270
+  - D-272
 - rule_id: R6
   rule_statement: >-
     A revoked Role Grant allows nothing, and no grant of an inactive User allows anything.
@@ -142,6 +143,7 @@ requirement_decisions:
 - D-265
 - D-267
 - D-270
+- D-272
 requirement_features:
 - PLT-1
 edges:

@@ -212,3 +212,10 @@ notifications:
   channels: [EMAIL, SMS]
   owner: REQ-MESSAGING-0002
   sources: [SHEET SC-10]
+- type: FEE_STATEMENT_ISSUED
+  subject: AgencyFeeStatement
+  trigger: A monthly VMS fee statement is issued to an Agency.
+  recipients: Every active Agency User of the Agency.
+  channels: [EMAIL, IN_APP]
+  owner: REQ-INVOICING-0013
+  decisions: [D-272]

@@ -2,19 +2,20 @@ requirement_id: REQ-ADMIN-WEB-0007
 requirement_target_layer: user-interface
 requirement_target_module: ADMIN-WEB
 requirement_phase: P2
-requirement_title: Keep billing details, Payment Terms, and purchase orders
+requirement_title: Keep Payment Terms and VMS fees
 requirement_statement: >-
-  On the Billing screen an Instawork Admin keeps Payment Terms, each Sector's Billing Profile and purchase
-  orders, and each Agency's billing details.
+  On the Billing screen an Instawork Admin keeps the Payment Terms list, sets each Agency's VMS fee
+  percent, and marks monthly fee statements paid.
 requirement_actors:
 - INSTAWORK_ADMIN
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    The Billing screen has three tabs: Payment Terms, Sectors, and Agencies.
+    The Billing screen has three tabs: Payment Terms, Agency fees, and Fee statements.
   rule_sources: []
   rule_decisions:
   - D-270
+  - D-272
 - rule_id: R2
   rule_statement: >-
     Payment Terms lists each term with its days due and whether active, and adds, changes, deactivates, or
@@ -24,33 +25,31 @@ requirement_rules:
   - D-268
 - rule_id: R3
   rule_statement: >-
-    Sectors lists each Sector, marking one with no Billing Profile, and opening one edits its bill-to,
-    Payment Terms, payee number, and invoice recipients through REQ-INVOICING-0012.
+    Agency fees lists each Agency with its VMS fee percent, marking one with none, and sets or clears it
+    through REQ-INVOICING-0012 once a Program User has saved that Agency's billing details.
   rule_sources: []
   rule_decisions:
-  - D-268
-  - D-271
+  - D-272
 - rule_id: R4
   rule_statement: >-
-    A Sector also lists its purchase orders with number, dates, limit, and whether active, and adds or
-    deactivates one through REQ-INVOICING-0012.
+    Fee statements lists each statement by Agency and month with its amount and status, and Mark paid takes
+    a paid date and saves through REQ-INVOICING-0013.
   rule_sources: []
   rule_decisions:
-  - D-269
+  - D-272
 - rule_id: R5
   rule_statement: >-
-    Agencies lists each Agency, marking one with no billing details, and opening one edits its legal name,
-    remit-to address, Payment Terms, and payee number through REQ-INVOICING-0012.
+    This requirement adds Billing to the end of the Instawork Admin menu of REQ-ADMIN-WEB-0001.
   rule_sources: []
   rule_decisions:
-  - D-270
+  - D-124
 requirement_sources:
-- GRAPH Instawork staff keep CompanyInvoicingSettings, payment terms, and purchase orders in Django admin
+- GRAPH Iris is software that Agencies bill Compass through, and it earns a VMS fee
 requirement_decisions:
+- D-124
 - D-268
-- D-269
 - D-270
-- D-271
+- D-272
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON
@@ -60,17 +59,16 @@ edges:
 - edge_type: DEPENDS_ON
   requirement_id: REQ-INVOICING-0012
 - edge_type: DEPENDS_ON
+  requirement_id: REQ-INVOICING-0013
+- edge_type: DEPENDS_ON
   requirement_id: REQ-ORG-0009
 data_model:
   status: covered
   reads:
   - PaymentTerms.*
-  - BillingProfile.*
-  - BillingRecipient.*
-  - PurchaseOrder.*
-  - AgencyBillingProfile.*
-  - OrgNode.name
-  - OrgNode.level
+  - AgencyBillingProfile.agency_id
+  - AgencyBillingProfile.vms_fee_pct
+  - AgencyFeeStatement.*
   - Agency.name
   writes: []
   detail: null

@@ -4,9 +4,9 @@ requirement_target_module: INTEGRATIONS
 requirement_phase: MVP
 requirement_title: Keep the ids other systems use for Iris records
 requirement_statement: >-
-  Iris keeps the id that Fieldglass, SAP, MyStaff, Instawork, Salesforce, or NetSuite uses for a Unit,
-  Department, Cost Center, Agency, or Position. Loads, migrations, and Iris's agents match records across
-  systems by these ids instead of by name.
+  Iris keeps the id that Compass's Fieldglass, SAP, or MyStaff uses for a Unit, Department, Cost Center,
+  Agency, or Position. Loads, migrations, and Iris's agents match records across systems by these ids
+  instead of by name.
 requirement_actors:
 - INSTAWORK_ADMIN
 requirement_rules:
@@ -14,7 +14,7 @@ requirement_rules:
   rule_statement: >-
     An Instawork Admin records, changes, or removes the id one ExternalSystem uses for one Iris record.
   rule_sources:
-  - GRAPH Instawork's Business admin keeps salesforce_account_id, salesforce_opportunity_id, and netsuite_id
+  - GRAPH Instawork's Business admin keeps outside ids such as salesforce_account_id and netsuite_id on the record
   rule_decisions:
   - D-267
 - rule_id: R2

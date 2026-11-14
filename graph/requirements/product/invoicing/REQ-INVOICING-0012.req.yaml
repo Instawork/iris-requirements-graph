@@ -4,9 +4,8 @@ requirement_target_module: INVOICING
 requirement_phase: P2
 requirement_title: Keep billing details, Payment Terms, and purchase orders
 requirement_statement: >-
-  Instawork Admins keep each Sector's bill-to, Payment Terms, invoice recipients, and purchase orders, and
-  each Agency's billing details. Issued invoices take these so Compass and Agencies can be billed and paid
-  without asking.
+  Program Users keep where each Sector's invoices go, its purchase orders, and how Compass pays each
+  Agency. Instawork Admins keep the Payment Terms list and each Agency's VMS fee.
 requirement_actors:
 - INSTAWORK_ADMIN
 - PROGRAM_USER
@@ -23,24 +22,25 @@ requirement_rules:
   - D-270
 - rule_id: R2
   rule_statement: >-
-    Only an Instawork Admin keeps a Sector's Billing Profile: bill-to name, address, active Payment Terms,
-    and optionally Compass's payee number for Instawork.
+    A Program User keeps a Sector's Billing Profile: the bill-to name and address that Compass wants on the
+    Sector's invoices.
   rule_sources:
-  - GRAPH Instawork keeps invoicing_name, invoicing_address, vendor_number, and PaymentTerms days_payment_due per Company
+  - GRAPH Instawork keeps invoicing_name and invoicing_address per Company
   rule_decisions:
   - D-268
   - D-270
 - rule_id: R3
   rule_statement: >-
     A Billing Profile lists at least one well-formed email address that receives the Sector's issued
-    Consolidated Invoices, with no address listed twice.
-  rule_sources: []
+    invoices, with no address listed twice.
+  rule_sources:
+  - GRAPH Instawork's Company keeps an invoice_email_list that issued invoices are sent to
   rule_decisions:
   - D-271
 - rule_id: R4
   rule_statement: >-
-    An Instawork Admin adds a Sector's purchase order with a number unique in that Sector, a start date, and
-    an optional end date and amount limit, and may deactivate it.
+    A Program User adds a Sector's purchase order with a number unique in that Sector, a start date, and an
+    optional end date and amount limit, and may deactivate it.
   rule_sources:
   - GRAPH Instawork keeps PurchaseOrder rows per Company and prints the po_number on invoices
   rule_decisions:
@@ -55,31 +55,40 @@ requirement_rules:
   - D-269
 - rule_id: R6
   rule_statement: >-
-    An Instawork Admin keeps each Agency's legal name, remit-to address, active Payment Terms, and
-    optionally Compass's payee number for that Agency.
+    A Program User keeps each Agency's legal name, remit-to address, active Payment Terms, and optionally
+    the payee number Compass accounts payable uses for it.
   rule_sources: []
   rule_decisions:
   - D-270
 - rule_id: R7
   rule_statement: >-
-    A Program User sees every Billing Profile, purchase order, and Agency's billing details, and an Agency
-    User sees only their own Agency's billing details.
+    Only an Instawork Admin sets or clears an Agency's VMS fee percent, from 0 to 100 with at most two
+    decimal places.
+  rule_sources: []
+  rule_decisions:
+  - D-272
+- rule_id: R8
+  rule_statement: >-
+    A Program User sees every Billing Profile, purchase order, and Agency's billing details except the VMS
+    fee percent, and an Agency User sees only their own Agency's, fee included.
   rule_sources: []
   rule_decisions:
   - D-270
-- rule_id: R8
+  - D-272
+- rule_id: R9
   rule_statement: >-
-    Changing billing details, Payment Terms, or a purchase order changes no issued invoice.
+    Changing billing details, Payment Terms, a fee percent, or a purchase order changes no issued invoice.
   rule_sources: []
   rule_decisions:
   - D-268
 requirement_sources:
-- GRAPH Instawork staff keep CompanyInvoicingSettings, payment terms, and purchase orders in Django admin
+- GRAPH Compass accounts payable owns each Agency's remit-to and payee number
 requirement_decisions:
 - D-268
 - D-269
 - D-270
 - D-271
+- D-272
 requirement_features: []
 edges:
 - edge_type: DEPENDS_ON

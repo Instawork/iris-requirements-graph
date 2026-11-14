@@ -85,19 +85,26 @@ requirement_rules:
 - rule_id: R9
   rule_statement: >-
     On issue, a Consolidated Invoice takes the next program-wide invoice number, a copy of its Sector's
-    Billing Profile as bill_to, and the active purchase order covering week_start.
+    Billing Profile name and address as bill_to, and the active purchase order covering week_start.
   rule_sources: []
   rule_decisions:
   - D-268
   - D-269
 - rule_id: R10
   rule_statement: >-
-    On issue, due_on is the issue date plus the days due of the Billing Profile's Payment Terms, and each
-    Agency Invoice's due_on uses its Agency Billing Profile's Payment Terms.
+    On issue, each Agency Invoice's due_on is the issue date plus the days due of its Agency Billing
+    Profile's Payment Terms.
   rule_sources: []
   rule_decisions:
   - D-268
   - D-270
+- rule_id: R12
+  rule_statement: >-
+    On issue, each Agency Invoice's vms_fee_amount is its total times its Agency's vms_fee_pct divided by
+    100, rounded half up to the cent, or empty when no fee percent is set.
+  rule_sources: []
+  rule_decisions:
+  - D-272
 - rule_id: R11
   rule_statement: >-
     An invoice whose Sector or Agency has no billing details still issues, with bill_to or due_on empty,
@@ -120,6 +127,7 @@ requirement_decisions:
 - D-268
 - D-269
 - D-270
+- D-272
 requirement_features:
 - INV-1
 edges:
@@ -159,6 +167,7 @@ data_model:
   - PurchaseOrder.*
   - AgencyBillingProfile.agency_id
   - AgencyBillingProfile.payment_terms_id
+  - AgencyBillingProfile.vms_fee_pct
   writes:
   - ConsolidatedInvoice.sector_id
   - ConsolidatedInvoice.week_start
@@ -167,8 +176,8 @@ data_model:
   - ConsolidatedInvoice.invoice_number
   - ConsolidatedInvoice.bill_to
   - ConsolidatedInvoice.purchase_order_id
-  - ConsolidatedInvoice.due_on
   - AgencyInvoice.due_on
+  - AgencyInvoice.vms_fee_amount
   - AgencyInvoice.consolidated_invoice_id
   - AgencyInvoice.agency_id
   - AgencyInvoice.status
