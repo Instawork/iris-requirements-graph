@@ -23,3 +23,5 @@ jobs:
         run: python tools/check_approvals_kept.py --base origin/${{ github.base_ref }}
       - name: Canvas builds
         run: python tools/build_canvas.py
+      - name: User stories are up to date
+        run: python tools/build_user_stories.py --check
