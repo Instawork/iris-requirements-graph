@@ -4,8 +4,6 @@ Iris is Instawork's vendor management system for Compass. Compass Units order te
 
 This document lists what each kind of user needs from the MVP, as user stories grouped by journey. Each story ends with the requirements in the [requirements graph](../README.md) that it covers, where the full detail lives.
 
-**Status: draft.** No requirement behind these stories is approved yet, and the stories assume answers to open questions that Compass and Instawork have not yet given. The ones most likely to change a story are listed at the end.
-
 ## Who uses Iris
 
 | User | Who they are | What they do in Iris |
