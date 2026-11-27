@@ -4,10 +4,10 @@ requirement_target_module: ADMIN-WEB
 requirement_phase: MVP
 requirement_title: Keep Instawork's account team for each part of the org
 requirement_statement: >-
-  On the Account team screen an Instawork Admin names the Account Manager, Account Owner, and Support
+  On the Account team screen an Iris Admin names the Account Manager, Account Owner, and Support
   Lead for the whole program or any org node. It shows whom each Unit resolves to.
 requirement_actors:
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
@@ -18,7 +18,7 @@ requirement_rules:
   - D-265
 - rule_id: R2
   rule_statement: >-
-    Assign takes a role and an active Instawork Admin for the whole program or one org node, and saves
+    Assign takes a role and an active Iris Admin for the whole program or one org node, and saves
     through REQ-ORG-0011, which ends that role's open assignment there.
   rule_sources: []
   rule_decisions:

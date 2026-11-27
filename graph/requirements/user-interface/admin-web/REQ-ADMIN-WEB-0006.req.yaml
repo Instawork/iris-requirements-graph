@@ -4,10 +4,10 @@ requirement_target_module: ADMIN-WEB
 requirement_phase: MVP
 requirement_title: Keep the ids other systems use for Iris records
 requirement_statement: >-
-  On the Outside ids screen an Instawork Admin sets the Fieldglass, SAP, and MyStaff ids of Units,
+  On the Outside ids screen an Iris Admin sets the Fieldglass, SAP, and MyStaff ids of Units,
   Departments, Companies, Agencies, and Positions.
 requirement_actors:
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 requirement_rules:
 - rule_id: R1
   rule_statement: >-

@@ -4,10 +4,10 @@ requirement_target_module: ADMIN-WEB
 requirement_phase: MVP
 requirement_title: Keep Markets and their ZIP codes
 requirement_statement: >-
-  On the Markets screen an Instawork Admin adds and renames Markets and keeps the ZIP codes that belong
+  On the Markets screen an Iris Admin adds and renames Markets and keeps the ZIP codes that belong
   to each.
 requirement_actors:
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 requirement_rules:
 - rule_id: R1
   rule_statement: >-

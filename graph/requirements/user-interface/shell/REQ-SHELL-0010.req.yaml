@@ -7,7 +7,7 @@ requirement_statement: >-
   Every table on every screen can be downloaded as a CSV file that holds exactly what that User sees in
   it.
 requirement_actors:
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 - PROGRAM_USER
 - UNIT_USER
 - AGENCY_USER

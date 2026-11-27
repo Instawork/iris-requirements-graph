@@ -17,7 +17,7 @@ enums:
   - {value: SUN, meaning: Sunday}
 - enum: Role
   values:
-  - {value: INSTAWORK_ADMIN, meaning: 'Instawork staff who load reference data and invite the first Program User (D-26, D-82). Has no scope.'}
+  - {value: IRIS_ADMIN, meaning: 'Instawork staff who load reference data and invite the first Program User (D-26, D-82). Has no scope.'}
   - {value: PROGRAM_USER, meaning: The Compass program office. Covers the whole program.}
   - {value: UNIT_USER, meaning: 'A Compass operator who books Shifts and approves hours, granted at an org node.'}
   - {value: AGENCY_USER, meaning: Staff of one Agency who staff Shifts and submit hours.}
@@ -109,19 +109,19 @@ entities:
   - {name: role, type: enum:Role}
   - {name: org_node_id, type: ref:OrgNode, nullable: true, note: Set only for a Unit User; covers every Unit beneath it}
   - {name: agency_id, type: ref:Agency, nullable: true, note: Set only for an Agency User}
-  - {name: granted_by_id, type: ref:User, nullable: true, note: 'Empty for a seeded Instawork Admin; after a revoked grant is restored, the User who restored it'}
+  - {name: granted_by_id, type: ref:User, nullable: true, note: 'Empty for a seeded Iris Admin; after a revoked grant is restored, the User who restored it'}
   - {name: revoked_at, type: timestamp, nullable: true}
   unique:
   - [user_id, role, org_node_id, agency_id]
   constraints:
   - A UNIT_USER grant has org_node_id and no agency_id.
   - An AGENCY_USER grant has agency_id and no org_node_id.
-  - PROGRAM_USER and INSTAWORK_ADMIN grants have neither.
+  - PROGRAM_USER and IRIS_ADMIN grants have neither.
 - entity: AccountTeamAssignment
   phase: MVP
   description: 'One Instawork staff member named to an account team role for the whole program or one org node (D-265).'
   fields:
-  - {name: user_id, type: ref:User, note: Holds an unrevoked INSTAWORK_ADMIN grant}
+  - {name: user_id, type: ref:User, note: Holds an unrevoked IRIS_ADMIN grant}
   - {name: role, type: enum:AccountTeamRole}
   - {name: org_node_id, type: ref:OrgNode, nullable: true, note: Empty for the whole program}
   - {name: assigned_by_id, type: ref:User}

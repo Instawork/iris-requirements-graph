@@ -4,13 +4,13 @@ requirement_target_module: CATALOG
 requirement_phase: MVP
 requirement_title: Hold the Compass Position catalog
 requirement_statement: >-
-  Iris holds one catalog of Positions in Compass's own names, loaded and kept by Instawork Admins. Every
+  Iris holds one catalog of Positions in Compass's own names, loaded and kept by Iris Admins. Every
   Shift, Rate Line, and Credential Requirement names a Position from it.
 requirement_actors:
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 requirement_rules:
 - rule_id: R1
-  rule_statement: Only an Instawork Admin adds, renames, deactivates, or reactivates a Position.
+  rule_statement: Only an Iris Admin adds, renames, deactivates, or reactivates a Position.
   rule_sources:
   - PRD §6 Position list
   rule_decisions:

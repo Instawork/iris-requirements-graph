@@ -4,10 +4,10 @@ requirement_target_module: ADMIN-WEB
 requirement_phase: MVP
 requirement_title: Keep state and local Labor Rules
 requirement_statement: >-
-  On the Labor rules screen an Instawork Admin adds, changes, and ends the state and city rules for breaks,
+  On the Labor rules screen an Iris Admin adds, changes, and ends the state and city rules for breaks,
   minimum wage, and overtime.
 requirement_actors:
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 requirement_rules:
 - rule_id: R1
   rule_statement: >-

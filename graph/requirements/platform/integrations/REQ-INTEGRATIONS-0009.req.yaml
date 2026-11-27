@@ -8,11 +8,11 @@ requirement_statement: >-
   Agency, or Position. Loads, migrations, and Iris's agents match records across systems by these ids
   instead of by name.
 requirement_actors:
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    An Instawork Admin records, changes, or removes the id one ExternalSystem uses for one Iris record.
+    An Iris Admin records, changes, or removes the id one ExternalSystem uses for one Iris record.
   rule_sources:
   - GRAPH Instawork's Business admin keeps outside ids such as salesforce_account_id and netsuite_id on the record
   rule_decisions:

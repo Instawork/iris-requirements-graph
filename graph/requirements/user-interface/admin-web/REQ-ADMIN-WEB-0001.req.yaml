@@ -2,16 +2,16 @@ requirement_id: REQ-ADMIN-WEB-0001
 requirement_target_layer: user-interface
 requirement_target_module: ADMIN-WEB
 requirement_phase: MVP
-requirement_title: 'Instawork Admin home: reference data and the first Program User'
+requirement_title: 'Iris Admin home: reference data and the first Program User'
 requirement_statement: >-
-  An Instawork Admin's home shows what reference data is loaded and lets them invite the first Program
-  User. It also names the Instawork Admin menu.
+  An Iris Admin's home shows what reference data is loaded and lets them invite the first Program
+  User. It also names the Iris Admin menu.
 requirement_actors:
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    The Instawork Admin menu lists Home, Positions, Markets, Labor rules, Account team, and Outside ids,
+    The Iris Admin menu lists Home, Positions, Markets, Labor rules, Account team, and Outside ids,
     in that order.
   rule_sources: []
   rule_decisions:
@@ -21,7 +21,7 @@ requirement_rules:
   - D-267
 - rule_id: R2
   rule_statement: >-
-    Home, the page an Instawork Admin lands on, has no to-do list; it shows how many active Positions, how
+    Home, the page an Iris Admin lands on, has no to-do list; it shows how many active Positions, how
     many Markets, and how many Labor Rules in effect today, in the program timezone, are loaded.
   rule_sources: []
   rule_decisions:
@@ -52,7 +52,7 @@ requirement_rules:
   - D-256
 - rule_id: R6
   rule_statement: >-
-    Home lists the other Instawork Admins with name, email, and whether active, and offers Deactivate or
+    Home lists the other Iris Admins with name, email, and whether active, and offers Deactivate or
     Reactivate under REQ-ORG-0005.R19.
   rule_sources: []
   rule_decisions:

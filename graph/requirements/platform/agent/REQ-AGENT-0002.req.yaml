@@ -8,7 +8,7 @@ requirement_statement: >-
   problem found, and a suggested fix. Nothing is saved until the person it was made for approves it, and
   each accepted item is rechecked as it is saved.
 requirement_actors:
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 - PROGRAM_USER
 - UNIT_USER
 - AGENCY_USER

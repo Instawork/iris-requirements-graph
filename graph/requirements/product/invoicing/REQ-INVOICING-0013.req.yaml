@@ -8,7 +8,7 @@ requirement_statement: >-
   month before. Compass never sees the fee.
 requirement_actors:
 - SYSTEM
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 - AGENCY_USER
 requirement_rules:
 - rule_id: R1
@@ -39,7 +39,7 @@ requirement_rules:
   - D-272
 - rule_id: R5
   rule_statement: >-
-    Only an Instawork Admin marks a statement PAID with its paid date, and a PAID statement never changes.
+    Only an Iris Admin marks a statement PAID with its paid date, and a PAID statement never changes.
   rule_sources: []
   rule_decisions:
   - D-272

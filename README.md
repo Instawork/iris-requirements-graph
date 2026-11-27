@@ -15,6 +15,7 @@ rule came from.
 - `graph/reviewers.yaml` and `graph/retired.yaml`: who may approve, and ids never to reuse.
 - `graph/starting-flow.yaml`: the seeds of the first end-to-end slice.
 - `data-model/<module>.yaml`: entities and enums, one file per module.
+- `docs/user-stories.md`: the MVP user stories by journey. Each cites the requirements it covers, and a test fails if an MVP requirement is neither cited nor needed by a cited one.
 - `tools/`: validation, lookup, listing, and the canvas build.
 
 ## Use
@@ -56,7 +57,7 @@ requirement_phase: MVP                     # MVP | P2 | P3
 requirement_title: Auto-approve within tolerance and surface exceptions   # <= 80 characters, no period
 requirement_statement: >-                  # 1 to 3 sentences, each <= 30 words
   ...
-requirement_actors: [SYSTEM, UNIT_USER]    # INSTAWORK_ADMIN | PROGRAM_USER | UNIT_USER | AGENCY_USER | WORKER (P3) | SYSTEM
+requirement_actors: [SYSTEM, UNIT_USER]    # IRIS_ADMIN | PROGRAM_USER | UNIT_USER | AGENCY_USER | WORKER (P3) | SYSTEM
 requirement_rules:                         # each one testable sentence, <= 35 words
 - rule_id: R1                              # stable; cite as REQ-TIME-0005.R1; new rules append
   rule_statement: ...

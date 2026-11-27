@@ -7,7 +7,7 @@ requirement_statement: >-
   Every page leads to an inbox of the User's in-app notifications, newest first. Opening one marks it
   read and opens the page registered for the record it is about.
 requirement_actors:
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 - PROGRAM_USER
 - UNIT_USER
 - AGENCY_USER

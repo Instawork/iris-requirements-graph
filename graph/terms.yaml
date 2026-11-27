@@ -11,10 +11,13 @@ terms:
   definition: Someone in the Compass program office who runs Iris for the whole program.
   avoid: [Compass admin, corporate user]
   sources: [SHEET PLT-1]
-- term: Instawork Admin
-  definition: Instawork staff who load reference data and invite the first Program User.
-  avoid: []
-  sources: [GRAPH D-26]
+- term: Iris Admin
+  definition: >-
+    Instawork staff who run Iris itself, load reference data, and invite the first Program User. Never also
+    an Agency User.
+  avoid: [Instawork Admin]
+  sources: [GRAPH D-26, GRAPH D-274]
+  decisions: [D-26, D-274]
 - term: Sector
   definition: The top level of the Compass org, such as Levy.
   avoid: []
@@ -172,7 +175,7 @@ terms:
 - term: Labor Rule
   definition: >-
     One state or city rule for a meal break, a rest break, the minimum wage, or overtime, with the dates it
-    is in effect. Instawork Admins load them as reference data.
+    is in effect. Iris Admins load them as reference data.
   avoid: [labor regulation, wage rule]
   source_words: [labor law]
   sources: [SHEET WA-18, SHEET WA-19]

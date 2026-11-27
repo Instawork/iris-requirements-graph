@@ -7,7 +7,7 @@ requirement_statement: >-
   Every page after sign-in sits in one frame with a menu of the screens for the role the User is acting
   in and an account menu. It never lists a screen that role cannot use.
 requirement_actors:
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 - PROGRAM_USER
 - UNIT_USER
 - AGENCY_USER

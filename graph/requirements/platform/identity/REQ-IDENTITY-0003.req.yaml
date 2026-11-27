@@ -7,7 +7,7 @@ requirement_statement: >-
   A signed-in User sees their own User and changes their own first name, last name, and phone. The email
   cannot be changed, and the password changes only by a reset link.
 requirement_actors:
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 - PROGRAM_USER
 - UNIT_USER
 - AGENCY_USER

@@ -7,7 +7,7 @@ requirement_statement: >-
   A User is added by an invite: Iris creates the User and emails a single-use link to set a password.
   A User who forgets their password gets a single-use reset link by email.
 requirement_actors:
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 - PROGRAM_USER
 - UNIT_USER
 - AGENCY_USER

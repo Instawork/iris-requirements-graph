@@ -7,7 +7,7 @@ requirement_statement: >-
   A signed-in User sees their own profile and Role Grants, and changes their name and phone. They change
   their password by an emailed reset link.
 requirement_actors:
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 - PROGRAM_USER
 - UNIT_USER
 - AGENCY_USER

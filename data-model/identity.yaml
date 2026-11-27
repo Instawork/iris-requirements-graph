@@ -14,7 +14,7 @@ entities:
   - {name: last_name, type: text}
   - {name: phone, type: text, nullable: true, note: Used to match inbound texts and calls}
   - {name: password_hash, type: text, nullable: true, note: Empty until the invite is accepted}
-  - {name: invited_by_id, type: ref:User, nullable: true, note: Empty for the seeded first Instawork Admin}
+  - {name: invited_by_id, type: ref:User, nullable: true, note: Empty for the seeded first Iris Admin}
   - {name: invited_at, type: timestamp, nullable: true}
   - {name: invite_accepted_at, type: timestamp, nullable: true}
   - {name: last_signed_in_at, type: timestamp, nullable: true}

@@ -7,7 +7,7 @@ requirement_statement: >-
   Iris sends each notification type to the recipients its owner names, on the channels the notifications
   catalog lists for it. It records for every message whether it was sent, failed, or read.
 requirement_actors:
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 - PROGRAM_USER
 - UNIT_USER
 - AGENCY_USER

@@ -85,7 +85,7 @@ entities:
   - {name: remit_to_zip, type: text, note: Five digits}
   - {name: payment_terms_id, type: ref:PaymentTerms}
   - {name: compass_payee_number, type: text, nullable: true, note: The number Compass accounts payable uses for the Agency}
-  - {name: vms_fee_pct, type: decimal, nullable: true, note: 'Percent of each issued Agency Invoice''s total that Iris charges the Agency, such as 2.5; set only by an Instawork Admin'}
+  - {name: vms_fee_pct, type: decimal, nullable: true, note: 'Percent of each issued Agency Invoice''s total that Iris charges the Agency, such as 2.5; set only by an Iris Admin'}
   unique:
   - [agency_id]
 - entity: ConsolidatedInvoice

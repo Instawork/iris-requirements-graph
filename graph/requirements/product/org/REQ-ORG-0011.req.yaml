@@ -4,24 +4,24 @@ requirement_target_module: ORG
 requirement_phase: MVP
 requirement_title: Assign Instawork's account team to parts of the org
 requirement_statement: >-
-  Instawork Admins name the Instawork Account Manager, Account Owner, and Support Lead for the whole
+  Iris Admins name the Instawork Account Manager, Account Owner, and Support Lead for the whole
   program or any org node. Each Unit's team resolves from the nearest node above it, so Compass, Agencies,
   and Iris's agents know whom at Instawork to reach.
 requirement_actors:
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 - PROGRAM_USER
 - UNIT_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Only an Instawork Admin assigns or removes an account team member.
+    Only an Iris Admin assigns or removes an account team member.
   rule_sources:
   - GRAPH Instawork staff set a Company's account manager and account reps in Django admin
   rule_decisions:
   - D-265
 - rule_id: R2
   rule_statement: >-
-    An assignment names one AccountTeamRole, an active User holding an unrevoked INSTAWORK_ADMIN grant, and
+    An assignment names one AccountTeamRole, an active User holding an unrevoked IRIS_ADMIN grant, and
     one org node, or no node for the whole program.
   rule_sources: []
   rule_decisions:
@@ -49,7 +49,7 @@ requirement_rules:
 - rule_id: R6
   rule_statement: >-
     Resolving under R5 skips an assignment whose User is inactive or no longer holds an unrevoked
-    INSTAWORK_ADMIN grant.
+    IRIS_ADMIN grant.
   rule_sources: []
   rule_decisions:
   - D-265

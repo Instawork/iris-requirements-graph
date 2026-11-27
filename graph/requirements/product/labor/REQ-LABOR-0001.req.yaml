@@ -5,13 +5,13 @@ requirement_phase: MVP
 requirement_title: Hold state and local labor rules
 requirement_statement: >-
   Iris holds labor rules by state and city for meal and rest breaks, minimum wage, and overtime, so compliance
-  does not depend on each Unit User. Instawork Admins load them as reference data. The pilot's rules come
+  does not depend on each Unit User. Iris Admins load them as reference data. The pilot's rules come
   from Compass, as input I-10.
 requirement_actors:
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 requirement_rules:
 - rule_id: R1
-  rule_statement: Only an Instawork Admin adds, changes, or ends a Labor Rule.
+  rule_statement: Only an Iris Admin adds, changes, or ends a Labor Rule.
   rule_sources:
   - SHEET WA-18
   rule_decisions:
