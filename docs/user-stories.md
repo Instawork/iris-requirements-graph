@@ -1,6 +1,6 @@
 # Iris user stories: MVP
 
-Iris is Instawork's vendor management system for Compass. Compass locations order temporary staff, approved staffing Agencies fill the Shifts with their own Workers, and Iris checks rates, credentials, and hours along the way. Iris is neutral among Agencies: if Instawork's own staffing marketplace also supplies Compass, it is one Agency like any other.
+Iris is Instawork's vendor management system for Compass. Compass Units order temporary staff, approved staffing Agencies fill the Shifts with their own Workers, and Iris checks rates, credentials, and hours along the way. Iris is neutral among Agencies: if Instawork's own staffing marketplace also supplies Compass, it is one Agency like any other.
 
 This document lists what each kind of user needs from the MVP, as user stories grouped by journey. Each story ends with the requirements in the [requirements graph](../README.md) that it covers, where the full detail lives.
 
@@ -10,7 +10,7 @@ This document lists what each kind of user needs from the MVP, as user stories g
 
 | User | Who they are | What they do in Iris |
 | --- | --- | --- |
-| Unit User | A Compass operator at one or more locations, such as Soldier Field | Books Shifts, sends them to Agencies, approves hours, rates Workers |
+| Unit User | A Compass operator at one or more Units, such as Soldier Field | Books Shifts, sends them to Agencies, approves hours, rates Workers |
 | Agency User | Staff at a staffing Agency | Answers Shifts sent to the Agency, assigns Workers, submits hours, keeps rates and Credentials |
 | Program User | Compass's program team | Sets up the org, Agencies, rates, and Credential rules, and watches spend |
 | Iris Admin | Instawork staff who run Iris itself, and are never also Agency Users | Keeps reference data and invites the first Program User |
@@ -23,12 +23,13 @@ This document lists what each kind of user needs from the MVP, as user stories g
 - **Rate Line:** an Agency's regular, overtime, and double-time Pay Rates and Bill Rates for one Position in one Market or at one Unit, from an effective date. The **Pay Rate** is what the Agency pays the Worker; the **Bill Rate** is what Compass pays the Agency; the **Markup** is the Bill Rate minus the Pay Rate, as a percentage of the Pay Rate.
 - **Peer Rate:** the average regular Bill Rate other Agencies hold for the same Position and Market. A **Rate Review** asks an Agency to lower or justify a rate above it.
 - **Credential:** a document proving a Worker meets a **Credential Type**, such as a food handler card. A **Credential Requirement** says where a type is required. An **Attestation** is the Agency's statement that a Worker meets a type.
+- **Eligible:** a Worker is eligible for a Shift when every Credential Type the Shift requires is met on the Shift's date, by a verified Credential or, where the type allows it, a current Attestation.
 - **Timesheet:** the hours one Worker billed for one Shift, or for one part of a Shift split by role.
-- **Approval Tolerance:** how far billed times may differ from the schedule and still be approved automatically. **Lock Window:** how long after a Shift ends that its approved Timesheet locks.
+- **Approval Tolerance:** how far billed times may differ from the schedule and still be approved automatically. **Lock Window:** how long after a Shift ends that its approved Timesheet locks, and never sooner than 24 hours after it was approved.
 - **Work Week:** a Unit's seven-day week, starting on its own day, used for overtime and weekly reporting.
 - **Event:** a named occasion at a Unit, such as a banquet, that groups Shifts so their cost is seen as one.
-- **Tip Pool:** tips for a Unit and date, or for one Shift or Event, split across Workers by minutes worked.
-- **Spend:** approved spend plus pending spend. **Approved spend** is the hours on approved Timesheets at their Bill Rates, plus their tips and approved Expenses. **Pending spend** is the hours on Timesheets not yet approved for Shifts that have ended: the hours entered, or the scheduled hours as an estimate until both clock times are in, with no tips or Expenses. A Shift that has not ended, a cancelled Shift, and a no-show add no hours.
+- **Tip Pool:** tips for a Unit and date, or for one Shift or one Event on that date, split across Workers by minutes worked.
+- **Spend:** approved spend plus pending spend. **Approved spend** is the hours on approved Timesheets, locked or not, at their Bill Rates, plus their tips and approved Expenses. **Pending spend** is the hours on Timesheets not yet approved for Shifts that have ended: the hours entered, or the scheduled hours as an estimate until both clock times are in, with no tips or Expenses. A Shift that has not ended, a cancelled Shift, and a no-show add no hours.
 - **Proposal:** changes Iris prepared from a file or a message, which a person approves before anything is saved.
 
 ## Journeys
@@ -95,7 +96,7 @@ This document lists what each kind of user needs from the MVP, as user stories g
   - Program User: Home, Shifts, Workers, Rates, Credentials, Agencies, Org, Users, Reports, Uploads, Settings.
   - Iris Admin: Home, Positions, Markets, Labor rules, Account team, Outside ids.
 - Opening a screen or record outside my access shows a refusal and a link to Home, and nothing of the record.
-- After 12 hours without activity, or when my account is deactivated, I am returned to the sign-in page.
+- After 12 hours without activity, when my account is deactivated, or when I set a new password from a reset link, I am returned to the sign-in page everywhere I was signed in.
 
 *Covers: REQ-SHELL-0009, REQ-SHELL-0006, REQ-UNIT-WEB-0001, REQ-AGENCY-WEB-0001, REQ-PROGRAM-WEB-0001, REQ-ADMIN-WEB-0001*
 
@@ -181,12 +182,12 @@ This document lists what each kind of user needs from the MVP, as user stories g
 - Every Agency User of the Agency is told:
   - by email, text, and in the app, when a Shift is sent to the Agency or headcount is added to one it holds;
   - by email and in the app, when a Release is withdrawn or its Shift cancelled, and when the date, times, headcount, or site instructions of a Shift the Agency holds change;
-  - by email and in the app, when a Timesheet is sent back, with the reason; when a Unit User changes the hours, break, or no-show of a Timesheet that was submitted; and whenever a Unit User sets or clears a no-show;
+  - by email and in the app, when a Timesheet is sent back, with the reason; when a Unit User changes the hours, break, or no-show of a Timesheet that has been submitted at least once, or splits it; and whenever a Unit User sets or clears a no-show;
   - by email and in the app, when one of its Workers stops being eligible for a Shift or is taken off one because the Unit blocked them, when a verified Credential is about to expire (8.5), when a Program User asks for a Rate Review, and when a Unit reports a Worker issue;
   - in the app, when an assignment or entered hours add overtime for one of its Workers, and when site instructions cannot reach an assigned Worker who has no email or phone.
 - Every Unit User over the Shift's Unit is told:
-  - in the app, when a Worker is assigned; by email and in the app, when a Worker is taken off the Shift or stops being eligible for it;
-  - by email and in the app, when an Agency changes the hours, break, or no-show of a Timesheet that was submitted;
+  - in the app, when a Worker is assigned; by email and in the app, when a Worker is taken off the Shift for any reason other than the Shift being cancelled, or stops being eligible for it;
+  - by email and in the app, when an Agency changes the hours, break, or no-show of a Timesheet that has been submitted at least once, such as one sent back, or splits it;
   - in the app, when a Timesheet change leaves part of a Tip Pool or a cashier PIN tip with no one to credit, and once per pool when a share locks while another Worker's hours are still missing.
 - When an assignment or entered hours add overtime for a Worker, the Unit Users over the Shift's Unit and over each Unit where the overtime grows are told in the app.
 - The Unit User who sent a Shift is told each Agency's answer by email and in the app; the one who reported a Worker issue is told in the app when it is resolved.
@@ -194,6 +195,7 @@ This document lists what each kind of user needs from the MVP, as user stories g
 - Whoever submitted a rate is told by email and in the app when it is approved or sent back; whoever uploaded a Credential is told in the app when it is verified or rejected.
 - Workers have no account: Iris sends them a Shift's site instructions by email and text (7.3).
 - Invites and password resets come by email only (1.2).
+- When I email or text Iris, its answer comes back to me on that same channel only (5.9).
 
 *Covers: REQ-MESSAGING-0001*
 
@@ -240,7 +242,7 @@ This document lists what each kind of user needs from the MVP, as user stories g
 **As a Program User**, I want my Home to show my approvals and which Units are spending most, **so that** I can keep the program on contract and spot Units spending above their normal level.
 
 - To-dos: Credentials to review and Agency rate changes to approve, each with the oldest one's age; and rates above their peers that have never had a Rate Review, with the largest gap in dollars.
-- Below the to-dos, every Unit is ranked by this month's spend, highest first, with approved and pending spend, spend as a percentage above or below the Unit's normal level, the average of its prior full calendar months, up to three (none where it has no prior full month), and how many of its Releases this month were off-contract or went to a non-contracted Agency.
+- Below the to-dos, every Unit is ranked by this month's spend, highest first. Each Unit shows its approved and pending spend; its spend as a percentage above or below its normal level, which is the average of its prior full calendar months, up to three; and how many of its Releases this month were off-contract or went to a non-contracted Agency. A Unit with no prior full month of spend shows no comparison.
 - The ranking can be narrowed to one Sector, Region, or District, and selecting a Unit opens its Shifts.
 
 *Covers: REQ-PROGRAM-WEB-0013, REQ-PROGRAM-WEB-0001*
@@ -316,7 +318,7 @@ This document lists what each kind of user needs from the MVP, as user stories g
 
 ### 3.7 Build the org tree
 
-**As a Program User**, I want to keep Compass's org as a tree of Sectors, Regions, Districts, and Units, **so that** access, rules, and reports follow how Compass is organised.
+**As a Program User**, I want to keep Compass's org as a tree of Sectors, Regions, Districts, and Units, **so that** access, rules, and reports follow how Compass is organized.
 
 - The Org screen shows the tree, with whether each part is active.
 - I add, rename, deactivate, and reactivate Sectors, Regions, and Districts; a name already used under the same parent is refused.
@@ -340,7 +342,7 @@ This document lists what each kind of user needs from the MVP, as user stories g
 
 ### 3.9 Upload Units from a file
 
-**As a Program User**, I want to upload a file of Units and Departments, **so that** I can set up many locations at once.
+**As a Program User**, I want to upload a file of Units and Departments, **so that** I can set up many Units at once.
 
 - Upload Units on the Org screen opens the upload step with the Units file type already picked.
 - The file has one row per Department. Iris checks each row and saves the accepted Units and Departments once I approve them.
@@ -539,7 +541,7 @@ This document lists what each kind of user needs from the MVP, as user stories g
 
 **As a Unit User**, I want a Request to repeat on chosen weekdays, **so that** recurring Shifts are booked once.
 
-- The booking form takes the weekdays, how many weeks apart, and an end date no more than 52 weeks after the line's date, which must fall on one of those weekdays.
+- The booking form takes the weekdays, how many weeks apart, and an end date no more than 52 weeks after the line's date. The line's own date must fall on one of those weekdays.
 - The Shifts of a repeating line show as a series.
 - A multi-week assignment is booked this way, as one repeating Request. Each of its Shifts is still sent, answered, and staffed on its own.
 - I can send the Shifts I choose from a series to one Agency in one step. Each is sent on its own, and any Shift whose send was refused is listed.
@@ -572,7 +574,7 @@ This document lists what each kind of user needs from the MVP, as user stories g
 **As a Unit User**, I want to see my Units' Shifts by date with how full each is, **so that** I know where I am still short.
 
 - Shifts are grouped by date: Shifts that have not ended first, soonest first, then ended Shifts, newest first.
-- Each Shift shows its Position, Unit, Department, times, Workers assigned against headcount, the Agencies holding it, and its status.
+- Each Shift shows its Position, Unit, Department, times, Workers assigned against headcount, the Agencies holding it, and its status: open, partially filled, or filled until it ends; worked or unfilled after; or cancelled. Iris sets the status from the Workers assigned and the clock, and nobody sets it by hand.
 - A Shift that has not started and has headcount not yet sent shows how much.
 - The list filters by Unit, dates, Position, Agency, status, and unsent headcount. Cancelled Shifts stay listed, marked cancelled.
 - The list's CSV download carries each Shift's id, so its rows can be changed and uploaded again.
@@ -583,7 +585,7 @@ This document lists what each kind of user needs from the MVP, as user stories g
 
 **As a Unit User**, I want one page per Shift showing who is coming and letting me change it, **so that** I can manage the Shift until it ends.
 
-- The page shows the Shift's details and site instructions; each Agency it was sent to with the headcount sent, its answer, the Bill Rates sent, any reasons given, and whether the send was off-contract or to a non-contracted Agency; and each assigned Worker by name, photo, and Agency, with any open places.
+- The page shows the Shift's details and site instructions; each Agency it was sent to with the headcount sent, its status (unanswered, accepted, declined, withdrawn, cancelled, or expired), the Bill Rates sent, any reasons given, and whether the send was off-contract or to a non-contracted Agency; and each assigned Worker by name, photo, and Agency, with any open places.
 - Each assigned Worker shows whether they are eligible for the Shift and, once it has started, whether they were eligible at its start.
 - Workers taken off the Shift are listed with the reason and time.
 - Until the Shift ends I can edit its headcount, date, times, break, and site instructions; headcount cannot go below what Agencies already hold.
@@ -600,7 +602,8 @@ This document lists what each kind of user needs from the MVP, as user stories g
 
 - I create and rename Events for a Unit, and attach Shifts to an Event when booking, from the Shift's page, or from the Event; I can also move or detach them. A Shift belongs to at most one Event, of its own Unit.
 - The Events screen lists each Event with its dates, number of Shifts, projected cost, actual cost, and the difference.
-- Actual cost shows approved and pending spend, with any estimated part labelled as an estimate.
+- Projected cost is the headcount Agencies hold, unanswered or accepted, at the scheduled hours less the planned break and the regular Bill Rate sent, with no tips or Expenses. Unsent headcount is not counted.
+- Actual cost shows approved and pending spend, with any estimated part labeled as an estimate.
 - From an Event I can open the Timesheets screen filtered to it and approve them together.
 
 *Covers: REQ-UNIT-WEB-0010*
@@ -609,9 +612,9 @@ This document lists what each kind of user needs from the MVP, as user stories g
 
 **As a Unit User**, I want to book or change Shifts by email, text, or a phone call, **so that** I can order labor without opening Iris.
 
-- Iris has an email address, a text number, and a phone line answered by an AI voice agent. It knows me by the email or phone on my account; a message it cannot match to exactly one user creates nothing, and a caller it does not recognize is told so.
+- Iris has an email address, a text number, and a phone line answered by an AI voice agent. It knows me by the email or phone on my account; a message it cannot match to exactly one user creates nothing. A caller it does not recognize is told so on the call, and an email or text sender is told so at most once in 24 hours.
 - Iris drafts what I ask as the assistant does (12.2), and asks first for anything it needs, such as which Unit or which Agency.
-- Times, Department, and Agency I leave out are filled from my Unit's most recent Shift for that Position that was not cancelled, and the draft marks each value filled that way. The Agency is filled only when that Shift went to one Agency.
+- Times, Department, and Agency I leave out are filled from the Shift most recently booked at my Unit for that Position that was not cancelled, and the draft marks each value filled that way. The Agency is filled only when that Shift went to one Agency.
 - The draft comes back on the channel I used, and nothing is booked until I approve it: by replying yes in the same email or text thread, or by saying yes on the call. Replying or saying no rejects it. Any other reply is taken as an answer or a change.
 - Approving by reply accepts every line. When a line needs a decision, or the thread has more than one open draft, Iris tells me to decide it in the app, where it stays open.
 - On approval the Shifts are booked and each line with an Agency is sent.
@@ -642,7 +645,7 @@ This document lists what each kind of user needs from the MVP, as user stories g
 - I can type another regular Bill Rate, and must when there is no contracted rate; either way a reason is required, and the send is refused where Compass's settings do not allow off-contract rates.
 - Iris sets the overtime and double-time Bill Rates from the rate I type: in proportion to the contracted ones, or 1.5 and 2 times it when there is no contracted rate.
 - Sending to a non-contracted Agency asks for its own reason, separate from any rate reason, where Compass's settings allow it, and is refused where they do not.
-- Adding headcount to a Shift an Agency already holds is checked again against today's contract: I am asked only for reasons it does not already have, and the add is refused where a setting refuses it.
+- Adding headcount to a Shift an Agency already holds is checked again against the contract as it now stands for the Shift's date: I am asked only for reasons it does not already have, and the add is refused where a setting refuses it.
 - By default both kinds of send are allowed with a reason (3.14).
 - A send that goes ahead with a reason is marked off-contract or non-contracted on the Shift's page, with the reason.
 
@@ -671,7 +674,7 @@ This document lists what each kind of user needs from the MVP, as user stories g
 
 **As a Unit User**, I want to ask an Agency for particular Workers, **so that** people who know my site come back.
 
-- When sending, or later on the Shift's page, I can name Workers from the Agency's active Workers, with my Unit's favourites first and Workers my Unit blocked left out.
+- When sending, or later on the Shift's page, I can name Workers from the Agency's active Workers, with my Unit's favorites first and Workers my Unit blocked left out.
 - The Shift's page shows each Worker I asked for, and whether the Agency said they are unavailable and why.
 - I can withdraw a request until the Shift starts.
 
@@ -802,7 +805,7 @@ This document lists what each kind of user needs from the MVP, as user stories g
 **As an Agency User**, I want to see which Workers have Credentials that need action or are in review, **so that** I renew them before Shifts are lost.
 
 - Each roster row shows how many of the Worker's Credentials need action (rejected, expired, or expiring within the warning period, unless a newer one of that type exists) and how many are in review (still being checked by Iris or waiting for a Program User), and the roster filters to Workers counted in either.
-- On a Worker's page, a verified Credential is labelled expired once past its expiry date, expiring when within the Credential expiry warning Setting (30 days by default), and replaced when a newer one of its type exists.
+- On a Worker's page, a verified Credential is labeled expired once past its expiry date, expiring when within the Credential expiry warning Setting (30 days by default), and replaced when a newer one of its type exists.
 - When a verified Credential comes within the warning period, Iris warns every Agency User of my Agency once, by email and in the app, naming the Worker, the Credential Type, and the expiry date. No warning is sent for a Credential a newer one has replaced.
 - The Worker's page also shows how many Shifts they have worked, each Unit's rating and review of them, which I cannot change, and the issues Units reported, each with its category and status.
 
@@ -852,9 +855,9 @@ This document lists what each kind of user needs from the MVP, as user stories g
 
 ### 8.10 Rate the Workers who come to my Unit
 
-**As a Unit User**, I want to rate Workers as favourite, okay to return, or blocked, **so that** I get the people I want back and not the ones I don't.
+**As a Unit User**, I want to rate Workers as favorite, okay to return, or blocked, **so that** I get the people I want back and not the ones I don't.
 
-- The Workers screen lists everyone assigned to or rated by my Units, with their name, photo, Agency, Shifts worked at my Unit, my Unit's rating and review, and open issues, favourites first; it never shows a Worker's email or phone.
+- The Workers screen lists everyone assigned to or rated by my Units, with their name, photo, Agency, Shifts worked at my Unit, my Unit's rating and review, and open issues, favorites first; it never shows a Worker's email or phone.
 - Add a Worker finds any active Worker by Agency and name, so I can rate someone who has not yet been assigned to my Unit.
 - A rating is for one Unit, takes an optional review, and replaces that Unit's earlier rating; I can give it at any time, from the roster or the Shift's page.
 - Blocking first warns that the Worker comes off my Unit's Shifts that have not started and cannot be assigned or requested there. The Worker's Agency is told when a block takes them off a Shift.
@@ -866,7 +869,7 @@ This document lists what each kind of user needs from the MVP, as user stories g
 **As a Unit User**, I want to report an issue with a Worker to their Agency, **so that** the Agency deals with it.
 
 - A report takes a category (conduct, safety, quality, or no-show), a description, and optionally the Shift, and can be made from the roster or the Shift's page.
-- The Issues tab lists my Units' reports, open ones first, with the Agency's resolution.
+- The Issues tab of the Workers screen lists my Units' reports, open ones first, with the Agency's resolution.
 
 *Covers: REQ-UNIT-WEB-0004*
 
@@ -874,7 +877,7 @@ This document lists what each kind of user needs from the MVP, as user stories g
 
 **As an Agency User**, I want to see and resolve each issue a Unit reports about our Workers, **so that** the Unit sees we acted.
 
-- The Issues tab lists each issue with the Worker, Unit, category, description, Shift, and date, open ones first.
+- The Issues tab of the Workers screen lists each issue with the Worker, Unit, category, description, Shift, and date, open ones first.
 - Resolve requires a note the Unit can read; a resolved issue shows who resolved it and when, and offers no further action.
 
 *Covers: REQ-AGENCY-WEB-0008*
@@ -884,7 +887,7 @@ This document lists what each kind of user needs from the MVP, as user stories g
 **As a Unit User at a secured site**, I want to track each Worker's badge request, **so that** I know who still needs a badge and who has one.
 
 - Iris raises a badge request when a Worker is first assigned at my secured Unit, and requests a revoked one again the next time that Worker is assigned there; I do not create one, and a badge's status never stops a Worker being assigned.
-- A Badges tab, shown only when one of my Units is a secured site, lists badge requests, those still to issue first, with the Worker, Agency, status, and when it was requested.
+- A Badges tab on the Workers screen, shown only when one of my Units is a secured site, lists badge requests, those still to issue first, with the Worker, Agency, status, and when it was requested.
 - I mark a requested badge issued, or revoke a requested or issued one; the row then shows who did it and when.
 - Each assigned Worker's badge status shows on the Shift's page.
 
@@ -955,8 +958,9 @@ This document lists what each kind of user needs from the MVP, as user stories g
 - The Timesheets screen opens on that exception list, those outside the Approval Tolerance first, then the oldest Shift first. Other tabs list drafts and sent-back ones, approved ones, and locked ones.
 - Each row shows the Worker, Agency, Shift, Position, Department, scheduled times beside billed times, break, regular, overtime, and double-time hours, Bill Rates, amount, tips, and Expenses. Each Timesheet opens its change history.
 - Hours are never refused for overtime, and overtime alone does not stop automatic approval; I get an overtime alert instead (1.12).
-- Each exception says what caused it, such as the minutes outside the Approval Tolerance or a short break.
-- A Timesheet billed at a rate other than the contracted one shows both rates, the difference, and the reason given when the Shift was sent.
+- Each exception says what caused it. The exceptions are: a missing clock time; times outside the Approval Tolerance; a meal break the labor rules require that was not taken (a missed break); a break shorter than planned (a short break); pay below the minimum wage; an Expense I have not decided; a tip the Agency entered; a Timesheet submitted after its Lock Window closed; a Worker added after the Shift; a part split to another Position whose Bill Rate differs from that Position's contracted rate, or that has none; and a Worker who also worked within seven days at a Unit whose Work Week starts on another day, which names that Unit and its start day.
+- A no-show Timesheet can have only the Expense exception, so once submitted it is otherwise approved automatically.
+- A Timesheet billed at a rate other than the contracted one shows both rates, the difference, and the reason given when the Shift was sent. That flag alone does not stop automatic approval.
 - An approved Timesheet locks once its Lock Window has passed (48 hours after the Shift ends by default), and never sooner than 24 hours after it was approved. One not yet approved does not lock.
 - The parts of a split Timesheet show together; one still unapproved after its Lock Window closed is marked late on every tab; a locked one shows when it locked and allows no change.
 - Once a Shift has ended, its page links to its Timesheets.
@@ -1022,6 +1026,7 @@ This document lists what each kind of user needs from the MVP, as user stories g
 **As a Unit User**, I want to approve or reject each Expense and see each Timesheet's tips, **so that** we pay only what we agreed.
 
 - Each pending Expense on a submitted Timesheet shows its kind, amount, and note with Approve and Reject; Reject requires a reason, and a decision cannot be changed.
+- When I decide an Expense, Iris checks the Timesheet again and approves it itself if nothing else needs review.
 - Tips show with their source: a Tip Pool share, a cashier PIN tip, or a tip the Agency entered.
 
 *Covers: REQ-UNIT-WEB-0016*
@@ -1031,7 +1036,7 @@ This document lists what each kind of user needs from the MVP, as user stories g
 **As a Unit User**, I want to enter a day's tips for my Unit, a Shift, or an Event and have Iris split them, **so that** every Worker gets a fair share.
 
 - A Tip Pool takes a Unit, a work date, an amount, and optionally one Shift or one Event, never both.
-- Iris splits a pool across every Timesheet it covers by minutes worked, whatever the Agency. Scheduled minutes less the planned break count until hours are entered, and a no-show counts nothing. Shares are split again as hours change. A share is fixed once its Timesheet locks, and only the rest of the pool is split again among the Timesheets not yet locked. The shares add up to the pool, unless none of those Timesheets has minutes to count; the rest then shows as unallocated.
+- A pool covers every Timesheet on my Unit's Shifts that start on that date, or only those of the Shift or Event I picked. Iris splits it across them by minutes worked, whatever the Agency. Scheduled minutes less the planned break count until hours are entered, and a no-show counts nothing. Shares are split again as hours change. A share is fixed once its Timesheet locks, and only the rest of the pool is split again among the Timesheets not yet locked. The shares add up to the pool, unless none of those Timesheets has minutes to count; the rest then shows as unallocated.
 - Opening a pool shows each Worker's share and the minutes counted, marked as scheduled where hours are not yet entered, and any amount left unallocated.
 - I am told in the app when a Timesheet change leaves part of a pool with no one to credit, and once per pool when a share locks while another Worker's hours are still missing.
 - A pool can be changed or deleted until a Timesheet it covers locks, after which it shows as fixed; an open pool shows the last time it can be changed. A new pool or a change that would cover a locked Timesheet is refused, and says so.
@@ -1058,7 +1063,7 @@ This document lists what each kind of user needs from the MVP, as user stories g
 
 **As a Unit User**, I want spend, labor cost, and Timesheet compliance reports for my Units, **so that** I can manage cost and catch problems.
 
-- The Reports screen opens on a spend dashboard for my Units, or the one I picked: the month to date against the whole month's budget and the whole prior month, and the Work Week to date against the whole prior Work Week, each split into approved and pending spend, with the hours and headcount behind it.
+- The Reports screen opens on a spend dashboard for my Units, or the one I picked: the month to date against the whole month's budget and the whole prior month, and the Work Week to date against the whole prior Work Week, each split into approved and pending spend. It also shows the hours behind the month's spend and the headcount booked on that month's Shifts.
 - Tables break the month's spend down by Agency, with each Agency's average Bill Rate, by Position, and by Unit.
 - Labor cost shows as a percentage of sales for a chosen period, counting spend and sales only on dates that have sales, and says not available when no date has any.
 - Compliance shows, for a period, Timesheets with a missed break and Timesheets not approved by the end of their Lock Window, grouped as I choose. One approved after that still counts as late.
@@ -1071,9 +1076,9 @@ This document lists what each kind of user needs from the MVP, as user stories g
 
 **As a Program User**, I want to rank Agencies, Events, and Units by spend and see trends, **so that** I know where the money goes and how Agencies perform.
 
-- For a period I pick, Agencies, Events, and Units are ranked by spend, highest first; each Agency also shows its fill rate and no-show rate.
+- For a period I pick, Agencies, Events, and Units are ranked by spend, highest first; each Agency also shows its fill rate and no-show rate. An Agency's fill rate is Workers assigned over the headcount sent to it, leaving out withdrawn Releases, on Shifts that have started; its no-show rate is no-shows over Workers assigned, on Shifts that were worked.
 - A trend chart shows spend, or another measure, by Work Week or calendar month.
-- Compliance counts Timesheets with a missed break and Timesheets not approved by the end of their Lock Window, grouped as I choose; one approved after that still counts as late. Labor cost against sales shows for each Unit and for the Units together, counting only dates that have sales. Each Event shows its projected cost, its actual cost with any estimated part labelled as an estimate, and the difference.
+- Compliance counts Timesheets with a missed break and Timesheets not approved by the end of their Lock Window, grouped as I choose; one approved after that still counts as late. Labor cost against sales shows for each Unit and for the Units together, counting only dates that have sales. Each Event shows its projected cost, its actual cost with any estimated part labeled as an estimate, and the difference.
 - Every view can be narrowed to one Sector, Region, or District, and a figure with nothing to measure shows as not available.
 - My saved reports are listed here, and I can ask a question in the assistant.
 
@@ -1183,7 +1188,7 @@ These stories assume answers that Compass and Instawork have not yet confirmed. 
 
 | Question | What the stories assume | Stories |
 | --- | --- | --- |
-| Can one Shift go to more than one Agency? | Yes, by hand: a Unit User sends each part of the headcount to one Agency. Automatic sending to several Agencies comes later. | 5.1, 6.1, 6.4, 7.1 |
+| Can one Shift go to more than one Agency? | Yes, by hand: a Unit User sends each part of the headcount to one Agency. Automatic sending to several Agencies comes later. | 5.1, 5.5, 5.9, 6.1, 6.4, 7.1, 12.2 |
 | Do break and minimum-wage checks at booking flag a Shift or block it? | They flag it. Only overtime can be set to block. | 5.1 |
 | Who can change a Timesheet, and when? | The Agency edits drafts and sent-back Timesheets; the Unit corrects submitted and approved ones until they lock, and a corrected approved one stays approved; on a draft or sent-back one the Unit may change only the no-show mark; nobody changes a locked one. | 9.2 to 9.9, 10.1, 10.2 |
 | Who verifies Workers' Credentials? | Iris checks each document automatically; a Program User decides what the checks cannot settle and sets, per Credential Type, whether an Attestation is enough. | 2.4, 8.3 to 8.9 |
@@ -1191,10 +1196,10 @@ These stories assume answers that Compass and Instawork have not yet confirmed. 
 | Who manages users? | Program Users manage everyone; Agency Users manage their own Agency's users. Every account except an Iris Admin's exists only by invite. | 1.1, 1.7, 3.10 to 3.13 |
 | May one person both run Iris and act for an Agency? | No: an Iris Admin is never also an Agency User, so Iris stays neutral even when Instawork is one of the Agencies. | 3.12, 3.13 |
 | Who may change a live rate? | Agencies and Program Users submit new lines; a Program User approves Agency lines, and their own need no second approval. | 2.4, 4.2 to 4.5, 4.7, 4.8 |
-| Can a rate be set for one Unit? | Yes: a Rate Line can price a Position at one Unit, and it wins over the Market rate for that Agency. This waits on a Foodbuy decision. | 4.1, 4.8 |
+| Can a rate be set for one Unit? | Yes: a Rate Line can price a Position at one Unit, and it wins over the Market rate for that Agency. This waits on a decision by Foodbuy, the Compass group that owns Agency contracts and rate cards. | 4.1, 4.8 |
 | Who acts on rates flagged above their peers or off the contract? | Program Users see every flag and send Rate Reviews; Unit Users see the flags on their own Shifts and Timesheets. | 2.4, 4.5, 4.6, 6.3, 9.6, 11.4 |
 | How is overtime counted when a Worker works at several Units or for several Agencies? | Per Worker per Agency: hours at every Unit that Agency sends them to count together, and hours with other Agencies are not combined. | 7.3, 9.6 |
-| Who keeps Positions, Markets, and labor rules? | Iris Admins, who are set up from the deployment configuration, never by invite. | 3.1 to 3.4, 3.12 |
+| Who keeps Positions, Markets, and labor rules? | Iris Admins, who are set up from the deployment configuration, never by invite. | 1.1, 1.4, 3.1 to 3.4, 3.12 |
 | Who keeps the org, Units, Agencies, and Settings after launch? | Program Users only. A Unit User may change only the default site instructions of a Unit they cover and of its Departments. | 3.7 to 3.11, 3.14, 3.15 |
 | Which tip tax rules apply at launch? | None until Compass names them; tips pass through at the amounts entered. This question is blocking. | 10.1, 10.3 to 10.5 |
 
