@@ -15,7 +15,7 @@ rule came from.
 - `graph/reviewers.yaml` and `graph/retired.yaml`: who may approve, and ids never to reuse.
 - `graph/starting-flow.yaml`: the seeds of the first end-to-end slice.
 - `data-model/<module>.yaml`: entities and enums, one file per module.
-- `docs/user-stories.md`: the MVP user stories by journey. Each cites the screens it covers, and a test fails if an MVP screen is left out.
+- `docs/user-stories.md`: the MVP user stories by journey. Each cites the requirements it covers, and a test fails if an MVP requirement is neither cited nor needed by a cited one.
 - `tools/`: validation, lookup, listing, and the canvas build.
 
 ## Use
@@ -28,7 +28,8 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/python tools/list_requirements.py --ready     # what can be built next
 .venv/bin/python tools/list_requirements.py --blocking  # what each blocking decision stops
 .venv/bin/python tools/list_decisions.py --markdown     # open questions, grouped by who answers
-.venv/bin/python tools/build_canvas.py                  # write canvas/ (git ignores it).venv/bin/python tools/set_starting_flow.py --add REQ-UNIT-WEB-0007   # change the flow's seeds
+.venv/bin/python tools/build_canvas.py                  # write canvas/ (git ignores it)
+.venv/bin/python tools/set_starting_flow.py --add REQ-UNIT-WEB-0007   # change the flow's seeds
 .venv/bin/python tools/next_requirement_id.py TIME      # the next unused id for a module
 .venv/bin/python tools/check_approvals_kept.py --base origin/main   # CI runs this on pull requests
 .venv/bin/python -m unittest discover tools/tests
