@@ -46,7 +46,7 @@ requirement_rules:
   - D-167
 - rule_id: R5
   rule_statement: >-
-    An Instawork Admin acts only on reference data (Positions, Markets, Market ZIP codes, labor rules),
+    An Iris Admin acts only on reference data (Positions, Markets, Market ZIP codes, labor rules),
     account teams, outside-system ids, Payment Terms, VMS fees, and what REQ-ORG-0005 allows them.
   rule_sources: []
   rule_decisions:

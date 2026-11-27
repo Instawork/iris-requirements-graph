@@ -7,7 +7,7 @@ requirement_statement: >-
   Every page shows the role the signed-in User is acting in and its scope, such as an Agency or a Unit.
   A User whose Role Grants give more than one context chooses which to act in.
 requirement_actors:
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 - PROGRAM_USER
 - UNIT_USER
 - AGENCY_USER

@@ -7,7 +7,7 @@ requirement_statement: >-
   Every person who uses Iris has their own User, with an email, a name, and an optional phone. They sign
   in with email and password, and each sign-in is a Session that every later request is checked against.
 requirement_actors:
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 - PROGRAM_USER
 - UNIT_USER
 - AGENCY_USER
@@ -73,7 +73,7 @@ requirement_rules:
   - D-98
 - rule_id: R10
   rule_statement: >-
-    At each start, when no User holds the deployment configuration's email, Iris creates the first Instawork
+    At each start, when no User holds the deployment configuration's email, Iris creates the first Iris
     Admin as an active User from the configured email, first name, last name, and password, with no inviter.
   rule_sources:
   - GRAPH the first User has nobody to invite them
@@ -97,7 +97,7 @@ requirement_rules:
 - rule_id: R13
   rule_statement: >-
     A start never changes or reactivates a User who already holds the configured email, and REQ-ORG-0005
-    adds that User's INSTAWORK_ADMIN grant when it holds none.
+    adds that User's IRIS_ADMIN grant when it holds none.
   rule_sources:
   - GRAPH the first User has nobody to invite them
   rule_decisions:

@@ -4,10 +4,10 @@ requirement_target_module: ADMIN-WEB
 requirement_phase: MVP
 requirement_title: Keep the Compass Position catalog
 requirement_statement: >-
-  On the Positions screen an Instawork Admin adds, renames, and deactivates the Positions that every Shift,
+  On the Positions screen an Iris Admin adds, renames, and deactivates the Positions that every Shift,
   Rate Line, and Credential Requirement names.
 requirement_actors:
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 requirement_rules:
 - rule_id: R1
   rule_statement: >-

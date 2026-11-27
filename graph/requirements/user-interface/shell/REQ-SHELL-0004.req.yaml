@@ -6,7 +6,7 @@ requirement_title: Sign in with email and password
 requirement_statement: >-
   A User of any role signs in on one page with their email and password. The page offers no sign-up.
 requirement_actors:
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 - PROGRAM_USER
 - UNIT_USER
 - AGENCY_USER
@@ -43,7 +43,7 @@ requirement_rules:
   - D-25
 - rule_id: R5
   rule_statement: >-
-    One page serves Unit Users, Agency Users, Program Users, and Instawork Admins, and never asks for
+    One page serves Unit Users, Agency Users, Program Users, and Iris Admins, and never asks for
     a role.
   rule_sources:
   - SHEET PLT-1

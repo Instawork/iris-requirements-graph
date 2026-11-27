@@ -7,7 +7,7 @@ requirement_statement: >-
   Any table a User sees can be downloaded as a CSV file that holds exactly the rows and columns of that
   User's view.
 requirement_actors:
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 - PROGRAM_USER
 - UNIT_USER
 - AGENCY_USER

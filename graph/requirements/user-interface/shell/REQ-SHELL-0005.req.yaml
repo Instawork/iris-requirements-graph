@@ -7,7 +7,7 @@ requirement_statement: >-
   A User opens the single-use link from an invite or a reset email and sets a password. Anyone can ask
   for a reset link by entering an email.
 requirement_actors:
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 - PROGRAM_USER
 - UNIT_USER
 - AGENCY_USER

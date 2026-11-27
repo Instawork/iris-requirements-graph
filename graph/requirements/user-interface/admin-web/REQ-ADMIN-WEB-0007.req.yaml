@@ -4,10 +4,10 @@ requirement_target_module: ADMIN-WEB
 requirement_phase: P2
 requirement_title: Keep Payment Terms and VMS fees
 requirement_statement: >-
-  On the Billing screen an Instawork Admin keeps the Payment Terms list, sets each Agency's VMS fee
+  On the Billing screen an Iris Admin keeps the Payment Terms list, sets each Agency's VMS fee
   percent, and marks monthly fee statements paid.
 requirement_actors:
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
@@ -39,7 +39,7 @@ requirement_rules:
   - D-272
 - rule_id: R5
   rule_statement: >-
-    This requirement adds Billing to the end of the Instawork Admin menu of REQ-ADMIN-WEB-0001.
+    This requirement adds Billing to the end of the Iris Admin menu of REQ-ADMIN-WEB-0001.
   rule_sources: []
   rule_decisions:
   - D-124

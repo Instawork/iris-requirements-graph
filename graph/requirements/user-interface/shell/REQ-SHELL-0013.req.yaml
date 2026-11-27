@@ -9,7 +9,7 @@ requirement_statement: >-
   the same way. Persona screens state only what differs. It is delivered as the shared parts that do this,
   which every later screen uses.
 requirement_actors:
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 - PROGRAM_USER
 - UNIT_USER
 - AGENCY_USER

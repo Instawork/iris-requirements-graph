@@ -1,6 +1,6 @@
 # Iris user stories: MVP
 
-Iris is Instawork's vendor management system for Compass. Compass locations order temporary staff, approved staffing Agencies fill the Shifts with their own Workers, and Iris checks rates, credentials, and hours along the way.
+Iris is Instawork's vendor management system for Compass. Compass locations order temporary staff, approved staffing Agencies fill the Shifts with their own Workers, and Iris checks rates, credentials, and hours along the way. Iris is neutral among Agencies: if Instawork's own staffing marketplace also supplies Compass, it is one Agency like any other.
 
 This document lists what each kind of user needs from the MVP, as user stories grouped by journey. Each story ends with the requirements in the [requirements graph](../README.md) that it covers, where the full detail lives.
 
@@ -13,7 +13,7 @@ This document lists what each kind of user needs from the MVP, as user stories g
 | Unit User | A Compass operator at one or more locations, such as Soldier Field | Books Shifts, sends them to Agencies, approves hours, rates Workers |
 | Agency User | Staff at a staffing Agency | Answers Shifts sent to the Agency, assigns Workers, submits hours, keeps rates and Credentials |
 | Program User | Compass's program team | Sets up the org, Agencies, rates, and Credential rules, and watches spend |
-| Instawork Admin | Instawork staff | Keeps reference data and invites the first Program User |
+| Iris Admin | Instawork staff who run Iris itself, and are never also Agency Users | Keeps reference data and invites the first Program User |
 
 ## Words used
 
@@ -56,7 +56,7 @@ This document lists what each kind of user needs from the MVP, as user stories g
 
 - One sign-in page serves every role and never asks which role I am.
 - A failed sign-in shows one message that does not say whether the email, the password, or a deactivated account was the cause, and keeps the email I typed.
-- There is no sign-up: an account exists only when someone invites me, or, for an Instawork Admin, when Instawork sets it up.
+- There is no sign-up: an account exists only when someone invites me, or, for an Iris Admin, when Instawork sets it up.
 - Opening any page that needs a sign-in while signed out shows the sign-in page.
 
 *Covers: REQ-SHELL-0004*
@@ -93,7 +93,7 @@ This document lists what each kind of user needs from the MVP, as user stories g
   - Unit User: Home, Shifts, Timesheets, Tips, Workers, Agencies, Events, Reports, Uploads, Setup.
   - Agency User: Home, Shifts, Workers, Timesheets, Rate Card, Uploads, Users.
   - Program User: Home, Shifts, Workers, Rates, Credentials, Agencies, Org, Users, Reports, Uploads, Settings.
-  - Instawork Admin: Home, Positions, Markets, Labor rules, Account team, Outside ids.
+  - Iris Admin: Home, Positions, Markets, Labor rules, Account team, Outside ids.
 - Opening a screen or record outside my access shows a refusal and a link to Home, and nothing of the record.
 - After 12 hours without activity, or when my account is deactivated, I am returned to the sign-in page.
 
@@ -101,7 +101,7 @@ This document lists what each kind of user needs from the MVP, as user stories g
 
 ### 1.5 Narrow my screens to one Unit
 
-**As a Unit User who covers several Units**, I want to narrow every Unit screen to one Unit, **so that** I can focus on one location.
+**As a Unit User who covers several Units**, I want to narrow every Unit screen to one Unit, **so that** I can focus on one Unit.
 
 - I see all my Units together by default.
 - Picking one Unit narrows every Unit screen to it, and the choice stays until I change it or sign out.
@@ -251,18 +251,18 @@ This document lists what each kind of user needs from the MVP, as user stories g
 
 ### 3.1 Get the program started
 
-**As an Instawork Admin**, I want to see what reference data is loaded and invite the first Program User, **so that** Compass can take over its own setup.
+**As an Iris Admin**, I want to see what reference data is loaded and invite the first Program User, **so that** Compass can take over its own setup.
 
 - Home shows how many active Positions, how many Markets, and how many labor rules in effect today are loaded.
 - Whenever no active Program User has accepted an invite, Home offers an invite for one, and lists unaccepted invites with Send invite again and Revoke.
 - Once a Program User has accepted, Home says one is in place and offers no invite. While exactly one active Program User holds the role, Home names them and offers Revoke, after a confirmation, so that a replacement can be invited.
-- Home lists the other Instawork Admins and lets me deactivate or reactivate them.
+- Home lists the other Iris Admins and lets me deactivate or reactivate them.
 
 *Covers: REQ-ADMIN-WEB-0001, REQ-PROGRAM-WEB-0007*
 
 ### 3.2 Keep the Position catalog
 
-**As an Instawork Admin**, I want to add, rename, and deactivate Positions, **so that** every Shift, Rate Line, and Credential Requirement names a Position from one list.
+**As an Iris Admin**, I want to add, rename, and deactivate Positions, **so that** every Shift, Rate Line, and Credential Requirement names a Position from one list.
 
 - Positions are listed with whether each is active.
 - A name another Position already has is refused.
@@ -272,7 +272,7 @@ This document lists what each kind of user needs from the MVP, as user stories g
 
 ### 3.3 Keep Markets and their ZIP codes
 
-**As an Instawork Admin**, I want to keep Markets and the ZIP codes in each, **so that** every Unit is priced in the right Market.
+**As an Iris Admin**, I want to keep Markets and the ZIP codes in each, **so that** every Unit is priced in the right Market.
 
 - Markets are listed by state and city, with how many ZIP codes each has.
 - I add and rename a Market by city and state; a city and state another Market already has is refused.
@@ -283,7 +283,7 @@ This document lists what each kind of user needs from the MVP, as user stories g
 
 ### 3.4 Keep state and local labor rules
 
-**As an Instawork Admin**, I want to keep the break, minimum wage, and overtime rules for each state and city, **so that** Iris checks Shifts and hours against the law where they are worked.
+**As an Iris Admin**, I want to keep the break, minimum wage, and overtime rules for each state and city, **so that** Iris checks Shifts and hours against the law where they are worked.
 
 - Rules are listed by state, city, and kind, with their values and the dates they apply, and filter by state and kind.
 - I add, change, and end a rule.
@@ -294,10 +294,10 @@ This document lists what each kind of user needs from the MVP, as user stories g
 
 ### 3.5 Name Instawork's account team
 
-**As an Instawork Admin**, I want to name the Account Manager, Account Owner, and Support Lead for the program or any part of the org, **so that** every Unit knows whom at Instawork to contact.
+**As an Iris Admin**, I want to name the Account Manager, Account Owner, and Support Lead for the program or any part of the org, **so that** every Unit knows whom at Instawork to contact.
 
 - The screen shows the program-wide team, then each part of the org with its own assignments.
-- I assign a role to an active Instawork Admin, for the whole program or one part of the org; this replaces whoever held it there, and removing one asks for confirmation.
+- I assign a role to an active Iris Admin, for the whole program or one part of the org; this replaces whoever held it there, and removing one asks for confirmation.
 - Opening a Unit shows who it resolves to for each role, and where that assignment comes from.
 - A Unit User sees their Unit's account team, with names, emails, and phones, on the Setup screen.
 
@@ -305,7 +305,7 @@ This document lists what each kind of user needs from the MVP, as user stories g
 
 ### 3.6 Keep the ids other systems use
 
-**As an Instawork Admin**, I want to record the Fieldglass, SAP, and MyStaff ids of Units, Departments, Companies, Agencies, and Positions, **so that** Iris records can be matched to those systems when their integrations arrive.
+**As an Iris Admin**, I want to record the Fieldglass, SAP, and MyStaff ids of Units, Departments, Companies, Agencies, and Positions, **so that** Iris records can be matched to those systems when their integrations arrive.
 
 - Nothing in MVP needs or reads these ids; uploads still find records by name.
 - I pick a system and a record type and see every record with its id there, or none.
@@ -376,9 +376,10 @@ This document lists what each kind of user needs from the MVP, as user stories g
 **As a Program User**, I want to invite users and grant or revoke their roles, **so that** the right people have the right access.
 
 - The Users screen lists every user with their roles and scopes, whether their invite was accepted, and their last sign-in, and filters by role, Agency, part of the org, and active or inactive.
-- An invite takes the person's name, email, optional phone, and one role: Program User, Unit User for a part of the org, or Agency User for one Agency. Instawork Admin is never offered.
+- An invite takes the person's name, email, optional phone, and one role: Program User, Unit User for a part of the org, or Agency User for one Agency. Iris Admin is never offered.
 - Picking a Unit User scope says it covers every Unit at or below that point.
-- I can add a role, revoke or restore one, resend an invite until it is accepted, and deactivate or reactivate any user except an Instawork Admin.
+- I can add a role, revoke or restore one, resend an invite until it is accepted, and deactivate or reactivate any user except an Iris Admin.
+- Iris refuses the Agency User role to an Iris Admin, whoever grants it, so the people who run Iris stay neutral among Agencies.
 
 *Covers: REQ-PROGRAM-WEB-0007*
 
@@ -1187,12 +1188,13 @@ These stories assume answers that Compass and Instawork have not yet confirmed. 
 | Who can change a Timesheet, and when? | The Agency edits drafts and sent-back Timesheets; the Unit corrects submitted and approved ones until they lock, and a corrected approved one stays approved; on a draft or sent-back one the Unit may change only the no-show mark; nobody changes a locked one. | 9.2 to 9.9, 10.1, 10.2 |
 | Who verifies Workers' Credentials? | Iris checks each document automatically; a Program User decides what the checks cannot settle and sets, per Credential Type, whether an Attestation is enough. | 2.4, 8.3 to 8.9 |
 | What happens to a Timesheet still unapproved when its Lock Window closes? | It stays open and shows as late to the Unit and the Agency until it is approved. Only an approved Timesheet locks. | 2.2, 2.3, 9.1, 9.6, 11.1, 11.2 |
-| Who manages users? | Program Users manage everyone; Agency Users manage their own Agency's users. Every account except an Instawork Admin's exists only by invite. | 1.1, 1.7, 3.10 to 3.13 |
+| Who manages users? | Program Users manage everyone; Agency Users manage their own Agency's users. Every account except an Iris Admin's exists only by invite. | 1.1, 1.7, 3.10 to 3.13 |
+| May one person both run Iris and act for an Agency? | No: an Iris Admin is never also an Agency User, so Iris stays neutral even when Instawork is one of the Agencies. | 3.12, 3.13 |
 | Who may change a live rate? | Agencies and Program Users submit new lines; a Program User approves Agency lines, and their own need no second approval. | 2.4, 4.2 to 4.5, 4.7, 4.8 |
 | Can a rate be set for one Unit? | Yes: a Rate Line can price a Position at one Unit, and it wins over the Market rate for that Agency. This waits on a Foodbuy decision. | 4.1, 4.8 |
 | Who acts on rates flagged above their peers or off the contract? | Program Users see every flag and send Rate Reviews; Unit Users see the flags on their own Shifts and Timesheets. | 2.4, 4.5, 4.6, 6.3, 9.6, 11.4 |
 | How is overtime counted when a Worker works at several Units or for several Agencies? | Per Worker per Agency: hours at every Unit that Agency sends them to count together, and hours with other Agencies are not combined. | 7.3, 9.6 |
-| Who keeps Positions, Markets, and labor rules? | Instawork Admins, who are set up from the deployment configuration, never by invite. | 3.1 to 3.4, 3.12 |
+| Who keeps Positions, Markets, and labor rules? | Iris Admins, who are set up from the deployment configuration, never by invite. | 3.1 to 3.4, 3.12 |
 | Who keeps the org, Units, Agencies, and Settings after launch? | Program Users only. A Unit User may change only the default site instructions of a Unit they cover and of its Departments. | 3.7 to 3.11, 3.14, 3.15 |
 | Which tip tax rules apply at launch? | None until Compass names them; tips pass through at the amounts entered. This question is blocking. | 10.1, 10.3 to 10.5 |
 

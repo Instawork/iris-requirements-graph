@@ -5,11 +5,11 @@ requirement_phase: MVP
 requirement_title: Manage Users and their Role Grants
 requirement_statement: >-
   On the Users screen a Program User sees every User with their Role Grants, invites Users, grants and
-  revokes roles, and deactivates or reactivates Users, within the limits REQ-ORG-0005 sets. An Instawork
+  revokes roles, and deactivates or reactivates Users, within the limits REQ-ORG-0005 sets. An Iris
   Admin uses the same screen to invite the first Program User.
 requirement_actors:
 - PROGRAM_USER
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
@@ -37,7 +37,7 @@ requirement_rules:
 - rule_id: R4
   rule_statement: >-
     The role is PROGRAM_USER with no scope, UNIT_USER at an org node picked from the tree, or AGENCY_USER
-    for one Agency; the form offers no INSTAWORK_ADMIN role.
+    for one Agency; the form offers no IRIS_ADMIN role.
   rule_sources:
   - SHEET PLT-1
   rule_decisions:
@@ -67,7 +67,7 @@ requirement_rules:
   - D-152
 - rule_id: R8
   rule_statement: >-
-    Deactivate and Reactivate call REQ-ORG-0005 and are not offered for a User who holds an INSTAWORK_ADMIN
+    Deactivate and Reactivate call REQ-ORG-0005 and are not offered for a User who holds an IRIS_ADMIN
     grant.
   rule_sources:
   - SHEET PLT-4
@@ -75,7 +75,7 @@ requirement_rules:
   - D-25
 - rule_id: R9
   rule_statement: >-
-    An Instawork Admin sees only the invite form with the role fixed to PROGRAM_USER, which
+    An Iris Admin sees only the invite form with the role fixed to PROGRAM_USER, which
     REQ-ORG-0005.R6 refuses once a Program User has accepted their invite.
   rule_sources: []
   rule_decisions:

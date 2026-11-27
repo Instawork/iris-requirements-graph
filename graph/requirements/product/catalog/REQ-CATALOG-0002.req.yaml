@@ -4,14 +4,14 @@ requirement_target_module: CATALOG
 requirement_phase: MVP
 requirement_title: Hold Markets and their ZIP codes
 requirement_statement: >-
-  A Market is a city in a state, with the ZIP codes that belong to it. Instawork Admins load the pilot's
+  A Market is a city in a state, with the ZIP codes that belong to it. Iris Admins load the pilot's
   Markets (I-8), and Rate Lines and Units refer to them.
 requirement_actors:
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Only an Instawork Admin adds a Market, renames it, or adds and removes its ZIP codes.
+    Only an Iris Admin adds a Market, renames it, or adds and removes its ZIP codes.
   rule_sources: []
   rule_decisions:
   - D-21

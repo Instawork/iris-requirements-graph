@@ -7,7 +7,7 @@ requirement_statement: >-
   Every Iris page works in a phone browser as well as on a desktop, because Unit Users and Agency Users
   work on the go.
 requirement_actors:
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 - PROGRAM_USER
 - UNIT_USER
 - AGENCY_USER

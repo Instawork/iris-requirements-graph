@@ -15,7 +15,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 
 LAYER_ORDER = ["user-interface", "product", "platform"]
 PHASES = ["MVP", "P2", "P3"]
-ROLES = ["INSTAWORK_ADMIN", "PROGRAM_USER", "UNIT_USER", "AGENCY_USER", "WORKER", "SYSTEM"]
+ROLES = ["IRIS_ADMIN", "PROGRAM_USER", "UNIT_USER", "AGENCY_USER", "WORKER", "SYSTEM"]
 SCALAR_TYPES = {"text", "longtext", "int", "decimal", "money", "date", "time", "timestamp", "bool", "json"}
 IMPLICIT_FIELDS = {"id": "int", "created_at": "timestamp", "updated_at": "timestamp"}
 PRIMARY_KEY_FIELD = {"name": "id", "type": "int", "note": "Primary key; an integer the database assigns in sequence and never reuses"}

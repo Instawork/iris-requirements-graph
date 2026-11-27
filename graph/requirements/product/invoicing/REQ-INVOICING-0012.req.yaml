@@ -5,15 +5,15 @@ requirement_phase: P2
 requirement_title: Keep billing details, Payment Terms, and purchase orders
 requirement_statement: >-
   Program Users keep where each Sector's invoices go, its purchase orders, and how Compass pays each
-  Agency. Instawork Admins keep the Payment Terms list and each Agency's VMS fee.
+  Agency. Iris Admins keep the Payment Terms list and each Agency's VMS fee.
 requirement_actors:
-- INSTAWORK_ADMIN
+- IRIS_ADMIN
 - PROGRAM_USER
 - AGENCY_USER
 requirement_rules:
 - rule_id: R1
   rule_statement: >-
-    Only an Instawork Admin adds, changes, deactivates, or reactivates Payment Terms, each with a unique
+    Only an Iris Admin adds, changes, deactivates, or reactivates Payment Terms, each with a unique
     name and a whole number of days due, 0 or more.
   rule_sources:
   - GRAPH Instawork keeps PaymentTerms with a name and days_payment_due
@@ -62,7 +62,7 @@ requirement_rules:
   - D-270
 - rule_id: R7
   rule_statement: >-
-    Only an Instawork Admin sets or clears an Agency's VMS fee percent, from 0 to 100 with at most two
+    Only an Iris Admin sets or clears an Agency's VMS fee percent, from 0 to 100 with at most two
     decimal places.
   rule_sources: []
   rule_decisions:

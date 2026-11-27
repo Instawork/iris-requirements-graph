@@ -21,8 +21,8 @@ layers:
     module_name: Program app
     about: Screens for Program Users, the Compass program office that runs Iris.
   - module_id: ADMIN-WEB
-    module_name: Instawork admin
-    about: Screens for Instawork Admins, who load reference data and invite the first Program User.
+    module_name: Iris admin
+    about: Screens for Iris Admins, who load reference data and invite the first Program User.
   - module_id: ASSISTANT
     module_name: Iris assistant
     about: >-

@@ -327,7 +327,7 @@ decisions:
     Who keeps reference data: Positions, Markets, and labor rules?
   status: open
   assumption: >-
-    Instawork staff, as Instawork Admins. An Instawork Admin is created only from the deployment
+    Instawork staff, as Iris Admins. An Iris Admin is created only from the deployment
     configuration (D-97), never by invite.
   blocking: false
   answer_from: INSTAWORK_PRODUCT
@@ -1079,11 +1079,11 @@ decisions:
   - GRAPH a User may hold a Program User and an Agency User grant, and rules such as Rate Line approval differ by role
 - decision_id: D-82
   origin: graph
-  question: When may an Instawork Admin invite a Program User?
+  question: When may an Iris Admin invite a Program User?
   status: open
   assumption: >-
     Whenever no active User who has accepted their invite holds an unrevoked Program User grant: the
-    first one, or a replacement if the last is lost. Until one accepts, the Instawork Admin may send the
+    first one, or a replacement if the last is lost. Until one accepts, the Iris Admin may send the
     invite again or revoke it.
   blocking: false
   answer_from: INSTAWORK_PRODUCT
@@ -1280,8 +1280,8 @@ decisions:
   question: What does Iris create when it starts?
   status: open
   assumption: >-
-    At every start Iris creates only what is missing: the first Instawork Admin from the deployment
-    configuration, that User's INSTAWORK_ADMIN grant, and the 15 Positions when the catalog is empty. It
+    At every start Iris creates only what is missing: the first Iris Admin from the deployment
+    configuration, that User's IRIS_ADMIN grant, and the 15 Positions when the catalog is empty. It
     never changes or reactivates an existing record, and does not start when the configuration it needs
     is incomplete.
   blocking: false
@@ -1614,16 +1614,16 @@ decisions:
   - SHEET RC-16
 - decision_id: D-124
   origin: graph
-  question: Which screens does an Instawork Admin have?
+  question: Which screens does an Iris Admin have?
   status: open
   assumption: >-
-    The Instawork Admin menu is Home, Positions, Markets, Labor rules, Account team, and Outside ids, and
+    The Iris Admin menu is Home, Positions, Markets, Labor rules, Account team, and Outside ids, and
     Billing from Phase 2.
   blocking: false
   answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
-  - GRAPH the Instawork Admin needs a screen for each kind of reference data it keeps
+  - GRAPH the Iris Admin needs a screen for each kind of reference data it keeps
 - decision_id: D-125
   origin: graph
   question: Which weeks, months, and periods do dashboards and reports use?
@@ -2168,7 +2168,7 @@ decisions:
   origin: graph
   question: Does MVP need a view-only role?
   status: open
-  assumption: No. The only roles are Unit User, Agency User, Program User, and Instawork Admin.
+  assumption: No. The only roles are Unit User, Agency User, Program User, and Iris Admin.
   blocking: false
   answer_from: COMPASS_OPERATIONS
   answer: null
@@ -2202,7 +2202,7 @@ decisions:
   question: What is the shortest password Iris accepts?
   status: open
   assumption: >-
-    12 characters. A password is set or changed only through an emailed link, except the first Instawork
+    12 characters. A password is set or changed only through an emailed link, except the first Iris
     Admin's, which comes from the deployment configuration.
   blocking: false
   answer_from: INSTAWORK_PRODUCT
@@ -3161,10 +3161,10 @@ decisions:
 - decision_id: D-256
   origin: graph
   question: >-
-    Can an Instawork Admin replace the only Program User after that User accepted their invite?
+    Can an Iris Admin replace the only Program User after that User accepted their invite?
   status: open
   assumption: >-
-    Yes. While exactly one active User who accepted holds a Program User grant, an Instawork Admin may
+    Yes. While exactly one active User who accepted holds a Program User grant, an Iris Admin may
     revoke it and then invite a replacement. With two or more, Program Users manage one another.
   blocking: false
   answer_from: INSTAWORK_PRODUCT
@@ -3174,17 +3174,17 @@ decisions:
   - SHEET PLT-4
 - decision_id: D-257
   origin: graph
-  question: Who deactivates an Instawork Admin?
+  question: Who deactivates an Iris Admin?
   status: open
   assumption: >-
-    Another Instawork Admin, never themselves, and no Program User. A new one comes only from changing
+    Another Iris Admin, never themselves, and no Program User. A new one comes only from changing
     the configured email and starting Iris again, which leaves the earlier one active until it is deactivated.
   blocking: false
   answer_from: INSTAWORK_PRODUCT
   answer: null
   sources:
   - SHEET PLT-4
-  - GRAPH nobody grants or revokes the Instawork Admin role
+  - GRAPH nobody grants or revokes the Iris Admin role
 - decision_id: D-258
   origin: graph
   question: >-
@@ -3282,7 +3282,7 @@ decisions:
   question: Which Instawork account team roles does Iris keep for parts of the Compass org?
   status: open
   assumption: >-
-    Account Manager, Account Owner, and Support Lead. Instawork Admins assign one person per role for the
+    Account Manager, Account Owner, and Support Lead. Iris Admins assign one person per role for the
     whole program or any org node, and each Unit takes the nearest assignment above it, so Compass,
     Agencies, and Iris's agents know whom at Instawork to reach.
   blocking: false
@@ -3311,7 +3311,7 @@ decisions:
   status: open
   assumption: >-
     Compass's systems only: Fieldglass, SAP, and MyStaff ids for Companies, Units, Departments, Agencies,
-    and Positions, at most one per system per record. Instawork Admins keep them, and no Iris rule needs one
+    and Positions, at most one per system per record. Iris Admins keep them, and no Iris rule needs one
     to be present. Instawork's own back-office systems are not Iris data.
   blocking: false
   answer_from: INSTAWORK_ENGINEERING
@@ -3353,7 +3353,7 @@ decisions:
   status: open
   assumption: >-
     Program Users keep Sector Billing Profiles, purchase orders, and each Agency's legal name, remit-to
-    address, Payment Terms, and payee number, as Compass's payables data. Instawork Admins keep the Payment
+    address, Payment Terms, and payee number, as Compass's payables data. Iris Admins keep the Payment
     Terms list and VMS fees. Agency Users see only their own.
   blocking: false
   answer_from: INSTAWORK_PRODUCT
@@ -3377,7 +3377,7 @@ decisions:
   question: How does Iris charge its VMS fee?
   status: open
   assumption: >-
-    The Agency pays it: a percentage of each issued Agency Invoice's total, set per Agency by an Instawork
+    The Agency pays it: a percentage of each issued Agency Invoice's total, set per Agency by an Iris
     Admin. Each month Iris issues each Agency one fee statement for the month before. Compass never sees
     the fee on its invoices.
   blocking: false
@@ -3402,7 +3402,7 @@ decisions:
   question: May one User both run Iris and act for an Agency?
   status: open
   assumption: >-
-    No. A User holding INSTAWORK_ADMIN is never granted AGENCY_USER, and the reverse, so the people who run
+    No. A User holding IRIS_ADMIN is never granted AGENCY_USER, and the reverse, so the people who run
     Iris stay neutral among Agencies even when Instawork is also one of them.
   blocking: false
   answer_from: INSTAWORK_PRODUCT
